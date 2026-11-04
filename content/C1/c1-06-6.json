@@ -1,0 +1,611 @@
+{
+  "content": "Every Wednesday afternoon, Ngoc Anh, a corporate trainer, runs a writing workshop for the customer service team of an electronics distributor in Hai Phong. Today she has asked each person to bring one real email that they sent to a client last month.\nTuan goes first and shows his email on the screen. It begins: \"We are writing to inform you that the delivery of your order may be delayed, and we want to know if the delay is acceptable to you, and if the delay is not acceptable to you, please tell us.\" Ngoc Anh reads it aloud and smiles. \"Is the client going to understand this?\" \"I hope so,\" Tuan says. \"Let's make sure. You repeat 'the delay is acceptable to you' twice. In English we can replace a whole clause with 'so' or 'not'.\" She types a new version: \"Your delivery may be delayed by three days. Is this acceptable? If so, no action is needed. If not, please reply by Friday.\" \"That's much more concise,\" Mai says. \"And more polite, too. The client doesn't have to read a long sentence to find out what we want.\"\nMai's draft has the opposite problem. A client asked whether the company could repair a broken printer for free, and she replied: \"Maybe, we will see.\" \"That's very short,\" Ngoc Anh says, \"but it's ambiguous. The client can't tell whether the answer is yes or no, and 'we will see' may imply that you don't really care.\" \"So what should I write?\" \"Can we repair it for free?\" \"I'm afraid not, because the warranty ended in June.\" \"Then say so, clearly and kindly.\" Together they write: \"Unfortunately, we are unable to repair it for free, as the warranty ended in June. However, we can offer a twenty percent discount on the repair, if you would like us to.\" Mai reads the new version twice. \"It sounds more professional, but is it still warm?\" \"I think so. 'Unfortunately' and the offer of a discount convey that you are on the client's side.\"\nNear the end of the session, Tuan asks whether they should use idioms in emails. \"Some clients enjoy them, but many don't, especially those who read English as a second language,\" Ngoc Anh replies. \"You don't need to be eloquent in a business email. You need to be clear, articulate and kind. Fluency in email writing comes from practice, not from fancy vocabulary.\" \"Will you check our emails again next week?\" \"I'd be happy to. Bring two each, and we'll do so together.\"",
+  "targetWords": [
+    "concise",
+    "ambiguous",
+    "imply",
+    "convey",
+    "idiom",
+    "eloquent",
+    "articulate",
+    "fluency"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "concise",
+        "lemma": "concise",
+        "meaningVi": "ngắn gọn, súc tích",
+        "pos": "adjective",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "ambiguous",
+        "lemma": "ambiguous",
+        "meaningVi": "mơ hồ, có thể hiểu nhiều cách",
+        "pos": "adjective",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "imply",
+        "lemma": "imply",
+        "meaningVi": "ngụ ý, hàm ý",
+        "pos": "verb",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "convey",
+        "lemma": "convey",
+        "meaningVi": "cho thấy, truyền tải",
+        "pos": "verb",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "idioms",
+        "lemma": "idiom",
+        "meaningVi": "thành ngữ",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "eloquent",
+        "lemma": "eloquent",
+        "meaningVi": "bay bổng, hùng hồn",
+        "pos": "adjective",
+        "sentenceIndex": 33
+      },
+      {
+        "text": "articulate",
+        "lemma": "articulate",
+        "meaningVi": "diễn đạt mạch lạc, rõ ràng",
+        "pos": "adjective",
+        "sentenceIndex": 34
+      },
+      {
+        "text": "Fluency",
+        "lemma": "fluency",
+        "meaningVi": "sự trôi chảy, lưu loát",
+        "pos": "noun",
+        "sentenceIndex": 35
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the workshop about?",
+        "promptVi": "Buổi học nói về điều gì?",
+        "options": [
+          "Making emails to clients clearer and more professional",
+          "Learning to repair printers",
+          "Writing reports for the manager",
+          "Choosing idioms for advertisements"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc Anh giúp nhóm sửa email gửi khách hàng cho rõ và chuyên nghiệp hơn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was wrong with Tuan's email?",
+        "promptVi": "Email của Tuấn có vấn đề gì?",
+        "options": [
+          "It was too short",
+          "It repeated the same clause twice",
+          "It used too many idioms",
+          "It was sent to the wrong client"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc Anh nói \"You repeat 'the delay is acceptable to you' twice.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't the company repair the printer for free?",
+        "promptVi": "Vì sao công ty không sửa máy in miễn phí được?",
+        "options": [
+          "The printer is too old to repair",
+          "The warranty ended in June",
+          "The client lives too far away",
+          "The repair team is busy"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"the warranty ended in June.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc Anh says business emails should be eloquent.",
+        "promptVi": "Ngọc Anh nói email công việc nên viết bay bổng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, chị nói \"You don't need to be eloquent in a business email.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"If so\" thay cho ý nào?",
+        "promptVi": "",
+        "quote": "\"If so, no action is needed.",
+        "options": [
+          "Nếu việc giao chậm ba ngày chấp nhận được",
+          "Nếu quý khách muốn huỷ đơn",
+          "Nếu quý khách trả lời trước thứ Sáu",
+          "Nếu máy in bị hỏng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "If so = If this is acceptable (nếu việc chậm ba ngày được chấp nhận)."
+      }
+    ],
+    "grammarNote": {
+      "title": "So and not instead of a whole clause",
+      "bodyVi": "Trong email trang trọng, thay vì lặp cả mệnh đề, ta dùng If so (nếu đúng như vậy) và If not (nếu không): Is this acceptable? If so, no action is needed. If not, please reply by Friday. So / not cũng đứng sau hope, think, be afraid, say: I hope so / I think so / I'm afraid not / Then say so. Giữ to ở cuối câu thay cho động từ: if you would like us to / I'd be happy to. Do so thay cụm động từ: we'll do so together.",
+      "examples": [
+        "If so, no action is needed.",
+        "If not, please reply by Friday.\"",
+        "\"I'm afraid not, because the warranty ended in June.\"",
+        "However, we can offer a twenty percent discount on the repair, if you would like us to.\""
+      ]
+    },
+    "writingPrompt": "Rewrite this email so that it is concise and professional: \"We want to know if you can come to the meeting on Monday, and if you cannot come to the meeting on Monday, we want to know which day you can come.\" Use If so / If not and at least one more short form (I'm afraid not, if you would like us to, do so).",
+    "sentenceTranslations": [
+      "Chiều thứ Tư nào cũng vậy, Ngọc Anh, một chuyên gia đào tạo doanh nghiệp, tổ chức buổi học viết cho nhóm chăm sóc khách hàng của một công ty phân phối đồ điện tử ở Hải Phòng.",
+      "Hôm nay chị yêu cầu mỗi người mang theo một email thật mà họ đã gửi cho khách hàng vào tháng trước.",
+      "Tuấn làm trước và chiếu email của mình lên màn hình.",
+      "Email mở đầu: \"Chúng tôi viết thư này để thông báo rằng việc giao đơn hàng của quý khách có thể bị chậm, và chúng tôi muốn biết việc chậm trễ có chấp nhận được với quý khách không, và nếu việc chậm trễ không chấp nhận được với quý khách, xin hãy cho chúng tôi biết.\"",
+      "Ngọc Anh đọc to và mỉm cười.",
+      "\"Khách hàng có hiểu được câu này không?\"",
+      "Tuấn nói: \"Em mong là có.\"",
+      "\"Ta kiểm tra cho chắc nhé.",
+      "Em lặp lại 'việc chậm trễ có chấp nhận được với quý khách' hai lần.",
+      "Trong tiếng Anh, ta có thể thay cả một mệnh đề bằng 'so' hoặc 'not'.\"",
+      "Chị gõ một bản mới: \"Đơn hàng của quý khách có thể giao chậm ba ngày.",
+      "Như vậy có được không ạ?",
+      "Nếu được, quý khách không cần làm gì thêm.",
+      "Nếu không, xin vui lòng trả lời trước thứ Sáu.\"",
+      "Mai nói: \"Ngắn gọn hơn nhiều.",
+      "Mà còn lịch sự hơn nữa.",
+      "Khách hàng không phải đọc một câu dài để biết mình muốn gì.\"",
+      "Bản nháp của Mai lại có vấn đề ngược lại.",
+      "Một khách hàng hỏi công ty có thể sửa miễn phí chiếc máy in bị hỏng không, và cô trả lời: \"Có thể, để xem đã.\"",
+      "Ngọc Anh nói: \"Câu này rất ngắn, nhưng lại mơ hồ.",
+      "Khách hàng không biết câu trả lời là có hay không, và 'để xem đã' có thể ngụ ý rằng em không thực sự quan tâm.\"",
+      "\"Vậy em nên viết thế nào ạ?\"",
+      "\"Mình có sửa miễn phí được không?\"",
+      "\"E là không, vì hết hạn bảo hành từ tháng Sáu rồi.\"",
+      "\"Vậy thì nói rõ như thế, rõ ràng và tử tế.\"",
+      "Họ cùng viết: \"Rất tiếc, chúng tôi không thể sửa miễn phí, vì thời hạn bảo hành đã hết vào tháng Sáu.",
+      "Tuy nhiên, chúng tôi có thể giảm hai mươi phần trăm phí sửa chữa, nếu quý khách muốn.\"",
+      "Mai đọc bản mới hai lần.",
+      "\"Nghe chuyên nghiệp hơn, nhưng có còn ấm áp không chị?\"",
+      "\"Chị nghĩ là có.",
+      "Chữ 'Rất tiếc' và lời đề nghị giảm giá cho thấy em đứng về phía khách hàng.\"",
+      "Gần cuối buổi, Tuấn hỏi có nên dùng thành ngữ trong email không.",
+      "Ngọc Anh đáp: \"Một số khách hàng thích, nhưng nhiều người thì không, nhất là những người đọc tiếng Anh như ngôn ngữ thứ hai.",
+      "Em không cần viết bay bổng trong email công việc.",
+      "Em cần rõ ràng, mạch lạc và tử tế.",
+      "Viết email trôi chảy là nhờ luyện tập, chứ không phải nhờ từ vựng cầu kỳ.\"",
+      "\"Tuần sau chị có xem lại email của bọn em nữa không?\"",
+      "\"Chị rất sẵn lòng.",
+      "Mỗi người mang hai email, và mình sẽ cùng xem.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể viết email công việc ngắn gọn, chuyên nghiệp bằng cách thay cả mệnh đề bằng so / not (If so, If not, I'm afraid not) và giữ to ở cuối câu.",
+    "examples": [
+      {
+        "lemma": "concise",
+        "sentence": "Clients prefer concise emails with one clear request.",
+        "meaningVi": "Khách hàng thích email ngắn gọn với một yêu cầu rõ ràng."
+      },
+      {
+        "lemma": "ambiguous",
+        "sentence": "\"As soon as possible\" is ambiguous in a deadline.",
+        "meaningVi": "\"Càng sớm càng tốt\" là cách nói mơ hồ khi đặt hạn chót."
+      },
+      {
+        "lemma": "imply",
+        "sentence": "A late reply can imply that the client is not important.",
+        "meaningVi": "Trả lời muộn có thể ngụ ý rằng khách hàng không quan trọng."
+      },
+      {
+        "lemma": "convey",
+        "sentence": "A short thank-you line can convey real respect.",
+        "meaningVi": "Một dòng cảm ơn ngắn có thể thể hiện sự tôn trọng thật sự."
+      },
+      {
+        "lemma": "idiom",
+        "sentence": "My manager removed every idiom from the letter.",
+        "meaningVi": "Quản lý của tôi bỏ hết thành ngữ khỏi lá thư."
+      },
+      {
+        "lemma": "eloquent",
+        "sentence": "His letter of apology was eloquent but far too long.",
+        "meaningVi": "Lá thư xin lỗi của anh ấy viết hay nhưng quá dài."
+      },
+      {
+        "lemma": "articulate",
+        "sentence": "She wrote an articulate reply to the complaint.",
+        "meaningVi": "Cô ấy viết một câu trả lời mạch lạc cho lời phàn nàn."
+      },
+      {
+        "lemma": "fluency",
+        "sentence": "Writing every day will improve your fluency.",
+        "meaningVi": "Viết mỗi ngày sẽ giúp bạn trôi chảy hơn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tuan",
+        "Mai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Have you sent the new version to the client?",
+          "meaningVi": "Cậu gửi bản mới cho khách chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not yet. I'm going to after lunch.",
+          "meaningVi": "Chưa. Ăn trưa xong mình sẽ gửi."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you think she'll accept the discount?",
+          "meaningVi": "Cậu có nghĩ chị ấy sẽ nhận mức giảm giá không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I hope so. If not, I'll call her.",
+          "meaningVi": "Mình mong là có. Nếu không, mình sẽ gọi cho chị ấy."
+        },
+        {
+          "speaker": 0,
+          "text": "Will you mention the warranty again in the call?",
+          "meaningVi": "Lúc gọi cậu có nhắc lại chuyện bảo hành không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I don't think so. The email already explains it.",
+          "meaningVi": "Chắc là không. Email đã giải thích rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "My client has already replied. He's fine with the three-day delay.",
+          "meaningVi": "Khách của mình trả lời rồi. Anh ấy đồng ý chuyện chậm ba ngày."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? That was quick. Did he say anything else?",
+          "meaningVi": "Thật à? Nhanh thế. Anh ấy có nói gì khác không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only \"Thanks, no problem.\" Very concise!",
+          "meaningVi": "Chỉ \"Cảm ơn, không sao.\" Rất ngắn gọn!"
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe we should ask him to teach the workshop.",
+          "meaningVi": "Có khi mình nên nhờ anh ấy dạy buổi học viết."
+        }
+      ]
+    },
+    "grammarTipVi": "I'm going to = I'm going to send it. I hope so / I don't think so: so thay cả mệnh đề. If not = If she doesn't accept the discount.",
+    "translations": [
+      {
+        "vi": "Câu này rất ngắn, nhưng nó mơ hồ.",
+        "en": "It's very short, but it's ambiguous.",
+        "distractors": [
+          "clear",
+          "shortly",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bản này ngắn gọn hơn nhiều.",
+        "en": "That's much more concise.",
+        "distractors": [
+          "most",
+          "concisely",
+          "many"
+        ]
+      },
+      {
+        "vi": "'Để xem đã' có thể ngụ ý rằng bạn không thực sự quan tâm.",
+        "en": "'We will see' may imply that you don't really care.",
+        "distractors": [
+          "implies",
+          "cares",
+          "doesn't"
+        ],
+        "accepted": [
+          "'We will see' may imply you don't really care."
+        ]
+      },
+      {
+        "vi": "Những từ này cho thấy bạn đứng về phía khách hàng.",
+        "en": "These words convey that you are on the client's side.",
+        "distractors": [
+          "conveys",
+          "against",
+          "were"
+        ],
+        "accepted": [
+          "These words convey you are on the client's side."
+        ]
+      },
+      {
+        "vi": "Một số khách hàng thích thành ngữ, nhưng nhiều người thì không.",
+        "en": "Some clients enjoy idioms, but many don't.",
+        "distractors": [
+          "enjoys",
+          "much",
+          "doesn't"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tuấn và Mai nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Phản hồi của khách hàng về email mới",
+          "Lịch học tuần sau",
+          "Một chiếc máy in mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người nói về việc gửi email mới và khách trả lời ra sao.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mai sẽ làm gì nếu khách không nhận mức giảm giá?",
+        "promptVi": "",
+        "options": [
+          "Gọi điện cho khách",
+          "Gửi thêm một email",
+          "Hỏi Ngọc Anh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"If not, I'll call her.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khách của Tuấn trả lời thế nào?",
+        "promptVi": "",
+        "options": [
+          "\"Thanks, no problem.\"",
+          "\"Maybe, we will see.\"",
+          "\"Please reply by Friday.\""
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói khách chỉ viết \"Thanks, no problem.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai has already sent the new email.",
+        "promptVi": "Mai đã gửi email mới rồi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Mai nói \"Not yet. I'm going to after lunch.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Email của Tuấn và của Mai có vấn đề gì trái ngược nhau? Ngọc Anh sửa chúng ra sao?",
+    "grammarStep": {
+      "titleVi": "So / not thay cho cả mệnh đề: If so, If not, I'm afraid not",
+      "noticing": [
+        {
+          "sentence": "If so, no action is needed.",
+          "highlights": [
+            "If so"
+          ]
+        },
+        {
+          "sentence": "If not, please reply by Friday.\"",
+          "highlights": [
+            "If not"
+          ]
+        },
+        {
+          "sentence": "\"I hope so,\" Tuan says.",
+          "highlights": [
+            "hope so"
+          ]
+        },
+        {
+          "sentence": "\"I'm afraid not, because the warranty ended in June.\"",
+          "highlights": [
+            "afraid not"
+          ]
+        },
+        {
+          "sentence": "\"Then say so, clearly and kindly.\"",
+          "highlights": [
+            "say so"
+          ]
+        }
+      ],
+      "questionVi": "\"Can you attend the meeting on Monday?\" Câu tiếp theo nào ngắn gọn và đúng nhất cho trường hợp người nhận không đến được?",
+      "options": [
+        "If not, please suggest another day.",
+        "If no, please suggest another day.",
+        "If not so, please suggest another day."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "If not thay cho \"If you cannot attend the meeting on Monday\". Không dùng If no hay If not so.",
+      "whenVi": "Dùng trong email và thư công việc để đưa ra hai lựa chọn mà không lặp lại câu hỏi, và khi trả lời ngắn gọn bằng so / not.",
+      "table": [
+        {
+          "subject": "If so / If not",
+          "form": "Is this acceptable? If so, … If not, …",
+          "negative": "If not (không dùng If no / If not so)"
+        },
+        {
+          "subject": "hope / think / be afraid + so / not",
+          "form": "I hope so. / I think so. / I'm afraid not.",
+          "negative": "I don't think so. / I hope not."
+        },
+        {
+          "subject": "say so / do so",
+          "form": "Then say so. / we'll do so together",
+          "negative": "Không thêm it: say so (không phải say it so)"
+        },
+        {
+          "subject": "to cuối câu",
+          "form": "if you would like us to / I'd be happy to",
+          "negative": "I'd prefer not to."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Is this acceptable? If yes so, no action is needed.",
+          "right": "Is this acceptable? If so, no action is needed."
+        },
+        {
+          "wrong": "If no, please reply by Friday.",
+          "right": "If not, please reply by Friday."
+        },
+        {
+          "wrong": "We can offer a discount, if you would like us.",
+          "right": "We can offer a discount, if you would like us to."
+        }
+      ],
+      "noteVi": "Many don't = many clients don't enjoy them: trợ động từ thay cho cả cụm động từ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Would you like a printed copy of the invoice? If ___, please let us know.",
+          "answers": [
+            "so"
+          ],
+          "explanationVi": "If so = If you would like a printed copy."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Can we repair it for free? – I'm afraid ___.",
+          "options": [
+            "not",
+            "no",
+            "don't",
+            "so not"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Phủ định sau be afraid: I'm afraid not."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We can send a technician, if you would like us.",
+          "sentence": "We can send a technician, if you would like us to.",
+          "explanationVi": "Would like somebody to do something: khi bỏ động từ phải giữ to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu không, xin vui lòng trả lời trước thứ Sáu.",
+          "sentence": "If not, please reply by Friday.",
+          "words": [
+            "If",
+            "not,",
+            "please",
+            "reply",
+            "by",
+            "Friday.",
+            "no"
+          ],
+          "explanationVi": "If not thay cho cả mệnh đề; từ \"no\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "If not, please reply by Friday.\"",
+        "tipVi": "Nhấn vào not và Friday; ngắt hơi sau If not."
+      },
+      {
+        "text": "\"I'm afraid not, because the warranty ended in June.\"",
+        "tipVi": "Nhấn vào not; warranty /ˈwɒrənti/; ngắt hơi trước because."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you prefer short emails or long, detailed ones?",
+        "questionVi": "Bạn thích email ngắn hay email dài, chi tiết?",
+        "frame": "I prefer ___ ones, because ___."
+      },
+      {
+        "question": "Should business emails include idioms?",
+        "questionVi": "Email công việc có nên dùng thành ngữ không?",
+        "frame": "I don't think so, because ___. / I think so, if ___."
+      },
+      {
+        "question": "Have you ever received an ambiguous message at work? What did you do?",
+        "questionVi": "Bạn đã bao giờ nhận tin nhắn mơ hồ ở chỗ làm chưa? Bạn đã làm gì?",
+        "frame": "I'm afraid so. I ___, and if not, ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng If so / If not hoặc so / not thay mệnh đề",
+      "anyOf": [
+        "If so",
+        "if so",
+        "If not",
+        "if not",
+        "hope so",
+        "afraid not",
+        "think so",
+        "us to",
+        "do so",
+        "so",
+        "not"
+      ],
+      "outlineVi": [
+        "Nêu thông tin chính trong một câu ngắn.",
+        "Đưa hai lựa chọn: If so, … / If not, …",
+        "Kết thúc bằng lời đề nghị giúp đỡ (if you would like us to)."
+      ],
+      "modelAnswer": "Dear Ms Hoa, our team meeting will take place on Monday at 10 a.m. Can you attend? If so, no reply is needed. If not, please let us know which day suits you, and we will change the date if we can do so. We can also send you the slides in advance, if you would like us to. Best regards, Tuan"
+    }
+  },
+  "glosses": [
+    {
+      "text": "inform",
+      "lemma": "inform",
+      "meaningVi": "thông báo",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "We are writing to inform you",
+      "phraseVi": "Chúng tôi viết thư này để thông báo"
+    },
+    {
+      "text": "warranty",
+      "lemma": "warranty",
+      "meaningVi": "bảo hành",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "the warranty ended in June",
+      "phraseVi": "hết hạn bảo hành từ tháng Sáu"
+    },
+    {
+      "text": "on the client's side",
+      "lemma": "on someone's side",
+      "meaningVi": "đứng về phía ai",
+      "sentenceIndex": 30,
+      "pos": "phrase",
+      "phrase": "you are on the client's side",
+      "phraseVi": "em đứng về phía khách hàng"
+    },
+    {
+      "text": "fancy",
+      "lemma": "fancy",
+      "meaningVi": "cầu kỳ, hoa mỹ",
+      "sentenceIndex": 35,
+      "pos": "adjective",
+      "phrase": "fancy vocabulary",
+      "phraseVi": "từ vựng cầu kỳ"
+    }
+  ]
+}

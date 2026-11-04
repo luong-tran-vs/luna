@@ -1,0 +1,608 @@
+{
+  "content": "In a crowded office in Bien Hoa, two environmental lawyers, Lien and Khoi, are reading through a thick file of test results. For months, people living along a branch of the Dong Nai River have complained about dead fish and a strange smell. Last week, inspectors finally found a hidden pipe leading from the Tan Phu dyeing factory straight into the water. Samples taken near the pipe showed heavy metals at almost forty times the legal limit.\n\n\"The results are worse than I expected,\" Lien says. \"The toxic runoff is understood to have endangered the water supplies of at least three villages. Some families are said to have been drinking well water that had been polluted for over a year.\"\n\nKhoi shakes his head. \"And the factory's response is that it was a technical mistake. They want to pay a fine of two hundred million dong and close the case. Their lawyers also claim that the inspectors made errors in the tests.\"\n\n\"That's not acceptable,\" Lien replies. \"A fine like that is nothing for a company of their size. Under the environment law, deliberate dumping of this kind is a crime, not just an administrative offence. The pipe was hidden under a concrete floor. That doesn't happen by accident.\"\n\n\"So what do we ask for?\" asks Khoi.\n\"First, I'll urge that the factory management be prosecuted directly, not only the company. If the managers knew about the pipe, they are criminals, and they should face the same risk as anyone else, including prison. Second, I'd recommend that the court order the factory to pay for clean water for every affected family.\"\n\nKhoi makes notes. \"The police are still collecting evidence. It is thought that the factory director signed the order to build the pipe, but we haven't seen the document yet. A police officer told me it might have been destroyed.\"\n\"Then we should demand that all the factory's records be protected immediately,\" Lien says. \"If someone destroys them, that is a separate offence, and they could end up in jail.\"\n\nShe looks out of the window at the grey sky. \"People sometimes think pollution is a victimless crime. It isn't. A company that poisons a river is like a thief who steals from children who haven't even been born yet.\"\n\nKhoi nods slowly and opens a new document to begin drafting their demands. Outside, it has started to rain.",
+  "targetWords": [
+    "law",
+    "crime",
+    "criminal",
+    "police",
+    "police officer",
+    "thief",
+    "steal",
+    "prison",
+    "jail",
+    "court"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "luật",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "crime",
+        "lemma": "crime",
+        "meaningVi": "tội, tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "criminals",
+        "lemma": "criminal",
+        "meaningVi": "kẻ phạm tội",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "court",
+        "lemma": "court",
+        "meaningVi": "toà án",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "police",
+        "lemma": "police",
+        "meaningVi": "cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "police officer",
+        "lemma": "police officer",
+        "meaningVi": "cán bộ cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "jail",
+        "lemma": "jail",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "thief",
+        "lemma": "thief",
+        "meaningVi": "kẻ trộm",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "steals",
+        "lemma": "steal",
+        "meaningVi": "ăn cắp",
+        "pos": "verb",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Lien and Khoi working on?",
+        "promptVi": "Liên và Khôi đang làm vụ việc gì?",
+        "options": [
+          "A case of illegal chemical dumping into a river",
+          "A robbery at a dyeing factory",
+          "A new law on fishing",
+          "A plan to build a water factory"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thanh tra phát hiện đường ống bí mật xả thải từ nhà máy nhuộm Tân Phú ra sông."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the toxic runoff understood to have done?",
+        "promptVi": "Nước thải độc hại được cho là đã gây ra điều gì?",
+        "options": [
+          "Destroyed the factory's records",
+          "Closed three schools",
+          "Endangered the water supplies of at least three villages",
+          "Killed all the fish in the Dong Nai River"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"The toxic runoff is understood to have endangered the water supplies of at least three villages.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Lien urge?",
+        "promptVi": "Liên kêu gọi điều gì?",
+        "options": [
+          "That the factory pay a small fine and close the case",
+          "That the factory management be prosecuted directly",
+          "That the families move to another village",
+          "That the police stop the investigation"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"I'll urge that the factory management be prosecuted directly, not only the company.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The lawyers have already seen the order signed by the factory director.",
+        "promptVi": "Các luật sư đã thấy lệnh do giám đốc nhà máy ký.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Khôi nói \"we haven't seen the document yet.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"endangered\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The toxic runoff is understood to have endangered the water supplies of at least three villages\"",
+        "options": [
+          "gây nguy hiểm cho",
+          "làm sạch",
+          "cung cấp",
+          "tiết kiệm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Endanger = đặt vào tình trạng nguy hiểm, đe doạ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động tường thuật và thức giả định trong hồ sơ pháp lý",
+      "bodyVi": "Luật sư dùng bị động tường thuật khi nêu điều đã được kết luận nhưng chưa được toà xác nhận: The toxic runoff is understood to have endangered … (to have + V3: việc đã xảy ra) / Some families are said to have been drinking … (to have been V-ing: việc kéo dài đến gần đây) / It is thought that the factory director signed … Khi nêu yêu cầu với toà hoặc cơ quan chức năng, dùng thức giả định sau urge / recommend / demand that: I'll urge that the factory management be prosecuted / I'd recommend that the court order … / demand that all the factory's records be protected.",
+      "examples": [
+        "\"The toxic runoff is understood to have endangered the water supplies of at least three villages.",
+        "\"First, I'll urge that the factory management be prosecuted directly, not only the company.",
+        "It is thought that the factory director signed the order to build the pipe, but we haven't seen the document yet."
+      ]
+    },
+    "writingPrompt": "Write a short letter from an environmental group to the local authorities about a pollution problem. Say what is believed to have happened (reporting passive) and make at least two demands with urge / demand / recommend that + base verb.",
+    "sentenceTranslations": [
+      "Trong một văn phòng chật chội ở Biên Hoà, hai luật sư môi trường là Liên và Khôi đang đọc một tập hồ sơ dày các kết quả xét nghiệm.",
+      "Nhiều tháng nay, người dân sống dọc một nhánh sông Đồng Nai đã phàn nàn về cá chết và mùi lạ.",
+      "Tuần trước, thanh tra cuối cùng đã tìm thấy một đường ống bí mật dẫn thẳng từ nhà máy nhuộm Tân Phú ra sông.",
+      "Mẫu nước lấy gần đường ống cho thấy kim loại nặng cao gần bốn mươi lần mức cho phép.",
+      "Liên nói: \"Kết quả tệ hơn tôi nghĩ.",
+      "Người ta xác định rằng nước thải độc hại đã đe doạ nguồn nước của ít nhất ba làng.",
+      "Nghe nói một số gia đình đã uống nước giếng bị ô nhiễm suốt hơn một năm.\"",
+      "Khôi lắc đầu.",
+      "\"Còn nhà máy thì giải thích đó là lỗi kỹ thuật.",
+      "Họ muốn nộp phạt hai trăm triệu đồng rồi khép lại vụ việc.",
+      "Luật sư của họ còn cho rằng thanh tra đã làm sai khi xét nghiệm.\"",
+      "Liên đáp: \"Không thể chấp nhận được.",
+      "Mức phạt như thế chẳng là gì với một công ty cỡ đó.",
+      "Theo luật môi trường, cố ý xả thải kiểu này là tội phạm, không chỉ là vi phạm hành chính.",
+      "Đường ống được giấu dưới nền bê tông.",
+      "Chuyện đó không thể là tình cờ.\"",
+      "Khôi hỏi: \"Vậy mình yêu cầu những gì?\"",
+      "\"Thứ nhất, tôi sẽ kêu gọi truy tố trực tiếp ban quản lý nhà máy, chứ không chỉ công ty.",
+      "Nếu các quản lý biết về đường ống, họ là người phạm tội, và họ phải đối mặt với rủi ro như bất kỳ ai khác, kể cả đi tù.",
+      "Thứ hai, tôi đề nghị toà án buộc nhà máy trả tiền nước sạch cho mọi gia đình bị ảnh hưởng.\"",
+      "Khôi ghi chép.",
+      "\"Cảnh sát vẫn đang thu thập bằng chứng.",
+      "Người ta cho rằng giám đốc nhà máy đã ký lệnh xây đường ống, nhưng mình chưa thấy văn bản đó.",
+      "Một cán bộ cảnh sát nói với tôi là có thể nó đã bị tiêu huỷ.\"",
+      "Liên nói: \"Vậy mình phải yêu cầu bảo vệ ngay toàn bộ hồ sơ của nhà máy.",
+      "Nếu có ai tiêu huỷ chúng, đó là một tội riêng, và họ có thể phải vào tù.\"",
+      "Cô nhìn ra cửa sổ, bầu trời xám xịt.",
+      "\"Đôi khi người ta nghĩ ô nhiễm là tội không có nạn nhân.",
+      "Không phải vậy.",
+      "Một công ty đầu độc dòng sông cũng giống như kẻ trộm ăn cắp của những đứa trẻ còn chưa ra đời.\"",
+      "Khôi chậm rãi gật đầu và mở một văn bản mới để bắt đầu soạn các yêu cầu.",
+      "Bên ngoài, trời đã bắt đầu mưa."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày một vụ vi phạm môi trường bằng bị động tường thuật (is understood to have …, are said to have been …) và nêu yêu cầu pháp lý bằng thức giả định (urge / demand that + S + be + V3).",
+    "examples": [
+      {
+        "lemma": "law",
+        "sentence": "The new law protects rivers and lakes from waste.",
+        "meaningVi": "Luật mới bảo vệ sông hồ khỏi chất thải."
+      },
+      {
+        "lemma": "crime",
+        "sentence": "Dumping chemicals into a river is a serious crime.",
+        "meaningVi": "Đổ hoá chất xuống sông là một tội nghiêm trọng."
+      },
+      {
+        "lemma": "criminal",
+        "sentence": "A manager who hides a waste pipe is a criminal.",
+        "meaningVi": "Người quản lý giấu đường ống xả thải là kẻ phạm tội."
+      },
+      {
+        "lemma": "police",
+        "sentence": "The police closed the factory gate this morning.",
+        "meaningVi": "Sáng nay cảnh sát đã đóng cổng nhà máy."
+      },
+      {
+        "lemma": "police officer",
+        "sentence": "A police officer took water samples from the river.",
+        "meaningVi": "Một cán bộ cảnh sát đã lấy mẫu nước ở sông."
+      },
+      {
+        "lemma": "thief",
+        "sentence": "The thief was caught selling stolen fish at the market.",
+        "meaningVi": "Tên trộm bị bắt khi đang bán cá ăn cắp ngoài chợ."
+      },
+      {
+        "lemma": "steal",
+        "sentence": "Pollution can steal a whole village's future.",
+        "meaningVi": "Ô nhiễm có thể cướp đi tương lai của cả một làng."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "The director could spend five years in prison.",
+        "meaningVi": "Giám đốc có thể phải ngồi tù năm năm."
+      },
+      {
+        "lemma": "jail",
+        "sentence": "Two managers were taken to jail after the trial.",
+        "meaningVi": "Hai quản lý bị đưa vào tù sau phiên xử."
+      },
+      {
+        "lemma": "court",
+        "sentence": "The villagers took the factory to court.",
+        "meaningVi": "Dân làng đã kiện nhà máy ra toà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Sau",
+        "Khoi"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mr Khoi, is it true that the water from our well is dangerous?",
+          "meaningVi": "Anh Khôi, có đúng là nước giếng nhà tôi nguy hiểm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm afraid so. It is believed to have been polluted for more than a year.",
+          "meaningVi": "Tôi e là đúng. Người ta tin rằng nó đã bị ô nhiễm hơn một năm rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "My grandchildren drink it every day. What should we do now?",
+          "meaningVi": "Các cháu tôi ngày nào cũng uống. Giờ chúng tôi phải làm sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "I strongly recommend that your family use bottled water until the tests are finished.",
+          "meaningVi": "Tôi thực sự khuyên gia đình bác dùng nước đóng chai cho đến khi xét nghiệm xong."
+        },
+        {
+          "speaker": 0,
+          "text": "But who will pay for it? We're not rich.",
+          "meaningVi": "Nhưng ai trả tiền? Nhà tôi đâu có giàu."
+        },
+        {
+          "speaker": 1,
+          "text": "We're asking the court to make the factory pay. We insist that every family receive clean water.",
+          "meaningVi": "Chúng tôi đang đề nghị toà buộc nhà máy trả. Chúng tôi yêu cầu mọi gia đình đều được nhận nước sạch."
+        },
+        {
+          "speaker": 0,
+          "text": "Will the managers go to prison?",
+          "meaningVi": "Các quản lý có phải đi tù không?"
+        },
+        {
+          "speaker": 1,
+          "text": "That depends on the evidence. The director is thought to have known about the pipe.",
+          "meaningVi": "Còn tuỳ vào bằng chứng. Người ta cho rằng giám đốc đã biết về đường ống."
+        },
+        {
+          "speaker": 0,
+          "text": "I hope the law is fair to people like us.",
+          "meaningVi": "Tôi mong pháp luật công bằng với những người như chúng tôi."
+        },
+        {
+          "speaker": 1,
+          "text": "So do I. We won't stop until it is.",
+          "meaningVi": "Tôi cũng vậy. Chúng tôi sẽ không dừng lại cho đến khi điều đó thành sự thật."
+        }
+      ]
+    },
+    "grammarTipVi": "Bị động tường thuật: It is believed to have been polluted … / The director is thought to have known … Thức giả định: I strongly recommend that your family use bottled water / We insist that every family receive clean water (không phải receives).",
+    "translations": [
+      {
+        "vi": "Theo luật, cố ý xả thải là một tội.",
+        "en": "Under the law, deliberate dumping is a crime.",
+        "distractors": [
+          "lawyer",
+          "deliberately",
+          "over"
+        ],
+        "accepted": [
+          "Deliberate dumping is a crime under the law."
+        ]
+      },
+      {
+        "vi": "Chúng tôi đề nghị toà án buộc nhà máy phải trả tiền.",
+        "en": "We recommend that the court make the factory pay.",
+        "distractors": [
+          "makes",
+          "recommending",
+          "pays"
+        ],
+        "accepted": [
+          "We recommend the court make the factory pay."
+        ]
+      },
+      {
+        "vi": "Người ta tin rằng các quản lý có thể phải đi tù.",
+        "en": "It is believed that the managers could go to prison.",
+        "distractors": [
+          "believing",
+          "goes",
+          "school"
+        ],
+        "accepted": [
+          "It is believed the managers could go to prison."
+        ]
+      },
+      {
+        "vi": "Cảnh sát vẫn đang thu thập bằng chứng.",
+        "en": "The police are still collecting evidence.",
+        "distractors": [
+          "is",
+          "collected",
+          "money"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bà Sáu và Khôi nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Nước giếng bị ô nhiễm và vụ kiện nhà máy",
+          "Giá nước đóng chai ở chợ",
+          "Việc học của các cháu bà Sáu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Sáu hỏi \"is it true that the water from our well is dangerous?\" và Khôi giải thích vụ kiện.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khôi khuyên gia đình bà Sáu làm gì?",
+        "promptVi": "",
+        "options": [
+          "Dùng nước đóng chai đến khi xét nghiệm xong",
+          "Đun sôi nước giếng",
+          "Chuyển đến làng khác"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khôi nói \"I strongly recommend that your family use bottled water until the tests are finished.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Người ta cho rằng giám đốc nhà máy đã làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đã biết về đường ống",
+          "Đã bỏ trốn",
+          "Đã trả tiền cho dân làng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khôi nói \"The director is thought to have known about the pipe.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mrs Sau's family can easily pay for bottled water.",
+        "promptVi": "Gia đình bà Sáu dễ dàng trả được tiền nước đóng chai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, bà nói \"We're not rich.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Những bằng chứng nào cho thấy việc xả thải là cố ý? Liên đưa ra những yêu cầu gì?",
+    "grammarStep": {
+      "titleVi": "Bị động tường thuật và thức giả định",
+      "noticing": [
+        {
+          "sentence": "\"The toxic runoff is understood to have endangered the water supplies of at least three villages.",
+          "highlights": [
+            "is understood to have endangered"
+          ]
+        },
+        {
+          "sentence": "Some families are said to have been drinking well water that had been polluted for over a year.\"",
+          "highlights": [
+            "are said to have been drinking"
+          ]
+        },
+        {
+          "sentence": "\"First, I'll urge that the factory management be prosecuted directly, not only the company.",
+          "highlights": [
+            "urge that the factory management be prosecuted"
+          ]
+        },
+        {
+          "sentence": "\"Then we should demand that all the factory's records be protected immediately,\" Lien says.",
+          "highlights": [
+            "demand that all the factory's records be protected"
+          ]
+        }
+      ],
+      "questionVi": "Chúng tôi yêu cầu ban quản lý nhà máy bị truy tố. Câu nào đúng?",
+      "options": [
+        "We demand that the factory management be prosecuted.",
+        "We demand that the factory management is prosecute.",
+        "We demand the factory management to be prosecuting."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Sau demand that, bị động dùng be + V3: be prosecuted.",
+      "whenVi": "Dùng trong hồ sơ, đơn kiến nghị, phát biểu pháp lý: nêu kết luận chưa được toà xác nhận và đưa ra yêu cầu chính thức.",
+      "table": [
+        {
+          "subject": "S + is understood + to have V3",
+          "form": "The runoff is understood to have endangered the water.",
+          "negative": "It is not understood to have reached the city."
+        },
+        {
+          "subject": "S + is said + to have been V-ing",
+          "form": "Families are said to have been drinking polluted water.",
+          "negative": "They are not said to have been warned."
+        },
+        {
+          "subject": "urge / demand that + S + be + V3",
+          "form": "We urge that the managers be prosecuted.",
+          "negative": "We demand that the case not be closed."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The runoff is understood to endanger the water last year.",
+          "right": "The runoff is understood to have endangered the water last year."
+        },
+        {
+          "wrong": "We urge that the managers are prosecute directly.",
+          "right": "We urge that the managers be prosecuted directly."
+        }
+      ],
+      "noteVi": "to have been V-ing nhấn mạnh việc kéo dài một thời gian: are said to have been drinking polluted water for over a year.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Families are said to have ___ drinking polluted water for a year.",
+          "answers": [
+            "been"
+          ],
+          "explanationVi": "Việc kéo dài: are said + to have been + V-ing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Lien demands that all the records ___ protected.",
+          "options": [
+            "be",
+            "to be",
+            "being",
+            "been"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Thức giả định bị động: that + S + be + V3."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It is thought that the director sign the order last year.",
+          "sentence": "It is thought that the director signed the order last year.",
+          "explanationVi": "Sau It is thought that là mệnh đề bình thường, chia thì theo nghĩa: last year → signed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi đề nghị đóng cửa nhà máy.",
+          "sentence": "We recommend that the factory be closed.",
+          "words": [
+            "We",
+            "recommend",
+            "that",
+            "the",
+            "factory",
+            "be",
+            "closed.",
+            "is"
+          ],
+          "explanationVi": "recommend that + S + be + V3; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The pipe was hidden under a concrete floor.",
+        "tipVi": "hidden /ˈhɪdn/; concrete /ˈkɒŋkriːt/ nhấn âm đầu."
+      },
+      {
+        "text": "That doesn't happen by accident.\"",
+        "tipVi": "doesn't /ˈdʌznt/; accident /ˈæksɪdənt/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a pollution problem near where you live? What is it believed to have caused?",
+        "questionVi": "Gần nơi bạn sống có vấn đề ô nhiễm nào không? Người ta tin nó đã gây ra hậu quả gì?",
+        "frame": "Near my home, ___. It is believed to have ___."
+      },
+      {
+        "question": "Should factory managers go to prison for pollution, or is a fine enough?",
+        "questionVi": "Quản lý nhà máy có nên đi tù vì gây ô nhiễm, hay phạt tiền là đủ?",
+        "frame": "I think ___ because ___."
+      },
+      {
+        "question": "What would you urge that the government do to protect rivers?",
+        "questionVi": "Bạn sẽ kêu gọi chính phủ làm gì để bảo vệ sông ngòi?",
+        "frame": "I would urge that the government ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động tường thuật hoặc thức giả định (is understood to have … / urge that … be + V3)",
+      "anyOf": [
+        "is understood to",
+        "is said to",
+        "are said to",
+        "is believed to",
+        "is thought to",
+        "it is believed that",
+        "it is thought that",
+        "urge that",
+        "demand that",
+        "recommend that"
+      ],
+      "outlineVi": [
+        "Vấn đề ô nhiễm là gì, ở đâu.",
+        "Điều được cho là đã xảy ra và hậu quả (is believed / understood to have + V3).",
+        "Hai yêu cầu bằng urge / demand that + S + V nguyên mẫu hoặc be + V3."
+      ],
+      "modelAnswer": "Dear Sir or Madam, we are writing about the waste from the paper factory near Tan Hoa village. The factory is believed to have been dumping waste into the canal at night for several months. Many rice fields are said to have been damaged, and some children have become ill. We urge that the factory be inspected immediately, and we demand that the families who lost their crops be paid fairly. We look forward to your reply."
+    }
+  },
+  "glosses": [
+    {
+      "text": "runoff",
+      "lemma": "runoff",
+      "meaningVi": "nước thải chảy tràn",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "The toxic runoff",
+      "phraseVi": "Nước thải độc hại"
+    },
+    {
+      "text": "endangered",
+      "lemma": "endanger",
+      "meaningVi": "gây nguy hiểm, đe doạ",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "endangered the water supplies",
+      "phraseVi": "đe doạ nguồn nước"
+    },
+    {
+      "text": "dumping",
+      "lemma": "dumping",
+      "meaningVi": "việc xả, đổ (chất thải)",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "deliberate dumping of this kind",
+      "phraseVi": "cố ý xả thải kiểu này"
+    },
+    {
+      "text": "prosecuted",
+      "lemma": "prosecute",
+      "meaningVi": "truy tố",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "the factory management be prosecuted directly",
+      "phraseVi": "ban quản lý nhà máy bị truy tố trực tiếp"
+    }
+  ]
+}

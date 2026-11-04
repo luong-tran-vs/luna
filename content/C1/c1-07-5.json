@@ -1,0 +1,654 @@
+{
+  "content": "For forty years, a pharmaceutical company in Hanoi made its money from cheap antibiotics and vitamins. Now it hopes to enter a new market. On Thursday, its medical director, Bich Ngoc, met the commercial director, Hai, to discuss the results of an eighteen-month trial of its first drug for high blood pressure.\n\nBefore she had even sat down, Hai asked, \"So, did it work?\"\n\"Yes. In a group of two thousand four hundred patients, the drug reduced blood pressure by an average of twelve points. With the placebo, the fall was only four.\"\n\"That's excellent. What about side effects?\"\n\"Mostly mild. About three per cent of patients felt dizzy in the first week. The withdrawal of patients from the trial was lower than we expected.\"\n\"And the most important part, the impact on patient care?\"\n\"That's where it gets interesting. High blood pressure is a chronic condition, and the biggest problem isn't the lack of good drugs. It's the failure of patients to take them every day. Ours is a single tablet, once a day, so the improvement in adherence could be significant.\"\n\"Can we say it prevents heart attacks and strokes?\"\n\"Not yet, and we must be careful here. The trial was too short to measure the effect on mortality. We'd need a much longer study for that.\"\nHai nodded. \"Understood. Who will actually use it?\"\n\"In Vietnam, about one in four adults has high blood pressure, but many of them don't know it. Early diagnosis is rare, because there are no symptoms at first. Doctors usually diagnose it only after a stroke or during a check-up for something else.\"\n\"So the market depends on screening, not just the prescription itself.\"\n\"Exactly. And on lifestyle. Most of the patients in the trial were overweight, and a third had obesity. Poor nutrition, especially the amount of salt in fish sauce and instant noodles, plays a huge role.\"\n\"Were there any groups we excluded?\"\n\"Pregnant women and patients with weak immunity, for example those having cancer treatment. We'll need separate data for them.\"\n\"Interesting. A hundred years ago, people here died mostly of infectious diseases. Sanitation and vaccination changed that.\"\n\"And now heart disease and stroke are the main killers. That's why the arrival of affordable long-term treatment matters.\"\n\"Then let's prepare the application to the Ministry. How soon could we have the final report?\"\n\"In about six weeks.\"",
+  "targetWords": [
+    "vaccination",
+    "immunity",
+    "infectious",
+    "diagnosis",
+    "diagnose",
+    "chronic",
+    "prescription",
+    "antibiotic",
+    "mortality",
+    "sanitation",
+    "nutrition",
+    "obesity"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "antibiotics",
+        "lemma": "antibiotic",
+        "meaningVi": "thuốc kháng sinh",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "chronic",
+        "lemma": "chronic",
+        "meaningVi": "mạn tính",
+        "pos": "adjective",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "mortality",
+        "lemma": "mortality",
+        "meaningVi": "tỉ lệ tử vong",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "diagnosis",
+        "lemma": "diagnosis",
+        "meaningVi": "sự chẩn đoán",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "diagnose",
+        "lemma": "diagnose",
+        "meaningVi": "chẩn đoán",
+        "pos": "verb",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "prescription",
+        "lemma": "prescription",
+        "meaningVi": "việc kê đơn, đơn thuốc",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "obesity",
+        "lemma": "obesity",
+        "meaningVi": "bệnh béo phì",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "nutrition",
+        "lemma": "nutrition",
+        "meaningVi": "dinh dưỡng, chế độ ăn",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "immunity",
+        "lemma": "immunity",
+        "meaningVi": "khả năng miễn dịch",
+        "pos": "noun",
+        "sentenceIndex": 33
+      },
+      {
+        "text": "infectious",
+        "lemma": "infectious",
+        "meaningVi": "truyền nhiễm",
+        "pos": "adjective",
+        "sentenceIndex": 36
+      },
+      {
+        "text": "Sanitation",
+        "lemma": "sanitation",
+        "meaningVi": "vệ sinh môi trường",
+        "pos": "noun",
+        "sentenceIndex": 37
+      },
+      {
+        "text": "vaccination",
+        "lemma": "vaccination",
+        "meaningVi": "việc tiêm vắc-xin",
+        "pos": "noun",
+        "sentenceIndex": 37
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Bich Ngoc and Hai discussing?",
+        "promptVi": "Bích Ngọc và Hải đang bàn về điều gì?",
+        "options": [
+          "The results of a trial of a new blood pressure drug and its possible impact",
+          "A new antibiotic for children",
+          "The company's fortieth birthday party",
+          "A vaccination campaign in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn \"the results of an eighteen-month trial of its first drug for high blood pressure.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "By how much did the drug reduce blood pressure on average?",
+        "promptVi": "Thuốc làm giảm huyết áp trung bình bao nhiêu?",
+        "options": [
+          "Twelve points",
+          "Four points",
+          "Three points",
+          "Eighteen points"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"the drug reduced blood pressure by an average of twelve points.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Bich Ngoc, what is the biggest problem in treating high blood pressure?",
+        "promptVi": "Theo Bích Ngọc, vấn đề lớn nhất trong điều trị huyết áp cao là gì?",
+        "options": [
+          "Patients fail to take their tablets every day.",
+          "There are no good drugs.",
+          "The drugs are too expensive.",
+          "Doctors refuse to write prescriptions."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"the biggest problem isn't the lack of good drugs. It's the failure of patients to take them every day.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The trial showed that the drug lowers mortality from strokes.",
+        "promptVi": "Thử nghiệm cho thấy thuốc làm giảm tỉ lệ tử vong do đột quỵ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, \"The trial was too short to measure the effect on mortality.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"withdrawal\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The withdrawal of patients from the trial was lower than we expected.\"",
+        "options": [
+          "việc rút khỏi, bỏ ngang",
+          "việc tham gia",
+          "việc chữa khỏi",
+          "việc tử vong"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Withdrawal (từ động từ withdraw) = việc rút lui, ở đây là bệnh nhân bỏ thử nghiệm giữa chừng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh hoá",
+      "bodyVi": "Báo cáo kết quả thử nghiệm lâm sàng dùng rất nhiều danh từ: patients withdrew → the withdrawal of patients; patients fail to take them → the failure of patients to take them; adherence improves → the improvement in adherence; treatment arrives → the arrival of affordable treatment. Chú ý: failure + of + người + to + động từ; improvement in + điều được cải thiện. Câu phủ định cũng gọn hơn: the lack of good drugs thay cho \"there aren't good drugs\".",
+      "examples": [
+        "The withdrawal of patients from the trial was lower than we expected.\"",
+        "It's the failure of patients to take them every day.",
+        "Ours is a single tablet, once a day, so the improvement in adherence could be significant.\""
+      ]
+    },
+    "writingPrompt": "Write a short summary (80–120 words) of the trial for the company newsletter: the results, the limits of the study and the next steps. Use at least three nominalisations (the reduction in …, the failure to …, the arrival of …).",
+    "sentenceTranslations": [
+      "Suốt bốn mươi năm, một công ty dược ở Hà Nội kiếm tiền từ thuốc kháng sinh và vitamin giá rẻ.",
+      "Giờ đây công ty hy vọng bước vào một thị trường mới.",
+      "Hôm thứ Năm, giám đốc y khoa Bích Ngọc gặp giám đốc kinh doanh Hải để bàn về kết quả thử nghiệm kéo dài mười tám tháng của loại thuốc trị huyết áp cao đầu tiên của công ty.",
+      "Chị còn chưa kịp ngồi xuống, Hải đã hỏi: \"Thế nào, thuốc có hiệu quả không?\"",
+      "\"Có.",
+      "Trong nhóm hai nghìn bốn trăm bệnh nhân, thuốc làm giảm huyết áp trung bình mười hai điểm.",
+      "Với giả dược, mức giảm chỉ là bốn.\"",
+      "\"Tuyệt quá.",
+      "Còn tác dụng phụ thì sao?\"",
+      "\"Phần lớn là nhẹ.",
+      "Khoảng ba phần trăm bệnh nhân thấy chóng mặt trong tuần đầu.",
+      "Số bệnh nhân rút khỏi thử nghiệm thấp hơn chúng ta dự kiến.\"",
+      "\"Còn phần quan trọng nhất, tác động đến việc chăm sóc bệnh nhân?\"",
+      "\"Đó mới là chỗ thú vị.",
+      "Huyết áp cao là bệnh mạn tính, và vấn đề lớn nhất không phải là thiếu thuốc tốt.",
+      "Mà là việc bệnh nhân không uống thuốc đều đặn mỗi ngày.",
+      "Thuốc của mình chỉ một viên, ngày một lần, nên việc tuân thủ điều trị có thể được cải thiện đáng kể.\"",
+      "\"Mình có thể nói thuốc phòng được nhồi máu cơ tim và đột quỵ không?\"",
+      "\"Chưa được, và ở chỗ này mình phải cẩn trọng.",
+      "Thử nghiệm quá ngắn để đo tác động lên tỉ lệ tử vong.",
+      "Muốn biết điều đó mình cần một nghiên cứu dài hơn nhiều.\"",
+      "Hải gật đầu.",
+      "\"Hiểu rồi.",
+      "Thực tế ai sẽ dùng thuốc này?\"",
+      "\"Ở Việt Nam, khoảng một phần tư người trưởng thành bị huyết áp cao, nhưng nhiều người không biết.",
+      "Rất ít người được chẩn đoán sớm, vì lúc đầu bệnh không có triệu chứng.",
+      "Bác sĩ thường chỉ chẩn đoán bệnh sau một cơn đột quỵ hoặc khi khám vì một bệnh khác.\"",
+      "\"Vậy thị trường phụ thuộc vào việc tầm soát, chứ không chỉ ở việc kê đơn.\"",
+      "\"Chính xác.",
+      "Và vào lối sống.",
+      "Phần lớn bệnh nhân trong thử nghiệm thừa cân, và một phần ba bị béo phì.",
+      "Chế độ ăn không hợp lý, nhất là lượng muối trong nước mắm và mì ăn liền, đóng vai trò rất lớn.\"",
+      "\"Có nhóm nào mình đã loại khỏi thử nghiệm không?\"",
+      "\"Phụ nữ mang thai và bệnh nhân có miễn dịch yếu, ví dụ những người đang điều trị ung thư.",
+      "Mình sẽ cần số liệu riêng cho họ.\"",
+      "\"Thú vị đấy.",
+      "Một trăm năm trước, người dân ở đây chủ yếu chết vì các bệnh truyền nhiễm.",
+      "Vệ sinh môi trường và tiêm chủng đã thay đổi điều đó.\"",
+      "\"Còn bây giờ bệnh tim và đột quỵ là những nguyên nhân gây tử vong hàng đầu.",
+      "Vì thế việc có một phương pháp điều trị lâu dài với giá phải chăng mới quan trọng.\"",
+      "\"Vậy mình chuẩn bị hồ sơ gửi Bộ nhé.",
+      "Bao lâu nữa thì có báo cáo cuối cùng?\"",
+      "\"Khoảng sáu tuần nữa.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tóm tắt kết quả một thử nghiệm lâm sàng và giới hạn của nó bằng văn phong báo cáo, dùng danh hoá (the withdrawal of, the failure to, the improvement in).",
+    "examples": [
+      {
+        "lemma": "vaccination",
+        "sentence": "Polio vaccination is now routine for all babies.",
+        "meaningVi": "Tiêm vắc-xin bại liệt nay đã thành thường quy cho mọi trẻ sơ sinh."
+      },
+      {
+        "lemma": "immunity",
+        "sentence": "The treatment can lower the body's immunity.",
+        "meaningVi": "Phương pháp điều trị có thể làm giảm miễn dịch của cơ thể."
+      },
+      {
+        "lemma": "infectious",
+        "sentence": "Tuberculosis is still a serious infectious disease.",
+        "meaningVi": "Lao vẫn là một bệnh truyền nhiễm nguy hiểm."
+      },
+      {
+        "lemma": "diagnosis",
+        "sentence": "Late diagnosis makes the illness harder to treat.",
+        "meaningVi": "Chẩn đoán muộn khiến bệnh khó chữa hơn."
+      },
+      {
+        "lemma": "diagnose",
+        "sentence": "A simple test can diagnose high blood pressure.",
+        "meaningVi": "Một xét nghiệm đơn giản có thể chẩn đoán huyết áp cao."
+      },
+      {
+        "lemma": "chronic",
+        "sentence": "Hypertension is a chronic condition that needs daily treatment.",
+        "meaningVi": "Tăng huyết áp là bệnh mạn tính cần điều trị hằng ngày."
+      },
+      {
+        "lemma": "prescription",
+        "sentence": "This drug is only available on prescription.",
+        "meaningVi": "Thuốc này chỉ bán theo đơn."
+      },
+      {
+        "lemma": "antibiotic",
+        "sentence": "The company used to produce antibiotic tablets.",
+        "meaningVi": "Công ty từng sản xuất viên kháng sinh."
+      },
+      {
+        "lemma": "mortality",
+        "sentence": "The study will measure mortality over ten years.",
+        "meaningVi": "Nghiên cứu sẽ đo tỉ lệ tử vong trong mười năm."
+      },
+      {
+        "lemma": "sanitation",
+        "sentence": "Clean water and sanitation reduced disease in the city.",
+        "meaningVi": "Nước sạch và vệ sinh môi trường đã làm giảm bệnh tật trong thành phố."
+      },
+      {
+        "lemma": "nutrition",
+        "sentence": "Poor nutrition raises the risk of heart disease.",
+        "meaningVi": "Chế độ ăn uống kém làm tăng nguy cơ bệnh tim."
+      },
+      {
+        "lemma": "obesity",
+        "sentence": "Rising obesity is a major cause of high blood pressure.",
+        "meaningVi": "Béo phì gia tăng là một nguyên nhân chính gây huyết áp cao."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hai",
+        "Bich Ngoc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Have you finished the report for the Ministry?",
+          "meaningVi": "Chị viết xong báo cáo gửi Bộ chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Almost. I'm writing the section on the limits of the study.",
+          "meaningVi": "Gần xong. Tôi đang viết phần giới hạn của nghiên cứu."
+        },
+        {
+          "speaker": 0,
+          "text": "Do we really need to mention limits?",
+          "meaningVi": "Mình có thật sự cần nhắc đến giới hạn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Reviewers always check for the honest reporting of weaknesses.",
+          "meaningVi": "Có. Người thẩm định luôn xem mình có trình bày trung thực điểm yếu không."
+        },
+        {
+          "speaker": 0,
+          "text": "Fair enough. What will you say about heart attacks?",
+          "meaningVi": "Cũng phải. Chị sẽ viết gì về nhồi máu cơ tim?"
+        },
+        {
+          "speaker": 1,
+          "text": "Only that a longer study is planned.",
+          "meaningVi": "Chỉ nói rằng đã có kế hoạch cho một nghiên cứu dài hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "And the price? Doctors will ask about it.",
+          "meaningVi": "Còn giá? Bác sĩ sẽ hỏi đấy."
+        },
+        {
+          "speaker": 1,
+          "text": "That's your department, not mine!",
+          "meaningVi": "Đó là việc của phòng anh, không phải của tôi!"
+        },
+        {
+          "speaker": 0,
+          "text": "True. I'll send you some figures by Friday.",
+          "meaningVi": "Đúng. Thứ Sáu tôi gửi chị vài con số."
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks. Then we can submit it next week.",
+          "meaningVi": "Cảm ơn. Vậy tuần sau mình nộp được."
+        }
+      ]
+    },
+    "grammarTipVi": "the honest reporting of weaknesses = việc trình bày trung thực các điểm yếu (report honestly → the honest reporting of). Trạng từ honestly đổi thành tính từ honest đứng trước danh từ.",
+    "translations": [
+      {
+        "vi": "Huyết áp cao là một bệnh mạn tính.",
+        "en": "High blood pressure is a chronic condition.",
+        "distractors": [
+          "chronically",
+          "low",
+          "an"
+        ]
+      },
+      {
+        "vi": "Thử nghiệm quá ngắn để đo tác động lên tỉ lệ tử vong.",
+        "en": "The trial was too short to measure the effect on mortality.",
+        "distractors": [
+          "deadly",
+          "affect",
+          "shortly"
+        ]
+      },
+      {
+        "vi": "Trong thử nghiệm, một phần ba bệnh nhân bị béo phì.",
+        "en": "In the trial, a third of the patients had obesity.",
+        "distractors": [
+          "obese",
+          "has",
+          "fourth"
+        ],
+        "accepted": [
+          "A third of the patients had obesity in the trial."
+        ]
+      },
+      {
+        "vi": "Bác sĩ thường chỉ chẩn đoán bệnh này sau một cơn đột quỵ.",
+        "en": "Doctors usually diagnose it only after a stroke.",
+        "distractors": [
+          "diagnosis",
+          "before",
+          "never"
+        ],
+        "accepted": [
+          "Usually doctors diagnose it only after a stroke."
+        ]
+      },
+      {
+        "vi": "Vệ sinh môi trường và tiêm chủng đã thay đổi điều đó.",
+        "en": "Sanitation and vaccination changed that.",
+        "distractors": [
+          "vaccinate",
+          "changing",
+          "those"
+        ],
+        "accepted": [
+          "Vaccination and sanitation changed that."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hải và Bích Ngọc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bản báo cáo gửi Bộ",
+          "Một loại thuốc kháng sinh mới",
+          "Kỳ nghỉ của công ty"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hải hỏi \"Have you finished the report for the Ministry?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bích Ngọc đang viết phần nào?",
+        "promptVi": "",
+        "options": [
+          "Giới hạn của nghiên cứu",
+          "Giá thuốc",
+          "Tác dụng phụ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"I'm writing the section on the limits of the study.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Hải gửi số liệu về giá?",
+        "promptVi": "",
+        "options": [
+          "Thứ Sáu",
+          "Tuần sau",
+          "Hôm nay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"I'll send you some figures by Friday.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bich Ngoc will write about the price of the drug.",
+        "promptVi": "Bích Ngọc sẽ viết về giá thuốc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, chị nói \"That's your department, not mine!\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Thử nghiệm cho kết quả gì? Vì sao bác sĩ Bích Ngọc nói phải cẩn trọng, và ai sẽ cần đến loại thuốc này?",
+    "grammarStep": {
+      "titleVi": "Danh hoá",
+      "noticing": [
+        {
+          "sentence": "The withdrawal of patients from the trial was lower than we expected.\"",
+          "highlights": [
+            "The withdrawal of patients"
+          ]
+        },
+        {
+          "sentence": "It's the failure of patients to take them every day.",
+          "highlights": [
+            "the failure of patients to take"
+          ]
+        },
+        {
+          "sentence": "Ours is a single tablet, once a day, so the improvement in adherence could be significant.\"",
+          "highlights": [
+            "the improvement in adherence"
+          ]
+        },
+        {
+          "sentence": "That's why the arrival of affordable long-term treatment matters.\"",
+          "highlights": [
+            "the arrival of affordable long-term treatment"
+          ]
+        }
+      ],
+      "questionVi": "Viết lại \"Many patients fail to return for check-ups\" bằng danh hoá. Câu nào đúng?",
+      "options": [
+        "The failure of many patients to return for check-ups is a problem.",
+        "The fail of many patients returning for check-ups is a problem.",
+        "The failure of many patients for return check-ups is a problem."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "fail → failure; cấu trúc: the failure of + người + to + động từ.",
+      "whenVi": "Dùng khi viết báo cáo khoa học, tóm tắt thử nghiệm hay hồ sơ gửi cơ quan quản lý: danh từ giúp trình bày kết quả một cách khách quan, ít nhắc đến \"chúng tôi\".",
+      "table": [
+        {
+          "subject": "failure + of + người + to V",
+          "form": "patients fail to take them → the failure of patients to take them",
+          "negative": "Không nói: the failure of patients taking them."
+        },
+        {
+          "subject": "improvement + in",
+          "form": "adherence improves → the improvement in adherence",
+          "negative": "Không nói: the improvement of adherence (khi nói mức độ tốt lên)."
+        },
+        {
+          "subject": "withdraw → withdrawal, arrive → arrival",
+          "form": "the withdrawal of patients; the arrival of treatment",
+          "negative": "Đuôi -al cũng tạo danh từ."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The failure of patients taking the tablets is common.",
+          "right": "The failure of patients to take the tablets is common."
+        },
+        {
+          "wrong": "The arrive of affordable treatment matters.",
+          "right": "The arrival of affordable treatment matters."
+        }
+      ],
+      "noteVi": "Bài có câu chẻ: It's the failure of patients to take them every day. Câu này nhấn mạnh danh từ là vấn đề thật sự.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The improvement ___ adherence could be significant.",
+          "answers": [
+            "in"
+          ],
+          "explanationVi": "improvement in + điều được cải thiện."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The ___ of patients from the trial was low.",
+          "options": [
+            "withdrawal",
+            "withdraw",
+            "withdrew",
+            "withdrawn"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau The cần danh từ withdrawal."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The failure of patients taking them every day is the real problem.",
+          "sentence": "The failure of patients to take them every day is the real problem.",
+          "explanationVi": "failure of + người + to + động từ nguyên mẫu."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Việc có thuốc giá phải chăng là rất quan trọng.",
+          "sentence": "The arrival of affordable treatment is very important.",
+          "explanationVi": "The arrival of + cụm danh từ làm chủ ngữ; từ \"arrive\" bị thừa.",
+          "words": [
+            "The",
+            "arrival",
+            "of",
+            "affordable",
+            "treatment",
+            "is",
+            "very",
+            "important.",
+            "arrive"
+          ]
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The trial was too short to measure the effect on mortality.",
+        "tipVi": "measure /ˈmeʒə/; mortality /mɔːˈtæləti/."
+      },
+      {
+        "text": "Early diagnosis is rare, because there are no symptoms at first.",
+        "tipVi": "diagnosis /ˌdaɪəɡˈnəʊsɪs/; symptoms /ˈsɪmptəmz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you or your family check your blood pressure regularly?",
+        "questionVi": "Bạn hoặc gia đình có đo huyết áp thường xuyên không?",
+        "frame": "In my family, the checking of blood pressure is ___."
+      },
+      {
+        "question": "Why do some patients stop taking their medicine?",
+        "questionVi": "Vì sao một số bệnh nhân bỏ thuốc?",
+        "frame": "I think the main reason for the failure to ___ is ___."
+      },
+      {
+        "question": "How has Vietnamese food changed in your lifetime? Is it healthier?",
+        "questionVi": "Đồ ăn của người Việt đã thay đổi thế nào trong đời bạn? Có lành mạnh hơn không?",
+        "frame": "There has been an increase in ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 danh từ hoá (the reduction in, the failure to, the arrival of …)",
+      "anyOf": [
+        "reduction in",
+        "failure of",
+        "failure to",
+        "arrival of",
+        "withdrawal of",
+        "improvement in",
+        "lack of",
+        "increase in",
+        "introduction of"
+      ],
+      "outlineVi": [
+        "Kết quả chính (a reduction in blood pressure …).",
+        "Giới hạn của nghiên cứu (the lack of data on …).",
+        "Bước tiếp theo (the submission of …, the start of a longer study)."
+      ],
+      "modelAnswer": "Our eighteen-month trial showed a clear reduction in blood pressure, with an average fall of twelve points. The withdrawal of patients was low, and side effects were mostly mild. However, the short length of the study means a lack of data on strokes and heart attacks. The next steps are the submission of our report to the Ministry and the start of a five-year follow-up study."
+    }
+  },
+  "glosses": [
+    {
+      "text": "placebo",
+      "lemma": "placebo",
+      "meaningVi": "giả dược",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "With the placebo",
+      "phraseVi": "Với giả dược"
+    },
+    {
+      "text": "withdrawal",
+      "lemma": "withdrawal",
+      "meaningVi": "việc rút khỏi",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "The withdrawal of patients",
+      "phraseVi": "Việc bệnh nhân rút khỏi"
+    },
+    {
+      "text": "adherence",
+      "lemma": "adherence",
+      "meaningVi": "sự tuân thủ (điều trị)",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "the improvement in adherence",
+      "phraseVi": "việc tuân thủ điều trị tốt hơn"
+    },
+    {
+      "text": "screening",
+      "lemma": "screening",
+      "meaningVi": "tầm soát, sàng lọc",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "depends on screening",
+      "phraseVi": "phụ thuộc vào việc tầm soát"
+    }
+  ]
+}

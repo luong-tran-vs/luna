@@ -1,0 +1,642 @@
+{
+  "content": "On a grey December morning, the view from the twelfth floor of the city environment office in Hanoi was little more than a cloud of haze. Inside, two environmental health specialists, Dr Quynh and Dr Son, were comparing two sets of data: daily air quality readings and hospital admissions for breathing problems over the past three winters.\n\n\"Look at this chart,\" Dr Quynh said. \"Every time the air quality index goes above a hundred and fifty, there's a sharp rise in admissions two or three days later.\"\n\"Is that the same for children and adults?\"\n\"The pattern is similar, but the effect is strongest in children under five and people over sixty-five. Patients with chronic conditions like asthma suffer most.\"\nSon leaned closer to her screen. \"How strong is the correlation?\"\n\"Very strong. And it isn't just asthma. Pollution damages the lining of the lungs and weakens the body's immunity, so infectious diseases such as pneumonia become more common too.\"\n\"That fits what doctors at the children's hospital told me. They often can't tell at first whether a child's cough comes from the air or from bacteria. Without a clear diagnosis, many give antibiotics just in case.\"\n\"Which adds to the problem of resistance. A prescription should always follow a proper test.\"\n\"Agreed. What about long-term effects? Can we say anything about mortality?\"\n\"International studies link fine dust to heart disease, stroke and lung cancer. Across Vietnam, air pollution is thought to cause tens of thousands of early deaths every year. That's why I see clean air the way people saw sanitation a century ago: as a basic public health issue.\"\n\"Then what should we recommend? Masks only help so much.\"\n\"The reduction of traffic in the city centre is the obvious first step. Then there's the burning of rice straw around the city after the harvest, and the coal used by small factories.\"\n\"The introduction of low-emission zones will be unpopular with motorbike owners, won't it?\"\n\"Probably. That's why the publication of daily health warnings matters. When people understand the risks, they accept change more easily.\"\n\"And for the most vulnerable groups?\"\n\"Flu vaccination for older people, better nutrition for young children, and earlier screening so that doctors can diagnose lung problems in time. Children with obesity or asthma should also avoid outdoor sport on the worst days.\"\n\"Let's put all of that in the report. I'll write the section on traffic.\"\n\"And I'll prepare the charts.\"",
+  "targetWords": [
+    "vaccination",
+    "immunity",
+    "infectious",
+    "diagnosis",
+    "diagnose",
+    "chronic",
+    "prescription",
+    "antibiotic",
+    "mortality",
+    "sanitation",
+    "nutrition",
+    "obesity"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "chronic",
+        "lemma": "chronic",
+        "meaningVi": "mạn tính",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "immunity",
+        "lemma": "immunity",
+        "meaningVi": "khả năng miễn dịch",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "infectious",
+        "lemma": "infectious",
+        "meaningVi": "truyền nhiễm",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "diagnosis",
+        "lemma": "diagnosis",
+        "meaningVi": "chẩn đoán",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "antibiotics",
+        "lemma": "antibiotic",
+        "meaningVi": "thuốc kháng sinh",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "prescription",
+        "lemma": "prescription",
+        "meaningVi": "đơn thuốc, việc kê đơn",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "mortality",
+        "lemma": "mortality",
+        "meaningVi": "tỉ lệ tử vong",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "sanitation",
+        "lemma": "sanitation",
+        "meaningVi": "vệ sinh môi trường",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "vaccination",
+        "lemma": "vaccination",
+        "meaningVi": "việc tiêm vắc-xin",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "nutrition",
+        "lemma": "nutrition",
+        "meaningVi": "dinh dưỡng",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "diagnose",
+        "lemma": "diagnose",
+        "meaningVi": "chẩn đoán",
+        "pos": "verb",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "obesity",
+        "lemma": "obesity",
+        "meaningVi": "bệnh béo phì",
+        "pos": "noun",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Dr Quynh and Dr Son studying?",
+        "promptVi": "Bác sĩ Quỳnh và bác sĩ Sơn đang nghiên cứu điều gì?",
+        "options": [
+          "The link between air pollution and hospital admissions for breathing problems",
+          "The number of motorbikes in Hanoi",
+          "A new treatment for lung cancer",
+          "The weather in December"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ so sánh \"daily air quality readings and hospital admissions for breathing problems.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When do hospital admissions rise sharply?",
+        "promptVi": "Khi nào số ca nhập viện tăng vọt?",
+        "options": [
+          "Two or three days after the air quality index goes above 150",
+          "On the same day as the pollution",
+          "One week later",
+          "Only in summer"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"there's a sharp rise in admissions two or three days later.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why do some doctors give antibiotics to children with a cough?",
+        "promptVi": "Vì sao một số bác sĩ cho trẻ bị ho dùng kháng sinh?",
+        "options": [
+          "They don't have a clear diagnosis yet.",
+          "Antibiotics clean the lungs.",
+          "Parents ask for vitamins.",
+          "The air is full of bacteria."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Without a clear diagnosis, many give antibiotics just in case.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dr Quynh believes masks are enough to protect people.",
+        "promptVi": "Bác sĩ Quỳnh tin rằng khẩu trang là đủ để bảo vệ mọi người.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Sơn nói \"Masks only help so much\" và chị đề xuất giảm giao thông."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"correlation\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"How strong is the correlation?\"",
+        "options": [
+          "mối tương quan",
+          "sự ô nhiễm",
+          "kết luận",
+          "biểu đồ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Correlation = mối liên hệ giữa hai thứ thay đổi cùng nhau, ở đây là ô nhiễm và số ca nhập viện."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh hoá",
+      "bodyVi": "Khi đưa ra khuyến nghị về chính sách, danh hoá giúp gọi tên từng biện pháp: reduce traffic → the reduction of traffic; people burn rice straw → the burning of rice straw; introduce low-emission zones → the introduction of low-emission zones; publish warnings → the publication of daily health warnings. Danh từ đuôi -ing (the burning) dùng khi không có danh từ -tion phù hợp. Các cụm này thường làm chủ ngữ: The reduction of traffic is the obvious first step.",
+      "examples": [
+        "\"The reduction of traffic in the city centre is the obvious first step.",
+        "\"The introduction of low-emission zones will be unpopular with motorbike owners, won't it?\"",
+        "That's why the publication of daily health warnings matters."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph (80–120 words) recommending three ways to reduce air pollution in your city. Use at least three nominalisations (the reduction of …, the introduction of …, the burning of …).",
+    "sentenceTranslations": [
+      "Vào một buổi sáng tháng Mười Hai xám xịt, khung cảnh nhìn từ tầng mười hai của sở môi trường thành phố ở Hà Nội chỉ là một màn sương khói mờ đục.",
+      "Bên trong, hai chuyên gia sức khoẻ môi trường, bác sĩ Quỳnh và bác sĩ Sơn, đang so sánh hai bộ số liệu: chỉ số chất lượng không khí hằng ngày và số ca nhập viện vì bệnh hô hấp trong ba mùa đông vừa qua.",
+      "\"Anh xem biểu đồ này,\" bác sĩ Quỳnh nói.",
+      "\"Cứ mỗi lần chỉ số chất lượng không khí vượt một trăm năm mươi, hai ba ngày sau số ca nhập viện lại tăng vọt.\"",
+      "\"Trẻ em và người lớn có như nhau không?\"",
+      "\"Xu hướng giống nhau, nhưng ảnh hưởng mạnh nhất ở trẻ dưới năm tuổi và người trên sáu mươi lăm.",
+      "Bệnh nhân mắc bệnh mạn tính như hen suyễn chịu ảnh hưởng nhiều nhất.\"",
+      "Sơn ghé sát màn hình của chị.",
+      "\"Mối tương quan mạnh đến mức nào?\"",
+      "\"Rất mạnh.",
+      "Và không chỉ là hen suyễn.",
+      "Ô nhiễm làm tổn thương niêm mạc phổi và làm suy yếu khả năng miễn dịch của cơ thể, nên các bệnh truyền nhiễm như viêm phổi cũng trở nên phổ biến hơn.\"",
+      "\"Điều đó khớp với những gì bác sĩ ở bệnh viện nhi nói với tôi.",
+      "Ban đầu họ thường không phân biệt được cơn ho của trẻ là do không khí hay do vi khuẩn.",
+      "Khi chưa có chẩn đoán rõ ràng, nhiều người cho dùng kháng sinh cho chắc.\"",
+      "\"Điều đó càng làm vấn đề kháng thuốc trầm trọng thêm.",
+      "Việc kê đơn luôn phải đi sau một xét nghiệm đúng cách.\"",
+      "\"Đồng ý.",
+      "Còn ảnh hưởng lâu dài thì sao?",
+      "Mình có thể nói gì về tỉ lệ tử vong không?\"",
+      "\"Các nghiên cứu quốc tế cho thấy bụi mịn có liên quan đến bệnh tim, đột quỵ và ung thư phổi.",
+      "Trên cả nước, ô nhiễm không khí được cho là gây ra hàng chục nghìn ca tử vong sớm mỗi năm.",
+      "Vì thế tôi nhìn không khí sạch theo cách người ta từng nhìn vệ sinh môi trường cách đây một thế kỷ: như một vấn đề y tế công cộng cơ bản.\"",
+      "\"Vậy mình nên khuyến nghị gì?",
+      "Khẩu trang chỉ giúp được đến một mức nào đó thôi.\"",
+      "\"Giảm giao thông ở trung tâm thành phố là bước đầu tiên hiển nhiên.",
+      "Sau đó là việc đốt rơm rạ quanh thành phố sau mùa gặt, và than mà các xưởng nhỏ sử dụng.\"",
+      "\"Việc áp dụng vùng phát thải thấp sẽ không được người đi xe máy ủng hộ, phải không?\"",
+      "\"Chắc vậy.",
+      "Vì thế việc công bố cảnh báo sức khoẻ hằng ngày mới quan trọng.",
+      "Khi người dân hiểu rủi ro, họ dễ chấp nhận thay đổi hơn.\"",
+      "\"Còn với các nhóm dễ bị tổn thương nhất?\"",
+      "\"Tiêm vắc-xin cúm cho người cao tuổi, dinh dưỡng tốt hơn cho trẻ nhỏ, và tầm soát sớm hơn để bác sĩ kịp chẩn đoán các bệnh về phổi.",
+      "Trẻ bị béo phì hoặc hen suyễn cũng nên tránh chơi thể thao ngoài trời vào những ngày ô nhiễm nhất.\"",
+      "\"Mình đưa hết những điều đó vào báo cáo nhé.",
+      "Tôi sẽ viết phần về giao thông.\"",
+      "\"Còn tôi sẽ chuẩn bị các biểu đồ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày mối liên hệ giữa ô nhiễm không khí và sức khoẻ, rồi đưa ra khuyến nghị bằng danh hoá (the reduction of, the introduction of, the publication of).",
+    "examples": [
+      {
+        "lemma": "vaccination",
+        "sentence": "The city offers free flu vaccination to people over sixty-five.",
+        "meaningVi": "Thành phố tiêm vắc-xin cúm miễn phí cho người trên sáu mươi lăm tuổi."
+      },
+      {
+        "lemma": "immunity",
+        "sentence": "Smoking lowers your immunity to lung infections.",
+        "meaningVi": "Hút thuốc làm giảm khả năng miễn dịch của bạn với các bệnh nhiễm trùng phổi."
+      },
+      {
+        "lemma": "infectious",
+        "sentence": "Pneumonia can be an infectious disease.",
+        "meaningVi": "Viêm phổi có thể là một bệnh truyền nhiễm."
+      },
+      {
+        "lemma": "diagnosis",
+        "sentence": "The diagnosis was asthma, not a simple cough.",
+        "meaningVi": "Chẩn đoán là hen suyễn, không phải ho thông thường."
+      },
+      {
+        "lemma": "diagnose",
+        "sentence": "A breathing test helps doctors diagnose asthma.",
+        "meaningVi": "Xét nghiệm chức năng hô hấp giúp bác sĩ chẩn đoán hen suyễn."
+      },
+      {
+        "lemma": "chronic",
+        "sentence": "Air pollution makes chronic lung disease worse.",
+        "meaningVi": "Ô nhiễm không khí làm bệnh phổi mạn tính nặng hơn."
+      },
+      {
+        "lemma": "prescription",
+        "sentence": "Inhalers for asthma usually need a prescription.",
+        "meaningVi": "Bình xịt hen suyễn thường cần đơn thuốc."
+      },
+      {
+        "lemma": "antibiotic",
+        "sentence": "An antibiotic will not cure a cough caused by smoke.",
+        "meaningVi": "Kháng sinh sẽ không chữa được cơn ho do khói."
+      },
+      {
+        "lemma": "mortality",
+        "sentence": "Dirty air is linked to higher mortality in big cities.",
+        "meaningVi": "Không khí bẩn có liên quan đến tỉ lệ tử vong cao hơn ở các thành phố lớn."
+      },
+      {
+        "lemma": "sanitation",
+        "sentence": "Better sanitation changed public health in the twentieth century.",
+        "meaningVi": "Vệ sinh môi trường tốt hơn đã thay đổi y tế công cộng trong thế kỷ hai mươi."
+      },
+      {
+        "lemma": "nutrition",
+        "sentence": "Good nutrition helps children's lungs grow strong.",
+        "meaningVi": "Dinh dưỡng tốt giúp phổi của trẻ phát triển khoẻ mạnh."
+      },
+      {
+        "lemma": "obesity",
+        "sentence": "Childhood obesity can make asthma worse.",
+        "meaningVi": "Béo phì ở trẻ em có thể làm bệnh hen nặng hơn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dr Son",
+        "Dr Quynh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Did you see the air quality app this morning?",
+          "meaningVi": "Sáng nay chị có xem ứng dụng chất lượng không khí không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it was purple again. That's the third day this week.",
+          "meaningVi": "Có, lại màu tím. Đó là ngày thứ ba trong tuần này."
+        },
+        {
+          "speaker": 0,
+          "text": "Should the city close schools on days like this?",
+          "meaningVi": "Thành phố có nên cho học sinh nghỉ vào những ngày như thế này không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Some cities do. But keeping children indoors is a simpler measure.",
+          "meaningVi": "Một số thành phố có làm. Nhưng cho trẻ ở trong nhà là biện pháp đơn giản hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "What about air purifiers in classrooms?",
+          "meaningVi": "Còn máy lọc không khí trong lớp học thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "They help, but they're expensive for public schools.",
+          "meaningVi": "Có tác dụng, nhưng đắt so với trường công."
+        },
+        {
+          "speaker": 0,
+          "text": "Could we add that to the report as a long-term goal?",
+          "meaningVi": "Mình có thể đưa điều đó vào báo cáo như một mục tiêu dài hạn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Let's call it the gradual installation of purifiers.",
+          "meaningVi": "Ý hay. Mình gọi là việc lắp đặt máy lọc từng bước."
+        },
+        {
+          "speaker": 0,
+          "text": "Perfect. I'll add it to the recommendations.",
+          "meaningVi": "Hoàn hảo. Tôi sẽ thêm vào phần khuyến nghị."
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks. And don't forget the traffic section.",
+          "meaningVi": "Cảm ơn. Và đừng quên phần giao thông nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "install gradually → the gradual installation of purifiers: động từ thành danh từ (-ation), trạng từ gradually thành tính từ gradual đứng trước danh từ.",
+    "translations": [
+      {
+        "vi": "Bệnh nhân mắc bệnh mạn tính như hen suyễn chịu ảnh hưởng nhiều nhất.",
+        "en": "Patients with chronic conditions like asthma suffer most.",
+        "distractors": [
+          "chronically",
+          "suffering",
+          "least"
+        ]
+      },
+      {
+        "vi": "Khi chưa có chẩn đoán rõ ràng, nhiều bác sĩ cho dùng kháng sinh.",
+        "en": "Without a clear diagnosis, many doctors give antibiotics.",
+        "distractors": [
+          "diagnose",
+          "clearly",
+          "takes"
+        ],
+        "accepted": [
+          "Many doctors give antibiotics without a clear diagnosis."
+        ]
+      },
+      {
+        "vi": "Việc kê đơn luôn phải đi sau một xét nghiệm đúng cách.",
+        "en": "A prescription should always follow a proper test.",
+        "distractors": [
+          "prescribe",
+          "never",
+          "properly"
+        ]
+      },
+      {
+        "vi": "Trẻ nhỏ cần dinh dưỡng tốt hơn.",
+        "en": "Young children need better nutrition.",
+        "distractors": [
+          "nutritious",
+          "needs",
+          "good"
+        ]
+      },
+      {
+        "vi": "Ô nhiễm làm suy yếu khả năng miễn dịch của cơ thể.",
+        "en": "Pollution weakens the body's immunity.",
+        "distractors": [
+          "immune",
+          "weaker",
+          "bodies"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hai bác sĩ nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách bảo vệ học sinh trong những ngày ô nhiễm",
+          "Một chuyến đi nước ngoài",
+          "Giá xe máy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn về việc cho trẻ ở trong nhà và máy lọc không khí trong lớp học.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tuần này chỉ số không khí màu tím mấy ngày rồi?",
+        "promptVi": "",
+        "options": [
+          "Ba ngày",
+          "Một ngày",
+          "Năm ngày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"That's the third day this week.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vấn đề của máy lọc không khí là gì?",
+        "promptVi": "",
+        "options": [
+          "Đắt so với trường công",
+          "Gây ồn",
+          "Không có tác dụng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"they're expensive for public schools.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dr Quynh says all cities close schools on polluted days.",
+        "promptVi": "Bác sĩ Quỳnh nói mọi thành phố đều cho học sinh nghỉ vào ngày ô nhiễm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, chị nói \"Some cities do.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Ô nhiễm không khí ảnh hưởng đến sức khoẻ thế nào, và ai chịu ảnh hưởng nhiều nhất? Hai chuyên gia khuyến nghị những biện pháp gì?",
+    "grammarStep": {
+      "titleVi": "Danh hoá",
+      "noticing": [
+        {
+          "sentence": "\"The reduction of traffic in the city centre is the obvious first step.",
+          "highlights": [
+            "The reduction of traffic"
+          ]
+        },
+        {
+          "sentence": "Then there's the burning of rice straw around the city after the harvest, and the coal used by small factories.\"",
+          "highlights": [
+            "the burning of rice straw"
+          ]
+        },
+        {
+          "sentence": "\"The introduction of low-emission zones will be unpopular with motorbike owners, won't it?\"",
+          "highlights": [
+            "The introduction of low-emission zones"
+          ]
+        },
+        {
+          "sentence": "That's why the publication of daily health warnings matters.",
+          "highlights": [
+            "the publication of daily health warnings"
+          ]
+        }
+      ],
+      "questionVi": "Viết lại \"We should plant more trees along the main roads\" thành một khuyến nghị dạng danh từ. Câu nào đúng?",
+      "options": [
+        "The planting of more trees along the main roads is recommended.",
+        "The plant of more trees along the main roads is recommended.",
+        "The planting more trees of the main roads is recommended."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "plant (động từ) → the planting of + vật; danh từ \"plant\" có nghĩa khác (cái cây, nhà máy).",
+      "whenVi": "Dùng khi viết khuyến nghị chính sách, báo cáo môi trường hay bài phân tích: mỗi biện pháp được gọi tên bằng một cụm danh từ.",
+      "table": [
+        {
+          "subject": "-tion",
+          "form": "reduce → the reduction of; publish → the publication of",
+          "negative": "Không nói: the reduce of traffic."
+        },
+        {
+          "subject": "-ing + of",
+          "form": "burn → the burning of rice straw; plant → the planting of trees",
+          "negative": "Cần of trước đối tượng: không nói the burning rice straw."
+        },
+        {
+          "subject": "correlation + between",
+          "form": "the correlation between pollution and admissions",
+          "negative": "Không nói: the correlation of pollution and admissions."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The reduce of traffic is the first step.",
+          "right": "The reduction of traffic is the first step."
+        },
+        {
+          "wrong": "The burning rice straw makes the air worse.",
+          "right": "The burning of rice straw makes the air worse."
+        }
+      ],
+      "noteVi": "Bài có câu hỏi đuôi để tìm sự đồng tình: … will be unpopular with motorbike owners, won't it?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The burning ___ rice straw makes the air much worse.",
+          "answers": [
+            "of"
+          ],
+          "explanationVi": "Danh từ -ing + of + đối tượng."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The ___ of daily health warnings matters.",
+          "options": [
+            "publication",
+            "publish",
+            "published",
+            "publicly"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau The cần danh từ publication."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The introduce of low-emission zones will be unpopular.",
+          "sentence": "The introduction of low-emission zones will be unpopular.",
+          "explanationVi": "introduce → danh từ introduction."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Giảm giao thông là bước đầu tiên.",
+          "sentence": "The reduction of traffic is the first step.",
+          "explanationVi": "The reduction of + danh từ làm chủ ngữ; từ \"reduce\" bị thừa.",
+          "words": [
+            "The",
+            "reduction",
+            "of",
+            "traffic",
+            "is",
+            "the",
+            "first",
+            "step.",
+            "reduce"
+          ]
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "A prescription should always follow a proper test.\"",
+        "tipVi": "prescription /prɪˈskrɪpʃn/; proper /ˈprɒpə/."
+      },
+      {
+        "text": "\"The reduction of traffic in the city centre is the obvious first step.",
+        "tipVi": "reduction /rɪˈdʌkʃn/; obvious /ˈɒbviəs/. Ngắt hơi sau centre."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How is the air quality where you live? Has it changed?",
+        "questionVi": "Chất lượng không khí nơi bạn sống thế nào? Có thay đổi không?",
+        "frame": "There has been an increase / a reduction in ___."
+      },
+      {
+        "question": "What do you do to protect yourself on polluted days?",
+        "questionVi": "Bạn làm gì để tự bảo vệ vào những ngày ô nhiễm?",
+        "frame": "I avoid ___ and I ___."
+      },
+      {
+        "question": "Would you support a ban on old motorbikes in the city centre? Why?",
+        "questionVi": "Bạn có ủng hộ việc cấm xe máy cũ trong trung tâm thành phố không? Vì sao?",
+        "frame": "I would support the introduction of ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 danh từ hoá (the reduction of, the introduction of, the burning of …)",
+      "anyOf": [
+        "reduction of",
+        "reduction in",
+        "introduction of",
+        "burning of",
+        "publication of",
+        "planting of",
+        "use of",
+        "increase in",
+        "rise in"
+      ],
+      "outlineVi": [
+        "Vấn đề: ô nhiễm ở thành phố của bạn (an increase in …).",
+        "Ba khuyến nghị, mỗi ý một cụm danh từ (the reduction of …, the introduction of …).",
+        "Lợi ích mong đợi (a fall in hospital admissions …)."
+      ],
+      "modelAnswer": "Air pollution in my city gets worse every winter. I would recommend three measures. First, the reduction of private cars in the city centre, with better buses. Second, an end to the burning of rubbish and rice straw near the city. Third, the planting of trees along the main roads. Together, these measures could lead to a fall in hospital admissions for children and older people."
+    }
+  },
+  "glosses": [
+    {
+      "text": "haze",
+      "lemma": "haze",
+      "meaningVi": "sương khói, bụi mờ",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a cloud of haze",
+      "phraseVi": "một màn sương khói"
+    },
+    {
+      "text": "correlation",
+      "lemma": "correlation",
+      "meaningVi": "mối tương quan",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "How strong is the correlation?",
+      "phraseVi": "Mối tương quan mạnh đến mức nào?"
+    },
+    {
+      "text": "pneumonia",
+      "lemma": "pneumonia",
+      "meaningVi": "viêm phổi",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "such as pneumonia",
+      "phraseVi": "như viêm phổi"
+    },
+    {
+      "text": "straw",
+      "lemma": "straw",
+      "meaningVi": "rơm rạ",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "the burning of rice straw",
+      "phraseVi": "việc đốt rơm rạ"
+    }
+  ]
+}

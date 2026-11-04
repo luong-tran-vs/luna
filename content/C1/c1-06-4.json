@@ -1,0 +1,603 @@
+{
+  "content": "The meeting room on the twelfth floor looks out over the Saigon River, but nobody is admiring the view. Quang, the export director of a cashew company from Binh Phuoc, is negotiating next year's contract with Ingrid, a buyer from a large Dutch food importer. Ha, a bilingual interpreter, sits beside Quang, although his English is good and he rarely needs her.\n\"Let's start with the price,\" Ingrid says. \"Will it go up again next season?\" \"I hope not,\" Quang replies. \"But the weather in the Central Highlands has been unusual, and the harvest may be smaller.\" \"Do you mean to imply that the price will rise?\" \"I'm not saying so yet. I'm saying that I can't promise it won't.\" Ingrid makes a note. She knows that in Vietnamese business culture a direct \"no\" is rare, and that a careful answer can convey more than the words themselves. \"In that case, I'd like a clause that protects us if the price changes by more than five percent.\" \"We're happy to discuss one,\" Quang says, \"as long as it protects both sides.\"\nThey move on to delivery. Ingrid reads from the draft: \"Goods will be shipped within a reasonable time.\" \"That's ambiguous. Reasonable for whom?\" Quang smiles. \"Fair point. What would you suggest?\" \"Within thirty days of each order.\" \"Thirty is difficult in the rainy season. Forty-five would be safer.\" \"Could we say thirty, or forty-five between July and September?\" Quang asks Ha to check the Vietnamese version, and she does so carefully. \"Yes, that works for us,\" he says at last. \"It's concise and clear.\"\n\"One more thing,\" Ingrid adds. \"Do you still plan to build the new processing plant?\" \"We plan to, but not until 2027.\" \"Will it be certified for organic products?\" \"I expect so. We've already applied.\" Ingrid nods. \"Then I think we're almost there. As we say in English, the ball is in your court.\" Ha leans over to translate the idiom, but Quang shakes his head and laughs. \"Thank you, Ha, but I understood that one.\" His fluency surprises Ingrid, and for the first time that morning the atmosphere relaxes.",
+  "targetWords": [
+    "bilingual",
+    "interpreter",
+    "imply",
+    "convey",
+    "ambiguous",
+    "concise",
+    "idiom",
+    "fluency"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "bilingual",
+        "lemma": "bilingual",
+        "meaningVi": "song ngữ",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "interpreter",
+        "lemma": "interpreter",
+        "meaningVi": "phiên dịch viên",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "imply",
+        "lemma": "imply",
+        "meaningVi": "ngụ ý, hàm ý",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "convey",
+        "lemma": "convey",
+        "meaningVi": "truyền tải",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "ambiguous",
+        "lemma": "ambiguous",
+        "meaningVi": "mơ hồ, có thể hiểu nhiều cách",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "concise",
+        "lemma": "concise",
+        "meaningVi": "ngắn gọn, súc tích",
+        "pos": "adjective",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "idiom",
+        "lemma": "idiom",
+        "meaningVi": "thành ngữ",
+        "pos": "noun",
+        "sentenceIndex": 37
+      },
+      {
+        "text": "fluency",
+        "lemma": "fluency",
+        "meaningVi": "sự lưu loát",
+        "pos": "noun",
+        "sentenceIndex": 39
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the meeting about?",
+        "promptVi": "Cuộc họp nói về điều gì?",
+        "options": [
+          "Quang and Ingrid are negotiating next year's cashew contract",
+          "Ingrid is interviewing Ha for a new job",
+          "Quang is selling his factory to a Dutch company",
+          "They are planning a trip to the Central Highlands"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang \"is negotiating next year's contract with Ingrid\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why might the price go up?",
+        "promptVi": "Vì sao giá có thể tăng?",
+        "options": [
+          "The factory is too old",
+          "The weather has been unusual and the harvest may be smaller",
+          "Ingrid wants more cashews",
+          "Shipping is more expensive in July"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quang nói \"the weather in the Central Highlands has been unusual, and the harvest may be smaller.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What delivery time do they finally agree on?",
+        "promptVi": "Cuối cùng họ thống nhất thời hạn giao hàng thế nào?",
+        "options": [
+          "Thirty days all year",
+          "Forty-five days all year",
+          "Thirty days, or forty-five between July and September",
+          "Within a reasonable time"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ingrid đề xuất \"thirty, or forty-five between July and September\" và Quang đồng ý."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quang needed Ha to explain the idiom.",
+        "promptVi": "Quang cần Hà giải thích thành ngữ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Quang nói \"I understood that one.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"ambiguous\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"That's ambiguous.",
+        "options": [
+          "mơ hồ",
+          "bất hợp pháp",
+          "quá đắt",
+          "ngắn gọn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"A reasonable time\" có thể hiểu nhiều cách, nên Ingrid nói nó ambiguous (mơ hồ)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Ellipsis in negotiation: I hope not, I expect so, we plan to",
+      "bodyVi": "Khi đàm phán, câu trả lời ngắn giúp ta vừa rõ vừa giữ khoảng lùi. So / not thay mệnh đề sau hope, expect, say: I hope not / I expect so / I'm not saying so yet. Giữ to, bỏ động từ: We plan to, but not until 2027. Rút gọn sau trợ động từ: I can't promise it won't. One thay danh từ: We're happy to discuss one (= a clause). Do so thay cụm động từ: she does so carefully.",
+      "examples": [
+        "\"I hope not,\" Quang replies.",
+        "I'm saying that I can't promise it won't.\"",
+        "\"We plan to, but not until 2027.\"",
+        "\"I expect so."
+      ]
+    },
+    "writingPrompt": "You are negotiating with a supplier. Write a short exchange in which you answer three difficult questions carefully, without saying a direct yes or no. Use at least three of: I hope not, I expect so, I'm afraid not, we plan to, do so, one.",
+    "sentenceTranslations": [
+      "Phòng họp ở tầng mười hai nhìn ra sông Sài Gòn, nhưng chẳng ai ngắm cảnh.",
+      "Quang, giám đốc xuất khẩu của một công ty hạt điều ở Bình Phước, đang đàm phán hợp đồng năm sau với Ingrid, nhân viên thu mua của một công ty nhập khẩu thực phẩm lớn của Hà Lan.",
+      "Hà, một phiên dịch viên song ngữ, ngồi cạnh Quang, dù tiếng Anh của anh khá tốt và hiếm khi cần đến cô.",
+      "Ingrid nói: \"Ta bắt đầu với giá nhé.",
+      "Mùa sau giá có tăng nữa không?\"",
+      "Quang đáp: \"Tôi mong là không.",
+      "Nhưng thời tiết ở Tây Nguyên thất thường, và vụ thu hoạch có thể nhỏ hơn.\"",
+      "\"Ông định ngụ ý rằng giá sẽ tăng sao?\"",
+      "\"Tôi chưa nói vậy.",
+      "Tôi chỉ nói là tôi không thể hứa rằng giá sẽ không tăng.\"",
+      "Ingrid ghi chép lại.",
+      "Chị biết rằng trong văn hoá kinh doanh Việt Nam, một lời \"không\" thẳng thừng rất hiếm, và một câu trả lời cẩn trọng có thể truyền tải nhiều hơn bản thân lời nói.",
+      "\"Nếu vậy, tôi muốn có một điều khoản bảo vệ chúng tôi nếu giá thay đổi quá năm phần trăm.\"",
+      "Quang nói: \"Chúng tôi sẵn lòng bàn về một điều khoản như vậy, miễn là nó bảo vệ cả hai bên.\"",
+      "Họ chuyển sang chuyện giao hàng.",
+      "Ingrid đọc từ bản dự thảo: \"Hàng sẽ được giao trong một khoảng thời gian hợp lý.\"",
+      "\"Câu này mơ hồ.",
+      "Hợp lý với ai?\"",
+      "Quang mỉm cười.",
+      "\"Chị nói có lý.",
+      "Chị đề xuất thế nào?\"",
+      "\"Trong vòng ba mươi ngày kể từ mỗi đơn hàng.\"",
+      "\"Ba mươi ngày thì khó vào mùa mưa.",
+      "Bốn mươi lăm ngày thì an toàn hơn.\"",
+      "\"Ta có thể ghi ba mươi ngày, hoặc bốn mươi lăm ngày trong khoảng tháng Bảy đến tháng Chín được không?\"",
+      "Quang nhờ Hà kiểm tra bản tiếng Việt, và cô làm việc đó rất cẩn thận.",
+      "Cuối cùng anh nói: \"Vâng, như vậy được với chúng tôi.",
+      "Ngắn gọn và rõ ràng.\"",
+      "Ingrid nói thêm: \"Còn một việc nữa.",
+      "Ông vẫn định xây nhà máy chế biến mới chứ?\"",
+      "\"Chúng tôi có kế hoạch đó, nhưng phải đến năm 2027.\"",
+      "\"Nhà máy có được chứng nhận cho sản phẩm hữu cơ không?\"",
+      "\"Tôi nghĩ là có.",
+      "Chúng tôi đã nộp hồ sơ rồi.\"",
+      "Ingrid gật đầu.",
+      "\"Vậy tôi nghĩ ta gần xong rồi.",
+      "Như người nói tiếng Anh hay nói, giờ đến lượt ông quyết định.\"",
+      "Hà nghiêng người sang để dịch thành ngữ đó, nhưng Quang lắc đầu và bật cười.",
+      "\"Cảm ơn Hà, nhưng câu đó thì tôi hiểu.\"",
+      "Sự lưu loát của anh khiến Ingrid ngạc nhiên, và lần đầu tiên trong buổi sáng hôm đó, bầu không khí dịu xuống."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trả lời khéo léo khi đàm phán bằng các câu rút gọn như I hope not, I expect so, we plan to và do so.",
+    "examples": [
+      {
+        "lemma": "bilingual",
+        "sentence": "The contract is bilingual, in Vietnamese and English.",
+        "meaningVi": "Hợp đồng được viết song ngữ, tiếng Việt và tiếng Anh."
+      },
+      {
+        "lemma": "interpreter",
+        "sentence": "Our interpreter joined the call from Hanoi.",
+        "meaningVi": "Phiên dịch viên của chúng tôi tham gia cuộc gọi từ Hà Nội."
+      },
+      {
+        "lemma": "imply",
+        "sentence": "His silence seemed to imply that he disagreed.",
+        "meaningVi": "Sự im lặng của anh ấy dường như ngụ ý rằng anh ấy không đồng ý."
+      },
+      {
+        "lemma": "convey",
+        "sentence": "Please convey our thanks to your team.",
+        "meaningVi": "Xin chuyển lời cảm ơn của chúng tôi tới nhóm của anh."
+      },
+      {
+        "lemma": "ambiguous",
+        "sentence": "We rewrote the ambiguous part of the agreement.",
+        "meaningVi": "Chúng tôi viết lại phần mơ hồ của thoả thuận."
+      },
+      {
+        "lemma": "concise",
+        "sentence": "Her summary of the deal was concise and accurate.",
+        "meaningVi": "Bản tóm tắt thương vụ của cô ấy ngắn gọn và chính xác."
+      },
+      {
+        "lemma": "idiom",
+        "sentence": "My Dutch partner explained the idiom with a drawing.",
+        "meaningVi": "Đối tác người Hà Lan giải thích thành ngữ đó bằng một hình vẽ."
+      },
+      {
+        "lemma": "fluency",
+        "sentence": "You need real fluency to negotiate in a second language.",
+        "meaningVi": "Cần nói thật lưu loát mới đàm phán được bằng ngôn ngữ thứ hai."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ha",
+        "Quang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Did you really understand that idiom?",
+          "meaningVi": "Anh hiểu thành ngữ đó thật à?"
+        },
+        {
+          "speaker": 1,
+          "text": "I did. I studied in Australia for two years, remember?",
+          "meaningVi": "Hiểu chứ. Anh học ở Úc hai năm mà, nhớ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'd forgotten. So why did you bring me?",
+          "meaningVi": "Em quên mất. Thế sao anh lại đưa em đi?"
+        },
+        {
+          "speaker": 1,
+          "text": "For the contract terms. Legal English isn't easy, even for fluent speakers.",
+          "meaningVi": "Để lo phần điều khoản hợp đồng. Tiếng Anh pháp lý không dễ, kể cả với người nói thạo."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you think she'll accept forty-five days?",
+          "meaningVi": "Anh có nghĩ chị ấy sẽ chấp nhận bốn mươi lăm ngày không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I think so. She seemed happy with it.",
+          "meaningVi": "Anh nghĩ là có. Chị ấy có vẻ hài lòng."
+        },
+        {
+          "speaker": 0,
+          "text": "And the price clause? Will she send a draft?",
+          "meaningVi": "Còn điều khoản giá? Chị ấy có gửi bản dự thảo không?"
+        },
+        {
+          "speaker": 1,
+          "text": "She promised to, by Friday.",
+          "meaningVi": "Chị ấy hứa sẽ gửi, trước thứ Sáu."
+        },
+        {
+          "speaker": 0,
+          "text": "Shall I translate it for the board?",
+          "meaningVi": "Em dịch cho hội đồng quản trị nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. Could you do so before Monday's meeting?",
+          "meaningVi": "Ừ, nhờ em. Em làm trước cuộc họp thứ Hai được không?"
+        }
+      ]
+    },
+    "grammarTipVi": "I think so: so thay cho \"she'll accept forty-five days\". She promised to: giữ to, bỏ \"send a draft\". Could you do so: do so thay cho \"translate it for the board\".",
+    "translations": [
+      {
+        "vi": "Ông định ngụ ý rằng giá sẽ tăng sao?",
+        "en": "Do you mean to imply that the price will rise?",
+        "distractors": [
+          "implies",
+          "rose",
+          "means"
+        ],
+        "accepted": [
+          "Do you mean to imply the price will rise?"
+        ]
+      },
+      {
+        "vi": "Điều khoản đó mơ hồ.",
+        "en": "That clause is ambiguous.",
+        "distractors": [
+          "clear",
+          "are",
+          "ambiguity"
+        ]
+      },
+      {
+        "vi": "Một câu trả lời cẩn trọng có thể truyền tải nhiều hơn lời nói.",
+        "en": "A careful answer can convey more than words.",
+        "distractors": [
+          "carefully",
+          "conveys",
+          "less"
+        ]
+      },
+      {
+        "vi": "Cô phiên dịch viên ngồi cạnh Quang.",
+        "en": "The interpreter sits beside Quang.",
+        "distractors": [
+          "behind",
+          "interprets",
+          "sitting"
+        ]
+      },
+      {
+        "vi": "Sự lưu loát của Quang làm Ingrid ngạc nhiên.",
+        "en": "Quang's fluency surprises Ingrid.",
+        "distractors": [
+          "fluent",
+          "surprising",
+          "of"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hà và Quang nói chuyện khi nào?",
+        "promptVi": "",
+        "options": [
+          "Sau cuộc đàm phán với Ingrid",
+          "Trước khi gặp Ingrid",
+          "Trong chuyến đi Úc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người bàn lại thành ngữ, thời hạn giao hàng và điều khoản giá vừa thảo luận.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Quang vẫn đưa Hà đi cùng?",
+        "promptVi": "",
+        "options": [
+          "Để lo phần điều khoản hợp đồng",
+          "Để dịch thành ngữ",
+          "Để ghi chép giá"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang nói \"For the contract terms. Legal English isn't easy.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Ingrid gửi bản dự thảo điều khoản giá?",
+        "promptVi": "",
+        "options": [
+          "Trước thứ Sáu",
+          "Thứ Hai",
+          "Tháng sau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang nói \"She promised to, by Friday.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quang thinks Ingrid will refuse forty-five days.",
+        "promptVi": "Quang nghĩ Ingrid sẽ từ chối bốn mươi lăm ngày.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Quang nói \"I think so. She seemed happy with it.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Quang trả lời những câu hỏi khó về giá, giao hàng và nhà máy mới như thế nào mà không nói thẳng \"có\" hay \"không\"?",
+    "grammarStep": {
+      "titleVi": "Rút gọn khi đàm phán: so / not, to, trợ động từ",
+      "noticing": [
+        {
+          "sentence": "\"I hope not,\" Quang replies.",
+          "highlights": [
+            "hope not"
+          ]
+        },
+        {
+          "sentence": "\"I'm not saying so yet.",
+          "highlights": [
+            "saying so"
+          ]
+        },
+        {
+          "sentence": "I'm saying that I can't promise it won't.\"",
+          "highlights": [
+            "it won't"
+          ]
+        },
+        {
+          "sentence": "\"We plan to, but not until 2027.\"",
+          "highlights": [
+            "We plan to",
+            "not until 2027"
+          ]
+        },
+        {
+          "sentence": "\"I expect so.",
+          "highlights": [
+            "expect so"
+          ]
+        }
+      ],
+      "questionVi": "Ingrid hỏi \"Do you still plan to build the new plant?\" Quang muốn nói \"có, nhưng phải đến 2027\". Câu nào đúng?",
+      "options": [
+        "We plan to, but not until 2027.",
+        "We plan, but not until 2027.",
+        "We plan it, but not until 2027."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Plan + to-infinitive; khi bỏ động từ phải giữ to: We plan to.",
+      "whenVi": "Dùng khi trả lời câu hỏi nhạy cảm một cách ngắn gọn, lịch sự, không lặp lại cả câu và không cam kết quá mức.",
+      "table": [
+        {
+          "subject": "hope / expect / be afraid + so / not",
+          "form": "I expect so. / I hope not. / I'm afraid not.",
+          "negative": "I don't expect so = I expect not (trang trọng hơn)"
+        },
+        {
+          "subject": "plan / want / promise + to",
+          "form": "We plan to. / She promised to.",
+          "negative": "We don't plan to. / We'd prefer not to."
+        },
+        {
+          "subject": "trợ động từ thay cụm động từ",
+          "form": "I can't promise it won't.",
+          "negative": "Trợ động từ theo thì của câu trước: will … won't"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We plan, but not until 2027.",
+          "right": "We plan to, but not until 2027."
+        },
+        {
+          "wrong": "Will the price rise? – I don't hope so.",
+          "right": "Will the price rise? – I hope not."
+        },
+        {
+          "wrong": "Will it be certified? – I expect it.",
+          "right": "Will it be certified? – I expect so."
+        }
+      ],
+      "noteVi": "\"not until 2027\" cũng là lược bỏ: đầy đủ là \"we won't build it until 2027\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Will the harvest be smaller this year? – I'm afraid ___.",
+          "answers": [
+            "so"
+          ],
+          "explanationVi": "Quang e là vụ thu hoạch nhỏ hơn thật: I'm afraid so."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Do you plan to open an office in Rotterdam? – We hope ___, next year.",
+          "options": [
+            "to",
+            "so to",
+            "it",
+            "for"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Hope + to; bỏ \"open an office\" nhưng giữ to."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Will it be certified for organic products? – I expect it.",
+          "sentence": "Will it be certified for organic products? – I expect so.",
+          "explanationVi": "So thay cho mệnh đề \"it will be certified\", không dùng it."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi không thể hứa rằng giá sẽ không tăng.",
+          "sentence": "I can't promise that it won't.",
+          "words": [
+            "I",
+            "can't",
+            "promise",
+            "that",
+            "it",
+            "won't.",
+            "so"
+          ],
+          "explanationVi": "Won't thay cho \"won't go up\"; từ \"so\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"We plan to, but not until 2027.\"",
+        "tipVi": "Nhấn vào plan và not until; to đọc nhẹ /tuː/ ở cuối cụm."
+      },
+      {
+        "text": "I'm saying that I can't promise it won't.\"",
+        "tipVi": "can't /kɑːnt/ và won't /wəʊnt/ đều nhấn mạnh."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you find it easy to say \"no\" directly at work?",
+        "questionVi": "Bạn có thấy dễ nói \"không\" thẳng thắn ở nơi làm việc không?",
+        "frame": "I'm afraid not. Usually I say ___ instead."
+      },
+      {
+        "question": "Will prices in your city go up next year?",
+        "questionVi": "Giá cả ở thành phố bạn năm sau có tăng không?",
+        "frame": "I expect so / I hope not, because ___."
+      },
+      {
+        "question": "Do you plan to use English in your job in the future?",
+        "questionVi": "Bạn có định dùng tiếng Anh trong công việc tương lai không?",
+        "frame": "I plan to, because ___. / I don't plan to, because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu rút gọn (I hope not, I expect so, plan to, do so …)",
+      "anyOf": [
+        "hope not",
+        "expect so",
+        "afraid not",
+        "afraid so",
+        "plan to",
+        "promised to",
+        "do so",
+        "so",
+        "not"
+      ],
+      "outlineVi": [
+        "Đối tác hỏi về giá: trả lời bằng I hope not / I expect so.",
+        "Đối tác hỏi về kế hoạch: We plan to, but …",
+        "Đề nghị một bước tiếp theo bằng do so."
+      ],
+      "modelAnswer": "\"Will delivery times get longer next year?\" \"I hope not, but the new port rules may slow us down.\" \"Will you still offer free samples?\" \"I expect so, for orders above one container.\" \"Do you plan to open a warehouse in Europe?\" \"We plan to, but not before 2028. If we do so, we'll tell you first.\""
+    }
+  },
+  "glosses": [
+    {
+      "text": "clause",
+      "lemma": "clause",
+      "meaningVi": "điều khoản",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "a clause that protects us",
+      "phraseVi": "một điều khoản bảo vệ chúng tôi"
+    },
+    {
+      "text": "shipped",
+      "lemma": "ship",
+      "meaningVi": "vận chuyển, giao (hàng)",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "Goods will be shipped within a reasonable time.",
+      "phraseVi": "Hàng sẽ được giao trong thời gian hợp lý."
+    },
+    {
+      "text": "certified",
+      "lemma": "certify",
+      "meaningVi": "được chứng nhận",
+      "sentenceIndex": 31,
+      "pos": "verb",
+      "phrase": "certified for organic products",
+      "phraseVi": "được chứng nhận cho sản phẩm hữu cơ"
+    },
+    {
+      "text": "the ball is in your court",
+      "lemma": "the ball is in your court",
+      "meaningVi": "đến lượt bạn quyết định (thành ngữ)",
+      "sentenceIndex": 36,
+      "pos": "phrase",
+      "phrase": "the ball is in your court",
+      "phraseVi": "giờ đến lượt ông quyết định"
+    }
+  ]
+}

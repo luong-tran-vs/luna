@@ -1,0 +1,611 @@
+{
+  "content": "On Thursday afternoon, the executive board of Song Hong Insurance gathers in a glass meeting room on the twelfth floor of its Hanoi headquarters. Hieu, the company's IT security director, has been asked to explain what happened over the weekend, when customers began receiving strange emails that appeared to come from the company. Most of the board members have never dealt with anything like this before, and the mood in the room is tense. Nobody touches the coffee that has been placed on the table.\n\n\"Let me start with what we know,\" Hieu says, opening his first slide. \"At around two o'clock on Saturday morning, someone logged into our system using a manager's password. It is thought that the hackers accessed three internal servers before our team noticed anything unusual. They are believed to have copied the personal details of about forty thousand customers.\"\n\nMs Trang, the chief executive, frowns. \"Was any money taken?\"\n\"Not as far as we can tell. This wasn't a robbery in the usual sense, but it was still a serious crime. The criminals didn't want cash; they wanted data, which they can sell or use to steal from our customers later.\"\n\n\"Who is behind it?\" asks Quang, the finance director.\n\"The group is said to be based overseas, and they are reported to have attacked two banks in the region this year. I've already informed the police, and their cybercrime unit has opened an investigation. However, they have warned me that arrests are unlikely in the near future. But a burglar who never touches your door is very hard to catch.\"\n\nMs Trang leans forward. \"What do you recommend?\"\n\"First, I suggest that the board update all system credentials today, including your own. Second, I recommend that every employee use two-step login from Monday. And I insist that we inform our customers this week, before the newspapers do.\"\n\nQuang is not convinced. \"If we announce it, won't we look careless? Some customers might take us to court.\"\n\"They might,\" Hieu admits. \"But under the new data protection law, companies must report a breach within seventy-two hours. If we hide it, the fines will be much heavier, and in serious cases, managers can even face prison.\"\n\nThere is a long silence. Finally, Ms Trang speaks. \"Then we'll do it properly. A thief has walked through our system once, and it must not happen again.\"\n\nQuang slowly nods, and Hieu closes his laptop with obvious relief.",
+  "targetWords": [
+    "law",
+    "crime",
+    "criminal",
+    "police",
+    "thief",
+    "steal",
+    "robbery",
+    "burglar",
+    "prison",
+    "court"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "robbery",
+        "lemma": "robbery",
+        "meaningVi": "vụ cướp",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "crime",
+        "lemma": "crime",
+        "meaningVi": "tội phạm, hành vi phạm tội",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "criminals",
+        "lemma": "criminal",
+        "meaningVi": "bọn tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "steal",
+        "lemma": "steal",
+        "meaningVi": "lấy cắp",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "police",
+        "lemma": "police",
+        "meaningVi": "cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "burglar",
+        "lemma": "burglar",
+        "meaningVi": "kẻ trộm đột nhập",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "court",
+        "lemma": "court",
+        "meaningVi": "toà án",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "luật",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "thief",
+        "lemma": "thief",
+        "meaningVi": "kẻ trộm",
+        "pos": "noun",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Hieu explaining to the board?",
+        "promptVi": "Hiếu đang giải thích điều gì với ban lãnh đạo?",
+        "options": [
+          "A cyber attack on the company's system",
+          "A robbery at a bank branch",
+          "A new insurance product",
+          "Why customers stopped buying insurance"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu báo cáo vụ tin tặc xâm nhập hệ thống và sao chép dữ liệu khách hàng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did the hackers get into the system?",
+        "promptVi": "Tin tặc đã vào hệ thống bằng cách nào?",
+        "options": [
+          "They broke the door of the server room.",
+          "They used a manager's password.",
+          "They paid an employee.",
+          "They sent money to the bank."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"someone logged into our system using a manager's password.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Hieu suggest that the board do today?",
+        "promptVi": "Hiếu đề nghị ban lãnh đạo làm gì ngay hôm nay?",
+        "options": [
+          "Call the newspapers",
+          "Close the Hanoi office",
+          "Take the hackers to court",
+          "Update all system credentials"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "\"I suggest that the board update all system credentials today, including your own.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hieu has already reported the attack to the police.",
+        "promptVi": "Hiếu đã báo vụ tấn công cho cảnh sát.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Hiếu nói \"I've already informed the police\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"credentials\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I suggest that the board update all system credentials today\"",
+        "options": [
+          "thông tin đăng nhập",
+          "máy chủ",
+          "khách hàng",
+          "hoá đơn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Credentials ở đây là tên đăng nhập, mật khẩu dùng để vào hệ thống."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động tường thuật và thức giả định",
+      "bodyVi": "Khi báo cáo một sự cố mà chưa chắc chắn, Hiếu dùng bị động tường thuật: It is thought that + mệnh đề (It is thought that the hackers accessed …) hoặc chủ ngữ + is believed / said / reported + to V / to have V3 (They are believed to have copied … / The group is said to be based overseas). Khi đưa ra đề xuất, anh dùng thức giả định: suggest / recommend / insist that + chủ ngữ + động từ nguyên mẫu, không chia theo chủ ngữ: I suggest that the board update … / I recommend that every employee use …",
+      "examples": [
+        "It is thought that the hackers accessed three internal servers before our team noticed anything unusual.",
+        "They are believed to have copied the personal details of about forty thousand customers.\"",
+        "\"First, I suggest that the board update all system credentials today, including your own."
+      ]
+    },
+    "writingPrompt": "Write a short report to your manager about a security problem (a stolen laptop, a fake email, a lost key card). Say what is thought to have happened, and make at least two recommendations with suggest / recommend that + base verb.",
+    "sentenceTranslations": [
+      "Chiều thứ Năm, ban điều hành của Bảo hiểm Sông Hồng họp trong một phòng họp kính trên tầng mười hai của trụ sở chính ở Hà Nội.",
+      "Hiếu, giám đốc an ninh công nghệ thông tin của công ty, được yêu cầu giải thích chuyện đã xảy ra vào cuối tuần, khi khách hàng bắt đầu nhận được những email lạ có vẻ như do công ty gửi.",
+      "Hầu hết thành viên ban điều hành chưa từng gặp chuyện như thế này, và không khí trong phòng rất căng thẳng.",
+      "Không ai đụng đến cà phê đã được đặt sẵn trên bàn.",
+      "Hiếu nói, mở trang trình chiếu đầu tiên: \"Tôi xin bắt đầu từ những gì chúng ta đã biết.",
+      "Khoảng hai giờ sáng thứ Bảy, có người đã đăng nhập vào hệ thống của chúng ta bằng mật khẩu của một quản lý.",
+      "Người ta cho rằng bọn tin tặc đã truy cập ba máy chủ nội bộ trước khi đội của chúng tôi phát hiện điều bất thường.",
+      "Chúng được cho là đã sao chép thông tin cá nhân của khoảng bốn mươi nghìn khách hàng.\"",
+      "Chị Trang, tổng giám đốc, cau mày.",
+      "\"Có mất tiền không?\"",
+      "\"Theo những gì chúng tôi biết thì không.",
+      "Đây không phải một vụ cướp theo nghĩa thông thường, nhưng vẫn là một tội nghiêm trọng.",
+      "Bọn tội phạm không cần tiền mặt; chúng cần dữ liệu, thứ chúng có thể bán hoặc dùng để lấy cắp tiền của khách hàng chúng ta sau này.\"",
+      "Quang, giám đốc tài chính, hỏi: \"Ai đứng sau chuyện này?\"",
+      "\"Nhóm này được cho là hoạt động ở nước ngoài, và theo tin đưa, năm nay chúng đã tấn công hai ngân hàng trong khu vực.",
+      "Tôi đã báo cho cảnh sát, và đơn vị phòng chống tội phạm mạng của họ đã mở cuộc điều tra.",
+      "Tuy nhiên, họ đã cảnh báo tôi rằng khó có thể bắt được ai trong thời gian tới.",
+      "Nhưng một tên trộm chẳng bao giờ chạm vào cửa nhà mình thì rất khó bắt.\"",
+      "Chị Trang nghiêng người về phía trước.",
+      "\"Anh đề xuất gì?\"",
+      "\"Thứ nhất, tôi đề nghị ban lãnh đạo đổi toàn bộ thông tin đăng nhập hệ thống ngay hôm nay, kể cả của chính các anh chị.",
+      "Thứ hai, tôi đề nghị từ thứ Hai mọi nhân viên dùng đăng nhập hai bước.",
+      "Và tôi kiên quyết đề nghị chúng ta thông báo cho khách hàng trong tuần này, trước khi báo chí đưa tin.\"",
+      "Quang vẫn chưa bị thuyết phục.",
+      "\"Nếu mình công bố, mình sẽ trông cẩu thả lắm phải không?",
+      "Một số khách hàng có thể kiện mình ra toà.\"",
+      "Hiếu thừa nhận: \"Có thể.",
+      "Nhưng theo luật bảo vệ dữ liệu mới, các công ty phải báo cáo sự cố rò rỉ trong vòng bảy mươi hai giờ.",
+      "Nếu mình che giấu, tiền phạt sẽ nặng hơn nhiều, và trong trường hợp nghiêm trọng, người quản lý thậm chí có thể phải ngồi tù.\"",
+      "Cả phòng im lặng rất lâu.",
+      "Cuối cùng, chị Trang lên tiếng.",
+      "\"Vậy thì mình sẽ làm cho đúng.",
+      "Kẻ trộm đã đi xuyên qua hệ thống của mình một lần rồi, và chuyện đó không được phép xảy ra lần nữa.\"",
+      "Quang chậm rãi gật đầu, và Hiếu gập máy tính lại, nhẹ cả người."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể báo cáo một sự cố an ninh khi chưa chắc chắn (it is thought that …, they are believed to have …) và đưa ra đề xuất trang trọng (I suggest that + S + V nguyên mẫu).",
+    "examples": [
+      {
+        "lemma": "law",
+        "sentence": "The new law protects people's personal data.",
+        "meaningVi": "Luật mới bảo vệ dữ liệu cá nhân của mọi người."
+      },
+      {
+        "lemma": "crime",
+        "sentence": "Online crime is growing faster than street crime.",
+        "meaningVi": "Tội phạm trên mạng đang tăng nhanh hơn tội phạm đường phố."
+      },
+      {
+        "lemma": "criminal",
+        "sentence": "A clever criminal can hide behind a fake account.",
+        "meaningVi": "Một tên tội phạm khôn ngoan có thể núp sau một tài khoản giả."
+      },
+      {
+        "lemma": "police",
+        "sentence": "The police traced the email back to another country.",
+        "meaningVi": "Cảnh sát lần ra email đó được gửi từ một nước khác."
+      },
+      {
+        "lemma": "thief",
+        "sentence": "The thief used my card to buy plane tickets.",
+        "meaningVi": "Kẻ trộm đã dùng thẻ của tôi để mua vé máy bay."
+      },
+      {
+        "lemma": "steal",
+        "sentence": "Hackers try to steal passwords with fake websites.",
+        "meaningVi": "Tin tặc tìm cách lấy cắp mật khẩu bằng các trang web giả."
+      },
+      {
+        "lemma": "robbery",
+        "sentence": "The bank robbery was filmed by three cameras.",
+        "meaningVi": "Vụ cướp ngân hàng đã bị ba camera quay lại."
+      },
+      {
+        "lemma": "burglar",
+        "sentence": "The burglar escaped through the back door.",
+        "meaningVi": "Tên trộm đột nhập đã trốn thoát qua cửa sau."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "The hacker was sent to prison for six years.",
+        "meaningVi": "Tên tin tặc bị kết án sáu năm tù."
+      },
+      {
+        "lemma": "court",
+        "sentence": "The customers decided to take the bank to court.",
+        "meaningVi": "Các khách hàng quyết định kiện ngân hàng ra toà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Hieu"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hieu, how did the board react to the news?",
+          "meaningVi": "Anh Hiếu, ban lãnh đạo phản ứng thế nào với tin này?"
+        },
+        {
+          "speaker": 1,
+          "text": "They were shocked, but they accepted my plan. Ms Trang insists that we finish the password changes by tonight.",
+          "meaningVi": "Họ sốc, nhưng đã chấp nhận kế hoạch của anh. Chị Trang yêu cầu mình đổi xong mật khẩu trước tối nay."
+        },
+        {
+          "speaker": 0,
+          "text": "By tonight? Is that realistic for four hundred staff?",
+          "meaningVi": "Trước tối nay ạ? Với bốn trăm nhân viên thì có khả thi không anh?"
+        },
+        {
+          "speaker": 1,
+          "text": "It has to be. I suggest that you send the instructions to every department now.",
+          "meaningVi": "Phải khả thi thôi. Anh đề nghị em gửi hướng dẫn cho tất cả các phòng ngay bây giờ."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Is it true that the group is thought to have attacked two banks?",
+          "meaningVi": "Vâng. Có đúng là nhóm đó được cho là đã tấn công hai ngân hàng không anh?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. According to the police, they are believed to be the same people.",
+          "meaningVi": "Đúng. Theo cảnh sát, người ta tin rằng đó là cùng một nhóm."
+        },
+        {
+          "speaker": 0,
+          "text": "Do we know how they got the manager's password?",
+          "meaningVi": "Mình có biết chúng lấy được mật khẩu của quản lý bằng cách nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "It is thought that he clicked a link in a fake email last month.",
+          "meaningVi": "Người ta cho rằng tháng trước anh ấy đã bấm vào một đường link trong email giả."
+        },
+        {
+          "speaker": 0,
+          "text": "Then I recommend that we train everyone to recognise those emails.",
+          "meaningVi": "Vậy em đề nghị mình tập huấn cho mọi người cách nhận ra những email như thế."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Let's not wait; plan the first session for Monday.",
+          "meaningVi": "Ý hay đấy. Đừng chờ nữa; lên kế hoạch buổi đầu tiên vào thứ Hai đi."
+        }
+      ]
+    },
+    "grammarTipVi": "Bị động tường thuật: the group is thought to have attacked … / they are believed to be … / It is thought that he clicked … Thức giả định: Ms Trang insists that we finish … / I suggest that you send … / I recommend that we train …",
+    "translations": [
+      {
+        "vi": "Người ta cho rằng bọn tội phạm đã truy cập ba máy chủ.",
+        "en": "It is thought that the criminals accessed three servers.",
+        "distractors": [
+          "thinking",
+          "accesses",
+          "four"
+        ],
+        "accepted": [
+          "It is thought the criminals accessed three servers."
+        ]
+      },
+      {
+        "vi": "Người ta tin rằng chúng chuyên lấy cắp dữ liệu từ các ngân hàng.",
+        "en": "They are believed to steal data from banks.",
+        "distractors": [
+          "stealing",
+          "believing",
+          "stole"
+        ]
+      },
+      {
+        "vi": "Tôi đề nghị chúng ta báo cho cảnh sát ngay hôm nay.",
+        "en": "I suggest that we inform the police today.",
+        "distractors": [
+          "informs",
+          "suggesting",
+          "fire"
+        ],
+        "accepted": [
+          "I suggest we inform the police today."
+        ]
+      },
+      {
+        "vi": "Trong trường hợp nghiêm trọng, người quản lý có thể phải ngồi tù.",
+        "en": "In serious cases, managers can face prison.",
+        "distractors": [
+          "facing",
+          "court",
+          "free"
+        ],
+        "accepted": [
+          "Managers can face prison in serious cases."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh và Hiếu nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Các bước xử lý sau vụ tấn công mạng",
+          "Lịch họp của ban lãnh đạo",
+          "Việc tuyển thêm nhân viên mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn việc đổi mật khẩu, gửi hướng dẫn và tập huấn nhận diện email giả.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Trang yêu cầu đổi xong mật khẩu khi nào?",
+        "promptVi": "",
+        "options": [
+          "Trước tối nay",
+          "Trước thứ Hai",
+          "Trong tháng này"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu nói \"Ms Trang insists that we finish the password changes by tonight.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Người quản lý được cho là đã làm lộ mật khẩu như thế nào?",
+        "promptVi": "",
+        "options": [
+          "Bấm vào link trong một email giả",
+          "Viết mật khẩu lên giấy",
+          "Đưa mật khẩu cho đồng nghiệp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu nói \"It is thought that he clicked a link in a fake email last month.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh suggests training everyone to recognise fake emails.",
+        "promptVi": "Linh đề nghị tập huấn cho mọi người cách nhận ra email giả.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Linh nói \"I recommend that we train everyone to recognise those emails.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Hiếu biết chắc điều gì và chỉ phỏng đoán điều gì về vụ tấn công? Anh đề xuất những bước nào, và vì sao Quang lo lắng?",
+    "grammarStep": {
+      "titleVi": "Bị động tường thuật và thức giả định",
+      "noticing": [
+        {
+          "sentence": "It is thought that the hackers accessed three internal servers before our team noticed anything unusual.",
+          "highlights": [
+            "It is thought that"
+          ]
+        },
+        {
+          "sentence": "They are believed to have copied the personal details of about forty thousand customers.\"",
+          "highlights": [
+            "are believed to have copied"
+          ]
+        },
+        {
+          "sentence": "\"First, I suggest that the board update all system credentials today, including your own.",
+          "highlights": [
+            "suggest that the board update"
+          ]
+        },
+        {
+          "sentence": "Second, I recommend that every employee use two-step login from Monday.",
+          "highlights": [
+            "recommend that every employee use"
+          ]
+        }
+      ],
+      "questionVi": "Người ta tin rằng bọn tin tặc đã sao chép dữ liệu. Câu nào đúng?",
+      "options": [
+        "The hackers are believed to have copied the data.",
+        "The hackers are believed to copying the data.",
+        "The hackers believe to have copied the data."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc sao chép đã xảy ra trước, nên dùng are believed + to have + V3.",
+      "whenVi": "Bị động tường thuật dùng khi báo cáo điều chưa được xác nhận; thức giả định dùng khi đưa ra đề xuất, yêu cầu trang trọng trong cuộc họp hay văn bản.",
+      "table": [
+        {
+          "subject": "It is thought that + mệnh đề",
+          "form": "It is thought that the hackers accessed three servers.",
+          "negative": "It is not thought that any money was taken."
+        },
+        {
+          "subject": "S + is believed + to have V3",
+          "form": "They are believed to have copied the data.",
+          "negative": "They are not believed to have taken any money."
+        },
+        {
+          "subject": "suggest / recommend that + S + V nguyên mẫu",
+          "form": "I suggest that the board update all credentials.",
+          "negative": "I suggest that staff not open strange links."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They are believed to copy the data last weekend.",
+          "right": "They are believed to have copied the data last weekend."
+        },
+        {
+          "wrong": "I suggest the board to update all credentials.",
+          "right": "I suggest that the board update all credentials."
+        }
+      ],
+      "noteVi": "Hai cấu trúc hay đi cùng nhau trong báo cáo: trước nêu điều được cho là đã xảy ra, sau nêu điều được đề xuất làm.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một động từ vào chỗ trống.",
+          "text": "I suggest that every manager ___ his or her password today.",
+          "answers": [
+            "change",
+            "update"
+          ],
+          "explanationVi": "Sau suggest that dùng động từ nguyên mẫu, không thêm -s."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The group ___ to have attacked two banks this year.",
+          "options": [
+            "is reported",
+            "reports",
+            "is reporting",
+            "has reported"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bị động tường thuật: is reported + to have + V3."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The hackers are thought to have access three servers.",
+          "sentence": "The hackers are thought to have accessed three servers.",
+          "explanationVi": "Sau to have phải là V3: accessed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đề nghị mọi nhân viên đổi mật khẩu của mình.",
+          "sentence": "I recommend that every employee change their password.",
+          "words": [
+            "I",
+            "recommend",
+            "that",
+            "every",
+            "employee",
+            "change",
+            "their",
+            "password.",
+            "changes"
+          ],
+          "explanationVi": "recommend that + S + V nguyên mẫu; từ \"changes\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "This wasn't a robbery in the usual sense, but it was still a serious crime.",
+        "tipVi": "wasn't /ˈwɒznt/; robbery /ˈrɒbəri/ nhấn âm đầu; serious crime đọc nối."
+      },
+      {
+        "text": "Second, I recommend that every employee use two-step login from Monday.",
+        "tipVi": "recommend /ˌrekəˈmend/ nhấn âm cuối; employee /ɪmˈplɔɪiː/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever received a fake email or message? What did it ask you to do?",
+        "questionVi": "Bạn đã bao giờ nhận email hay tin nhắn lừa đảo chưa? Nó yêu cầu bạn làm gì?",
+        "frame": "Once I received ___. It asked me to ___."
+      },
+      {
+        "question": "What would you recommend that a small company do to protect its data?",
+        "questionVi": "Bạn sẽ đề nghị một công ty nhỏ làm gì để bảo vệ dữ liệu?",
+        "frame": "I would recommend that they ___. I'd also suggest that ___."
+      },
+      {
+        "question": "Should a company always tell its customers about a data breach? Why?",
+        "questionVi": "Công ty có nên luôn báo cho khách hàng khi bị lộ dữ liệu không? Vì sao?",
+        "frame": "I think a company should ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động tường thuật hoặc thức giả định (it is thought that … / I suggest that + S + V)",
+      "anyOf": [
+        "it is thought that",
+        "it is believed that",
+        "is thought to",
+        "is believed to",
+        "are believed to",
+        "are thought to",
+        "suggest that",
+        "recommend that",
+        "insist that"
+      ],
+      "outlineVi": [
+        "Chuyện gì được cho là đã xảy ra (it is thought that … / is believed to have …).",
+        "Hậu quả hoặc thiệt hại đến lúc này.",
+        "Hai đề xuất bằng suggest / recommend that + S + V nguyên mẫu."
+      ],
+      "modelAnswer": "Dear Ms Lan, last Friday a laptop was taken from the sales office. It is thought that the thief entered the building with a group of visitors. The laptop is believed to contain the contact details of about two hundred customers. I have already reported the theft to the police. I suggest that every visitor be given a badge at reception, and I recommend that all laptops use a password. Best regards, Duy."
+    }
+  },
+  "glosses": [
+    {
+      "text": "accessed",
+      "lemma": "access",
+      "meaningVi": "truy cập",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "the hackers accessed three internal servers",
+      "phraseVi": "bọn tin tặc đã truy cập ba máy chủ nội bộ"
+    },
+    {
+      "text": "overseas",
+      "lemma": "overseas",
+      "meaningVi": "ở nước ngoài",
+      "sentenceIndex": 14,
+      "pos": "adverb",
+      "phrase": "is said to be based overseas",
+      "phraseVi": "được cho là hoạt động ở nước ngoài"
+    },
+    {
+      "text": "credentials",
+      "lemma": "credentials",
+      "meaningVi": "thông tin đăng nhập",
+      "sentenceIndex": 20,
+      "pos": "noun",
+      "phrase": "update all system credentials",
+      "phraseVi": "đổi toàn bộ thông tin đăng nhập hệ thống"
+    },
+    {
+      "text": "breach",
+      "lemma": "breach",
+      "meaningVi": "sự cố rò rỉ, xâm phạm (dữ liệu)",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "report a breach within seventy-two hours",
+      "phraseVi": "báo cáo sự cố rò rỉ trong vòng bảy mươi hai giờ"
+    }
+  ]
+}

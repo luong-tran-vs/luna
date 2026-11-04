@@ -1,0 +1,638 @@
+{
+  "content": "In a quiet staff room at a university in Da Nang, two psychology lecturers, Dr Quynh and Dr Bao, were preparing a seminar for their third-year students. Their case study was a real accident from the previous year. A delivery driver had been hit by a car on a busy street at rush hour, and he lay unconscious on the road for almost seven minutes. Dozens of people stopped to watch, and several filmed the scene on their phones, but nobody called an ambulance.\n\n\"The students will want to blame the crowd,\" Dr Bao said. \"Online, everyone called them heartless.\"\n\n\"I know, but the research tells a different story,\" Dr Quynh replied. \"It wasn't a lack of empathy that kept those people still. It was diffusion of responsibility that reduced individual intervention. When many people are present, each person seems to feel only a small share of the duty to act.\"\n\n\"So everyone assumed that someone else had already phoned for help?\"\n\n\"Exactly. There's also a cognitive trap called pluralistic ignorance. Our perception of an emergency depends heavily on the people around us. If every peer looks calm, we tend to decide that the situation can't be serious. Of course, they all look calm because they are watching each other.\"\n\nDr Bao frowned. \"Then who finally helped him?\"\n\n\"It was a retired nurse who pushed through the crowd. She later told a reporter that her instinct simply took over. Training appears to matter more than any personality trait. People who know first aid are more likely to step forward, perhaps because they trust their own judgement and worry less about embarrassment. Some studies link this confidence to higher self-esteem.\"\n\n\"And the driver?\"\n\n\"He survived, although he needed months of physical treatment and later saw a therapist for the trauma. His resilience has been remarkable; he's back at work now.\"\n\nDr Bao wrote a question on the whiteboard for the seminar: \"Would you have helped?\" \"Most of them will say yes,\" he said. \"What I want them to understand is that this belief is itself a bias. The best protection is simple: if you see an accident, point at one person and say, 'You, call an ambulance.'\"",
+  "targetWords": [
+    "cognitive",
+    "perception",
+    "bias",
+    "self-esteem",
+    "trauma",
+    "therapist",
+    "resilience",
+    "empathy",
+    "unconscious",
+    "instinct",
+    "peer",
+    "trait"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cognitive",
+        "lemma": "cognitive",
+        "meaningVi": "thuộc về nhận thức",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "perception",
+        "lemma": "perception",
+        "meaningVi": "cách nhìn nhận",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "bias",
+        "lemma": "bias",
+        "meaningVi": "thiên kiến",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "self-esteem",
+        "lemma": "self-esteem",
+        "meaningVi": "lòng tự tôn",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "trauma",
+        "lemma": "trauma",
+        "meaningVi": "sang chấn tâm lý",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "therapist",
+        "lemma": "therapist",
+        "meaningVi": "chuyên gia trị liệu tâm lý",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "resilience",
+        "lemma": "resilience",
+        "meaningVi": "sự kiên cường",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "empathy",
+        "lemma": "empathy",
+        "meaningVi": "sự thấu cảm",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "unconscious",
+        "lemma": "unconscious",
+        "meaningVi": "bất tỉnh",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "instinct",
+        "lemma": "instinct",
+        "meaningVi": "bản năng",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "peer",
+        "lemma": "peer",
+        "meaningVi": "người cùng hoàn cảnh, người ngang hàng",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "trait",
+        "lemma": "trait",
+        "meaningVi": "nét tính cách",
+        "pos": "noun",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What do the two lecturers want their students to understand?",
+        "promptVi": "Hai giảng viên muốn sinh viên hiểu điều gì?",
+        "options": [
+          "Why people in a crowd often fail to help in an emergency",
+          "How to drive safely at rush hour",
+          "Why delivery drivers earn so little",
+          "How to film an accident with a phone"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ chuẩn bị buổi thảo luận về hiệu ứng người ngoài cuộc: vì sao đám đông không giúp người bị nạn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Dr Quynh, what reduced individual intervention?",
+        "promptVi": "Theo tiến sĩ Quỳnh, điều gì làm giảm việc từng cá nhân can thiệp?",
+        "options": [
+          "A lack of empathy",
+          "Diffusion of responsibility",
+          "Bad weather",
+          "Fear of the police"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà nói \"It was diffusion of responsibility that reduced individual intervention.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who finally helped the driver?",
+        "promptVi": "Cuối cùng ai đã giúp người tài xế?",
+        "options": [
+          "A police officer",
+          "A university student",
+          "A retired nurse",
+          "Another driver"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"It was a retired nurse who pushed through the crowd.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The driver did not survive the accident.",
+        "promptVi": "Người tài xế đã không qua khỏi sau vụ tai nạn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, \"He survived\" và giờ anh đã đi làm lại."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"intervention\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It was diffusion of responsibility that reduced individual intervention.",
+        "options": [
+          "sự can thiệp, ra tay giúp đỡ",
+          "sự phỏng vấn",
+          "sự chú ý",
+          "sự phát minh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Intervention = hành động xen vào để giúp đỡ hoặc thay đổi một tình huống."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu chẻ",
+      "bodyVi": "Khi phân tích nguyên nhân, câu chẻ giúp bác bỏ cách giải thích sai và nhấn mạnh cách giải thích đúng. It wasn't + A + that… It was + B + that…: It wasn't a lack of empathy that kept those people still. It was diffusion of responsibility that reduced individual intervention. Với người, dùng who: It was a retired nurse who pushed through the crowd. Dạng What: What I want them to understand is that… Bài cũng có ngôn ngữ rào đón: each person seems to feel…, we tend to decide…, Training appears to matter more…, perhaps because…",
+      "examples": [
+        "\"It wasn't a lack of empathy that kept those people still.",
+        "It was diffusion of responsibility that reduced individual intervention.",
+        "\"It was a retired nurse who pushed through the crowd."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph about a time you saw (or heard about) someone who needed help in public. Explain what happened using at least two cleft sentences (It was … that / who …, What … was …).",
+    "sentenceTranslations": [
+      "Trong phòng giáo viên yên tĩnh của một trường đại học ở Đà Nẵng, hai giảng viên tâm lý học là tiến sĩ Quỳnh và tiến sĩ Bảo đang chuẩn bị một buổi thảo luận cho sinh viên năm ba.",
+      "Tình huống nghiên cứu của họ là một vụ tai nạn có thật từ năm trước.",
+      "Một người giao hàng bị ô tô đâm trên một con phố đông đúc vào giờ cao điểm, và anh nằm bất tỉnh trên đường gần bảy phút.",
+      "Hàng chục người dừng lại xem, vài người quay cảnh đó bằng điện thoại, nhưng không ai gọi xe cấp cứu.",
+      "\"Sinh viên sẽ muốn đổ lỗi cho đám đông,\" tiến sĩ Bảo nói.",
+      "\"Trên mạng, ai cũng gọi họ là vô cảm.\"",
+      "\"Tôi biết, nhưng nghiên cứu lại cho thấy một câu chuyện khác,\" tiến sĩ Quỳnh đáp.",
+      "\"Không phải sự thiếu thấu cảm đã khiến những người đó đứng yên.",
+      "Chính sự phân tán trách nhiệm mới làm giảm việc từng cá nhân can thiệp.",
+      "Khi có nhiều người ở đó, dường như mỗi người chỉ cảm thấy một phần nhỏ trách nhiệm phải hành động.\"",
+      "\"Vậy là ai cũng cho rằng người khác đã gọi cứu giúp rồi à?\"",
+      "\"Chính xác.",
+      "Còn có một cái bẫy nhận thức gọi là sự thiếu hiểu biết tập thể.",
+      "Cách ta nhìn nhận một tình huống khẩn cấp phụ thuộc rất nhiều vào những người xung quanh.",
+      "Nếu mọi người cùng hoàn cảnh đều trông bình tĩnh, ta có xu hướng kết luận rằng tình hình không thể nghiêm trọng.",
+      "Tất nhiên, tất cả họ trông bình tĩnh vì họ đang nhìn nhau.\"",
+      "Tiến sĩ Bảo cau mày.",
+      "\"Vậy cuối cùng ai đã giúp anh ấy?\"",
+      "\"Chính một nữ y tá đã nghỉ hưu đã chen qua đám đông.",
+      "Sau đó bà kể với phóng viên rằng bản năng đã tự dẫn dắt bà.",
+      "Có vẻ việc được huấn luyện quan trọng hơn bất kỳ nét tính cách nào.",
+      "Những người biết sơ cứu dễ bước ra giúp hơn, có lẽ vì họ tin vào phán đoán của mình và ít lo bị ngượng hơn.",
+      "Một số nghiên cứu cho rằng sự tự tin này gắn với lòng tự tôn cao hơn.\"",
+      "\"Còn người tài xế?\"",
+      "\"Anh ấy sống sót, dù phải điều trị thể chất nhiều tháng và sau đó đi gặp chuyên gia trị liệu vì sang chấn.",
+      "Sự kiên cường của anh ấy thật đáng nể; giờ anh đã đi làm lại.\"",
+      "Tiến sĩ Bảo viết một câu hỏi lên bảng cho buổi thảo luận: \"Bạn có giúp không?\"",
+      "\"Hầu hết các em sẽ nói có,\" anh nói.",
+      "\"Điều tôi muốn các em hiểu là chính niềm tin đó cũng là một thiên kiến.",
+      "Cách phòng tránh tốt nhất rất đơn giản: nếu thấy tai nạn, hãy chỉ vào một người và nói: 'Anh kia, gọi cấp cứu đi.'\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể phân tích vì sao đám đông thường không giúp người gặp nạn, dùng câu chẻ để bác bỏ cách giải thích sai và nhấn mạnh nguyên nhân thật.",
+    "examples": [
+      {
+        "lemma": "cognitive",
+        "sentence": "Stress can affect our cognitive performance.",
+        "meaningVi": "Căng thẳng có thể ảnh hưởng đến khả năng nhận thức của chúng ta."
+      },
+      {
+        "lemma": "perception",
+        "sentence": "Fog changes our perception of distance.",
+        "meaningVi": "Sương mù làm thay đổi cảm nhận của ta về khoảng cách."
+      },
+      {
+        "lemma": "bias",
+        "sentence": "The report showed a clear bias against older workers.",
+        "meaningVi": "Báo cáo cho thấy rõ thiên kiến đối với người lao động lớn tuổi."
+      },
+      {
+        "lemma": "self-esteem",
+        "sentence": "Volunteering can improve your self-esteem.",
+        "meaningVi": "Làm tình nguyện có thể nâng cao lòng tự tôn của bạn."
+      },
+      {
+        "lemma": "trauma",
+        "sentence": "Witnesses may also experience trauma after an accident.",
+        "meaningVi": "Người chứng kiến cũng có thể bị sang chấn sau một vụ tai nạn."
+      },
+      {
+        "lemma": "therapist",
+        "sentence": "The school hired a therapist to support the students.",
+        "meaningVi": "Nhà trường thuê một chuyên gia trị liệu để hỗ trợ học sinh."
+      },
+      {
+        "lemma": "resilience",
+        "sentence": "The town showed great resilience after the storm.",
+        "meaningVi": "Thị trấn cho thấy sự kiên cường lớn sau cơn bão."
+      },
+      {
+        "lemma": "empathy",
+        "sentence": "Children learn empathy by watching adults.",
+        "meaningVi": "Trẻ em học sự thấu cảm bằng cách quan sát người lớn."
+      },
+      {
+        "lemma": "unconscious",
+        "sentence": "The boxer was unconscious for two minutes.",
+        "meaningVi": "Võ sĩ bất tỉnh trong hai phút."
+      },
+      {
+        "lemma": "instinct",
+        "sentence": "Babies have an instinct to hold on to things.",
+        "meaningVi": "Trẻ sơ sinh có bản năng bám chặt vào đồ vật."
+      },
+      {
+        "lemma": "peer",
+        "sentence": "Each essay was marked by a peer.",
+        "meaningVi": "Mỗi bài luận được một bạn cùng lớp chấm."
+      },
+      {
+        "lemma": "trait",
+        "sentence": "Courage is not a trait you are simply born with.",
+        "meaningVi": "Lòng dũng cảm không phải là nét tính cách sinh ra đã có."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dr Bao",
+        "Thu Trang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thu Trang, you look worried. What did you think of today's seminar?",
+          "meaningVi": "Thu Trang, em trông có vẻ lo lắng. Em nghĩ gì về buổi thảo luận hôm nay?"
+        },
+        {
+          "speaker": 1,
+          "text": "It made me think. Last year I saw a crash near the market and did nothing.",
+          "meaningVi": "Nó khiến em suy nghĩ. Năm ngoái em thấy một vụ va chạm gần chợ mà chẳng làm gì."
+        },
+        {
+          "speaker": 0,
+          "text": "Were there many people around?",
+          "meaningVi": "Lúc đó có nhiều người xung quanh không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, maybe thirty. It was the crowd that made me hesitate.",
+          "meaningVi": "Có ạ, chắc khoảng ba mươi người. Chính đám đông đã khiến em chần chừ."
+        },
+        {
+          "speaker": 0,
+          "text": "That's very normal. It wasn't your fault that nobody acted.",
+          "meaningVi": "Chuyện đó rất bình thường. Không phải lỗi của em khi không ai hành động."
+        },
+        {
+          "speaker": 1,
+          "text": "But what should I do next time?",
+          "meaningVi": "Nhưng lần sau em nên làm gì ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "What helps most is giving one person a clear task.",
+          "meaningVi": "Điều giúp ích nhất là giao cho một người một việc cụ thể."
+        },
+        {
+          "speaker": 1,
+          "text": "Like asking someone in a red shirt to call 115?",
+          "meaningVi": "Như nhờ người mặc áo đỏ gọi 115 ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Exactly. And maybe take a first aid course this summer.",
+          "meaningVi": "Chính xác. Và có lẽ em nên học một khoá sơ cứu vào mùa hè này."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. I'll ask the student union about it.",
+          "meaningVi": "Ý hay ạ. Em sẽ hỏi hội sinh viên về việc đó."
+        }
+      ]
+    },
+    "grammarTipVi": "Nhấn mạnh nguyên nhân: It was the crowd that made me hesitate. Phủ định để bác bỏ: It wasn't your fault that nobody acted. Nêu lời khuyên quan trọng nhất: What helps most is giving one person a clear task.",
+    "translations": [
+      {
+        "vi": "Không phải sự thiếu thấu cảm đã khiến họ đứng yên.",
+        "en": "It wasn't a lack of empathy that kept them still.",
+        "distractors": [
+          "what",
+          "keeps",
+          "who"
+        ]
+      },
+      {
+        "vi": "Chính bản năng của bà ấy đã dẫn dắt bà.",
+        "en": "It was her instinct that guided her.",
+        "distractors": [
+          "what",
+          "guiding",
+          "his"
+        ]
+      },
+      {
+        "vi": "Anh ấy nằm bất tỉnh trên đường suốt bảy phút.",
+        "en": "He lay unconscious on the road for seven minutes.",
+        "distractors": [
+          "laid",
+          "unconsciously",
+          "during"
+        ],
+        "accepted": [
+          "For seven minutes he lay unconscious on the road."
+        ]
+      },
+      {
+        "vi": "Sau đó anh ấy đã gặp một chuyên gia trị liệu.",
+        "en": "Later he saw a therapist.",
+        "distractors": [
+          "sees",
+          "seen",
+          "doctor"
+        ],
+        "accepted": [
+          "He later saw a therapist.",
+          "He saw a therapist later."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu Trang kể với tiến sĩ Bảo về chuyện gì?",
+        "promptVi": "",
+        "options": [
+          "Một vụ tai nạn em đã thấy mà không giúp",
+          "Điểm thi của em",
+          "Một khoá học hè"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Em kể \"Last year I saw a crash near the market and did nothing.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Thu Trang, điều gì khiến em chần chừ?",
+        "promptVi": "",
+        "options": [
+          "Đám đông",
+          "Trời mưa",
+          "Em bị muộn học"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Em nói \"It was the crowd that made me hesitate.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tiến sĩ Bảo gợi ý Thu Trang làm gì vào mùa hè?",
+        "promptVi": "",
+        "options": [
+          "Học một khoá sơ cứu",
+          "Đi làm thêm",
+          "Viết một bài báo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh nói \"maybe take a first aid course this summer.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dr Bao says it was Thu Trang's fault that nobody helped.",
+        "promptVi": "Tiến sĩ Bảo nói việc không ai giúp là lỗi của Thu Trang.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, anh nói \"It wasn't your fault that nobody acted.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Vì sao hàng chục người chứng kiến tai nạn mà không ai gọi cấp cứu? Hai giảng viên giải thích hiện tượng này thế nào, và ai cuối cùng đã giúp?",
+    "grammarStep": {
+      "titleVi": "Câu chẻ",
+      "noticing": [
+        {
+          "sentence": "\"It wasn't a lack of empathy that kept those people still.",
+          "highlights": [
+            "It wasn't",
+            "that kept"
+          ]
+        },
+        {
+          "sentence": "It was diffusion of responsibility that reduced individual intervention.",
+          "highlights": [
+            "It was",
+            "that reduced"
+          ]
+        },
+        {
+          "sentence": "\"It was a retired nurse who pushed through the crowd.",
+          "highlights": [
+            "It was",
+            "who pushed"
+          ]
+        },
+        {
+          "sentence": "\"What I want them to understand is that this belief is itself a bias.",
+          "highlights": [
+            "What I want them to understand is"
+          ]
+        }
+      ],
+      "questionVi": "Mọi người nghĩ đám đông vô cảm, nhưng bạn muốn nhấn mạnh nguyên nhân thật là sự phân tán trách nhiệm. Câu nào đúng?",
+      "options": [
+        "It wasn't cruelty but diffusion of responsibility that stopped them.",
+        "It wasn't cruelty but diffusion of responsibility what stopped them.",
+        "What stopped them it was diffusion of responsibility, not cruelty."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "It wasn't A but B that + động từ. Không dùng what thay cho that; sau mệnh đề What không thêm \"it\".",
+      "whenVi": "Dùng khi phân tích nguyên nhân, nhất là để sửa một cách hiểu sai (It wasn't … that …, It was … that …). Rất hay gặp trong bài giảng, bài thảo luận và bài viết học thuật.",
+      "table": [
+        {
+          "subject": "It was … that (vật, sự việc)",
+          "form": "It was diffusion of responsibility that stopped them.",
+          "negative": "It wasn't a lack of empathy that kept them still."
+        },
+        {
+          "subject": "It was … who (người)",
+          "form": "It was a retired nurse who helped him.",
+          "negative": "It wasn't the police who arrived first."
+        },
+        {
+          "subject": "What … is / was",
+          "form": "What surprised me was the silence.",
+          "negative": "What they didn't do was call for help."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It was a retired nurse which helped him.",
+          "right": "It was a retired nurse who helped him."
+        },
+        {
+          "wrong": "It wasn't a lack of empathy what kept them still.",
+          "right": "It wasn't a lack of empathy that kept them still."
+        }
+      ],
+      "noteVi": "Bài cũng có ngôn ngữ rào đón: each person seems to feel only a small share of the duty / we tend to decide / Training appears to matter more / perhaps because they trust their own judgement.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "It was a retired nurse ___ pushed through the crowd.",
+          "answers": [
+            "who",
+            "that"
+          ],
+          "explanationVi": "Phần nhấn mạnh là người: who (hoặc that)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "It ___ diffusion of responsibility that reduced individual intervention.",
+          "options": [
+            "was",
+            "were",
+            "is being",
+            "had"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Kể về sự việc trong quá khứ, chủ ngữ \"It\" số ít: It was … that."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It was the crowd what made me hesitate.",
+          "sentence": "It was the crowd that made me hesitate.",
+          "explanationVi": "Cấu trúc It was … that, không dùng what."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chính đám đông đã khiến tôi chần chừ.",
+          "sentence": "It was the crowd that made me hesitate.",
+          "words": [
+            "It",
+            "was",
+            "the",
+            "crowd",
+            "that",
+            "made",
+            "me",
+            "hesitate.",
+            "who"
+          ],
+          "explanationVi": "It was + phần nhấn mạnh (the crowd) + that + phần còn lại; từ \"who\" bị thừa vì crowd không phải một người."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It was diffusion of responsibility that reduced individual intervention.",
+        "tipVi": "diffusion /dɪˈfjuːʒn/; responsibility /rɪˌspɒnsəˈbɪləti/; intervention /ˌɪntəˈvenʃn/."
+      },
+      {
+        "text": "Our perception of an emergency depends heavily on the people around us.",
+        "tipVi": "perception /pəˈsepʃn/; emergency /iˈmɜːdʒənsi/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever seen an accident in the street? What did people around you do?",
+        "questionVi": "Bạn đã bao giờ thấy tai nạn trên đường chưa? Những người xung quanh đã làm gì?",
+        "frame": "It was ___ who ___."
+      },
+      {
+        "question": "Why do you think people film accidents instead of helping?",
+        "questionVi": "Theo bạn, vì sao người ta quay phim tai nạn thay vì giúp đỡ?",
+        "frame": "I think it is ___ that makes people ___."
+      },
+      {
+        "question": "What should schools teach young people about emergencies?",
+        "questionVi": "Trường học nên dạy người trẻ điều gì về các tình huống khẩn cấp?",
+        "frame": "What schools should teach is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu chẻ (It was … that / who …, What … was …)",
+      "anyOf": [
+        "it was",
+        "it wasn't",
+        "it is",
+        "what"
+      ],
+      "outlineVi": [
+        "Chuyện gì đã xảy ra, ở đâu.",
+        "Ai đã giúp hoặc vì sao không ai giúp (It was … who / that …).",
+        "Điều bạn học được (What I learned was …)."
+      ],
+      "modelAnswer": "Two years ago, an old man fell off his bicycle outside my office in Hue. At first, people just stood and looked at him. It was a young schoolgirl who finally ran over and asked if he was hurt. After that, several adults came to help. What I learned that day was that one brave person can change the behaviour of a whole crowd."
+    }
+  },
+  "glosses": [
+    {
+      "text": "diffusion of responsibility",
+      "lemma": "diffusion of responsibility",
+      "meaningVi": "sự phân tán trách nhiệm (ai cũng nghĩ người khác sẽ lo)",
+      "pos": "noun",
+      "phrase": "diffusion of responsibility",
+      "phraseVi": "sự phân tán trách nhiệm",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "intervention",
+      "lemma": "intervention",
+      "meaningVi": "sự can thiệp",
+      "pos": "noun",
+      "phrase": "individual intervention",
+      "phraseVi": "việc từng cá nhân can thiệp",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "pluralistic ignorance",
+      "lemma": "pluralistic ignorance",
+      "meaningVi": "sự thiếu hiểu biết tập thể (ai cũng dựa vào phản ứng của người khác)",
+      "pos": "noun",
+      "phrase": "pluralistic ignorance",
+      "phraseVi": "sự thiếu hiểu biết tập thể",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "heartless",
+      "lemma": "heartless",
+      "meaningVi": "vô cảm, nhẫn tâm",
+      "pos": "adjective",
+      "phrase": "everyone called them heartless",
+      "phraseVi": "ai cũng gọi họ là vô cảm",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "embarrassment",
+      "lemma": "embarrassment",
+      "meaningVi": "sự ngượng ngùng, xấu hổ",
+      "pos": "noun",
+      "phrase": "worry less about embarrassment",
+      "phraseVi": "ít lo bị ngượng hơn",
+      "sentenceIndex": 21
+    }
+  ]
+}

@@ -1,0 +1,616 @@
+{
+  "content": "On the second morning of a regional summit in Ho Chi Minh City, representatives from non-governmental organisations gather in a conference hall in District 1 to review a decade of poverty alleviation projects. Minh Chau, who runs a rural development charity in the Central Highlands, has been asked to respond to a presentation by Rahul Mehta, an economist from a foundation based in Delhi.\n\n\"On the whole, the figures look impressive,\" Minh Chau begins. \"Extreme poverty in the region has fallen by more than half since 2010. Nevertheless, I'd question how much of that progress is due to aid rather than economic growth.\"\nRahul smiles. \"That's a fair challenge. Admittedly, growth did most of the heavy lifting. However, aid reached people that growth ignored: remote villages, ethnic minorities, women without land.\"\n\"I don't dispute that. My concern is efficiency. Too often, donors fund what is easy to photograph, like a new school building, instead of what lasts, like paying teachers properly.\"\n\"Furthermore,\" a delegate from Cambodia adds from the floor, \"short project cycles mean that when the funding ends, the services end too.\"\nRahul nods. \"That's exactly why our foundation now commits for ten years, not three. Had we done that from the beginning, several clinics we built would still be open.\"\nMinh Chau turns to face her audience. \"Let me give an example. In one district of Dak Lak, villagers asked for clean water, but a donor insisted on solar lamps. The lamps broke within two years. But for a local cooperative that repaired the old water pumps for free, the whole project would have been wasted.\"\nRahul asks, \"So is the lesson to listen to communities before spending a single dollar?\"\n\"Partly. Moreover, we need honest data. Were donors to publish their failures alongside their successes, everyone could learn faster.\"\nThe moderator checks the time. \"We have five minutes left. Should either of you wish to propose a recommendation for the final declaration, now is the moment.\"\nMinh Chau doesn't hesitate. \"Fund local organisations directly and trust their judgement. Ordinary people donate small amounts because they believe the money reaches someone in need, and we owe them transparency in return. Consequently, every project should report its results, good or bad, within a year.\"\nRahul adds, \"And measure success by outcomes such as unemployment, school attendance and access to health care, not by how many buildings we open.\"\nThe hall applauds, and the moderator writes both points on the screen.",
+  "targetWords": [
+    "poverty",
+    "alleviation",
+    "charity",
+    "economic",
+    "efficiency",
+    "donor",
+    "donate",
+    "transparency",
+    "unemployment",
+    "health care"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "poverty",
+        "lemma": "poverty",
+        "meaningVi": "cái nghèo, sự nghèo đói",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "alleviation",
+        "lemma": "alleviation",
+        "meaningVi": "sự giảm nhẹ, xoá giảm (nghèo)",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "charity",
+        "lemma": "charity",
+        "meaningVi": "tổ chức từ thiện",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "economic",
+        "lemma": "economic",
+        "meaningVi": "thuộc về kinh tế",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "efficiency",
+        "lemma": "efficiency",
+        "meaningVi": "hiệu quả (sử dụng nguồn lực)",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "donor",
+        "lemma": "donor",
+        "meaningVi": "nhà tài trợ",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "donate",
+        "lemma": "donate",
+        "meaningVi": "quyên góp",
+        "pos": "verb",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "transparency",
+        "lemma": "transparency",
+        "meaningVi": "sự minh bạch",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "unemployment",
+        "lemma": "unemployment",
+        "meaningVi": "tình trạng thất nghiệp",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "health care",
+        "lemma": "health care",
+        "meaningVi": "dịch vụ y tế",
+        "pos": "noun",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the main topic of the discussion?",
+        "promptVi": "Chủ đề chính của cuộc thảo luận là gì?",
+        "options": [
+          "How well aid has worked against poverty and how to make it better",
+          "How to build more schools in Ho Chi Minh City",
+          "Why economic growth has stopped in the region",
+          "How to sell solar lamps to villagers"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Các đại diện tổ chức phi chính phủ đánh giá một thập kỷ dự án xoá giảm nghèo và bàn cách dùng viện trợ hiệu quả hơn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Rahul, what did aid do that growth did not?",
+        "promptVi": "Theo Rahul, viện trợ đã làm được gì mà tăng trưởng không làm được?",
+        "options": [
+          "It created jobs in big cities.",
+          "It reached remote villages, ethnic minorities and women without land.",
+          "It paid all teachers properly.",
+          "It built new roads."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Rahul nói \"aid reached people that growth ignored: remote villages, ethnic minorities, women without land.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What happened to the solar lamps in Dak Lak?",
+        "promptVi": "Chuyện gì xảy ra với những chiếc đèn năng lượng mặt trời ở Đắk Lắk?",
+        "options": [
+          "The villagers sold them.",
+          "They broke within two years.",
+          "A cooperative repaired them.",
+          "They are still working well."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh Châu kể \"The lamps broke within two years.\" Hợp tác xã sửa máy bơm nước, không phải sửa đèn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh Chau wants donors to publish only their successful projects.",
+        "promptVi": "Minh Châu muốn các nhà tài trợ chỉ công bố những dự án thành công.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị muốn họ công bố cả thất bại: \"Were donors to publish their failures alongside their successes…\" và báo cáo kết quả \"good or bad\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"heavy lifting\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Admittedly, growth did most of the heavy lifting.",
+        "options": [
+          "phần việc nặng nhọc, chủ yếu",
+          "việc mang vác đồ nặng",
+          "sự tăng giá",
+          "sự giúp đỡ nhỏ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ở đây \"do the heavy lifting\" là cách nói hình ảnh: đảm nhận phần việc khó nhất, đóng góp chính. Tăng trưởng kinh tế đóng góp phần lớn vào giảm nghèo."
+      }
+    ],
+    "grammarNote": {
+      "title": "Từ nối diễn ngôn (discourse markers)",
+      "bodyVi": "Trong một cuộc tranh luận dài, từ nối diễn ngôn giúp người nghe theo kịp mạch ý. Thêm ý: Furthermore, Moreover (hơn nữa). Đối lập: Nevertheless, However (tuy vậy, tuy nhiên). Nhượng bộ trước khi phản bác: Admittedly (phải thừa nhận là). Nêu kết quả: Consequently (do đó). Tổng kết: On the whole (nhìn chung). Chúng thường đứng đầu câu và có dấu phẩy theo sau. Bài cũng dùng câu điều kiện đảo ngữ: Had we done that…, Were donors to publish…, Should either of you wish…, But for a local cooperative…",
+      "examples": [
+        "Admittedly, growth did most of the heavy lifting.",
+        "Nevertheless, I'd question how much of that progress is due to aid rather than economic growth.\"",
+        "Consequently, every project should report its results, good or bad, within a year.\""
+      ]
+    },
+    "writingPrompt": "Write a short opinion paragraph about how charities or donors could help poor communities more effectively. Organise your ideas with at least three discourse markers (e.g. Admittedly, Furthermore, Nevertheless, On the whole).",
+    "sentenceTranslations": [
+      "Vào buổi sáng thứ hai của một hội nghị thượng đỉnh khu vực ở Thành phố Hồ Chí Minh, đại diện các tổ chức phi chính phủ tập trung tại một hội trường ở Quận 1 để đánh giá một thập kỷ các dự án xoá giảm nghèo.",
+      "Minh Châu, người điều hành một tổ chức từ thiện phát triển nông thôn ở Tây Nguyên, được mời phản hồi bài trình bày của Rahul Mehta, một nhà kinh tế học thuộc một quỹ có trụ sở ở Delhi.",
+      "Minh Châu mở đầu: \"Nhìn chung, các số liệu trông rất ấn tượng.",
+      "Tình trạng nghèo cùng cực trong khu vực đã giảm hơn một nửa kể từ năm 2010.",
+      "Tuy vậy, tôi muốn đặt câu hỏi là bao nhiêu phần của tiến bộ đó là nhờ viện trợ chứ không phải nhờ tăng trưởng kinh tế.\"",
+      "Rahul mỉm cười.",
+      "\"Đó là một câu hỏi xác đáng.",
+      "Phải thừa nhận là tăng trưởng đã đóng góp phần lớn.",
+      "Tuy nhiên, viện trợ đã đến được với những người mà tăng trưởng bỏ quên: những ngôi làng hẻo lánh, các dân tộc thiểu số, những phụ nữ không có đất.\"",
+      "\"Tôi không phản đối điều đó.",
+      "Mối lo của tôi là hiệu quả.",
+      "Quá thường xuyên, các nhà tài trợ bỏ tiền vào những thứ dễ chụp ảnh, như một toà nhà trường học mới, thay vì những thứ bền lâu, như trả lương xứng đáng cho giáo viên.\"",
+      "Một đại biểu từ Campuchia nói thêm từ dưới hội trường: \"Hơn nữa, chu kỳ dự án ngắn có nghĩa là khi hết kinh phí thì các dịch vụ cũng dừng lại.\"",
+      "Rahul gật đầu.",
+      "\"Chính vì thế mà quỹ của chúng tôi bây giờ cam kết mười năm chứ không phải ba năm.",
+      "Giá như chúng tôi làm vậy ngay từ đầu thì nhiều trạm y tế chúng tôi đã xây vẫn còn hoạt động.\"",
+      "Minh Châu quay sang phía khán giả.",
+      "\"Để tôi đưa ra một ví dụ.",
+      "Ở một huyện của Đắk Lắk, dân làng xin nước sạch, nhưng một nhà tài trợ lại nhất quyết tặng đèn năng lượng mặt trời.",
+      "Những chiếc đèn hỏng chỉ trong vòng hai năm.",
+      "Nếu không có một hợp tác xã địa phương sửa miễn phí những chiếc máy bơm nước cũ, cả dự án đã bị lãng phí.\"",
+      "Rahul hỏi: \"Vậy bài học là phải lắng nghe cộng đồng trước khi tiêu dù chỉ một đô la sao?\"",
+      "\"Đúng một phần.",
+      "Hơn nữa, chúng ta cần dữ liệu trung thực.",
+      "Nếu các nhà tài trợ công bố thất bại cùng với thành công của mình, mọi người sẽ học hỏi nhanh hơn.\"",
+      "Người điều phối xem đồng hồ.",
+      "\"Chúng ta còn năm phút.",
+      "Nếu một trong hai vị muốn đề xuất một khuyến nghị cho bản tuyên bố cuối cùng, thì bây giờ là lúc.\"",
+      "Minh Châu không chần chừ.",
+      "\"Hãy tài trợ trực tiếp cho các tổ chức địa phương và tin vào nhận định của họ.",
+      "Người dân bình thường quyên góp những khoản nhỏ vì họ tin số tiền đó đến được với người cần giúp, và chúng ta nợ họ sự minh bạch để đáp lại.",
+      "Do đó, mỗi dự án nên báo cáo kết quả, dù tốt hay xấu, trong vòng một năm.\"",
+      "Rahul nói thêm: \"Và hãy đo thành công bằng kết quả thực tế như tỷ lệ thất nghiệp, tỷ lệ đi học và khả năng tiếp cận dịch vụ y tế, chứ không phải bằng số toà nhà chúng ta khánh thành.\"",
+      "Cả hội trường vỗ tay, và người điều phối ghi cả hai ý lên màn hình."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đánh giá hiệu quả viện trợ và sắp xếp lập luận bằng từ nối diễn ngôn (Admittedly, Furthermore, Nevertheless, Consequently, On the whole).",
+    "examples": [
+      {
+        "lemma": "poverty",
+        "sentence": "Millions of people still live in extreme poverty.",
+        "meaningVi": "Hàng triệu người vẫn sống trong cảnh nghèo cùng cực."
+      },
+      {
+        "lemma": "alleviation",
+        "sentence": "The bank has funded several poverty alleviation programmes.",
+        "meaningVi": "Ngân hàng đã tài trợ nhiều chương trình xoá đói giảm nghèo."
+      },
+      {
+        "lemma": "charity",
+        "sentence": "He gave part of his salary to a local charity.",
+        "meaningVi": "Anh ấy góp một phần lương cho một tổ chức từ thiện địa phương."
+      },
+      {
+        "lemma": "economic",
+        "sentence": "The country has enjoyed strong economic growth.",
+        "meaningVi": "Đất nước đã có mức tăng trưởng kinh tế mạnh mẽ."
+      },
+      {
+        "lemma": "efficiency",
+        "sentence": "New machines have improved the efficiency of the factory.",
+        "meaningVi": "Máy móc mới đã cải thiện hiệu suất của nhà máy."
+      },
+      {
+        "lemma": "donor",
+        "sentence": "An anonymous donor paid for the new library.",
+        "meaningVi": "Một nhà hảo tâm giấu tên đã chi trả cho thư viện mới."
+      },
+      {
+        "lemma": "donate",
+        "sentence": "You can donate online or at any post office.",
+        "meaningVi": "Bạn có thể quyên góp trực tuyến hoặc tại bất kỳ bưu điện nào."
+      },
+      {
+        "lemma": "transparency",
+        "sentence": "Citizens are demanding more transparency from the government.",
+        "meaningVi": "Người dân đang đòi hỏi chính phủ minh bạch hơn."
+      },
+      {
+        "lemma": "unemployment",
+        "sentence": "Unemployment fell to its lowest level in ten years.",
+        "meaningVi": "Tỷ lệ thất nghiệp giảm xuống mức thấp nhất trong mười năm."
+      },
+      {
+        "lemma": "health care",
+        "sentence": "Free health care is available for children under six.",
+        "meaningVi": "Trẻ em dưới sáu tuổi được khám chữa bệnh miễn phí."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thanh Mai",
+        "Minh Chau"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thank you for agreeing to talk to our newspaper. What was your main message today?",
+          "meaningVi": "Cảm ơn chị đã nhận lời trò chuyện với báo chúng tôi. Thông điệp chính của chị hôm nay là gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "That aid works best when local people decide how it is spent.",
+          "meaningVi": "Rằng viện trợ hiệu quả nhất khi người dân địa phương quyết định cách chi tiêu."
+        },
+        {
+          "speaker": 0,
+          "text": "Some donors say local groups lack experience. Is that fair?",
+          "meaningVi": "Một số nhà tài trợ nói các nhóm địa phương thiếu kinh nghiệm. Nói vậy có công bằng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Admittedly, some groups need training. Nevertheless, they understand their villages far better than foreign experts do.",
+          "meaningVi": "Phải thừa nhận là một số nhóm cần được đào tạo. Tuy vậy, họ hiểu làng mình hơn hẳn các chuyên gia nước ngoài."
+        },
+        {
+          "speaker": 0,
+          "text": "And what about the money? How can ordinary donors be sure it reaches the poor?",
+          "meaningVi": "Còn tiền thì sao? Làm sao những người quyên góp bình thường chắc chắn tiền đến được tay người nghèo?"
+        },
+        {
+          "speaker": 1,
+          "text": "Through regular public reports. Furthermore, villagers themselves should check the results.",
+          "meaningVi": "Thông qua các báo cáo công khai định kỳ. Hơn nữa, chính dân làng nên kiểm tra kết quả."
+        },
+        {
+          "speaker": 0,
+          "text": "Did the summit accept your recommendation?",
+          "meaningVi": "Hội nghị có chấp nhận khuyến nghị của chị không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Partly. Had we had more time, I think we would have convinced everyone.",
+          "meaningVi": "Một phần. Giá như có thêm thời gian, tôi nghĩ chúng tôi đã thuyết phục được tất cả."
+        },
+        {
+          "speaker": 0,
+          "text": "On the whole, are you optimistic about the next decade?",
+          "meaningVi": "Nhìn chung, chị có lạc quan về thập kỷ tới không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Cautiously, yes. Consequently, I will keep pushing for honest data.",
+          "meaningVi": "Lạc quan một cách thận trọng. Vì thế, tôi sẽ tiếp tục thúc đẩy dữ liệu trung thực."
+        }
+      ]
+    },
+    "grammarTipVi": "Nhượng bộ rồi phản bác: Admittedly, some groups need training. Nevertheless, they understand their villages… Thêm ý: Furthermore, villagers should check the results. Kết quả: Consequently, I will keep pushing… Tổng kết: On the whole, …",
+    "translations": [
+      {
+        "vi": "Tuy vậy, hiệu quả vẫn là mối quan tâm lớn nhất của tôi.",
+        "en": "Nevertheless, efficiency remains my biggest concern.",
+        "distractors": [
+          "remaining",
+          "effect",
+          "smallest"
+        ]
+      },
+      {
+        "vi": "Hơn nữa, mỗi nhà tài trợ nên công bố kết quả trong vòng một năm.",
+        "en": "Furthermore, every donor should publish results within a year.",
+        "distractors": [
+          "donate",
+          "publishes",
+          "without"
+        ]
+      },
+      {
+        "vi": "Người dân bình thường quyên góp vì họ tin tưởng tổ chức từ thiện.",
+        "en": "Ordinary people donate because they trust the charity.",
+        "distractors": [
+          "donation",
+          "trusts",
+          "although"
+        ]
+      },
+      {
+        "vi": "Nếu các trạm y tế vẫn mở cửa thì dịch vụ y tế đã được cải thiện.",
+        "en": "Had the clinics stayed open, health care would have improved.",
+        "distractors": [
+          "has",
+          "stays",
+          "improves"
+        ],
+        "accepted": [
+          "Health care would have improved had the clinics stayed open."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thanh Mai là ai và đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Một nhà báo đang phỏng vấn Minh Châu",
+          "Một nhà tài trợ đang hỏi xin tiền",
+          "Một dân làng ở Đắk Lắk"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thanh Mai nói \"Thank you for agreeing to talk to our newspaper.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Minh Châu, vì sao các nhóm địa phương vẫn đáng tin?",
+        "promptVi": "",
+        "options": [
+          "Họ hiểu làng mình hơn chuyên gia nước ngoài",
+          "Họ có nhiều tiền hơn",
+          "Họ đã được đào tạo đầy đủ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"they understand their villages far better than foreign experts do.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai nên kiểm tra kết quả các dự án?",
+        "promptVi": "",
+        "options": [
+          "Chính dân làng",
+          "Chỉ các nhà tài trợ",
+          "Báo chí"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"villagers themselves should check the results.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The summit fully accepted Minh Chau's recommendation.",
+        "promptVi": "Hội nghị chấp nhận hoàn toàn khuyến nghị của Minh Châu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị trả lời \"Partly\": chỉ một phần.",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Viện trợ đã giúp giảm nghèo đến mức nào? Minh Châu và Rahul dùng những từ nối nào để thừa nhận, phản bác và bổ sung ý?",
+    "grammarStep": {
+      "titleVi": "Từ nối diễn ngôn",
+      "noticing": [
+        {
+          "sentence": "Admittedly, growth did most of the heavy lifting.",
+          "highlights": [
+            "Admittedly"
+          ]
+        },
+        {
+          "sentence": "However, aid reached people that growth ignored: remote villages, ethnic minorities, women without land.\"",
+          "highlights": [
+            "However"
+          ]
+        },
+        {
+          "sentence": "Moreover, we need honest data.",
+          "highlights": [
+            "Moreover"
+          ]
+        },
+        {
+          "sentence": "Consequently, every project should report its results, good or bad, within a year.\"",
+          "highlights": [
+            "Consequently"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn thừa nhận một điểm của đối phương trước khi phản bác. Từ nào phù hợp nhất để mở đầu câu?",
+      "options": [
+        "Admittedly, growth did most of the work.",
+        "Consequently, growth did most of the work.",
+        "Furthermore, growth did most of the work."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Admittedly = phải thừa nhận là; dùng khi nhượng bộ, sau đó thường có However hoặc Nevertheless để phản bác. Consequently chỉ kết quả, Furthermore chỉ thêm ý.",
+      "whenVi": "Dùng khi nói hoặc viết dài (thuyết trình, tranh luận, bài luận) để báo cho người nghe biết ý sắp tới là thêm vào, đối lập, kết quả hay tổng kết.",
+      "table": [
+        {
+          "subject": "Thêm ý",
+          "form": "Furthermore, … / Moreover, …",
+          "negative": "Moreover, we need honest data."
+        },
+        {
+          "subject": "Đối lập",
+          "form": "Nevertheless, … / However, …",
+          "negative": "Nevertheless, I'd question how much…"
+        },
+        {
+          "subject": "Nhượng bộ",
+          "form": "Admittedly, … (rồi However/Nevertheless …)",
+          "negative": "Admittedly, growth did most of the heavy lifting."
+        },
+        {
+          "subject": "Kết quả / tổng kết",
+          "form": "Consequently, … / On the whole, …",
+          "negative": "On the whole, the figures look impressive."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Aid reached remote villages. Nevertheless, it also helped women without land.",
+          "right": "Aid reached remote villages. Furthermore, it also helped women without land."
+        },
+        {
+          "wrong": "On whole, the figures look impressive.",
+          "right": "On the whole, the figures look impressive."
+        }
+      ],
+      "noteVi": "Nevertheless dùng khi ý sau trái với điều người nghe chờ đợi; ý chỉ bổ sung thì dùng Furthermore/Moreover. Bài cũng có câu điều kiện đảo ngữ: Had we done that…, Were donors to publish…, Should either of you wish…, But for a local cooperative…",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ nối chỉ sự đối lập vào chỗ trống.",
+          "text": "The lamps were expensive. ___, they broke within two years.",
+          "answers": [
+            "Nevertheless",
+            "However",
+            "Nonetheless"
+          ],
+          "explanationVi": "Ý sau trái với điều chờ đợi (đắt mà vẫn hỏng): Nevertheless / However."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Aid reached remote villages. ___, it helped women without land.",
+          "options": [
+            "Furthermore",
+            "Nevertheless",
+            "Consequently",
+            "Admittedly"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Ý sau bổ sung thêm cho ý trước: Furthermore (hơn nữa)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "On whole, the summit was a success.",
+          "sentence": "On the whole, the summit was a success.",
+          "explanationVi": "Cụm cố định là \"On the whole\", có mạo từ the."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Do đó, mỗi dự án nên báo cáo kết quả của mình.",
+          "sentence": "Consequently, every project should report its results.",
+          "words": [
+            "Consequently,",
+            "every",
+            "project",
+            "should",
+            "report",
+            "its",
+            "results.",
+            "however"
+          ],
+          "explanationVi": "Từ nối đứng đầu câu và có dấu phẩy; từ \"however\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Admittedly, growth did most of the heavy lifting.",
+        "tipVi": "Admittedly /ədˈmɪtɪdli/ nhấn âm thứ hai; ngắt hơi sau dấu phẩy."
+      },
+      {
+        "text": "Moreover, we need honest data.",
+        "tipVi": "Moreover /mɔːˈrəʊvə/; honest đọc /ˈɒnɪst/, h câm."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you prefer to donate to large international charities or to small local groups? Why?",
+        "questionVi": "Bạn thích quyên góp cho tổ chức từ thiện quốc tế lớn hay nhóm nhỏ địa phương? Vì sao?",
+        "frame": "Admittedly, ___. Nevertheless, I prefer ___ because ___."
+      },
+      {
+        "question": "What is the best way to measure whether an aid project has succeeded?",
+        "questionVi": "Cách tốt nhất để đánh giá một dự án viện trợ có thành công không là gì?",
+        "frame": "I think we should measure ___. Furthermore, ___."
+      },
+      {
+        "question": "Has poverty in your area decreased over the last ten years?",
+        "questionVi": "Mười năm qua nghèo đói ở nơi bạn sống có giảm không?",
+        "frame": "On the whole, ___. However, ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 2 từ nối diễn ngôn (Furthermore, Moreover, Nevertheless, Admittedly, Consequently, On the whole)",
+      "anyOf": [
+        "Furthermore",
+        "Moreover",
+        "Nevertheless",
+        "Admittedly",
+        "Consequently",
+        "On the whole"
+      ],
+      "outlineVi": [
+        "Nêu quan điểm của bạn về cách viện trợ hoặc từ thiện nên hoạt động.",
+        "Thừa nhận một ý kiến khác (Admittedly…) rồi phản bác (Nevertheless…).",
+        "Bổ sung một lý do (Furthermore…) và tổng kết (On the whole…)."
+      ],
+      "modelAnswer": "Charities do important work, but they should listen more to the people they help. Admittedly, international experts bring useful skills. Nevertheless, local people know what their community really needs. Furthermore, small local groups usually spend less on offices and travel. On the whole, I would rather donate to a local group that publishes clear reports than to a famous organisation that does not."
+    }
+  },
+  "glosses": [
+    {
+      "text": "non-governmental organisations",
+      "lemma": "non-governmental organisation",
+      "meaningVi": "tổ chức phi chính phủ",
+      "pos": "noun",
+      "phrase": "representatives from non-governmental organisations",
+      "phraseVi": "đại diện các tổ chức phi chính phủ",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "dispute",
+      "lemma": "dispute",
+      "meaningVi": "phản đối, bác bỏ",
+      "pos": "verb",
+      "phrase": "I don't dispute that",
+      "phraseVi": "tôi không phản đối điều đó",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "cooperative",
+      "lemma": "cooperative",
+      "meaningVi": "hợp tác xã",
+      "pos": "noun",
+      "phrase": "a local cooperative",
+      "phraseVi": "một hợp tác xã địa phương",
+      "sentenceIndex": 20
+    },
+    {
+      "text": "declaration",
+      "lemma": "declaration",
+      "meaningVi": "bản tuyên bố",
+      "pos": "noun",
+      "phrase": "the final declaration",
+      "phraseVi": "bản tuyên bố cuối cùng",
+      "sentenceIndex": 27
+    },
+    {
+      "text": "outcomes",
+      "lemma": "outcome",
+      "meaningVi": "kết quả thực tế",
+      "pos": "noun",
+      "phrase": "measure success by outcomes",
+      "phraseVi": "đo thành công bằng kết quả thực tế",
+      "sentenceIndex": 32
+    }
+  ]
+}

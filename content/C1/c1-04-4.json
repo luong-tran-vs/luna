@@ -1,0 +1,609 @@
+{
+  "content": "In a small office at the Hai Phong People's Committee, two urban planning officials, Ngoc and Dat, are preparing a proposal for next month's city council meeting. The latest figures are worrying: traffic offences rose by eighteen per cent last year, and most of them involved speeding, running red lights or drink-driving. Several of the worst accidents happened near schools.\n\n\"Let's start with the main point,\" Ngoc says. \"I propose that fines for reckless driving be doubled, at least for repeat offenders. At the moment, a driver who runs a red light pays less than the price of a nice dinner. For some people, it is simply a small price for being in a hurry.\"\n\nDat isn't sure. \"Higher fines alone won't change people's habits. Look at the camera zones near Lach Tray. Serious road incidents are said to have decreased by a third there since the cameras were installed, and the fines in those zones are exactly the same.\"\n\"So people behave better when they think someone is watching.\"\n\"Exactly. It is believed that the chance of being caught matters more than the size of the fine. That's why I'd suggest that the city extend the camera network to every major junction.\"\n\nNgoc taps her pen on the table. \"Fine, but the cameras can't do everything. We still need traffic police on the streets. Last week a police officer told me that drivers often treat a traffic offence as if it weren't a real crime.\"\n\"Isn't that the real problem?\" asks Dat. \"Many people think the law is for criminals, like a thief who tries to steal motorbikes, not for ordinary drivers. But a drunk driver who kills someone can go to prison for years.\"\n\"True. Last year, the court in Kien An sent two drivers to jail for causing fatal accidents while drunk. Those cases were reported everywhere, and it is thought that they made many people think twice.\"\n\"Then let's put both ideas in the proposal,\" says Dat. \"Stricter fines and more cameras, with the police figures to support each one.\"\n\nThey agree on a final version. The proposal will recommend that fines for reckless driving be doubled, that cameras be installed at fifty more junctions, and that every school run a road safety course. Ngoc insists that the report be finished by Friday, so that the council members have time to read it.",
+  "targetWords": [
+    "law",
+    "crime",
+    "criminal",
+    "police",
+    "police officer",
+    "thief",
+    "steal",
+    "prison",
+    "court",
+    "jail"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "police",
+        "lemma": "police",
+        "meaningVi": "cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "police officer",
+        "lemma": "police officer",
+        "meaningVi": "cán bộ cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "crime",
+        "lemma": "crime",
+        "meaningVi": "tội, tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "pháp luật",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "criminals",
+        "lemma": "criminal",
+        "meaningVi": "kẻ phạm tội, tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "thief",
+        "lemma": "thief",
+        "meaningVi": "kẻ trộm",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "steal",
+        "lemma": "steal",
+        "meaningVi": "lấy trộm",
+        "pos": "verb",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "court",
+        "lemma": "court",
+        "meaningVi": "toà án",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "jail",
+        "lemma": "jail",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Ngoc and Dat preparing?",
+        "promptVi": "Ngọc và Đạt đang chuẩn bị gì?",
+        "options": [
+          "A proposal on road safety for the city council",
+          "A report on a motorbike robbery",
+          "A course for new police officers",
+          "A plan to build new roads"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ soạn đề xuất cho cuộc họp hội đồng thành phố về vi phạm giao thông."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What has happened in the camera zones near Lach Tray?",
+        "promptVi": "Ở các khu vực có camera gần Lạch Tray đã có thay đổi gì?",
+        "options": [
+          "Fines have been doubled.",
+          "Serious road incidents are said to have decreased by a third.",
+          "More drivers have been sent to prison.",
+          "The traffic police have left the streets."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đạt nói \"Serious road incidents are said to have decreased by a third there\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Dat, what matters more than the size of the fine?",
+        "promptVi": "Theo Đạt, điều gì quan trọng hơn mức tiền phạt?",
+        "options": [
+          "The price of a dinner",
+          "The number of schools",
+          "The chance of being caught",
+          "The age of the driver"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"It is believed that the chance of being caught matters more than the size of the fine.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The fines in the camera zones are higher than in other parts of the city.",
+        "promptVi": "Tiền phạt ở các khu vực có camera cao hơn ở những nơi khác trong thành phố.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Đạt nói \"the fines in those zones are exactly the same.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"reckless\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I propose that fines for reckless driving be doubled\"",
+        "options": [
+          "ẩu, liều lĩnh",
+          "chậm chạp",
+          "ban đêm",
+          "có giấy phép"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Reckless driving = lái xe ẩu, bất chấp nguy hiểm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thức giả định và bị động tường thuật trong đề xuất chính sách",
+      "bodyVi": "Văn bản đề xuất chính sách thường kết hợp hai cấu trúc. Thức giả định sau propose / recommend / suggest / insist that: động từ nguyên mẫu, ở bị động là be + V3, cho mọi chủ ngữ: I propose that fines for reckless driving be doubled / that every school run a road safety course. Bị động tường thuật để dẫn số liệu, nhận định chưa được kiểm chứng: Serious road incidents are said to have decreased … (đã xảy ra trước nên dùng to have + V3) / It is believed that the chance of being caught matters more …",
+      "examples": [
+        "\"I propose that fines for reckless driving be doubled, at least for repeat offenders.",
+        "Serious road incidents are said to have decreased by a third there since the cameras were installed, and the fines in those zones are exactly the same.\"",
+        "It is believed that the chance of being caught matters more than the size of the fine."
+      ]
+    },
+    "writingPrompt": "Write a short proposal to your local council about a traffic problem in your area. Use at least two subjunctive structures (propose / recommend that + base verb) and one reporting passive (it is believed that …, … is said to have …).",
+    "sentenceTranslations": [
+      "Trong một văn phòng nhỏ ở Ủy ban Nhân dân thành phố Hải Phòng, hai cán bộ quy hoạch đô thị là Ngọc và Đạt đang soạn một bản đề xuất cho cuộc họp hội đồng thành phố tháng tới.",
+      "Số liệu mới nhất rất đáng lo: năm ngoái vi phạm giao thông tăng mười tám phần trăm, và phần lớn là chạy quá tốc độ, vượt đèn đỏ hoặc lái xe khi say rượu.",
+      "Nhiều vụ tai nạn nghiêm trọng nhất xảy ra gần trường học.",
+      "Ngọc nói: \"Bắt đầu với ý chính nhé.",
+      "Tôi đề nghị tăng gấp đôi tiền phạt lái xe ẩu, ít nhất là với người tái phạm.",
+      "Hiện giờ, người vượt đèn đỏ chỉ phải trả ít hơn giá một bữa tối ngon.",
+      "Với một số người, đó chỉ là cái giá nhỏ cho việc vội vàng.\"",
+      "Đạt không chắc lắm.",
+      "\"Chỉ tăng tiền phạt thì sẽ không thay đổi được thói quen của mọi người.",
+      "Nhìn các khu vực có camera gần Lạch Tray xem.",
+      "Người ta nói từ khi lắp camera, tai nạn giao thông nghiêm trọng ở đó đã giảm một phần ba, trong khi tiền phạt ở đó vẫn y như cũ.\"",
+      "\"Vậy là người ta cư xử tốt hơn khi nghĩ có ai đó đang theo dõi.\"",
+      "\"Đúng thế.",
+      "Người ta tin rằng khả năng bị bắt quan trọng hơn mức tiền phạt.",
+      "Vì thế tôi muốn đề nghị thành phố mở rộng mạng lưới camera đến mọi nút giao lớn.\"",
+      "Ngọc gõ bút xuống bàn.",
+      "\"Được, nhưng camera không làm được tất cả.",
+      "Mình vẫn cần cảnh sát giao thông trên đường.",
+      "Tuần trước một cán bộ cảnh sát nói với tôi rằng tài xế thường coi lỗi giao thông như thể đó không phải là tội thật sự.\"",
+      "Đạt hỏi: \"Đó chẳng phải là vấn đề thật sự sao?\"",
+      "\"Nhiều người nghĩ pháp luật là dành cho tội phạm, như kẻ trộm tìm cách lấy trộm xe máy, chứ không phải cho tài xế bình thường.",
+      "Nhưng một tài xế say rượu gây chết người có thể phải ngồi tù nhiều năm.\"",
+      "\"Đúng.",
+      "Năm ngoái, toà án ở Kiến An đã tống giam hai tài xế vì say rượu gây tai nạn chết người.",
+      "Các vụ đó được đưa tin khắp nơi, và người ta cho rằng chúng đã khiến nhiều người phải cân nhắc lại.\"",
+      "Đạt nói: \"Vậy mình đưa cả hai ý vào bản đề xuất.",
+      "Phạt nặng hơn và thêm camera, kèm số liệu của cảnh sát để chứng minh cho từng ý.\"",
+      "Họ thống nhất bản cuối cùng.",
+      "Bản đề xuất sẽ kiến nghị tăng gấp đôi tiền phạt lái xe ẩu, lắp camera ở thêm năm mươi nút giao, và yêu cầu mọi trường học tổ chức khoá học an toàn giao thông.",
+      "Ngọc yêu cầu bản báo cáo phải xong trước thứ Sáu, để các thành viên hội đồng có thời gian đọc."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đề xuất chính sách giao thông (propose / recommend that + S + be + V3) và dẫn số liệu chưa kiểm chứng bằng bị động tường thuật (… are said to have decreased).",
+    "examples": [
+      {
+        "lemma": "law",
+        "sentence": "The new law bans phones while driving.",
+        "meaningVi": "Luật mới cấm dùng điện thoại khi lái xe."
+      },
+      {
+        "lemma": "crime",
+        "sentence": "Drink-driving is a crime, not just a mistake.",
+        "meaningVi": "Lái xe khi say rượu là phạm tội, không chỉ là một lỗi nhỏ."
+      },
+      {
+        "lemma": "criminal",
+        "sentence": "He was treated like a criminal for a parking ticket.",
+        "meaningVi": "Anh ấy bị đối xử như tội phạm chỉ vì một vé phạt đỗ xe."
+      },
+      {
+        "lemma": "police",
+        "sentence": "The police stopped every car on the bridge.",
+        "meaningVi": "Cảnh sát chặn mọi xe ô tô trên cầu."
+      },
+      {
+        "lemma": "police officer",
+        "sentence": "The police officer checked my licence and let me go.",
+        "meaningVi": "Cán bộ cảnh sát kiểm tra bằng lái rồi cho tôi đi."
+      },
+      {
+        "lemma": "thief",
+        "sentence": "The thief was caught on a traffic camera.",
+        "meaningVi": "Tên trộm bị camera giao thông ghi lại."
+      },
+      {
+        "lemma": "steal",
+        "sentence": "Some people steal motorbikes and sell the parts.",
+        "meaningVi": "Có kẻ lấy trộm xe máy rồi bán phụ tùng."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "The driver was sent to prison for three years.",
+        "meaningVi": "Người tài xế bị kết án ba năm tù."
+      },
+      {
+        "lemma": "court",
+        "sentence": "The case was heard in court last week.",
+        "meaningVi": "Vụ việc đã được xét xử tại toà tuần trước."
+      },
+      {
+        "lemma": "jail",
+        "sentence": "He spent two nights in jail after the accident.",
+        "meaningVi": "Anh ta bị tạm giam hai đêm sau vụ tai nạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Toan",
+        "Ngoc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Ngoc, I've read your draft. Why do you recommend that fines be doubled?",
+          "meaningVi": "Ngọc, tôi đọc bản nháp rồi. Vì sao chị đề nghị tăng gấp đôi tiền phạt?"
+        },
+        {
+          "speaker": 1,
+          "text": "Because traffic offences rose by eighteen per cent last year. The current fines clearly aren't enough.",
+          "meaningVi": "Vì năm ngoái vi phạm giao thông tăng mười tám phần trăm. Mức phạt hiện nay rõ ràng là chưa đủ."
+        },
+        {
+          "speaker": 0,
+          "text": "But won't drivers complain that the city just wants their money?",
+          "meaningVi": "Nhưng tài xế sẽ không than là thành phố chỉ muốn lấy tiền của họ sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "Some will. That's why we also suggest that the money be spent on road safety.",
+          "meaningVi": "Một số người sẽ than. Vì thế chúng tôi đề nghị thêm là số tiền đó được dùng cho an toàn giao thông."
+        },
+        {
+          "speaker": 0,
+          "text": "And the cameras? Do they really work?",
+          "meaningVi": "Còn camera? Có hiệu quả thật không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Serious accidents are said to have fallen by a third in the camera zones.",
+          "meaningVi": "Người ta nói tai nạn nghiêm trọng ở các khu vực có camera đã giảm một phần ba."
+        },
+        {
+          "speaker": 0,
+          "text": "Is that figure from the police?",
+          "meaningVi": "Con số đó là của bên cảnh sát à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. It is believed to be quite accurate.",
+          "meaningVi": "Vâng. Người ta tin là nó khá chính xác."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. I insist that you include the source in the report.",
+          "meaningVi": "Tốt. Tôi yêu cầu chị ghi rõ nguồn trong báo cáo."
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. I'll add it before Friday.",
+          "meaningVi": "Vâng ạ. Tôi sẽ bổ sung trước thứ Sáu."
+        }
+      ]
+    },
+    "grammarTipVi": "Thức giả định: Why do you recommend that fines be doubled? / we also suggest that the money be spent … / I insist that you include the source. Bị động tường thuật: accidents are said to have fallen … / It is believed to be quite accurate.",
+    "translations": [
+      {
+        "vi": "Họ đề nghị những tài xế say rượu phải ngồi tù.",
+        "en": "They suggest that drunk drivers go to prison.",
+        "distractors": [
+          "goes",
+          "suggesting",
+          "hospital"
+        ],
+        "accepted": [
+          "They suggest drunk drivers go to prison."
+        ]
+      },
+      {
+        "vi": "Năm ngoái, toà án đã tống giam hai tài xế say rượu.",
+        "en": "Last year, the court sent two drunk drivers to jail.",
+        "distractors": [
+          "sends",
+          "drinks",
+          "school"
+        ],
+        "accepted": [
+          "The court sent two drunk drivers to jail last year."
+        ]
+      },
+      {
+        "vi": "Người ta nói rằng chạy quá tốc độ không bị coi là tội.",
+        "en": "It is said that speeding is not seen as a crime.",
+        "distractors": [
+          "saying",
+          "seeing",
+          "sees"
+        ],
+        "accepted": [
+          "It is said speeding is not seen as a crime."
+        ]
+      },
+      {
+        "vi": "Viên cảnh sát đã yêu cầu người tài xế xuống xe.",
+        "en": "The police officer insisted that the driver get out of the car.",
+        "distractors": [
+          "gets",
+          "insisting",
+          "bus"
+        ],
+        "accepted": [
+          "The police officer insisted the driver get out of the car."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ông Toàn và Ngọc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bản nháp đề xuất về giao thông",
+          "Một vụ tai nạn tuần trước",
+          "Lịch họp của hội đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Toàn nói \"I've read your draft\" rồi hỏi về tiền phạt và camera.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngọc đề nghị dùng tiền phạt vào việc gì?",
+        "promptVi": "",
+        "options": [
+          "An toàn giao thông",
+          "Xây trụ sở mới",
+          "Trả lương cảnh sát"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"we also suggest that the money be spent on road safety.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Toàn yêu cầu Ngọc thêm gì vào báo cáo?",
+        "promptVi": "",
+        "options": [
+          "Nguồn của số liệu",
+          "Ảnh từ camera",
+          "Tên các tài xế"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói \"I insist that you include the source in the report.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Toan thinks that drivers will be happy about the higher fines.",
+        "promptVi": "Ông Toàn nghĩ tài xế sẽ vui khi tiền phạt tăng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, ông lo tài xế sẽ than: \"won't drivers complain that the city just wants their money?\"",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Ngọc và Đạt bất đồng ở điểm nào? Bản đề xuất cuối cùng gồm những kiến nghị gì?",
+    "grammarStep": {
+      "titleVi": "Thức giả định và bị động tường thuật",
+      "noticing": [
+        {
+          "sentence": "\"I propose that fines for reckless driving be doubled, at least for repeat offenders.",
+          "highlights": [
+            "propose that fines for reckless driving be doubled"
+          ]
+        },
+        {
+          "sentence": "Serious road incidents are said to have decreased by a third there since the cameras were installed, and the fines in those zones are exactly the same.\"",
+          "highlights": [
+            "are said to have decreased"
+          ]
+        },
+        {
+          "sentence": "It is believed that the chance of being caught matters more than the size of the fine.",
+          "highlights": [
+            "It is believed that"
+          ]
+        },
+        {
+          "sentence": "Ngoc insists that the report be finished by Friday, so that the council members have time to read it.",
+          "highlights": [
+            "insists that the report be finished"
+          ]
+        }
+      ],
+      "questionVi": "Ủy ban đề nghị tăng gấp đôi tiền phạt. Câu nào đúng?",
+      "options": [
+        "The committee recommends that the fines be doubled.",
+        "The committee recommends that the fines to be doubled.",
+        "The committee recommends the fines being doubling."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Sau recommend that, bị động dùng be + V3: the fines be doubled.",
+      "whenVi": "Dùng trong đề xuất, kiến nghị chính sách: thức giả định nêu điều cần làm, bị động tường thuật dẫn số liệu và nhận định chung.",
+      "table": [
+        {
+          "subject": "propose / recommend that + S + be + V3",
+          "form": "I propose that fines be doubled.",
+          "negative": "We propose that fines not be reduced."
+        },
+        {
+          "subject": "S + is / are said + to have V3",
+          "form": "Incidents are said to have decreased by a third.",
+          "negative": "Fines are not said to have changed anything."
+        },
+        {
+          "subject": "It is believed / thought that + mệnh đề",
+          "form": "It is believed that cameras change behaviour.",
+          "negative": "It is not believed that higher fines alone will work."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I propose that fines for reckless driving are double.",
+          "right": "I propose that fines for reckless driving be doubled."
+        },
+        {
+          "wrong": "Serious incidents are said to decrease since 2022.",
+          "right": "Serious incidents are said to have decreased since 2022."
+        }
+      ],
+      "noteVi": "Một câu có thể có nhiều mệnh đề that cùng dạng giả định: recommend that fines be doubled, that cameras be installed …, and that every school run …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Ngoc insists that the report ___ finished by Friday.",
+          "answers": [
+            "be"
+          ],
+          "explanationVi": "Thức giả định bị động: that + S + be + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Accidents ___ to have fallen by a third in the camera zones.",
+          "options": [
+            "are said",
+            "say",
+            "are saying",
+            "have said"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bị động tường thuật: are said + to have + V3."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The proposal recommends that every school to run a road safety course.",
+          "sentence": "The proposal recommends that every school run a road safety course.",
+          "explanationVi": "Sau recommend that dùng động từ nguyên mẫu không to: every school run."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Người ta tin rằng camera làm giảm tai nạn.",
+          "sentence": "It is believed that cameras reduce accidents.",
+          "words": [
+            "It",
+            "is",
+            "believed",
+            "that",
+            "cameras",
+            "reduce",
+            "accidents.",
+            "believing"
+          ],
+          "explanationVi": "It is believed that + mệnh đề; từ \"believing\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Higher fines alone won't change people's habits.",
+        "tipVi": "won't /wəʊnt/ khác want; habits /ˈhæbɪts/ nhấn âm đầu."
+      },
+      {
+        "text": "We still need traffic police on the streets.",
+        "tipVi": "police /pəˈliːs/ nhấn âm thứ hai; streets kết thúc bằng /ts/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the biggest traffic problem in your city?",
+        "questionVi": "Vấn đề giao thông lớn nhất ở thành phố của bạn là gì?",
+        "frame": "The biggest problem is ___. It is said that ___."
+      },
+      {
+        "question": "Do you think higher fines or more cameras would work better? Why?",
+        "questionVi": "Bạn nghĩ tăng tiền phạt hay thêm camera sẽ hiệu quả hơn? Vì sao?",
+        "frame": "I think ___ would work better because ___."
+      },
+      {
+        "question": "What would you propose that your city do to make roads safer?",
+        "questionVi": "Bạn sẽ đề xuất thành phố làm gì để đường phố an toàn hơn?",
+        "frame": "I would propose that the city ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu thức giả định hoặc bị động tường thuật (propose that … be + V3 / is said to have …)",
+      "anyOf": [
+        "propose that",
+        "recommend that",
+        "suggest that",
+        "insist that",
+        "is said to",
+        "are said to",
+        "it is believed that",
+        "it is thought that",
+        "is believed to",
+        "are believed to"
+      ],
+      "outlineVi": [
+        "Nêu vấn đề giao thông và số liệu (… are said to have increased).",
+        "Hai đề xuất bằng propose / recommend that + S + V nguyên mẫu.",
+        "Kết quả mong đợi và thời gian thực hiện."
+      ],
+      "modelAnswer": "Dear council members, the road outside Le Loi Primary School has become very dangerous. Three children are said to have been hurt there since September. It is believed that most drivers do not slow down because there are no signs. I propose that a speed limit of thirty kilometres per hour be introduced near the school. I also recommend that a traffic police officer stand at the gate in the morning. These changes could be made before the new school year."
+    }
+  },
+  "glosses": [
+    {
+      "text": "reckless",
+      "lemma": "reckless",
+      "meaningVi": "ẩu, liều lĩnh",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "fines for reckless driving",
+      "phraseVi": "tiền phạt lái xe ẩu"
+    },
+    {
+      "text": "offenders",
+      "lemma": "offender",
+      "meaningVi": "người vi phạm",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "repeat offenders",
+      "phraseVi": "người tái phạm"
+    },
+    {
+      "text": "junction",
+      "lemma": "junction",
+      "meaningVi": "nút giao, ngã tư",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "every major junction",
+      "phraseVi": "mọi nút giao lớn"
+    },
+    {
+      "text": "fatal",
+      "lemma": "fatal",
+      "meaningVi": "gây chết người",
+      "sentenceIndex": 23,
+      "pos": "adjective",
+      "phrase": "fatal accidents",
+      "phraseVi": "tai nạn chết người"
+    }
+  ]
+}

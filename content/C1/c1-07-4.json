@@ -1,0 +1,651 @@
+{
+  "content": "Every year, a software company in Da Nang asks its four hundred employees to complete a health survey. This year, the results worried the HR manager, Thanh Huong, so she invited Khoa, an occupational therapist, to look at them with her.\n\n\"Here's the summary,\" Huong said, opening her laptop. \"Sixty per cent of staff report neck or back pain, and almost half say they sit for more than nine hours a day. What do you make of it?\"\n\"It's a familiar picture. Sedentary work is now one of the biggest causes of chronic pain in young adults. And over many years, long periods of sitting are linked to obesity, diabetes and even higher mortality.\"\n\"That's alarming. But people don't feel ill. Most of them are under thirty-five.\"\n\"That's exactly the problem. The damage happens slowly. Has anyone been off work because of it?\"\n\"Twelve people last year. Two of them received a diagnosis of a slipped disc.\"\n\"I'm not a doctor, so I can't diagnose individual cases, but I can assess the workstations. Can I see the comments section?\"\nHuong scrolled down. \"Lots of complaints about the chairs and screens. And several people mentioned the canteen. The food is cheap, but it's mostly fried rice and sweet drinks.\"\n\"Then nutrition should be part of the plan too. I'd suggest three structural changes. First, the replacement of the old chairs with adjustable ones. Second, the introduction of standing desks in each team. Third, a short movement break every hour.\"\n\"Won't the managers worry about a reduction in productivity?\"\n\"Studies usually show the opposite. Regular movement improves concentration. Besides, the cost of sick days is far higher than the cost of a chair.\"\n\"Good argument. I'd also like to add something on general health. Last winter, a flu outbreak kept a third of one team at home. Some people even asked their doctor for a prescription for antibiotics, which can't treat flu.\"\n\"Flu is very infectious in an open-plan office. Have you thought about a free vaccination day?\"\n\"Yes, and the improvement of hygiene in shared spaces. There have also been complaints about the sanitation of the kitchen and bathrooms.\"\n\"Good. Sleep and exercise matter as well, since they help keep immunity strong.\"\n\"So the proposal includes ergonomics, food, flu prevention and movement. Isn't that too much for one year?\"\n\"Start with the chairs and the breaks. Their success will make the next steps easier.\"",
+  "targetWords": [
+    "vaccination",
+    "immunity",
+    "infectious",
+    "diagnosis",
+    "diagnose",
+    "chronic",
+    "prescription",
+    "antibiotic",
+    "mortality",
+    "sanitation",
+    "nutrition",
+    "obesity"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "chronic",
+        "lemma": "chronic",
+        "meaningVi": "mạn tính, kéo dài",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "obesity",
+        "lemma": "obesity",
+        "meaningVi": "bệnh béo phì",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "mortality",
+        "lemma": "mortality",
+        "meaningVi": "tỉ lệ tử vong",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "diagnosis",
+        "lemma": "diagnosis",
+        "meaningVi": "chẩn đoán",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "diagnose",
+        "lemma": "diagnose",
+        "meaningVi": "chẩn đoán",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "nutrition",
+        "lemma": "nutrition",
+        "meaningVi": "dinh dưỡng",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "prescription",
+        "lemma": "prescription",
+        "meaningVi": "đơn thuốc",
+        "pos": "noun",
+        "sentenceIndex": 34
+      },
+      {
+        "text": "antibiotics",
+        "lemma": "antibiotic",
+        "meaningVi": "thuốc kháng sinh",
+        "pos": "noun",
+        "sentenceIndex": 34
+      },
+      {
+        "text": "infectious",
+        "lemma": "infectious",
+        "meaningVi": "dễ lây",
+        "pos": "adjective",
+        "sentenceIndex": 35
+      },
+      {
+        "text": "vaccination",
+        "lemma": "vaccination",
+        "meaningVi": "việc tiêm vắc-xin",
+        "pos": "noun",
+        "sentenceIndex": 36
+      },
+      {
+        "text": "sanitation",
+        "lemma": "sanitation",
+        "meaningVi": "vệ sinh (nhà vệ sinh, nước thải)",
+        "pos": "noun",
+        "sentenceIndex": 38
+      },
+      {
+        "text": "immunity",
+        "lemma": "immunity",
+        "meaningVi": "hệ miễn dịch, khả năng miễn dịch",
+        "pos": "noun",
+        "sentenceIndex": 40
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the main topic of Huong and Khoa's conversation?",
+        "promptVi": "Chủ đề chính của cuộc trò chuyện giữa Hương và Khoa là gì?",
+        "options": [
+          "Health problems caused by sitting at work and how to solve them",
+          "Hiring new software engineers",
+          "Treating a patient with a slipped disc",
+          "Opening a new canteen in Da Nang"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ xem kết quả khảo sát về đau cổ, đau lưng do ngồi lâu và đề xuất thay đổi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many staff report neck or back pain?",
+        "promptVi": "Bao nhiêu nhân viên bị đau cổ hoặc đau lưng?",
+        "options": [
+          "Sixty per cent",
+          "Almost half",
+          "Twelve people",
+          "A third of one team"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Sixty per cent of staff report neck or back pain.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which change does Khoa suggest starting with?",
+        "promptVi": "Khoa khuyên bắt đầu bằng thay đổi nào?",
+        "options": [
+          "New chairs and movement breaks",
+          "A new canteen menu",
+          "A free vaccination day",
+          "Standing desks for managers only"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Start with the chairs and the breaks.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa can diagnose individual cases of back pain.",
+        "promptVi": "Khoa có thể chẩn đoán từng ca đau lưng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, anh nói \"I'm not a doctor, so I can't diagnose individual cases.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"sedentary\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Sedentary work is now one of the biggest causes of chronic pain in young adults.\"",
+        "options": [
+          "ít vận động, ngồi nhiều",
+          "nặng nhọc",
+          "nguy hiểm",
+          "làm ca đêm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sedentary = phải ngồi nhiều, ít di chuyển."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh hoá",
+      "bodyVi": "Khi liệt kê đề xuất, ta thường dùng danh từ thay cho động từ để các ý ngắn và song song: replace the old chairs → the replacement of the old chairs; introduce standing desks → the introduction of standing desks; improve hygiene → the improvement of hygiene. Giảm năng suất → a reduction in productivity (dùng in với con số, mức độ). Cách này giúp bản đề xuất trông chuyên nghiệp và dễ đọc.",
+      "examples": [
+        "First, the replacement of the old chairs with adjustable ones.",
+        "Second, the introduction of standing desks in each team.",
+        "\"Won't the managers worry about a reduction in productivity?\""
+      ]
+    },
+    "writingPrompt": "Write a short proposal (80–120 words) to improve health at your workplace or school. List at least three changes using nominalisations (the replacement of …, the introduction of …, the improvement of …).",
+    "sentenceTranslations": [
+      "Hằng năm, một công ty phần mềm ở Đà Nẵng đề nghị bốn trăm nhân viên của mình làm một bản khảo sát sức khoẻ.",
+      "Năm nay, kết quả khiến trưởng phòng nhân sự Thanh Hương lo lắng, nên chị mời Khoa, một chuyên viên hoạt động trị liệu, cùng xem.",
+      "\"Đây là bản tóm tắt,\" Hương vừa nói vừa mở máy tính.",
+      "\"Sáu mươi phần trăm nhân viên bị đau cổ hoặc đau lưng, và gần một nửa nói họ ngồi hơn chín tiếng mỗi ngày.",
+      "Anh thấy thế nào?\"",
+      "\"Một bức tranh quen thuộc.",
+      "Công việc ngồi nhiều giờ đây là một trong những nguyên nhân lớn nhất gây đau mạn tính ở người trẻ.",
+      "Và về lâu dài, ngồi nhiều có liên quan đến béo phì, tiểu đường và thậm chí tỉ lệ tử vong cao hơn.\"",
+      "\"Đáng báo động thật.",
+      "Nhưng mọi người không thấy mình ốm.",
+      "Phần lớn họ dưới ba mươi lăm tuổi.\"",
+      "\"Đó chính là vấn đề.",
+      "Tổn thương diễn ra từ từ.",
+      "Đã có ai phải nghỉ làm vì chuyện này chưa?\"",
+      "\"Năm ngoái có mười hai người.",
+      "Hai người trong số đó được chẩn đoán thoát vị đĩa đệm.\"",
+      "\"Tôi không phải bác sĩ, nên tôi không thể chẩn đoán từng trường hợp, nhưng tôi có thể đánh giá chỗ ngồi làm việc.",
+      "Cho tôi xem phần ý kiến được không?\"",
+      "Hương kéo xuống.",
+      "\"Rất nhiều phàn nàn về ghế và màn hình.",
+      "Và vài người nhắc đến căng tin.",
+      "Đồ ăn rẻ, nhưng chủ yếu là cơm chiên và nước ngọt.\"",
+      "\"Vậy dinh dưỡng cũng nên là một phần của kế hoạch.",
+      "Tôi đề xuất ba thay đổi mang tính cơ cấu.",
+      "Thứ nhất, thay ghế cũ bằng ghế chỉnh được.",
+      "Thứ hai, đưa bàn đứng vào mỗi nhóm.",
+      "Thứ ba, cứ mỗi giờ nghỉ ngắn để vận động.\"",
+      "\"Các quản lý có lo năng suất bị giảm không?\"",
+      "\"Các nghiên cứu thường cho thấy điều ngược lại.",
+      "Vận động đều đặn giúp tập trung tốt hơn.",
+      "Hơn nữa, chi phí cho những ngày nghỉ ốm cao hơn nhiều so với giá một cái ghế.\"",
+      "\"Lập luận hay.",
+      "Tôi cũng muốn thêm một phần về sức khoẻ chung.",
+      "Mùa đông năm ngoái, một đợt cúm khiến một phần ba của một nhóm phải ở nhà.",
+      "Thậm chí có người còn xin bác sĩ kê đơn kháng sinh, trong khi kháng sinh không chữa được cúm.\"",
+      "\"Cúm rất dễ lây trong văn phòng mở.",
+      "Chị đã nghĩ đến một ngày tiêm vắc-xin miễn phí chưa?\"",
+      "\"Rồi, và cả việc cải thiện vệ sinh ở khu dùng chung.",
+      "Cũng đã có phàn nàn về tình trạng vệ sinh của bếp và nhà vệ sinh.\"",
+      "\"Tốt.",
+      "Giấc ngủ và tập thể dục cũng quan trọng, vì chúng giúp giữ hệ miễn dịch khoẻ.\"",
+      "\"Vậy đề xuất gồm công thái học, đồ ăn, phòng cúm và vận động.",
+      "Một năm làm từng ấy có nhiều quá không?\"",
+      "\"Hãy bắt đầu với ghế và giờ nghỉ.",
+      "Thành công của chúng sẽ giúp các bước sau dễ hơn.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày kết quả khảo sát sức khoẻ nơi làm việc và liệt kê đề xuất bằng danh hoá (the replacement of, the introduction of, a reduction in).",
+    "examples": [
+      {
+        "lemma": "vaccination",
+        "sentence": "The company offers free flu vaccination every autumn.",
+        "meaningVi": "Công ty tiêm vắc-xin cúm miễn phí mỗi mùa thu."
+      },
+      {
+        "lemma": "immunity",
+        "sentence": "Stress can weaken your immunity.",
+        "meaningVi": "Căng thẳng có thể làm suy yếu hệ miễn dịch."
+      },
+      {
+        "lemma": "infectious",
+        "sentence": "Stay at home while you are still infectious.",
+        "meaningVi": "Hãy ở nhà khi bạn vẫn còn có thể lây bệnh."
+      },
+      {
+        "lemma": "diagnosis",
+        "sentence": "The diagnosis came as a shock to him.",
+        "meaningVi": "Kết quả chẩn đoán khiến anh ấy sốc."
+      },
+      {
+        "lemma": "diagnose",
+        "sentence": "An X-ray helped the doctor diagnose the problem.",
+        "meaningVi": "Phim chụp X-quang giúp bác sĩ chẩn đoán vấn đề."
+      },
+      {
+        "lemma": "chronic",
+        "sentence": "Many office workers suffer from chronic neck pain.",
+        "meaningVi": "Nhiều nhân viên văn phòng bị đau cổ mạn tính."
+      },
+      {
+        "lemma": "prescription",
+        "sentence": "The doctor wrote a prescription for painkillers.",
+        "meaningVi": "Bác sĩ kê đơn thuốc giảm đau."
+      },
+      {
+        "lemma": "antibiotic",
+        "sentence": "An antibiotic will not help a cold.",
+        "meaningVi": "Kháng sinh sẽ không chữa được cảm lạnh."
+      },
+      {
+        "lemma": "mortality",
+        "sentence": "Lack of exercise is linked to higher mortality.",
+        "meaningVi": "Thiếu vận động có liên quan đến tỉ lệ tử vong cao hơn."
+      },
+      {
+        "lemma": "sanitation",
+        "sentence": "The factory improved sanitation for its workers.",
+        "meaningVi": "Nhà máy đã cải thiện điều kiện vệ sinh cho công nhân."
+      },
+      {
+        "lemma": "nutrition",
+        "sentence": "The canteen hired an expert in nutrition.",
+        "meaningVi": "Căng tin thuê một chuyên gia dinh dưỡng."
+      },
+      {
+        "lemma": "obesity",
+        "sentence": "Sitting all day can lead to obesity.",
+        "meaningVi": "Ngồi cả ngày có thể dẫn đến béo phì."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thanh Huong",
+        "Khoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khoa, the new chairs arrived last week. Have you seen them?",
+          "meaningVi": "Khoa ơi, ghế mới về từ tuần trước. Anh xem chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they look good. Are people using the height controls?",
+          "meaningVi": "Rồi, trông ổn đấy. Mọi người có dùng nút chỉnh độ cao không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really. Most of them don't know how.",
+          "meaningVi": "Không hẳn. Phần lớn không biết cách."
+        },
+        {
+          "speaker": 1,
+          "text": "Then I can run a short session for each team.",
+          "meaningVi": "Vậy tôi có thể hướng dẫn ngắn cho từng nhóm."
+        },
+        {
+          "speaker": 0,
+          "text": "That would help. What about the hourly breaks?",
+          "meaningVi": "Thế thì tốt quá. Còn giờ nghỉ mỗi tiếng thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "A reminder on everyone's computer usually works best.",
+          "meaningVi": "Một lời nhắc trên máy tính của mọi người thường hiệu quả nhất."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea. I'll ask the IT team to set it up.",
+          "meaningVi": "Ý hay. Tôi sẽ nhờ nhóm IT cài đặt."
+        },
+        {
+          "speaker": 1,
+          "text": "And could the canteen add some healthier options?",
+          "meaningVi": "Căng tin có thể thêm vài món lành mạnh hơn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "They've agreed to a salad bar from next month.",
+          "meaningVi": "Họ đã đồng ý mở quầy salad từ tháng sau."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. Let's check the results in the next survey.",
+          "meaningVi": "Tuyệt. Mình kiểm tra kết quả trong đợt khảo sát tới nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Trong hội thoại thường ngày, ta dùng động từ nhiều hơn (Are people using the height controls?). Khi viết đề xuất, chuyển thành danh từ: the use of the height controls, the introduction of a salad bar.",
+    "translations": [
+      {
+        "vi": "Ngồi lâu có liên quan đến béo phì và tiểu đường.",
+        "en": "Long periods of sitting are linked to obesity and diabetes.",
+        "distractors": [
+          "obese",
+          "linking",
+          "is"
+        ],
+        "accepted": [
+          "Long periods of sitting are linked to diabetes and obesity."
+        ]
+      },
+      {
+        "vi": "Tôi không thể chẩn đoán từng trường hợp cụ thể.",
+        "en": "I can't diagnose individual cases.",
+        "distractors": [
+          "diagnosis",
+          "individually",
+          "mustn't"
+        ]
+      },
+      {
+        "vi": "Kế hoạch cũng nên bao gồm dinh dưỡng.",
+        "en": "The plan should also include nutrition.",
+        "distractors": [
+          "nutritious",
+          "includes",
+          "shouldn't"
+        ]
+      },
+      {
+        "vi": "Cúm rất dễ lây trong văn phòng mở.",
+        "en": "Flu is very infectious in an open-plan office.",
+        "distractors": [
+          "infection",
+          "much",
+          "closed"
+        ]
+      },
+      {
+        "vi": "Giấc ngủ giúp giữ cho hệ miễn dịch khoẻ mạnh.",
+        "en": "Sleep helps keep immunity strong.",
+        "distractors": [
+          "immune",
+          "strength",
+          "helping"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hương và Khoa nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tiến độ các thay đổi về sức khoẻ ở công ty",
+          "Một nhân viên bị ốm",
+          "Kế hoạch tuyển dụng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn về ghế mới, giờ nghỉ và căng tin.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao mọi người chưa dùng nút chỉnh độ cao?",
+        "promptVi": "",
+        "options": [
+          "Họ không biết cách dùng",
+          "Ghế bị hỏng",
+          "Họ không thích ghế mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Most of them don't know how.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cách nào thường hiệu quả nhất để nhắc giờ nghỉ?",
+        "promptVi": "",
+        "options": [
+          "Lời nhắc trên máy tính",
+          "Chuông báo trong văn phòng",
+          "Email của quản lý"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"A reminder on everyone's computer usually works best.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The salad bar will open this week.",
+        "promptVi": "Quầy salad sẽ mở trong tuần này.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, quầy salad mở \"from next month.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Khảo sát cho thấy những vấn đề sức khoẻ nào? Khoa đề xuất những thay đổi gì, và nên bắt đầu từ đâu?",
+    "grammarStep": {
+      "titleVi": "Danh hoá",
+      "noticing": [
+        {
+          "sentence": "First, the replacement of the old chairs with adjustable ones.",
+          "highlights": [
+            "the replacement of the old chairs"
+          ]
+        },
+        {
+          "sentence": "Second, the introduction of standing desks in each team.",
+          "highlights": [
+            "the introduction of standing desks"
+          ]
+        },
+        {
+          "sentence": "\"Won't the managers worry about a reduction in productivity?\"",
+          "highlights": [
+            "a reduction in productivity"
+          ]
+        },
+        {
+          "sentence": "\"Yes, and the improvement of hygiene in shared spaces.",
+          "highlights": [
+            "the improvement of hygiene"
+          ]
+        }
+      ],
+      "questionVi": "Viết ý \"We will move the printers closer to the teams\" thành một mục trong danh sách đề xuất. Câu nào đúng?",
+      "options": [
+        "The movement of the printers closer to the teams.",
+        "The move the printers closer to the teams.",
+        "The moving printers of closer to the teams."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "move → danh từ movement (hoặc moving); vật được di chuyển đi sau of.",
+      "whenVi": "Dùng khi viết danh sách đề xuất, kế hoạch hành động hay biên bản họp: mỗi mục là một cụm danh từ, ngắn gọn và song song với nhau.",
+      "table": [
+        {
+          "subject": "-ment",
+          "form": "replace → the replacement of; improve → the improvement of",
+          "negative": "Không nói: the replace of."
+        },
+        {
+          "subject": "-tion",
+          "form": "introduce → the introduction of; reduce → a reduction in",
+          "negative": "reduction in + con số, mức độ."
+        },
+        {
+          "subject": "Danh sách song song",
+          "form": "First, the replacement of …; Second, the introduction of …",
+          "negative": "Không trộn: First, replace … Second, the introduction of …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "First, the replace of the old chairs.",
+          "right": "First, the replacement of the old chairs."
+        },
+        {
+          "wrong": "They worry about a reduction of productivity.",
+          "right": "They worry about a reduction in productivity."
+        }
+      ],
+      "noteVi": "Bài có câu hỏi phủ định để bày tỏ lo ngại: Won't the managers worry …? Isn't that too much for one year?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Managers may worry about a reduction ___ productivity.",
+          "answers": [
+            "in"
+          ],
+          "explanationVi": "a reduction in + mức độ, con số."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Second, the ___ of standing desks in each team.",
+          "options": [
+            "introduction",
+            "introduce",
+            "introduced",
+            "introducing to"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau the cần danh từ introduction."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The improve of hygiene in shared spaces is necessary.",
+          "sentence": "The improvement of hygiene in shared spaces is necessary.",
+          "explanationVi": "improve → danh từ improvement."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Việc thay ghế cũ sẽ giúp ích cho mọi người.",
+          "sentence": "The replacement of the old chairs will help everyone.",
+          "explanationVi": "The replacement of + cụm danh từ làm chủ ngữ; từ \"replace\" bị thừa.",
+          "words": [
+            "The",
+            "replacement",
+            "of",
+            "the",
+            "old",
+            "chairs",
+            "will",
+            "help",
+            "everyone.",
+            "replace"
+          ]
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Sedentary work is now one of the biggest causes of chronic pain in young adults.",
+        "tipVi": "sedentary /ˈsedntri/; chronic /ˈkrɒnɪk/, âm ch đọc là /k/."
+      },
+      {
+        "text": "\"Flu is very infectious in an open-plan office.",
+        "tipVi": "infectious /ɪnˈfekʃəs/; open-plan đọc liền một cụm."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How many hours a day do you sit? Does it affect your health?",
+        "questionVi": "Mỗi ngày bạn ngồi bao nhiêu tiếng? Điều đó có ảnh hưởng đến sức khoẻ không?",
+        "frame": "I sit for about ___ hours, and the result is ___."
+      },
+      {
+        "question": "What would you change at your workplace or school to make it healthier?",
+        "questionVi": "Bạn muốn thay đổi gì ở nơi làm việc hay trường học cho lành mạnh hơn?",
+        "frame": "I would suggest the introduction of ___."
+      },
+      {
+        "question": "Should companies pay for their employees' health programmes? Why?",
+        "questionVi": "Công ty có nên trả tiền cho chương trình sức khoẻ của nhân viên không? Vì sao?",
+        "frame": "Yes, because the cost of ___ is higher than ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 danh từ hoá (the replacement of, the introduction of, a reduction in …)",
+      "anyOf": [
+        "replacement of",
+        "introduction of",
+        "improvement of",
+        "reduction in",
+        "increase in",
+        "provision of",
+        "installation of",
+        "use of",
+        "lack of"
+      ],
+      "outlineVi": [
+        "Vấn đề sức khoẻ chính (an increase in …, the lack of …).",
+        "Các đề xuất, mỗi ý một cụm danh từ (the replacement of …, the introduction of …).",
+        "Lợi ích mong đợi (a reduction in …, an improvement in …)."
+      ],
+      "modelAnswer": "Many students at my school complain about tiredness and back pain. I would like to propose three changes. First, the replacement of the old wooden chairs with better ones. Second, the introduction of a ten-minute exercise break in the afternoon. Third, the improvement of the school canteen, with more fruit and less fried food. These changes should lead to a reduction in sick days."
+    }
+  },
+  "glosses": [
+    {
+      "text": "occupational therapist",
+      "lemma": "occupational therapist",
+      "meaningVi": "chuyên viên hoạt động trị liệu",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "an occupational therapist",
+      "phraseVi": "một chuyên viên hoạt động trị liệu"
+    },
+    {
+      "text": "Sedentary",
+      "lemma": "sedentary",
+      "meaningVi": "ít vận động, ngồi nhiều",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "Sedentary work",
+      "phraseVi": "công việc ngồi nhiều"
+    },
+    {
+      "text": "slipped disc",
+      "lemma": "slipped disc",
+      "meaningVi": "thoát vị đĩa đệm",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "a slipped disc",
+      "phraseVi": "thoát vị đĩa đệm"
+    },
+    {
+      "text": "adjustable",
+      "lemma": "adjustable",
+      "meaningVi": "chỉnh được",
+      "sentenceIndex": 24,
+      "pos": "adjective",
+      "phrase": "adjustable ones",
+      "phraseVi": "loại chỉnh được"
+    }
+  ]
+}

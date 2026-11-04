@@ -1,0 +1,612 @@
+{
+  "content": "At seven in the morning, a long queue has already formed outside the People's Court of Da Nang. Diep, a legal journalist for a national newspaper, shows her press card at the gate and finds a seat near the front. Today is the first day of the trial of Mr Loc, the former deputy director of Han River Commercial Bank, and the room is packed with reporters, lawyers and angry customers.\n\nThe case has dominated the headlines for months. Mr Loc is alleged to have laundered substantial sums through offshore shell accounts between 2019 and 2023. According to the prosecution, he approved hundreds of fake loans to companies that had no real business. The total is estimated to be around four trillion dong, and it is thought that much of the money has already left the country.\n\nWhen Mr Loc, who has spent the past year in jail, is brought in by a police officer, the room falls silent. He looks thinner than in the photos, and he does not look at the crowd. Diep notes that he is wearing a plain white shirt, not the expensive suits he was famous for.\n\nIn her notebook, she writes down the key points of the morning. Mr Loc's lawyer argues that his client was only following orders from the board. However, two former colleagues are reported to have told investigators that Mr Loc personally designed the scheme. One of them is said to be cooperating with the prosecution in exchange for a lighter sentence.\n\nDuring the break, Diep speaks to an elderly woman who lost her savings. \"People call him a banker,\" the woman says, \"but to me he is just a thief in a good suit. A robbery with a gun would at least be honest. He didn't steal from the bank; he stole from people like me.\"\n\nDiep's editor calls her at lunchtime. \"Is it true that he could face life in prison?\" he asks.\n\"Under the current law, yes, if the court decides that he was the leader of the scheme,\" she replies. \"But the verdict isn't expected until next month. The judges want to hear from all forty witnesses first.\"\n\nThat evening, Diep writes her article. She chooses her words carefully, because until the court decides, Mr Loc is not a criminal in the eyes of the law. Every claim is introduced with phrases like \"is alleged to\" or \"is said to have\", and she checks each figure twice against the court documents. In crime reporting, she knows, everything depends on precision.",
+  "targetWords": [
+    "law",
+    "crime",
+    "criminal",
+    "police officer",
+    "thief",
+    "steal",
+    "robbery",
+    "prison",
+    "jail",
+    "court"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "court",
+        "lemma": "court",
+        "meaningVi": "toà án",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "jail",
+        "lemma": "jail",
+        "meaningVi": "trại giam, nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "police officer",
+        "lemma": "police officer",
+        "meaningVi": "cán bộ cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "thief",
+        "lemma": "thief",
+        "meaningVi": "kẻ trộm",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "robbery",
+        "lemma": "robbery",
+        "meaningVi": "vụ cướp",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "steal",
+        "lemma": "steal",
+        "meaningVi": "ăn cắp, lấy trộm",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "pháp luật",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "criminal",
+        "lemma": "criminal",
+        "meaningVi": "tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "crime",
+        "lemma": "crime",
+        "meaningVi": "tội phạm, tội",
+        "pos": "noun",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why is Diep at the court?",
+        "promptVi": "Vì sao Điệp có mặt ở toà án?",
+        "options": [
+          "She is a witness in the case.",
+          "She is reporting on a banking trial.",
+          "She is Mr Loc's lawyer.",
+          "She lost her savings at the bank."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Điệp là nhà báo pháp luật, đến đưa tin về phiên xử ông Lộc, cựu phó giám đốc ngân hàng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Mr Loc alleged to have done?",
+        "promptVi": "Ông Lộc bị cáo buộc đã làm gì?",
+        "options": [
+          "Robbed a bank with a gun",
+          "Laundered large sums through offshore shell accounts",
+          "Attacked a police officer",
+          "Lied to a journalist"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"Mr Loc is alleged to have laundered substantial sums through offshore shell accounts.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is one of the former colleagues said to be doing?",
+        "promptVi": "Một trong hai đồng nghiệp cũ được cho là đang làm gì?",
+        "options": [
+          "Hiding abroad",
+          "Writing a book about the bank",
+          "Cooperating with the prosecution",
+          "Working for Mr Loc's lawyer"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"One of them is said to be cooperating with the prosecution in exchange for a lighter sentence.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The verdict will be announced at the end of the first day.",
+        "promptVi": "Phán quyết sẽ được công bố vào cuối ngày đầu tiên.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, \"the verdict isn't expected until next month.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"laundered\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Mr Loc is alleged to have laundered substantial sums through offshore shell accounts\"",
+        "options": [
+          "rửa (tiền)",
+          "vay",
+          "tiết kiệm",
+          "quyên góp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Launder money = rửa tiền, biến tiền bất hợp pháp thành tiền trông như hợp pháp."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động tường thuật trong tin pháp luật",
+      "bodyVi": "Khi toà chưa tuyên án, nhà báo không được viết như thể tội đã được chứng minh. Vì thế bài dùng bị động tường thuật với allege (cáo buộc), estimate (ước tính), report, say, think. Sự việc đã xảy ra trước: is alleged / reported + to have + V3 (is alleged to have laundered, are reported to have told). Sự việc đang diễn ra: is said + to be + V-ing (is said to be cooperating). Trạng thái hiện tại: is estimated + to be. Dạng It: it is thought that much of the money has already left the country.",
+      "examples": [
+        "Mr Loc is alleged to have laundered substantial sums through offshore shell accounts between 2019 and 2023.",
+        "The total is estimated to be around four trillion dong, and it is thought that much of the money has already left the country.",
+        "However, two former colleagues are reported to have told investigators that Mr Loc personally designed the scheme."
+      ]
+    },
+    "writingPrompt": "Write a short news article about a court case (real or invented). The verdict has not been given yet, so use at least three reporting passive structures (is alleged to have …, is said to be …, it is thought that …).",
+    "sentenceTranslations": [
+      "Mới bảy giờ sáng, một hàng dài đã xếp trước Toà án Nhân dân thành phố Đà Nẵng.",
+      "Điệp, nhà báo mảng pháp luật của một tờ báo trung ương, trình thẻ nhà báo ở cổng và tìm được một chỗ ngồi gần phía trên.",
+      "Hôm nay là ngày đầu tiên của phiên xử ông Lộc, cựu phó giám đốc Ngân hàng Thương mại Sông Hàn, và phòng xử chật kín phóng viên, luật sư và những khách hàng đang giận dữ.",
+      "Vụ án đã chiếm các trang nhất suốt nhiều tháng.",
+      "Ông Lộc bị cáo buộc đã rửa những khoản tiền lớn qua các tài khoản ma ở nước ngoài trong giai đoạn 2019 đến 2023.",
+      "Theo phía công tố, ông ta đã duyệt hàng trăm khoản vay giả cho những công ty không hề kinh doanh thật.",
+      "Tổng số tiền ước tính khoảng bốn nghìn tỷ đồng, và người ta cho rằng phần lớn số tiền đó đã ra khỏi đất nước.",
+      "Khi ông Lộc, người đã bị tạm giam suốt một năm qua, được một cán bộ cảnh sát dẫn vào, cả phòng im phăng phắc.",
+      "Ông ta trông gầy hơn so với trong ảnh, và không nhìn về phía đám đông.",
+      "Điệp ghi lại rằng ông ta mặc một chiếc áo sơ mi trắng đơn giản, không phải những bộ vest đắt tiền từng làm ông ta nổi tiếng.",
+      "Trong sổ tay, cô ghi lại những điểm chính của buổi sáng.",
+      "Luật sư của ông Lộc lập luận rằng thân chủ chỉ làm theo lệnh của hội đồng quản trị.",
+      "Tuy nhiên, theo tin đưa, hai đồng nghiệp cũ đã khai với điều tra viên rằng chính ông Lộc đã thiết kế toàn bộ kế hoạch.",
+      "Một trong hai người được cho là đang hợp tác với phía công tố để được giảm án.",
+      "Trong giờ nghỉ, Điệp nói chuyện với một bà cụ đã mất hết tiền tiết kiệm.",
+      "Bà nói: \"Người ta gọi ông ta là chủ ngân hàng, nhưng với tôi ông ta chỉ là một tên trộm mặc vest đẹp.",
+      "Một vụ cướp có súng ít ra còn thẳng thắn.",
+      "Ông ta không ăn cắp của ngân hàng; ông ta ăn cắp của những người như tôi.\"",
+      "Giờ trưa, biên tập viên gọi cho Điệp.",
+      "Anh hỏi: \"Có đúng là ông ta có thể bị tù chung thân không?\"",
+      "Cô trả lời: \"Theo luật hiện hành thì có, nếu toà xác định ông ta là người cầm đầu.",
+      "\"Nhưng phải đến tháng sau mới có phán quyết.",
+      "Các thẩm phán muốn nghe hết cả bốn mươi nhân chứng trước đã.\"",
+      "Tối hôm đó, Điệp viết bài.",
+      "Cô chọn từ rất cẩn thận, vì cho đến khi toà tuyên án, trước pháp luật ông Lộc chưa phải là tội phạm.",
+      "Mỗi cáo buộc đều được mở đầu bằng những cụm như \"bị cáo buộc là\" hay \"được cho là đã\", và cô đối chiếu từng con số hai lần với hồ sơ của toà.",
+      "Cô biết, khi đưa tin về tội phạm, chính xác là điều quan trọng nhất."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đưa tin về một phiên toà một cách thận trọng, bằng bị động tường thuật (is alleged to have …, is said to be …, it is thought that …).",
+    "examples": [
+      {
+        "lemma": "law",
+        "sentence": "Nobody is above the law, not even a bank director.",
+        "meaningVi": "Không ai đứng trên pháp luật, kể cả giám đốc ngân hàng."
+      },
+      {
+        "lemma": "crime",
+        "sentence": "Money laundering is a serious crime in every country.",
+        "meaningVi": "Rửa tiền là tội nghiêm trọng ở mọi quốc gia."
+      },
+      {
+        "lemma": "criminal",
+        "sentence": "The newspaper called him a criminal before the trial.",
+        "meaningVi": "Tờ báo đã gọi ông ta là tội phạm trước cả phiên xử."
+      },
+      {
+        "lemma": "police officer",
+        "sentence": "A police officer stood at the door of the court room.",
+        "meaningVi": "Một cán bộ cảnh sát đứng ở cửa phòng xử án."
+      },
+      {
+        "lemma": "thief",
+        "sentence": "The thief returned the money before the trial.",
+        "meaningVi": "Kẻ trộm đã trả lại tiền trước phiên xử."
+      },
+      {
+        "lemma": "steal",
+        "sentence": "It is easier to steal with a computer than with a gun.",
+        "meaningVi": "Ăn cắp bằng máy tính dễ hơn bằng súng."
+      },
+      {
+        "lemma": "robbery",
+        "sentence": "The robbery was over in less than two minutes.",
+        "meaningVi": "Vụ cướp diễn ra chưa đầy hai phút."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "She was sentenced to ten years in prison.",
+        "meaningVi": "Bà ta bị kết án mười năm tù."
+      },
+      {
+        "lemma": "jail",
+        "sentence": "He has been in jail since his arrest in March.",
+        "meaningVi": "Ông ta bị tạm giam từ khi bị bắt vào tháng Ba."
+      },
+      {
+        "lemma": "court",
+        "sentence": "Journalists are not allowed to film inside the court.",
+        "meaningVi": "Nhà báo không được quay phim bên trong toà án."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thinh",
+        "Diep"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Diep, how was the first morning?",
+          "meaningVi": "Điệp, buổi sáng đầu tiên thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Tense. The room was full, and Mr Loc didn't say a word.",
+          "meaningVi": "Căng thẳng lắm anh. Phòng chật kín, và ông Lộc không nói một lời nào."
+        },
+        {
+          "speaker": 0,
+          "text": "Did his lawyer deny everything?",
+          "meaningVi": "Luật sư của ông ta phủ nhận hết à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Mostly. He claims that Mr Loc was only following orders from the board.",
+          "meaningVi": "Gần như vậy. Ông ấy cho rằng ông Lộc chỉ làm theo lệnh của hội đồng quản trị."
+        },
+        {
+          "speaker": 0,
+          "text": "And what do the witnesses say?",
+          "meaningVi": "Còn các nhân chứng nói gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "Two former colleagues are reported to have blamed him directly.",
+          "meaningVi": "Theo tin đưa, hai đồng nghiệp cũ đã trực tiếp đổ lỗi cho ông ta."
+        },
+        {
+          "speaker": 0,
+          "text": "Can we print their names?",
+          "meaningVi": "Mình có đăng tên họ được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not yet. One of them is said to be under police protection.",
+          "meaningVi": "Chưa được anh ạ. Một người được cho là đang được cảnh sát bảo vệ."
+        },
+        {
+          "speaker": 0,
+          "text": "Then be careful. Make sure every claim is written as an allegation.",
+          "meaningVi": "Vậy thì cẩn thận nhé. Nhớ viết mọi thông tin dưới dạng cáo buộc."
+        },
+        {
+          "speaker": 1,
+          "text": "Don't worry. I'll check each sentence with our lawyer.",
+          "meaningVi": "Anh đừng lo. Em sẽ kiểm tra từng câu với luật sư của toà soạn."
+        }
+      ]
+    },
+    "grammarTipVi": "Việc đã xảy ra: Two former colleagues are reported to have blamed him … Việc đang diễn ra: One of them is said to be under police protection. Trong tin pháp luật, mọi thông tin chưa được toà xác nhận đều nên viết theo cách này.",
+    "translations": [
+      {
+        "vi": "Rửa tiền là một tội rất nghiêm trọng.",
+        "en": "Money laundering is a very serious crime.",
+        "distractors": [
+          "laundry",
+          "seriously",
+          "small"
+        ]
+      },
+      {
+        "vi": "Người ta tin rằng ông ấy sẽ phải ngồi tù nhiều năm.",
+        "en": "He is believed to face many years in prison.",
+        "distractors": [
+          "facing",
+          "believing",
+          "months"
+        ]
+      },
+      {
+        "vi": "Toà án dự kiến sẽ ra phán quyết vào tháng sau.",
+        "en": "The court is expected to decide next month.",
+        "distractors": [
+          "expecting",
+          "decides",
+          "week"
+        ],
+        "accepted": [
+          "Next month the court is expected to decide."
+        ]
+      },
+      {
+        "vi": "Ông ấy được cho là đã bị giam từ năm ngoái.",
+        "en": "He is said to have been in jail since last year.",
+        "distractors": [
+          "saying",
+          "being",
+          "ago"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thịnh và Điệp nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi sáng đầu tiên của phiên toà",
+          "Kế hoạch nghỉ phép của Điệp",
+          "Một vụ cướp ngân hàng mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thịnh hỏi \"how was the first morning?\" và hai người bàn cách viết bài.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Luật sư của ông Lộc nói gì?",
+        "promptVi": "",
+        "options": [
+          "Ông Lộc chỉ làm theo lệnh của hội đồng quản trị",
+          "Ông Lộc đã trả lại hết tiền",
+          "Ông Lộc không quen hai nhân chứng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Điệp kể \"He claims that Mr Loc was only following orders from the board.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao chưa nên đăng tên các nhân chứng?",
+        "promptVi": "",
+        "options": [
+          "Một người được cho là đang được cảnh sát bảo vệ",
+          "Họ chưa ra toà",
+          "Biên tập viên không thích họ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Điệp nói \"One of them is said to be under police protection.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Diep will check her article with the newspaper's lawyer.",
+        "promptVi": "Điệp sẽ kiểm tra bài viết với luật sư của toà soạn.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Điệp nói \"I'll check each sentence with our lawyer.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Những thông tin nào về ông Lộc mới chỉ là cáo buộc? Vì sao Điệp phải chọn từ cẩn thận khi viết bài?",
+    "grammarStep": {
+      "titleVi": "Bị động tường thuật với allege, estimate, report, say",
+      "noticing": [
+        {
+          "sentence": "Mr Loc is alleged to have laundered substantial sums through offshore shell accounts between 2019 and 2023.",
+          "highlights": [
+            "is alleged to have laundered"
+          ]
+        },
+        {
+          "sentence": "The total is estimated to be around four trillion dong, and it is thought that much of the money has already left the country.",
+          "highlights": [
+            "is estimated to be",
+            "it is thought that"
+          ]
+        },
+        {
+          "sentence": "However, two former colleagues are reported to have told investigators that Mr Loc personally designed the scheme.",
+          "highlights": [
+            "are reported to have told"
+          ]
+        },
+        {
+          "sentence": "One of them is said to be cooperating with the prosecution in exchange for a lighter sentence.",
+          "highlights": [
+            "is said to be cooperating"
+          ]
+        }
+      ],
+      "questionVi": "Ông Lộc bị cáo buộc đã duyệt các khoản vay giả. Câu nào đúng?",
+      "options": [
+        "Mr Loc is alleged to have approved fake loans.",
+        "Mr Loc is alleged to approving fake loans.",
+        "Mr Loc alleges to have approved fake loans."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc duyệt vay đã xảy ra trước, nên dùng is alleged + to have + V3.",
+      "whenVi": "Dùng trong tin pháp luật khi toà chưa tuyên án: thông tin chỉ là cáo buộc, ước tính hay lời kể của người khác.",
+      "table": [
+        {
+          "subject": "S + is alleged + to have V3",
+          "form": "He is alleged to have laundered money.",
+          "negative": "He is not alleged to have used violence."
+        },
+        {
+          "subject": "S + is said + to be V-ing",
+          "form": "One witness is said to be cooperating.",
+          "negative": "He is not said to be cooperating."
+        },
+        {
+          "subject": "It is thought that + mệnh đề",
+          "form": "It is thought that the money has left the country.",
+          "negative": "It is not thought that he acted alone."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He is alleged to launder money in 2020.",
+          "right": "He is alleged to have laundered money in 2020."
+        },
+        {
+          "wrong": "It is reported two colleagues to have told the police.",
+          "right": "Two colleagues are reported to have told the police."
+        }
+      ],
+      "noteVi": "Allege (cáo buộc) rất hay gặp trong tin pháp luật; danh từ là allegation, tính từ alleged: the alleged fraud = vụ lừa đảo bị cáo buộc.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "One witness is said to ___ cooperating with the prosecution.",
+          "answers": [
+            "be"
+          ],
+          "explanationVi": "Việc đang diễn ra: is said + to be + V-ing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The total ___ to be around four trillion dong.",
+          "options": [
+            "is estimated",
+            "estimates",
+            "is estimating",
+            "has estimated"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bị động tường thuật: is estimated + to be."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mr Loc is alleged to have launder money through offshore accounts.",
+          "sentence": "Mr Loc is alleged to have laundered money through offshore accounts.",
+          "explanationVi": "Sau to have phải là V3: laundered."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Người ta cho rằng phần lớn số tiền đã rời khỏi đất nước.",
+          "sentence": "It is thought that most of the money has left the country.",
+          "words": [
+            "It",
+            "is",
+            "thought",
+            "that",
+            "most",
+            "of",
+            "the",
+            "money",
+            "has",
+            "left",
+            "the",
+            "country.",
+            "thinking"
+          ],
+          "explanationVi": "It is thought that + mệnh đề; từ \"thinking\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "In crime reporting, she knows, everything depends on precision.",
+        "tipVi": "crime /kraɪm/; precision /prɪˈsɪʒn/ nhấn âm thứ hai, âm /ʒ/ như trong measure."
+      },
+      {
+        "text": "\"But the verdict isn't expected until next month.",
+        "tipVi": "verdict /ˈvɜːdɪkt/ nhấn âm đầu; isn't expected đọc nối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you followed a famous trial in the news? What was the defendant alleged to have done?",
+        "questionVi": "Bạn có theo dõi phiên toà nổi tiếng nào trên báo không? Bị cáo bị cáo buộc đã làm gì?",
+        "frame": "I followed ___. He / She was alleged to have ___."
+      },
+      {
+        "question": "Should journalists be allowed to name a suspect before the verdict? Why?",
+        "questionVi": "Nhà báo có nên được nêu tên nghi phạm trước khi có phán quyết không? Vì sao?",
+        "frame": "I think they should / shouldn't because ___."
+      },
+      {
+        "question": "Is stealing from a bank worse than stealing from people? Why?",
+        "questionVi": "Ăn cắp của ngân hàng có tệ hơn ăn cắp của người dân không? Vì sao?",
+        "frame": "In my opinion, ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động tường thuật (is alleged to have … / is said to be … / it is thought that …)",
+      "anyOf": [
+        "is alleged to",
+        "are alleged to",
+        "is said to",
+        "are said to",
+        "is reported to",
+        "are reported to",
+        "is estimated to",
+        "it is thought that",
+        "it is believed that",
+        "it is alleged that"
+      ],
+      "outlineVi": [
+        "Ai bị xét xử, ở đâu, khi nào.",
+        "Người đó bị cáo buộc đã làm gì (is alleged to have + V3), con số ước tính (is estimated to be …).",
+        "Nhân chứng, luật sư nói gì và khi nào có phán quyết."
+      ],
+      "modelAnswer": "The trial of a former school director began in Hue on Monday. Ms Hanh is alleged to have taken more than two billion dong from the school's building fund. She is said to have used the money to buy land in her son's name. It is thought that several teachers knew about the problem but were afraid to speak. Ms Hanh denies all the charges. The verdict is expected at the end of the month."
+    }
+  },
+  "glosses": [
+    {
+      "text": "laundered",
+      "lemma": "launder",
+      "meaningVi": "rửa (tiền)",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "is alleged to have laundered substantial sums",
+      "phraseVi": "bị cáo buộc đã rửa những khoản tiền lớn"
+    },
+    {
+      "text": "shell accounts",
+      "lemma": "shell account",
+      "meaningVi": "tài khoản ma (chỉ để chuyển tiền)",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "offshore shell accounts",
+      "phraseVi": "các tài khoản ma ở nước ngoài"
+    },
+    {
+      "text": "prosecution",
+      "lemma": "prosecution",
+      "meaningVi": "bên công tố, viện kiểm sát",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "According to the prosecution",
+      "phraseVi": "Theo phía công tố"
+    },
+    {
+      "text": "lighter sentence",
+      "lemma": "light sentence",
+      "meaningVi": "mức án nhẹ hơn",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "in exchange for a lighter sentence",
+      "phraseVi": "để đổi lấy mức án nhẹ hơn"
+    },
+    {
+      "text": "verdict",
+      "lemma": "verdict",
+      "meaningVi": "phán quyết",
+      "sentenceIndex": 21,
+      "pos": "noun",
+      "phrase": "the verdict isn't expected until next month",
+      "phraseVi": "phải đến tháng sau mới có phán quyết"
+    }
+  ]
+}

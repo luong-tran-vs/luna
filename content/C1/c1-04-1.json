@@ -1,0 +1,635 @@
+{
+  "content": "It is a humid Monday morning in District 1 of Ho Chi Minh City, and two legal consultants, Thao and Khanh, are reading the news before their first meeting. The headline concerns Hoang Phat Group, a property developer whose finance director, Mr Vinh, has been accused of fraud on a massive scale.\n\n\"Listen to this,\" Thao says, turning her laptop towards Khanh. \"Mr Vinh is believed to have fled the country three weeks ago, just before the police arrived at his office.\"\n\"Where is he now?\" asks Khanh.\n\"Nobody knows for certain. He is reported to be hiding somewhere in Southeast Asia, possibly under a false name.\"\n\nAccording to the article, it is thought that more than two thousand investors lost their savings. Many of the victims are retired teachers who put everything they had into apartments that were never built. Mr Vinh is said to have moved the money through a chain of companies that existed only on paper. The police have not confirmed the exact figure, but the losses are estimated to exceed three trillion dong.\n\nKhanh shakes his head. \"People think of robbery as the worst kind of crime, but this is far more damaging. A burglar breaks into one house, and a thief steals one wallet. A man like Vinh can steal from thousands of families with a single signature.\"\n\"That's why the law treats fraud so seriously,\" Thao replies. \"If he is convicted, he could spend twenty years in prison.\"\n\"Only if they find him. Can the court even hold a trial while he is abroad?\"\n\"It can, but a verdict is hard to enforce when the defendant is missing. That's why the police have asked other countries for help.\"\n\nThao scrolls further down. \"There's more. Two other managers are thought to have known about the scheme. One of them has already been arrested and is being held in jail in Thu Duc.\"\n\"Is he cooperating?\"\n\"He is said to be talking to investigators every day. A police officer told reporters that his statement could be crucial.\"\n\nKhanh leans back. \"Our client won't like this. Hoang Phat was one of their partners last year.\"\n\"Then we need to check every contract they signed with the group,\" Thao says. \"If Vinh is a criminal, we must prove that our client wasn't part of his plan.\"\n\"You're right. Let's prepare a list of questions before the meeting at ten.\"",
+  "targetWords": [
+    "law",
+    "crime",
+    "criminal",
+    "police",
+    "police officer",
+    "thief",
+    "steal",
+    "robbery",
+    "burglar",
+    "prison",
+    "jail",
+    "court"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "police",
+        "lemma": "police",
+        "meaningVi": "cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "robbery",
+        "lemma": "robbery",
+        "meaningVi": "vụ cướp",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "crime",
+        "lemma": "crime",
+        "meaningVi": "tội ác, tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "burglar",
+        "lemma": "burglar",
+        "meaningVi": "kẻ trộm đột nhập nhà",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "thief",
+        "lemma": "thief",
+        "meaningVi": "kẻ trộm",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "steal",
+        "lemma": "steal",
+        "meaningVi": "ăn cắp, lấy trộm",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "pháp luật",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "court",
+        "lemma": "court",
+        "meaningVi": "toà án",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "jail",
+        "lemma": "jail",
+        "meaningVi": "nhà tạm giam, nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "police officer",
+        "lemma": "police officer",
+        "meaningVi": "viên cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "criminal",
+        "lemma": "criminal",
+        "meaningVi": "tội phạm, kẻ phạm tội",
+        "pos": "noun",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Thao and Khanh mainly discussing?",
+        "promptVi": "Thảo và Khánh chủ yếu bàn về điều gì?",
+        "options": [
+          "A fraud case involving a property developer",
+          "A robbery at their own office",
+          "A new law on traffic fines",
+          "A trial that they have just won"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ đọc tin về ông Vinh, giám đốc tài chính của Hoang Phat Group, bị cáo buộc lừa đảo quy mô lớn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Mr Vinh thought to be now?",
+        "promptVi": "Hiện nay ông Vinh được cho là đang ở đâu?",
+        "options": [
+          "In his office in District 1",
+          "Somewhere in Southeast Asia",
+          "In a jail in Thu Duc",
+          "At the court in Ho Chi Minh City"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo đọc: \"He is reported to be hiding somewhere in Southeast Asia.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What has happened to one of the other managers?",
+        "promptVi": "Một trong hai người quản lý kia đã gặp chuyện gì?",
+        "options": [
+          "He has fled the country too.",
+          "He has become a police officer.",
+          "He has been arrested and is being held in jail.",
+          "He has signed a contract with their client."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"One of them has already been arrested and is being held in jail in Thu Duc.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The police have confirmed exactly how much money was lost.",
+        "promptVi": "Cảnh sát đã xác nhận chính xác số tiền bị mất.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"The police have not confirmed the exact figure\"; con số chỉ là ước tính."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"fled\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Mr Vinh is believed to have fled the country three weeks ago\"",
+        "options": [
+          "bỏ trốn",
+          "bị bắt",
+          "ra toà",
+          "đầu tư"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Fled là quá khứ phân từ của flee = bỏ trốn, chạy trốn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động tường thuật",
+      "bodyVi": "Báo chí và văn bản pháp lý hay dùng bị động tường thuật để đưa tin mà không nói rõ ai là người nói hay tin. Có hai dạng. Dạng 1: It is thought / believed / said that + mệnh đề: it is thought that more than two thousand investors lost their savings. Dạng 2: chủ ngữ + is thought / believed / said / reported + to V. Nếu sự việc xảy ra cùng lúc với lúc nói, dùng to V hoặc to be V-ing: He is reported to be hiding … Nếu sự việc đã xảy ra trước đó, dùng to have + V3: Mr Vinh is believed to have fled … / is said to have moved the money …",
+      "examples": [
+        "According to the article, it is thought that more than two thousand investors lost their savings.",
+        "Mr Vinh is said to have moved the money through a chain of companies that existed only on paper.",
+        "Two other managers are thought to have known about the scheme."
+      ]
+    },
+    "writingPrompt": "Write a short news report about a crime that has been in the news recently. Use at least three reporting passive structures (it is believed that …, he is said to have …, they are thought to be …).",
+    "sentenceTranslations": [
+      "Một buổi sáng thứ Hai oi bức ở Quận 1, Thành phố Hồ Chí Minh, hai chuyên viên tư vấn pháp lý là Thảo và Khánh đang đọc tin tức trước cuộc họp đầu tiên trong ngày.",
+      "Tin chính nói về Hoang Phat Group, một công ty phát triển bất động sản mà giám đốc tài chính, ông Vinh, đã bị cáo buộc lừa đảo trên quy mô rất lớn.",
+      "Thảo nói, xoay máy tính xách tay về phía Khánh: \"Anh nghe này.",
+      "Người ta tin rằng ông Vinh đã trốn ra nước ngoài từ ba tuần trước, ngay trước khi cảnh sát đến văn phòng của ông ta.\"",
+      "Khánh hỏi: \"Giờ ông ta ở đâu?\"",
+      "\"Chưa ai biết chắc.",
+      "Theo tin đưa, ông ta đang trốn ở đâu đó tại Đông Nam Á, có thể dưới một cái tên giả.\"",
+      "Theo bài báo, người ta cho rằng hơn hai nghìn nhà đầu tư đã mất hết tiền tiết kiệm.",
+      "Nhiều nạn nhân là giáo viên đã nghỉ hưu, những người đã dồn hết tài sản vào những căn hộ không bao giờ được xây.",
+      "Ông Vinh được cho là đã chuyển tiền qua một chuỗi công ty chỉ tồn tại trên giấy.",
+      "Cảnh sát chưa xác nhận con số chính xác, nhưng thiệt hại ước tính vượt quá ba nghìn tỷ đồng.",
+      "Khánh lắc đầu.",
+      "\"Người ta cứ nghĩ cướp của là loại tội ác tồi tệ nhất, nhưng chuyện này còn gây hại hơn nhiều.",
+      "Một tên trộm đột nhập chỉ vào được một ngôi nhà, một kẻ móc túi chỉ lấy được một cái ví.",
+      "Còn một người như Vinh có thể lấy tiền của hàng nghìn gia đình chỉ bằng một chữ ký.\"",
+      "Thảo đáp: \"Vì thế mà pháp luật xử lý tội lừa đảo nghiêm khắc như vậy.",
+      "Nếu bị kết tội, ông ta có thể phải ngồi tù hai mươi năm.\"",
+      "\"Chỉ khi người ta tìm được ông ta thôi.",
+      "Toà án có thể xét xử khi ông ta đang ở nước ngoài không?\"",
+      "\"Có thể, nhưng khi bị cáo vắng mặt thì bản án rất khó thi hành.",
+      "Vì thế cảnh sát đã nhờ các nước khác giúp đỡ.\"",
+      "Thảo kéo xuống đọc tiếp.",
+      "\"Còn nữa.",
+      "Hai người quản lý khác được cho là đã biết về kế hoạch lừa đảo này.",
+      "Một người đã bị bắt và đang bị tạm giam ở Thủ Đức.\"",
+      "\"Ông ấy có hợp tác không?\"",
+      "\"Nghe nói ngày nào ông ấy cũng làm việc với điều tra viên.",
+      "Một viên cảnh sát nói với phóng viên rằng lời khai của ông ấy có thể mang tính quyết định.\"",
+      "Khánh ngả người ra sau.",
+      "\"Khách hàng của mình sẽ không vui khi nghe chuyện này đâu.",
+      "Năm ngoái Hoang Phat là một trong những đối tác của họ.\"",
+      "Thảo nói: \"Vậy mình phải kiểm tra mọi hợp đồng họ đã ký với tập đoàn đó.",
+      "Nếu Vinh là tội phạm, mình phải chứng minh được khách hàng của mình không dính vào kế hoạch của ông ta.\"",
+      "\"Chị nói đúng.",
+      "Mình chuẩn bị danh sách câu hỏi trước cuộc họp lúc mười giờ nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đưa tin về một vụ án mà không nêu nguồn cụ thể, bằng bị động tường thuật (it is believed that …, he is said to have …, he is reported to be …).",
+    "examples": [
+      {
+        "lemma": "law",
+        "sentence": "Everyone must obey the law, including company directors.",
+        "meaningVi": "Ai cũng phải tuân thủ pháp luật, kể cả giám đốc công ty."
+      },
+      {
+        "lemma": "crime",
+        "sentence": "There is very little crime in this neighbourhood.",
+        "meaningVi": "Khu phố này rất ít tội phạm."
+      },
+      {
+        "lemma": "criminal",
+        "sentence": "The criminal was caught at the airport.",
+        "meaningVi": "Tên tội phạm bị bắt ở sân bay."
+      },
+      {
+        "lemma": "police",
+        "sentence": "Call the police if you see anything suspicious.",
+        "meaningVi": "Hãy gọi cảnh sát nếu bạn thấy điều gì khả nghi."
+      },
+      {
+        "lemma": "police officer",
+        "sentence": "A police officer asked to see my driving licence.",
+        "meaningVi": "Một viên cảnh sát yêu cầu xem bằng lái của tôi."
+      },
+      {
+        "lemma": "thief",
+        "sentence": "A thief took her phone on the crowded bus.",
+        "meaningVi": "Một tên trộm đã lấy điện thoại của cô ấy trên chuyến xe buýt đông người."
+      },
+      {
+        "lemma": "steal",
+        "sentence": "Someone tried to steal my bike last night.",
+        "meaningVi": "Tối qua có người định lấy trộm xe đạp của tôi."
+      },
+      {
+        "lemma": "robbery",
+        "sentence": "The robbery happened in broad daylight.",
+        "meaningVi": "Vụ cướp xảy ra giữa ban ngày."
+      },
+      {
+        "lemma": "burglar",
+        "sentence": "A burglar got in through the kitchen window.",
+        "meaningVi": "Một tên trộm đã đột nhập qua cửa sổ nhà bếp."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "He spent five years in prison for fraud.",
+        "meaningVi": "Anh ta ngồi tù năm năm vì tội lừa đảo."
+      },
+      {
+        "lemma": "jail",
+        "sentence": "The suspect is being held in jail until the trial.",
+        "meaningVi": "Nghi phạm đang bị tạm giam cho đến phiên xét xử."
+      },
+      {
+        "lemma": "court",
+        "sentence": "The case will go to court next month.",
+        "meaningVi": "Vụ việc sẽ được đưa ra toà vào tháng sau."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khanh",
+        "Thao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thao, have you seen the latest update on Mr Vinh?",
+          "meaningVi": "Chị Thảo, chị xem tin mới nhất về ông Vinh chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not yet. Is he still thought to be abroad?",
+          "meaningVi": "Chưa. Ông ta vẫn được cho là đang ở nước ngoài à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. He is now believed to be in Cambodia.",
+          "meaningVi": "Vâng. Giờ người ta tin là ông ta đang ở Campuchia."
+        },
+        {
+          "speaker": 1,
+          "text": "Has the court issued an international arrest warrant?",
+          "meaningVi": "Toà án đã ra lệnh truy nã quốc tế chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "It has. It is said that the police are working with three countries.",
+          "meaningVi": "Rồi ạ. Nghe nói cảnh sát đang phối hợp với ba nước."
+        },
+        {
+          "speaker": 1,
+          "text": "What about the manager in jail? Is he still talking?",
+          "meaningVi": "Còn người quản lý đang bị tạm giam thì sao? Ông ấy vẫn khai chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "He is reported to have given investigators a list of fake companies.",
+          "meaningVi": "Theo tin đưa, ông ấy đã đưa cho điều tra viên một danh sách các công ty ma."
+        },
+        {
+          "speaker": 1,
+          "text": "That could help us. Were any of those companies our client's partners?",
+          "meaningVi": "Cái đó có thể giúp mình. Có công ty nào trong số đó là đối tác của khách hàng mình không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I don't think so, but I'll check every name this afternoon.",
+          "meaningVi": "Em nghĩ là không, nhưng chiều nay em sẽ kiểm tra từng cái tên."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. Let's not say anything to the press until we're sure.",
+          "meaningVi": "Tốt. Mình đừng nói gì với báo chí cho đến khi chắc chắn nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Cùng lúc với hiện tại: He is now believed to be in Cambodia. / Is he still thought to be abroad? Trước đó: He is reported to have given investigators a list … Dạng It: It is said that the police are working with three countries.",
+    "translations": [
+      {
+        "vi": "Người ta tin rằng ông ấy đã bỏ trốn trước khi cảnh sát đến.",
+        "en": "He is believed to have fled before the police arrived.",
+        "distractors": [
+          "believing",
+          "flee",
+          "polices"
+        ],
+        "accepted": [
+          "Before the police arrived, he is believed to have fled."
+        ]
+      },
+      {
+        "vi": "Người ta cho rằng tên trộm đã vào qua cửa sổ.",
+        "en": "The thief is thought to have entered through the window.",
+        "distractors": [
+          "thinking",
+          "enters",
+          "door"
+        ]
+      },
+      {
+        "vi": "Một người quản lý khác đang bị tạm giam.",
+        "en": "Another manager is being held in jail.",
+        "distractors": [
+          "holding",
+          "been",
+          "court"
+        ]
+      },
+      {
+        "vi": "Nếu bị kết tội, ông ấy có thể phải ngồi tù hai mươi năm.",
+        "en": "If convicted, he could spend twenty years in prison.",
+        "distractors": [
+          "convicting",
+          "spends",
+          "months"
+        ],
+        "accepted": [
+          "He could spend twenty years in prison if convicted."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khánh và Thảo nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tin mới về vụ ông Vinh",
+          "Một vụ trộm ở văn phòng",
+          "Chuyến công tác sang Campuchia"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh hỏi \"have you seen the latest update on Mr Vinh?\" và hai người bàn về vụ án.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hiện nay ông Vinh được cho là đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Campuchia",
+          "Thái Lan",
+          "Thủ Đức"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"He is now believed to be in Cambodia.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Người quản lý bị tạm giam được cho là đã đưa gì cho điều tra viên?",
+        "promptVi": "",
+        "options": [
+          "Một danh sách công ty ma",
+          "Hợp đồng của khách hàng",
+          "Một khoản tiền lớn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"He is reported to have given investigators a list of fake companies.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khanh has already checked every company name.",
+        "promptVi": "Khánh đã kiểm tra xong tất cả tên công ty.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khánh nói \"I'll check every name this afternoon\" — chiều nay anh mới kiểm tra.",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Những thông tin nào trong bài chỉ là tin đồn hoặc phỏng đoán (được cho là, được tin là)? Vì sao Thảo và Khánh lo cho khách hàng của mình?",
+    "grammarStep": {
+      "titleVi": "Bị động tường thuật",
+      "noticing": [
+        {
+          "sentence": "\"Mr Vinh is believed to have fled the country three weeks ago, just before the police arrived at his office.\"",
+          "highlights": [
+            "is believed to have fled"
+          ]
+        },
+        {
+          "sentence": "He is reported to be hiding somewhere in Southeast Asia, possibly under a false name.\"",
+          "highlights": [
+            "is reported to be hiding"
+          ]
+        },
+        {
+          "sentence": "According to the article, it is thought that more than two thousand investors lost their savings.",
+          "highlights": [
+            "it is thought that"
+          ]
+        },
+        {
+          "sentence": "Mr Vinh is said to have moved the money through a chain of companies that existed only on paper.",
+          "highlights": [
+            "is said to have moved"
+          ]
+        }
+      ],
+      "questionVi": "Người ta tin rằng ông Vinh đã trốn khỏi đất nước. Câu nào đúng?",
+      "options": [
+        "Mr Vinh is believed to have fled the country.",
+        "Mr Vinh is believed to fleeing the country.",
+        "Mr Vinh believes to have fled the country."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc bỏ trốn đã xảy ra trước, nên dùng is believed + to have + V3 (fled).",
+      "whenVi": "Dùng khi đưa tin, viết báo cáo hay văn bản pháp lý mà không muốn hoặc không thể nói rõ ai là người nói, người tin.",
+      "table": [
+        {
+          "subject": "It + is + V3 + that",
+          "form": "It is thought / believed / said that + mệnh đề: It is thought that investors lost money.",
+          "negative": "It is not thought that + mệnh đề"
+        },
+        {
+          "subject": "Chủ ngữ + is + V3 + to V (cùng lúc)",
+          "form": "He is reported to be hiding abroad. / He is said to be talking.",
+          "negative": "He is not believed to be + …"
+        },
+        {
+          "subject": "Chủ ngữ + is + V3 + to have V3 (xảy ra trước)",
+          "form": "He is believed to have fled. / They are thought to have known.",
+          "negative": "He is not thought to have + V3"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He is believed to have flee the country.",
+          "right": "He is believed to have fled the country."
+        },
+        {
+          "wrong": "It is said Mr Vinh to have moved the money.",
+          "right": "Mr Vinh is said to have moved the money."
+        }
+      ],
+      "noteVi": "Ngoài think, believe, say, report còn có allege, estimate, know, expect: the losses are estimated to exceed three trillion dong.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Two managers are thought ___ have known about the scheme.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "are thought + to have + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "At the moment, the suspect is reported ___ in Southeast Asia.",
+          "options": [
+            "to be hiding",
+            "hiding",
+            "that he hides",
+            "to hiding"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Việc đang diễn ra lúc này: is reported + to be + V-ing."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mr Vinh is said to has moved the money abroad.",
+          "sentence": "Mr Vinh is said to have moved the money abroad.",
+          "explanationVi": "Sau to luôn là động từ nguyên mẫu: to have + V3, không phải to has."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Người ta tin rằng ông ấy đã rời khỏi đất nước.",
+          "sentence": "He is believed to have left the country.",
+          "words": [
+            "He",
+            "is",
+            "believed",
+            "to",
+            "have",
+            "left",
+            "the",
+            "country.",
+            "being"
+          ],
+          "explanationVi": "is believed + to have + V3; từ \"being\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"If he is convicted, he could spend twenty years in prison.\"",
+        "tipVi": "convicted /kənˈvɪktɪd/ nhấn âm thứ hai; twenty years đọc nối, nhấn twenty."
+      },
+      {
+        "text": "Two other managers are thought to have known about the scheme.",
+        "tipVi": "thought /θɔːt/ đặt lưỡi giữa hai hàm răng; to have đọc nhẹ /tə hæv/; scheme /skiːm/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a crime story in the news in your country at the moment? What is said to have happened?",
+        "questionVi": "Hiện ở nước bạn có vụ án nào đang được đưa tin không? Người ta nói chuyện gì đã xảy ra?",
+        "frame": "It is believed that ___. The suspect is said to have ___."
+      },
+      {
+        "question": "Do you think fraud is as serious as robbery? Why or why not?",
+        "questionVi": "Bạn có nghĩ lừa đảo nghiêm trọng như cướp của không? Vì sao?",
+        "frame": "I think fraud is ___ because ___."
+      },
+      {
+        "question": "Should a court be allowed to hold a trial when the defendant has fled abroad?",
+        "questionVi": "Toà án có nên được xét xử khi bị cáo đã trốn ra nước ngoài không?",
+        "frame": "In my view, ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động tường thuật (it is believed that … / is said to have …)",
+      "anyOf": [
+        "is believed to",
+        "is said to",
+        "is thought to",
+        "is reported to",
+        "are believed to",
+        "are said to",
+        "are thought to",
+        "it is believed that",
+        "it is thought that",
+        "it is said that"
+      ],
+      "outlineVi": [
+        "Chuyện gì đã xảy ra, theo tin đưa (is said to have + V3).",
+        "Hiện nay nghi phạm được cho là đang ở đâu, làm gì (is believed to be …).",
+        "Cảnh sát hoặc toà án sẽ làm gì tiếp theo."
+      ],
+      "modelAnswer": "Last week, a jewellery shop in my city was robbed late at night. It is believed that two men broke in through the back door. They are said to have stolen gold worth more than five billion dong. One of the thieves is thought to have worked at the shop a few years ago. The police have arrested one man, but the other is reported to be hiding in another province. The case is expected to go to court early next year."
+    }
+  },
+  "glosses": [
+    {
+      "text": "fled",
+      "lemma": "flee",
+      "meaningVi": "bỏ trốn",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "is believed to have fled the country",
+      "phraseVi": "được tin là đã trốn ra nước ngoài"
+    },
+    {
+      "text": "convicted",
+      "lemma": "convict",
+      "meaningVi": "kết tội",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "If he is convicted",
+      "phraseVi": "Nếu ông ta bị kết tội"
+    },
+    {
+      "text": "verdict",
+      "lemma": "verdict",
+      "meaningVi": "phán quyết, bản án",
+      "sentenceIndex": 19,
+      "pos": "noun",
+      "phrase": "a verdict is hard to enforce",
+      "phraseVi": "bản án khó thi hành"
+    },
+    {
+      "text": "scheme",
+      "lemma": "scheme",
+      "meaningVi": "mưu đồ, kế hoạch (gian lận)",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "known about the scheme",
+      "phraseVi": "biết về mưu đồ đó"
+    }
+  ]
+}

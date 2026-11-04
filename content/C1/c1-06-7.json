@@ -1,0 +1,618 @@
+{
+  "content": "It is Tuesday lunchtime in Cau Giay, and the small bún chả restaurant opposite the office is full of people from nearby companies. Bao, a software engineer, has brought Sofia, a consultant from Barcelona who joined his project three weeks ago. \"Have you eaten yet?\" a colleague calls to Bao as they sit down. \"Not yet,\" he replies with a smile. Sofia looks confused. \"But we're obviously about to eat. Why did he ask?\" \"It isn't really a question. It's a greeting, like 'How are you?' in English.\" \"So I don't have to answer honestly?\" \"I suppose not,\" Bao laughs. \"Nobody expects a real answer.\"\nSofia tells him that people in Spain greet friends with two kisses on the cheeks. \"Should I try that here?\" \"I wouldn't, at least not at work.\" \"What about gestures? Yesterday I called a waiter by moving my finger like this, and he looked offended.\" \"Ah, here we wave the whole hand with the palm down. The other one can imply that you think you're more important.\" \"Good to know. And when someone asks my age or whether I'm married? In Spain that would be quite personal.\" \"Here it isn't, usually. People want to know how to address you, because the words for 'you' depend on age.\" \"And if I don't want to answer?\" \"Then just smile and change the subject, and people will understand.\"\nBao asks whether she speaks only Spanish at home. \"Actually, I'm bilingual: Catalan with my parents and Spanish with everyone else.\" \"Is Catalan a dialect of Spanish?\" \"Definitely not, and please never say so in Barcelona!\" They both laugh. \"Your English fluency is amazing, by the way,\" Sofia says. \"You're much more eloquent than you think.\" \"Thanks, but idioms still confuse me. Last week my manager said a deadline was up in the air, and I wasn't sure whether to worry.\" \"That one is ambiguous even for native speakers.\" When the bill comes, Sofia reaches for her wallet, but Bao has already paid. \"Next time it's my turn,\" she insists. \"If you insist. There's a great phở place near the lake, if you want to try it on Friday.\" \"I'd love to.\"",
+  "targetWords": [
+    "gesture",
+    "imply",
+    "bilingual",
+    "dialect",
+    "fluency",
+    "eloquent",
+    "idiom",
+    "ambiguous"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "gestures",
+        "lemma": "gesture",
+        "meaningVi": "cử chỉ",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "imply",
+        "lemma": "imply",
+        "meaningVi": "ngụ ý, hàm ý",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "bilingual",
+        "lemma": "bilingual",
+        "meaningVi": "song ngữ, nói được hai thứ tiếng",
+        "pos": "adjective",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "dialect",
+        "lemma": "dialect",
+        "meaningVi": "phương ngữ",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "fluency",
+        "lemma": "fluency",
+        "meaningVi": "sự lưu loát",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "eloquent",
+        "lemma": "eloquent",
+        "meaningVi": "có tài ăn nói",
+        "pos": "adjective",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "idioms",
+        "lemma": "idiom",
+        "meaningVi": "thành ngữ",
+        "pos": "noun",
+        "sentenceIndex": 33
+      },
+      {
+        "text": "ambiguous",
+        "lemma": "ambiguous",
+        "meaningVi": "mơ hồ, có thể hiểu nhiều cách",
+        "pos": "adjective",
+        "sentenceIndex": 35
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What do Bao and Sofia mainly talk about?",
+        "promptVi": "Bảo và Sofia chủ yếu nói về điều gì?",
+        "options": [
+          "Social customs and language in Vietnam and Spain",
+          "A problem in their software project",
+          "The best restaurants in Hanoi",
+          "How to learn Catalan"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ nói về lời chào, cử chỉ, câu hỏi về tuổi và ngôn ngữ ở hai nước."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does the colleague ask \"Have you eaten yet?\"",
+        "promptVi": "Vì sao người đồng nghiệp hỏi \"Ăn cơm chưa?\"",
+        "options": [
+          "He wants to join them for lunch",
+          "It is a greeting, not a real question",
+          "He thinks Bao looks hungry",
+          "He wants to pay for them"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bảo nói \"It isn't really a question. It's a greeting.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why do Vietnamese people often ask someone's age?",
+        "promptVi": "Vì sao người Việt hay hỏi tuổi?",
+        "options": [
+          "To know how to address the person",
+          "To decide who pays the bill",
+          "Because it is a polite joke",
+          "To find out if the person is married"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"People want to know how to address you, because the words for 'you' depend on age.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sofia thinks Catalan is a dialect of Spanish.",
+        "promptVi": "Sofia cho rằng tiếng Catalan là một phương ngữ của tiếng Tây Ban Nha.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, cô nói \"Definitely not, and please never say so in Barcelona!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"The other one\" chỉ điều gì?",
+        "promptVi": "",
+        "quote": "\"The other one can imply that you think you're more important.\"",
+        "options": [
+          "cử chỉ ngoắc ngón tay",
+          "cách vẫy cả bàn tay",
+          "người phục vụ",
+          "câu hỏi về tuổi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "One thay cho gesture: cử chỉ ngoắc ngón tay mà Sofia vừa kể."
+      }
+    ],
+    "grammarNote": {
+      "title": "Elliptical replies in small talk",
+      "bodyVi": "Trong trò chuyện thân mật, người ta trả lời rất ngắn và bỏ phần đã rõ. Not yet = I haven't eaten yet. I suppose not / I suppose so: so / not thay cả mệnh đề. I wouldn't, at least not at work: bỏ \"try that\". Here it isn't, usually = it isn't personal here. never say so: so thay cho \"Catalan is a dialect of Spanish\". The other one / That one: one thay cho cử chỉ, thành ngữ vừa nhắc. I'd love to: giữ to, bỏ \"try it\".",
+      "examples": [
+        "\"Not yet,\" he replies with a smile.",
+        "\"I suppose not,\" Bao laughs.",
+        "\"I wouldn't, at least not at work.\"",
+        "\"I'd love to.\""
+      ]
+    },
+    "writingPrompt": "A foreign colleague asks you about three Vietnamese social customs over lunch. Write the conversation with natural short replies: I suppose so, I wouldn't, Not really, That one…, I'd love to.",
+    "sentenceTranslations": [
+      "Đang là giờ ăn trưa thứ Ba ở Cầu Giấy, và quán bún chả nhỏ đối diện văn phòng chật kín người từ các công ty gần đó.",
+      "Bảo, một kỹ sư phần mềm, dẫn theo Sofia, một chuyên gia tư vấn đến từ Barcelona vừa tham gia dự án của anh ba tuần trước.",
+      "Lúc họ ngồi xuống, một đồng nghiệp gọi Bảo: \"Ăn cơm chưa?\"",
+      "Anh cười đáp: \"Chưa.\"",
+      "Sofia trông bối rối.",
+      "\"Nhưng rõ ràng là mình sắp ăn mà.",
+      "Sao anh ấy lại hỏi?\"",
+      "\"Đó không hẳn là câu hỏi đâu.",
+      "Đó là lời chào, giống như 'How are you?' trong tiếng Anh.\"",
+      "\"Vậy là tôi không cần trả lời thật à?\"",
+      "Bảo cười: \"Chắc là không cần.",
+      "Chẳng ai chờ một câu trả lời thật đâu.\"",
+      "Sofia kể với anh rằng ở Tây Ban Nha người ta chào bạn bè bằng hai nụ hôn lên má.",
+      "\"Ở đây tôi có nên thử không?\"",
+      "\"Tôi thì không đâu, ít nhất là không ở chỗ làm.\"",
+      "\"Thế còn cử chỉ thì sao?",
+      "Hôm qua tôi gọi phục vụ bằng cách ngoắc ngón tay thế này, và anh ấy có vẻ phật ý.\"",
+      "\"À, ở đây mình vẫy cả bàn tay, úp lòng bàn tay xuống.",
+      "Cách kia có thể ngụ ý rằng bạn nghĩ mình quan trọng hơn.\"",
+      "\"Biết vậy thì tốt.",
+      "Còn khi ai đó hỏi tuổi tôi hay tôi có gia đình chưa?",
+      "Ở Tây Ban Nha thì đó là chuyện khá riêng tư.\"",
+      "\"Ở đây thường thì không.",
+      "Người ta muốn biết nên xưng hô với bạn thế nào, vì các từ để gọi 'bạn' phụ thuộc vào tuổi tác.\"",
+      "\"Thế nếu tôi không muốn trả lời?\"",
+      "\"Thì cứ mỉm cười rồi đổi chủ đề, mọi người sẽ hiểu.\"",
+      "Bảo hỏi có phải ở nhà cô chỉ nói tiếng Tây Ban Nha không.",
+      "\"Thật ra tôi nói hai thứ tiếng: tiếng Catalan với bố mẹ và tiếng Tây Ban Nha với mọi người khác.\"",
+      "\"Tiếng Catalan có phải là một phương ngữ của tiếng Tây Ban Nha không?\"",
+      "\"Chắc chắn là không, và làm ơn đừng bao giờ nói thế ở Barcelona!\"",
+      "Cả hai cùng cười.",
+      "Sofia nói: \"Nhân tiện, anh nói tiếng Anh lưu loát thật đấy.",
+      "Anh ăn nói hay hơn anh nghĩ nhiều.\"",
+      "\"Cảm ơn, nhưng thành ngữ vẫn làm tôi rối.",
+      "Tuần trước sếp tôi bảo một hạn chót vẫn \"lơ lửng trên không\", và tôi không biết có nên lo không.\"",
+      "\"Câu đó mơ hồ ngay cả với người bản ngữ.\"",
+      "Khi hoá đơn tới, Sofia với lấy ví, nhưng Bảo đã trả tiền rồi.",
+      "Cô nhất quyết: \"Lần sau đến lượt tôi đấy.\"",
+      "\"Nếu chị đã nói vậy.",
+      "Có một quán phở rất ngon gần hồ, nếu chị muốn thử vào thứ Sáu.\"",
+      "\"Tôi rất muốn.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trò chuyện xã giao tự nhiên bằng những câu trả lời rút gọn như Not yet, I suppose so / not, I wouldn't, That one và I'd love to.",
+    "examples": [
+      {
+        "lemma": "gesture",
+        "sentence": "A small gesture like a nod shows respect.",
+        "meaningVi": "Một cử chỉ nhỏ như gật đầu thể hiện sự tôn trọng."
+      },
+      {
+        "lemma": "imply",
+        "sentence": "Asking about salary does not imply that you are rude.",
+        "meaningVi": "Hỏi về lương không ngụ ý rằng bạn bất lịch sự."
+      },
+      {
+        "lemma": "bilingual",
+        "sentence": "Their children are bilingual in English and Vietnamese.",
+        "meaningVi": "Các con của họ nói được cả tiếng Anh và tiếng Việt."
+      },
+      {
+        "lemma": "dialect",
+        "sentence": "My friend from Nghe An switches to her dialect when she calls home.",
+        "meaningVi": "Bạn tôi người Nghệ An chuyển sang giọng quê khi gọi điện về nhà."
+      },
+      {
+        "lemma": "fluency",
+        "sentence": "Small talk is a good way to build fluency.",
+        "meaningVi": "Nói chuyện xã giao là cách tốt để luyện nói lưu loát."
+      },
+      {
+        "lemma": "eloquent",
+        "sentence": "The best man gave an eloquent speech at the wedding.",
+        "meaningVi": "Phù rể có bài phát biểu rất hay trong đám cưới."
+      },
+      {
+        "lemma": "idiom",
+        "sentence": "\"Break a leg\" is an idiom that means \"good luck\".",
+        "meaningVi": "\"Break a leg\" là thành ngữ có nghĩa là \"chúc may mắn\"."
+      },
+      {
+        "lemma": "ambiguous",
+        "sentence": "\"Maybe later\" is an ambiguous answer.",
+        "meaningVi": "\"Để sau nhé\" là một câu trả lời mơ hồ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Sofia",
+        "Bao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "This place is so busy. Is it always like this?",
+          "meaningVi": "Quán này đông quá. Lúc nào cũng thế à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Usually, yes. Especially on Fridays.",
+          "meaningVi": "Thường là vậy. Nhất là vào thứ Sáu."
+        },
+        {
+          "speaker": 0,
+          "text": "Should I say anything special to the owner?",
+          "meaningVi": "Tôi có nên nói gì đặc biệt với chủ quán không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not really. A smile and \"cảm ơn\" are enough.",
+          "meaningVi": "Không hẳn. Một nụ cười và câu \"cảm ơn\" là đủ."
+        },
+        {
+          "speaker": 0,
+          "text": "I've practised my Vietnamese tones all week. Can you tell?",
+          "meaningVi": "Cả tuần nay tôi luyện thanh điệu tiếng Việt. Anh có nhận ra không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I can. You sound much more natural than you did last month.",
+          "meaningVi": "Có chứ. Chị nói tự nhiên hơn tháng trước nhiều."
+        },
+        {
+          "speaker": 0,
+          "text": "You're too kind. Are you coming to the team dinner tomorrow?",
+          "meaningVi": "Anh khen quá. Mai anh có đi ăn tối với cả nhóm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm afraid not. It's my grandmother's birthday.",
+          "meaningVi": "E là không. Mai là sinh nhật bà tôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Then I'm paying today, as I promised to.",
+          "meaningVi": "Vậy hôm nay tôi trả tiền, như tôi đã hứa."
+        },
+        {
+          "speaker": 1,
+          "text": "I suppose so. A promise is a promise.",
+          "meaningVi": "Chắc là vậy. Hứa thì phải giữ lời."
+        }
+      ]
+    },
+    "grammarTipVi": "Usually, yes / Not really: trả lời cực ngắn. I can = I can tell. than you did last month: did thay cho \"sounded\". as I promised to: giữ to, bỏ \"pay\". I'm afraid not / I suppose so: so / not thay mệnh đề.",
+    "translations": [
+      {
+        "vi": "Cách kia có thể ngụ ý rằng bạn nghĩ mình quan trọng hơn.",
+        "en": "The other one can imply that you think you're more important.",
+        "distractors": [
+          "implies",
+          "most",
+          "thinks"
+        ],
+        "accepted": [
+          "The other one can imply you think you're more important."
+        ]
+      },
+      {
+        "vi": "Thật ra tôi nói được hai thứ tiếng.",
+        "en": "Actually, I'm bilingual.",
+        "distractors": [
+          "am",
+          "languages",
+          "speaks"
+        ],
+        "accepted": [
+          "I'm actually bilingual."
+        ]
+      },
+      {
+        "vi": "Tiếng Catalan có phải là một phương ngữ của tiếng Tây Ban Nha không?",
+        "en": "Is Catalan a dialect of Spanish?",
+        "distractors": [
+          "are",
+          "from",
+          "for"
+        ]
+      },
+      {
+        "vi": "Nhân tiện, khả năng nói tiếng Anh lưu loát của anh thật tuyệt.",
+        "en": "Your English fluency is amazing, by the way.",
+        "distractors": [
+          "fluent",
+          "amazed",
+          "are"
+        ],
+        "accepted": [
+          "By the way, your English fluency is amazing."
+        ]
+      },
+      {
+        "vi": "Câu đó mơ hồ ngay cả với người bản ngữ.",
+        "en": "That one is ambiguous even for native speakers.",
+        "distractors": [
+          "clear",
+          "are",
+          "nation"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sofia và Bảo đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở quán phở gần hồ",
+          "Ở văn phòng",
+          "Ở nhà bà của Bảo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đây là bữa trưa thứ Sáu ở quán phở mà Bảo đã gợi ý.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sofia nên nói gì với chủ quán?",
+        "promptVi": "",
+        "options": [
+          "Chỉ cần mỉm cười và nói \"cảm ơn\"",
+          "Hỏi tuổi chủ quán",
+          "Chào bằng hai nụ hôn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"A smile and \"cảm ơn\" are enough.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Bảo không đi ăn tối với cả nhóm?",
+        "promptVi": "",
+        "options": [
+          "Mai là sinh nhật bà anh",
+          "Anh phải làm thêm giờ",
+          "Anh bị ốm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"It's my grandmother's birthday.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao pays for lunch on Friday.",
+        "promptVi": "Thứ Sáu Bảo trả tiền bữa trưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Sofia nói \"Then I'm paying today, as I promised to.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Những phong tục nào ở Việt Nam làm Sofia bất ngờ? Hãy để ý cách hai người trả lời nhau rất ngắn mà vẫn tự nhiên.",
+    "grammarStep": {
+      "titleVi": "Câu trả lời rút gọn khi trò chuyện: Not yet, I suppose not, I wouldn't, I'd love to",
+      "noticing": [
+        {
+          "sentence": "\"Not yet,\" he replies with a smile.",
+          "highlights": [
+            "Not yet"
+          ]
+        },
+        {
+          "sentence": "\"I suppose not,\" Bao laughs.",
+          "highlights": [
+            "suppose not"
+          ]
+        },
+        {
+          "sentence": "\"I wouldn't, at least not at work.\"",
+          "highlights": [
+            "I wouldn't",
+            "not at work"
+          ]
+        },
+        {
+          "sentence": "\"Definitely not, and please never say so in Barcelona!\"",
+          "highlights": [
+            "Definitely not",
+            "say so"
+          ]
+        },
+        {
+          "sentence": "\"I'd love to.\"",
+          "highlights": [
+            "love to"
+          ]
+        }
+      ],
+      "questionVi": "Sofia hỏi \"Should I try that here?\" Bảo khuyên là không nên. Câu trả lời nào tự nhiên nhất?",
+      "options": [
+        "I wouldn't.",
+        "I wouldn't try.",
+        "I wouldn't it."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Chỉ giữ trợ động từ wouldn't, bỏ \"try that here\". \"I wouldn't try\" nghe chưa trọn ý, \"I wouldn't it\" sai.",
+      "whenVi": "Dùng trong trò chuyện thân mật, khi câu hỏi đã rõ, để trả lời nhanh và tự nhiên như người bản ngữ.",
+      "table": [
+        {
+          "subject": "Not + từ khác",
+          "form": "Not yet. / Not really. / Definitely not. / not at work",
+          "negative": "Not yet = I haven't … yet"
+        },
+        {
+          "subject": "suppose / think / be afraid + so / not",
+          "form": "I suppose so. / I suppose not. / I'm afraid not.",
+          "negative": "I don't suppose so = I suppose not"
+        },
+        {
+          "subject": "trợ động từ đứng cuối",
+          "form": "I wouldn't. / Here it isn't. / I can.",
+          "negative": "Không thêm it / that sau trợ động từ"
+        },
+        {
+          "subject": "to cuối câu",
+          "form": "I'd love to. / as I promised to",
+          "negative": "I'd rather not."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Have you eaten yet? – Not already.",
+          "right": "Have you eaten yet? – Not yet."
+        },
+        {
+          "wrong": "Would you like to try the phở place? – I'd love it to.",
+          "right": "Would you like to try the phở place? – I'd love to."
+        },
+        {
+          "wrong": "Should I try that here? – I wouldn't it.",
+          "right": "Should I try that here? – I wouldn't."
+        }
+      ],
+      "noteVi": "Usually, yes cũng là câu rút gọn: Yes, it's usually like this.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Do I have to answer honestly? – I suppose ___.",
+          "answers": [
+            "not"
+          ],
+          "explanationVi": "Bảo nghĩ là không cần: I suppose not."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Would you like to come to the team dinner? – I'd love ___, but I can't.",
+          "options": [
+            "to",
+            "it",
+            "so",
+            "that"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Giữ to, bỏ \"come to the team dinner\"."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Have you eaten yet? – Not already.",
+          "sentence": "Have you eaten yet? – Not yet.",
+          "explanationVi": "Câu hỏi với yet, câu trả lời phủ định rút gọn là Not yet."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi thì không đâu, ít nhất là không ở chỗ làm.",
+          "sentence": "I wouldn't, at least not at work.",
+          "words": [
+            "I",
+            "wouldn't,",
+            "at",
+            "least",
+            "not",
+            "at",
+            "work.",
+            "it"
+          ],
+          "explanationVi": "Chỉ giữ wouldn't, bỏ \"try that\"; từ \"it\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"I wouldn't, at least not at work.\"",
+        "tipVi": "wouldn't /ˈwʊdnt/; nhấn vào not và work."
+      },
+      {
+        "text": "\"That one is ambiguous even for native speakers.\"",
+        "tipVi": "ambiguous /æmˈbɪɡjuəs/, nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which Vietnamese greeting surprises foreigners most?",
+        "questionVi": "Câu chào nào của người Việt làm người nước ngoài bất ngờ nhất?",
+        "frame": "I suppose the one that ___, because ___."
+      },
+      {
+        "question": "Is it rude to ask someone's age in your culture?",
+        "questionVi": "Trong văn hoá của bạn, hỏi tuổi có bất lịch sự không?",
+        "frame": "Not really, because ___. / I'm afraid so, because ___."
+      },
+      {
+        "question": "Would you like to live abroad for a year?",
+        "questionVi": "Bạn có muốn sống ở nước ngoài một năm không?",
+        "frame": "I'd love to, because ___. / I wouldn't, because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu trả lời rút gọn (Not yet, I suppose so / not, I wouldn't, I'd love to …)",
+      "anyOf": [
+        "Not yet",
+        "not yet",
+        "Not really",
+        "suppose so",
+        "suppose not",
+        "wouldn't",
+        "love to",
+        "one",
+        "so",
+        "not"
+      ],
+      "outlineVi": [
+        "Đồng nghiệp hỏi về một lời chào (Not yet / Not really).",
+        "Hỏi về cử chỉ hoặc câu hỏi riêng tư (I wouldn't / I suppose so).",
+        "Kết thúc bằng một lời mời (I'd love to)."
+      ],
+      "modelAnswer": "\"Do people here always ask where you're going?\" Lena asked. \"Not really. Only neighbours do, and it's just a greeting.\" \"Should I tell them the truth?\" \"I wouldn't. Just say 'đi chơi'.\" \"And the gesture with the hand?\" \"The one with the palm down is polite.\" \"Would you like to try my grandmother's cooking on Sunday?\" \"I'd love to.\""
+    }
+  },
+  "glosses": [
+    {
+      "text": "offended",
+      "lemma": "offended",
+      "meaningVi": "phật ý, bị xúc phạm",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "he looked offended",
+      "phraseVi": "anh ấy có vẻ phật ý"
+    },
+    {
+      "text": "palm",
+      "lemma": "palm",
+      "meaningVi": "lòng bàn tay",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "with the palm down",
+      "phraseVi": "úp lòng bàn tay xuống"
+    },
+    {
+      "text": "address",
+      "lemma": "address",
+      "meaningVi": "xưng hô, gọi",
+      "sentenceIndex": 23,
+      "pos": "verb",
+      "phrase": "how to address you",
+      "phraseVi": "nên xưng hô với bạn thế nào"
+    },
+    {
+      "text": "up in the air",
+      "lemma": "up in the air",
+      "meaningVi": "chưa được quyết định, còn bỏ ngỏ",
+      "sentenceIndex": 34,
+      "pos": "phrase",
+      "phrase": "a deadline was up in the air",
+      "phraseVi": "một hạn chót vẫn chưa được quyết định"
+    }
+  ]
+}

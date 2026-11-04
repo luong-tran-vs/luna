@@ -1,0 +1,599 @@
+{
+  "content": "At half past six on Sunday morning, Detective Thuy and her younger partner, Hoan, arrive at a warehouse in the Que Vo industrial zone in Bac Ninh. The building belongs to Minh Quang Electronics, a distributor of phones and laptops, and it was broken into at some point during the night. A police officer is already waiting at the gate with the warehouse manager, Mr Cuong, who looks as if he hasn't slept. Two police cars are parked by the fence, and a small crowd of workers has gathered outside.\n\n\"What's missing?\" asks Thuy.\n\"About three hundred phones and forty laptops, as far as we can tell,\" Mr Cuong says. \"That's almost two billion dong.\"\n\nInside, the scene of the crime is surprisingly tidy. There is no broken glass, and the main door has not been forced. It was a burglary rather than a robbery, since nobody was threatened or hurt. The thieves are reported to have disabled the security cameras around midnight, about an hour before they went in. The night guard is said to have been asleep in his hut at the other end of the site.\n\nHoan studies the camera box on the wall. \"Whoever did this knew exactly what they were doing. This wasn't an ordinary thief looking for something to steal. It looks like the work of a professional burglar.\"\n\n\"I agree,\" says Thuy. \"And they couldn't have carried three hundred phones on foot. They must have used a truck.\" She turns to the police officer. \"I insist that all the surrounding premises be searched thoroughly this morning, including the empty factories along the river. I also want the footage from every camera on the main road.\"\n\nMr Cuong looks worried. \"Do you think one of my staff helped them?\"\n\"It's too early to say,\" Thuy replies. \"But it is believed that most warehouse thefts in this zone involve someone on the inside. I'd recommend that you give us a list of everyone who knew the code for the cameras.\"\n\nBack in the car, Hoan checks the police database. \"A similar gang of criminals is thought to have hit two warehouses in Hai Duong last year. One of them was caught and went to prison, but the others are believed to be still active.\"\n\"Then let's find them before they strike again,\" Thuy says. \"And this time, I want enough evidence to take every one of them to court.\"",
+  "targetWords": [
+    "crime",
+    "criminal",
+    "police officer",
+    "thief",
+    "steal",
+    "robbery",
+    "burglar",
+    "prison",
+    "court"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "police officer",
+        "lemma": "police officer",
+        "meaningVi": "cán bộ cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "crime",
+        "lemma": "crime",
+        "meaningVi": "vụ án, tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "robbery",
+        "lemma": "robbery",
+        "meaningVi": "vụ cướp",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "thief",
+        "lemma": "thief",
+        "meaningVi": "kẻ trộm",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "steal",
+        "lemma": "steal",
+        "meaningVi": "lấy trộm",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "burglar",
+        "lemma": "burglar",
+        "meaningVi": "kẻ trộm đột nhập",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "criminals",
+        "lemma": "criminal",
+        "meaningVi": "bọn tội phạm",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "court",
+        "lemma": "court",
+        "meaningVi": "toà án",
+        "pos": "noun",
+        "sentenceIndex": 31
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Thuy and Hoan investigating?",
+        "promptVi": "Thuỳ và Hoan đang điều tra vụ gì?",
+        "options": [
+          "A burglary at an electronics warehouse",
+          "A robbery at a phone shop",
+          "A fire in a factory by the river",
+          "A traffic accident on the main road"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kho hàng của Minh Quang Electronics bị đột nhập trong đêm, mất điện thoại và máy tính xách tay."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What are the thieves reported to have done around midnight?",
+        "promptVi": "Theo tin báo, bọn trộm đã làm gì vào khoảng nửa đêm?",
+        "options": [
+          "Broken the main door",
+          "Disabled the security cameras",
+          "Attacked the night guard",
+          "Called the manager"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"The thieves are reported to have disabled the security cameras around midnight.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Thuy insist on?",
+        "promptVi": "Thuỳ yêu cầu điều gì?",
+        "options": [
+          "That Mr Cuong close the warehouse",
+          "That the night guard be arrested",
+          "That the surrounding premises be searched thoroughly",
+          "That the cameras be repaired at once"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"I insist that all the surrounding premises be searched thoroughly this morning.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The thieves broke the main door to get into the warehouse.",
+        "promptVi": "Bọn trộm đã phá cửa chính để vào kho.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, \"the main door has not been forced.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"premises\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I insist that all the surrounding premises be searched thoroughly this morning\"",
+        "options": [
+          "khu nhà, cơ sở",
+          "đường cao tốc",
+          "nhân viên",
+          "bằng chứng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Premises = toà nhà và khu đất của một cơ sở, công ty."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động tường thuật và thức giả định khi điều tra",
+      "bodyVi": "Khi điều tra, thông tin ban đầu thường chưa chắc chắn, nên dùng bị động tường thuật: The thieves are reported to have disabled … (việc đã xảy ra: to have + V3) / The night guard is said to have been asleep … / it is believed that most warehouse thefts … involve … Khi ra lệnh hoặc đề nghị một cách trang trọng, dùng thức giả định: I insist that all the surrounding premises be searched (bị động: be + V3) / I'd recommend that you give us a list.",
+      "examples": [
+        "The thieves are reported to have disabled the security cameras around midnight, about an hour before they went in.",
+        "\"I insist that all the surrounding premises be searched thoroughly this morning, including the empty factories along the river.",
+        "\"But it is believed that most warehouse thefts in this zone involve someone on the inside."
+      ]
+    },
+    "writingPrompt": "Write a short police report about a break-in (at a shop, office or house). Say what is thought to have happened, using reporting passives, and give two instructions with insist / recommend that + base verb.",
+    "sentenceTranslations": [
+      "Sáu giờ rưỡi sáng Chủ nhật, thám tử Thuỳ và cộng sự trẻ hơn là Hoan đến một kho hàng ở khu công nghiệp Quế Võ, Bắc Ninh.",
+      "Toà nhà thuộc về Minh Quang Electronics, một nhà phân phối điện thoại và máy tính xách tay, và nó đã bị đột nhập vào một lúc nào đó trong đêm.",
+      "Một cán bộ cảnh sát đã chờ sẵn ở cổng cùng quản lý kho, ông Cường, người trông như cả đêm không ngủ.",
+      "Hai xe cảnh sát đỗ cạnh hàng rào, và một nhóm nhỏ công nhân đã tụ tập bên ngoài.",
+      "Thuỳ hỏi: \"Mất những gì?\"",
+      "Ông Cường nói: \"Theo những gì chúng tôi biết thì khoảng ba trăm điện thoại và bốn mươi máy tính xách tay.",
+      "Gần hai tỷ đồng.\"",
+      "Bên trong, hiện trường vụ án gọn gàng đến bất ngờ.",
+      "Không có kính vỡ, và cửa chính không hề bị phá.",
+      "Đây là một vụ trộm đột nhập chứ không phải vụ cướp, vì không ai bị đe doạ hay bị thương.",
+      "Theo tin báo, bọn trộm đã vô hiệu hoá camera an ninh vào khoảng nửa đêm, khoảng một tiếng trước khi chúng vào trong.",
+      "Người ta nói người bảo vệ ca đêm lúc đó đang ngủ trong chòi ở đầu kia của khu đất.",
+      "Hoan xem xét hộp camera trên tường.",
+      "\"Kẻ làm việc này biết rất rõ mình đang làm gì.",
+      "Đây không phải một tên trộm bình thường đi tìm thứ gì đó để lấy.",
+      "Trông giống như việc của một tay trộm chuyên nghiệp.\"",
+      "Thuỳ nói: \"Tôi đồng ý.",
+      "Và chúng không thể đi bộ mang theo ba trăm chiếc điện thoại được.",
+      "Chắc chắn chúng đã dùng xe tải.\"",
+      "Cô quay sang cán bộ cảnh sát.",
+      "\"Tôi yêu cầu khám xét kỹ toàn bộ khu vực xung quanh ngay sáng nay, kể cả những nhà máy bỏ trống dọc bờ sông.",
+      "Tôi cũng cần đoạn phim từ mọi camera trên đường chính.\"",
+      "Ông Cường trông lo lắng.",
+      "\"Chị có nghĩ một nhân viên của tôi đã giúp chúng không?\"",
+      "Thuỳ đáp: \"Bây giờ thì còn quá sớm để nói.",
+      "Nhưng người ta tin rằng phần lớn các vụ trộm kho ở khu này đều có người bên trong tiếp tay.",
+      "Tôi đề nghị ông đưa cho chúng tôi danh sách tất cả những ai biết mã của hệ thống camera.\"",
+      "Quay lại xe, Hoan tra cứu cơ sở dữ liệu của cảnh sát.",
+      "\"Một băng tội phạm tương tự được cho là đã đột nhập hai kho hàng ở Hải Dương năm ngoái.",
+      "Một tên đã bị bắt và đi tù, nhưng những tên còn lại được tin là vẫn đang hoạt động.\"",
+      "Thuỳ nói: \"Vậy thì phải tìm ra chúng trước khi chúng ra tay lần nữa.",
+      "Và lần này, tôi muốn có đủ bằng chứng để đưa tất cả bọn chúng ra toà.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả hiện trường một vụ trộm bằng bị động tường thuật (are reported to have …, is said to have been …) và ra yêu cầu bằng thức giả định (insist that + S + be + V3).",
+    "examples": [
+      {
+        "lemma": "crime",
+        "sentence": "Nobody is allowed to enter the scene of the crime.",
+        "meaningVi": "Không ai được vào hiện trường vụ án."
+      },
+      {
+        "lemma": "criminal",
+        "sentence": "The criminal left his fingerprints on the window.",
+        "meaningVi": "Tên tội phạm để lại dấu vân tay trên cửa sổ."
+      },
+      {
+        "lemma": "police officer",
+        "sentence": "A police officer stayed at the gate all night.",
+        "meaningVi": "Một cán bộ cảnh sát đứng gác ở cổng suốt đêm."
+      },
+      {
+        "lemma": "thief",
+        "sentence": "The thief climbed over the back wall.",
+        "meaningVi": "Tên trộm trèo qua bức tường phía sau."
+      },
+      {
+        "lemma": "steal",
+        "sentence": "They planned to steal the laptops and sell them online.",
+        "meaningVi": "Chúng định lấy trộm máy tính xách tay rồi bán trên mạng."
+      },
+      {
+        "lemma": "robbery",
+        "sentence": "In a robbery, the victim is threatened or attacked.",
+        "meaningVi": "Trong một vụ cướp, nạn nhân bị đe doạ hoặc tấn công."
+      },
+      {
+        "lemma": "burglar",
+        "sentence": "The burglar got in while the family was asleep.",
+        "meaningVi": "Tên trộm đột nhập vào khi cả nhà đang ngủ."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "The gang leader was sentenced to eight years in prison.",
+        "meaningVi": "Tên cầm đầu băng nhóm bị kết án tám năm tù."
+      },
+      {
+        "lemma": "court",
+        "sentence": "The evidence was strong enough to go to court.",
+        "meaningVi": "Bằng chứng đủ mạnh để đưa vụ việc ra toà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thuy",
+        "Duy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duy, has the search of the nearby factories started?",
+          "meaningVi": "Duy, việc khám xét các nhà máy gần đây bắt đầu chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, madam. Two teams are searching them now.",
+          "meaningVi": "Rồi ạ. Hai tổ đang khám xét ngay bây giờ."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. I insist that they check every room, even the locked ones.",
+          "meaningVi": "Tốt. Tôi yêu cầu họ kiểm tra mọi phòng, kể cả những phòng bị khoá."
+        },
+        {
+          "speaker": 1,
+          "text": "Understood. Should we also talk to the truck drivers in the area?",
+          "meaningVi": "Rõ ạ. Mình có nên hỏi cả các tài xế xe tải trong khu vực không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. A white truck is said to have been seen near the gate at one o'clock.",
+          "meaningVi": "Có. Nghe nói có một chiếc xe tải trắng bị nhìn thấy gần cổng lúc một giờ sáng."
+        },
+        {
+          "speaker": 1,
+          "text": "Who saw it?",
+          "meaningVi": "Ai nhìn thấy ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "A woman who sells breakfast near the road. She is believed to be a reliable witness.",
+          "meaningVi": "Một chị bán đồ ăn sáng gần đường. Người ta tin chị ấy là nhân chứng đáng tin."
+        },
+        {
+          "speaker": 1,
+          "text": "Then I suggest that we show her some photos of known thieves.",
+          "meaningVi": "Vậy em đề nghị mình cho chị ấy xem ảnh một số tên trộm đã có hồ sơ."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea. Bring her to the station this afternoon.",
+          "meaningVi": "Ý hay đấy. Chiều nay đưa chị ấy về đồn nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "I will. And I won't tell anyone else until we're sure.",
+          "meaningVi": "Vâng ạ. Và em sẽ không nói với ai khác cho đến khi mình chắc chắn."
+        }
+      ]
+    },
+    "grammarTipVi": "Bị động tường thuật: A white truck is said to have been seen … / She is believed to be a reliable witness. Thức giả định: I insist that they check every room / I suggest that we show her some photos.",
+    "translations": [
+      {
+        "vi": "Người ta cho rằng tên trộm đã vô hiệu hoá các camera.",
+        "en": "The thief is thought to have disabled the cameras.",
+        "distractors": [
+          "thinking",
+          "disables",
+          "doors"
+        ]
+      },
+      {
+        "vi": "Tôi yêu cầu cán bộ cảnh sát kiểm tra mọi nhà máy gần đây.",
+        "en": "I insist that the police officer check every nearby factory.",
+        "distractors": [
+          "checks",
+          "insisting",
+          "farm"
+        ],
+        "accepted": [
+          "I insist the police officer check every nearby factory."
+        ]
+      },
+      {
+        "vi": "Đây là một vụ trộm đột nhập, không phải vụ cướp.",
+        "en": "This is a burglary, not a robbery.",
+        "distractors": [
+          "thief",
+          "an",
+          "are"
+        ]
+      },
+      {
+        "vi": "Một tên trong số chúng đã bị bắt và phải đi tù.",
+        "en": "One of them was caught and went to prison.",
+        "distractors": [
+          "catched",
+          "goes",
+          "school"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thuỳ và Duy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Các bước tiếp theo của cuộc điều tra",
+          "Lịch trực ở đồn cảnh sát",
+          "Việc mua xe tải mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn việc khám xét nhà máy, hỏi tài xế và gặp nhân chứng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Người ta nói đã nhìn thấy gì gần cổng lúc một giờ sáng?",
+        "promptVi": "",
+        "options": [
+          "Một chiếc xe tải trắng",
+          "Hai người đàn ông",
+          "Một chiếc xe máy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thuỳ nói \"A white truck is said to have been seen near the gate at one o'clock.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Duy đề nghị làm gì với nhân chứng?",
+        "promptVi": "",
+        "options": [
+          "Cho chị ấy xem ảnh những tên trộm đã có hồ sơ",
+          "Đưa chị ấy đến kho hàng",
+          "Hỏi chị ấy về người bảo vệ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy nói \"I suggest that we show her some photos of known thieves.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thuy tells Duy to search only the rooms that are open.",
+        "promptVi": "Thuỳ bảo Duy chỉ khám xét những phòng không khoá.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Thuỳ nói \"check every room, even the locked ones.\"",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Những chi tiết nào cho thấy đây là việc của dân chuyên nghiệp? Thuỳ yêu cầu và đề nghị những gì?",
+    "grammarStep": {
+      "titleVi": "Bị động tường thuật và thức giả định",
+      "noticing": [
+        {
+          "sentence": "The thieves are reported to have disabled the security cameras around midnight, about an hour before they went in.",
+          "highlights": [
+            "are reported to have disabled"
+          ]
+        },
+        {
+          "sentence": "The night guard is said to have been asleep in his hut at the other end of the site.",
+          "highlights": [
+            "is said to have been asleep"
+          ]
+        },
+        {
+          "sentence": "\"I insist that all the surrounding premises be searched thoroughly this morning, including the empty factories along the river.",
+          "highlights": [
+            "insist that all the surrounding premises be searched"
+          ]
+        },
+        {
+          "sentence": "\"But it is believed that most warehouse thefts in this zone involve someone on the inside.",
+          "highlights": [
+            "it is believed that"
+          ]
+        }
+      ],
+      "questionVi": "Người ta nói lúc đó người bảo vệ đang ngủ. Câu nào đúng?",
+      "options": [
+        "The guard is said to have been asleep at the time.",
+        "The guard is said to been asleep at the time.",
+        "The guard says to have been asleep at the time."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Trạng thái trong quá khứ: is said + to have been + tính từ (asleep).",
+      "whenVi": "Dùng khi báo cáo thông tin ban đầu chưa được xác minh, và khi ra yêu cầu chính thức trong công việc điều tra.",
+      "table": [
+        {
+          "subject": "S + is reported + to have V3",
+          "form": "The thieves are reported to have disabled the cameras.",
+          "negative": "They are not reported to have used weapons."
+        },
+        {
+          "subject": "S + is said + to have been …",
+          "form": "The guard is said to have been asleep.",
+          "negative": "He is not said to have been involved."
+        },
+        {
+          "subject": "insist that + S + be + V3",
+          "form": "I insist that the premises be searched.",
+          "negative": "I insist that the scene not be touched."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The thieves are reported to disable the cameras last night.",
+          "right": "The thieves are reported to have disabled the cameras last night."
+        },
+        {
+          "wrong": "I insist that the premises are search thoroughly.",
+          "right": "I insist that the premises be searched thoroughly."
+        }
+      ],
+      "noteVi": "Phân biệt: burglary là trộm đột nhập (không có người bị đe doạ), robbery là cướp (có đe doạ hoặc dùng vũ lực), theft là trộm nói chung.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The night guard is said to have ___ asleep in his hut.",
+          "answers": [
+            "been"
+          ],
+          "explanationVi": "is said + to have been + tính từ."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "A similar gang ___ to have hit two warehouses last year.",
+          "options": [
+            "is thought",
+            "thinks",
+            "is thinking",
+            "has thought"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bị động tường thuật: is thought + to have + V3."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Thuy recommended that Mr Cuong to give them a list of staff.",
+          "sentence": "Thuy recommended that Mr Cuong give them a list of staff.",
+          "explanationVi": "Sau recommend that dùng động từ nguyên mẫu không to: Mr Cuong give."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi yêu cầu khám xét khu vực xung quanh.",
+          "sentence": "I insist that the surrounding area be searched.",
+          "words": [
+            "I",
+            "insist",
+            "that",
+            "the",
+            "surrounding",
+            "area",
+            "be",
+            "searched.",
+            "is"
+          ],
+          "explanationVi": "insist that + S + be + V3; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There is no broken glass, and the main door has not been forced.",
+        "tipVi": "broken glass đọc nối; forced /fɔːst/ đuôi -ed đọc /t/."
+      },
+      {
+        "text": "They must have used a truck.\"",
+        "tipVi": "must have đọc nhanh /ˈmʌstəv/; used /juːzd/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Has there ever been a burglary in your neighbourhood? What is thought to have happened?",
+        "questionVi": "Khu bạn ở đã từng có vụ trộm đột nhập nào chưa? Người ta cho rằng chuyện gì đã xảy ra?",
+        "frame": "A few years ago, ___. The burglars are thought to have ___."
+      },
+      {
+        "question": "What would you recommend that a warehouse do to stop thieves?",
+        "questionVi": "Bạn sẽ đề nghị một kho hàng làm gì để ngăn kẻ trộm?",
+        "frame": "I would recommend that they ___."
+      },
+      {
+        "question": "Should a night guard be punished if a burglary happens during his shift?",
+        "questionVi": "Bảo vệ ca đêm có nên bị phạt nếu xảy ra trộm trong ca trực không?",
+        "frame": "I think ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động tường thuật hoặc thức giả định (are reported to have … / insist that … be + V3)",
+      "anyOf": [
+        "is reported to",
+        "are reported to",
+        "is said to",
+        "are said to",
+        "is thought to",
+        "it is believed that",
+        "it is thought that",
+        "insist that",
+        "recommend that",
+        "suggest that"
+      ],
+      "outlineVi": [
+        "Vụ việc xảy ra ở đâu, khi nào, mất những gì.",
+        "Kẻ trộm được cho là đã làm gì (are reported / thought to have + V3).",
+        "Hai yêu cầu cho bước tiếp theo (insist / recommend that + S + V nguyên mẫu)."
+      ],
+      "modelAnswer": "On Friday night, a mobile phone shop on Tran Phu Street was broken into. The burglars are thought to have entered through a window on the first floor. They are reported to have taken about fifty phones and some cash. A neighbour is said to have heard a loud noise at around two o'clock. I insist that the shop owner give us all the camera recordings, and I recommend that the window be repaired before the shop reopens."
+    }
+  },
+  "glosses": [
+    {
+      "text": "forced",
+      "lemma": "force",
+      "meaningVi": "phá (cửa) để vào",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "the main door has not been forced",
+      "phraseVi": "cửa chính không hề bị phá"
+    },
+    {
+      "text": "disabled",
+      "lemma": "disable",
+      "meaningVi": "vô hiệu hoá",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "disabled the security cameras",
+      "phraseVi": "đã vô hiệu hoá camera an ninh"
+    },
+    {
+      "text": "premises",
+      "lemma": "premises",
+      "meaningVi": "khu nhà, cơ sở",
+      "sentenceIndex": 20,
+      "pos": "noun",
+      "phrase": "all the surrounding premises",
+      "phraseVi": "toàn bộ khu vực xung quanh"
+    },
+    {
+      "text": "footage",
+      "lemma": "footage",
+      "meaningVi": "đoạn phim quay được",
+      "sentenceIndex": 21,
+      "pos": "noun",
+      "phrase": "the footage from every camera",
+      "phraseVi": "đoạn phim từ mọi camera"
+    },
+    {
+      "text": "on the inside",
+      "lemma": "on the inside",
+      "meaningVi": "(người) nội bộ, bên trong",
+      "sentenceIndex": 25,
+      "pos": "phrase",
+      "phrase": "involve someone on the inside",
+      "phraseVi": "có người bên trong tiếp tay"
+    }
+  ]
+}
