@@ -275,6 +275,9 @@ type Translation struct {
 	Vi          string   `json:"vi"`
 	En          string   `json:"en"`
 	Distractors []string `json:"distractors"`
+	// Accepted are other English sentences, made of the same tiles, that are also right (another
+	// word order, a tile left out); optional (added 2026-11-04).
+	Accepted []string `json:"accepted,omitempty"`
 }
 
 // Practice is the vocabulary practice of a lesson as returned by a provider, before any checks.

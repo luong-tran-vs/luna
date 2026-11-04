@@ -186,6 +186,15 @@ sinh", sau ít phút "Xong" và xem được nội dung.
   - câu ví dụ không chứa từ của nó;
   - hội thoại dưới 4 lượt (bỏ cả đoạn); quá 10 lượt thì giữ 10 lượt đầu;
   - câu dịch có đáp án rỗng hoặc không dùng từ vựng nào của bài; giữ tối đa 5 câu, mỗi câu tối đa 4 từ gây nhiễu.
+
+  *Bổ sung 2026-11-04 (nhiều đáp án đúng):*
+  - Mỗi câu dịch có thể kèm tối đa 8 **đáp án khác** cũng đúng, ví dụ đổi chỗ trạng ngữ, đổi vị trí tiểu từ của cụm động từ, hay
+    bỏ "that". Mỗi đáp án khác chỉ được dùng các ô chữ có sẵn (từ của đáp án và từ gây nhiễu, mỗi ô một lần). Đáp án nào không ghép
+    được từ các ô chữ hoặc trùng nhau thì bị bỏ khi AI sinh hoặc khi nhập bài, còn khi admin sửa thì báo lỗi ngay ở ô đó.
+  - Câu người học ghép được tính đúng nếu khớp đáp án chính hoặc một đáp án khác, theo đúng thứ tự từ. Khi so, không phân biệt
+    chữ hoa và bỏ qua dấu câu ở hai đầu mỗi từ. Người học được nộp khi chưa dùng hết ô chữ.
+  - Admin xem và sửa đáp án khác ở phần luyện tập của bài (mỗi dòng một câu). Khi AI sửa câu tiếng Anh, các đáp án khác của câu
+    đó bị xoá vì không còn khớp.
 - **FR-004**: Ô trống của bước 3 MUST là các lần xuất hiện nguyên từ của từ vựng bài trong hội thoại (khớp dạng trong bài hoặc dạng
   gốc), tối đa 5, trải đều các lượt; không cần thêm yêu cầu AI.
 - **FR-005**: Đáp án câu dịch MUST được tách thành các ô theo khoảng trắng, dấu câu dính theo từ.

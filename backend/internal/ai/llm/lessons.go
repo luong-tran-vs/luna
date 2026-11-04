@@ -178,6 +178,7 @@ var practiceSchema = map[string]any{
 					"vi":          map[string]any{"type": "STRING"},
 					"en":          map[string]any{"type": "STRING"},
 					"distractors": stringArray,
+					"accepted":    stringArray,
 				},
 				"required": []string{"vi", "en", "distractors"},
 			},
@@ -641,7 +642,10 @@ another: turn them into questions and answers.
 5. translations: 3 to 5 short, simple Vietnamese sentences (vi), each with one correct English translation (en)
 that uses at least one vocabulary item and, where possible, follows the wording of a lesson sentence, and 3 or 4 distractors: single English words that are not in en
 but could tempt the learner.
-The learner builds en from tiles and only en is accepted, so en must be the only good translation of vi:
+The learner builds en from tiles (the words of en plus the distractors) and may leave tiles out. Case and the punctuation
+around a word do not count. accepted lists the other sentences the learner could build from these tiles that are also a good
+translation of vi (another word order such as a time phrase at the end, a particle before or after the object, a tile left out
+such as "that"); give [] when there is none. Keep that list short by making en the clearest translation of vi:
 - Vietnamese has no tenses: when the tense matters, put a time marker in vi (hôm qua, lúc đó, hồi nhỏ, từ năm 2020, tuần tới,
   trước khi...), and a sign that a condition is unreal (giá mà, nếu tôi là...) for unreal conditionals.
 - vi and en say the same thing: nothing added or dropped (if vi says "rất", en says "very"; if vi says "sẽ", en uses will).

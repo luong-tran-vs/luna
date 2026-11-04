@@ -347,7 +347,7 @@ export class LessonReview {
     }
     const right =
       q.kind === 'translate'
-        ? checkTiles(this.built(), q.answer)
+        ? checkTiles(this.built(), q.answer, q.accepted)
         : this.picked() === q.choices.answer;
     this.reveal(right ? 'correct' : 'wrong');
   }

@@ -121,12 +121,26 @@ export function nextEmptyBlank(answers: readonly (string | null)[], from = -1): 
   return -1;
 }
 
+/** A sentence of tiles as the check sees it: lower case, without the punctuation around words. */
+function sentenceKey(tiles: readonly string[]): string {
+  return tiles
+    .map((t) => t.toLowerCase().replace(/^\p{P}+|\p{P}+$/gu, ''))
+    .filter((t) => t !== '')
+    .join(' ');
+}
+
 /**
- * A built sentence is right when its tiles match the answer in order. Tiles are compared by text,
- * so two tiles with the same text can replace each other.
+ * A built sentence is right when its tiles match the answer, or one of the other right answers,
+ * in order. Case and the punctuation around a word do not count, so "Yesterday" can move to the
+ * end of the sentence when an accepted answer has it there.
  */
-export function checkTranslation(chosen: readonly string[], answer: readonly string[]): boolean {
-  return chosen.length === answer.length && chosen.every((t, i) => t === answer[i]);
+export function checkTranslation(
+  chosen: readonly string[],
+  answer: readonly string[],
+  accepted: readonly (readonly string[])[] = [],
+): boolean {
+  const built = sentenceKey(chosen);
+  return built !== '' && [answer, ...accepted].some((a) => sentenceKey(a) === built);
 }
 
 export interface Summary {

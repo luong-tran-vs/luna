@@ -50,6 +50,9 @@ type Translation struct {
 	Vi          string
 	En          string
 	Distractors []string
+	// Accepted are other right answers, each made only of the tiles (En's words and the
+	// distractors); the learner page accepts them as well as En (added 2026-11-04).
+	Accepted []string
 }
 
 // Practice is the cleaned vocabulary practice of a lesson (F17). Any part may be empty.
@@ -150,7 +153,8 @@ func cleanTranslations(items []ai.Translation, words []ai.PracticeWord) []Transl
 		if vi == "" || len(tiles) < minAnswerTiles || len(tiles) > maxAnswerTiles || !containsAnyWord(en, words) {
 			continue
 		}
-		out = append(out, Translation{Vi: vi, En: en, Distractors: cleanDistractors(it.Distractors, tiles)})
+		distractors := cleanDistractors(it.Distractors, tiles)
+		out = append(out, Translation{Vi: vi, En: en, Distractors: distractors, Accepted: cleanAccepted(it.Accepted, en, distractors)})
 		if len(out) == maxTranslations {
 			break
 		}
@@ -185,6 +189,64 @@ func cleanDistractors(items, tiles []string) []string {
 // answerTiles splits an English answer into the tiles the learner orders; punctuation stays
 // attached to its word ("you," "Vietnam.").
 func answerTiles(en string) []string { return strings.Fields(en) }
+
+// maxAccepted bounds the other right answers of one translation.
+const maxAccepted = 8
+
+// tileKey is how the learner page compares tiles: ignoring case and the punctuation around a
+// word, so "Yesterday" and "yesterday." are the same tile.
+func tileKey(t string) string { return strings.ToLower(strings.TrimFunc(t, isEdgePunct)) }
+
+// tilesKey is the words of s as tileKey sees them, joined by spaces.
+func tilesKey(s string) string {
+	words := strings.Fields(s)
+	keys := make([]string, 0, len(words))
+	for _, w := range words {
+		if k := tileKey(w); k != "" {
+			keys = append(keys, k)
+		}
+	}
+	return strings.Join(keys, " ")
+}
+
+// buildable reports whether every word of s is a tile of en or a distractor, each tile used once.
+func buildable(s, en string, distractors []string) bool {
+	left := map[string]int{}
+	for _, t := range append(answerTiles(en), distractors...) {
+		left[tileKey(t)]++
+	}
+	for _, w := range strings.Fields(s) {
+		k := tileKey(w)
+		if k == "" {
+			continue
+		}
+		if left[k] == 0 {
+			return false
+		}
+		left[k]--
+	}
+	return true
+}
+
+// cleanAccepted keeps the other right answers that can be built from the tiles, dropping blanks,
+// those equal to en and repeats.
+func cleanAccepted(items []string, en string, distractors []string) []string {
+	seen := map[string]bool{tilesKey(en): true}
+	var out []string
+	for _, a := range items {
+		a = limited(a, maxPracticeText)
+		k := tilesKey(a)
+		if k == "" || seen[k] || !buildable(a, en, distractors) {
+			continue
+		}
+		seen[k] = true
+		out = append(out, a)
+		if len(out) == maxAccepted {
+			break
+		}
+	}
+	return out
+}
 
 // Fill is the fill-in-the-blank exercise built from the dialogue (step 3).
 type Fill struct {

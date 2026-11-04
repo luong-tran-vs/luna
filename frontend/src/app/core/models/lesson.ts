@@ -133,6 +133,8 @@ export interface TranslationInput {
   vi: string;
   en: string;
   distractors: string[];
+  /** Other right answers, each made of the tiles (en's words and the distractors). */
+  accepted: string[];
 }
 
 export interface LessonInput {

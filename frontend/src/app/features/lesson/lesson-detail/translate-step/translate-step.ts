@@ -110,6 +110,7 @@ export class TranslateStep {
     const ok = checkTranslation(
       this.chosen().map((i) => tiles[i]),
       this.translation().answer,
+      this.translation().accepted ?? [],
     );
     this.result.set(ok);
     this.checked.emit(ok);

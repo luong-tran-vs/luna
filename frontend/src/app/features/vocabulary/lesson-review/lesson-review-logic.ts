@@ -1,6 +1,7 @@
 import { PracticeFill, PracticeTranslation } from '../../../core/models/practice';
 import { CompletedLesson } from '../../../core/models/study';
 import { DueCard, LessonResultInput, LessonStats, VocabItem } from '../../../core/models/vocab';
+import { checkTranslation } from '../../lesson/lesson-detail/practice-logic';
 import { exampleParts } from '../../../shared/components/review-session/review-session';
 import { Choices, makeChoices, seedOf, shuffled } from '../../../shared/utils/choices';
 
@@ -78,6 +79,8 @@ export interface TranslateQuestion {
   answer: string[];
   /** Answer tiles and distractors, shuffled. */
   tiles: string[];
+  /** Other right answers, split like answer. */
+  accepted: string[][];
 }
 
 export type Question = VocabQuestion | RecallQuestion | FillQuestion | TranslateQuestion;
@@ -251,6 +254,7 @@ function translateQuestions(
         vi: t.vi,
         answer: t.answer,
         tiles: shuffled(t.tiles, seed + i),
+        accepted: t.accepted ?? [],
       })),
     seed,
   );
@@ -292,9 +296,13 @@ export function partOf(q: Question): Part {
   return q.kind;
 }
 
-/** A tile answer is right when the tiles read the answer, word for word. */
-export function checkTiles(chosen: readonly string[], answer: readonly string[]): boolean {
-  return chosen.length === answer.length && chosen.every((t, i) => t === answer[i]);
+/** A tile answer is right when the tiles read the answer or an accepted one (see checkTranslation). */
+export function checkTiles(
+  chosen: readonly string[],
+  answer: readonly string[],
+  accepted: readonly (readonly string[])[] = [],
+): boolean {
+  return checkTranslation(chosen, answer, accepted);
 }
 
 export interface PartScore {

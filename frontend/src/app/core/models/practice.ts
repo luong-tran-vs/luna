@@ -55,6 +55,8 @@ export interface PracticeTranslation {
   answer: string[];
   /** Answer tiles plus distractors, in a fixed order (the page shuffles them). */
   tiles: string[];
+  /** Other right answers, split like answer; missing from an older server. */
+  accepted?: string[][];
 }
 
 /** GET /api/lessons/{id}/practice. */
@@ -170,5 +172,6 @@ export interface AdminPractice {
     turns: { speaker: number; text: string; meaningVi: string }[];
   } | null;
   grammarTipVi: string;
-  translations: { vi: string; en: string; distractors: string[] }[];
+  /** accepted: other right answers made of the same tiles (added 2026-11-04). */
+  translations: { vi: string; en: string; distractors: string[]; accepted?: string[] }[];
 }

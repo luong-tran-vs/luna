@@ -109,6 +109,13 @@
                         <p class="field-error" id="tr-dis-error">{{ message }}</p>
                       }
                     </div>
+                    <div class="field">
+                      <label [for]="'tr-acc-' + $index">Đáp án khác cũng đúng (mỗi dòng một câu, chỉ dùng các ô chữ trên)</label>
+                      <textarea [id]="'tr-acc-' + $index" lang="en" rows="2" [formControl]="accepted" [attr.aria-invalid]="!!fieldError('accepted')" [attr.aria-describedby]="fieldError('accepted') ? 'tr-acc-error' : null"></textarea>
+                      @if (fieldError('accepted'); as message) {
+                        <p class="field-error" id="tr-acc-error">{{ message }}</p>
+                      }
+                    </div>
                     @if (editError(); as message) {
                       <p class="form-alert" role="alert">{{ message }}</p>
                     }
@@ -122,6 +129,11 @@
                   @if (t.distractors.length) {
                     <span class="muted meaning"
                       >Từ gây nhiễu: <span lang="en">{{ t.distractors.join(', ') }}</span></span
+                    >
+                  }
+                  @if (t.accepted?.length) {
+                    <span class="muted meaning"
+                      >Cũng nhận: <span lang="en">{{ t.accepted!.join(' / ') }}</span></span
                     >
                   }
                 }

@@ -248,6 +248,13 @@ func practiceParts(in ai.Practice, p Practice) []ImportPart {
 	if in.GrammarStep != nil {
 		givenExercises = len(in.GrammarStep.Exercises)
 	}
+	givenAccepted, keptAccepted := 0, 0
+	for _, t := range in.Translations {
+		givenAccepted += len(t.Accepted)
+	}
+	for _, t := range p.Translations {
+		keptAccepted += len(t.Accepted)
+	}
 	return []ImportPart{
 		{Key: "practice.objectiveVi", LabelVi: "Mục tiêu bài", Given: one(in.ObjectiveVi != ""), Kept: one(p.ObjectiveVi != "")},
 		{Key: "practice.examples", LabelVi: "Câu ví dụ của từ (Từ vựng)", Given: len(in.Examples), Kept: len(p.Examples)},
@@ -257,6 +264,7 @@ func practiceParts(in ai.Practice, p Practice) []ImportPart {
 		{Key: "practice.grammarStep", LabelVi: "Bước Ngữ pháp", Given: one(in.GrammarStep != nil), Kept: one(st.Grammar != nil)},
 		{Key: "practice.grammarStep.exercises", LabelVi: "Bài tập ngữ pháp", Given: givenExercises, Kept: exercises},
 		{Key: "practice.translations", LabelVi: "Câu dịch xếp chữ", Given: len(in.Translations), Kept: len(p.Translations)},
+		{Key: "practice.translations.accepted", LabelVi: "Đáp án khác của câu dịch", Given: givenAccepted, Kept: keptAccepted},
 		{Key: "practice.readAloud", LabelVi: "Câu đọc to (Nói)", Given: len(in.ReadAloud), Kept: len(st.ReadAloud)},
 		{Key: "practice.speakQuestions", LabelVi: "Câu hỏi nói", Given: len(in.SpeakQuestions), Kept: len(st.SpeakQuestions)},
 		{Key: "practice.writingHelp", LabelVi: "Gợi ý bước Viết", Given: one(in.WritingHelp != nil), Kept: one(st.Writing != nil)},

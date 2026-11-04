@@ -66,6 +66,9 @@ type translationJSON struct {
 	Vi     string   `json:"vi"`
 	Answer []string `json:"answer"`
 	Tiles  []string `json:"tiles"`
+	// Accepted are other right answers, split into words like answer; the page compares them
+	// ignoring case and the punctuation around each word.
+	Accepted [][]string `json:"accepted"`
 }
 
 // practiceStatusJSON names the "not generated yet" status for clients.
@@ -156,6 +159,7 @@ type adminTranslationJSON struct {
 	Vi          string   `json:"vi"`
 	En          string   `json:"en"`
 	Distractors []string `json:"distractors"`
+	Accepted    []string `json:"accepted"`
 }
 
 func toAdminPracticeJSON(p *Practice) *adminPracticeJSON {
@@ -177,7 +181,7 @@ func toAdminPracticeJSON(p *Practice) *adminPracticeJSON {
 		}
 	}
 	for i, t := range p.Translations {
-		out.Translations[i] = adminTranslationJSON{Vi: t.Vi, En: t.En, Distractors: nonNil(t.Distractors)}
+		out.Translations[i] = adminTranslationJSON{Vi: t.Vi, En: t.En, Distractors: nonNil(t.Distractors), Accepted: nonNil(t.Accepted)}
 	}
 	return out
 }

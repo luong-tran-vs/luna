@@ -33,6 +33,8 @@ type TranslationView struct {
 	Vi     string
 	Answer []string
 	Tiles  []string
+	// Accepted are the other right answers, split into words like Answer.
+	Accepted [][]string
 }
 
 // Practice returns the practice view of a lesson; parts are empty while it has no practice.
@@ -68,8 +70,13 @@ func (r *Reader) Practice(ctx context.Context, id string) (PracticeView, error) 
 	}
 	for _, t := range p.Translations {
 		answer := answerTiles(t.En)
+		accepted := make([][]string, 0, len(t.Accepted))
+		for _, a := range t.Accepted {
+			accepted = append(accepted, answerTiles(a))
+		}
 		v.Translations = append(v.Translations, TranslationView{
 			Vi: t.Vi, Answer: answer, Tiles: append(append([]string{}, answer...), t.Distractors...),
+			Accepted: accepted,
 		})
 	}
 	return v, nil

@@ -70,13 +70,15 @@ export class PracticeSection {
   protected readonly vi = new FormControl('', { nonNullable: true });
   protected readonly en = new FormControl('', { nonNullable: true });
   protected readonly distractors = new FormControl('', { nonNullable: true });
+  /** Other right answers, one per line. */
+  protected readonly accepted = new FormControl('', { nonNullable: true });
 
   /** Why translations cannot be edited now, or null. */
   protected readonly editBlocked = computed(() =>
     this.lesson().practiceStatus === 'running' ? 'Đang sinh phần luyện tập, chưa sửa được câu dịch.' : null,
   );
 
-  protected fieldError(name: 'vi' | 'en' | 'distractors'): string | null {
+  protected fieldError(name: 'vi' | 'en' | 'distractors' | 'accepted'): string | null {
     const i = this.editIndex();
     return i === null ? null : (this.fields()[`translations.${i}.${name}`] ?? null);
   }
@@ -89,6 +91,7 @@ export class PracticeSection {
     this.vi.setValue(t.vi);
     this.en.setValue(t.en);
     this.distractors.setValue(t.distractors.join(', '));
+    this.accepted.setValue((t.accepted ?? []).join('\n'));
     this.fields.set({});
     this.editError.set(null);
     this.editIndex.set(i);
@@ -102,7 +105,12 @@ export class PracticeSection {
   }
 
   private current(): TranslationInput[] {
-    return (this.lesson().practice?.translations ?? []).map((t) => ({ vi: t.vi, en: t.en, distractors: [...t.distractors] }));
+    return (this.lesson().practice?.translations ?? []).map((t) => ({
+      vi: t.vi,
+      en: t.en,
+      distractors: [...t.distractors],
+      accepted: [...(t.accepted ?? [])],
+    }));
   }
 
   protected async saveEdit(): Promise<void> {
@@ -118,6 +126,10 @@ export class PracticeSection {
         .split(',')
         .map((d) => d.trim())
         .filter((d) => d !== ''),
+      accepted: this.accepted.value
+        .split('\n')
+        .map((a) => a.trim())
+        .filter((a) => a !== ''),
     };
     if (await this.send(list)) {
       this.cancelEdit();

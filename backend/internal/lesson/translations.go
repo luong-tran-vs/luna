@@ -24,6 +24,7 @@ type TranslationInput struct {
 	Vi          string
 	En          string
 	Distractors []string
+	Accepted    []string
 }
 
 // ValidateTranslations applies the rules of cleanTranslations but reports each problem by field
@@ -80,7 +81,28 @@ func ValidateTranslations(in []TranslationInput) ([]Translation, error) {
 		if len(distractors) > maxDistractors {
 			fields[key+"distractors"] = fmt.Sprintf("Tối đa %d từ gây nhiễu", maxDistractors)
 		}
-		out = append(out, Translation{Vi: vi, En: en, Distractors: distractors})
+		accepted := make([]string, 0, len(it.Accepted))
+		seenAccepted := map[string]bool{tilesKey(en): true}
+		for _, a := range it.Accepted {
+			a = collapse(a)
+			switch k := tilesKey(a); {
+			case k == "":
+				continue
+			case utf8.RuneCountInString(a) > maxPracticeText:
+				fields[key+"accepted"] = fmt.Sprintf("Mỗi đáp án khác tối đa %d ký tự", maxPracticeText)
+			case seenAccepted[k]:
+				fields[key+"accepted"] = "Đáp án khác bị trùng hoặc trùng với câu tiếng Anh"
+			case !buildable(a, en, distractors):
+				fields[key+"accepted"] = "Đáp án khác phải ghép được từ các ô chữ: " + a
+			default:
+				seenAccepted[k] = true
+			}
+			accepted = append(accepted, a)
+		}
+		if len(accepted) > maxAccepted {
+			fields[key+"accepted"] = fmt.Sprintf("Tối đa %d đáp án khác", maxAccepted)
+		}
+		out = append(out, Translation{Vi: vi, En: en, Distractors: distractors, Accepted: accepted})
 	}
 	if len(fields) > 0 {
 		return nil, &ValidationError{Fields: fields}

@@ -76,7 +76,7 @@ describe('AdminApiService', () => {
   });
 
   it('replaces the practice translations', async () => {
-    const translations = [{ vi: 'Xin chào', en: 'Hello', distractors: ['hi'] }];
+    const translations = [{ vi: 'Xin chào', en: 'Hello', distractors: ['hi'], accepted: [] }];
     await expect(
       call(api.updateTranslations('l1', translations), 'PUT', '/admin/lessons/l1/practice/translations', { lesson }, { translations }),
     ).resolves.toEqual(lesson);

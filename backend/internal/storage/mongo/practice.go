@@ -34,6 +34,7 @@ type translationDoc struct {
 	Vi          string   `bson:"vi"`
 	En          string   `bson:"en"`
 	Distractors []string `bson:"distractors"`
+	Accepted    []string `bson:"accepted,omitempty"`
 }
 
 type practiceDoc struct {

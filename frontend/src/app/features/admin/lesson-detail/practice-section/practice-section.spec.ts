@@ -226,8 +226,8 @@ describe('PracticeSection', () => {
       expect(r.request.method).toBe('PUT');
       expect(r.request.body).toEqual({
         translations: [
-          { vi: 'Hân hạnh gặp bạn.', en: 'Nice to meet you.', distractors: ['see', 'glad'] },
-          { vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [] },
+          { vi: 'Hân hạnh gặp bạn.', en: 'Nice to meet you.', distractors: ['see', 'glad'], accepted: [] },
+          { vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [], accepted: [] },
         ],
       });
       r.flush({ lesson: done });
@@ -273,7 +273,7 @@ describe('PracticeSection', () => {
       (Array.from(el.querySelectorAll('lu-confirm-dialog button')).find((b) => text(b) === 'Xoá') as HTMLButtonElement).click();
       await settle();
       const r = http.expectOne(url);
-      expect(r.request.body).toEqual({ translations: [{ vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [] }] });
+      expect(r.request.body).toEqual({ translations: [{ vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [], accepted: [] }] });
       r.flush({ lesson: many() });
       await settle();
       expect(emitted.length).toBe(1);

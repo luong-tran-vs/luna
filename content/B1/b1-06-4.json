@@ -1,5 +1,5 @@
 {
-  "content": "At lunch, Mai and Duc are eating noodles near their office. Mai has a heavy book next to her bowl.\n\nDuc asks, \"What are you reading?\"\n\"It's a biography of Nelson Mandela. I've almost finished it.\"\n\"Mandela? He was the president of South Africa, right?\"\n\"Yes, but his life had been very hard before he became president.\"\n\"Really? What happened?\"\n\"When he was young, he had studied law and worked as a lawyer. He fought for equal rights for black people, so the government put him in prison.\"\n\"For how long?\"\n\"Twenty-seven years. When he finally left prison in 1990, he was seventy-one years old.\"\n\"Wow. I didn't know that.\"\n\"And the amazing thing is that he wasn't angry. By the end of 1993, he had won the Nobel Peace Prize. A year later, he became the country's first black president.\"\n\"What did he do after that?\"\n\"He was president for five years. By the time he retired in 1999, he had achieved so much. He had brought people together, and he had shown the world a new way.\"\nDuc says, \"He sounds like a great leader. Is the book difficult?\"\n\"Not really. The writer explains everything clearly. I usually prefer novels, but this story is better than any novel.\"\n\"Can I read it after you?\"\n\"Sure. You should also read his autobiography. He started writing it secretly in prison.\"",
+  "content": "At lunch, Mai and Duc are eating noodles near their office. Mai has a heavy book next to her bowl.\n\nDuc asks, \"What are you reading?\"\n\"It's a biography of Nelson Mandela. I've almost finished it.\"\n\"Mandela? He was the president of South Africa, right?\"\n\"Yes, but his life had been very hard before he became president.\"\n\"Really? What happened?\"\n\"Before he went to prison, he had studied law and worked as a lawyer. He fought for equal rights for black people, so the government put him in prison.\"\n\"For how long?\"\n\"Twenty-seven years. When he finally left prison in 1990, he was seventy-one years old.\"\n\"Wow. I didn't know that.\"\n\"And the amazing thing is that he wasn't angry. By the end of 1993, he had won the Nobel Peace Prize. A year later, he became the country's first black president.\"\n\"What did he do after that?\"\n\"He was president for five years. By the time he retired in 1999, he had achieved so much. He had brought people together, and he had shown the world a new way.\"\nDuc says, \"He sounds like a great leader. Is the book difficult?\"\n\"Not really. The writer explains everything clearly. I usually prefer novels, but this story is better than any novel.\"\n\"Can I read it after you?\"\n\"Sure. You should also read his autobiography. He started writing it secretly in prison.\"",
   "targetWords": [
     "biography",
     "president",
@@ -101,8 +101,8 @@
       },
       {
         "kind": "detail",
-        "prompt": "What had Mandela done when he was young?",
-        "promptVi": "Khi còn trẻ, Mandela đã làm gì?",
+        "prompt": "What had Mandela done before he went to prison?",
+        "promptVi": "Trước khi vào tù, Mandela đã làm gì?",
         "options": [
           "He had been a teacher.",
           "He had studied law and worked as a lawyer.",
@@ -110,7 +110,7 @@
           "He had written a novel."
         ],
         "answerIndex": 1,
-        "explanationVi": "Mai nói \"When he was young, he had studied law and worked as a lawyer.\""
+        "explanationVi": "Mai nói \"Before he went to prison, he had studied law and worked as a lawyer.\""
       },
       {
         "kind": "detail",
@@ -169,7 +169,7 @@
       "\"Vâng, nhưng trước khi làm tổng thống, cuộc đời ông đã rất vất vả.\"",
       "\"Thật à?",
       "Đã có chuyện gì?\"",
-      "\"Hồi trẻ, ông đã học luật và làm luật sư.",
+      "\"Trước khi vào tù, ông đã học luật và làm luật sư.",
       "Ông đấu tranh cho quyền bình đẳng của người da đen, nên chính phủ bỏ tù ông.\"",
       "\"Bao lâu?\"",
       "\"Hai mươi bảy năm.",
@@ -316,16 +316,22 @@
           "winning",
           "lost",
           "until"
+        ],
+        "accepted": [
+          "He had won the Nobel Peace Prize by the end of 1993."
         ]
       },
       {
-        "vi": "Ông ấy đã học luật trước khi làm luật sư.",
-        "en": "He had studied law before he became a lawyer.",
+        "vi": "Đến lúc vào tù, ông ấy đã học luật.",
+        "en": "By the time he went to prison, he had studied law.",
         "distractors": [
           "after",
           "study",
           "studying",
-          "becomes"
+          "goes"
+        ],
+        "accepted": [
+          "He had studied law by the time he went to prison."
         ]
       },
       {
@@ -336,6 +342,9 @@
           "little",
           "achieving",
           "achieves"
+        ],
+        "accepted": [
+          "He had achieved a lot by the time he retired."
         ]
       },
       {
@@ -346,6 +355,9 @@
           "keeping",
           "since",
           "from"
+        ],
+        "accepted": [
+          "The government had kept him in prison for twenty-seven years by 1990."
         ]
       }
     ],
@@ -404,7 +416,7 @@
       "titleVi": "Quá khứ hoàn thành",
       "noticing": [
         {
-          "sentence": "\"When he was young, he had studied law and worked as a lawyer.",
+          "sentence": "\"Before he went to prison, he had studied law and worked as a lawyer.",
           "highlights": [
             "had studied"
           ]
@@ -501,13 +513,14 @@
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Hồi trẻ, ông ấy đã học luật.",
-          "sentence": "When he was young, he had studied law.",
+          "text": "Trước khi vào tù, ông ấy đã học luật.",
+          "sentence": "Before he went to prison, he had studied law.",
           "words": [
             "he",
-            "When",
-            "was",
-            "young,",
+            "Before",
+            "went",
+            "to",
+            "prison,",
             "he",
             "had",
             "studied",

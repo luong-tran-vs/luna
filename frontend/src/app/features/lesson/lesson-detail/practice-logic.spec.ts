@@ -140,9 +140,18 @@ describe('practice logic', () => {
       expect(checkTranslation(['Nice', 'to', 'meet'], answer)).toBe(false);
     });
 
-    it('compares the text of each tile exactly', () => {
-      expect(checkTranslation(['nice', 'to', 'meet', 'you,', 'Anna.'], answer)).toBe(false);
-      expect(checkTranslation(['Nice', 'to', 'meet', 'you', 'Anna.'], answer)).toBe(false);
+    it('ignores case and the punctuation around words', () => {
+      expect(checkTranslation(['nice', 'to', 'meet', 'you,', 'Anna.'], answer)).toBe(true);
+      expect(checkTranslation(['Nice', 'to', 'meet', 'you', 'Anna'], answer)).toBe(true);
+      expect(checkTranslation(['Nice', 'to', 'meet', 'you', 'Ann'], answer)).toBe(false);
+    });
+
+    it('also takes an accepted answer', () => {
+      const en = ['Yesterday', 'I', 'visited', 'an', 'old', 'friend.'];
+      const accepted = [['I', 'visited', 'an', 'old', 'friend', 'yesterday.']];
+      expect(checkTranslation(['I', 'visited', 'an', 'old', 'friend.', 'Yesterday'], en, accepted)).toBe(true);
+      expect(checkTranslation(['I', 'visited', 'an', 'old', 'friend.'], en, accepted)).toBe(false);
+      expect(checkTranslation([], [], [[]])).toBe(false);
     });
 
     it('lets tiles with the same text replace each other', () => {

@@ -153,7 +153,10 @@ func (s *Service) ApplyFix(ctx context.Context, id string, in FixInput) (Lesson,
 	default: // AreaTranslation, checked by fixRequest
 		items := make([]TranslationInput, len(l.Practice.Translations))
 		for i, t := range l.Practice.Translations {
-			items[i] = TranslationInput{Vi: t.Vi, En: t.En, Distractors: t.Distractors}
+			items[i] = TranslationInput{Vi: t.Vi, En: t.En, Distractors: t.Distractors, Accepted: t.Accepted}
+		}
+		if items[in.Index].En != in.En {
+			items[in.Index].Accepted = nil // written for the old sentence
 		}
 		items[in.Index].Vi, items[in.Index].En = in.Vi, in.En
 		return s.UpdateTranslations(ctx, id, items)
