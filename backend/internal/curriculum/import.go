@@ -105,24 +105,33 @@ type ImportResult struct {
 }
 
 // ImportSlot saves the lesson of an empty slot from in, as a draft at its place in the roadmap,
-// titled as the slot and built on its first grammar point. dryRun only checks it.
-func (s *Service) ImportSlot(ctx context.Context, key string, in SlotImport, dryRun bool) (ImportResult, error) {
+// titled as the slot and built on its first grammar point. With replace (added 2026-11-04) a filled
+// slot's lesson is rewritten from in instead, keeping its ID and draft state. dryRun only checks it.
+func (s *Service) ImportSlot(ctx context.Context, key string, in SlotImport, replace, dryRun bool) (ImportResult, error) {
 	o, err := s.openSlot(ctx, key)
 	if err != nil {
 		return ImportResult{}, err
 	}
-	if o.filled {
+	if o.filled && !replace {
 		return ImportResult{}, ErrSlotFilled
 	}
 	words := in.TargetWords
 	if len(words) == 0 {
 		words = s.plannedWords(ctx, o)
 	}
-	l, rep, err := s.Lessons.Import(ctx, lesson.Input{
+	li := lesson.Input{
 		Title: o.slot.Title, Content: in.Content, TopicID: o.found.ID, Level: lesson.Level(o.level),
 		Source: lesson.ImportSource, License: lesson.ImportLicense, GrammarPointID: o.slot.Grammar[0], TargetWords: words,
 		AppendToRoadmap: !dryRun, Draft: true,
-	}, in.ImportContent, dryRun)
+	}
+	var l lesson.Lesson
+	var rep lesson.ImportReport
+	if o.filled {
+		li.AppendToRoadmap = false
+		l, rep, err = s.Lessons.Reimport(ctx, o.lessonID, li, in.ImportContent, dryRun)
+	} else {
+		l, rep, err = s.Lessons.Import(ctx, li, in.ImportContent, dryRun)
+	}
 	if err != nil {
 		return ImportResult{Report: rep}, err
 	}

@@ -97,17 +97,17 @@ func (h *Handler) brief(w http.ResponseWriter, r *http.Request) {
 }
 
 // importSlot saves the lesson of an empty slot from a lesson written outside the app; with
-// ?dryRun=true it only checks it. An invalid lesson gets 400 with its fields and the report.
+// ?dryRun=true it only checks it, and ?replace=true rewrites the lesson of a filled slot. An invalid lesson gets 400 with its fields and the report.
 func (h *Handler) importSlot(w http.ResponseWriter, r *http.Request) {
 	var in importJSON
 	if httpx.DecodeJSONDetailed(w, r, &in, maxImportBytes) != nil {
 		return
 	}
-	dryRun := r.URL.Query().Get("dryRun") == "true"
+	dryRun, replace := r.URL.Query().Get("dryRun") == "true", r.URL.Query().Get("replace") == "true"
 	res, err := h.svc.ImportSlot(r.Context(), r.PathValue("key"), SlotImport{
 		Content: in.Content, TargetWords: in.TargetWords,
 		ImportContent: lesson.ImportContent{Annotate: in.Annotate, Practice: in.Practice, Glosses: in.Glosses},
-	}, dryRun)
+	}, replace, dryRun)
 	var verr *lesson.ValidationError
 	if errors.As(err, &verr) {
 		httpx.WriteJSON(w, http.StatusBadRequest, map[string]any{

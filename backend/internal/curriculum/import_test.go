@@ -43,13 +43,13 @@ func TestImportSlot(t *testing.T) {
 	s, ft, fl := newService()
 	ctx := context.Background()
 	in := SlotImport{Content: "We like singing."}
-	if _, err := s.ImportSlot(ctx, "a1-09-1", in, false); !errors.Is(err, ErrSlotFilled) {
+	if _, err := s.ImportSlot(ctx, "a1-09-1", in, false, false); !errors.Is(err, ErrSlotFilled) {
 		t.Fatalf("filled: %v", err)
 	}
 
 	// A dry run checks the lesson but saves nothing.
 	before := slices.Clone(ft.find("music").Roadmaps["A1"])
-	res, err := s.ImportSlot(ctx, "a1-09-4", in, true)
+	res, err := s.ImportSlot(ctx, "a1-09-4", in, false, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,7 +65,7 @@ func TestImportSlot(t *testing.T) {
 
 	// Saved, the lesson takes its place like a generated one; the writer's target words are kept.
 	in.TargetWords = []string{"song"}
-	res, err = s.ImportSlot(ctx, "a1-09-4", in, false)
+	res, err = s.ImportSlot(ctx, "a1-09-4", in, false, false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,14 +76,27 @@ func TestImportSlot(t *testing.T) {
 	if r := ft.find("music").Roadmaps["A1"]; !slices.Equal(r, []string{"l2", "l4", "l1", "l5", "l3"}) {
 		t.Errorf("music roadmap %v", r)
 	}
-	if _, err := s.ImportSlot(ctx, "a1-09-4", in, true); !errors.Is(err, ErrSlotFilled) {
+	if _, err := s.ImportSlot(ctx, "a1-09-4", in, false, true); !errors.Is(err, ErrSlotFilled) {
 		t.Errorf("now filled: %v", err)
+	}
+
+	// With replace, the lesson of a filled slot is rewritten in place and keeps its place.
+	n := len(fl.imported)
+	res, err = s.ImportSlot(ctx, "a1-09-1", in, true, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := fl.imported[n]; got.AppendToRoadmap || len(fl.reimported) != 1 || res.Slot.Lesson == nil {
+		t.Errorf("replace input %+v, reimported %v, result %+v", got, fl.reimported, res)
+	}
+	if r := ft.find("music").Roadmaps["A1"]; !slices.Equal(r, []string{"l2", "l4", "l1", "l5", "l3"}) {
+		t.Errorf("music roadmap after replace %v", r)
 	}
 
 	// The report comes back with an invalid lesson.
 	s, _, fl = newService()
 	fl.importErr = &lesson.ValidationError{Fields: map[string]string{"practice": "x"}}
-	res, err = s.ImportSlot(ctx, "a1-09-4", in, true)
+	res, err = s.ImportSlot(ctx, "a1-09-4", in, false, true)
 	var verr *lesson.ValidationError
 	if !errors.As(err, &verr) || len(res.Report.Parts) != 1 {
 		t.Errorf("invalid: %+v, %v", res, err)

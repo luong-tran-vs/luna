@@ -641,6 +641,14 @@ another: turn them into questions and answers.
 5. translations: 3 to 5 short, simple Vietnamese sentences (vi), each with one correct English translation (en)
 that uses at least one vocabulary item and, where possible, follows the wording of a lesson sentence, and 3 or 4 distractors: single English words that are not in en
 but could tempt the learner.
+The learner builds en from tiles and only en is accepted, so en must be the only good translation of vi:
+- Vietnamese has no tenses: when the tense matters, put a time marker in vi (hôm qua, lúc đó, hồi nhỏ, từ năm 2020, tuần tới,
+  trước khi...), and a sign that a condition is unreal (giá mà, nếu tôi là...) for unreal conditionals.
+- vi and en say the same thing: nothing added or dropped (if vi says "rất", en says "very"; if vi says "sẽ", en uses will).
+- A distractor must never make a correct sentence when it takes the place of a word of en. Never use as a distractor another
+  tense or form that also fits vi (was/is, had/has, will/going to, -ing/to, would/used to), a synonym (game/match, each/every,
+  if/whether, little/bit), a word that just changes singular and plural, or an optional word (very, really, already).
+  Good distractors are clearly wrong: a wrong form (goed, more better), the wrong word class, or a word with another meaning.
 %[4]s
 Plain text only, no markdown.
 

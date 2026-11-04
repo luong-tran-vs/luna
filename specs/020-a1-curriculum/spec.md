@@ -173,6 +173,10 @@ riêng để gọi; làm API trước, giao diện nhập bài sau (cùng ngày)
   thích hợp lệ hoặc phần luyện tập không dùng được thì 400 kèm `fields` và báo cáo; JSON có trường lạ thì 400 nêu tên
   trường. Lưu thì bài thành **nháp** của ô, đúng chỗ trong lộ trình, chú thích và luyện tập đã xong, **không xếp job AI**
   nào (nghĩa trong bài để trống thì lưu danh sách rỗng, popup dùng từ điển).
+  Ô đã có bài thì 409, trừ khi gửi `?replace=true` (thêm 2026-11-04, để sửa bài đã nhập): bài của ô được **viết lại tại
+  chỗ** từ nội dung gửi lên, qua đúng các hàm kiểm tra trên. Bài giữ nguyên ID, chỗ trong lộ trình, trạng thái nháp
+  hay đã xuất bản và ảnh. Bản sửa mới tăng lên, đáp án quiz cũ bị bỏ như khi đổi bài đọc, và không xếp job AI nào.
+  Dùng được cùng `dryRun`.
 - **FR-028** `POST /api/admin/grammar-lessons/{pointId}/import` (`?dryRun=true` chỉ kiểm tra): nhận `content` cùng khuôn
   với "Lưu" bài ngữ pháp, qua `Normalize` và `Validate`, lưu thành nháp, đánh dấu đã sửa (sinh lại bằng AI sẽ hỏi trước).
   Điểm đã có bài thì 409 `grammar_lesson_exists`, trừ khi gửi `replace: true` (giao diện sẽ hỏi xác nhận); bài bị thay

@@ -94,6 +94,8 @@ type fakeLessons struct {
 	dryRuns   int
 	// importErr, if set, is what Import returns.
 	importErr error
+	// reimported are the lessons Reimport rewrote.
+	reimported []string
 }
 
 func (f *fakeLessons) Generate(_ context.Context, _ string, in lesson.GenerateInput) (lesson.GenerateResult, error) {
@@ -122,6 +124,16 @@ func (f *fakeLessons) Import(_ context.Context, in lesson.Input, _ lesson.Import
 	}
 	l.ID = f.topics.add(in.TopicID, in.Title, in.Draft)
 	return l, rep, nil
+}
+
+func (f *fakeLessons) Reimport(_ context.Context, id string, in lesson.Input, _ lesson.ImportContent, dryRun bool) (lesson.Lesson, lesson.ImportReport, error) {
+	rep := lesson.ImportReport{Sentences: 1}
+	f.imported = append(f.imported, in)
+	if !dryRun {
+		f.reimported = append(f.reimported, id)
+	}
+	return lesson.Lesson{ID: id, Title: in.Title, Content: in.Content, Level: in.Level, TopicID: in.TopicID, Draft: in.Draft,
+		GrammarPointID: in.GrammarPointID, TargetWords: in.TargetWords, Source: in.Source}, rep, nil
 }
 
 func (f *fakeLessons) SetPublished(_ context.Context, id string, published bool) (lesson.Lesson, error) {

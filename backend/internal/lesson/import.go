@@ -53,16 +53,74 @@ type ImportReport struct {
 // Import checks a lesson and its content and, unless dryRun, stores it with its annotations,
 // practice and glosses done. dryRun returns the lesson as it would be saved, without an ID.
 func (s *Service) Import(ctx context.Context, in Input, c ImportContent, dryRun bool) (Lesson, ImportReport, error) {
-	in, sentences, err := ValidateInput(in)
+	l, glosses, rep, err := s.buildImport(ctx, in, c)
+	if err != nil || dryRun {
+		return l, rep, err
+	}
+	l.PracticeStatus = StatusNone // done once fillImport saves the practice
+	saved, err := s.saveImport(ctx, l, glosses, in.AppendToRoadmap)
+	return saved, rep, err
+}
+
+// Reimport (added 2026-11-04) replaces everything lesson id was written with by an import, as
+// Import checks it, so a lesson already in the roadmap is corrected in place: it keeps its ID, its
+// place, its draft state and its images, and old quiz answers are dropped as for a new text.
+// dryRun returns the lesson as it would be saved.
+func (s *Service) Reimport(ctx context.Context, id string, in Input, c ImportContent, dryRun bool) (Lesson, ImportReport, error) {
+	cur, err := s.Lessons.Get(ctx, id)
 	if err != nil {
 		return Lesson{}, ImportReport{}, err
+	}
+	in.TopicID, in.Level, in.Draft = cur.TopicID, cur.Level, cur.Draft
+	l, glosses, rep, err := s.buildImport(ctx, in, c)
+	if err != nil {
+		return Lesson{}, rep, err
+	}
+	if dryRun {
+		l.ID = cur.ID
+		return l, rep, nil
+	}
+	if cur.AnnotationStatus == StatusRunning {
+		return Lesson{}, rep, ErrAnnotationRunning
+	}
+	if cur.PracticeStatus == StatusRunning {
+		return Lesson{}, rep, ErrPracticeRunning
+	}
+	anns, extras, p := l.Annotations, l.Extras, *l.Practice
+	next := cur
+	next.Title, next.Content, next.Source, next.License = l.Title, l.Content, l.Source, l.License
+	next.GrammarPointID, next.Sentences = l.GrammarPointID, l.Sentences
+	next.Revision, next.QuizVersion = cur.Revision+1, cur.QuizVersion+1
+	next.Annotations, next.Extras, next.ExtrasEditedByAdmin = nil, Extras{}, false
+	next.AnnotationStatus, next.AnnotationError = StatusRunning, ""
+	next.Practice, next.PracticeStatus, next.PracticeError = nil, StatusNone, ""
+	next.Review, next.UpdatedAt = nil, s.Now()
+	if err := s.Lessons.ReplaceContent(ctx, next); err != nil {
+		return Lesson{}, rep, fmt.Errorf("lesson: replace content: %w", err)
+	}
+	if err := s.Jobs.DeletePending(ctx, id); err != nil {
+		return Lesson{}, rep, fmt.Errorf("lesson: drop old jobs: %w", err)
+	}
+	if err := s.fillImport(ctx, next, anns, extras, p, glosses); err != nil {
+		return Lesson{}, rep, err
+	}
+	saved, err := s.Lessons.Get(ctx, id)
+	return saved, rep, err
+}
+
+// buildImport checks an import and returns the lesson it makes, with its annotations, extras and
+// practice in it, and its glosses; on a dry run the lesson is shown as done.
+func (s *Service) buildImport(ctx context.Context, in Input, c ImportContent) (Lesson, []Gloss, ImportReport, error) {
+	in, sentences, err := ValidateInput(in)
+	if err != nil {
+		return Lesson{}, nil, ImportReport{}, err
 	}
 	t, err := s.topic(ctx, in.TopicID)
 	if err != nil {
-		return Lesson{}, ImportReport{}, err
+		return Lesson{}, nil, ImportReport{}, err
 	}
 	if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
-		return Lesson{}, ImportReport{}, err
+		return Lesson{}, nil, ImportReport{}, err
 	}
 	now := s.Now()
 	l := Lesson{
@@ -84,7 +142,7 @@ func (s *Service) Import(ctx context.Context, in Input, c ImportContent, dryRun 
 	}
 	kept := len(anns)
 	if anns, err = addMissedFocus(ctx, anns, focus, sentences, s.Dict); err != nil {
-		return Lesson{}, ImportReport{}, err
+		return Lesson{}, nil, ImportReport{}, err
 	}
 	rep.FromDictionary = len(anns) - kept
 	rep.Parts = append(rep.Parts, ImportPart{Key: "annotate.annotations", LabelVi: "Chú thích từ", Given: len(c.Annotate.Annotations), Kept: kept})
@@ -118,14 +176,10 @@ func (s *Service) Import(ctx context.Context, in Input, c ImportContent, dryRun 
 
 	explainImport(rep.Parts, c, sentences, l.Content, focus, only)
 	if len(fields) > 0 {
-		return Lesson{}, rep, &ValidationError{Fields: fields}
+		return Lesson{}, nil, rep, &ValidationError{Fields: fields}
 	}
-	if dryRun {
-		l.AnnotationStatus, l.PracticeStatus = StatusDone, StatusDone
-		return l, rep, nil
-	}
-	saved, err := s.saveImport(ctx, l, glosses, in.AppendToRoadmap)
-	return saved, rep, err
+	l.AnnotationStatus, l.PracticeStatus = StatusDone, StatusDone
+	return l, glosses, rep, nil
 }
 
 // saveImport stores a checked import. MongoDB runs without transactions, so the lesson is created,

@@ -133,3 +133,47 @@ func TestImportExplains(t *testing.T) {
 		t.Errorf("exercises %+v", p)
 	}
 }
+
+func TestReimport(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	glosses := newFakeGlosses()
+	e.svc.Glosses = glosses
+	l, _, err := e.svc.Import(t.Context(), importInput(), importContent(), false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// The lesson is rewritten in place: same ID and roadmap place, a new revision and quiz.
+	in := importInput()
+	in.Content = l.Content + " It was great."
+	got, _, err := e.svc.Reimport(t.Context(), l.ID, in, importContent(), false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.ID != l.ID || got.Content != in.Content || got.Revision != l.Revision+1 || got.QuizVersion <= l.QuizVersion ||
+		got.AnnotationStatus != StatusDone || got.PracticeStatus != StatusDone || len(got.Sentences) != len(l.Sentences)+1 ||
+		got.Practice == nil || len(got.Annotations) != 3 || got.Draft != l.Draft {
+		t.Fatalf("reimported %+v", got)
+	}
+	if jobs := e.jobs.all(); len(jobs) != 0 {
+		t.Errorf("jobs %+v", jobs)
+	}
+	if r := e.topics.roadmap("topic-b1"); len(r) != 1 || r[0] != l.ID {
+		t.Errorf("roadmap %v", r)
+	}
+	if rev, _, ok, _ := glosses.Get(t.Context(), l.ID); !ok || rev != got.Revision {
+		t.Errorf("glosses at revision %d, want %d", rev, got.Revision)
+	}
+
+	// A dry run changes nothing.
+	if _, _, err := e.svc.Reimport(t.Context(), l.ID, importInput(), importContent(), true); err != nil {
+		t.Fatal(err)
+	}
+	if cur, _ := e.lessons.Get(t.Context(), l.ID); cur.Revision != got.Revision {
+		t.Errorf("dry run saved revision %d", cur.Revision)
+	}
+	if _, _, err := e.svc.Reimport(t.Context(), "nope", importInput(), importContent(), false); !errors.Is(err, ErrNotFound) {
+		t.Errorf("missing lesson: %v", err)
+	}
+}

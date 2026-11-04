@@ -70,6 +70,8 @@ type Lessons interface {
 	Create(ctx context.Context, in lesson.Input) (lesson.Lesson, error)
 	// Import saves a lesson written outside the app (ImportSlot).
 	Import(ctx context.Context, in lesson.Input, c lesson.ImportContent, dryRun bool) (lesson.Lesson, lesson.ImportReport, error)
+	// Reimport replaces what a lesson in the roadmap was written with (ImportSlot with replace).
+	Reimport(ctx context.Context, id string, in lesson.Input, c lesson.ImportContent, dryRun bool) (lesson.Lesson, lesson.ImportReport, error)
 	SetPublished(ctx context.Context, id string, published bool) (lesson.Lesson, error)
 	Get(ctx context.Context, id string) (lesson.Lesson, error)
 	Delete(ctx context.Context, id string) error
@@ -503,6 +505,8 @@ type openedSlot struct {
 	slot   Slot
 	found  topic.Topic
 	filled bool
+	// lessonID is the lesson of a filled slot.
+	lessonID string
 	// later are the points the course teaches only after this topic.
 	later []string
 }
@@ -534,7 +538,7 @@ func (s *Service) openSlot(ctx context.Context, key string) (openedSlot, error) 
 		return openedSlot{}, fmt.Errorf("curriculum: roadmap: %w", err)
 	}
 	bySlot, _ := fill(t, rm.Lessons)
-	return openedSlot{level: level, topic: t, slot: sl, found: found, filled: bySlot[sl.Key].ID != "", later: laterGrammar(*p, t)}, nil
+	return openedSlot{level: level, topic: t, slot: sl, found: found, filled: bySlot[sl.Key].ID != "", lessonID: bySlot[sl.Key].ID, later: laterGrammar(*p, t)}, nil
 }
 
 // placed puts a lesson just saved for the slot o at its place in the roadmap and returns the slot.
