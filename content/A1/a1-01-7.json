@@ -1,0 +1,729 @@
+{
+  "content": "It is four in the afternoon in Hoi An. Tuan is a taxi driver, and he is fifty. A man and a woman are near his car with two bags. They are from Japan.\n\n\"Good afternoon, welcome to Hoi An,\" Tuan says to them. \"Thank you,\" the man says. \"My name is Kenji, and this is my wife, Yumi.\" Tuan puts the bags in the car for them. \"Please sit here,\" he says to her.\n\nKenji is thirty-three, and he is a cook. \"We live in Osaka,\" he says. \"Are you from Hoi An?\" he asks Tuan. \"No, I'm not,\" Tuan says. \"My hometown is a small town near Hue.\" \"Is it beautiful?\" she asks him. \"Yes, it is, and the food is very good,\" he says.\n\nAt the hotel, Kenji says to him, \"Thank you, you are very kind.\" \"Goodbye, see you again,\" Tuan says to them.",
+  "targetWords": [
+    "good afternoon",
+    "welcome",
+    "thank you",
+    "name",
+    "please",
+    "live",
+    "from",
+    "goodbye"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "from",
+        "lemma": "from",
+        "meaningVi": "đến từ",
+        "pos": "preposition",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "Good afternoon",
+        "lemma": "good afternoon",
+        "meaningVi": "chào buổi chiều",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "welcome",
+        "lemma": "welcome",
+        "meaningVi": "chào mừng",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "Thank you",
+        "lemma": "thank you",
+        "meaningVi": "cảm ơn",
+        "pos": "phrase",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "name",
+        "lemma": "name",
+        "meaningVi": "tên",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "Please",
+        "lemma": "please",
+        "meaningVi": "xin mời, vui lòng",
+        "pos": "adverb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "live",
+        "lemma": "live",
+        "meaningVi": "sống, ở",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "Goodbye",
+        "lemma": "goodbye",
+        "meaningVi": "tạm biệt",
+        "pos": "interjection",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A taxi driver and a man and his wife from Japan talk in his car.",
+          "Tuan is on holiday in Japan.",
+          "Kenji is a taxi driver in Hoi An.",
+          "A man and his wife are at a restaurant in Hue."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Tuấn lái taxi ở Hội An; anh đón Kenji và vợ từ Nhật Bản, và họ giới thiệu bản thân, hỏi nhau quê ở đâu."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Tuan's hometown?",
+        "promptVi": "Quê của anh Tuấn ở đâu?",
+        "options": [
+          "In Hoi An",
+          "In a small town near Hue",
+          "In Osaka",
+          "In Japan"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh nói \"My hometown is a small town near Hue\": quê anh là một thị trấn nhỏ gần Huế, không phải Hội An."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Kenji's job?",
+        "promptVi": "Kenji làm nghề gì?",
+        "options": [
+          "He is a taxi driver.",
+          "He is a teacher.",
+          "He is a cook.",
+          "He is a doctor."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Kenji is thirty-three, and he is a cook\": anh là đầu bếp. Người lái taxi là anh Tuấn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan is from Hoi An.",
+        "promptVi": "Anh Tuấn là người Hội An.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Kenji hỏi \"Are you from Hoi An?\", anh Tuấn trả lời \"No, I'm not.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"hometown\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"My hometown is a small town near Hue.\"",
+        "options": [
+          "quê nhà, nơi mình sinh ra",
+          "khách sạn",
+          "thành phố lớn",
+          "chiếc xe"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Hometown\" ghép từ home (nhà) và town (thị trấn), nghĩa là quê nhà, nơi mình sinh ra và lớn lên."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ nhân xưng chủ ngữ và tân ngữ",
+      "bodyVi": "Chủ ngữ (I, he, she, we, they) đứng trước động từ: We live in Osaka. Tân ngữ (me, him, her, us, them) đứng sau động từ hoặc giới từ: Tuan says to them, she asks him, he says to her. Nhờ đại từ mà không phải nhắc lại tên Kenji, Yumi, Tuấn nhiều lần.",
+      "examples": [
+        "Tuan puts the bags in the car for them.",
+        "\"Please sit here,\" he says to her.",
+        "\"Is it beautiful?\" she asks him."
+      ]
+    },
+    "writingPrompt": "Write about a person in a taxi or on a bus: who he or she is, and where he or she is from.",
+    "sentenceTranslations": [
+      "Bây giờ là bốn giờ chiều ở Hội An.",
+      "Anh Tuấn là tài xế taxi, và anh năm mươi tuổi.",
+      "Một người đàn ông và một người phụ nữ đang đứng gần xe của anh với hai cái túi.",
+      "Họ đến từ Nhật Bản.",
+      "\"Chào buổi chiều, chào mừng anh chị đến Hội An,\" anh Tuấn nói với họ.",
+      "\"Cảm ơn anh,\" người đàn ông nói.",
+      "\"Tên tôi là Kenji, và đây là vợ tôi, Yumi.\"",
+      "Anh Tuấn để hai cái túi vào xe cho họ.",
+      "\"Mời chị ngồi đây,\" anh nói với cô ấy.",
+      "Kenji ba mươi ba tuổi, và anh là đầu bếp.",
+      "\"Chúng tôi sống ở Osaka,\" anh nói.",
+      "\"Anh có phải người Hội An không?\" anh hỏi anh Tuấn.",
+      "\"Không, không phải,\" anh Tuấn nói.",
+      "\"Quê tôi là một thị trấn nhỏ gần Huế.\"",
+      "\"Ở đó có đẹp không?\" cô hỏi anh.",
+      "\"Có, đẹp lắm, và đồ ăn rất ngon,\" anh nói.",
+      "Đến khách sạn, Kenji nói với anh: \"Cảm ơn anh, anh tốt quá.\"",
+      "\"Tạm biệt, hẹn gặp lại,\" anh Tuấn nói với họ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chào khách, giới thiệu mình và người đi cùng, hỏi quê của người khác và dùng đúng him, her, them.",
+    "examples": [
+      {
+        "lemma": "good afternoon",
+        "sentence": "Good afternoon, sir.",
+        "meaningVi": "Chào buổi chiều, thưa ông."
+      },
+      {
+        "lemma": "welcome",
+        "sentence": "Welcome to Hoi An!",
+        "meaningVi": "Chào mừng bạn đến Hội An!"
+      },
+      {
+        "lemma": "thank you",
+        "sentence": "Thank you, Tuan.",
+        "meaningVi": "Cảm ơn anh Tuấn."
+      },
+      {
+        "lemma": "name",
+        "sentence": "His name is Kenji.",
+        "meaningVi": "Tên anh ấy là Kenji."
+      },
+      {
+        "lemma": "please",
+        "sentence": "Please sit here.",
+        "meaningVi": "Mời bạn ngồi đây."
+      },
+      {
+        "lemma": "live",
+        "sentence": "They live in Osaka.",
+        "meaningVi": "Họ sống ở Osaka."
+      },
+      {
+        "lemma": "from",
+        "sentence": "Yumi is from Japan.",
+        "meaningVi": "Yumi đến từ Nhật Bản."
+      },
+      {
+        "lemma": "goodbye",
+        "sentence": "Goodbye, and thank you.",
+        "meaningVi": "Tạm biệt, và cảm ơn bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Yumi",
+        "Tuan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Excuse me, is the hotel near here?",
+          "meaningVi": "Xin lỗi, khách sạn có gần đây không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It is near the river.",
+          "meaningVi": "Có, gần lắm. Nó ở gần sông."
+        },
+        {
+          "speaker": 0,
+          "text": "Are you from Hue, Tuan?",
+          "meaningVi": "Anh là người Huế à, anh Tuấn?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. My wife is from Hoi An.",
+          "meaningVi": "Vâng, đúng vậy. Vợ tôi là người Hội An."
+        },
+        {
+          "speaker": 0,
+          "text": "Is she a taxi driver too?",
+          "meaningVi": "Chị ấy cũng lái taxi à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, she isn't. She is a cook, like Kenji.",
+          "meaningVi": "Không. Cô ấy là đầu bếp, giống anh Kenji."
+        },
+        {
+          "speaker": 0,
+          "text": "Oh, please say hello to her for us.",
+          "meaningVi": "Ồ, cho chúng tôi gửi lời chào chị ấy nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you. You are very kind.",
+          "meaningVi": "Cảm ơn chị. Anh chị tốt quá."
+        }
+      ]
+    },
+    "grammarTipVi": "\"Say hello to her for us\" nghĩa là \"gửi lời chào cô ấy giúp chúng tôi\": sau to và for đều dùng tân ngữ (her, us).",
+    "translations": [
+      {
+        "vi": "Chào buổi chiều, chào mừng anh chị đến Hội An.",
+        "en": "Good afternoon, welcome to Hoi An.",
+        "distractors": [
+          "morning",
+          "from",
+          "us"
+        ]
+      },
+      {
+        "vi": "Tên tôi là Kenji.",
+        "en": "My name is Kenji.",
+        "distractors": [
+          "his",
+          "your",
+          "are"
+        ]
+      },
+      {
+        "vi": "Chúng tôi sống ở Osaka.",
+        "en": "We live in Osaka.",
+        "distractors": [
+          "lives",
+          "are",
+          "us"
+        ]
+      },
+      {
+        "vi": "Anh có phải người Hội An không?",
+        "en": "Are you from Hoi An?",
+        "distractors": [
+          "Is",
+          "your",
+          "to"
+        ]
+      },
+      {
+        "vi": "Tạm biệt, hẹn gặp lại.",
+        "en": "Goodbye, see you again.",
+        "distractors": [
+          "hello",
+          "your",
+          "meet"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Yumi và anh Tuấn đang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Về khách sạn và gia đình anh Tuấn",
+          "Về giá đi taxi",
+          "Về món ăn Nhật Bản"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Yumi hỏi khách sạn có gần không, rồi hỏi về quê và vợ của anh Tuấn.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khách sạn ở gần đâu?",
+        "promptVi": "",
+        "options": [
+          "Gần sông",
+          "Gần chợ",
+          "Gần biển"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Tuấn nói \"It is near the river\": khách sạn ở gần sông.",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vợ anh Tuấn làm nghề gì?",
+        "promptVi": "",
+        "options": [
+          "Lái taxi",
+          "Đầu bếp",
+          "Giáo viên"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh nói \"No, she isn't. She is a cook\": vợ anh là đầu bếp.",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan's wife is from Hoi An.",
+        "promptVi": "Vợ anh Tuấn là người Hội An.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì anh Tuấn nói \"My wife is from Hoi An.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Hai người khách là ai, và quê của anh tài xế ở đâu?",
+    "grammarStep": {
+      "titleVi": "Đại từ nhân xưng chủ ngữ và tân ngữ",
+      "noticing": [
+        {
+          "sentence": "Tuan puts the bags in the car for them.",
+          "highlights": [
+            "them"
+          ]
+        },
+        {
+          "sentence": "\"Please sit here,\" he says to her.",
+          "highlights": [
+            "he",
+            "her"
+          ]
+        },
+        {
+          "sentence": "\"Is it beautiful?\" she asks him.",
+          "highlights": [
+            "she",
+            "him"
+          ]
+        },
+        {
+          "sentence": "\"We live in Osaka,\" he says.",
+          "highlights": [
+            "We",
+            "he"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"she asks him\", ai hỏi và ai được hỏi?",
+      "options": [
+        "Yumi (she) hỏi, anh Tuấn (him) được hỏi",
+        "Anh Tuấn hỏi, Yumi được hỏi",
+        "Cả hai cùng hỏi Kenji"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "She là chủ ngữ, người làm hành động (hỏi); him là tân ngữ, người nhận hành động (được hỏi).",
+      "whenVi": "Dùng đại từ để thay cho tên người đã nhắc tới, chọn dạng chủ ngữ hay tân ngữ theo vị trí trong câu.",
+      "table": [
+        {
+          "subject": "he",
+          "form": "him",
+          "negative": "She asks him."
+        },
+        {
+          "subject": "she",
+          "form": "her",
+          "negative": "He says to her."
+        },
+        {
+          "subject": "we",
+          "form": "us",
+          "negative": "Say hello for us."
+        },
+        {
+          "subject": "they",
+          "form": "them",
+          "negative": "He puts the bags in the car for them."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Tuan says to they.",
+          "right": "Tuan says to them."
+        },
+        {
+          "wrong": "Him is a taxi driver.",
+          "right": "He is a taxi driver."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"anh ấy hỏi\" và \"hỏi anh ấy\" giống nhau, còn tiếng Anh đổi he thành him khi đứng sau động từ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền him, her hoặc them vào chỗ trống.",
+          "text": "Yumi is in the car. Tuan says hello to ___.",
+          "answers": [
+            "her"
+          ],
+          "explanationVi": "Yumi là phụ nữ, đứng sau giới từ to, nên dùng her."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ live in Osaka.",
+          "options": [
+            "Us",
+            "Them",
+            "We",
+            "Him"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Từ cần điền đứng trước động từ live, làm chủ ngữ, nên dùng We."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Kenji says to he, \"Thank you.\"",
+          "sentence": "Kenji says to him, \"Thank you.\"",
+          "explanationVi": "Sau giới từ to phải dùng tân ngữ him."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy nói với họ.",
+          "sentence": "He says to them.",
+          "words": [
+            "says",
+            "them",
+            "He",
+            "to",
+            "they"
+          ],
+          "explanationVi": "He là chủ ngữ, says to là động từ và giới từ, them là tân ngữ. Từ \"they\" thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Tuan is a taxi driver, and he is fifty.",
+        "tipVi": "Đọc rõ âm /ks/ cuối trong taxi /ˈtæksi/ và âm /f/ đầu fifty /ˈfɪfti/."
+      },
+      {
+        "text": "\"My hometown is a small town near Hue.\"",
+        "tipVi": "Nhấn âm đầu HOME-town /ˈhəʊmtaʊn/, và đọc rõ âm cuối /n/ trong town."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where is your hometown?",
+        "questionVi": "Quê bạn ở đâu?",
+        "frame": "My hometown is ___."
+      },
+      {
+        "question": "Where is your family now?",
+        "questionVi": "Bây giờ gia đình bạn ở đâu?",
+        "frame": "My family is in ___. They live in ___."
+      },
+      {
+        "question": "Who is with you today?",
+        "questionVi": "Hôm nay ai ở cùng bạn?",
+        "frame": "___ is with me."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 đại từ tân ngữ (me, him, her, us, them)",
+      "anyOf": [
+        "me",
+        "him",
+        "her",
+        "us",
+        "them"
+      ],
+      "outlineVi": [
+        "Viết bạn đang ở đâu (taxi, xe buýt).",
+        "Giới thiệu người ở cùng bạn: tên, quê, nghề.",
+        "Viết một câu có him, her hoặc them."
+      ],
+      "modelAnswer": "I am in a taxi in Da Nang. The driver is Mr Hai. He is from Quang Nam, and he is forty-five. My sister is with me. She is a nurse. We say thank you to him, and he says goodbye to us."
+    }
+  },
+  "glosses": [
+    {
+      "text": "afternoon",
+      "lemma": "afternoon",
+      "meaningVi": "buổi chiều",
+      "pos": "noun",
+      "phrase": "four in the afternoon",
+      "phraseVi": "bốn giờ chiều",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "taxi driver",
+      "lemma": "taxi driver",
+      "meaningVi": "tài xế taxi",
+      "pos": "noun",
+      "phrase": "Tuan is a taxi driver",
+      "phraseVi": "Anh Tuấn là tài xế taxi",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "fifty",
+      "lemma": "fifty",
+      "meaningVi": "năm mươi",
+      "pos": "number",
+      "phrase": "he is fifty",
+      "phraseVi": "anh năm mươi tuổi",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "car",
+      "lemma": "car",
+      "meaningVi": "xe hơi",
+      "pos": "noun",
+      "phrase": "near his car",
+      "phraseVi": "gần xe của anh",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "bags",
+      "lemma": "bag",
+      "meaningVi": "cái túi",
+      "pos": "noun",
+      "phrase": "with two bags",
+      "phraseVi": "với hai cái túi",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "from",
+      "lemma": "from",
+      "meaningVi": "đến từ",
+      "pos": "preposition",
+      "phrase": "They are from Japan",
+      "phraseVi": "Họ đến từ Nhật Bản",
+      "sentenceIndex": 3
+    },
+    {
+      "text": "Good afternoon",
+      "lemma": "good afternoon",
+      "meaningVi": "chào buổi chiều",
+      "pos": "phrase",
+      "phrase": "Good afternoon, welcome to Hoi An",
+      "phraseVi": "Chào buổi chiều, chào mừng anh chị đến Hội An",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "welcome",
+      "lemma": "welcome",
+      "meaningVi": "chào mừng",
+      "pos": "verb",
+      "phrase": "welcome to Hoi An",
+      "phraseVi": "chào mừng đến Hội An",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "them",
+      "lemma": "them",
+      "meaningVi": "họ (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "Tuan says to them",
+      "phraseVi": "anh Tuấn nói với họ",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "name",
+      "lemma": "name",
+      "meaningVi": "tên",
+      "pos": "noun",
+      "phrase": "My name is Kenji",
+      "phraseVi": "Tên tôi là Kenji",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "wife",
+      "lemma": "wife",
+      "meaningVi": "vợ",
+      "pos": "noun",
+      "phrase": "this is my wife",
+      "phraseVi": "đây là vợ tôi",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "puts",
+      "lemma": "put",
+      "meaningVi": "đặt, để",
+      "pos": "verb",
+      "phrase": "puts the bags in the car",
+      "phraseVi": "để hai cái túi vào xe",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "Please",
+      "lemma": "please",
+      "meaningVi": "xin mời",
+      "pos": "adverb",
+      "phrase": "Please sit here",
+      "phraseVi": "Mời chị ngồi đây",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "her",
+      "lemma": "her",
+      "meaningVi": "cô ấy (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "he says to her",
+      "phraseVi": "anh nói với cô ấy",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "cook",
+      "lemma": "cook",
+      "meaningVi": "đầu bếp",
+      "pos": "noun",
+      "phrase": "he is a cook",
+      "phraseVi": "anh là đầu bếp",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "live",
+      "lemma": "live",
+      "meaningVi": "sống",
+      "pos": "verb",
+      "phrase": "We live in Osaka",
+      "phraseVi": "Chúng tôi sống ở Osaka",
+      "sentenceIndex": 10
+    },
+    {
+      "text": "hometown",
+      "lemma": "hometown",
+      "meaningVi": "quê nhà",
+      "pos": "noun",
+      "phrase": "My hometown is a small town",
+      "phraseVi": "Quê tôi là một thị trấn nhỏ",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "town",
+      "lemma": "town",
+      "meaningVi": "thị trấn",
+      "pos": "noun",
+      "phrase": "a small town near Hue",
+      "phraseVi": "một thị trấn nhỏ gần Huế",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "beautiful",
+      "lemma": "beautiful",
+      "meaningVi": "đẹp",
+      "pos": "adjective",
+      "phrase": "Is it beautiful?",
+      "phraseVi": "Ở đó có đẹp không?",
+      "sentenceIndex": 14
+    },
+    {
+      "text": "him",
+      "lemma": "him",
+      "meaningVi": "anh ấy (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "she asks him",
+      "phraseVi": "cô hỏi anh",
+      "sentenceIndex": 14
+    },
+    {
+      "text": "food",
+      "lemma": "food",
+      "meaningVi": "đồ ăn",
+      "pos": "noun",
+      "phrase": "the food is very good",
+      "phraseVi": "đồ ăn rất ngon",
+      "sentenceIndex": 15
+    },
+    {
+      "text": "hotel",
+      "lemma": "hotel",
+      "meaningVi": "khách sạn",
+      "pos": "noun",
+      "phrase": "At the hotel",
+      "phraseVi": "Đến khách sạn",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "Goodbye",
+      "lemma": "goodbye",
+      "meaningVi": "tạm biệt",
+      "pos": "interjection",
+      "phrase": "Goodbye, see you again",
+      "phraseVi": "Tạm biệt, hẹn gặp lại",
+      "sentenceIndex": 17
+    }
+  ]
+}

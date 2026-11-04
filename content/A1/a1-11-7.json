@@ -1,0 +1,589 @@
+{
+  "content": "Mr. Bao and his wife Hanh are seventy years old. They live in a small house in Hue. Their children work in Hanoi, so the house is often quiet.\n\nMr. Bao and Hanh don't like sitting at home on weekends. Every Saturday morning, they go to a big hall near their home. There, they practice old Vietnamese dances with their neighbors.\n\nA young teacher shows them the steps. The music is slow and beautiful, and everyone dances together. Hanh loves dancing because it makes her feel young. Mr. Bao can't dance well, but he likes trying new steps.\n\n\"Are you tired?\" she asks him. \"No, I love dancing to this music!\" he says. After the class, they have tea with their friends, or they walk home together.",
+  "targetWords": [
+    "dance",
+    "music",
+    "hall",
+    "weekend",
+    "together",
+    "practice",
+    "step",
+    "teacher"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "weekends",
+        "lemma": "weekend",
+        "meaningVi": "cuối tuần",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "hall",
+        "lemma": "hall",
+        "meaningVi": "hội trường, nhà văn hoá",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "practice",
+        "lemma": "practice",
+        "meaningVi": "tập, luyện tập",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "thầy cô, người dạy",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "steps",
+        "lemma": "step",
+        "meaningVi": "bước (nhảy)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "music",
+        "lemma": "music",
+        "meaningVi": "âm nhạc, nhạc",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "together",
+        "lemma": "together",
+        "meaningVi": "cùng nhau",
+        "pos": "adverb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "dance",
+        "lemma": "dance",
+        "meaningVi": "nhảy, múa, khiêu vũ",
+        "pos": "verb",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Bài đọc nói về điều gì?",
+        "options": [
+          "An old man and his wife who dance on weekends",
+          "A dance teacher from Hanoi",
+          "Children who visit their parents in Hue",
+          "A new house in Hue"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài kể về ông Bao và bà Hanh: cuối tuần hai ông bà đến hội trường gần nhà tập các điệu múa xưa cùng hàng xóm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Hanh love dancing?",
+        "promptVi": "Vì sao bà Hanh rất thích nhảy?",
+        "options": [
+          "Because her children like it",
+          "Because it makes her feel young",
+          "Because the teacher is her friend",
+          "Because the hall is near her home"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Hanh loves dancing because it makes her feel young.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who shows them the steps?",
+        "promptVi": "Ai chỉ cho hai ông bà các bước nhảy?",
+        "options": [
+          "Their children",
+          "Their neighbors",
+          "A young teacher",
+          "Mr. Bao"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"A young teacher shows them the steps.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr. Bao can dance very well.",
+        "promptVi": "Ông Bao nhảy rất giỏi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Mr. Bao can't dance well, but he likes trying new steps.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"practice\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "There, they practice old Vietnamese dances with their neighbors.",
+        "options": [
+          "tập, luyện",
+          "xem",
+          "dạy",
+          "quên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Practice là tập, luyện tập: hai ông bà tập các điệu múa xưa cùng hàng xóm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Like / love + danh từ hoặc V-ing, và các từ nối and / but / or / because",
+      "bodyVi": "Nói điều mình thích hay không thích: like / love + động từ thêm -ing (Hanh loves dancing, he likes trying new steps), câu phủ định don't like + V-ing (They don't like sitting at home). Với he / she thì thêm -s: likes, loves. Nối hai ý bằng and (và), but (nhưng), or (hoặc), because (vì): Hanh loves dancing because it makes her feel young.",
+      "examples": [
+        "Mr. Bao and Hanh don't like sitting at home on weekends.",
+        "Hanh loves dancing because it makes her feel young.",
+        "Mr. Bao can't dance well, but he likes trying new steps."
+      ]
+    },
+    "writingPrompt": "Write about what you like doing on weekends: where you go, who you go with, and why.",
+    "sentenceTranslations": [
+      "Ông Bao và vợ là bà Hanh năm nay bảy mươi tuổi.",
+      "Hai ông bà sống trong một ngôi nhà nhỏ ở Huế.",
+      "Các con của ông bà làm việc ở Hà Nội, nên nhà thường vắng vẻ.",
+      "Ông Bao và bà Hanh không thích ngồi ở nhà vào cuối tuần.",
+      "Sáng thứ Bảy nào hai ông bà cũng đến một hội trường lớn gần nhà.",
+      "Ở đó, hai ông bà tập các điệu múa xưa của Việt Nam cùng hàng xóm.",
+      "Một cô giáo trẻ chỉ cho mọi người các bước nhảy.",
+      "Nhạc chậm và hay, và mọi người cùng nhau nhảy.",
+      "Bà Hanh rất thích nhảy vì nó làm bà thấy mình trẻ lại.",
+      "Ông Bao nhảy không giỏi, nhưng ông thích thử những bước mới.",
+      "\"Ông có mệt không?\" bà hỏi ông.",
+      "\"Không, tôi mê nhảy theo nhạc này lắm!\" ông nói.",
+      "Tập xong, hai ông bà uống trà với bạn bè, hoặc cùng nhau đi bộ về nhà."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói mình thích hay không thích làm gì vào cuối tuần, dùng like / love / don't like + V-ing và các từ nối and, but, or, because.",
+    "examples": [
+      {
+        "lemma": "dance",
+        "sentence": "My grandmother likes to dance.",
+        "meaningVi": "Bà mình thích nhảy múa."
+      },
+      {
+        "lemma": "music",
+        "sentence": "The music in this shop is beautiful.",
+        "meaningVi": "Nhạc trong cửa hàng này rất hay."
+      },
+      {
+        "lemma": "hall",
+        "sentence": "The party is in a big hall.",
+        "meaningVi": "Bữa tiệc được tổ chức ở một hội trường lớn."
+      },
+      {
+        "lemma": "weekend",
+        "sentence": "What do you do at the weekend?",
+        "meaningVi": "Cuối tuần bạn làm gì?"
+      },
+      {
+        "lemma": "together",
+        "sentence": "My parents walk together every evening.",
+        "meaningVi": "Tối nào bố mẹ mình cũng đi bộ cùng nhau."
+      },
+      {
+        "lemma": "practice",
+        "sentence": "I practice English every day.",
+        "meaningVi": "Ngày nào mình cũng luyện tiếng Anh."
+      },
+      {
+        "lemma": "step",
+        "sentence": "This step is easy.",
+        "meaningVi": "Bước này dễ."
+      },
+      {
+        "lemma": "teacher",
+        "sentence": "Our teacher is very kind.",
+        "meaningVi": "Cô giáo của chúng mình rất tốt bụng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hanh",
+        "Bao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "It's Saturday! Do you want to go to the hall?",
+          "meaningVi": "Thứ Bảy rồi! Ông có muốn đi ra hội trường không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, of course. I don't like sitting at home.",
+          "meaningVi": "Có chứ. Tôi không thích ngồi ở nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Me too. Do you remember the new steps?",
+          "meaningVi": "Tôi cũng vậy. Ông có nhớ mấy bước mới không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not really, but the teacher can show me again.",
+          "meaningVi": "Không nhớ lắm, nhưng cô giáo có thể chỉ lại cho tôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you want to dance with me or with our neighbors?",
+          "meaningVi": "Ông muốn nhảy với tôi hay với hàng xóm?"
+        },
+        {
+          "speaker": 1,
+          "text": "With you, of course!",
+          "meaningVi": "Với bà chứ!"
+        },
+        {
+          "speaker": 0,
+          "text": "Good. And after the class, can we have tea with our friends?",
+          "meaningVi": "Thế thì tốt. Tập xong mình uống trà với bạn bè nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I love having tea with them.",
+          "meaningVi": "Ừ, tôi rất thích uống trà với họ."
+        }
+      ]
+    },
+    "grammarTipVi": "Nói điều mình không thích: I don't like + V-ing (I don't like sitting at home). Với he / she: He doesn't like sitting at home.",
+    "translations": [
+      {
+        "vi": "Họ không thích ngồi ở nhà vào cuối tuần.",
+        "en": "They don't like sitting at home on weekends.",
+        "distractors": [
+          "doesn't",
+          "sits",
+          "from"
+        ],
+        "accepted": [
+          "On weekends they don't like sitting at home."
+        ]
+      },
+      {
+        "vi": "Bà ấy rất thích nhảy vì nhạc hay.",
+        "en": "She loves dancing because the music is beautiful.",
+        "distractors": [
+          "but",
+          "dances",
+          "are"
+        ]
+      },
+      {
+        "vi": "Ông ấy nhảy không giỏi, nhưng ông ấy thích âm nhạc.",
+        "en": "He can't dance well, but he likes the music.",
+        "distractors": [
+          "dances",
+          "because",
+          "she"
+        ],
+        "accepted": [
+          "He can't dance well, but he likes music."
+        ]
+      },
+      {
+        "vi": "Họ cùng nhau tập nhảy ở hội trường.",
+        "en": "They practice dancing together in the hall.",
+        "distractors": [
+          "practices",
+          "alone",
+          "sing"
+        ],
+        "accepted": [
+          "They practice dancing in the hall together.",
+          "In the hall they practice dancing together."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bà Hanh và ông Bao nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đi ra hội trường tập nhảy sáng thứ Bảy",
+          "Đi thăm các con ở Hà Nội",
+          "Mua một ngôi nhà mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Hanh hỏi \"Do you want to go to the hall?\", rồi hai ông bà nói về bước nhảy, nhảy với ai và uống trà sau buổi tập.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Bao có nhớ các bước mới không?",
+        "promptVi": "",
+        "options": [
+          "Nhớ hết",
+          "Không nhớ lắm",
+          "Ông chưa học bước mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Bao nói \"Not really, but the teacher can show me again.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Bao muốn nhảy với ai?",
+        "promptVi": "",
+        "options": [
+          "Với hàng xóm",
+          "Với cô giáo",
+          "Với bà Hanh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông Bao nói \"With you, of course!\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr. Bao likes sitting at home on Saturday.",
+        "promptVi": "Ông Bao thích ngồi ở nhà vào thứ Bảy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông Bao nói \"I don't like sitting at home.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Ông Bao và bà Hanh làm gì vào cuối tuần, và vì sao bà Hanh thích việc đó?",
+    "grammarStep": {
+      "titleVi": "Like / love + danh từ hoặc V-ing; and / but / or / because",
+      "noticing": [
+        {
+          "sentence": "Mr. Bao and Hanh don't like sitting at home on weekends.",
+          "highlights": [
+            "don't like sitting"
+          ]
+        },
+        {
+          "sentence": "Hanh loves dancing because it makes her feel young.",
+          "highlights": [
+            "loves dancing",
+            "because"
+          ]
+        },
+        {
+          "sentence": "Mr. Bao can't dance well, but he likes trying new steps.",
+          "highlights": [
+            "but",
+            "likes trying"
+          ]
+        },
+        {
+          "sentence": "After the class, they have tea with their friends, or they walk home together.",
+          "highlights": [
+            "or"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"They don't like sitting at home\", vì sao viết sitting?",
+      "options": [
+        "Vì sau like (kể cả don't like), động từ thêm -ing",
+        "Vì câu nói về quá khứ",
+        "Vì sit là danh từ"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Sau like / love / don't like, động từ thêm -ing: sitting, dancing. Sit có một nguyên âm và một phụ âm cuối nên gấp đôi t: sitting.",
+      "whenVi": "Dùng like / love + danh từ hoặc V-ing để nói sở thích, don't like để nói điều không thích; and để thêm ý, but để nói ý ngược lại, or để nói lựa chọn, because để nói lý do.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "We love dancing.",
+          "negative": "They don't like sitting at home."
+        },
+        {
+          "subject": "he / she",
+          "form": "Hanh loves dancing.",
+          "negative": "He doesn't like sitting at home."
+        },
+        {
+          "subject": "Từ nối",
+          "form": "and (và), but (nhưng), or (hoặc), because (vì)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They don't like sit at home.",
+          "right": "They don't like sitting at home."
+        },
+        {
+          "wrong": "Hanh love dancing.",
+          "right": "Hanh loves dancing."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"không thích ngồi\", nên người Việt hay viết \"don't like sit\". Trong tiếng Anh, động từ sau like vẫn thêm -ing, cả trong câu phủ định.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (dance).",
+          "text": "Hanh loves ___ with her neighbors.",
+          "answers": [
+            "dancing"
+          ],
+          "explanationVi": "Sau love, động từ thêm -ing; dance bỏ e rồi thêm -ing: dancing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ nối đúng.",
+          "text": "Mr. Bao can't dance well, ___ he likes the music.",
+          "options": [
+            "but",
+            "because",
+            "or",
+            "so"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Hai ý ngược nhau (nhảy không giỏi / vẫn thích nhạc), nên dùng but (nhưng)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They don't like sit at home.",
+          "sentence": "They don't like sitting at home.",
+          "explanationVi": "Sau like, động từ thêm -ing: like sitting."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bà ấy rất thích nhảy vì nó làm bà ấy vui.",
+          "sentence": "She loves dancing because it makes her happy.",
+          "words": [
+            "She",
+            "loves",
+            "dancing",
+            "because",
+            "it",
+            "makes",
+            "her",
+            "happy.",
+            "or"
+          ],
+          "explanationVi": "Vế sau because nói lý do; từ or bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Hanh loves dancing because it makes her feel young.",
+        "tipVi": "Dancing /ˈdɑːnsɪŋ/ nhấn âm đầu; young /jʌŋ/ đọc gần như \"dắng\"."
+      },
+      {
+        "text": "Mr. Bao and Hanh don't like sitting at home on weekends.",
+        "tipVi": "Weekends /ˌwiːkˈendz/ có /dz/ ở cuối; nhấn vào don't."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you like doing on weekends?",
+        "questionVi": "Cuối tuần bạn thích làm gì?",
+        "frame": "I like ___ing, and I ___."
+      },
+      {
+        "question": "Do you like dancing?",
+        "questionVi": "Bạn có thích nhảy không?",
+        "frame": "Yes, I love dancing because ___. / No, I don't, but I like ___."
+      },
+      {
+        "question": "Do you like sitting at home on Sunday?",
+        "questionVi": "Bạn có thích ngồi ở nhà vào Chủ nhật không?",
+        "frame": "Yes, I do. / No, I don't like sitting at home because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng like / love và 1 từ nối and, but, or hoặc because",
+      "anyOf": [
+        "like",
+        "likes",
+        "love",
+        "loves",
+        "because",
+        "but"
+      ],
+      "outlineVi": [
+        "Nói cuối tuần bạn thích làm gì (On weekends, I love …ing).",
+        "Nói bạn làm ở đâu, với ai.",
+        "Nói vì sao bạn thích (because …) và điều bạn không thích (I don't like …ing)."
+      ],
+      "modelAnswer": "On weekends, I don't like sitting at home. I love dancing, and I go to a dance class with my sister on Sunday. The music is fast, but the teacher is very kind. I like the class because it makes me happy."
+    }
+  },
+  "glosses": [
+    {
+      "text": "wife",
+      "lemma": "wife",
+      "meaningVi": "vợ",
+      "pos": "noun",
+      "phrase": "his wife Hanh",
+      "phraseVi": "vợ ông là bà Hanh",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "seventy",
+      "lemma": "seventy",
+      "meaningVi": "bảy mươi",
+      "pos": "number",
+      "phrase": "seventy years old",
+      "phraseVi": "bảy mươi tuổi",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "children",
+      "lemma": "child",
+      "meaningVi": "con cái, trẻ em",
+      "pos": "noun",
+      "phrase": "Their children work in Hanoi",
+      "phraseVi": "Các con của ông bà làm việc ở Hà Nội",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "neighbors",
+      "lemma": "neighbor",
+      "meaningVi": "hàng xóm",
+      "pos": "noun",
+      "phrase": "with their neighbors",
+      "phraseVi": "cùng hàng xóm",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người",
+      "pos": "pronoun",
+      "phrase": "everyone dances together",
+      "phraseVi": "mọi người cùng nhau nhảy",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "feel",
+      "lemma": "feel",
+      "meaningVi": "cảm thấy",
+      "pos": "verb",
+      "phrase": "it makes her feel young",
+      "phraseVi": "nó làm bà thấy mình trẻ lại",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "trying",
+      "lemma": "try",
+      "meaningVi": "thử",
+      "pos": "verb",
+      "phrase": "he likes trying new steps",
+      "phraseVi": "ông thích thử những bước mới",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "dancing to",
+      "lemma": "dance to",
+      "meaningVi": "nhảy theo (nhạc)",
+      "pos": "phrase",
+      "phrase": "I love dancing to this music",
+      "phraseVi": "tôi mê nhảy theo nhạc này",
+      "sentenceIndex": 11
+    }
+  ]
+}

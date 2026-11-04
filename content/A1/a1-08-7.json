@@ -1,0 +1,569 @@
+{
+  "content": "Duc works in a big office in Da Nang. This month, the office has a free English course for the workers. Duc wants to join, and he asks his friend at work, Viet.\n\nAt lunch, Duc asks, \"Do you want to join the English course with me?\"\n\"Maybe. Where is the class?\" he asks.\n\"It is in Room 201 on the second floor,\" Duc says. \"We have lessons on Monday and Wednesday after work.\"\n\n\"Does the course have a test?\"\n\"No, it doesn't. We don't need a test. The teacher just gives us homework.\"\n\n\"Does the teacher speak Vietnamese?\"\n\"No, she doesn't. She is from Australia, but she uses easy words.\"\n\nViet thinks for a minute. \"OK. I don't like tests, so this course is good for me!\"",
+  "targetWords": [
+    "office",
+    "course",
+    "class",
+    "room",
+    "lesson",
+    "test",
+    "teacher",
+    "homework"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "office",
+        "lemma": "office",
+        "meaningVi": "văn phòng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "course",
+        "lemma": "course",
+        "meaningVi": "khoá học",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "class",
+        "lemma": "class",
+        "meaningVi": "lớp học",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "Room",
+        "lemma": "room",
+        "meaningVi": "phòng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "lessons",
+        "lemma": "lesson",
+        "meaningVi": "buổi học",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "test",
+        "lemma": "test",
+        "meaningVi": "bài kiểm tra",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "giáo viên",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "homework",
+        "lemma": "homework",
+        "meaningVi": "bài tập về nhà",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Duc ask Viet?",
+        "promptVi": "Đức hỏi Việt điều gì?",
+        "options": [
+          "If he wants to join an English course",
+          "If he wants to have lunch",
+          "If he speaks Vietnamese",
+          "If he has a test"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức hỏi \"Do you want to join the English course with me?\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the class?",
+        "promptVi": "Lớp học ở đâu?",
+        "options": [
+          "In the teacher's home",
+          "In Room 201",
+          "In a language school",
+          "On the first floor"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"It is in Room 201 on the second floor\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When are the lessons?",
+        "promptVi": "Các buổi học vào khi nào?",
+        "options": [
+          "Every morning",
+          "On Monday and Wednesday after work",
+          "On the weekend",
+          "At lunch"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"We have lessons on Monday and Wednesday after work\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The course has a test.",
+        "promptVi": "Khoá học có bài kiểm tra.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"No, it doesn't. We don't need a test\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"free\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"a free English course\"",
+        "options": [
+          "rảnh rỗi",
+          "miễn phí",
+          "khó",
+          "mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Free ở đây là miễn phí: nhân viên không phải trả tiền cho khoá học."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Hỏi ai đó muốn gì: Do you want to …? Hỏi về khoá học, giáo viên (it / she): Does the course have a test? Does the teacher speak Vietnamese? Trả lời ngắn: No, it doesn't. / No, she doesn't. Phủ định: We don't need a test. I don't like tests. Chú ý: sau does dùng have, không dùng has.",
+      "examples": [
+        "\"Does the course have a test?\"",
+        "At lunch, Duc asks, \"Do you want to join the English course with me?\"",
+        "We don't need a test."
+      ]
+    },
+    "writingPrompt": "Your office has a free course. Write to a friend: ask if he or she wants to join, and say when and where the class is.",
+    "sentenceTranslations": [
+      "Đức làm việc trong một văn phòng lớn ở Đà Nẵng.",
+      "Tháng này, văn phòng có một khoá học tiếng Anh miễn phí cho nhân viên.",
+      "Đức muốn tham gia, và anh ấy hỏi Việt, một người bạn ở chỗ làm.",
+      "Giờ ăn trưa, Đức hỏi, \"Cậu có muốn học khoá tiếng Anh cùng mình không?\"",
+      "\"Có thể.",
+      "Lớp học ở đâu?\" anh ấy hỏi.",
+      "\"Ở phòng 201 trên tầng hai,\" Đức nói.",
+      "\"Chúng mình có buổi học vào thứ Hai và thứ Tư sau giờ làm.\"",
+      "\"Khoá học có bài kiểm tra không?\"",
+      "\"Không có đâu.",
+      "Chúng mình không cần làm bài kiểm tra.",
+      "Cô giáo chỉ giao bài tập về nhà thôi.\"",
+      "\"Cô giáo có nói tiếng Việt không?\"",
+      "\"Không.",
+      "Cô ấy đến từ nước Úc, nhưng cô ấy dùng từ dễ hiểu.\"",
+      "Việt nghĩ một lát.",
+      "\"Được.",
+      "Mình không thích bài kiểm tra, nên khoá học này hợp với mình!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể rủ bạn đi học bằng Do you want to …?, hỏi về khoá học bằng Does the course …? và trả lời No, it doesn't.",
+    "examples": [
+      {
+        "lemma": "office",
+        "sentence": "My office is on the second floor.",
+        "meaningVi": "Văn phòng của tôi ở tầng hai."
+      },
+      {
+        "lemma": "course",
+        "sentence": "Do you want to join the course?",
+        "meaningVi": "Bạn có muốn tham gia khoá học không?"
+      },
+      {
+        "lemma": "class",
+        "sentence": "Where is the class?",
+        "meaningVi": "Lớp học ở đâu?"
+      },
+      {
+        "lemma": "room",
+        "sentence": "The room is big.",
+        "meaningVi": "Căn phòng rộng."
+      },
+      {
+        "lemma": "lesson",
+        "sentence": "The lesson starts after work.",
+        "meaningVi": "Buổi học bắt đầu sau giờ làm."
+      },
+      {
+        "lemma": "test",
+        "sentence": "We don't have a test.",
+        "meaningVi": "Chúng tôi không có bài kiểm tra."
+      },
+      {
+        "lemma": "teacher",
+        "sentence": "Does the teacher speak Vietnamese?",
+        "meaningVi": "Giáo viên có nói tiếng Việt không?"
+      },
+      {
+        "lemma": "homework",
+        "sentence": "The teacher gives us homework.",
+        "meaningVi": "Giáo viên giao bài tập về nhà cho chúng tôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Viet",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duc, does the course start this Monday?",
+          "meaningVi": "Đức ơi, khoá học bắt đầu từ thứ Hai này à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it does. Do you have time?",
+          "meaningVi": "Đúng rồi. Cậu có thời gian không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do. What time does it start?",
+          "meaningVi": "Có. Mấy giờ thì bắt đầu?"
+        },
+        {
+          "speaker": 1,
+          "text": "At half past five.",
+          "meaningVi": "Năm giờ rưỡi."
+        },
+        {
+          "speaker": 0,
+          "text": "Do we need a book?",
+          "meaningVi": "Chúng mình có cần sách không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, we don't. The teacher gives us paper.",
+          "meaningVi": "Không cần. Cô giáo phát giấy cho chúng mình."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. See you on Monday, then.",
+          "meaningVi": "Tuyệt. Vậy hẹn gặp cậu thứ Hai nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "See you!",
+          "meaningVi": "Hẹn gặp lại!"
+        }
+      ]
+    },
+    "grammarTipVi": "Với he / she / it, câu hỏi dùng Does + động từ nguyên mẫu: Does the course have a test? (không nói \"Does the course has\"). Câu phủ định: It doesn't have a test.",
+    "translations": [
+      {
+        "vi": "Bạn có muốn tham gia khoá học tiếng Anh không?",
+        "en": "Do you want to join the English course?",
+        "distractors": [
+          "Does",
+          "wants",
+          "are"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Khoá học không có bài kiểm tra.",
+        "en": "The course doesn't have a test.",
+        "distractors": [
+          "don't",
+          "has",
+          "is"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Lớp học ở đâu?",
+        "en": "Where is the class?",
+        "distractors": [
+          "does",
+          "are",
+          "When"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Chúng tôi có buổi học vào thứ Hai và thứ Tư sau giờ làm.",
+        "en": "We have lessons on Monday and Wednesday after work.",
+        "distractors": [
+          "has",
+          "in",
+          "does"
+        ],
+        "accepted": [
+          "We have lessons on Wednesday and Monday after work.",
+          "After work we have lessons on Monday and Wednesday."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Việt và Đức nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi học đầu tiên của khoá tiếng Anh",
+          "Một bài kiểm tra",
+          "Bữa trưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Việt hỏi khoá học bắt đầu khi nào, mấy giờ và có cần sách không.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lớp học bắt đầu lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ",
+          "Năm giờ rưỡi",
+          "Sáu giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"At half past five\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cô giáo phát gì cho học viên?",
+        "promptVi": "",
+        "options": [
+          "Sách",
+          "Giấy",
+          "Bút"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"The teacher gives us paper\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They need a book for the course.",
+        "promptVi": "Họ cần sách cho khoá học.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"No, we don't\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Lớp học ở đâu, và khoá học có bài kiểm tra không?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "At lunch, Duc asks, \"Do you want to join the English course with me?\"",
+          "highlights": [
+            "Do you want"
+          ]
+        },
+        {
+          "sentence": "\"Does the course have a test?\"",
+          "highlights": [
+            "Does the course have"
+          ]
+        },
+        {
+          "sentence": "We don't need a test.",
+          "highlights": [
+            "don't need"
+          ]
+        },
+        {
+          "sentence": "\"No, she doesn't.",
+          "highlights": [
+            "she doesn't"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Does the course have a test?\", vì sao dùng have mà không dùng has?",
+      "options": [
+        "Vì sau Does, động từ giữ nguyên",
+        "Vì course là số nhiều",
+        "Vì câu nói về tương lai"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu khẳng định: The course has a test. Khi hỏi, does mang -s nên động từ trở về nguyên mẫu: Does the course have a test?",
+      "whenVi": "Dùng Do you want to …? để rủ ai; Does … have …? để hỏi khoá học có gì; don't / doesn't để nói điều không có, không cần.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "Do you want to join? – Yes, I do.",
+          "negative": "We don't need a test."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Does the course have a test? – No, it doesn't.",
+          "negative": "She doesn't speak Vietnamese."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Does the course has a test?",
+          "right": "Does the course have a test?"
+        },
+        {
+          "wrong": "The teacher don't speak Vietnamese.",
+          "right": "The teacher doesn't speak Vietnamese."
+        }
+      ],
+      "noteVi": "Have / has là chỗ người Việt hay nhầm nhất: has chỉ dùng trong câu khẳng định với he / she / it; sau does / doesn't luôn là have.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền have hoặc has vào chỗ trống.",
+          "text": "Does the class ___ a break?",
+          "answers": [
+            "have"
+          ],
+          "explanationVi": "Sau Does, động từ giữ nguyên: have."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu trả lời ngắn đúng cho câu hỏi \"Does the teacher speak Vietnamese?\"",
+          "text": "No, she ___.",
+          "options": [
+            "don't",
+            "doesn't",
+            "isn't",
+            "not"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi bắt đầu bằng Does, chủ ngữ she, nên trả lời No, she doesn't."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Does the course has a test?",
+          "sentence": "Does the course have a test?",
+          "explanationVi": "Sau Does dùng have, không dùng has."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi không cần làm bài kiểm tra.",
+          "sentence": "We don't need a test.",
+          "words": [
+            "need",
+            "We",
+            "test.",
+            "don't",
+            "a"
+          ],
+          "explanationVi": "Chủ ngữ We + don't + động từ need + a test."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Does the course have a test?\"",
+        "tipVi": "Câu hỏi Yes/No lên giọng ở cuối: …a test? ↗. Course /kɔːs/ không đọc âm r."
+      },
+      {
+        "text": "Viet thinks for a minute.",
+        "tipVi": "Thinks /θɪŋks/ bắt đầu bằng âm /θ/: đặt lưỡi giữa hai hàm răng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you want to join an English course?",
+        "questionVi": "Bạn có muốn tham gia một khoá học tiếng Anh không?",
+        "frame": "Yes, I do. / No, I don't. I ___."
+      },
+      {
+        "question": "Does your office have a course for the workers?",
+        "questionVi": "Chỗ bạn làm có khoá học cho nhân viên không?",
+        "frame": "Yes, it does. It has a ___ course. / No, it doesn't."
+      },
+      {
+        "question": "Do you like tests?",
+        "questionVi": "Bạn có thích bài kiểm tra không?",
+        "frame": "Yes, I do. / No, I don't, because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi Do / Does …? hoặc câu dùng don't / doesn't",
+      "anyOf": [
+        "don't",
+        "doesn't",
+        "do you",
+        "does"
+      ],
+      "outlineVi": [
+        "Nói chỗ làm có khoá học gì.",
+        "Hỏi bạn có muốn tham gia không (Do you want to …?).",
+        "Nói lớp học ở đâu, khi nào, có bài kiểm tra không."
+      ],
+      "modelAnswer": "Hi Lan, my office has a free English course. Do you want to join with me? The class is in Room 301. We have lessons on Tuesday after work. The course doesn't have a test!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "free",
+      "lemma": "free",
+      "meaningVi": "miễn phí",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "a free English course",
+      "phraseVi": "một khoá học tiếng Anh miễn phí"
+    },
+    {
+      "text": "workers",
+      "lemma": "worker",
+      "meaningVi": "người làm, nhân viên",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "for the workers",
+      "phraseVi": "cho nhân viên"
+    },
+    {
+      "text": "join",
+      "lemma": "join",
+      "meaningVi": "tham gia",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "Duc wants to join",
+      "phraseVi": "Đức muốn tham gia"
+    },
+    {
+      "text": "Maybe",
+      "lemma": "maybe",
+      "meaningVi": "có thể, có lẽ",
+      "sentenceIndex": 4,
+      "pos": "adverb",
+      "phrase": "Maybe.",
+      "phraseVi": "Có thể."
+    },
+    {
+      "text": "floor",
+      "lemma": "floor",
+      "meaningVi": "tầng",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "on the second floor",
+      "phraseVi": "trên tầng hai"
+    },
+    {
+      "text": "need",
+      "lemma": "need",
+      "meaningVi": "cần",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "We don't need a test",
+      "phraseVi": "Chúng mình không cần làm bài kiểm tra"
+    },
+    {
+      "text": "easy",
+      "lemma": "easy",
+      "meaningVi": "dễ",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "she uses easy words",
+      "phraseVi": "cô ấy dùng từ dễ hiểu"
+    }
+  ]
+}

@@ -1,0 +1,617 @@
+{
+  "content": "It is five o'clock in the afternoon. Phong and his mother are in the kitchen. Dinner today is fish and vegetable soup.\n\n\"What is on the table?\" his mother asks. \"There are six eggs, four tomatoes and three potatoes,\" Phong says. \"And there is an apple too.\" \"Where is the fish?\" she asks. \"The fish is in a big bowl near the window,\" he says.\n\nHis mother has a knife. She cuts the potatoes and the tomatoes for the soup. Phong has two eggs for a small salad. He cooks the rice. The kitchen isn't big, but they are happy there.\n\nAt seven o'clock, the food is on the table. His father and his two sisters are hungry. Phong says, \"The fish is delicious, Mum!\" Dinner with the family is a happy time.",
+  "targetWords": [
+    "dinner",
+    "kitchen",
+    "fish",
+    "egg",
+    "soup",
+    "vegetable",
+    "rice",
+    "food"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "Dinner",
+        "lemma": "dinner",
+        "meaningVi": "bữa tối",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "fish",
+        "lemma": "fish",
+        "meaningVi": "cá",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "vegetable",
+        "lemma": "vegetable",
+        "meaningVi": "rau củ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "soup",
+        "lemma": "soup",
+        "meaningVi": "món canh, súp",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "eggs",
+        "lemma": "egg",
+        "meaningVi": "(những quả) trứng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "rice",
+        "lemma": "rice",
+        "meaningVi": "cơm, gạo",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "food",
+        "lemma": "food",
+        "meaningVi": "đồ ăn",
+        "pos": "noun",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Phong and his mother make dinner",
+          "Phong's lunch at school",
+          "A new kitchen",
+          "Phong buys fish at a shop"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong và mẹ chuẩn bị nguyên liệu trong bếp và nấu bữa tối: cá và canh rau củ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the fish?",
+        "promptVi": "Con cá ở đâu?",
+        "options": [
+          "On the table",
+          "In a big bowl near the window",
+          "In a bag near the door",
+          "In the soup"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"The fish is in a big bowl near the window\": cá ở trong một cái bát lớn gần cửa sổ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What are Phong's two eggs for?",
+        "promptVi": "Hai quả trứng của Phong để làm gì?",
+        "options": [
+          "For the soup",
+          "For breakfast",
+          "For a small salad",
+          "For his sisters"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Phong has two eggs for a small salad\": hai quả trứng để làm một đĩa sa lát nhỏ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The kitchen is very big.",
+        "promptVi": "Nhà bếp rất rộng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The kitchen isn't big\": nhà bếp không rộng."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cuts\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She cuts the potatoes and the tomatoes for the soup.",
+        "options": [
+          "rửa",
+          "cắt",
+          "nấu",
+          "mua"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"Cut\" là cắt: mẹ Phong cầm dao cắt khoai tây và cà chua để nấu canh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh từ số nhiều",
+      "bodyVi": "Nhiều vật thì thêm -s: egg → eggs, sister → sisters. Danh từ tận cùng bằng phụ âm + o thêm -es: tomato → tomatoes, potato → potatoes. Một số danh từ giữ nguyên ở số nhiều: one fish, two fish. Với số nhiều ta dùng There are …, với số ít dùng There is …: There are six eggs, there is an apple.",
+      "examples": [
+        "\"There are six eggs, four tomatoes and three potatoes,\" Phong says.",
+        "Phong has two eggs for a small salad.",
+        "His father and his two sisters are hungry."
+      ]
+    },
+    "writingPrompt": "Write about food for dinner in your home: what is in your kitchen today?",
+    "sentenceTranslations": [
+      "Bây giờ là năm giờ chiều.",
+      "Phong và mẹ đang ở trong bếp.",
+      "Bữa tối hôm nay là cá và canh rau củ.",
+      "\"Trên bàn có những gì?\" mẹ cậu ấy hỏi.",
+      "\"Có sáu quả trứng, bốn quả cà chua và ba củ khoai tây,\" Phong nói.",
+      "\"Còn có một quả táo nữa.\"",
+      "\"Cá đâu con?\" mẹ hỏi.",
+      "\"Cá ở trong một cái bát lớn gần cửa sổ ạ,\" cậu ấy nói.",
+      "Mẹ cậu ấy cầm một con dao.",
+      "Mẹ cắt khoai tây và cà chua để nấu canh.",
+      "Phong lấy hai quả trứng để làm một đĩa sa lát nhỏ.",
+      "Cậu ấy nấu cơm.",
+      "Nhà bếp không rộng, nhưng hai mẹ con ở đó rất vui.",
+      "Lúc bảy giờ, đồ ăn đã ở trên bàn.",
+      "Bố và hai chị gái của cậu ấy đang đói.",
+      "Phong nói: \"Cá ngon quá, mẹ ơi!\"",
+      "Bữa tối cùng gia đình là khoảng thời gian vui vẻ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể tên những thứ cần cho bữa tối và dùng danh từ số nhiều với There are …",
+    "examples": [
+      {
+        "lemma": "dinner",
+        "sentence": "We have dinner at seven o'clock.",
+        "meaningVi": "Nhà mình ăn tối lúc bảy giờ."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "My mother is in the kitchen.",
+        "meaningVi": "Mẹ mình đang ở trong bếp."
+      },
+      {
+        "lemma": "fish",
+        "sentence": "The fish is very good.",
+        "meaningVi": "Món cá rất ngon."
+      },
+      {
+        "lemma": "egg",
+        "sentence": "There is an egg on the table.",
+        "meaningVi": "Có một quả trứng trên bàn."
+      },
+      {
+        "lemma": "soup",
+        "sentence": "Her soup is hot.",
+        "meaningVi": "Món canh của cô ấy còn nóng."
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "This vegetable is green.",
+        "meaningVi": "Loại rau này màu xanh."
+      },
+      {
+        "lemma": "rice",
+        "sentence": "Rice is on the table.",
+        "meaningVi": "Cơm ở trên bàn."
+      },
+      {
+        "lemma": "food",
+        "sentence": "The food is for the family.",
+        "meaningVi": "Đồ ăn là cho cả nhà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Phong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Phong, are you busy now?",
+          "meaningVi": "Phong ơi, giờ con có bận không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I'm not. What is for dinner?",
+          "meaningVi": "Không ạ. Tối nay ăn gì hả mẹ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Fish and vegetable soup.",
+          "meaningVi": "Cá và canh rau củ."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Are the eggs for the soup?",
+          "meaningVi": "Tuyệt quá! Trứng là để nấu canh ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, they aren't. Two eggs are for a salad.",
+          "meaningVi": "Không phải đâu. Hai quả trứng là để làm sa lát."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Where are the potatoes?",
+          "meaningVi": "Vâng. Khoai tây ở đâu ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "They are in a bag near the door.",
+          "meaningVi": "Ở trong cái túi gần cửa ấy."
+        },
+        {
+          "speaker": 1,
+          "text": "And the rice?",
+          "meaningVi": "Còn gạo thì sao ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "It is in the kitchen. Can you cook the rice, please?",
+          "meaningVi": "Ở trong bếp. Con nấu cơm giúp mẹ nhé?"
+        }
+      ]
+    },
+    "grammarTipVi": "Tomato, potato thêm -es. Fish giữ nguyên ở số nhiều. Nhiều vật thì nói There are …, một vật thì nói There is …",
+    "translations": [
+      {
+        "vi": "Có sáu quả trứng trên bàn.",
+        "en": "There are six eggs on the table.",
+        "distractors": [
+          "is",
+          "in",
+          "five"
+        ]
+      },
+      {
+        "vi": "Cá ở trong một cái bát lớn.",
+        "en": "The fish is in a big bowl.",
+        "distractors": [
+          "are",
+          "an",
+          "small"
+        ]
+      },
+      {
+        "vi": "Rau củ là để nấu canh.",
+        "en": "The vegetables are for the soup.",
+        "distractors": [
+          "is",
+          "rice",
+          "an"
+        ]
+      },
+      {
+        "vi": "Bữa tối ở trên bàn.",
+        "en": "Dinner is on the table.",
+        "distractors": [
+          "are",
+          "under",
+          "lunch"
+        ]
+      },
+      {
+        "vi": "Mẹ cậu ấy ở trong bếp.",
+        "en": "His mother is in the kitchen.",
+        "distractors": [
+          "she",
+          "are",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hai mẹ con đang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đồ ăn cho bữa tối",
+          "Bữa sáng ở quán",
+          "Đi chợ mua cá"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong hỏi \"What is for dinner?\" và hai mẹ con nói về trứng, khoai tây, gạo cho bữa tối.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hai quả trứng để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Nấu canh",
+          "Làm sa lát",
+          "Ăn sáng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mẹ nói \"Two eggs are for a salad\": hai quả trứng để làm sa lát.",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khoai tây ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên bàn",
+          "Trong túi gần cửa",
+          "Trong bếp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mẹ nói \"They are in a bag near the door\": khoai tây ở trong túi gần cửa.",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong is busy now.",
+        "promptVi": "Bây giờ Phong đang bận.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phong nói \"No, I'm not\": cậu ấy không bận.",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Trong bếp có những gì cho bữa tối, và mỗi thứ dùng để làm gì?",
+    "grammarStep": {
+      "titleVi": "Danh từ số nhiều",
+      "noticing": [
+        {
+          "sentence": "\"There are six eggs, four tomatoes and three potatoes,\" Phong says.",
+          "highlights": [
+            "eggs",
+            "tomatoes",
+            "potatoes"
+          ]
+        },
+        {
+          "sentence": "Phong has two eggs for a small salad.",
+          "highlights": [
+            "eggs"
+          ]
+        },
+        {
+          "sentence": "His father and his two sisters are hungry.",
+          "highlights": [
+            "sisters"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"There are six eggs\" nhưng lại viết \"there is an apple\"?",
+      "options": [
+        "Vì trứng nhỏ hơn táo",
+        "Vì có sáu quả trứng (số nhiều, dùng are) nhưng chỉ có một quả táo (số ít, dùng is)",
+        "Vì apple là trái cây, còn eggs thì không"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Danh từ số nhiều (six eggs) đi với There are; danh từ số ít (an apple) đi với There is.",
+      "whenVi": "Dùng danh từ số nhiều và There are … khi có hai vật trở lên; There is … khi chỉ có một vật.",
+      "table": [
+        {
+          "subject": "thêm -s",
+          "form": "egg → eggs, sister → sisters",
+          "negative": "—"
+        },
+        {
+          "subject": "phụ âm + o → thêm -es",
+          "form": "tomato → tomatoes, potato → potatoes",
+          "negative": "—"
+        },
+        {
+          "subject": "giữ nguyên",
+          "form": "one fish → two fish",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There is six eggs on the table.",
+          "right": "There are six eggs on the table."
+        },
+        {
+          "wrong": "She cuts three potatos.",
+          "right": "She cuts three potatoes."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"có sáu quả trứng\" giống \"có một quả trứng\", nhưng tiếng Anh phải đổi: There is an egg / There are six eggs.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Viết dạng số nhiều của từ trong ngoặc.",
+          "text": "There are four ___ (tomato) on the table.",
+          "answers": [
+            "tomatoes"
+          ],
+          "explanationVi": "Tomato tận cùng bằng phụ âm + o, nên thêm -es: tomatoes."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "His two ___ are hungry.",
+          "options": [
+            "sister",
+            "sisters",
+            "sisteres",
+            "a sister"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sau two dùng số nhiều, sister chỉ thêm -s: sisters."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There is six eggs on the table.",
+          "sentence": "There are six eggs on the table.",
+          "explanationVi": "Six eggs là số nhiều, nên dùng There are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Có sáu quả trứng trên bàn.",
+          "sentence": "There are six eggs on the table.",
+          "words": [
+            "are",
+            "eggs",
+            "There",
+            "six",
+            "on",
+            "the",
+            "table",
+            "is"
+          ],
+          "explanationVi": "Six eggs là số nhiều nên dùng There are; is bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "His mother has a knife.",
+        "tipVi": "Knife /naɪf/: chữ k không đọc, đọc như \"nai-f\"."
+      },
+      {
+        "text": "Dinner with the family is a happy time.",
+        "tipVi": "Dinner /ˈdɪnə/ nhấn âm đầu \"din\"; family /ˈfæməli/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is for dinner in your home today?",
+        "questionVi": "Hôm nay nhà bạn ăn tối món gì?",
+        "frame": "Dinner today is ___ and ___."
+      },
+      {
+        "question": "What is in your kitchen now?",
+        "questionVi": "Bây giờ trong bếp nhà bạn có gì?",
+        "frame": "There are ___ and there is ___."
+      },
+      {
+        "question": "Is fish your favourite food?",
+        "questionVi": "Cá có phải là món bạn thích nhất không?",
+        "frame": "Yes, it is. / No, it isn't. My favourite food is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu There are + danh từ số nhiều (There are three eggs …)",
+      "anyOf": [
+        "There are",
+        "eggs",
+        "tomatoes",
+        "potatoes",
+        "apples",
+        "sisters"
+      ],
+      "outlineVi": [
+        "Nói bữa tối hôm nay là món gì.",
+        "Kể trong bếp có những gì (There are … / There is …).",
+        "Nói ai nấu và ai ăn cùng bạn."
+      ],
+      "modelAnswer": "Dinner today is chicken and rice. In my kitchen, there are three tomatoes, four eggs and an apple. My father cooks the chicken, and I cook the rice. My two brothers are hungry. The food is delicious."
+    }
+  },
+  "glosses": [
+    {
+      "text": "afternoon",
+      "lemma": "afternoon",
+      "meaningVi": "buổi chiều",
+      "pos": "noun",
+      "sentenceIndex": 0,
+      "phrase": "five o'clock in the afternoon",
+      "phraseVi": "năm giờ chiều"
+    },
+    {
+      "text": "tomatoes",
+      "lemma": "tomato",
+      "meaningVi": "(những quả) cà chua",
+      "pos": "noun",
+      "sentenceIndex": 4,
+      "phrase": "four tomatoes",
+      "phraseVi": "bốn quả cà chua"
+    },
+    {
+      "text": "potatoes",
+      "lemma": "potato",
+      "meaningVi": "(những củ) khoai tây",
+      "pos": "noun",
+      "sentenceIndex": 4,
+      "phrase": "three potatoes",
+      "phraseVi": "ba củ khoai tây"
+    },
+    {
+      "text": "bowl",
+      "lemma": "bowl",
+      "meaningVi": "cái bát",
+      "pos": "noun",
+      "sentenceIndex": 7,
+      "phrase": "a big bowl",
+      "phraseVi": "một cái bát lớn"
+    },
+    {
+      "text": "knife",
+      "lemma": "knife",
+      "meaningVi": "con dao",
+      "pos": "noun",
+      "sentenceIndex": 8,
+      "phrase": "a knife",
+      "phraseVi": "một con dao"
+    },
+    {
+      "text": "cuts",
+      "lemma": "cut",
+      "meaningVi": "cắt",
+      "pos": "verb",
+      "sentenceIndex": 9,
+      "phrase": "She cuts the potatoes",
+      "phraseVi": "mẹ cắt khoai tây"
+    },
+    {
+      "text": "salad",
+      "lemma": "salad",
+      "meaningVi": "món sa lát",
+      "pos": "noun",
+      "sentenceIndex": 10,
+      "phrase": "a small salad",
+      "phraseVi": "một đĩa sa lát nhỏ"
+    },
+    {
+      "text": "cooks",
+      "lemma": "cook",
+      "meaningVi": "nấu",
+      "pos": "verb",
+      "sentenceIndex": 11,
+      "phrase": "He cooks the rice",
+      "phraseVi": "cậu ấy nấu cơm"
+    },
+    {
+      "text": "sisters",
+      "lemma": "sister",
+      "meaningVi": "(những) chị/em gái",
+      "pos": "noun",
+      "sentenceIndex": 14,
+      "phrase": "his two sisters",
+      "phraseVi": "hai chị gái của cậu ấy"
+    },
+    {
+      "text": "hungry",
+      "lemma": "hungry",
+      "meaningVi": "đói",
+      "pos": "adjective",
+      "sentenceIndex": 14,
+      "phrase": "are hungry",
+      "phraseVi": "đang đói"
+    },
+    {
+      "text": "delicious",
+      "lemma": "delicious",
+      "meaningVi": "ngon",
+      "pos": "adjective",
+      "sentenceIndex": 15,
+      "phrase": "The fish is delicious",
+      "phraseVi": "cá ngon quá"
+    }
+  ]
+}

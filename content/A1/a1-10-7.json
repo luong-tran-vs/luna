@@ -1,0 +1,597 @@
+{
+  "content": "It is Sunday afternoon in Hanoi. Mai and her friend Huy are in the old streets of the city.\n\n\"Let's walk to Hoan Kiem Lake,\" Mai says. \"It's near here.\"\n\n\"Good idea,\" Huy says. \"Where do we go?\"\n\n\"Go down this street and turn left at the cinema. Then go straight on. You can see Hoan Kiem Lake from there.\"\n\nAt Hoan Kiem Lake, they walk along the water. Huy looks at his map. \"Look, the red bridge is in front of us. Let's go over it to the temple.\"\n\n\"Not now,\" Mai says. \"Let's walk around Hoan Kiem Lake first. Don't walk fast. Look at the trees and the old buildings.\"\n\nThey walk past the old post office and a library. Then they stop at a small café between a bank and a hotel. Huy says, \"Let's have an ice cream here!\"",
+  "targetWords": [
+    "city",
+    "street",
+    "left",
+    "straight on",
+    "map",
+    "bridge",
+    "in front of",
+    "between"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "city",
+        "lemma": "city",
+        "meaningVi": "thành phố",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "đường phố, con phố",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "left",
+        "lemma": "left",
+        "meaningVi": "bên trái",
+        "pos": "adverb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "straight on",
+        "lemma": "straight on",
+        "meaningVi": "đi thẳng",
+        "pos": "adverb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "map",
+        "lemma": "map",
+        "meaningVi": "bản đồ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "in front of",
+        "lemma": "in front of",
+        "meaningVi": "ở phía trước",
+        "pos": "preposition",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "between",
+        "lemma": "between",
+        "meaningVi": "ở giữa",
+        "pos": "preposition",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai and Huy take a bus to the temple.",
+          "Mai and Huy walk to Hoan Kiem Lake and around it.",
+          "Huy buys a new map at the library.",
+          "Mai works at a small café."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chiều Chủ nhật, Mai rủ Huy đi bộ ra hồ Hoàn Kiếm. Hai bạn chỉ đường cho nhau và đi dạo quanh hồ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where do they turn left?",
+        "promptVi": "Hai bạn rẽ trái ở đâu?",
+        "options": [
+          "At the bank",
+          "At the cinema",
+          "At the post office",
+          "At the temple"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"Go down this street and turn left at the cinema\": rẽ trái ở chỗ rạp chiếu phim."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where do they stop at the end?",
+        "promptVi": "Cuối cùng hai bạn dừng lại ở đâu?",
+        "options": [
+          "On the red bridge",
+          "At the library",
+          "At a small café between a bank and a hotel",
+          "In front of the cinema"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Then they stop at a small café between a bank and a hotel\": họ dừng ở một quán cà phê nhỏ nằm giữa ngân hàng và khách sạn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai wants to go to the temple first.",
+        "promptVi": "Mai muốn đến ngôi đền trước.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"Not now… Let's walk around Hoan Kiem Lake first\": cô muốn đi dạo quanh hồ trước."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"between\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then they stop at a small café between a bank and a hotel.",
+        "options": [
+          "ở phía sau",
+          "ở giữa",
+          "ở đối diện",
+          "ở bên trong"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Between là ở giữa: quán cà phê nằm giữa một ngân hàng và một khách sạn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh (Imperatives)",
+      "bodyVi": "Bạn bè hay rủ nhau bằng Let's + động từ nguyên mẫu: Let's walk to Hoan Kiem Lake. Khi chỉ đường cho nhau, ta đặt động từ ở đầu câu: Go down this street. Look at the trees. Muốn bảo đừng làm gì, dùng Don't + động từ: Don't walk fast.",
+      "examples": [
+        "\"Let's walk around Hoan Kiem Lake first.",
+        "\"Go down this street and turn left at the cinema.",
+        "Don't walk fast."
+      ]
+    },
+    "writingPrompt": "Ask a friend to walk with you to a nice place in your city on Sunday. Tell them the way. Use let's, go, turn and don't.",
+    "sentenceTranslations": [
+      "Hôm nay là chiều Chủ nhật ở Hà Nội.",
+      "Mai và bạn cô là Huy đang ở những con phố cổ của thành phố.",
+      "\"Mình đi bộ ra hồ Hoàn Kiếm đi,\" Mai nói.",
+      "\"Gần đây thôi.\"",
+      "\"Ý hay đấy,\" Huy nói.",
+      "\"Mình đi đường nào?\"",
+      "\"Đi theo con phố này rồi rẽ trái ở chỗ rạp chiếu phim.",
+      "Sau đó đi thẳng.",
+      "Từ đó cậu sẽ nhìn thấy hồ Hoàn Kiếm.\"",
+      "Ở hồ Hoàn Kiếm, hai bạn đi bộ dọc theo mép nước.",
+      "Huy nhìn bản đồ của mình.",
+      "\"Nhìn kìa, cây cầu đỏ ở ngay phía trước chúng ta.",
+      "Mình đi qua cầu đến ngôi đền đi.\"",
+      "\"Bây giờ thì chưa,\" Mai nói.",
+      "\"Mình đi dạo quanh hồ Hoàn Kiếm trước đã.",
+      "Đừng đi nhanh.",
+      "Hãy ngắm cây cối và những toà nhà cổ.\"",
+      "Hai bạn đi qua bưu điện cũ và một thư viện.",
+      "Rồi họ dừng lại ở một quán cà phê nhỏ nằm giữa một ngân hàng và một khách sạn.",
+      "Huy nói: \"Mình ăn kem ở đây đi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể rủ bạn bè đi dạo (Let's walk to …) và chỉ đường cho nhau qua các nơi trong thành phố (Go down this street, Turn left at …, Don't walk fast).",
+    "examples": [
+      {
+        "lemma": "city",
+        "sentence": "There are a lot of old buildings in this city.",
+        "meaningVi": "Thành phố này có rất nhiều toà nhà cổ."
+      },
+      {
+        "lemma": "street",
+        "sentence": "This street is very busy on Sunday.",
+        "meaningVi": "Con phố này rất đông vào Chủ nhật."
+      },
+      {
+        "lemma": "left",
+        "sentence": "Turn left at the library.",
+        "meaningVi": "Rẽ trái ở chỗ thư viện."
+      },
+      {
+        "lemma": "straight on",
+        "sentence": "Go straight on to the post office.",
+        "meaningVi": "Đi thẳng đến bưu điện."
+      },
+      {
+        "lemma": "map",
+        "sentence": "I have a map of Hanoi.",
+        "meaningVi": "Mình có một tấm bản đồ Hà Nội."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "The red bridge is very beautiful.",
+        "meaningVi": "Cây cầu đỏ rất đẹp."
+      },
+      {
+        "lemma": "in front of",
+        "sentence": "There is a big tree in front of my house.",
+        "meaningVi": "Có một cái cây to ở phía trước nhà mình."
+      },
+      {
+        "lemma": "between",
+        "sentence": "The library is between the school and the park.",
+        "meaningVi": "Thư viện nằm giữa trường học và công viên."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Huy"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, where do we go after the café?",
+          "meaningVi": "Mai ơi, ăn kem xong mình đi đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Let's go to the temple. Do you know the way?",
+          "meaningVi": "Mình đến ngôi đền đi. Cậu có biết đường không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Go back to the red bridge and walk over it.",
+          "meaningVi": "Có. Quay lại cây cầu đỏ rồi đi bộ qua cầu."
+        },
+        {
+          "speaker": 0,
+          "text": "Is the temple open now?",
+          "meaningVi": "Bây giờ đền có mở cửa không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It's open until six.",
+          "meaningVi": "Có. Đền mở cửa đến sáu giờ."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. Can I take photos there?",
+          "meaningVi": "Tuyệt. Mình chụp ảnh ở đó được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, you can. But don't sit on the bridge.",
+          "meaningVi": "Được. Nhưng đừng ngồi trên cầu nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Let's go!",
+          "meaningVi": "Được rồi. Mình đi thôi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Muốn từ chối nhẹ nhàng một lời rủ, ta nói Not now rồi đưa ra lời rủ khác: Not now. Let's walk around Hoan Kiem Lake first.",
+    "translations": [
+      {
+        "vi": "Đi theo con phố này rồi rẽ trái.",
+        "en": "Go down this street and turn left.",
+        "distractors": [
+          "right",
+          "Goes",
+          "turns"
+        ]
+      },
+      {
+        "vi": "Cây cầu đỏ ở phía trước chúng ta.",
+        "en": "The red bridge is in front of us.",
+        "distractors": [
+          "we",
+          "are",
+          "behind"
+        ]
+      },
+      {
+        "vi": "Huy nhìn bản đồ của anh ấy.",
+        "en": "Huy looks at his map.",
+        "distractors": [
+          "her",
+          "look",
+          "for"
+        ]
+      },
+      {
+        "vi": "Quán cà phê nằm giữa ngân hàng và khách sạn.",
+        "en": "The café is between the bank and the hotel.",
+        "distractors": [
+          "are",
+          "behind",
+          "on"
+        ],
+        "accepted": [
+          "The café is between the hotel and the bank."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai và Huy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đi đến ngôi đền",
+          "Về nhà bằng xe buýt",
+          "Mua bản đồ mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai rủ \"Let's go to the temple\" và Huy chỉ đường đến đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đến đền, hai bạn đi qua đâu?",
+        "promptVi": "",
+        "options": [
+          "Qua bưu điện",
+          "Qua cây cầu đỏ",
+          "Qua thư viện"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"Go back to the red bridge and walk over it.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đền mở cửa đến mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Đến năm giờ",
+          "Đến sáu giờ",
+          "Đến bảy giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"It's open until six.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai can't take photos at the temple.",
+        "promptVi": "Mai không được chụp ảnh ở đền.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huy nói \"Yes, you can.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Mai và Huy đi đường nào để ra hồ Hoàn Kiếm, và họ đi qua những nơi nào?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Let's walk to Hoan Kiem Lake,\" Mai says.",
+          "highlights": [
+            "Let's walk"
+          ]
+        },
+        {
+          "sentence": "\"Go down this street and turn left at the cinema.",
+          "highlights": [
+            "Go",
+            "turn"
+          ]
+        },
+        {
+          "sentence": "Don't walk fast.",
+          "highlights": [
+            "Don't walk"
+          ]
+        },
+        {
+          "sentence": "Look at the trees and the old buildings.\"",
+          "highlights": [
+            "Look"
+          ]
+        }
+      ],
+      "questionVi": "Câu nào là lời rủ cùng làm?",
+      "options": [
+        "Don't walk fast.",
+        "Let's walk to Hoan Kiem Lake.",
+        "Look at the trees."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Let's + động từ là rủ người khác cùng làm với mình. Don't walk là bảo đừng làm, còn Look là bảo làm.",
+      "whenVi": "Dùng Let's khi rủ bạn bè; dùng động từ đứng đầu câu hoặc Don't khi chỉ đường, nhắc nhở.",
+      "table": [
+        {
+          "subject": "Làm",
+          "form": "Go down this street. Look at the trees.",
+          "negative": ""
+        },
+        {
+          "subject": "Đừng làm",
+          "form": "Don't + động từ",
+          "negative": "Don't walk fast."
+        },
+        {
+          "subject": "Rủ cùng làm",
+          "form": "Let's + động từ: Let's walk to the bridge.",
+          "negative": ""
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Let's walking around the city.",
+          "right": "Let's walk around the city."
+        },
+        {
+          "wrong": "Don't walks fast.",
+          "right": "Don't walk fast."
+        }
+      ],
+      "noteVi": "Sau Let's và Don't đều là động từ nguyên mẫu: Let's walk, Don't walk. Không thêm -ing hay -s.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ để rủ bạn cùng đi.",
+          "text": "___ walk to the red bridge.",
+          "answers": [
+            "Let's"
+          ],
+          "explanationVi": "Muốn rủ ai cùng làm, dùng Let's + động từ nguyên mẫu."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Don't ___ fast.",
+          "options": [
+            "walk",
+            "walks",
+            "walking",
+            "to walk"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau Don't là động từ nguyên mẫu: Don't walk."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Let's to have an ice cream here.",
+          "sentence": "Let's have an ice cream here.",
+          "explanationVi": "Sau Let's là động từ nguyên mẫu, không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hãy ngắm cây cối và những toà nhà cổ.",
+          "sentence": "Look at the trees and the old buildings.",
+          "words": [
+            "trees",
+            "Look",
+            "the",
+            "old",
+            "at",
+            "buildings",
+            "the",
+            "and",
+            "Looks"
+          ],
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu Look; từ \"Looks\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They walk past the old post office and a library.",
+        "tipVi": "Library /ˈlaɪbrəri/ nhấn âm đầu \"LAI\"; post office đọc nối /pəʊstˈɒfɪs/."
+      },
+      {
+        "text": "Then they stop at a small café between a bank and a hotel.",
+        "tipVi": "Between /bɪˈtwiːn/ nhấn âm thứ hai; hotel /həʊˈtel/ nhấn âm \"TEL\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where do you like to walk on Sunday afternoon?",
+        "questionVi": "Chiều Chủ nhật bạn thích đi dạo ở đâu?",
+        "frame": "I like to walk in / around the ___."
+      },
+      {
+        "question": "What old buildings are there in your city?",
+        "questionVi": "Thành phố của bạn có những toà nhà cổ nào?",
+        "frame": "There is an old ___ near the ___."
+      },
+      {
+        "question": "What do you say to a friend on Sunday afternoon?",
+        "questionVi": "Chiều Chủ nhật, bạn nói gì với bạn mình?",
+        "frame": "Let's walk to the ___!"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với Let's và 2 câu chỉ đường (Go, Turn, Don't …)",
+      "anyOf": [
+        "let's",
+        "go",
+        "turn",
+        "walk",
+        "don't",
+        "look"
+      ],
+      "outlineVi": [
+        "Rủ bạn đi dạo (Let's walk to …).",
+        "Chỉ đường từng bước (Go down …, turn left at …, go straight on …).",
+        "Kể những nơi đi qua (We walk past …) và thêm một câu với Don't."
+      ],
+      "modelAnswer": "Let's walk to the park on Sunday. Go down my street and turn left at the post office. Then go straight on. We walk past a library and an old church. Don't walk fast. Look at the trees. There is a café between the park and the river. Let's have an ice cream there!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "old streets",
+      "lemma": "old streets",
+      "meaningVi": "những con phố cổ",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "in the old streets of the city",
+      "phraseVi": "ở những con phố cổ của thành phố"
+    },
+    {
+      "text": "Hoan Kiem Lake",
+      "lemma": "Hoan Kiem Lake",
+      "meaningVi": "hồ Hoàn Kiếm",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "Let's walk to Hoan Kiem Lake",
+      "phraseVi": "Mình đi bộ ra hồ Hoàn Kiếm đi"
+    },
+    {
+      "text": "Go down",
+      "lemma": "go down",
+      "meaningVi": "đi dọc theo (con phố)",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "Go down this street",
+      "phraseVi": "Đi theo con phố này"
+    },
+    {
+      "text": "along the water",
+      "lemma": "along",
+      "meaningVi": "dọc theo mép nước",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "They walk along the water",
+      "phraseVi": "Hai bạn đi bộ dọc theo mép nước"
+    },
+    {
+      "text": "temple",
+      "lemma": "temple",
+      "meaningVi": "ngôi đền",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "Let's go over it to the temple",
+      "phraseVi": "Mình đi qua cầu đến ngôi đền đi"
+    },
+    {
+      "text": "Not now",
+      "lemma": "not now",
+      "meaningVi": "bây giờ thì chưa",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "Not now",
+      "phraseVi": "Bây giờ thì chưa"
+    },
+    {
+      "text": "walk around",
+      "lemma": "walk around",
+      "meaningVi": "đi dạo quanh",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "Let's walk around Hoan Kiem Lake first",
+      "phraseVi": "Mình đi dạo quanh hồ Hoàn Kiếm trước đã"
+    },
+    {
+      "text": "library",
+      "lemma": "library",
+      "meaningVi": "thư viện",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "the old post office and a library",
+      "phraseVi": "bưu điện cũ và một thư viện"
+    },
+    {
+      "text": "ice cream",
+      "lemma": "ice cream",
+      "meaningVi": "kem",
+      "sentenceIndex": 19,
+      "pos": "noun",
+      "phrase": "Let's have an ice cream here",
+      "phraseVi": "Mình ăn kem ở đây đi"
+    }
+  ]
+}

@@ -1,72 +1,72 @@
 {
-  "content": "Maria is a nurse at a small hospital in Hanoi. She is from Spain.\n\nShe always gets up at five o'clock. She has a shower and eats bread for breakfast. At six o'clock, she goes to work by bus. Her work starts at seven.\n\nAt the hospital, Maria helps sick people. She gives them medicine and talks to them. Some people are old, and they are often sad. Maria is always kind to them. At twelve o'clock, she usually has lunch with the other nurses. In the afternoon, she writes notes about the sick people.\n\nHer work finishes at four. On Tuesday and Thursday, she goes to the English club. In the evening, she is tired, so she never goes out. She reads a book and goes to bed at ten.\n\n\"Is your job hard?\" asks Kenji at the club.\n\"Yes, but I love it,\" says Maria.",
+  "content": "Hoa works at home now, and today she has a new desk. The desk is in her bedroom, near the window. It is white and very big.\n\nFirst, Hoa puts her computer on the desk. Then she puts a small light near the computer. Her pens are in a red cup, and the cup is near the light. Her books are on a shelf above the desk. There is a box under the desk, and her old papers are in it.\n\nHer brother Khoa comes into the room. \"Where is your phone?\" he asks. \"It is in my bag, behind the chair,\" Hoa says. \"There isn't a phone on my desk now. It is a place for work.\"\n\nKhoa looks at the desk and smiles. \"Your desk is very nice,\" he says. \"Can I have a desk like this in my room?\"",
   "targetWords": [
-    "get up",
-    "breakfast",
-    "go to work",
-    "help",
-    "have lunch",
-    "write notes",
-    "read a book",
-    "go to bed"
+    "desk",
+    "bedroom",
+    "window",
+    "computer",
+    "pen",
+    "cup",
+    "shelf",
+    "box"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "gets up",
-        "lemma": "get up",
-        "meaningVi": "thức dậy",
-        "pos": "verb",
-        "sentenceIndex": 2
+        "text": "desk",
+        "lemma": "desk",
+        "meaningVi": "bàn làm việc, bàn học",
+        "pos": "noun",
+        "sentenceIndex": 0
       },
       {
-        "text": "breakfast",
-        "lemma": "breakfast",
-        "meaningVi": "bữa sáng",
+        "text": "bedroom",
+        "lemma": "bedroom",
+        "meaningVi": "phòng ngủ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "computer",
+        "lemma": "computer",
+        "meaningVi": "máy tính",
         "pos": "noun",
         "sentenceIndex": 3
       },
       {
-        "text": "goes to work",
-        "lemma": "go to work",
-        "meaningVi": "đi làm",
-        "pos": "verb",
-        "sentenceIndex": 4
+        "text": "pens",
+        "lemma": "pen",
+        "meaningVi": "cái bút",
+        "pos": "noun",
+        "sentenceIndex": 5
       },
       {
-        "text": "helps",
-        "lemma": "help",
-        "meaningVi": "giúp đỡ, chăm sóc",
-        "pos": "verb",
+        "text": "cup",
+        "lemma": "cup",
+        "meaningVi": "cái cốc",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "shelf",
+        "lemma": "shelf",
+        "meaningVi": "cái kệ, giá sách",
+        "pos": "noun",
         "sentenceIndex": 6
       },
       {
-        "text": "has lunch",
-        "lemma": "have lunch",
-        "meaningVi": "ăn trưa",
-        "pos": "verb",
-        "sentenceIndex": 10
-      },
-      {
-        "text": "writes notes",
-        "lemma": "write notes",
-        "meaningVi": "ghi chép",
-        "pos": "verb",
-        "sentenceIndex": 11
-      },
-      {
-        "text": "reads a book",
-        "lemma": "read a book",
-        "meaningVi": "đọc sách",
-        "pos": "phrase",
-        "sentenceIndex": 15
-      },
-      {
-        "text": "goes to bed",
-        "lemma": "go to bed",
-        "meaningVi": "đi ngủ",
-        "pos": "verb",
-        "sentenceIndex": 15
+        "text": "box",
+        "lemma": "box",
+        "meaningVi": "cái hộp",
+        "pos": "noun",
+        "sentenceIndex": 7
       }
     ],
     "questions": [
@@ -75,539 +75,516 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "A trip to Spain",
-          "A day of Maria, a nurse",
-          "Kenji's English club",
-          "A big hospital in Hanoi"
+          "Hoa's new phone",
+          "Hoa and her new desk",
+          "Khoa's bedroom",
+          "A shop with desks"
         ],
         "answerIndex": 1,
-        "explanationVi": "Bài kể một ngày của y tá Maria: dậy lúc năm giờ, chăm sóc người bệnh ở bệnh viện, tối đọc sách và đi ngủ."
+        "explanationVi": "Hoa có bàn làm việc mới và sắp xếp đồ đạc lên bàn."
       },
       {
         "kind": "detail",
-        "prompt": "What is Maria's breakfast?",
-        "promptVi": "Bữa sáng của Maria là gì?",
+        "prompt": "Where are Hoa's pens?",
+        "promptVi": "Bút của Hoa ở đâu?",
         "options": [
-          "Rice",
-          "Bread",
-          "Noodle soup",
-          "Bananas"
+          "In her bag",
+          "In a red cup",
+          "On the shelf",
+          "In a box under the desk"
         ],
         "answerIndex": 1,
-        "explanationVi": "Bài viết \"She has a shower and eats bread for breakfast\"."
+        "explanationVi": "Bài viết \"Her pens are in a red cup\"."
       },
       {
         "kind": "detail",
-        "prompt": "Where is Maria on Tuesday and Thursday after work?",
-        "promptVi": "Thứ Ba và thứ Năm, sau giờ làm Maria ở đâu?",
+        "prompt": "What is under the desk?",
+        "promptVi": "Dưới gầm bàn có gì?",
         "options": [
-          "At home",
-          "At the park",
-          "At the English club",
-          "At the hospital"
+          "A box with old papers",
+          "A computer",
+          "A chair",
+          "Her phone"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Bài viết \"On Tuesday and Thursday, she goes to the English club\"."
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"There is a box under the desk, and her old papers are in it\"."
       },
       {
         "kind": "tfn",
-        "prompt": "Maria often goes out in the evening.",
-        "promptVi": "Buổi tối Maria hay ra ngoài.",
+        "prompt": "Hoa's phone is on her desk.",
+        "promptVi": "Điện thoại của Hoa ở trên bàn.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bài viết \"In the evening, she is tired, so she never goes out\"."
+        "explanationVi": "Sai, vì Hoa nói điện thoại ở trong túi, sau cái ghế: \"There isn't a phone on my desk now\"."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"medicine\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"above\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "She gives them medicine and talks to them.",
+        "quote": "Her books are on a shelf above the desk.",
         "options": [
-          "bánh mì",
-          "thuốc",
-          "sách",
-          "nước"
+          "phía dưới",
+          "phía trên",
+          "phía sau",
+          "bên trong"
         ],
         "answerIndex": 1,
-        "explanationVi": "Medicine là thuốc: y tá đưa thuốc cho người bệnh."
+        "explanationVi": "Above là phía trên: cái kệ ở phía trên bàn."
       }
     ],
     "grammarNote": {
-      "title": "Thì hiện tại đơn (khẳng định)",
-      "bodyVi": "Khi kể một ngày của she (Maria), động từ thêm -s: eats, gives, talks, writes. Một số động từ thay đổi riêng: have → has, go → goes. Trạng từ tần suất đứng trước động từ: she always gets up, she usually has lunch.",
+      "title": "Giới từ chỉ nơi chốn",
+      "bodyVi": "Muốn nói đồ vật hay người ở đâu, dùng be + giới từ + danh từ: in (trong), on (trên, có chạm mặt), under (dưới), behind (sau), in front of (trước), near (gần). Ví dụ: The keys are on the table. The cat is under the bed. Trước danh từ thường có the, a, my, his...: on the chair, không nói \"on chair\".",
       "examples": [
-        "She has a shower and eats bread for breakfast.",
-        "She gives them medicine and talks to them.",
-        "In the afternoon, she writes notes about the sick people."
+        "First, Hoa puts her computer on the desk.",
+        "Her pens are in a red cup, and the cup is near the light.",
+        "There is a box under the desk, and her old papers are in it."
       ]
     },
-    "writingPrompt": "Write about a day of a person with a job: a doctor, a nurse, a teacher or a driver.",
+    "writingPrompt": "Write about your desk or table: what is on it, in it and under it?",
     "sentenceTranslations": [
-      "Maria là y tá ở một bệnh viện nhỏ ở Hà Nội.",
-      "Chị đến từ Tây Ban Nha.",
-      "Chị luôn dậy lúc năm giờ.",
-      "Chị tắm vòi sen và ăn bánh mì cho bữa sáng.",
-      "Lúc sáu giờ, chị đi làm bằng xe buýt.",
-      "Giờ làm của chị bắt đầu lúc bảy giờ.",
-      "Ở bệnh viện, Maria chăm sóc người bệnh.",
-      "Chị đưa thuốc cho họ và trò chuyện với họ.",
-      "Có những người đã già, và họ hay buồn.",
-      "Maria luôn tử tế với họ.",
-      "Lúc mười hai giờ, chị thường ăn trưa với các y tá khác.",
-      "Buổi chiều, chị ghi chép về những người bệnh.",
-      "Chị tan làm lúc bốn giờ.",
-      "Thứ Ba và thứ Năm, chị đến câu lạc bộ tiếng Anh.",
-      "Buổi tối chị mệt, nên chị không bao giờ ra ngoài.",
-      "Chị đọc sách và đi ngủ lúc mười giờ.",
-      "\"Công việc của chị có vất vả không?\" Kenji hỏi ở câu lạc bộ.",
-      "\"Có, nhưng chị rất yêu công việc này,\" Maria nói."
+      "Bây giờ Hoa làm việc ở nhà, và hôm nay cô ấy có một cái bàn làm việc mới.",
+      "Cái bàn ở trong phòng ngủ của cô ấy, gần cửa sổ.",
+      "Nó màu trắng và rất to.",
+      "Đầu tiên, Hoa đặt máy tính lên bàn.",
+      "Sau đó cô ấy đặt một cái đèn nhỏ cạnh máy tính.",
+      "Bút của cô ấy để trong một cái cốc màu đỏ, và cái cốc ở gần cái đèn.",
+      "Sách của cô ấy ở trên một cái kệ phía trên bàn.",
+      "Dưới gầm bàn có một cái hộp, và giấy tờ cũ của cô ấy ở trong đó.",
+      "Em trai cô ấy là Khoa đi vào phòng.",
+      "\"Điện thoại của chị đâu?\" cậu ấy hỏi.",
+      "\"Ở trong túi chị, sau cái ghế,\" Hoa nói.",
+      "\"Bây giờ trên bàn của chị không có điện thoại.",
+      "Đó là chỗ để làm việc.\"",
+      "Khoa nhìn cái bàn và mỉm cười.",
+      "\"Bàn của chị đẹp quá,\" cậu ấy nói.",
+      "\"Em cũng có một cái bàn như thế này trong phòng em được không?\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể một ngày làm việc của một người bằng thì hiện tại đơn (she gets up, she has, she goes) và trạng từ tần suất.",
+    "objectiveVi": "Bạn có thể nói đồ vật trên bàn làm việc ở đâu, dùng in, on, under, behind, near, above.",
     "examples": [
       {
-        "lemma": "get up",
-        "sentence": "Nurses often get up very early.",
-        "meaningVi": "Y tá hay dậy rất sớm."
+        "lemma": "desk",
+        "sentence": "My desk is near the door.",
+        "meaningVi": "Bàn học của mình ở gần cửa."
       },
       {
-        "lemma": "breakfast",
-        "sentence": "I usually have bread for breakfast.",
-        "meaningVi": "Mình thường ăn bánh mì vào bữa sáng."
+        "lemma": "bedroom",
+        "sentence": "There is a big bed in my bedroom.",
+        "meaningVi": "Trong phòng ngủ của mình có một chiếc giường lớn."
       },
       {
-        "lemma": "go to work",
-        "sentence": "My parents go to work by car.",
-        "meaningVi": "Bố mẹ mình đi làm bằng ô tô."
+        "lemma": "window",
+        "sentence": "The cat is in front of the window.",
+        "meaningVi": "Con mèo ở trước cửa sổ."
       },
       {
-        "lemma": "help",
-        "sentence": "Doctors help sick people.",
-        "meaningVi": "Bác sĩ giúp đỡ người bệnh."
+        "lemma": "computer",
+        "sentence": "My computer is on the table.",
+        "meaningVi": "Máy tính của mình ở trên bàn."
       },
       {
-        "lemma": "have lunch",
-        "sentence": "We have lunch at twelve o'clock.",
-        "meaningVi": "Bọn mình ăn trưa lúc mười hai giờ."
+        "lemma": "pen",
+        "sentence": "This pen is in my bag.",
+        "meaningVi": "Cái bút này ở trong túi mình."
       },
       {
-        "lemma": "write notes",
-        "sentence": "I write notes in my English book.",
-        "meaningVi": "Mình ghi chép vào vở tiếng Anh."
+        "lemma": "cup",
+        "sentence": "There is a cup of coffee on the desk.",
+        "meaningVi": "Trên bàn có một cốc cà phê."
       },
       {
-        "lemma": "read a book",
-        "sentence": "Grandpa likes to read a book in the garden.",
-        "meaningVi": "Ông thích đọc sách trong vườn."
+        "lemma": "shelf",
+        "sentence": "My books are on the shelf.",
+        "meaningVi": "Sách của mình ở trên kệ."
       },
       {
-        "lemma": "go to bed",
-        "sentence": "We always go to bed at ten.",
-        "meaningVi": "Nhà mình luôn đi ngủ lúc mười giờ."
+        "lemma": "box",
+        "sentence": "The keys are in a small box.",
+        "meaningVi": "Chìa khóa ở trong một cái hộp nhỏ."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Kenji",
-        "Maria"
+        "Khoa",
+        "Hoa"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Maria, is your work in the morning?",
-          "meaningVi": "Chị Maria ơi, chị làm việc buổi sáng ạ?"
+          "text": "Hoa, where is my red pen?",
+          "meaningVi": "Chị Hoa ơi, cái bút đỏ của em đâu?"
         },
         {
           "speaker": 1,
-          "text": "Yes, it is. I always start at seven.",
-          "meaningVi": "Đúng vậy. Chị luôn bắt đầu lúc bảy giờ."
+          "text": "Is it in the cup on my desk?",
+          "meaningVi": "Có ở trong cốc trên bàn chị không?"
         },
         {
           "speaker": 0,
-          "text": "Are you busy all day?",
-          "meaningVi": "Chị có bận cả ngày không?"
+          "text": "No, it isn't. There are only blue pens in it.",
+          "meaningVi": "Không có. Trong cốc chỉ có bút xanh."
         },
         {
           "speaker": 1,
-          "text": "Yes. I help sick people, and I often talk to old people.",
-          "meaningVi": "Có. Chị chăm sóc người bệnh, và hay trò chuyện với người già."
+          "text": "Is it under the computer?",
+          "meaningVi": "Có ở dưới máy tính không?"
         },
         {
           "speaker": 0,
-          "text": "Is the food at the hospital good?",
-          "meaningVi": "Đồ ăn ở bệnh viện có ngon không ạ?"
+          "text": "No. It isn't on the shelf, and it isn't in the box.",
+          "meaningVi": "Không. Không có trên kệ, cũng không có trong hộp."
         },
         {
           "speaker": 1,
-          "text": "No, it isn't! I usually eat bread and fruit.",
-          "meaningVi": "Không ngon đâu! Chị thường ăn bánh mì và hoa quả."
+          "text": "What is that behind your ear?",
+          "meaningVi": "Thế cái gì ở sau tai em kia?"
         },
         {
           "speaker": 0,
-          "text": "And when is your free time?",
-          "meaningVi": "Thế chị rảnh vào lúc nào?"
-        },
-        {
-          "speaker": 1,
-          "text": "After four o'clock. I often walk in the park.",
-          "meaningVi": "Sau bốn giờ. Chị hay đi dạo trong công viên."
-        },
-        {
-          "speaker": 0,
-          "text": "Is your flat near the park?",
-          "meaningVi": "Căn hộ của chị có gần công viên không?"
-        },
-        {
-          "speaker": 1,
-          "text": "Yes, it's very near. I love it.",
-          "meaningVi": "Có, rất gần. Chị thích lắm."
+          "text": "Oh! It's my red pen. Thanks, Hoa!",
+          "meaningVi": "Ôi! Bút đỏ của em đây. Cảm ơn chị!"
         }
       ]
     },
-    "grammarTipVi": "Với he, she, have đổi thành has và go đổi thành goes: she has a shower, she goes to work. Không nói \"she haves\", \"she gos\".",
+    "grammarTipVi": "Above là ở phía trên (không chạm), on là ở trên (có chạm mặt): The books are on the shelf. The shelf is above the desk.",
     "translations": [
       {
-        "vi": "Cô ấy luôn dậy lúc năm giờ.",
-        "en": "She always gets up at five.",
+        "vi": "Máy tính ở trên bàn.",
+        "en": "The computer is on the desk.",
         "distractors": [
-          "get",
-          "never",
-          "on"
-        ]
-      },
-      {
-        "vi": "Cô ấy đi làm bằng xe buýt.",
-        "en": "She goes to work by bus.",
-        "distractors": [
-          "go",
-          "on",
+          "are",
+          "under",
           "in"
         ]
       },
       {
-        "vi": "Cô ấy chăm sóc người bệnh.",
-        "en": "She helps sick people.",
+        "vi": "Bút của cô ấy ở trong cái cốc.",
+        "en": "Her pens are in the cup.",
         "distractors": [
-          "help",
           "is",
-          "old"
+          "His",
+          "on"
         ]
       },
       {
-        "vi": "Cô ấy đọc sách trước khi ngủ.",
-        "en": "She reads a book before bed.",
+        "vi": "Dưới gầm bàn có một cái hộp.",
+        "en": "There is a box under the desk.",
         "distractors": [
-          "read",
-          "after",
-          "is"
+          "are",
+          "has",
+          "on"
+        ],
+        "accepted": [
+          "Under the desk there is a box."
+        ]
+      },
+      {
+        "vi": "Sách của cô ấy ở trên cái kệ.",
+        "en": "Her books are on the shelf.",
+        "distractors": [
+          "is",
+          "His",
+          "under"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Kenji hỏi Maria về điều gì?",
+        "prompt": "Khoa tìm cái gì?",
         "promptVi": "",
         "options": [
-          "Công việc hằng ngày của Maria",
-          "Gia đình của Maria ở Tây Ban Nha",
-          "Câu lạc bộ tiếng Anh"
+          "Cái bút đỏ",
+          "Cái máy tính",
+          "Cái hộp"
         ],
         "answerIndex": 0,
-        "explanationVi": "Kenji hỏi Maria làm việc lúc nào, có bận không, ăn gì và rảnh lúc nào.",
+        "explanationVi": "Khoa hỏi \"Hoa, where is my red pen?\".",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Maria bắt đầu làm việc lúc mấy giờ?",
+        "prompt": "Trong cốc có gì?",
         "promptVi": "",
         "options": [
-          "Sáu giờ",
-          "Bảy giờ",
-          "Tám giờ"
+          "Bút đỏ",
+          "Bút xanh",
+          "Giấy"
         ],
         "answerIndex": 1,
-        "explanationVi": "Maria nói \"I always start at seven\".",
-        "turnIndex": 1
+        "explanationVi": "Khoa nói \"There are only blue pens in it\".",
+        "turnIndex": 2
       },
       {
         "kind": "detail",
-        "prompt": "Ở bệnh viện, Maria thường ăn gì?",
+        "prompt": "Cái bút đỏ ở đâu?",
         "promptVi": "",
         "options": [
-          "Cơm và cá",
-          "Mì nước",
-          "Bánh mì và hoa quả"
+          "Trên kệ",
+          "Trong hộp",
+          "Sau tai Khoa"
         ],
         "answerIndex": 2,
-        "explanationVi": "Maria nói \"I usually eat bread and fruit\".",
+        "explanationVi": "Hoa hỏi \"What is that behind your ear?\" và đó là bút đỏ của Khoa.",
         "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "Maria's flat is near the park.",
-        "promptVi": "Căn hộ của Maria ở gần công viên.",
+        "prompt": "The red pen is under the computer.",
+        "promptVi": "Cái bút đỏ ở dưới máy tính.",
         "options": [],
-        "answerIndex": 0,
-        "explanationVi": "Đúng, vì Maria nói \"Yes, it's very near\".",
-        "turnIndex": 9
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"No\" khi Hoa hỏi bút có ở dưới máy tính không.",
+        "turnIndex": 4
       }
     ],
-    "readingGuideVi": "Maria làm gì vào buổi sáng, buổi chiều và buổi tối?",
+    "readingGuideVi": "Hoa đặt máy tính, đèn, bút, sách và giấy tờ ở đâu?",
     "grammarStep": {
-      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "titleVi": "Giới từ chỉ nơi chốn",
       "noticing": [
         {
-          "sentence": "She has a shower and eats bread for breakfast.",
+          "sentence": "First, Hoa puts her computer on the desk.",
           "highlights": [
-            "has",
-            "eats"
+            "on"
           ]
         },
         {
-          "sentence": "At six o'clock, she goes to work by bus.",
+          "sentence": "Her pens are in a red cup, and the cup is near the light.",
           "highlights": [
-            "goes"
+            "in",
+            "near"
           ]
         },
         {
-          "sentence": "She gives them medicine and talks to them.",
+          "sentence": "There is a box under the desk, and her old papers are in it.",
           "highlights": [
-            "gives",
-            "talks"
-          ]
-        },
-        {
-          "sentence": "She reads a book and goes to bed at ten.",
-          "highlights": [
-            "reads",
-            "goes"
+            "under",
+            "in"
           ]
         }
       ],
-      "questionVi": "Vì sao là \"she has\", \"she goes\" mà không phải \"she haves\", \"she gos\"?",
+      "questionVi": "Các từ được tô đậm cho biết điều gì?",
       "options": [
-        "Vì đó là thì quá khứ",
-        "Vì have và go có cách đổi riêng: have → has, go → goes",
-        "Vì she đi với động từ nguyên mẫu"
+        "Đồ vật ở đâu",
+        "Đồ vật có màu gì",
+        "Đồ vật là của ai"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Phần lớn động từ chỉ thêm -s (eats, gives, talks), nhưng have đổi thành has và go thêm -es thành goes.",
-      "whenVi": "Dùng thì hiện tại đơn để kể công việc hằng ngày của một người.",
+      "answerIndex": 0,
+      "explanationVi": "Nhìn các câu: máy tính ở trên bàn (on), bút ở trong cốc (in), cốc ở gần đèn (near), hộp ở dưới bàn (under).",
+      "whenVi": "Dùng in, on, under, behind, in front of, near để nói người hay đồ vật ở đâu.",
       "table": [
         {
-          "subject": "he / she + -s",
-          "form": "eats, gives, talks, reads",
-          "negative": "—"
+          "subject": "in / on",
+          "form": "The keys are in my bag. The book is on the table.",
+          "negative": "The keys aren't in my bag."
         },
         {
-          "subject": "go, watch, wash + -es",
-          "form": "goes, watches, washes",
-          "negative": "—"
+          "subject": "under / behind",
+          "form": "The cat is under the bed. The bag is behind the door.",
+          "negative": "The cat isn't under the bed."
         },
         {
-          "subject": "have → has",
-          "form": "She has a shower. She has lunch.",
-          "negative": "—"
+          "subject": "in front of / near",
+          "form": "The car is in front of the house. The shop is near my home.",
+          "negative": "The shop isn't near my home."
         }
       ],
       "mistakes": [
         {
-          "wrong": "She have lunch with the other nurses.",
-          "right": "She has lunch with the other nurses."
+          "wrong": "The book is on table.",
+          "right": "The book is on the table."
         },
         {
-          "wrong": "She go to work by bus.",
-          "right": "She goes to work by bus."
+          "wrong": "The keys is under the book.",
+          "right": "The keys are under the book."
         }
       ],
-      "noteVi": "Động từ tiếng Việt không đổi theo người, nên người Việt hay quên đổi have thành has, go thành goes khi nói về she, he.",
+      "noteVi": "Tiếng Việt nói \"trên bàn\", \"dưới gầm giường\" không cần mạo từ, nhưng tiếng Anh phải có the / a / my: on the table, under the bed. In front of có ba từ, đừng bỏ \"of\".",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền dạng đúng của động từ go.",
-          "text": "Maria ___ to work by bus at six o'clock.",
+          "promptVi": "Điền giới từ đúng: bút ở trong cái cốc.",
+          "text": "Her pens are ___ a red cup.",
           "answers": [
-            "goes"
+            "in"
           ],
-          "explanationVi": "Maria là một người (she), go thêm -es thành goes."
+          "explanationVi": "Ở trong là in."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "She ___ a shower at five o'clock.",
+          "promptVi": "Chọn từ đúng: cái hộp ở dưới gầm bàn.",
+          "text": "The box is ___ the desk.",
           "options": [
-            "have",
-            "has",
-            "haves",
-            "having"
+            "on",
+            "under",
+            "in",
+            "behind"
           ],
           "answerIndex": 1,
-          "explanationVi": "Với she, have đổi thành has."
+          "explanationVi": "Ở dưới là under."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Maria give them medicine.",
-          "sentence": "Maria gives them medicine.",
-          "explanationVi": "Maria là một người (she), nên give thêm -s: gives."
+          "text": "The computer is on desk.",
+          "sentence": "The computer is on the desk.",
+          "explanationVi": "Sau giới từ cần có the (hoặc a, my...) trước danh từ: on the desk."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Chị ấy ăn trưa với các y tá.",
-          "sentence": "She has lunch with the nurses.",
+          "promptVi": "Sắp xếp các từ thành câu đúng: Điện thoại của chị ấy ở sau cái ghế.",
+          "text": "Điện thoại của chị ấy ở sau cái ghế.",
+          "sentence": "Her phone is behind the chair.",
           "words": [
-            "lunch",
-            "has",
-            "She",
-            "with",
+            "phone",
+            "behind",
+            "Her",
+            "chair",
+            "is",
             "the",
-            "nurses",
-            "have"
+            "are"
           ],
-          "explanationVi": "Chủ ngữ she đi với has; từ \"have\" bị thừa."
+          "explanationVi": "Phone là số ít nên dùng is; từ \"are\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "She gives them medicine and talks to them.",
-        "tipVi": "Gives /ɡɪvz/ có âm /vz/ ở cuối; medicine /ˈmedɪsn/ nhấn âm đầu MED."
+        "text": "Her books are on a shelf above the desk.",
+        "tipVi": "Shelf /ʃelf/ bắt đầu bằng âm /ʃ/; above /əˈbʌv/ nhấn âm thứ hai."
       },
       {
-        "text": "Her work finishes at four.",
-        "tipVi": "Finishes /ˈfɪnɪʃɪz/ có ba âm tiết, âm cuối /ɪz/ nghe rõ."
+        "text": "There is a box under the desk, and her old papers are in it.",
+        "tipVi": "Nối \"in it\" thành /ɪnɪt/; papers /ˈpeɪpərz/ có âm /z/ ở cuối."
       }
     ],
     "speakQuestions": [
       {
-        "question": "What time are you at school in the morning?",
-        "questionVi": "Buổi sáng bạn có mặt ở trường lúc mấy giờ?",
-        "frame": "I am at school at ___."
+        "question": "What is on your desk now?",
+        "questionVi": "Bây giờ trên bàn của bạn có gì?",
+        "frame": "There is ___ on my desk."
       },
       {
-        "question": "What is your breakfast on school days?",
-        "questionVi": "Những ngày đi học, bạn ăn sáng món gì?",
-        "frame": "I usually eat ___ for breakfast."
+        "question": "Where are your pens?",
+        "questionVi": "Bút của bạn để ở đâu?",
+        "frame": "They are ___ the ___."
       },
       {
-        "question": "Who in your family has a job? What is his or her day like?",
-        "questionVi": "Ai trong nhà bạn đi làm? Một ngày của người đó thế nào?",
-        "frame": "My ___ works in ___. He / She always ___."
+        "question": "Where is your desk?",
+        "questionVi": "Bàn của bạn ở đâu?",
+        "frame": "It is in the ___, near the ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng he / she + động từ thêm -s (she gets up, he goes)",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng giới từ chỉ nơi chốn (in, on, under, behind, near...)",
       "anyOf": [
-        "gets up",
-        "goes",
-        "has",
-        "works",
-        "helps",
-        "reads",
-        "eats",
-        "starts"
+        "on the",
+        "in the",
+        "under the",
+        "behind the",
+        "in front of",
+        "near the"
       ],
       "outlineVi": [
-        "Nói người đó là ai, làm nghề gì, ở đâu.",
-        "Kể buổi sáng và giờ làm việc của người đó.",
-        "Kể buổi tối người đó làm gì."
+        "Nói bàn của bạn ở phòng nào, gần cái gì.",
+        "Kể những đồ vật trên bàn và vị trí của chúng.",
+        "Nói có gì ở dưới hoặc phía trên bàn."
       ],
-      "modelAnswer": "My aunt is a doctor. She always gets up at six. She has breakfast and goes to work by car. At the hospital, she helps sick people. She usually has lunch at one. In the evening, she reads a book and goes to bed at eleven."
+      "modelAnswer": "My desk is in my bedroom, near the door. My computer is on the desk, and there is a small light near it. My pens are in a blue cup. My books are on a shelf above the desk. There is a bag under the desk."
     }
   },
   "glosses": [
     {
-      "text": "nurse",
-      "lemma": "nurse",
-      "meaningVi": "y tá",
+      "text": "works",
+      "lemma": "work",
+      "meaningVi": "làm việc",
       "sentenceIndex": 0,
-      "pos": "noun",
-      "phrase": "a nurse at a small hospital",
-      "phraseVi": "y tá ở một bệnh viện nhỏ"
-    },
-    {
-      "text": "hospital",
-      "lemma": "hospital",
-      "meaningVi": "bệnh viện",
-      "sentenceIndex": 0,
-      "pos": "noun",
-      "phrase": "a small hospital in Hanoi",
-      "phraseVi": "một bệnh viện nhỏ ở Hà Nội"
-    },
-    {
-      "text": "has a shower",
-      "lemma": "have a shower",
-      "meaningVi": "tắm vòi sen",
-      "sentenceIndex": 3,
-      "pos": "phrase",
-      "phrase": "She has a shower",
-      "phraseVi": "Chị tắm vòi sen"
-    },
-    {
-      "text": "starts",
-      "lemma": "start",
-      "meaningVi": "bắt đầu",
-      "sentenceIndex": 5,
       "pos": "verb",
-      "phrase": "Her work starts at seven",
-      "phraseVi": "Giờ làm của chị bắt đầu lúc bảy giờ"
+      "phrase": "Hoa works at home now",
+      "phraseVi": "Bây giờ Hoa làm việc ở nhà"
     },
     {
-      "text": "sick",
-      "lemma": "sick",
-      "meaningVi": "ốm, bệnh",
+      "text": "puts",
+      "lemma": "put",
+      "meaningVi": "đặt, để",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Hoa puts her computer on the desk",
+      "phraseVi": "Hoa đặt máy tính lên bàn"
+    },
+    {
+      "text": "light",
+      "lemma": "light",
+      "meaningVi": "cái đèn",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a small light near the computer",
+      "phraseVi": "một cái đèn nhỏ cạnh máy tính"
+    },
+    {
+      "text": "above",
+      "lemma": "above",
+      "meaningVi": "phía trên",
       "sentenceIndex": 6,
-      "pos": "adjective",
-      "phrase": "sick people",
-      "phraseVi": "người bệnh"
+      "pos": "preposition",
+      "phrase": "above the desk",
+      "phraseVi": "phía trên bàn"
     },
     {
-      "text": "medicine",
-      "lemma": "medicine",
-      "meaningVi": "thuốc",
+      "text": "under",
+      "lemma": "under",
+      "meaningVi": "ở dưới",
+      "sentenceIndex": 7,
+      "pos": "preposition",
+      "phrase": "under the desk",
+      "phraseVi": "dưới gầm bàn"
+    },
+    {
+      "text": "papers",
+      "lemma": "paper",
+      "meaningVi": "giấy tờ",
       "sentenceIndex": 7,
       "pos": "noun",
-      "phrase": "She gives them medicine",
-      "phraseVi": "Chị đưa thuốc cho họ"
+      "phrase": "her old papers are in it",
+      "phraseVi": "giấy tờ cũ của cô ấy ở trong đó"
     },
     {
-      "text": "kind",
-      "lemma": "kind",
-      "meaningVi": "tử tế, tốt bụng",
-      "sentenceIndex": 9,
-      "pos": "adjective",
-      "phrase": "always kind to them",
-      "phraseVi": "luôn tử tế với họ"
+      "text": "comes into",
+      "lemma": "come into",
+      "meaningVi": "đi vào",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "comes into the room",
+      "phraseVi": "đi vào phòng"
     },
     {
-      "text": "finishes",
-      "lemma": "finish",
-      "meaningVi": "kết thúc",
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "ở phía sau",
+      "sentenceIndex": 10,
+      "pos": "preposition",
+      "phrase": "behind the chair",
+      "phraseVi": "sau cái ghế"
+    },
+    {
+      "text": "place",
+      "lemma": "place",
+      "meaningVi": "chỗ, nơi",
       "sentenceIndex": 12,
-      "pos": "verb",
-      "phrase": "Her work finishes at four",
-      "phraseVi": "Chị tan làm lúc bốn giờ"
-    },
-    {
-      "text": "goes out",
-      "lemma": "go out",
-      "meaningVi": "ra ngoài, đi chơi",
-      "sentenceIndex": 14,
-      "pos": "verb",
-      "phrase": "she never goes out",
-      "phraseVi": "chị không bao giờ ra ngoài"
-    },
-    {
-      "text": "job",
-      "lemma": "job",
-      "meaningVi": "công việc",
-      "sentenceIndex": 16,
       "pos": "noun",
-      "phrase": "Is your job hard?",
-      "phraseVi": "Công việc của chị có vất vả không?"
+      "phrase": "a place for work",
+      "phraseVi": "chỗ để làm việc"
+    },
+    {
+      "text": "like this",
+      "lemma": "like this",
+      "meaningVi": "như thế này",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "a desk like this",
+      "phraseVi": "một cái bàn như thế này"
     }
   ]
 }

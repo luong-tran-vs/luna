@@ -1,72 +1,72 @@
 {
-  "content": "Today is Grandma's birthday. She is eighty. Everyone in the family is at my grandparents' house in Hue. We have a small party in the garden.\n\nGrandma has a big family, and we are all here together. Grandpa has a present for her: a new red bag. My mum has a big cake. The cake isn't from a shop. It is Mum's cake!\n\nUncle Hai has flowers from his farm, and Aunt Hoa has a photo of the family. My little sister Mai has a card for Grandma. \"Is this your card?\" asks Grandma.\n\"Yes, and that's my picture of you!\" says Mai.\n\nWe sing \"Happy Birthday\", and Grandma is very happy. \"This is my best birthday,\" she says.",
+  "content": "Mai and Vy are students, and they share a room now. Their room is small, but it is nice. Tonight Mai has a lot of pictures on her phone.\n\nVy asks, \"Who is in this picture?\"\n\"These are my grandparents,\" Mai says. \"They are my father's parents. My father is their son, and my aunt is their daughter.\"\n\nHer grandparents have a small house and a big garden in Nam Dinh. Every morning, her grandfather is in the garden with his flowers. Her grandmother is in the kitchen. She makes rice and fish soup for the family. In the afternoon, they have tea with their friends. Their dog, Lu, is always with them.\n\nVy asks about Mai's parents. Mai says, \"My mother and father are in Hanoi with my brother. My sister isn't in Vietnam. She is in Japan.\"",
   "targetWords": [
-    "birthday",
-    "party",
-    "together",
-    "present",
-    "cake",
-    "card",
-    "picture",
-    "happy"
+    "family",
+    "parents",
+    "father",
+    "mother",
+    "son",
+    "daughter",
+    "brother",
+    "sister"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "birthday",
-        "lemma": "birthday",
-        "meaningVi": "sinh nhật",
-        "pos": "noun",
-        "sentenceIndex": 0
-      },
-      {
-        "text": "party",
-        "lemma": "party",
-        "meaningVi": "bữa tiệc",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "together",
-        "lemma": "together",
-        "meaningVi": "cùng nhau",
-        "pos": "adverb",
-        "sentenceIndex": 4
-      },
-      {
-        "text": "present",
-        "lemma": "present",
-        "meaningVi": "món quà",
+        "text": "parents",
+        "lemma": "parents",
+        "meaningVi": "bố mẹ",
         "pos": "noun",
         "sentenceIndex": 5
       },
       {
-        "text": "cake",
-        "lemma": "cake",
-        "meaningVi": "bánh ngọt, bánh kem",
+        "text": "father",
+        "lemma": "father",
+        "meaningVi": "bố, cha",
         "pos": "noun",
         "sentenceIndex": 6
       },
       {
-        "text": "card",
-        "lemma": "card",
-        "meaningVi": "tấm thiệp",
+        "text": "son",
+        "lemma": "son",
+        "meaningVi": "con trai",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "daughter",
+        "lemma": "daughter",
+        "meaningVi": "con gái",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "family",
+        "lemma": "family",
+        "meaningVi": "gia đình, cả nhà",
         "pos": "noun",
         "sentenceIndex": 10
       },
       {
-        "text": "picture",
-        "lemma": "picture",
-        "meaningVi": "bức tranh",
+        "text": "mother",
+        "lemma": "mother",
+        "meaningVi": "mẹ",
         "pos": "noun",
-        "sentenceIndex": 12
+        "sentenceIndex": 14
       },
       {
-        "text": "happy",
-        "lemma": "happy",
-        "meaningVi": "vui, hạnh phúc",
-        "pos": "adjective",
-        "sentenceIndex": 13
+        "text": "brother",
+        "lemma": "brother",
+        "meaningVi": "anh trai, em trai",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "sister",
+        "lemma": "sister",
+        "meaningVi": "chị gái, em gái",
+        "pos": "noun",
+        "sentenceIndex": 15
       }
     ],
     "questions": [
@@ -75,580 +75,500 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Grandma buys a cake at a shop.",
-          "The family has a small party for Grandma's birthday.",
-          "Lan's family visits Uncle Hai's farm.",
-          "Mai makes a card at school."
+          "Mai's new school",
+          "Mai's grandparents and their day",
+          "A trip to Japan",
+          "Vy's family"
         ],
         "answerIndex": 1,
-        "explanationVi": "Cả nhà tụ họp ở nhà ông bà, tổ chức tiệc nhỏ (\"We have a small party\") và mỗi người có quà cho sinh nhật tám mươi tuổi của bà."
+        "explanationVi": "Mai cho Vy xem ảnh ông bà và kể một ngày của ông bà ở Nam Định."
       },
       {
         "kind": "detail",
-        "prompt": "How old is Grandma?",
-        "promptVi": "Bà bao nhiêu tuổi?",
+        "prompt": "Where is her grandfather every morning?",
+        "promptVi": "Sáng nào ông của Mai cũng ở đâu?",
         "options": [
-          "Seventy",
-          "Eight",
-          "Eighty",
-          "Eighteen"
+          "In the kitchen",
+          "In the garden",
+          "In Hanoi",
+          "At school"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Bài viết \"She is eighty\": bà tám mươi tuổi."
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Every morning, her grandfather is in the garden with his flowers\": ông ở ngoài vườn với hoa của ông."
       },
       {
         "kind": "detail",
-        "prompt": "What is Grandpa's present?",
-        "promptVi": "Quà của ông là gì?",
+        "prompt": "What is the dog's name?",
+        "promptVi": "Con chó tên là gì?",
         "options": [
-          "A new red bag",
-          "A big cake",
-          "Flowers",
-          "A photo"
+          "Vy",
+          "Lu",
+          "Mai",
+          "Nam"
         ],
-        "answerIndex": 0,
-        "explanationVi": "Bài viết \"Grandpa has a present for her: a new red bag\". Bánh là của mẹ, hoa là của chú Hai, ảnh là của thím Hoa."
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Their dog, Lu, is always with them\": con chó tên là Lu."
       },
       {
         "kind": "tfn",
-        "prompt": "The cake is from a shop.",
-        "promptVi": "Chiếc bánh được mua ở tiệm.",
+        "prompt": "Mai's sister is in Vietnam.",
+        "promptVi": "Chị gái của Mai đang ở Việt Nam.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bài viết \"The cake isn't from a shop. It is Mum's cake!\": mẹ tự làm bánh."
+        "explanationVi": "Sai, vì Mai nói \"My sister isn't in Vietnam. She is in Japan.\": chị gái Mai ở Nhật Bản."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"present\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"son\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "Grandpa has a present for her: a new red bag.",
+        "quote": "My father is their son, and my aunt is their daughter.\"",
         "options": [
-          "hiện tại",
-          "có mặt",
-          "bức ảnh",
-          "món quà"
+          "con gái",
+          "con trai",
+          "anh trai",
+          "ông"
         ],
-        "answerIndex": 3,
-        "explanationVi": "\"A present for her\" là một món quà tặng bà, và món quà đó là chiếc túi đỏ. Nghĩa \"hiện tại\" hay \"có mặt\" không hợp với câu này."
+        "answerIndex": 1,
+        "explanationVi": "Son là con trai: bố của Mai là con trai của ông bà."
       }
     ],
     "grammarNote": {
-      "title": "Have / has (có)",
-      "bodyVi": "Have / has nghĩa là \"có\": Grandpa has a present for her (ông có quà cho bà). Have còn đi với một số từ để chỉ việc làm: have a party là tổ chức tiệc, have lunch là ăn trưa. Dù nghĩa nào, he, she, it và một người vẫn đi với has, còn I, you, we, they đi với have.",
+      "title": "Possessive adjectives: his, her, their",
+      "bodyVi": "Tính từ sở hữu đứng trước danh từ để nói của ai: his flowers (hoa của ông), her grandmother (bà của Mai), their dog (con chó của ông bà). His dùng cho nam, her cho nữ, their cho nhiều người. Với tên người, thêm 's: Mai's parents (bố mẹ của Mai). Have / has nói ai có gì: Her grandparents have a big garden.",
       "examples": [
-        "We have a small party in the garden.",
-        "Grandpa has a present for her: a new red bag.",
-        "My mum has a big cake."
+        "Every morning, her grandfather is in the garden with his flowers.",
+        "Their dog, Lu, is always with them.",
+        "Her grandparents have a small house and a big garden in Nam Dinh."
       ]
     },
-    "writingPrompt": "Write about a birthday in your family: whose birthday it is and what each person has for him or her.",
+    "writingPrompt": "Write about your grandparents or other old people in your family: where they live and their day at home.",
     "sentenceTranslations": [
-      "Hôm nay là sinh nhật bà.",
-      "Bà tám mươi tuổi.",
-      "Cả nhà đều có mặt ở nhà ông bà mình ở Huế.",
-      "Cả nhà tổ chức một bữa tiệc nhỏ trong vườn.",
-      "Bà có một đại gia đình, và hôm nay mọi người đều ở đây cùng nhau.",
-      "Ông có một món quà cho bà: một chiếc túi mới màu đỏ.",
-      "Mẹ mình có một chiếc bánh kem to.",
-      "Chiếc bánh không phải mua ở tiệm.",
-      "Đó là bánh mẹ tự làm!",
-      "Chú Hai mang hoa từ trang trại của chú, còn thím Hoa có một tấm ảnh cả gia đình.",
-      "Em gái mình, bé Mai, có một tấm thiệp tặng bà.",
-      "\"Đây là thiệp của cháu à?\" bà hỏi.",
-      "\"Vâng, và đó là bức tranh cháu vẽ bà đấy ạ!\" Mai nói.",
-      "Cả nhà hát bài \"Chúc mừng sinh nhật\", và bà rất vui.",
-      "\"Đây là sinh nhật vui nhất của bà,\" bà nói."
+      "Mai và Vy là sinh viên, và bây giờ hai bạn ở chung một phòng.",
+      "Phòng của hai bạn nhỏ, nhưng đẹp.",
+      "Tối nay Mai có rất nhiều ảnh trong điện thoại.",
+      "Vy hỏi: \"Ai ở trong ảnh này vậy?\"",
+      "\"Đây là ông bà mình,\" Mai nói.",
+      "\"Ông bà là bố mẹ của bố mình.",
+      "Bố mình là con trai của ông bà, còn cô mình là con gái của ông bà.\"",
+      "Ông bà của Mai có một ngôi nhà nhỏ và một khu vườn lớn ở Nam Định.",
+      "Sáng nào ông của Mai cũng ở ngoài vườn với những bông hoa của ông.",
+      "Bà của Mai ở trong bếp.",
+      "Bà nấu cơm và canh cá cho cả nhà.",
+      "Buổi chiều, ông bà uống trà với bạn bè.",
+      "Con chó của ông bà tên là Lu, lúc nào cũng ở bên ông bà.",
+      "Vy hỏi về bố mẹ của Mai.",
+      "Mai nói: \"Bố mẹ mình ở Hà Nội với anh trai mình.",
+      "Chị gái mình không ở Việt Nam.",
+      "Chị ấy ở Nhật Bản.\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể về một bữa tiệc sinh nhật trong gia đình: ai có quà gì cho ai, dùng have / has và have a party.",
+    "objectiveVi": "Bạn có thể giới thiệu ông bà qua ảnh và kể một ngày của ông bà, dùng his / her / their và have / has.",
     "examples": [
       {
-        "lemma": "birthday",
-        "sentence": "My birthday is in May.",
-        "meaningVi": "Sinh nhật mình vào tháng Năm."
+        "lemma": "family",
+        "sentence": "My grandmother makes soup for the family.",
+        "meaningVi": "Bà mình nấu canh cho cả nhà."
       },
       {
-        "lemma": "party",
-        "sentence": "We have a party at home today.",
-        "meaningVi": "Hôm nay nhà mình tổ chức tiệc ở nhà."
+        "lemma": "parents",
+        "sentence": "They are my father's parents.",
+        "meaningVi": "Ông bà là bố mẹ của bố mình."
       },
       {
-        "lemma": "together",
-        "sentence": "My cousins and I are together on Sunday.",
-        "meaningVi": "Chủ nhật mình và các anh chị em họ ở cùng nhau."
+        "lemma": "father",
+        "sentence": "My father is their son.",
+        "meaningVi": "Bố mình là con trai của ông bà."
       },
       {
-        "lemma": "present",
-        "sentence": "This present is for my mum.",
-        "meaningVi": "Món quà này là để tặng mẹ mình."
+        "lemma": "mother",
+        "sentence": "My mother is in Hanoi.",
+        "meaningVi": "Mẹ mình ở Hà Nội."
       },
       {
-        "lemma": "cake",
-        "sentence": "The birthday cake is very big.",
-        "meaningVi": "Chiếc bánh sinh nhật rất to."
+        "lemma": "son",
+        "sentence": "They have one son and one daughter.",
+        "meaningVi": "Ông bà có một con trai và một con gái."
       },
       {
-        "lemma": "card",
-        "sentence": "Mai has a card for her dad.",
-        "meaningVi": "Bé Mai có một tấm thiệp tặng bố."
+        "lemma": "daughter",
+        "sentence": "My aunt is their daughter.",
+        "meaningVi": "Cô mình là con gái của ông bà."
       },
       {
-        "lemma": "picture",
-        "sentence": "This is my picture of our house.",
-        "meaningVi": "Đây là bức tranh mình vẽ ngôi nhà của bọn mình."
+        "lemma": "brother",
+        "sentence": "My brother has a dog.",
+        "meaningVi": "Anh trai mình có một con chó."
       },
       {
-        "lemma": "happy",
-        "sentence": "Grandpa is happy with his present.",
-        "meaningVi": "Ông rất vui với món quà của mình."
+        "lemma": "sister",
+        "sentence": "Her sister is in Japan.",
+        "meaningVi": "Chị gái bạn ấy ở Nhật Bản."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Lan",
-        "Duc"
+        "Vy",
+        "Mai"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Duc, it's Grandma's birthday on Sunday!",
-          "meaningVi": "Anh Đức ơi, chủ nhật này là sinh nhật bà đấy!"
+          "text": "Is this your grandfather? He has a lot of flowers!",
+          "meaningVi": "Đây là ông của cậu à? Ông có nhiều hoa quá!"
         },
         {
           "speaker": 1,
-          "text": "I know. Is the party at her house?",
-          "meaningVi": "Anh biết. Tiệc tổ chức ở nhà bà à?"
+          "text": "Yes, he is. The garden is his favourite place.",
+          "meaningVi": "Ừ, đúng rồi. Khu vườn là chỗ ông thích nhất."
         },
         {
           "speaker": 0,
-          "text": "Yes, it is. Mum has a cake for her.",
-          "meaningVi": "Đúng rồi. Mẹ có một chiếc bánh tặng bà."
+          "text": "And who is this woman?",
+          "meaningVi": "Còn bà này là ai?"
         },
         {
           "speaker": 1,
-          "text": "Great. And what is your present?",
-          "meaningVi": "Hay quá. Thế quà của em là gì?"
+          "text": "She is my grandmother. Her fish soup is very good.",
+          "meaningVi": "Đó là bà mình. Canh cá của bà ngon lắm."
         },
         {
           "speaker": 0,
-          "text": "I have a book of old songs. Grandma likes music.",
-          "meaningVi": "Em có một quyển sách những bài hát xưa. Bà thích âm nhạc mà."
+          "text": "Is that their dog?",
+          "meaningVi": "Kia là con chó của ông bà à?"
         },
         {
           "speaker": 1,
-          "text": "That's nice. My present is a photo of us.",
-          "meaningVi": "Hay đấy. Quà của anh là một tấm ảnh chụp cả nhà mình."
+          "text": "Yes. His name is Lu. He is always with my grandparents.",
+          "meaningVi": "Ừ. Nó tên là Lu. Lúc nào nó cũng ở bên ông bà mình."
         },
         {
           "speaker": 0,
-          "text": "A photo? Is it a big photo?",
-          "meaningVi": "Một tấm ảnh à? Ảnh có to không anh?"
+          "text": "Where is their house?",
+          "meaningVi": "Nhà ông bà ở đâu?"
         },
         {
           "speaker": 1,
-          "text": "Yes, it's big, and all the family is in it.",
-          "meaningVi": "Có, ảnh to, và cả nhà đều có trong ảnh."
+          "text": "It is in Nam Dinh. My aunt and her family are near them.",
+          "meaningVi": "Ở Nam Định. Cô mình và gia đình cô ở gần ông bà."
         },
         {
           "speaker": 0,
-          "text": "That's a great present!",
-          "meaningVi": "Quà tuyệt quá!"
-        },
-        {
-          "speaker": 1,
-          "text": "And Mai has a card with her picture.",
-          "meaningVi": "Còn bé Mai có một tấm thiệp có tranh em ấy vẽ."
+          "text": "Your grandparents are very nice.",
+          "meaningVi": "Ông bà cậu dễ mến quá."
         }
       ]
     },
-    "grammarTipVi": "Have không chỉ có nghĩa là \"có\": have a party là tổ chức tiệc, have lunch là ăn trưa. Không nói \"make a party\".",
+    "grammarTipVi": "Hỏi về người trong ảnh: Who is this woman? – She is my grandmother. Hỏi đồ vật của ai: Is that their dog? – Yes, his name is Lu.",
     "translations": [
       {
-        "vi": "Hôm nay là sinh nhật của bà tôi.",
-        "en": "Today is my grandma's birthday.",
+        "vi": "Bố tôi là con trai của họ.",
+        "en": "My father is their son.",
         "distractors": [
-          "grandma",
-          "has",
+          "daughter",
+          "they",
           "are"
         ]
       },
       {
-        "vi": "Chúng tôi tổ chức một bữa tiệc nhỏ.",
-        "en": "We have a small party.",
+        "vi": "Bố mẹ tôi ở Hà Nội.",
+        "en": "My parents are in Hanoi.",
         "distractors": [
-          "has",
-          "are",
-          "big"
+          "is",
+          "me",
+          "at"
         ]
       },
       {
-        "vi": "Ông có một món quà cho bà.",
-        "en": "Grandpa has a present for her.",
+        "vi": "Chị gái tôi không ở Việt Nam.",
+        "en": "My sister isn't in Vietnam.",
         "distractors": [
-          "have",
-          "she",
-          "is"
+          "aren't",
+          "brother",
+          "on"
         ]
       },
       {
-        "vi": "Mẹ tôi có một chiếc bánh kem to.",
-        "en": "My mum has a big cake.",
+        "vi": "Mẹ tôi có một con chó.",
+        "en": "My mother has a dog.",
         "distractors": [
           "have",
-          "small",
-          "is"
+          "father",
+          "an"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Lan và Đức nói chuyện về điều gì?",
+        "prompt": "Vy và Mai nói chuyện về điều gì?",
         "promptVi": "",
         "options": [
-          "Quà tặng sinh nhật bà",
-          "Bài hát ở trường",
-          "Một chuyến đi Huế"
+          "Ông bà của Mai trong ảnh",
+          "Phòng của hai bạn",
+          "Một chuyến đi Nhật Bản"
         ],
         "answerIndex": 0,
-        "explanationVi": "Lan nói \"it's Grandma's birthday on Sunday!\", rồi hai anh em kể quà của từng người.",
+        "explanationVi": "Vy hỏi về ông, bà, con chó và nhà của ông bà Mai.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Bữa tiệc tổ chức ở đâu?",
+        "prompt": "Chỗ ông của Mai thích nhất là đâu?",
         "promptVi": "",
         "options": [
-          "Ở nhà Lan",
-          "Ở nhà bà",
-          "Ở trang trại của chú Hai"
+          "Nhà bếp",
+          "Khu vườn",
+          "Phòng khách"
         ],
         "answerIndex": 1,
-        "explanationVi": "Đức hỏi \"Is the party at her house?\" và Lan trả lời \"Yes, it is\": tiệc ở nhà bà.",
-        "turnIndex": 2
+        "explanationVi": "Mai nói \"The garden is his favourite place.\"",
+        "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Quà của Đức là gì?",
+        "prompt": "Nhà ông bà Mai ở đâu?",
         "promptVi": "",
         "options": [
-          "Một quyển sách",
-          "Một tấm thiệp",
-          "Một tấm ảnh lớn"
+          "Hà Nội",
+          "Nam Định",
+          "Nhật Bản"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Đức nói \"My present is a photo of us\" và ảnh rất to. Sách là quà của Lan, thiệp là của Mai.",
-        "turnIndex": 5
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"It is in Nam Dinh.\"",
+        "turnIndex": 7
       },
       {
         "kind": "tfn",
-        "prompt": "Lan's present is a book.",
-        "promptVi": "Quà của Lan là một quyển sách.",
+        "prompt": "Lu is Mai's grandfather.",
+        "promptVi": "Lu là ông của Mai.",
         "options": [],
-        "answerIndex": 0,
-        "explanationVi": "Đúng, vì Lan nói \"I have a book of old songs\".",
-        "turnIndex": 4
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lu là con chó: \"Is that their dog? – Yes. His name is Lu.\"",
+        "turnIndex": 5
       }
     ],
-    "readingGuideVi": "Mỗi người có gì tặng bà?",
+    "readingGuideVi": "Ông bà của Mai là ai, sống ở đâu và một ngày của ông bà thế nào?",
     "grammarStep": {
-      "titleVi": "Have / has (có)",
+      "titleVi": "Tính từ sở hữu his / her / their",
       "noticing": [
         {
-          "sentence": "We have a small party in the garden.",
+          "sentence": "Every morning, her grandfather is in the garden with his flowers.",
           "highlights": [
-            "have"
+            "her",
+            "his"
           ]
         },
         {
-          "sentence": "Grandpa has a present for her: a new red bag.",
+          "sentence": "Her grandmother is in the kitchen.",
           "highlights": [
-            "has"
+            "Her"
           ]
         },
         {
-          "sentence": "My little sister Mai has a card for Grandma.",
+          "sentence": "In the afternoon, they have tea with their friends.",
           "highlights": [
-            "has"
+            "their"
           ]
         },
         {
-          "sentence": "My mum has a big cake.",
+          "sentence": "Their dog, Lu, is always with them.",
           "highlights": [
-            "has"
+            "Their"
           ]
         }
       ],
-      "questionVi": "Trong câu \"We have a small party in the garden\", have có nghĩa là gì?",
+      "questionVi": "Trong \"her grandfather is in the garden with his flowers\", his nói về ai?",
       "options": [
-        "Mua một bữa tiệc",
-        "Tổ chức một bữa tiệc",
-        "Mời một bữa tiệc"
+        "Về ông của Mai",
+        "Về Mai",
+        "Về bà của Mai"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Have a party nghĩa là tổ chức tiệc. Ở các câu còn lại, has nghĩa là \"có\": ông có quà, Mai có thiệp, mẹ có bánh.",
-      "whenVi": "Dùng have / has để nói ai có gì cho ai (has a present for her), và trong các cụm như have a party (tổ chức tiệc), have lunch (ăn trưa).",
+      "answerIndex": 0,
+      "explanationVi": "His dùng cho một người nam: his flowers là hoa của ông. Her dùng cho một người nữ (her grandfather là ông của Mai), their dùng cho nhiều người (their dog là con chó của ông bà).",
+      "whenVi": "Dùng tính từ sở hữu trước danh từ để nói người hay vật đó là của ai.",
       "table": [
         {
-          "subject": "I / you / we / they",
-          "form": "have: We have a party.",
-          "negative": "—"
+          "subject": "he (anh ấy, ông)",
+          "form": "his: his flowers, his garden",
+          "negative": "It isn't his dog."
         },
         {
-          "subject": "he / she / it",
-          "form": "has: Grandpa has a present.",
-          "negative": "—"
+          "subject": "she (chị ấy, bà)",
+          "form": "her: her kitchen, her soup",
+          "negative": "It isn't her phone."
+        },
+        {
+          "subject": "they (họ)",
+          "form": "their: their house, their dog",
+          "negative": "It isn't their house."
         }
       ],
       "mistakes": [
         {
-          "wrong": "Grandpa have a present for her.",
-          "right": "Grandpa has a present for her."
+          "wrong": "My grandmother is in she kitchen.",
+          "right": "My grandmother is in her kitchen."
         },
         {
-          "wrong": "We make a small party.",
-          "right": "We have a small party."
+          "wrong": "This is they dog.",
+          "right": "This is their dog."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"tổ chức tiệc\" nên người Việt hay dịch thành \"make a party\", trong khi người bản xứ nói have a party.",
+      "noteVi": "Tiếng Việt nói \"bếp của bà\", \"chó của ông bà\", nên người Việt hay dùng nhầm she, they thay cho her, their. Nhớ: trước danh từ dùng his / her / their.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền have hoặc has vào chỗ trống.",
-          "text": "Grandpa ___ a present for Grandma.",
+          "promptVi": "Điền tính từ sở hữu đúng của từ trong ngoặc.",
+          "text": "Her grandfather is in the garden with ___ flowers. (he)",
           "answers": [
-            "has"
+            "his"
           ],
-          "explanationVi": "Grandpa là một người (he), nên dùng has."
+          "explanationVi": "Hoa của ông (he), nên dùng his."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "We ___ a small party in the garden.",
+          "promptVi": "Chọn cách viết đúng.",
+          "text": "Đây là con chó của họ.",
           "options": [
-            "has",
-            "have",
-            "are",
-            "make"
+            "This is their dog.",
+            "This is they dog.",
+            "This is them dog.",
+            "This is there dog."
           ],
-          "answerIndex": 1,
-          "explanationVi": "Chủ ngữ we đi với have, và \"tổ chức tiệc\" là have a party, không phải make a party."
+          "answerIndex": 0,
+          "explanationVi": "Con chó của họ (they) là their dog."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "My little sister have a card for Grandma.",
-          "sentence": "My little sister has a card for Grandma.",
-          "explanationVi": "\"My little sister\" là một người (she), nên dùng has."
+          "text": "My grandmother is in she kitchen.",
+          "sentence": "My grandmother is in her kitchen.",
+          "explanationVi": "Trước danh từ kitchen phải dùng tính từ sở hữu her, không dùng she."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Chú tôi có hoa tặng bà.",
-          "sentence": "My uncle has flowers for Grandma.",
+          "text": "Ông bà tôi có một khu vườn lớn.",
+          "sentence": "My grandparents have a big garden.",
           "words": [
-            "flowers",
-            "has",
+            "garden",
+            "have",
             "My",
-            "for",
-            "uncle",
-            "Grandma",
-            "have"
+            "big",
+            "a",
+            "grandparents",
+            "has"
           ],
-          "explanationVi": "My uncle là một người nên đi với has; từ \"have\" bị thừa."
+          "explanationVi": "Grandparents là nhiều người nên dùng have, từ \"has\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Grandma has a big family.",
-        "tipVi": "Family /ˈfæməli/ nhấn âm đầu FAM, và âm /æ/ mở miệng rộng hơn \"e\" của tiếng Việt."
+        "text": "Every morning, her grandfather is in the garden with his flowers.",
+        "tipVi": "Grandfather /ˈɡrænfɑːðər/ nhấn âm đầu; flowers /ˈflaʊərz/ kết thúc bằng /z/."
       },
       {
-        "text": "My mum has a big cake.",
-        "tipVi": "Cake /keɪk/ kết thúc bằng âm /k/: bật nhẹ âm này ở cuối, đừng đọc thành \"kây\"."
+        "text": "She makes rice and fish soup for the family.",
+        "tipVi": "Fish /fɪʃ/ có âm \"sh\" cuối; soup /suːp/ đọc rõ âm /p/."
       }
     ],
     "speakQuestions": [
       {
-        "question": "When is your birthday?",
-        "questionVi": "Sinh nhật bạn vào khi nào?",
-        "frame": "My birthday is in ___."
+        "question": "Where are your grandparents?",
+        "questionVi": "Ông bà bạn ở đâu?",
+        "frame": "My grandparents are in ___."
       },
       {
-        "question": "Is your birthday party big or small?",
-        "questionVi": "Tiệc sinh nhật của bạn lớn hay nhỏ?",
-        "frame": "My birthday party is ___."
+        "question": "What is your grandmother's favourite food?",
+        "questionVi": "Món ăn bà bạn thích nhất là gì?",
+        "frame": "Her favourite food is ___."
       },
       {
-        "question": "Who in your family has a birthday soon? What is your present for him or her?",
-        "questionVi": "Sắp tới ai trong nhà bạn có sinh nhật? Bạn tặng người đó gì?",
-        "frame": "My ___ has a birthday soon. My present for him / her is ___."
+        "question": "Who is in your favourite family picture?",
+        "questionVi": "Ai có trong bức ảnh gia đình bạn thích nhất?",
+        "frame": "My ___ and my ___ are in it."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng has để nói một người khác có gì (he / she has …)",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng his / her / their nói của ai",
       "anyOf": [
-        "has",
-        "he has",
-        "she has",
-        "my mum has",
-        "my dad has",
-        "my brother has"
+        "his",
+        "her",
+        "their",
+        "'s"
       ],
       "outlineVi": [
-        "Nói hôm nay là sinh nhật của ai.",
-        "Nói mỗi người có quà gì cho người đó.",
-        "Nói mọi người vui thế nào."
+        "Nói ông bà là ai và ở đâu (These are my grandparents. Their house is in …).",
+        "Kể buổi sáng của ông bà (Every morning, my grandfather is …).",
+        "Kể buổi chiều hoặc buổi tối (In the afternoon, they have …)."
       ],
-      "modelAnswer": "Today is my dad's birthday. We have a small party at home. My mum has a big cake, and my brother has a card for Dad. My present is a new blue shirt. Dad is very happy. We are all together, and it is a great birthday."
+      "modelAnswer": "These are my grandparents. They are my mother's parents. Their house is in Thai Binh, and it has a big garden. Every morning, my grandfather is in the garden with his trees. My grandmother is at the market. Her fish soup is very good. In the afternoon, they have tea with their friends."
     }
   },
   "glosses": [
     {
-      "text": "birthday",
-      "lemma": "birthday",
-      "meaningVi": "sinh nhật",
+      "text": "share",
+      "lemma": "share",
+      "meaningVi": "chia sẻ, dùng chung",
       "sentenceIndex": 0,
-      "pos": "noun",
-      "phrase": "Grandma's birthday",
-      "phraseVi": "sinh nhật bà"
+      "pos": "verb",
+      "phrase": "they share a room now",
+      "phraseVi": "bây giờ hai bạn ở chung một phòng"
     },
     {
-      "text": "eighty",
-      "lemma": "eighty",
-      "meaningVi": "tám mươi",
-      "sentenceIndex": 1,
-      "pos": "number",
-      "phrase": "She is eighty",
-      "phraseVi": "Bà tám mươi tuổi"
-    },
-    {
-      "text": "Everyone",
-      "lemma": "everyone",
-      "meaningVi": "mọi người",
-      "sentenceIndex": 2,
-      "pos": "pronoun",
-      "phrase": "Everyone in the family",
-      "phraseVi": "Mọi người trong gia đình"
-    },
-    {
-      "text": "grandparents'",
+      "text": "grandparents",
       "lemma": "grandparents",
-      "meaningVi": "của ông bà",
-      "sentenceIndex": 2,
+      "meaningVi": "ông bà",
+      "sentenceIndex": 4,
       "pos": "noun",
-      "phrase": "my grandparents' house",
-      "phraseVi": "nhà ông bà mình"
+      "phrase": "These are my grandparents",
+      "phraseVi": "Đây là ông bà mình"
     },
     {
-      "text": "party",
-      "lemma": "party",
-      "meaningVi": "bữa tiệc",
-      "sentenceIndex": 3,
+      "text": "aunt",
+      "lemma": "aunt",
+      "meaningVi": "cô, dì, bác gái",
+      "sentenceIndex": 6,
       "pos": "noun",
-      "phrase": "We have a small party",
-      "phraseVi": "Cả nhà tổ chức một bữa tiệc nhỏ"
+      "phrase": "my aunt is their daughter",
+      "phraseVi": "cô mình là con gái của ông bà"
     },
     {
       "text": "garden",
       "lemma": "garden",
       "meaningVi": "khu vườn",
-      "sentenceIndex": 3,
-      "pos": "noun",
-      "phrase": "in the garden",
-      "phraseVi": "trong vườn"
-    },
-    {
-      "text": "together",
-      "lemma": "together",
-      "meaningVi": "cùng nhau",
-      "sentenceIndex": 4,
-      "pos": "adverb",
-      "phrase": "we are all here together",
-      "phraseVi": "mọi người đều ở đây cùng nhau"
-    },
-    {
-      "text": "present",
-      "lemma": "present",
-      "meaningVi": "món quà",
-      "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "a present for her",
-      "phraseVi": "một món quà cho bà"
-    },
-    {
-      "text": "bag",
-      "lemma": "bag",
-      "meaningVi": "cái túi",
-      "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "a new red bag",
-      "phraseVi": "một chiếc túi mới màu đỏ"
-    },
-    {
-      "text": "cake",
-      "lemma": "cake",
-      "meaningVi": "bánh kem",
-      "sentenceIndex": 6,
-      "pos": "noun",
-      "phrase": "a big cake",
-      "phraseVi": "một chiếc bánh kem to"
-    },
-    {
-      "text": "shop",
-      "lemma": "shop",
-      "meaningVi": "cửa hàng, tiệm",
       "sentenceIndex": 7,
       "pos": "noun",
-      "phrase": "from a shop",
-      "phraseVi": "mua ở tiệm"
+      "phrase": "a small house and a big garden",
+      "phraseVi": "một ngôi nhà nhỏ và một khu vườn lớn"
     },
     {
-      "text": "flowers",
-      "lemma": "flower",
-      "meaningVi": "hoa",
+      "text": "grandfather",
+      "lemma": "grandfather",
+      "meaningVi": "ông",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "her grandfather is in the garden",
+      "phraseVi": "ông của Mai ở ngoài vườn"
+    },
+    {
+      "text": "grandmother",
+      "lemma": "grandmother",
+      "meaningVi": "bà",
       "sentenceIndex": 9,
       "pos": "noun",
-      "phrase": "flowers from his farm",
-      "phraseVi": "hoa từ trang trại của chú"
+      "phrase": "Her grandmother is in the kitchen",
+      "phraseVi": "Bà của Mai ở trong bếp"
     },
     {
-      "text": "card",
-      "lemma": "card",
-      "meaningVi": "tấm thiệp",
+      "text": "soup",
+      "lemma": "soup",
+      "meaningVi": "canh, súp",
       "sentenceIndex": 10,
       "pos": "noun",
-      "phrase": "a card for Grandma",
-      "phraseVi": "một tấm thiệp tặng bà"
-    },
-    {
-      "text": "picture",
-      "lemma": "picture",
-      "meaningVi": "bức tranh",
-      "sentenceIndex": 12,
-      "pos": "noun",
-      "phrase": "my picture of you",
-      "phraseVi": "bức tranh cháu vẽ bà"
-    },
-    {
-      "text": "sing",
-      "lemma": "sing",
-      "meaningVi": "hát",
-      "sentenceIndex": 13,
-      "pos": "verb",
-      "phrase": "We sing \"Happy Birthday\"",
-      "phraseVi": "Cả nhà hát bài \"Chúc mừng sinh nhật\""
-    },
-    {
-      "text": "best",
-      "lemma": "best",
-      "meaningVi": "tốt nhất, vui nhất",
-      "sentenceIndex": 14,
-      "pos": "adjective",
-      "phrase": "my best birthday",
-      "phraseVi": "sinh nhật vui nhất của bà"
+      "phrase": "She makes rice and fish soup",
+      "phraseVi": "Bà nấu cơm và canh cá"
     }
   ]
 }

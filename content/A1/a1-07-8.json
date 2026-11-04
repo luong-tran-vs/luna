@@ -1,0 +1,596 @@
+{
+  "content": "Ngoc and Thao are students. They share a small flat in Hanoi, but their days are very different.\n\nNgoc is an early bird. She always wakes up at half past five. She makes breakfast for the two of them: eggs, bread and milk. She usually goes to bed at ten.\n\nThao isn't an early bird. She loves the night. She often stays up late and studies English until one o'clock. The flat is quiet at night, so she can study well. She never gets up before eight, so she is often late for her first class.\n\nEvery morning, Ngoc puts Thao's breakfast on the table.\n\"Are you up, Thao?\" asks Ngoc.\n\"Not yet,\" says Thao from her bed.",
+  "targetWords": [
+    "share",
+    "flat",
+    "early bird",
+    "wake up",
+    "make breakfast",
+    "stay up late",
+    "study",
+    "class"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "share",
+        "lemma": "share",
+        "meaningVi": "ở chung, dùng chung",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "early bird",
+        "lemma": "early bird",
+        "meaningVi": "người hay dậy sớm",
+        "pos": "phrase",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "wakes up",
+        "lemma": "wake up",
+        "meaningVi": "thức dậy",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "makes breakfast",
+        "lemma": "make breakfast",
+        "meaningVi": "làm bữa sáng",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "stays up late",
+        "lemma": "stay up late",
+        "meaningVi": "thức khuya",
+        "pos": "phrase",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "study",
+        "lemma": "study",
+        "meaningVi": "học",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "class",
+        "lemma": "class",
+        "meaningVi": "tiết học, lớp học",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text about?",
+        "promptVi": "Bài đọc nói về điều gì?",
+        "options": [
+          "Two friends with different days",
+          "A new flat in Hanoi",
+          "Thao's English class",
+          "Breakfast in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài so sánh một ngày của hai bạn ở chung: Ngọc dậy sớm làm bữa sáng, Thảo thức khuya học tiếng Anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngoc wakes up at …",
+        "promptVi": "Ngọc thức dậy lúc …",
+        "options": [
+          "five",
+          "half past five",
+          "eight",
+          "ten"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She always wakes up at half past five\". Mười giờ là giờ Ngọc đi ngủ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thao studies English until …",
+        "promptVi": "Thảo học tiếng Anh đến …",
+        "options": [
+          "ten",
+          "twelve",
+          "one o'clock",
+          "eight"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"She often stays up late and studies English until one o'clock\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao often gets up at six.",
+        "promptVi": "Thảo hay dậy lúc sáu giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"She never gets up before eight\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"share\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"They share a small flat in Hanoi, but their days are very different.\"",
+        "options": [
+          "ở chung",
+          "bán",
+          "mua",
+          "dọn dẹp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Share a flat là ở chung một căn hộ, cùng sống ở đó."
+      }
+    ],
+    "grammarNote": {
+      "title": "Trạng từ chỉ tần suất",
+      "bodyVi": "Xếp từ nhiều đến ít: always (luôn luôn, gần như 100%), usually (thường thường), often (hay), never (không bao giờ, 0%). Các từ này đứng trước động từ thường: she always wakes up, she often stays up late. Với am, is, are thì đứng sau: she is often late.",
+      "examples": [
+        "She always wakes up at half past five.",
+        "She often stays up late and studies English until one o'clock.",
+        "She never gets up before eight, so she is often late for her first class."
+      ]
+    },
+    "writingPrompt": "Write about you and a friend or someone in your family: who gets up early, who stays up late, and how often.",
+    "sentenceTranslations": [
+      "Ngọc và Thảo là sinh viên.",
+      "Hai bạn ở chung một căn hộ nhỏ ở Hà Nội, nhưng một ngày của họ rất khác nhau.",
+      "Ngọc là người hay dậy sớm.",
+      "Cô ấy luôn thức dậy lúc năm rưỡi.",
+      "Cô ấy làm bữa sáng cho cả hai: trứng, bánh mì và sữa.",
+      "Cô ấy thường đi ngủ lúc mười giờ.",
+      "Thảo không phải người hay dậy sớm.",
+      "Cô ấy thích ban đêm.",
+      "Cô ấy hay thức khuya học tiếng Anh đến một giờ sáng.",
+      "Ban đêm căn hộ yên tĩnh, nên cô ấy học được tốt.",
+      "Cô ấy không bao giờ dậy trước tám giờ, nên hay bị muộn tiết học đầu tiên.",
+      "Sáng nào Ngọc cũng để bữa sáng của Thảo lên bàn.",
+      "\"Cậu dậy chưa, Thảo?\" Ngọc hỏi.",
+      "\"Chưa,\" Thảo nói vọng ra từ trên giường."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh giờ giấc của mình với một người khác bằng always, usually, often, never.",
+    "examples": [
+      {
+        "lemma": "share",
+        "sentence": "I share a room with my sister.",
+        "meaningVi": "Mình ở chung phòng với em gái."
+      },
+      {
+        "lemma": "flat",
+        "sentence": "Our flat is very small.",
+        "meaningVi": "Căn hộ của chúng mình rất nhỏ."
+      },
+      {
+        "lemma": "early bird",
+        "sentence": "My grandfather is an early bird.",
+        "meaningVi": "Ông mình là người hay dậy sớm."
+      },
+      {
+        "lemma": "wake up",
+        "sentence": "I wake up at six.",
+        "meaningVi": "Mình thức dậy lúc sáu giờ."
+      },
+      {
+        "lemma": "make breakfast",
+        "sentence": "My mother and I make breakfast together.",
+        "meaningVi": "Mẹ và mình cùng làm bữa sáng."
+      },
+      {
+        "lemma": "stay up late",
+        "sentence": "My brothers often stay up late.",
+        "meaningVi": "Các anh trai mình hay thức khuya."
+      },
+      {
+        "lemma": "study",
+        "sentence": "I study English every day.",
+        "meaningVi": "Ngày nào mình cũng học tiếng Anh."
+      },
+      {
+        "lemma": "class",
+        "sentence": "My English class is on Monday.",
+        "meaningVi": "Lớp tiếng Anh của mình vào thứ Hai."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "Thao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "It's ten o'clock. I always go to bed at ten. Are you tired, Thao?",
+          "meaningVi": "Mười giờ rồi. Tớ lúc nào cũng đi ngủ lúc mười giờ. Cậu có mệt không, Thảo?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I'm not. I often study English late at night.",
+          "meaningVi": "Không. Tớ hay học tiếng Anh vào đêm khuya."
+        },
+        {
+          "speaker": 0,
+          "text": "Until when? Is it one o'clock again?",
+          "meaningVi": "Đến mấy giờ? Lại một giờ sáng à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I think so. The flat is quiet at night.",
+          "meaningVi": "Ừ, chắc vậy. Ban đêm căn hộ yên tĩnh mà."
+        },
+        {
+          "speaker": 0,
+          "text": "But your first class is at seven!",
+          "meaningVi": "Nhưng tiết đầu của cậu lúc bảy giờ mà!"
+        },
+        {
+          "speaker": 1,
+          "text": "I know. I'm often late. Can you wake me up at six?",
+          "meaningVi": "Tớ biết. Tớ hay bị muộn. Cậu gọi tớ dậy lúc sáu giờ được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "OK, I can. I always get up at half past five.",
+          "meaningVi": "Được thôi. Tớ lúc nào cũng dậy lúc năm rưỡi."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you! And can you make breakfast for me too?",
+          "meaningVi": "Cảm ơn cậu! Cậu làm bữa sáng cho tớ luôn được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I always make breakfast for you!",
+          "meaningVi": "Tớ lúc nào chẳng làm bữa sáng cho cậu!"
+        }
+      ]
+    },
+    "grammarTipVi": "Often cũng đứng sau be: she is often late (cô ấy hay bị muộn). So sánh với động từ thường: she often stays up late (cô ấy hay thức khuya).",
+    "translations": [
+      {
+        "vi": "Họ ở chung một căn hộ nhỏ.",
+        "en": "They share a small flat.",
+        "distractors": [
+          "shares",
+          "big",
+          "We"
+        ]
+      },
+      {
+        "vi": "Ngọc luôn thức dậy lúc năm rưỡi.",
+        "en": "Ngoc always wakes up at half past five.",
+        "distractors": [
+          "never",
+          "six",
+          "on"
+        ]
+      },
+      {
+        "vi": "Cô ấy làm bữa sáng cho cả hai.",
+        "en": "She makes breakfast for the two of them.",
+        "distractors": [
+          "lunch",
+          "He",
+          "three"
+        ]
+      },
+      {
+        "vi": "Ban đêm căn hộ yên tĩnh.",
+        "en": "The flat is quiet at night.",
+        "distractors": [
+          "are",
+          "busy",
+          "day"
+        ],
+        "accepted": [
+          "At night the flat is quiet."
+        ]
+      },
+      {
+        "vi": "Cô ấy hay bị muộn tiết học đầu tiên.",
+        "en": "She is often late for her first class.",
+        "distractors": [
+          "are",
+          "never",
+          "his"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngọc và Thảo nói về chuyện gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ đi ngủ, giờ học và giờ dậy của hai bạn",
+          "Một căn hộ mới",
+          "Món ăn sáng yêu thích"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc sắp đi ngủ, Thảo còn học khuya, rồi Thảo nhờ Ngọc gọi dậy và làm bữa sáng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngọc luôn đi ngủ lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Mười giờ",
+          "Một giờ sáng",
+          "Sáu giờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"I always go to bed at ten\".",
+        "turnIndex": 0
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thảo nhờ Ngọc gọi dậy lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm rưỡi",
+          "Sáu giờ",
+          "Bảy giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo hỏi \"Can you wake me up at six?\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao's first class is at seven.",
+        "promptVi": "Tiết học đầu tiên của Thảo lúc bảy giờ.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Ngọc nói \"But your first class is at seven!\".",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Ngọc và Thảo khác nhau thế nào về giờ dậy, giờ đi ngủ và giờ học?",
+    "grammarStep": {
+      "titleVi": "Trạng từ chỉ tần suất",
+      "noticing": [
+        {
+          "sentence": "She always wakes up at half past five.",
+          "highlights": [
+            "always"
+          ]
+        },
+        {
+          "sentence": "She usually goes to bed at ten.",
+          "highlights": [
+            "usually"
+          ]
+        },
+        {
+          "sentence": "She often stays up late and studies English until one o'clock.",
+          "highlights": [
+            "often"
+          ]
+        },
+        {
+          "sentence": "She never gets up before eight, so she is often late for her first class.",
+          "highlights": [
+            "never",
+            "is often"
+          ]
+        }
+      ],
+      "questionVi": "Xếp always, usually, often, never theo mức độ từ nhiều đến ít thì thứ tự nào đúng?",
+      "options": [
+        "always → usually → often → never",
+        "often → always → never → usually",
+        "never → often → usually → always"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Always gần như 100% (ngày nào cũng vậy), usually khoảng 90%, often khoảng 70%, never là 0%. Ngọc always wakes up at half past five: ngày nào cũng dậy giờ đó.",
+      "whenVi": "Dùng trạng từ tần suất để so sánh thói quen của hai người: ai luôn dậy sớm, ai hay thức khuya.",
+      "table": [
+        {
+          "subject": "always (~100%)",
+          "form": "Ngoc always wakes up at half past five.",
+          "negative": "She is never late."
+        },
+        {
+          "subject": "usually (~90%)",
+          "form": "She usually goes to bed at ten.",
+          "negative": "She never goes to bed at one."
+        },
+        {
+          "subject": "often (~70%)",
+          "form": "Thao often stays up late.",
+          "negative": "Thao isn't an early bird."
+        },
+        {
+          "subject": "never (0%)",
+          "form": "Thao never gets up before eight.",
+          "negative": "Thao can't get up at six."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Thao stays often up late.",
+          "right": "Thao often stays up late."
+        },
+        {
+          "wrong": "She often is late.",
+          "right": "She is often late."
+        }
+      ],
+      "noteVi": "Never đã có nghĩa là không bao giờ, nên đừng thêm not: She never gets up early (không viết She not never gets up early).",
+      "exercises": [
+        {
+          "kind": "choice",
+          "promptVi": "Ngày nào Ngọc cũng dậy lúc năm rưỡi. Chọn từ đúng.",
+          "text": "Ngoc ___ wakes up at half past five.",
+          "options": [
+            "never",
+            "always",
+            "often",
+            "usually"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Ngày nào cũng vậy là always (luôn luôn)."
+        },
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"không bao giờ\".",
+          "text": "Thao ___ gets up before eight.",
+          "answers": [
+            "never"
+          ],
+          "explanationVi": "Never nghĩa là không bao giờ, đứng trước động từ gets up."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She often is late for her first class.",
+          "sentence": "She is often late for her first class.",
+          "explanationVi": "Với is, often phải đứng sau: is often late."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy hay thức khuya.",
+          "sentence": "She often stays up late.",
+          "words": [
+            "up",
+            "often",
+            "She",
+            "late",
+            "stays",
+            "stay"
+          ],
+          "explanationVi": "Often đứng trước stays; She là một người nên dùng stays, từ \"stay\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She always wakes up at half past five.",
+        "tipVi": "Wakes up nối âm thành /weɪksʌp/; half /hɑːf/ không đọc chữ l."
+      },
+      {
+        "text": "She often stays up late and studies English until one o'clock.",
+        "tipVi": "Often /ˈɒfn/ thường không đọc chữ t; studies /ˈstʌdiz/ có âm /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Are you an early bird?",
+        "questionVi": "Bạn có phải người hay dậy sớm không?",
+        "frame": "Yes, I am. I always wake up at ___. / No, I'm not. I usually wake up at ___."
+      },
+      {
+        "question": "Can you study late at night?",
+        "questionVi": "Bạn có học khuya được không?",
+        "frame": "Yes, I can. I often study until ___. / No, I can't. I usually go to bed at ___."
+      },
+      {
+        "question": "Who makes breakfast in your home?",
+        "questionVi": "Ở nhà bạn ai làm bữa sáng?",
+        "frame": "My ___ usually makes breakfast."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng trạng từ tần suất (always, usually, often, never)",
+      "anyOf": [
+        "always",
+        "usually",
+        "often",
+        "never"
+      ],
+      "outlineVi": [
+        "Nói bạn có phải người hay dậy sớm không và thường dậy lúc mấy giờ.",
+        "Kể về một người bạn hoặc người nhà có giờ giấc khác bạn.",
+        "So sánh hai người, dùng always, usually, often, never."
+      ],
+      "modelAnswer": "I am not an early bird. I usually wake up at seven. My sister always gets up at six and makes breakfast. I often study late at night. I never go to bed before twelve, so I am often tired in the morning."
+    }
+  },
+  "glosses": [
+    {
+      "text": "students",
+      "lemma": "student",
+      "meaningVi": "sinh viên, học sinh",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Ngoc and Thao are students",
+      "phraseVi": "Ngọc và Thảo là sinh viên"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác nhau",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "their days are very different",
+      "phraseVi": "một ngày của họ rất khác nhau"
+    },
+    {
+      "text": "the two of them",
+      "lemma": "two",
+      "meaningVi": "cả hai người",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "breakfast for the two of them",
+      "phraseVi": "bữa sáng cho cả hai"
+    },
+    {
+      "text": "loves the night",
+      "lemma": "love",
+      "meaningVi": "thích ban đêm",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "She loves the night",
+      "phraseVi": "Cô ấy thích ban đêm"
+    },
+    {
+      "text": "until",
+      "lemma": "until",
+      "meaningVi": "đến, cho đến",
+      "sentenceIndex": 8,
+      "pos": "preposition",
+      "phrase": "until one o'clock",
+      "phraseVi": "đến một giờ sáng"
+    },
+    {
+      "text": "before",
+      "lemma": "before",
+      "meaningVi": "trước",
+      "sentenceIndex": 10,
+      "pos": "preposition",
+      "phrase": "before eight",
+      "phraseVi": "trước tám giờ"
+    },
+    {
+      "text": "puts",
+      "lemma": "put",
+      "meaningVi": "để, đặt",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "Ngoc puts Thao's breakfast on the table",
+      "phraseVi": "Ngọc để bữa sáng của Thảo lên bàn"
+    },
+    {
+      "text": "Not yet",
+      "lemma": "yet",
+      "meaningVi": "chưa",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "Not yet",
+      "phraseVi": "Chưa"
+    }
+  ]
+}

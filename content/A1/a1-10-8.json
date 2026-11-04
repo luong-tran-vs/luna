@@ -1,0 +1,585 @@
+{
+  "content": "It is ten o'clock at night. Jun is from Korea. She is in a taxi in Ho Chi Minh City, a very big city. Her hotel is very small, and the driver doesn't know it.\n\n\"Don't worry,\" Jun says. \"I have a map on my phone. Go straight on to the big supermarket, please.\"\n\nAt the supermarket, she looks at her phone. \"Slow down, please. Turn left here, into the small alley.\"\n\n\"This alley? It's very quiet,\" the driver says.\n\n\"Yes. Go past the church. My hotel is behind it. Stop near the green door, please.\"\n\nThe driver stops in front of a small hotel with a green door. \"Is this your hotel?\" he asks.\n\n\"Yes, it is,\" Jun says. \"Thank you very much!\"",
+  "targetWords": [
+    "city",
+    "hotel",
+    "map",
+    "straight on",
+    "supermarket",
+    "left",
+    "church",
+    "behind"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "city",
+        "lemma": "city",
+        "meaningVi": "thành phố",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "hotel",
+        "lemma": "hotel",
+        "meaningVi": "khách sạn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "map",
+        "lemma": "map",
+        "meaningVi": "bản đồ",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "straight on",
+        "lemma": "straight on",
+        "meaningVi": "đi thẳng",
+        "pos": "adverb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "supermarket",
+        "lemma": "supermarket",
+        "meaningVi": "siêu thị",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "left",
+        "lemma": "left",
+        "meaningVi": "bên trái",
+        "pos": "adverb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "church",
+        "lemma": "church",
+        "meaningVi": "nhà thờ",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "behind",
+        "lemma": "behind",
+        "meaningVi": "ở phía sau",
+        "pos": "preposition",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Jun buys a phone at the supermarket.",
+          "Jun tells a taxi driver the way to her hotel.",
+          "A driver shows Jun the way to the church.",
+          "Jun walks to her hotel at night."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tài xế không biết khách sạn nhỏ của Jun, nên cô xem bản đồ trên điện thoại và chỉ đường cho anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Jun tell the driver the way?",
+        "promptVi": "Vì sao Jun phải chỉ đường cho tài xế?",
+        "options": [
+          "The driver doesn't know her hotel.",
+          "The driver has no car.",
+          "Her phone is very old.",
+          "She wants to go to the church."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Her hotel is very small, and the driver doesn't know it\": khách sạn rất nhỏ và tài xế không biết nó ở đâu."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where does the driver turn left?",
+        "promptVi": "Tài xế rẽ trái ở đâu?",
+        "options": [
+          "At the church",
+          "At the green door",
+          "At the supermarket",
+          "At the hotel"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Đến siêu thị, Jun nói \"Slow down, please. Turn left here, into the small alley\": chạy chậm lại và rẽ trái vào con ngõ nhỏ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Jun's hotel is in front of the church.",
+        "promptVi": "Khách sạn của Jun ở phía trước nhà thờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Jun nói \"Go past the church. My hotel is behind it\": khách sạn ở phía sau nhà thờ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Slow down\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Slow down, please.",
+        "options": [
+          "chạy nhanh lên",
+          "chạy chậm lại",
+          "dừng hẳn lại",
+          "quay xe lại"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Slow down là chạy chậm lại: Jun bảo tài xế đi chậm để rẽ vào ngõ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh (Imperatives)",
+      "bodyVi": "Khi chỉ đường cho tài xế, ta dùng câu mệnh lệnh với please cho lịch sự: Go straight on, please. Slow down, please. Stop near the green door, please. Muốn bảo đừng làm gì, dùng Don't + động từ: Don't worry. Muốn rủ cùng làm, dùng Let's + động từ.",
+      "examples": [
+        "Go straight on to the big supermarket, please.\"",
+        "\"Slow down, please.",
+        "Turn left here, into the small alley.\""
+      ]
+    },
+    "writingPrompt": "You are in a taxi. Tell the driver the way to your home. Use go, turn, slow down, stop and please.",
+    "sentenceTranslations": [
+      "Bây giờ là mười giờ tối.",
+      "Jun đến từ Hàn Quốc.",
+      "Cô đang ngồi taxi ở Thành phố Hồ Chí Minh, một thành phố rất lớn.",
+      "Khách sạn của cô rất nhỏ, và tài xế không biết nó.",
+      "\"Anh đừng lo,\" Jun nói.",
+      "\"Tôi có bản đồ trên điện thoại.",
+      "Anh làm ơn đi thẳng đến siêu thị lớn nhé.\"",
+      "Đến siêu thị, cô nhìn điện thoại.",
+      "\"Anh chạy chậm lại nhé.",
+      "Rẽ trái ở đây, vào con ngõ nhỏ.\"",
+      "\"Ngõ này á?",
+      "Ở đây vắng quá,\" tài xế nói.",
+      "\"Vâng.",
+      "Anh đi qua nhà thờ.",
+      "Khách sạn của tôi ở phía sau nhà thờ.",
+      "Anh dừng gần cánh cửa màu xanh lá nhé.\"",
+      "Tài xế dừng xe phía trước một khách sạn nhỏ có cửa màu xanh lá.",
+      "\"Đây là khách sạn của chị phải không?\" anh hỏi.",
+      "\"Vâng, đúng rồi,\" Jun nói.",
+      "\"Cảm ơn anh nhiều!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chỉ đường cho tài xế taxi một cách lịch sự: Go straight on, please. Slow down. Turn left here. Stop near …",
+    "examples": [
+      {
+        "lemma": "city",
+        "sentence": "This city is very busy at night.",
+        "meaningVi": "Thành phố này buổi tối rất đông đúc."
+      },
+      {
+        "lemma": "hotel",
+        "sentence": "Stop in front of the hotel, please.",
+        "meaningVi": "Làm ơn dừng phía trước khách sạn."
+      },
+      {
+        "lemma": "map",
+        "sentence": "I have a map on my phone.",
+        "meaningVi": "Mình có bản đồ trên điện thoại."
+      },
+      {
+        "lemma": "straight on",
+        "sentence": "Go straight on, please.",
+        "meaningVi": "Làm ơn đi thẳng."
+      },
+      {
+        "lemma": "supermarket",
+        "sentence": "The supermarket is open at night.",
+        "meaningVi": "Siêu thị mở cửa cả buổi tối."
+      },
+      {
+        "lemma": "left",
+        "sentence": "Turn left into the alley.",
+        "meaningVi": "Rẽ trái vào ngõ."
+      },
+      {
+        "lemma": "church",
+        "sentence": "Go past the church and stop.",
+        "meaningVi": "Đi qua nhà thờ rồi dừng lại."
+      },
+      {
+        "lemma": "behind",
+        "sentence": "My house is behind the school.",
+        "meaningVi": "Nhà mình ở phía sau trường học."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Jun",
+        "Thu"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Good morning. Is there a bus stop near the hotel?",
+          "meaningVi": "Chào buổi sáng. Gần khách sạn có bến xe buýt không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is. Go out of the alley and turn right.",
+          "meaningVi": "Có ạ. Chị đi ra khỏi ngõ rồi rẽ phải."
+        },
+        {
+          "speaker": 0,
+          "text": "Turn right at the church?",
+          "meaningVi": "Rẽ phải ở chỗ nhà thờ à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, at the supermarket. The bus stop is in front of it.",
+          "meaningVi": "Không, ở chỗ siêu thị. Bến xe buýt ở ngay phía trước siêu thị."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks. Which bus goes to the station?",
+          "meaningVi": "Cảm ơn em. Xe buýt nào đi đến nhà ga?"
+        },
+        {
+          "speaker": 1,
+          "text": "Take bus number 18. Don't take bus 19.",
+          "meaningVi": "Chị đi xe số 18. Đừng đi xe số 19."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Can I walk back to the hotel at night?",
+          "meaningVi": "Được. Buổi tối tôi đi bộ về khách sạn được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, you can. But call me first. Here is my number.",
+          "meaningVi": "Được ạ. Nhưng chị gọi cho em trước nhé. Đây là số của em."
+        }
+      ]
+    },
+    "grammarTipVi": "Thêm please ở cuối (hoặc đầu) câu mệnh lệnh để lời nhờ lịch sự hơn: Go straight on, please. Please stop here.",
+    "translations": [
+      {
+        "vi": "Làm ơn đi thẳng đến siêu thị.",
+        "en": "Go straight on to the supermarket, please.",
+        "distractors": [
+          "Goes",
+          "at",
+          "from"
+        ],
+        "accepted": [
+          "Please go straight on to the supermarket."
+        ]
+      },
+      {
+        "vi": "Rẽ trái vào con ngõ nhỏ.",
+        "en": "Turn left into the small alley.",
+        "distractors": [
+          "right",
+          "Turns",
+          "big"
+        ]
+      },
+      {
+        "vi": "Khách sạn của tôi ở phía sau nhà thờ.",
+        "en": "My hotel is behind the church.",
+        "distractors": [
+          "Me",
+          "front",
+          "are"
+        ]
+      },
+      {
+        "vi": "Tôi có bản đồ trên điện thoại.",
+        "en": "I have a map on my phone.",
+        "distractors": [
+          "has",
+          "me",
+          "under"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Jun hỏi Thu điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đường đến bến xe buýt",
+          "Giá phòng khách sạn",
+          "Đường đến sân bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Jun hỏi \"Is there a bus stop near the hotel?\" và Thu chỉ đường cho cô.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bến xe buýt ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Phía sau nhà thờ",
+          "Phía trước siêu thị",
+          "Trong ngõ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"No, at the supermarket. The bus stop is in front of it.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Jun nên đi xe buýt số mấy?",
+        "promptVi": "",
+        "options": [
+          "Số 19",
+          "Số 8",
+          "Số 18"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thu nói \"Take bus number 18. Don't take bus 19.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu tells Jun to call her first.",
+        "promptVi": "Thu bảo Jun gọi cho cô trước.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Thu nói \"But call me first. Here is my number.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Jun chỉ cho tài xế đi đường nào, và khách sạn của cô nằm ở đâu?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Don't worry,\" Jun says.",
+          "highlights": [
+            "Don't worry"
+          ]
+        },
+        {
+          "sentence": "Go straight on to the big supermarket, please.\"",
+          "highlights": [
+            "Go"
+          ]
+        },
+        {
+          "sentence": "\"Slow down, please.",
+          "highlights": [
+            "Slow down"
+          ]
+        },
+        {
+          "sentence": "Stop near the green door, please.\"",
+          "highlights": [
+            "Stop"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Jun thêm please vào các câu chỉ đường?",
+      "options": [
+        "Để câu thành câu hỏi",
+        "Để lời nhờ lịch sự hơn",
+        "Để nói về hôm qua"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu mệnh lệnh nghe khá thẳng, nên khi nhờ tài xế, ta thêm please cho lịch sự: Slow down, please.",
+      "whenVi": "Dùng câu mệnh lệnh có please khi chỉ đường cho tài xế hoặc nhờ ai làm gì.",
+      "table": [
+        {
+          "subject": "Làm",
+          "form": "Go straight on, please. Slow down.",
+          "negative": ""
+        },
+        {
+          "subject": "Đừng làm",
+          "form": "Don't + động từ",
+          "negative": "Don't worry."
+        },
+        {
+          "subject": "Rủ cùng làm",
+          "form": "Let's + động từ: Let's go.",
+          "negative": ""
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Please you stop here.",
+          "right": "Please stop here."
+        },
+        {
+          "wrong": "Turning left here, please.",
+          "right": "Turn left here, please."
+        }
+      ],
+      "noteVi": "Người Việt hay nói \"Anh làm ơn dừng ở đây\", nên dễ viết \"Please you stop\". Trong tiếng Anh, sau please là động từ luôn, không có you.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ để bảo tài xế dừng lại.",
+          "text": "___ near the green door, please.",
+          "answers": [
+            "Stop"
+          ],
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Stop."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ worry. I have a map.",
+          "options": [
+            "Not",
+            "Doesn't",
+            "No",
+            "Don't"
+          ],
+          "answerIndex": 3,
+          "explanationVi": "Bảo ai đừng làm gì: Don't + động từ nguyên mẫu."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Please you slow down.",
+          "sentence": "Please slow down.",
+          "explanationVi": "Sau please là động từ nguyên mẫu, không có you."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Rẽ trái vào con ngõ nhỏ.",
+          "sentence": "Turn left into the small alley.",
+          "words": [
+            "left",
+            "small",
+            "Turn",
+            "the",
+            "into",
+            "alley",
+            "Turns"
+          ],
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu Turn; từ \"Turns\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "At the supermarket, she looks at her phone.",
+        "tipVi": "Supermarket nhấn âm đầu \"SU\"; phone /fəʊn/ có nguyên âm đôi /əʊ/."
+      },
+      {
+        "text": "The driver stops in front of a small hotel with a green door.",
+        "tipVi": "Driver /ˈdraɪvə/ nhấn âm đầu; stops /stɒps/ kết thúc bằng cụm /ps/; green door đọc rõ /iː/ và /ɔː/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you take a taxi in your city?",
+        "questionVi": "Bạn có đi taxi ở thành phố của bạn không?",
+        "frame": "Yes, I do. / No, I don't. I go by ___."
+      },
+      {
+        "question": "How do you tell a taxi driver the way to your home?",
+        "questionVi": "Bạn chỉ đường cho tài xế taxi về nhà bạn thế nào?",
+        "frame": "Go straight on to the ___, please. Then turn ___."
+      },
+      {
+        "question": "What is behind your house?",
+        "questionVi": "Phía sau nhà bạn có gì?",
+        "frame": "There is a ___ behind my house."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 2 câu mệnh lệnh để chỉ đường cho tài xế (Go, Turn, Slow down, Stop …)",
+      "anyOf": [
+        "go",
+        "turn",
+        "slow",
+        "stop",
+        "don't",
+        "please"
+      ],
+      "outlineVi": [
+        "Nói với tài xế bạn muốn đi đâu (My home is near …).",
+        "Chỉ đường từng bước (Go straight on to …, turn left …, slow down …).",
+        "Bảo tài xế dừng ở đâu (Stop in front of / near …, please.)."
+      ],
+      "modelAnswer": "My home is near the big park. Go straight on to the park, please. Then turn right at the bank. Slow down, please. Turn left into the small alley. Don't go fast. My house is behind the café. Stop in front of the blue door, please. Thank you!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "at night",
+      "lemma": "at night",
+      "meaningVi": "buổi tối, ban đêm",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "ten o'clock at night",
+      "phraseVi": "mười giờ tối"
+    },
+    {
+      "text": "driver",
+      "lemma": "driver",
+      "meaningVi": "tài xế, người lái xe",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "the driver doesn't know it",
+      "phraseVi": "tài xế không biết nó"
+    },
+    {
+      "text": "Don't worry",
+      "lemma": "don't worry",
+      "meaningVi": "đừng lo",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "Don't worry",
+      "phraseVi": "Đừng lo"
+    },
+    {
+      "text": "Slow down",
+      "lemma": "slow down",
+      "meaningVi": "chạy chậm lại",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Slow down, please",
+      "phraseVi": "Làm ơn chạy chậm lại"
+    },
+    {
+      "text": "alley",
+      "lemma": "alley",
+      "meaningVi": "ngõ, hẻm",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "into the small alley",
+      "phraseVi": "vào con ngõ nhỏ"
+    },
+    {
+      "text": "quiet",
+      "lemma": "quiet",
+      "meaningVi": "vắng vẻ, yên tĩnh",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "It's very quiet",
+      "phraseVi": "Ở đây vắng quá"
+    },
+    {
+      "text": "Go past",
+      "lemma": "go past",
+      "meaningVi": "đi qua (ngang qua)",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "Go past the church",
+      "phraseVi": "Đi qua nhà thờ"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ở phía trước",
+      "sentenceIndex": 16,
+      "pos": "preposition",
+      "phrase": "in front of a small hotel",
+      "phraseVi": "phía trước một khách sạn nhỏ"
+    }
+  ]
+}

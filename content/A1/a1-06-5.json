@@ -1,72 +1,72 @@
 {
-  "content": "It is Friday evening, and Linh helps her mum in the kitchen. They make an easy dinner: egg and tomato sandwiches.\n\nFirst, Mum cooks four eggs. Then Linh cuts the bread and the tomatoes. The tomatoes aren't small, and they are very red. Mum cuts the eggs, and Linh puts the eggs and the tomatoes on the bread.\n\n\"Is there any cheese?\" asks Linh.\n\"Yes, there is a little cheese in the kitchen,\" says Mum. \"It's near the milk.\"\n\nLinh puts some cheese on the sandwiches too. Now there are eight sandwiches on the table. Linh's little brother, Khang, is hungry, and he looks at the sandwiches. \"Are they for me?\" he asks.\n\"One sandwich is for you,\" says Linh. \"The other sandwiches are for the family!\"",
+  "content": "Lan likes the small coffee shop near her office. On Monday morning, she talks to Duc. He makes the coffee there.\n\n\"What time is the shop open in the morning?\" asks Lan.\n\"At seven o'clock, from Monday to Saturday,\" says Duc.\n\"And on Sunday?\"\n\"On Sunday, it's open at half past eight.\"\n\"When is it closed?\" she asks.\n\"It's closed at ten in the evening, but on Wednesday it's closed at six.\"\n\"Why is that?\" asks Lan.\n\"I'm not free on Wednesday evening,\" says Duc.\n\"My English class is at a quarter past six, and it's one hour long.\"\n\"In December, the shop is open late, because it's a happy month.\"\n\nLan looks at the time on the wall. She has five minutes.\n\"One coffee with milk, please,\" she says.\n\"Just a second,\" says Duc.",
   "targetWords": [
-    "dinner",
-    "cook",
-    "egg",
-    "bread",
-    "tomato",
-    "cheese",
-    "sandwich",
-    "hungry"
+    "time",
+    "o'clock",
+    "hour",
+    "minute",
+    "second",
+    "half past",
+    "quarter",
+    "morning"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "dinner",
-        "lemma": "dinner",
-        "meaningVi": "bữa tối",
+        "text": "morning",
+        "lemma": "morning",
+        "meaningVi": "buổi sáng",
         "pos": "noun",
         "sentenceIndex": 1
       },
       {
-        "text": "cooks",
-        "lemma": "cook",
-        "meaningVi": "nấu, luộc",
-        "pos": "verb",
-        "sentenceIndex": 2
-      },
-      {
-        "text": "eggs",
-        "lemma": "egg",
-        "meaningVi": "quả trứng",
-        "pos": "noun",
-        "sentenceIndex": 2
-      },
-      {
-        "text": "bread",
-        "lemma": "bread",
-        "meaningVi": "bánh mì",
+        "text": "time",
+        "lemma": "time",
+        "meaningVi": "thời gian, giờ",
         "pos": "noun",
         "sentenceIndex": 3
       },
       {
-        "text": "tomatoes",
-        "lemma": "tomato",
-        "meaningVi": "quả cà chua",
-        "pos": "noun",
-        "sentenceIndex": 3
+        "text": "o'clock",
+        "lemma": "o'clock",
+        "meaningVi": "giờ (đúng)",
+        "pos": "adverb",
+        "sentenceIndex": 4
       },
       {
-        "text": "cheese",
-        "lemma": "cheese",
-        "meaningVi": "phô mai",
-        "pos": "noun",
+        "text": "half past",
+        "lemma": "half past",
+        "meaningVi": "rưỡi (quá ba mươi phút)",
+        "pos": "phrase",
         "sentenceIndex": 6
       },
       {
-        "text": "sandwiches",
-        "lemma": "sandwich",
-        "meaningVi": "bánh mì kẹp",
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "mười lăm phút (một phần tư giờ)",
         "pos": "noun",
-        "sentenceIndex": 9
+        "sentenceIndex": 11
       },
       {
-        "text": "hungry",
-        "lemma": "hungry",
-        "meaningVi": "đói",
-        "pos": "adjective",
+        "text": "hour",
+        "lemma": "hour",
+        "meaningVi": "tiếng, giờ đồng hồ",
+        "pos": "noun",
         "sentenceIndex": 11
+      },
+      {
+        "text": "minutes",
+        "lemma": "minute",
+        "meaningVi": "phút",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "second",
+        "lemma": "second",
+        "meaningVi": "giây, một chút",
+        "pos": "noun",
+        "sentenceIndex": 16
       }
     ],
     "questions": [
@@ -75,532 +75,504 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Linh's favourite cheese",
-          "A shop with cakes",
-          "Linh helps her mum make sandwiches.",
-          "Khang's birthday"
+          "Duc's English class",
+          "Lan asks Duc about the times of the coffee shop.",
+          "Lan is late for work.",
+          "A new office in December"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan hỏi Duc quán cà phê mở cửa và đóng cửa lúc mấy giờ, vào những ngày nào."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time is the shop open on Sunday?",
+        "promptVi": "Chủ nhật quán mở cửa lúc mấy giờ?",
+        "options": [
+          "At seven o'clock",
+          "At six o'clock",
+          "At half past eight",
+          "At a quarter past six"
         ],
         "answerIndex": 2,
-        "explanationVi": "Linh giúp mẹ làm bánh mì kẹp trứng và cà chua cho bữa tối: luộc trứng, cắt bánh mì, cho phô mai vào."
+        "explanationVi": "Duc nói \"On Sunday, it's open at half past eight\"."
       },
       {
         "kind": "detail",
-        "prompt": "How many eggs are in the sandwiches?",
-        "promptVi": "Trong bánh mì kẹp có mấy quả trứng?",
+        "prompt": "Why is the shop closed early on Wednesday?",
+        "promptVi": "Vì sao thứ Tư quán đóng cửa sớm?",
         "options": [
-          "Two",
-          "Four",
-          "Six",
-          "Eight"
+          "Duc has an English class.",
+          "It's a happy month.",
+          "Lan is not free.",
+          "There is no coffee."
         ],
-        "answerIndex": 1,
-        "explanationVi": "Bài viết \"First, Mum cooks four eggs\". Tám là số chiếc bánh."
-      },
-      {
-        "kind": "detail",
-        "prompt": "Where is the cheese?",
-        "promptVi": "Phô mai ở đâu?",
-        "options": [
-          "On the table",
-          "Near the milk",
-          "In the bread",
-          "Near the eggs"
-        ],
-        "answerIndex": 1,
-        "explanationVi": "Mẹ nói \"It's near the milk\"."
+        "answerIndex": 0,
+        "explanationVi": "Duc nói \"My English class is at a quarter past six\": tối thứ Tư anh ấy đi học tiếng Anh."
       },
       {
         "kind": "tfn",
-        "prompt": "All the sandwiches are for Khang.",
-        "promptVi": "Tất cả bánh mì kẹp là của Khang.",
+        "prompt": "Duc is free on Wednesday evening.",
+        "promptVi": "Tối thứ Tư Duc rảnh.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Linh nói \"One sandwich is for you. The other sandwiches are for the family!\""
+        "explanationVi": "Sai, vì Duc nói \"I'm not free on Wednesday evening\"."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"cuts\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"second\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "Then Linh cuts the bread and the tomatoes.",
+        "quote": "\"Just a second,\" says Duc.",
         "options": [
-          "nấu",
-          "rửa",
-          "cắt",
-          "ăn"
+          "thứ hai",
+          "một chút",
+          "một tiếng",
+          "buổi sáng"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Cuts là cắt (từ cut): Linh cắt bánh mì và cà chua để làm bánh kẹp."
+        "answerIndex": 1,
+        "explanationVi": "Just a second nghĩa là \"chờ một chút\": a second là một giây, dùng để nói một thời gian rất ngắn."
       }
     ],
     "grammarNote": {
-      "title": "Mạo từ a / an / the",
-      "bodyVi": "A / an dùng khi nói đến một thứ lần đầu: an easy dinner (an vì easy bắt đầu bằng âm nguyên âm). The dùng khi hai người đều biết đó là thứ nào: the bread, the tomatoes (bánh mì và cà chua có sẵn trong bếp). Khi nói chung chung thì không dùng mạo từ: egg and tomato sandwiches.",
+      "title": "At, on, in với thời gian",
+      "bodyVi": "Dùng at với giờ (at seven o'clock, at half past eight), on với thứ (on Sunday, on Wednesday), in với tháng và buổi (in December, in the morning, in the evening).",
       "examples": [
-        "They make an easy dinner: egg and tomato sandwiches.",
-        "Then Linh cuts the bread and the tomatoes.",
-        "Mum cuts the eggs, and Linh puts the eggs and the tomatoes on the bread."
+        "\"What time is the shop open in the morning?\" asks Lan.",
+        "\"On Sunday, it's open at half past eight.\"",
+        "\"In December, the shop is open late, because it's a happy month.\""
       ]
     },
-    "writingPrompt": "Write about a meal you make with someone in your family: what you need and what each person does.",
+    "writingPrompt": "Write about a shop or a coffee shop near you: what time it is open and closed, and on which days.",
     "sentenceTranslations": [
-      "Hôm nay là tối thứ Sáu, và Linh giúp mẹ trong bếp.",
-      "Hai mẹ con làm một bữa tối đơn giản: bánh mì kẹp trứng và cà chua.",
-      "Đầu tiên, mẹ luộc bốn quả trứng.",
-      "Rồi Linh cắt bánh mì và cà chua.",
-      "Cà chua không nhỏ, và rất đỏ.",
-      "Mẹ cắt trứng, còn Linh đặt trứng và cà chua lên bánh mì.",
-      "\"Có phô mai không mẹ?\" Linh hỏi.",
-      "\"Có, trong bếp có một ít phô mai,\" mẹ nói.",
-      "\"Ở gần chỗ sữa ấy.\"",
-      "Linh cho thêm ít phô mai vào bánh.",
-      "Giờ trên bàn có tám cái bánh mì kẹp.",
-      "Em trai Linh, bé Khang, đói bụng và nhìn mấy cái bánh.",
-      "\"Bánh này cho em à?\" Khang hỏi.",
-      "\"Một cái là của em,\" Linh nói.",
-      "\"Mấy cái kia là của cả nhà!\""
+      "Lan thích quán cà phê nhỏ gần văn phòng của cô ấy.",
+      "Vào sáng thứ Hai, cô ấy nói chuyện với Duc.",
+      "Anh ấy pha cà phê ở đó.",
+      "\"Buổi sáng quán mở cửa lúc mấy giờ?\" Lan hỏi.",
+      "\"Lúc bảy giờ, từ thứ Hai đến thứ Bảy,\" Duc nói.",
+      "\"Thế còn Chủ nhật?\"",
+      "\"Chủ nhật thì quán mở cửa lúc tám giờ rưỡi.\"",
+      "\"Khi nào quán đóng cửa?\" cô ấy hỏi.",
+      "\"Quán đóng cửa lúc mười giờ tối, nhưng thứ Tư thì đóng cửa lúc sáu giờ.\"",
+      "\"Sao vậy?\" Lan hỏi.",
+      "\"Tối thứ Tư tôi không rảnh,\" Duc nói.",
+      "\"Lớp tiếng Anh của tôi lúc sáu giờ mười lăm, và dài một tiếng.\"",
+      "\"Vào tháng Mười Hai, quán mở cửa muộn, vì đó là một tháng vui.\"",
+      "Lan nhìn đồng hồ trên tường.",
+      "Cô ấy còn năm phút.",
+      "\"Cho tôi một cà phê sữa,\" cô ấy nói.",
+      "\"Chờ một chút,\" Duc nói."
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể cách làm một món ăn đơn giản và dùng đúng a / an, the khi nói về đồ ăn.",
+    "objectiveVi": "Bạn có thể hỏi và nói giờ mở cửa, đóng cửa của một cửa hàng với at + giờ, on + thứ, in + tháng / buổi.",
     "examples": [
       {
-        "lemma": "dinner",
-        "sentence": "We have an easy dinner on Friday.",
-        "meaningVi": "Tối thứ Sáu nhà mình ăn bữa tối đơn giản."
+        "lemma": "time",
+        "sentence": "What time is the shop closed?",
+        "meaningVi": "Cửa hàng đóng cửa lúc mấy giờ?"
       },
       {
-        "lemma": "cook",
-        "sentence": "My grandma cooks fish soup.",
-        "meaningVi": "Bà mình nấu canh cá."
+        "lemma": "o'clock",
+        "sentence": "The coffee shop is open at seven o'clock.",
+        "meaningVi": "Quán cà phê mở cửa lúc bảy giờ."
       },
       {
-        "lemma": "egg",
-        "sentence": "There are six eggs in the box.",
-        "meaningVi": "Trong hộp có sáu quả trứng."
+        "lemma": "hour",
+        "sentence": "The class is one hour long.",
+        "meaningVi": "Lớp học dài một tiếng."
       },
       {
-        "lemma": "bread",
-        "sentence": "The bread is on the table.",
-        "meaningVi": "Bánh mì ở trên bàn."
+        "lemma": "minute",
+        "sentence": "I am back in one minute.",
+        "meaningVi": "Một phút nữa tôi quay lại."
       },
       {
-        "lemma": "tomato",
-        "sentence": "This tomato is very red.",
-        "meaningVi": "Quả cà chua này rất đỏ."
+        "lemma": "second",
+        "sentence": "Just a second, please.",
+        "meaningVi": "Làm ơn chờ một chút."
       },
       {
-        "lemma": "cheese",
-        "sentence": "I love cheese on my bread.",
-        "meaningVi": "Mình rất thích phô mai trên bánh mì."
+        "lemma": "half past",
+        "sentence": "The shop is open at half past nine.",
+        "meaningVi": "Cửa hàng mở cửa lúc chín giờ rưỡi."
       },
       {
-        "lemma": "sandwich",
-        "sentence": "Dad has a sandwich for lunch.",
-        "meaningVi": "Bố ăn một cái bánh mì kẹp vào bữa trưa."
+        "lemma": "quarter",
+        "sentence": "It's a quarter to eight.",
+        "meaningVi": "Bây giờ là tám giờ kém mười lăm."
       },
       {
-        "lemma": "hungry",
-        "sentence": "I am always hungry after school.",
-        "meaningVi": "Tan học là mình lúc nào cũng đói."
+        "lemma": "morning",
+        "sentence": "The coffee is good in the morning.",
+        "meaningVi": "Cà phê buổi sáng rất ngon."
       }
     ],
     "dialogue": {
       "speakers": [
         "Lan",
-        "Linh"
+        "Duc"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Linh, what is your dinner tonight?",
-          "meaningVi": "Linh ơi, tối nay nhà bạn ăn gì?"
+          "text": "Hi, Duc. Is the shop open on Saturday afternoon?",
+          "meaningVi": "Chào Duc. Chiều thứ Bảy quán có mở cửa không?"
         },
         {
           "speaker": 1,
-          "text": "Egg and tomato sandwiches. Mum and I make them.",
-          "meaningVi": "Bánh mì kẹp trứng và cà chua. Mình với mẹ tự làm."
+          "text": "Yes, it is. It's open in the afternoon.",
+          "meaningVi": "Có. Quán mở cửa buổi chiều."
         },
         {
           "speaker": 0,
-          "text": "Wow! Are they easy?",
-          "meaningVi": "Ồ! Có dễ làm không?"
+          "text": "What time is it closed on Saturday?",
+          "meaningVi": "Thứ Bảy quán đóng cửa lúc mấy giờ?"
         },
         {
           "speaker": 1,
-          "text": "Yes, very easy. There are only four things: bread, eggs, tomatoes and cheese.",
-          "meaningVi": "Dễ lắm. Chỉ có bốn thứ: bánh mì, trứng, cà chua và phô mai."
+          "text": "At nine o'clock in the evening.",
+          "meaningVi": "Lúc chín giờ tối."
         },
         {
           "speaker": 0,
-          "text": "Is there any meat?",
-          "meaningVi": "Có thịt không?"
+          "text": "Great. My friends and I are here at four.",
+          "meaningVi": "Tuyệt. Bốn giờ tôi và các bạn sẽ đến đây."
         },
         {
           "speaker": 1,
-          "text": "No, there isn't. I never eat meat.",
-          "meaningVi": "Không có. Mình không bao giờ ăn thịt mà."
+          "text": "How many friends?",
+          "meaningVi": "Mấy người bạn?"
         },
         {
           "speaker": 0,
-          "text": "How many sandwiches are there?",
-          "meaningVi": "Có bao nhiêu cái bánh?"
+          "text": "Five. Is there a big table?",
+          "meaningVi": "Năm người. Có bàn lớn không?"
         },
         {
           "speaker": 1,
-          "text": "Eight. One is for Khang, and the other sandwiches are for us.",
-          "meaningVi": "Tám cái. Một cái cho Khang, mấy cái còn lại cho cả nhà."
+          "text": "Yes, there is a big table near the window.",
+          "meaningVi": "Có, có một bàn lớn gần cửa sổ."
         },
         {
           "speaker": 0,
-          "text": "Is Khang happy?",
-          "meaningVi": "Khang có vui không?"
-        },
-        {
-          "speaker": 1,
-          "text": "Yes, he is. He wants two sandwiches!",
-          "meaningVi": "Vui chứ. Em ấy muốn hai cái cơ!"
+          "text": "Thanks, see you on Saturday!",
+          "meaningVi": "Cảm ơn, hẹn gặp vào thứ Bảy!"
         }
       ]
     },
-    "grammarTipVi": "The dùng khi người nghe biết bạn nói đến thứ nào: Linh cuts the bread (bánh mì có sẵn trong bếp nhà Linh). Bread, cheese không đếm được nên không dùng a: không nói \"a bread\".",
+    "grammarTipVi": "at + giờ: at nine o'clock, at four. on + thứ: on Saturday. in + buổi / tháng: in the afternoon, in the evening, in December.",
     "translations": [
       {
-        "vi": "Mẹ tôi luộc bốn quả trứng.",
-        "en": "My mum cooks four eggs.",
+        "vi": "Quán mở cửa lúc bảy giờ sáng.",
+        "en": "The shop is open at seven o'clock in the morning.",
         "distractors": [
-          "egg",
-          "cook",
-          "an"
+          "on",
+          "evening",
+          "are"
+        ],
+        "accepted": [
+          "The shop is open in the morning at seven o'clock."
         ]
       },
       {
-        "vi": "Linh cắt bánh mì.",
-        "en": "Linh cuts the bread.",
+        "vi": "Vào Chủ nhật, quán mở cửa lúc tám giờ rưỡi.",
+        "en": "On Sunday, the shop is open at half past eight.",
         "distractors": [
-          "a",
-          "cut",
-          "breads"
+          "in",
+          "quarter",
+          "to"
+        ],
+        "accepted": [
+          "The shop is open at half past eight on Sunday."
         ]
       },
       {
-        "vi": "Có một ít phô mai.",
-        "en": "There is a little cheese.",
+        "vi": "Lớp của anh ấy lúc sáu giờ mười lăm.",
+        "en": "His class is at a quarter past six.",
         "distractors": [
-          "are",
-          "an",
-          "cheeses"
-        ]
+          "on",
+          "Her",
+          "half"
+        ],
+        "accepted": []
       },
       {
-        "vi": "Em trai tôi đói.",
-        "en": "My little brother is hungry.",
+        "vi": "Cô ấy còn năm phút.",
+        "en": "She has five minutes.",
         "distractors": [
-          "are",
-          "an",
-          "has"
-        ]
+          "hours",
+          "He",
+          "fifteen"
+        ],
+        "accepted": []
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Linh kể với Lan về điều gì?",
+        "prompt": "Lan hỏi Duc về điều gì?",
         "promptVi": "",
         "options": [
-          "Món bánh mì kẹp cho bữa tối",
-          "Tiệm bánh của mẹ",
-          "Một bữa tiệc sinh nhật"
+          "Quán vào thứ Bảy",
+          "Lớp tiếng Anh của Duc",
+          "Giá cà phê"
         ],
         "answerIndex": 0,
-        "explanationVi": "Linh kể tối nay mình và mẹ làm bánh mì kẹp trứng và cà chua.",
+        "explanationVi": "Lan hỏi chiều thứ Bảy quán có mở cửa không, mấy giờ đóng cửa và có bàn lớn không.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Món bánh có mấy thứ?",
+        "prompt": "Thứ Bảy quán đóng cửa lúc mấy giờ?",
         "promptVi": "",
         "options": [
-          "Ba",
-          "Bốn",
-          "Năm"
+          "Bốn giờ chiều",
+          "Chín giờ tối",
+          "Mười giờ tối"
         ],
         "answerIndex": 1,
-        "explanationVi": "Linh nói \"There are only four things: bread, eggs, tomatoes and cheese\".",
+        "explanationVi": "Duc nói \"At nine o'clock in the evening.\"",
         "turnIndex": 3
       },
       {
         "kind": "detail",
-        "prompt": "Có bao nhiêu cái bánh?",
+        "prompt": "Lan đi cùng mấy người bạn?",
         "promptVi": "",
         "options": [
           "Bốn",
-          "Sáu",
-          "Tám"
+          "Năm",
+          "Chín"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Linh nói \"Eight. One is for Khang\".",
-        "turnIndex": 7
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"Five.\"",
+        "turnIndex": 6
       },
       {
         "kind": "tfn",
-        "prompt": "There is meat in the sandwiches.",
-        "promptVi": "Trong bánh có thịt.",
+        "prompt": "The big table is near the door.",
+        "promptVi": "Bàn lớn ở gần cửa ra vào.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Linh nói \"No, there isn't. I never eat meat\".",
-        "turnIndex": 5
+        "explanationVi": "Sai, vì Duc nói \"there is a big table near the window\": gần cửa sổ.",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Linh và mẹ làm món gì, và mỗi người làm việc gì?",
+    "readingGuideVi": "Quán cà phê mở cửa và đóng cửa lúc mấy giờ, vào những ngày nào?",
     "grammarStep": {
-      "titleVi": "Mạo từ a / an / the",
+      "titleVi": "At, on, in với thời gian",
       "noticing": [
         {
-          "sentence": "They make an easy dinner: egg and tomato sandwiches.",
+          "sentence": "\"What time is the shop open in the morning?\" asks Lan.",
           "highlights": [
-            "an"
+            "in the morning"
           ]
         },
         {
-          "sentence": "Then Linh cuts the bread and the tomatoes.",
+          "sentence": "\"On Sunday, it's open at half past eight.\"",
           "highlights": [
-            "the"
+            "On Sunday",
+            "at half past eight"
           ]
         },
         {
-          "sentence": "\"Yes, there is a little cheese in the kitchen,\" says Mum.",
+          "sentence": "\"It's closed at ten in the evening, but on Wednesday it's closed at six.\"",
           "highlights": [
-            "a little",
-            "the"
+            "at ten",
+            "in the evening",
+            "on Wednesday",
+            "at six"
           ]
         },
         {
-          "sentence": "\"The other sandwiches are for the family!\"",
+          "sentence": "\"In December, the shop is open late, because it's a happy month.\"",
           "highlights": [
-            "The",
-            "the"
+            "In December"
           ]
         }
       ],
-      "questionVi": "Trong câu \"Linh cuts the bread\", vì sao dùng the mà không dùng a?",
+      "questionVi": "Trước giờ, trước thứ và trước tháng hoặc buổi, Duc dùng từ nào?",
       "options": [
-        "Vì bread là số nhiều",
-        "Vì đó là bánh mì có sẵn trong bếp, cả hai mẹ con đều biết là cái nào",
-        "Vì bánh mì rất to"
+        "at trước giờ, on trước thứ, in trước tháng / buổi",
+        "on trước giờ, in trước thứ, at trước tháng",
+        "in trước tất cả"
       ],
-      "answerIndex": 1,
-      "explanationVi": "The dùng cho thứ người nghe đã biết: the bread, the tomatoes là bánh mì và cà chua trong bếp. Bread lại không đếm được nên không dùng a.",
-      "whenVi": "Dùng a / an khi nhắc một thứ lần đầu, the khi cả hai người đều biết đó là thứ nào.",
+      "answerIndex": 0,
+      "explanationVi": "At ten, at six, at half past eight (giờ); on Sunday, on Wednesday (thứ); in December, in the morning, in the evening (tháng, buổi).",
+      "whenVi": "Dùng at, on, in khi nói giờ mở cửa, ngày làm việc hay tháng của một việc.",
       "table": [
         {
-          "subject": "a / an + một thứ (lần đầu)",
-          "form": "an easy dinner, a little cheese",
-          "negative": "—"
+          "subject": "at + giờ",
+          "form": "at seven o'clock, at half past eight",
+          "negative": "at a quarter past six"
         },
         {
-          "subject": "the + thứ đã biết",
-          "form": "the bread, the tomatoes, the table",
-          "negative": "—"
+          "subject": "on + thứ",
+          "form": "on Sunday, on Wednesday",
+          "negative": "on Monday morning"
         },
         {
-          "subject": "không mạo từ (nói chung)",
-          "form": "Linh never eats meat.",
-          "negative": "—"
+          "subject": "in + tháng / buổi",
+          "form": "in December",
+          "negative": "in the morning, in the evening"
         }
       ],
       "mistakes": [
         {
-          "wrong": "They make a easy dinner.",
-          "right": "They make an easy dinner."
+          "wrong": "The shop is closed on six.",
+          "right": "The shop is closed at six."
         },
         {
-          "wrong": "Linh cuts a bread.",
-          "right": "Linh cuts the bread."
+          "wrong": "The shop is open late on December.",
+          "right": "The shop is open late in December."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"cắt bánh mì\" không có mạo từ, nên người Việt hay bỏ the hoặc dùng a với bread, cheese.",
+      "noteVi": "Có \"Monday morning\" thì dùng on (on Monday morning), nhưng chỉ có \"the morning\" thì dùng in (in the morning).",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền a hoặc an vào chỗ trống.",
-          "text": "They make ___ easy dinner.",
+          "promptVi": "Điền at, on hoặc in vào chỗ trống.",
+          "text": "The shop is open ___ half past eight.",
           "answers": [
-            "an"
+            "at"
           ],
-          "explanationVi": "Easy bắt đầu bằng âm nguyên âm /iː/, nên dùng an."
+          "explanationVi": "Half past eight là giờ, nên dùng at."
         },
         {
           "kind": "choice",
           "promptVi": "Chọn từ đúng.",
-          "text": "Linh puts the eggs on ___ bread.",
+          "text": "The shop is closed early ___ Wednesday.",
           "options": [
-            "a",
-            "an",
-            "the",
-            "two"
+            "at",
+            "in",
+            "on",
+            "to"
           ],
           "answerIndex": 2,
-          "explanationVi": "Đó là bánh mì Linh vừa cắt (đã biết), và bread không đếm được, nên dùng the."
+          "explanationVi": "Wednesday là thứ trong tuần, nên dùng on."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Then Linh cuts a bread and the tomatoes.",
-          "sentence": "Then Linh cuts the bread and the tomatoes.",
-          "explanationVi": "Bread không đếm được nên không dùng a; đây là bánh mì có sẵn nên dùng the."
+          "text": "The shop is open late at December.",
+          "sentence": "The shop is open late in December.",
+          "explanationVi": "December là tháng, nên dùng in."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Những quả cà chua rất to.",
-          "sentence": "The tomatoes are very big.",
+          "text": "Quán đóng cửa lúc mười giờ tối.",
+          "sentence": "The shop is closed at ten in the evening.",
           "words": [
-            "tomatoes",
-            "are",
+            "closed",
+            "the",
+            "is",
+            "at",
+            "evening",
             "The",
-            "very",
-            "big",
-            "is"
+            "ten",
+            "shop",
+            "in",
+            "on"
           ],
-          "explanationVi": "Tomatoes là số nhiều nên dùng are; từ \"is\" bị thừa."
+          "explanationVi": "at + giờ (at ten), in + buổi (in the evening); từ \"on\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Then Linh cuts the bread and the tomatoes.",
-        "tipVi": "Cuts /kʌts/ có cụm âm cuối /ts/; bread /bred/ có cụm /br/ ở đầu."
+        "text": "\"On Sunday, it's open at half past eight.\"",
+        "tipVi": "Nối \"open at\" thành /ˈoʊpən æt/; eight /eɪt/ đọc giống \"ây-t\"."
       },
       {
-        "text": "Now there are eight sandwiches on the table.",
-        "tipVi": "Eight /eɪt/ kết thúc bằng /t/; sandwiches /ˈsænwɪtʃɪz/ có âm tiết /ɪz/ ở cuối."
+        "text": "\"My English class is at a quarter past six, and it's one hour long.\"",
+        "tipVi": "Quarter /ˈkwɔrtər/ nhấn âm đầu; hour /ˈaʊər/ không đọc chữ h."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Is there any cheese in your kitchen?",
-        "questionVi": "Bếp nhà bạn có phô mai không?",
-        "frame": "Yes, there is. / No, there isn't."
+        "question": "What time is a shop near you open in the morning?",
+        "questionVi": "Buổi sáng một cửa hàng gần bạn mở cửa lúc mấy giờ?",
+        "frame": "It's open at ___."
       },
       {
-        "question": "What is an easy dinner for your family?",
-        "questionVi": "Bữa tối đơn giản của nhà bạn thường là món gì?",
-        "frame": "An easy dinner for us is ___."
+        "question": "Is it open on Sunday?",
+        "questionVi": "Chủ nhật nó có mở cửa không?",
+        "frame": "Yes, it is. / No, it isn't."
       },
       {
-        "question": "Who helps your mum or dad in the kitchen?",
-        "questionVi": "Ai hay giúp bố hoặc mẹ bạn trong bếp?",
-        "frame": "My ___ helps. He / She ___."
+        "question": "What time is it closed in the evening?",
+        "questionVi": "Buổi tối nó đóng cửa lúc mấy giờ?",
+        "frame": "It's closed at ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 cụm dùng a / an hoặc the (an egg, the bread)",
+      "grammarLabelVi": "Có ít nhất 2 cụm at / on / in với thời gian",
       "anyOf": [
-        "the bread",
-        "the eggs",
-        "the table",
-        "an egg",
-        "an easy",
-        "a little"
+        "at seven",
+        "at eight",
+        "at nine",
+        "at ten",
+        "on Sunday",
+        "on Monday",
+        "on Saturday",
+        "in the morning",
+        "in the evening",
+        "in December",
+        "o'clock",
+        "half past"
       ],
       "outlineVi": [
-        "Nói bạn nấu món gì, với ai.",
-        "Kể cần những thứ gì.",
-        "Kể từng bước: ai làm việc gì."
+        "Nói tên cửa hàng hoặc quán cà phê và nó ở đâu.",
+        "Nói nó mở cửa và đóng cửa lúc mấy giờ (at …, in the morning / evening).",
+        "Nói một ngày hoặc một tháng nó khác (on …, in …)."
       ],
-      "modelAnswer": "On Saturday, I help my dad in the kitchen. We make an easy dinner: chicken sandwiches. First, Dad cooks the chicken. Then I cut the bread and two tomatoes. We put some cheese on the bread too. My sister is hungry, and she eats three sandwiches!"
+      "modelAnswer": "There is a small coffee shop near my home. It is open at seven o'clock in the morning. It is closed at ten in the evening. On Sunday, it is open at eight. In the summer, it is very busy in the afternoon."
     }
   },
   "glosses": [
     {
-      "text": "easy",
-      "lemma": "easy",
-      "meaningVi": "dễ, đơn giản",
-      "sentenceIndex": 1,
-      "pos": "adjective",
-      "phrase": "an easy dinner",
-      "phraseVi": "một bữa tối đơn giản"
+      "text": "coffee shop",
+      "lemma": "coffee shop",
+      "meaningVi": "quán cà phê",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the small coffee shop near her office",
+      "phraseVi": "quán cà phê nhỏ gần văn phòng của cô ấy"
     },
     {
-      "text": "First",
-      "lemma": "first",
-      "meaningVi": "đầu tiên",
-      "sentenceIndex": 2,
-      "pos": "adverb",
-      "phrase": "First, Mum cooks four eggs",
-      "phraseVi": "Đầu tiên, mẹ luộc bốn quả trứng"
-    },
-    {
-      "text": "cuts",
-      "lemma": "cut",
-      "meaningVi": "cắt",
-      "sentenceIndex": 3,
-      "pos": "verb",
-      "phrase": "Linh cuts the bread",
-      "phraseVi": "Linh cắt bánh mì"
-    },
-    {
-      "text": "red",
-      "lemma": "red",
-      "meaningVi": "màu đỏ",
-      "sentenceIndex": 4,
-      "pos": "adjective",
-      "phrase": "they are very red",
-      "phraseVi": "rất đỏ"
-    },
-    {
-      "text": "puts",
-      "lemma": "put",
-      "meaningVi": "đặt, cho vào",
-      "sentenceIndex": 5,
-      "pos": "verb",
-      "phrase": "Linh puts the eggs and the tomatoes on the bread",
-      "phraseVi": "Linh đặt trứng và cà chua lên bánh mì"
-    },
-    {
-      "text": "a little",
-      "lemma": "a little",
-      "meaningVi": "một ít",
+      "text": "closed",
+      "lemma": "closed",
+      "meaningVi": "đóng cửa",
       "sentenceIndex": 7,
-      "pos": "phrase",
-      "phrase": "a little cheese",
-      "phraseVi": "một ít phô mai"
-    },
-    {
-      "text": "milk",
-      "lemma": "milk",
-      "meaningVi": "sữa",
-      "sentenceIndex": 8,
-      "pos": "noun",
-      "phrase": "near the milk",
-      "phraseVi": "gần chỗ sữa"
-    },
-    {
-      "text": "looks at",
-      "lemma": "look at",
-      "meaningVi": "nhìn",
-      "sentenceIndex": 11,
-      "pos": "verb",
-      "phrase": "he looks at the sandwiches",
-      "phraseVi": "em nhìn mấy cái bánh"
-    },
-    {
-      "text": "other",
-      "lemma": "other",
-      "meaningVi": "khác, còn lại",
-      "sentenceIndex": 14,
       "pos": "adjective",
-      "phrase": "The other sandwiches",
-      "phraseVi": "Mấy cái bánh còn lại"
+      "phrase": "When is it closed",
+      "phraseVi": "Khi nào quán đóng cửa"
     },
     {
-      "text": "family",
-      "lemma": "family",
-      "meaningVi": "gia đình",
-      "sentenceIndex": 14,
+      "text": "free",
+      "lemma": "free",
+      "meaningVi": "rảnh",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "I'm not free on Wednesday evening",
+      "phraseVi": "Tối thứ Tư tôi không rảnh"
+    },
+    {
+      "text": "late",
+      "lemma": "late",
+      "meaningVi": "muộn, khuya",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "the shop is open late",
+      "phraseVi": "quán mở cửa muộn"
+    },
+    {
+      "text": "wall",
+      "lemma": "wall",
+      "meaningVi": "bức tường",
+      "sentenceIndex": 13,
       "pos": "noun",
-      "phrase": "for the family",
-      "phraseVi": "của cả nhà"
+      "phrase": "the time on the wall",
+      "phraseVi": "đồng hồ trên tường"
     }
   ]
 }

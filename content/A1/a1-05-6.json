@@ -1,0 +1,587 @@
+{
+  "content": "It is Sunday morning, and Linh and her brother Quan are in the kitchen. Their mum and dad are at work, and the kitchen is very dirty. There are cups and bowls on the table, and there is rice on the floor.\n\nQuan washes the cups and bowls, and Linh cleans the table. Then Quan asks, \"Where are the clean bowls now?\" \"They are on the shelf, near the window,\" Linh says. \"And the cups are in the box under the shelf.\"\n\nQuan looks at the table. There is a big bowl of fruit on it, with apples and bananas. \"Can I have a banana?\" he asks. \"Not now,\" Linh says with a smile. \"The floor isn't clean.\"\n\nAfter ten minutes, the kitchen is clean and nice. Now Linh and Quan sit at the table and have a banana.",
+  "targetWords": [
+    "kitchen",
+    "dirty",
+    "cup",
+    "bowl",
+    "floor",
+    "table",
+    "shelf",
+    "window"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "dirty",
+        "lemma": "dirty",
+        "meaningVi": "bẩn",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cups",
+        "lemma": "cup",
+        "meaningVi": "cái cốc",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "bowls",
+        "lemma": "bowl",
+        "meaningVi": "cái bát",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "sàn nhà",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "table",
+        "lemma": "table",
+        "meaningVi": "cái bàn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "shelf",
+        "lemma": "shelf",
+        "meaningVi": "cái kệ",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 5
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh and Quan clean the kitchen",
+          "Linh's new kitchen",
+          "A shop with fruit",
+          "Quan's school"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sáng Chủ nhật, hai chị em Linh và Quân cùng dọn căn bếp bẩn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the clean bowls?",
+        "promptVi": "Bát sạch để ở đâu?",
+        "options": [
+          "In a bag",
+          "On the shelf, near the window",
+          "Under the table",
+          "On the floor"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"They are on the shelf, near the window\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the cups?",
+        "promptVi": "Cốc để ở đâu?",
+        "options": [
+          "On the table",
+          "In the box under the shelf",
+          "Near the window",
+          "In the fruit bowl"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"And the cups are in the box under the shelf\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan has a banana before they clean the floor.",
+        "promptVi": "Quân ăn chuối trước khi lau sàn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"Not now… The floor isn't clean\". Dọn xong hai chị em mới ăn chuối."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"dirty\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Their mum and dad are at work, and the kitchen is very dirty.",
+        "options": [
+          "sạch",
+          "bẩn",
+          "rộng",
+          "mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Dirty là bẩn, ngược với clean (sạch)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ nơi chốn",
+      "bodyVi": "Muốn nói đồ vật hay người ở đâu, dùng be + giới từ + danh từ: in (trong), on (trên, có chạm mặt), under (dưới), behind (sau), in front of (trước), near (gần). Ví dụ: The keys are on the table. The cat is under the bed. Trước danh từ thường có the, a, my, his...: on the chair, không nói \"on chair\".",
+      "examples": [
+        "\"They are on the shelf, near the window,\" Linh says.",
+        "\"And the cups are in the box under the shelf.\"",
+        "There is a big bowl of fruit on it, with apples and bananas."
+      ]
+    },
+    "writingPrompt": "Write about the kitchen in your home: where are the cups, the bowls and the fruit?",
+    "sentenceTranslations": [
+      "Sáng Chủ nhật, Linh và em trai là Quân đang ở trong bếp.",
+      "Bố mẹ của hai chị em đi làm, và căn bếp rất bẩn.",
+      "Trên bàn có cốc và bát, và trên sàn có cơm rơi.",
+      "Quân rửa cốc và bát, còn Linh lau bàn.",
+      "Sau đó Quân hỏi: \"Bát sạch giờ để ở đâu ạ?\"",
+      "\"Để trên kệ, gần cửa sổ,\" Linh nói.",
+      "\"Còn cốc thì để trong cái hộp dưới kệ.\"",
+      "Quân nhìn cái bàn.",
+      "Trên bàn có một bát hoa quả to, có táo và chuối.",
+      "\"Em ăn một quả chuối được không?\" cậu ấy hỏi.",
+      "\"Bây giờ thì chưa,\" Linh mỉm cười nói.",
+      "\"Sàn nhà vẫn chưa sạch.\"",
+      "Mười phút sau, căn bếp đã sạch đẹp.",
+      "Bây giờ Linh và Quân ngồi vào bàn và ăn chuối."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói đồ vật trong bếp ở đâu, dùng in, on, under, near và there is / there are.",
+    "examples": [
+      {
+        "lemma": "kitchen",
+        "sentence": "My mum is in the kitchen.",
+        "meaningVi": "Mẹ mình đang ở trong bếp."
+      },
+      {
+        "lemma": "dirty",
+        "sentence": "My shoes are dirty.",
+        "meaningVi": "Giày của mình bẩn."
+      },
+      {
+        "lemma": "cup",
+        "sentence": "This cup is for tea.",
+        "meaningVi": "Cái cốc này để uống trà."
+      },
+      {
+        "lemma": "bowl",
+        "sentence": "There is a bowl of rice on the table.",
+        "meaningVi": "Trên bàn có một bát cơm."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "The cat is on the floor.",
+        "meaningVi": "Con mèo nằm trên sàn nhà."
+      },
+      {
+        "lemma": "table",
+        "sentence": "There are four chairs at the table.",
+        "meaningVi": "Quanh bàn có bốn cái ghế."
+      },
+      {
+        "lemma": "shelf",
+        "sentence": "The cups are on the shelf.",
+        "meaningVi": "Cốc để trên kệ."
+      },
+      {
+        "lemma": "window",
+        "sentence": "There is a table near the window.",
+        "meaningVi": "Gần cửa sổ có một cái bàn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, is the kitchen clean now?",
+          "meaningVi": "Linh ơi, bếp sạch chưa con?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. Quan and I are a good team!",
+          "meaningVi": "Sạch rồi ạ. Con với Quân làm giỏi lắm!"
+        },
+        {
+          "speaker": 0,
+          "text": "Great! Where are the bowls?",
+          "meaningVi": "Tốt quá! Bát để đâu rồi?"
+        },
+        {
+          "speaker": 1,
+          "text": "They are on the shelf near the window.",
+          "meaningVi": "Để trên kệ gần cửa sổ ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "And are there any bananas?",
+          "meaningVi": "Thế còn chuối không con?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there are. They are in the bowl on the table.",
+          "meaningVi": "Còn ạ. Ở trong bát trên bàn."
+        },
+        {
+          "speaker": 0,
+          "text": "Is Quan in the kitchen now?",
+          "meaningVi": "Quân có đang ở trong bếp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he isn't. He is in the living room with a banana!",
+          "meaningVi": "Không ạ. Em ấy ở phòng khách, đang ăn chuối!"
+        }
+      ]
+    },
+    "grammarTipVi": "In là ở trong (trong hộp, trong bồn rửa), on là ở trên mặt (trên kệ, trên bàn): The cups are in the box. The bowls are on the shelf.",
+    "translations": [
+      {
+        "vi": "Bát sạch ở trên kệ.",
+        "en": "The clean bowls are on the shelf.",
+        "distractors": [
+          "is",
+          "under",
+          "dirty"
+        ]
+      },
+      {
+        "vi": "Cốc ở trong cái hộp.",
+        "en": "The cups are in the box.",
+        "distractors": [
+          "is",
+          "on",
+          "under"
+        ]
+      },
+      {
+        "vi": "Trên bàn có một bát hoa quả.",
+        "en": "There is a bowl of fruit on the table.",
+        "distractors": [
+          "are",
+          "has",
+          "under"
+        ],
+        "accepted": [
+          "On the table there is a bowl of fruit."
+        ]
+      },
+      {
+        "vi": "Hôm nay căn bếp rất bẩn.",
+        "en": "The kitchen is very dirty today.",
+        "distractors": [
+          "clean",
+          "are",
+          "on"
+        ],
+        "accepted": [
+          "Today the kitchen is very dirty."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mẹ và Linh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Căn bếp và đồ trong bếp",
+          "Trường học của Linh",
+          "Một cửa hàng hoa quả"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ hỏi bếp đã sạch chưa, bát và chuối ở đâu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bát để ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trong bồn rửa",
+          "Trên kệ gần cửa sổ",
+          "Dưới gầm bàn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"They are on the shelf near the window\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuối ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trong bát trên bàn",
+          "Trên kệ",
+          "Trong hộp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"They are in the bowl on the table\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan is in the kitchen now.",
+        "promptVi": "Bây giờ Quân đang ở trong bếp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"No, he isn't. He is in the living room\".",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Hai chị em dọn những gì, và sau đó bát, cốc, hoa quả ở đâu?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ nơi chốn",
+      "noticing": [
+        {
+          "sentence": "\"They are on the shelf, near the window,\" Linh says.",
+          "highlights": [
+            "on",
+            "near"
+          ]
+        },
+        {
+          "sentence": "\"And the cups are in the box under the shelf.\"",
+          "highlights": [
+            "in",
+            "under"
+          ]
+        },
+        {
+          "sentence": "There is a big bowl of fruit on it, with apples and bananas.",
+          "highlights": [
+            "on"
+          ]
+        }
+      ],
+      "questionVi": "Các từ được tô đậm cho biết điều gì?",
+      "options": [
+        "Đồ vật ở đâu",
+        "Đồ vật có màu gì",
+        "Đồ vật là của ai"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Nhìn các câu: bát ở trên kệ (on), gần cửa sổ (near), cốc ở trong hộp (in), hộp ở dưới kệ (under).",
+      "whenVi": "Dùng in, on, under, behind, in front of, near để nói người hay đồ vật ở đâu.",
+      "table": [
+        {
+          "subject": "in / on",
+          "form": "The keys are in my bag. The book is on the table.",
+          "negative": "The keys aren't in my bag."
+        },
+        {
+          "subject": "under / behind",
+          "form": "The cat is under the bed. The bag is behind the door.",
+          "negative": "The cat isn't under the bed."
+        },
+        {
+          "subject": "in front of / near",
+          "form": "The car is in front of the house. The shop is near my home.",
+          "negative": "The shop isn't near my home."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The book is on table.",
+          "right": "The book is on the table."
+        },
+        {
+          "wrong": "The keys is under the book.",
+          "right": "The keys are under the book."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"trên bàn\", \"dưới gầm giường\" không cần mạo từ, nhưng tiếng Anh phải có the / a / my: on the table, under the bed. In front of có ba từ, đừng bỏ \"of\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền giới từ đúng: cốc ở trong cái hộp.",
+          "text": "The cups are ___ the box.",
+          "answers": [
+            "in"
+          ],
+          "explanationVi": "Ở trong là in."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng: cái hộp ở dưới kệ.",
+          "text": "The box is ___ the shelf.",
+          "options": [
+            "in",
+            "on",
+            "under",
+            "behind"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Ở dưới là under."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The bowls is on the shelf.",
+          "sentence": "The bowls are on the shelf.",
+          "explanationVi": "Bowls là số nhiều nên dùng are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng: Cơm rơi ở trên sàn nhà.",
+          "text": "Cơm rơi ở trên sàn nhà.",
+          "sentence": "The rice is on the floor.",
+          "words": [
+            "rice",
+            "on",
+            "The",
+            "floor",
+            "is",
+            "the",
+            "are"
+          ],
+          "explanationVi": "Rice không đếm được nên dùng is; từ \"are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"They are on the shelf, near the window,\" Linh says.",
+        "tipVi": "Shelf /ʃelf/ bắt đầu bằng âm /ʃ/; near /nɪər/."
+      },
+      {
+        "text": "There is a big bowl of fruit on it, with apples and bananas.",
+        "tipVi": "Bowl /bəʊl/ khác ball; bananas /bəˈnɑːnəz/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where are the cups in your kitchen?",
+        "questionVi": "Cốc trong bếp nhà bạn để ở đâu?",
+        "frame": "They are ___ the ___."
+      },
+      {
+        "question": "What is on your kitchen table now?",
+        "questionVi": "Bây giờ trên bàn bếp nhà bạn có gì?",
+        "frame": "There is ___ on the table."
+      },
+      {
+        "question": "Is your kitchen big or small?",
+        "questionVi": "Bếp nhà bạn rộng hay nhỏ?",
+        "frame": "It is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng giới từ chỉ nơi chốn (in, on, under, behind, near...)",
+      "anyOf": [
+        "on the",
+        "in the",
+        "under the",
+        "behind the",
+        "in front of",
+        "near the"
+      ],
+      "outlineVi": [
+        "Nói bếp nhà bạn rộng hay nhỏ, sạch hay bẩn.",
+        "Nói cốc, bát để ở đâu.",
+        "Kể trên bàn bếp có gì."
+      ],
+      "modelAnswer": "Our kitchen is small, but it is clean. The bowls are on a shelf near the window. The cups are in a box under the shelf. There is a table in the middle of the kitchen. There is a bowl of fruit on the table."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Sunday",
+      "lemma": "Sunday",
+      "meaningVi": "Chủ nhật",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "It is Sunday morning",
+      "phraseVi": "Sáng Chủ nhật"
+    },
+    {
+      "text": "washes",
+      "lemma": "wash",
+      "meaningVi": "rửa",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Quan washes the cups and bowls",
+      "phraseVi": "Quân rửa cốc và bát"
+    },
+    {
+      "text": "cleans",
+      "lemma": "clean",
+      "meaningVi": "lau, dọn sạch",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Linh cleans the table",
+      "phraseVi": "Linh lau bàn"
+    },
+    {
+      "text": "clean",
+      "lemma": "clean",
+      "meaningVi": "sạch",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "the clean bowls",
+      "phraseVi": "bát sạch"
+    },
+    {
+      "text": "under",
+      "lemma": "under",
+      "meaningVi": "ở dưới",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "in the box under the shelf",
+      "phraseVi": "trong cái hộp dưới kệ"
+    },
+    {
+      "text": "bowl of fruit",
+      "lemma": "bowl of fruit",
+      "meaningVi": "bát hoa quả",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "a big bowl of fruit",
+      "phraseVi": "một bát hoa quả to"
+    },
+    {
+      "text": "bananas",
+      "lemma": "banana",
+      "meaningVi": "quả chuối",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "with apples and bananas",
+      "phraseVi": "có táo và chuối"
+    },
+    {
+      "text": "After ten minutes",
+      "lemma": "after ten minutes",
+      "meaningVi": "mười phút sau",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "After ten minutes",
+      "phraseVi": "Mười phút sau"
+    },
+    {
+      "text": "sit at the table",
+      "lemma": "sit at the table",
+      "meaningVi": "ngồi vào bàn",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "sit at the table",
+      "phraseVi": "ngồi vào bàn"
+    }
+  ]
+}

@@ -1,0 +1,594 @@
+{
+  "content": "Bao has a new television, and his friend Khanh is at his house to help. The TV is big and heavy. They carry it into the living room.\n\n\"Is the wall near the window a good place?\" his friend asks. \"No, it isn't,\" Bao says. \"It is too sunny there. Let's put it on the wall in front of the sofa.\"\n\nNow the TV is on the wall, and there is a long brown table under it. There are some books and two football games on the table.\n\nBao wants to watch football, but where is the small black thing with the buttons? It isn't on the table, and it isn't under the TV. Khanh laughs. \"It is on the sofa, behind you!\" he says. Then the two friends sit on the sofa and watch the football together.",
+  "targetWords": [
+    "television",
+    "house",
+    "heavy",
+    "living room",
+    "wall",
+    "window",
+    "sofa",
+    "table"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "television",
+        "lemma": "television",
+        "meaningVi": "ti vi",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "house",
+        "lemma": "house",
+        "meaningVi": "ngôi nhà",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "heavy",
+        "lemma": "heavy",
+        "meaningVi": "nặng",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "wall",
+        "lemma": "wall",
+        "meaningVi": "bức tường",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "table",
+        "lemma": "table",
+        "meaningVi": "cái bàn",
+        "pos": "noun",
+        "sentenceIndex": 7
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Bao's new TV",
+          "Khanh's new house",
+          "A football game at school",
+          "A shop with TVs"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh giúp Bảo đặt chiếc ti vi mới trong phòng khách, rồi hai người cùng xem bóng đá."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the TV now?",
+        "promptVi": "Bây giờ ti vi ở đâu?",
+        "options": [
+          "Near the window",
+          "On the wall in front of the sofa",
+          "Under the table",
+          "In the bedroom"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bảo nói \"Let's put it on the wall in front of the sofa\", và bài viết \"Now the TV is on the wall\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is under the TV?",
+        "promptVi": "Dưới ti vi có gì?",
+        "options": [
+          "A sofa",
+          "A long brown table",
+          "A window",
+          "Bao's bag"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"there is a long brown table under it\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The small black thing with the buttons is on the table.",
+        "promptVi": "Cái điều khiển ở trên bàn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"It isn't on the table\". Nó ở trên ghế sofa, sau lưng Bảo."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"heavy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The TV is big and heavy.",
+        "options": [
+          "nhẹ",
+          "nặng",
+          "mới",
+          "đẹp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Heavy là nặng: chiếc ti vi to và nặng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ nơi chốn",
+      "bodyVi": "Muốn nói đồ vật hay người ở đâu, dùng be + giới từ + danh từ: in (trong), on (trên, có chạm mặt), under (dưới), behind (sau), in front of (trước), near (gần). Ví dụ: The keys are on the table. The cat is under the bed. Trước danh từ thường có the, a, my, his...: on the chair, không nói \"on chair\".",
+      "examples": [
+        "Now the TV is on the wall, and there is a long brown table under it.",
+        "It isn't on the table, and it isn't under the TV.",
+        "\"It is on the sofa, behind you!\" he says."
+      ]
+    },
+    "writingPrompt": "Write about the TV in your home: where is it, and what is near it?",
+    "sentenceTranslations": [
+      "Bảo có một chiếc ti vi mới, và bạn anh ấy là Khánh đến nhà giúp.",
+      "Chiếc ti vi to và nặng.",
+      "Hai người khiêng nó vào phòng khách.",
+      "\"Bức tường gần cửa sổ có phải chỗ tốt không?\" bạn anh ấy hỏi.",
+      "\"Không được,\" Bảo nói.",
+      "\"Chỗ đó nắng quá.",
+      "Mình treo nó lên bức tường trước ghế sofa đi.\"",
+      "Bây giờ ti vi ở trên tường, và bên dưới có một cái bàn dài màu nâu.",
+      "Trên bàn có vài quyển sách và hai trò chơi bóng đá.",
+      "Bảo muốn xem bóng đá, nhưng cái điều khiển nhỏ màu đen đâu rồi?",
+      "Nó không ở trên bàn, cũng không ở dưới ti vi.",
+      "Khánh bật cười.",
+      "\"Nó ở trên ghế sofa, sau lưng cậu đấy!\" anh ấy nói.",
+      "Rồi hai người bạn ngồi trên ghế sofa và cùng xem bóng đá."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói đồ vật trong phòng khách ở đâu, dùng in, on, under, behind, in front of, near.",
+    "examples": [
+      {
+        "lemma": "television",
+        "sentence": "There is a television in my bedroom.",
+        "meaningVi": "Trong phòng ngủ của mình có một chiếc ti vi."
+      },
+      {
+        "lemma": "house",
+        "sentence": "My house is near the river.",
+        "meaningVi": "Nhà mình ở gần sông."
+      },
+      {
+        "lemma": "heavy",
+        "sentence": "This bag is very heavy.",
+        "meaningVi": "Cái túi này rất nặng."
+      },
+      {
+        "lemma": "living room",
+        "sentence": "The sofa is in the living room.",
+        "meaningVi": "Ghế sofa ở trong phòng khách."
+      },
+      {
+        "lemma": "wall",
+        "sentence": "The TV is on the wall.",
+        "meaningVi": "Ti vi ở trên tường."
+      },
+      {
+        "lemma": "window",
+        "sentence": "My desk is near the window.",
+        "meaningVi": "Bàn của mình ở gần cửa sổ."
+      },
+      {
+        "lemma": "sofa",
+        "sentence": "The cat is under the sofa.",
+        "meaningVi": "Con mèo ở dưới gầm ghế sofa."
+      },
+      {
+        "lemma": "table",
+        "sentence": "The books are on the table.",
+        "meaningVi": "Sách ở trên bàn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Bao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Bao, is that a new TV?",
+          "meaningVi": "Bảo ơi, đó là ti vi mới à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It's from a shop near my house.",
+          "meaningVi": "Ừ. Mình mua ở một cửa hàng gần nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Why isn't it near the window?",
+          "meaningVi": "Sao không để gần cửa sổ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's too sunny there. Now it's on the wall in front of the sofa.",
+          "meaningVi": "Chỗ đó nắng quá. Giờ nó ở trên tường trước ghế sofa."
+        },
+        {
+          "speaker": 0,
+          "text": "What is under it?",
+          "meaningVi": "Bên dưới có gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "There is a long table with some books on it.",
+          "meaningVi": "Có một cái bàn dài, trên bàn có mấy quyển sách."
+        },
+        {
+          "speaker": 0,
+          "text": "And where is the small black thing for the TV?",
+          "meaningVi": "Thế cái điều khiển ti vi đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! It's on the sofa again.",
+          "meaningVi": "Ha! Lại ở trên ghế sofa rồi."
+        }
+      ]
+    },
+    "grammarTipVi": "In front of là ở phía trước (ba từ, đừng bỏ \"of\"), behind là ở phía sau: The TV is in front of the sofa. The bag is behind the door.",
+    "translations": [
+      {
+        "vi": "Ti vi ở trên tường.",
+        "en": "The TV is on the wall.",
+        "distractors": [
+          "are",
+          "under",
+          "in"
+        ]
+      },
+      {
+        "vi": "Dưới ti vi có một cái bàn dài.",
+        "en": "There is a long table under the TV.",
+        "distractors": [
+          "are",
+          "has",
+          "in"
+        ],
+        "accepted": [
+          "Under the TV there is a long table."
+        ]
+      },
+      {
+        "vi": "Nó ở trên ghế sofa, sau lưng cậu.",
+        "en": "It is on the sofa, behind you.",
+        "distractors": [
+          "are",
+          "under",
+          "me"
+        ]
+      },
+      {
+        "vi": "Chiếc ti vi mới rất nặng.",
+        "en": "The new television is very heavy.",
+        "distractors": [
+          "old",
+          "are",
+          "light"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai và Bảo nói về cái gì?",
+        "promptVi": "",
+        "options": [
+          "Chiếc ti vi mới của Bảo",
+          "Một trận bóng đá",
+          "Ngôi nhà mới của Mai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai hỏi về chiếc ti vi mới: nó ở đâu, bên dưới có gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao ti vi không ở gần cửa sổ?",
+        "promptVi": "",
+        "options": [
+          "Vì chỗ đó nắng quá",
+          "Vì cửa sổ nhỏ",
+          "Vì ti vi nặng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"It's too sunny there\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Dưới ti vi có gì?",
+        "promptVi": "",
+        "options": [
+          "Ghế sofa",
+          "Một cái bàn dài có sách",
+          "Một cái hộp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bảo nói \"There is a long table with some books on it\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The small black thing for the TV is on the sofa.",
+        "promptVi": "Cái điều khiển ở trên ghế sofa.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Bảo nói \"It's on the sofa again\".",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Bảo và Khánh đặt ti vi ở đâu, và cái điều khiển ở chỗ nào?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ nơi chốn",
+      "noticing": [
+        {
+          "sentence": "Now the TV is on the wall, and there is a long brown table under it.",
+          "highlights": [
+            "on",
+            "under"
+          ]
+        },
+        {
+          "sentence": "It isn't on the table, and it isn't under the TV.",
+          "highlights": [
+            "on",
+            "under"
+          ]
+        },
+        {
+          "sentence": "\"It is on the sofa, behind you!\" he says.",
+          "highlights": [
+            "on",
+            "behind"
+          ]
+        }
+      ],
+      "questionVi": "Các từ được tô đậm cho biết điều gì?",
+      "options": [
+        "Đồ vật ở đâu",
+        "Đồ vật có màu gì",
+        "Đồ vật là của ai"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Nhìn các câu: ti vi ở trên tường (on), cái bàn ở dưới ti vi (under), cái điều khiển ở sau lưng Bảo (behind).",
+      "whenVi": "Dùng in, on, under, behind, in front of, near để nói người hay đồ vật ở đâu.",
+      "table": [
+        {
+          "subject": "in / on",
+          "form": "The keys are in my bag. The book is on the table.",
+          "negative": "The keys aren't in my bag."
+        },
+        {
+          "subject": "under / behind",
+          "form": "The cat is under the bed. The bag is behind the door.",
+          "negative": "The cat isn't under the bed."
+        },
+        {
+          "subject": "in front of / near",
+          "form": "The car is in front of the house. The shop is near my home.",
+          "negative": "The shop isn't near my home."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The book is on table.",
+          "right": "The book is on the table."
+        },
+        {
+          "wrong": "The keys is under the book.",
+          "right": "The keys are under the book."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"trên bàn\", \"dưới gầm giường\" không cần mạo từ, nhưng tiếng Anh phải có the / a / my: on the table, under the bed. In front of có ba từ, đừng bỏ \"of\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền giới từ đúng: ti vi ở trước ghế sofa.",
+          "text": "The TV is in front ___ the sofa.",
+          "answers": [
+            "of"
+          ],
+          "explanationVi": "In front of có ba từ, không bỏ \"of\"."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng: cái bàn ở dưới ti vi.",
+          "text": "The table is ___ the TV.",
+          "options": [
+            "on",
+            "in",
+            "under",
+            "behind"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Ở dưới là under."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The TV is in front the sofa.",
+          "sentence": "The TV is in front of the sofa.",
+          "explanationVi": "Phải nói in front of: đừng bỏ \"of\"."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng: Sách ở trên bàn.",
+          "text": "Sách ở trên bàn.",
+          "sentence": "The books are on the table.",
+          "words": [
+            "books",
+            "on",
+            "The",
+            "table",
+            "are",
+            "the",
+            "is"
+          ],
+          "explanationVi": "Books là số nhiều nên dùng are; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Now the TV is on the wall, and there is a long brown table under it.",
+        "tipVi": "Nối \"under it\" thành /ˈʌndərɪt/; brown /braʊn/."
+      },
+      {
+        "text": "Then the two friends sit on the sofa and watch the football together.",
+        "tipVi": "Together /təˈɡeðər/ nhấn âm thứ hai; football /ˈfʊtbɔːl/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where is the TV in your home?",
+        "questionVi": "Ti vi nhà bạn ở đâu?",
+        "frame": "It is in the ___, ___ the ___."
+      },
+      {
+        "question": "What is under your TV?",
+        "questionVi": "Dưới ti vi nhà bạn có gì?",
+        "frame": "There is ___ under it."
+      },
+      {
+        "question": "Where is the sofa in your living room?",
+        "questionVi": "Ghế sofa trong phòng khách nhà bạn ở đâu?",
+        "frame": "It is near the ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng giới từ chỉ nơi chốn (in, on, under, behind, near...)",
+      "anyOf": [
+        "on the",
+        "in the",
+        "under the",
+        "behind the",
+        "in front of",
+        "near the"
+      ],
+      "outlineVi": [
+        "Nói ti vi nhà bạn ở phòng nào.",
+        "Nói ti vi ở đâu trong phòng: on the wall, on a table, near the window...",
+        "Kể dưới hoặc trước ti vi có gì."
+      ],
+      "modelAnswer": "The TV in my home is in the living room. It is on a small table near the window. There are some books under the table. The sofa is in front of the TV. My cat is on the sofa now, behind my bag."
+    }
+  },
+  "glosses": [
+    {
+      "text": "carry",
+      "lemma": "carry",
+      "meaningVi": "khiêng, mang",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "They carry it into the living room",
+      "phraseVi": "Hai người khiêng nó vào phòng khách"
+    },
+    {
+      "text": "place",
+      "lemma": "place",
+      "meaningVi": "chỗ, nơi",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "a good place",
+      "phraseVi": "chỗ tốt"
+    },
+    {
+      "text": "too sunny",
+      "lemma": "too sunny",
+      "meaningVi": "nắng quá",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "It is too sunny there",
+      "phraseVi": "Chỗ đó nắng quá"
+    },
+    {
+      "text": "Let's",
+      "lemma": "let's",
+      "meaningVi": "mình hãy… đi",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "Let's put it on the wall",
+      "phraseVi": "Mình treo nó lên tường đi"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ở phía trước",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "in front of the sofa",
+      "phraseVi": "trước ghế sofa"
+    },
+    {
+      "text": "under",
+      "lemma": "under",
+      "meaningVi": "ở dưới",
+      "sentenceIndex": 7,
+      "pos": "preposition",
+      "phrase": "a long brown table under it",
+      "phraseVi": "bên dưới có một cái bàn dài màu nâu"
+    },
+    {
+      "text": "football games",
+      "lemma": "football game",
+      "meaningVi": "trò chơi bóng đá (đĩa game)",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "two football games on the table",
+      "phraseVi": "hai trò chơi bóng đá trên bàn"
+    },
+    {
+      "text": "the small black thing with the buttons",
+      "lemma": "black thing with buttons",
+      "meaningVi": "cái điều khiển ti vi",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "the small black thing with the buttons",
+      "phraseVi": "cái điều khiển nhỏ màu đen"
+    },
+    {
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười to, bật cười",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "Khanh laughs",
+      "phraseVi": "Khánh bật cười"
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "ở phía sau",
+      "sentenceIndex": 12,
+      "pos": "preposition",
+      "phrase": "behind you",
+      "phraseVi": "sau lưng cậu"
+    }
+  ]
+}

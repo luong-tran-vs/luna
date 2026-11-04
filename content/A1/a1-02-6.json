@@ -1,71 +1,71 @@
 {
-  "content": "My cousin Lan is fourteen. Her dad is my mum's brother. I am an only child, so Lan is like a sister to me.\n\nLan has long black hair and glasses. She is clever and kind. Her family is big, but my family is small. Her father, Uncle Tuan, is a doctor, and her mother, Aunt Thu, is a teacher. Lan has an older brother, Duc, and a little sister, Mai. They have a cat too. Its name is Milo.\n\nLan has a blue bike, and she goes to school on it. Her room is small, but it has a lot of books.\n\nOn Sundays, I am at Lan's home. We aren't in the same school, but we are good friends. \"Minh, are you hungry?\" asks Aunt Thu.\n\"Yes, please,\" I answer, and we all have lunch together.",
+  "content": "Every Sunday, Hoa's family has a big dinner at home. Hoa is twenty-two. She lives in Hai Phong with her parents and her brother, Duc. Hoa is their daughter, and Duc is their son.\n\nHoa's mother is a great cook. Her special dishes are fish soup and nem. Hoa helps her mother with the nem. Hoa's father isn't a good cook, but he makes the rice. It is his job every Sunday.\n\nDuc is sixteen, and he is always hungry. His favourite food is his mother's chicken. He has three nem, two bowls of rice and a lot of chicken!\n\nTheir grandparents are at the dinner, too. Their grandmother has a cake for the family. Duc says, \"Mum, your chicken is very good!\"\nHis sister asks, \"And my nem?\"\nEveryone laughs.",
   "targetWords": [
-    "cousin",
-    "only child",
-    "uncle",
-    "aunt",
-    "older",
-    "little sister",
-    "home",
-    "together"
+    "family",
+    "parents",
+    "father",
+    "mother",
+    "son",
+    "daughter",
+    "brother",
+    "sister"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "cousin",
-        "lemma": "cousin",
-        "meaningVi": "anh chị em họ",
+        "text": "family",
+        "lemma": "family",
+        "meaningVi": "gia đình",
         "pos": "noun",
         "sentenceIndex": 0
       },
       {
-        "text": "only child",
-        "lemma": "only child",
-        "meaningVi": "con một",
+        "text": "parents",
+        "lemma": "parents",
+        "meaningVi": "bố mẹ",
         "pos": "noun",
         "sentenceIndex": 2
       },
       {
-        "text": "Uncle",
-        "lemma": "uncle",
-        "meaningVi": "chú, bác, cậu",
+        "text": "brother",
+        "lemma": "brother",
+        "meaningVi": "anh trai, em trai",
         "pos": "noun",
-        "sentenceIndex": 6
+        "sentenceIndex": 2
       },
       {
-        "text": "Aunt",
-        "lemma": "aunt",
-        "meaningVi": "cô, dì, bác gái",
+        "text": "daughter",
+        "lemma": "daughter",
+        "meaningVi": "con gái",
         "pos": "noun",
-        "sentenceIndex": 6
+        "sentenceIndex": 3
       },
       {
-        "text": "older",
-        "lemma": "older",
-        "meaningVi": "lớn tuổi hơn (anh, chị)",
-        "pos": "adjective",
+        "text": "son",
+        "lemma": "son",
+        "meaningVi": "con trai",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "mother",
+        "lemma": "mother",
+        "meaningVi": "mẹ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "father",
+        "lemma": "father",
+        "meaningVi": "bố, cha",
+        "pos": "noun",
         "sentenceIndex": 7
       },
       {
-        "text": "little sister",
-        "lemma": "little sister",
-        "meaningVi": "em gái",
+        "text": "sister",
+        "lemma": "sister",
+        "meaningVi": "chị gái, em gái",
         "pos": "noun",
-        "sentenceIndex": 7
-      },
-      {
-        "text": "home",
-        "lemma": "home",
-        "meaningVi": "nhà",
-        "pos": "noun",
-        "sentenceIndex": 12
-      },
-      {
-        "text": "together",
-        "lemma": "together",
-        "meaningVi": "cùng nhau",
-        "pos": "adverb",
         "sentenceIndex": 15
       }
     ],
@@ -75,580 +75,505 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Lan writes about her best friend.",
-          "Minh's family has lunch at a restaurant.",
-          "Aunt Thu talks about her school.",
-          "Minh tells us about his cousin Lan and her family."
-        ],
-        "answerIndex": 3,
-        "explanationVi": "Minh kể về em họ Lan: Lan trông thế nào, gia đình Lan có những ai và Lan có những gì."
-      },
-      {
-        "kind": "detail",
-        "prompt": "Who is Lan's father?",
-        "promptVi": "Bố của Lan là ai?",
-        "options": [
-          "Uncle Hai",
-          "Uncle Tuan",
-          "Duc",
-          "Minh's father"
+          "Hoa's new job",
+          "Hoa's family dinner on Sunday",
+          "A cooking class",
+          "A restaurant in Hai Phong"
         ],
         "answerIndex": 1,
-        "explanationVi": "Bài viết \"Her father, Uncle Tuan, is a doctor\": bố Lan là bác Tuấn. Đức là anh trai của Lan."
+        "explanationVi": "Bài kể về bữa tối Chủ nhật ở nhà Hoa: mẹ nấu món gì, bố làm gì và em trai thích ăn gì."
       },
       {
         "kind": "detail",
-        "prompt": "What is in Lan's room?",
-        "promptVi": "Trong phòng của Lan có gì?",
+        "prompt": "What are her mother's special dishes?",
+        "promptVi": "Những món đặc biệt của mẹ Hoa là gì?",
         "options": [
-          "A lot of books",
-          "A big guitar",
-          "A computer and a TV",
-          "Two cats"
+          "Chicken and cake",
+          "Fish soup and nem",
+          "Rice and chicken",
+          "Cake and fish soup"
         ],
-        "answerIndex": 0,
-        "explanationVi": "Bài viết \"Her room is small, but it has a lot of books\": phòng Lan nhỏ nhưng có rất nhiều sách."
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Her special dishes are fish soup and nem\": canh cá và nem rán."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Duc?",
+        "promptVi": "Đức bao nhiêu tuổi?",
+        "options": [
+          "Twelve",
+          "Sixteen",
+          "Twenty-two",
+          "Six"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Duc is sixteen\": Đức mười sáu tuổi."
       },
       {
         "kind": "tfn",
-        "prompt": "Minh and Lan are in the same school.",
-        "promptVi": "Minh và Lan học cùng trường.",
+        "prompt": "Hoa's father is a great cook.",
+        "promptVi": "Bố của Hoa nấu ăn rất giỏi.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Minh viết \"We aren't in the same school, but we are good friends\": hai anh em không học cùng trường."
+        "explanationVi": "Sai, vì bài viết \"Hoa's father isn't a good cook\": bố Hoa không giỏi nấu ăn, bố chỉ nấu cơm."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"clever\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"son\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "She is clever and kind.",
+        "quote": "Hoa is their daughter, and Duc is their son.",
         "options": [
-          "xinh đẹp",
-          "nhút nhát",
-          "thông minh",
-          "cao"
+          "con gái",
+          "con trai",
+          "em trai",
+          "bố"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Clever là thông minh: Minh khen Lan thông minh và tốt bụng, và phòng Lan có rất nhiều sách."
+        "answerIndex": 1,
+        "explanationVi": "Son là con trai: Đức là con trai của bố mẹ Hoa."
       }
     ],
     "grammarNote": {
-      "title": "Have / has (có)",
-      "bodyVi": "Một người hay một vật (Lan, her room, it) đi với has: Lan has a blue bike, her room has a lot of books. Nhiều người (they, Lan's family) đi với have: They have a cat too. Muốn nói \"của ai\", dùng her, his hoặc tên + 's: her dad, my mum's brother.",
+      "title": "'s and his / her",
+      "bodyVi": "Có hai cách nói của ai. Với tên người hay danh từ chỉ người, thêm 's: Hoa's mother (mẹ của Hoa), his mother's chicken (món gà của mẹ cậu ấy). Khi đã biết là ai, dùng his (của anh ấy) hoặc her (của cô ấy): His favourite food (món cậu ấy thích nhất), Her special dishes (những món đặc biệt của bà). Has dùng với một người hay một nhóm: Hoa's family has a big dinner.",
       "examples": [
-        "Lan has an older brother, Duc, and a little sister, Mai.",
-        "They have a cat too.",
-        "Her room is small, but it has a lot of books."
+        "Every Sunday, Hoa's family has a big dinner at home.",
+        "His favourite food is his mother's chicken.",
+        "Her special dishes are fish soup and nem."
       ]
     },
-    "writingPrompt": "Write about one of your cousins: his or her family and his or her things.",
+    "writingPrompt": "Write about a family meal at your home: who is there, who makes the food and what is everyone's favourite dish.",
     "sentenceTranslations": [
-      "Em họ mình, Lan, mười bốn tuổi.",
-      "Bố của Lan là anh trai của mẹ mình.",
-      "Mình là con một, nên Lan giống như em gái của mình vậy.",
-      "Lan có mái tóc đen dài và đeo kính.",
-      "Em ấy thông minh và tốt bụng.",
-      "Gia đình em ấy đông người, còn gia đình mình thì ít người.",
-      "Bố của Lan, bác Tuấn, là bác sĩ, còn mẹ của Lan, bác Thu, là giáo viên.",
-      "Lan có một anh trai, anh Đức, và một em gái, bé Mai.",
-      "Nhà Lan còn có một con mèo.",
-      "Nó tên là Milo.",
-      "Lan có một chiếc xe đạp màu xanh, và em ấy đạp xe đến trường.",
-      "Phòng của em ấy nhỏ, nhưng có rất nhiều sách.",
-      "Chủ nhật nào mình cũng ở nhà Lan.",
-      "Bọn mình không học cùng trường, nhưng bọn mình là bạn tốt của nhau.",
-      "\"Minh ơi, cháu đói chưa?\" bác Thu hỏi.",
-      "\"Dạ, cháu đói ạ,\" mình trả lời, và cả nhà cùng ăn trưa."
+      "Chủ nhật nào gia đình Hoa cũng có một bữa tối lớn ở nhà.",
+      "Hoa hai mươi hai tuổi.",
+      "Hoa sống ở Hải Phòng với bố mẹ và em trai là Đức.",
+      "Hoa là con gái, còn Đức là con trai của bố mẹ.",
+      "Mẹ của Hoa nấu ăn rất giỏi.",
+      "Những món đặc biệt của mẹ là canh cá và nem rán.",
+      "Hoa giúp mẹ làm nem rán.",
+      "Bố của Hoa không giỏi nấu ăn, nhưng bố nấu cơm.",
+      "Chủ nhật nào đó cũng là việc của bố.",
+      "Đức mười sáu tuổi, và lúc nào cũng đói.",
+      "Món Đức thích nhất là món gà của mẹ.",
+      "Cậu ấy ăn ba cái nem, hai bát cơm và rất nhiều thịt gà!",
+      "Ông bà cũng có mặt ở bữa tối.",
+      "Bà có một chiếc bánh ngọt cho cả nhà.",
+      "Đức nói: \"Mẹ ơi, món gà của mẹ ngon quá!\"",
+      "Chị gái cậu hỏi: \"Thế còn nem của chị?\"",
+      "Cả nhà cười vang."
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể giới thiệu một người anh chị em họ: người đó trông thế nào, gia đình có những ai và có những gì, dùng have / has và her, his, 's.",
+    "objectiveVi": "Bạn có thể kể về bữa cơm gia đình và món ăn mỗi người thích, dùng 's, his / her và have / has.",
     "examples": [
       {
-        "lemma": "cousin",
-        "sentence": "My cousin is from Da Nang.",
-        "meaningVi": "Em họ mình đến từ Đà Nẵng."
+        "lemma": "family",
+        "sentence": "My family has a big dinner on Sunday.",
+        "meaningVi": "Gia đình mình có một bữa tối lớn vào Chủ nhật."
       },
       {
-        "lemma": "only child",
-        "sentence": "Tom is an only child.",
-        "meaningVi": "Tom là con một."
+        "lemma": "parents",
+        "sentence": "She lives with her parents.",
+        "meaningVi": "Cô ấy sống với bố mẹ."
       },
       {
-        "lemma": "uncle",
-        "sentence": "My uncle has a big car.",
-        "meaningVi": "Chú mình có một chiếc ô tô to."
+        "lemma": "father",
+        "sentence": "My father makes the rice.",
+        "meaningVi": "Bố mình nấu cơm."
       },
       {
-        "lemma": "aunt",
-        "sentence": "My aunt is my mum's sister.",
-        "meaningVi": "Dì mình là em gái của mẹ mình."
+        "lemma": "mother",
+        "sentence": "Her mother is a great cook.",
+        "meaningVi": "Mẹ cô ấy nấu ăn rất giỏi."
       },
       {
-        "lemma": "older",
-        "sentence": "I have an older sister.",
-        "meaningVi": "Mình có một chị gái."
+        "lemma": "son",
+        "sentence": "Duc is their son.",
+        "meaningVi": "Đức là con trai của họ."
       },
       {
-        "lemma": "little sister",
-        "sentence": "Her little sister is five.",
-        "meaningVi": "Em gái của cô ấy năm tuổi."
+        "lemma": "daughter",
+        "sentence": "Hoa is their daughter.",
+        "meaningVi": "Hoa là con gái của họ."
       },
       {
-        "lemma": "home",
-        "sentence": "My grandparents' home is in Hue.",
-        "meaningVi": "Nhà của ông bà mình ở Huế."
+        "lemma": "brother",
+        "sentence": "My brother is always hungry.",
+        "meaningVi": "Em trai mình lúc nào cũng đói."
       },
       {
-        "lemma": "together",
-        "sentence": "We have dinner together on Sundays.",
-        "meaningVi": "Chủ nhật cả nhà ăn tối cùng nhau."
+        "lemma": "sister",
+        "sentence": "His sister has a cake.",
+        "meaningVi": "Chị gái cậu ấy có một chiếc bánh ngọt."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Tom",
-        "Minh"
+        "Lan",
+        "Hoa"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Minh, who is the girl in your photo?",
-          "meaningVi": "Minh ơi, bạn gái trong ảnh của bạn là ai vậy?"
+          "text": "What is on the table at your family's Sunday dinner?",
+          "meaningVi": "Bữa tối Chủ nhật nhà cậu có những món gì?"
         },
         {
           "speaker": 1,
-          "text": "That's my cousin Lan. She's fourteen.",
-          "meaningVi": "Đó là em họ mình, Lan. Em ấy mười bốn tuổi."
+          "text": "My mother's fish soup and her nem.",
+          "meaningVi": "Canh cá của mẹ mình và nem rán của mẹ."
         },
         {
           "speaker": 0,
-          "text": "Is she your sister?",
-          "meaningVi": "Em ấy là em gái bạn à?"
+          "text": "Is her nem good?",
+          "meaningVi": "Nem của mẹ cậu có ngon không?"
         },
         {
           "speaker": 1,
-          "text": "No, she isn't. I'm an only child. Her dad is my uncle.",
-          "meaningVi": "Không phải. Mình là con một. Bố của em ấy là bác mình."
+          "text": "Yes, it is very good! I help her with it.",
+          "meaningVi": "Ngon lắm! Mình giúp mẹ làm nem."
         },
         {
           "speaker": 0,
-          "text": "Oh, I see. Is her family big?",
-          "meaningVi": "À, mình hiểu rồi. Gia đình em ấy có đông không?"
+          "text": "What is your brother's favourite food?",
+          "meaningVi": "Em trai cậu thích món gì nhất?"
         },
         {
           "speaker": 1,
-          "text": "Yes, it is. She has an older brother and a little sister.",
-          "meaningVi": "Có. Em ấy có một anh trai và một em gái."
+          "text": "His favourite food is our mother's chicken. He has a lot!",
+          "meaningVi": "Em ấy thích nhất món gà của mẹ. Em ấy ăn nhiều lắm!"
         },
         {
           "speaker": 0,
-          "text": "Are they nice?",
-          "meaningVi": "Họ có dễ mến không?"
+          "text": "And your father? Is he a good cook?",
+          "meaningVi": "Còn bố cậu? Bố cậu nấu ăn có giỏi không?"
         },
         {
           "speaker": 1,
-          "text": "Yes, they are. Her brother Duc plays the guitar, and he's very good at music.",
-          "meaningVi": "Có chứ. Anh trai em ấy, anh Đức, chơi đàn ghi-ta, và rất giỏi âm nhạc."
+          "text": "No, he isn't! But the rice is his job.",
+          "meaningVi": "Không đâu! Nhưng nấu cơm là việc của bố."
         },
         {
           "speaker": 0,
-          "text": "Cool! Is Lan good at music too?",
-          "meaningVi": "Hay quá! Lan cũng giỏi âm nhạc à?"
+          "text": "Your Sunday dinner is great.",
+          "meaningVi": "Bữa tối Chủ nhật nhà cậu tuyệt thật."
         },
         {
           "speaker": 1,
-          "text": "No, but she has a lot of books. She's very clever.",
-          "meaningVi": "Không, nhưng em ấy có rất nhiều sách. Em ấy thông minh lắm."
+          "text": "Come next Sunday! My grandmother has a cake for everyone.",
+          "meaningVi": "Chủ nhật tới cậu đến nhé! Bà mình có bánh ngọt cho mọi người."
         }
       ]
     },
-    "grammarTipVi": "\"Bố của Lan\" nói là Lan's dad hoặc her dad, không nói \"the dad of Lan\". Older brother là anh trai, little sister là em gái.",
+    "grammarTipVi": "Hỏi món ăn ai thích nhất: What is your brother's favourite food? Trả lời: His favourite food is chicken.",
     "translations": [
       {
-        "vi": "Tôi là con một.",
-        "en": "I am an only child.",
+        "vi": "Mẹ tôi nấu ăn rất giỏi.",
+        "en": "My mother is a great cook.",
         "distractors": [
-          "a",
-          "have",
-          "is"
+          "father",
+          "are",
+          "an"
         ]
       },
       {
-        "vi": "Em họ tôi có một anh trai.",
-        "en": "My cousin has an older brother.",
+        "vi": "Hoa là con gái của họ.",
+        "en": "Hoa is their daughter.",
         "distractors": [
-          "have",
-          "a",
-          "sister"
+          "they",
+          "son",
+          "are"
         ]
       },
       {
-        "vi": "Bố của cô ấy là chú tôi.",
-        "en": "Her dad is my uncle.",
+        "vi": "Em trai tôi mười sáu tuổi.",
+        "en": "My brother is sixteen.",
         "distractors": [
-          "She",
-          "his",
-          "aunt"
+          "are",
+          "sister",
+          "has"
         ]
       },
       {
-        "vi": "Cô ấy có một em gái.",
-        "en": "She has a little sister.",
+        "vi": "Gia đình tôi có một bữa tối lớn.",
+        "en": "My family has a big dinner.",
         "distractors": [
-          "have",
-          "brother",
-          "is"
+          "is",
+          "small",
+          "lunch"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Minh và Tom nói chuyện về điều gì?",
+        "prompt": "Lan và Hoa nói chuyện về điều gì?",
         "promptVi": "",
         "options": [
-          "Em họ của Minh và gia đình em ấy",
-          "Lớp học nhạc của Tom",
-          "Một bức ảnh ở trường"
+          "Bữa tối Chủ nhật nhà Hoa",
+          "Một nhà hàng mới",
+          "Công việc của bố Hoa"
         ],
         "answerIndex": 0,
-        "explanationVi": "Tom hỏi về bạn gái trong ảnh, và Minh kể đó là em họ Lan, rồi kể về gia đình Lan.",
+        "explanationVi": "Lan hỏi về các món ăn và từng người trong bữa tối Chủ nhật nhà Hoa.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Minh có anh chị em ruột không?",
+        "prompt": "Em trai Hoa thích món gì nhất?",
         "promptVi": "",
         "options": [
-          "Có một em gái",
-          "Không, Minh là con một",
-          "Có một anh trai"
+          "Nem rán",
+          "Canh cá",
+          "Món gà của mẹ"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Minh nói \"I'm an only child\": Minh là con một, Lan chỉ là em họ.",
-        "turnIndex": 3
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"His favourite food is our mother's chicken.\"",
+        "turnIndex": 5
       },
       {
         "kind": "detail",
-        "prompt": "Anh Đức giỏi gì?",
+        "prompt": "Bố Hoa làm việc gì trong bữa tối?",
         "promptVi": "",
         "options": [
-          "Đọc sách",
-          "Nấu ăn",
-          "Âm nhạc"
+          "Nấu cơm",
+          "Làm bánh ngọt",
+          "Nấu canh cá"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Minh nói \"Her brother Duc plays the guitar, and he's very good at music\": anh Đức giỏi âm nhạc. Người có nhiều sách là Lan.",
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"the rice is his job.\"",
         "turnIndex": 7
       },
       {
         "kind": "tfn",
-        "prompt": "Lan is good at music.",
-        "promptVi": "Lan giỏi âm nhạc.",
+        "prompt": "Hoa's grandmother has a cake.",
+        "promptVi": "Bà của Hoa có một chiếc bánh ngọt.",
         "options": [],
-        "answerIndex": 1,
-        "explanationVi": "Sai, vì khi Tom hỏi \"Is Lan good at music too?\", Minh trả lời \"No, but she has a lot of books\".",
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Hoa nói \"My grandmother has a cake for everyone.\"",
         "turnIndex": 9
       }
     ],
-    "readingGuideVi": "Gia đình Lan có những ai, và Lan có những gì?",
+    "readingGuideVi": "Trong bữa tối Chủ nhật nhà Hoa, mỗi người làm gì và thích món gì?",
     "grammarStep": {
-      "titleVi": "Have / has (có)",
+      "titleVi": "'s và his / her",
       "noticing": [
         {
-          "sentence": "Lan has an older brother, Duc, and a little sister, Mai.",
+          "sentence": "Every Sunday, Hoa's family has a big dinner at home.",
           "highlights": [
-            "has"
+            "Hoa's"
           ]
         },
         {
-          "sentence": "They have a cat too.",
+          "sentence": "Hoa's mother is a great cook.",
           "highlights": [
-            "have"
+            "Hoa's"
           ]
         },
         {
-          "sentence": "Her room is small, but it has a lot of books.",
+          "sentence": "Her special dishes are fish soup and nem.",
           "highlights": [
-            "Her",
-            "has"
+            "Her"
           ]
         },
         {
-          "sentence": "Her dad is my mum's brother.",
+          "sentence": "His favourite food is his mother's chicken.",
           "highlights": [
-            "Her",
-            "mum's"
+            "His",
+            "mother's"
           ]
         }
       ],
-      "questionVi": "Trong câu \"Her room is small, but it has a lot of books\", vì sao dùng has?",
+      "questionVi": "Trong \"His favourite food is his mother's chicken\", mother's chicken nghĩa là gì?",
       "options": [
-        "Vì books là số nhiều",
-        "Vì it (căn phòng) là một vật, số ít, nên đi với has",
-        "Vì câu có từ but"
+        "Món gà của mẹ",
+        "Mẹ là con gà",
+        "Mẹ có nhiều gà"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Has không chỉ dùng cho người: một vật (it, her room) cũng đi với has. Có nhiều sách cũng không đổi has thành have.",
-      "whenVi": "Dùng have / has để nói người hay vật có gì; dùng her, his hoặc tên + 's để nói đó là của ai.",
+      "answerIndex": 0,
+      "explanationVi": "Mother's chicken là món gà của mẹ: người + 's + vật. Khi đã biết là ai thì dùng his / her thay cho tên: Duc's favourite food = his favourite food.",
+      "whenVi": "Dùng 's sau tên hay danh từ chỉ người; dùng his / her khi người nghe đã biết là ai.",
       "table": [
         {
-          "subject": "I / you / we / they",
-          "form": "have: They have a cat.",
-          "negative": "—"
+          "subject": "Tên + 's",
+          "form": "Hoa's mother, Duc's food",
+          "negative": "It isn't Duc's cake."
         },
         {
-          "subject": "he / she / it",
-          "form": "has: Lan has a bike. It has a lot of books.",
-          "negative": "—"
+          "subject": "his (anh ấy)",
+          "form": "his favourite food, his job",
+          "negative": "It isn't his job."
         },
         {
-          "subject": "của ai",
-          "form": "her room, his bike, my mum's brother",
-          "negative": "—"
+          "subject": "her (cô ấy, bà ấy)",
+          "form": "her special dishes, her cake",
+          "negative": "It isn't her soup."
         }
       ],
       "mistakes": [
         {
-          "wrong": "Lan have a blue bike.",
-          "right": "Lan has a blue bike."
+          "wrong": "Duc favourite food is chicken.",
+          "right": "Duc's favourite food is chicken."
         },
         {
-          "wrong": "The dad of Lan is a doctor.",
-          "right": "Lan's dad is a doctor."
+          "wrong": "He favourite food is chicken.",
+          "right": "His favourite food is chicken."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"bố của Lan\" và dùng \"có\" cho mọi chủ ngữ, nên người Việt hay viết \"the dad of Lan\" và \"Lan have\".",
+      "noteVi": "Tiếng Việt nói \"món ăn của Đức\" mà không cần thêm gì vào tên, nên người Việt hay quên 's (Duc favourite food) hoặc dùng he thay cho his.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền have hoặc has vào chỗ trống.",
-          "text": "Lan ___ an older brother and a little sister.",
+          "promptVi": "Điền dạng đúng của tên trong ngoặc (thêm 's).",
+          "text": "Duc is ___ brother. (Hoa)",
           "answers": [
-            "has"
+            "Hoa's"
           ],
-          "explanationVi": "Lan là một người (she), nên dùng has."
+          "explanationVi": "Đức là em trai của Hoa, nên viết Hoa's."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "Lan is my cousin. ___ dad is my mum's brother.",
+          "promptVi": "Chọn câu đúng.",
+          "text": "Món ăn anh ấy thích nhất là gà.",
           "options": [
-            "She",
-            "Her",
-            "His",
-            "Hers"
+            "His favourite food is chicken.",
+            "He favourite food is chicken.",
+            "Her favourite food is chicken.",
+            "Him favourite food is chicken."
           ],
-          "answerIndex": 1,
-          "explanationVi": "\"Bố của Lan\" (một bạn gái) là her dad; she là chủ ngữ, his dùng cho con trai."
+          "answerIndex": 0,
+          "explanationVi": "Của anh ấy là his; her là của cô ấy."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Lan have a blue bike.",
-          "sentence": "Lan has a blue bike.",
-          "explanationVi": "Lan là một người (she), nên dùng has, không dùng have."
+          "text": "Duc favourite food is chicken.",
+          "sentence": "Duc's favourite food is chicken.",
+          "explanationVi": "Cần thêm 's sau Duc để nói món ăn của Đức."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Phòng của cô ấy có rất nhiều sách.",
-          "sentence": "Her room has a lot of books.",
+          "text": "Mẹ của Hoa nấu ăn rất giỏi.",
+          "sentence": "Hoa's mother is a great cook.",
           "words": [
-            "room",
-            "has",
-            "Her",
+            "cook",
+            "Hoa's",
+            "great",
+            "is",
+            "mother",
             "a",
-            "of",
-            "lot",
-            "books",
-            "have"
+            "Hoa"
           ],
-          "explanationVi": "Her room là một vật (it) nên đi với has; từ \"have\" bị thừa."
+          "explanationVi": "Mẹ của Hoa là Hoa's mother, từ \"Hoa\" không có 's bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Lan has long black hair and glasses.",
-        "tipVi": "Black /blæk/ bắt đầu bằng cụm /bl/: đọc liền b và l, đừng chen âm \"ơ\" vào giữa."
+        "text": "Every Sunday, Hoa's family has a big dinner at home.",
+        "tipVi": "Hoa's đọc thêm âm /z/ ở cuối; dinner /ˈdɪnər/ nhấn âm đầu."
       },
       {
-        "text": "We aren't in the same school, but we are good friends.",
-        "tipVi": "Đọc rõ cụm âm cuối /ndz/ trong friends /frendz/."
+        "text": "His favourite food is his mother's chicken.",
+        "tipVi": "Favourite /ˈfeɪvərɪt/ đọc ba âm tiết; chicken /ˈtʃɪkɪn/ nhấn âm đầu."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Are you an only child?",
-        "questionVi": "Bạn có phải là con một không?",
-        "frame": "Yes, I am. / No, I'm not. I have ___."
+        "question": "What is your mother's special dish?",
+        "questionVi": "Món đặc biệt của mẹ bạn là gì?",
+        "frame": "Her special dish is ___."
       },
       {
-        "question": "Who is your favourite cousin?",
-        "questionVi": "Bạn thích người anh chị em họ nào nhất?",
-        "frame": "My favourite cousin is ___."
+        "question": "What is your favourite food?",
+        "questionVi": "Món ăn bạn thích nhất là gì?",
+        "frame": "My favourite food is ___."
       },
       {
-        "question": "What is your cousin like? What is in his or her room?",
-        "questionVi": "Người anh chị em họ đó thế nào? Trong phòng của người đó có gì?",
-        "frame": "He / She is ___. His / Her room has ___."
+        "question": "Who is at your family dinner?",
+        "questionVi": "Ai có mặt trong bữa cơm gia đình bạn?",
+        "frame": "My ___, my ___ and my ___ are there."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng has hoặc his / her để nói về người khác",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng 's hoặc his / her nói của ai",
       "anyOf": [
-        "has",
+        "'s",
         "his",
         "her",
-        "he has",
-        "she has",
-        "my cousin"
+        "their"
       ],
       "outlineVi": [
-        "Giới thiệu người anh chị em họ: tên, tuổi, là con của ai.",
-        "Tả người đó: tóc, tính cách.",
-        "Nói gia đình người đó có những ai, và hai bạn gặp nhau khi nào."
+        "Nói bữa ăn là khi nào và ai có mặt (Every Saturday, my family has …).",
+        "Kể ai nấu món gì (My mother's special dish is …).",
+        "Kể món mỗi người thích (My sister's favourite food is …, his favourite food is …)."
       ],
-      "modelAnswer": "My cousin Hoa is twelve. Her mum is my aunt. Hoa has short hair and a big smile. She has an older brother and a little sister. Her family is in Da Nang, but we are together every summer. I am an only child, so Hoa is like a sister to me."
+      "modelAnswer": "Every Saturday, my family has a big lunch at my grandparents' house. My grandmother's special dish is fish soup. My father makes the rice. My sister's favourite food is nem, and my brother's favourite food is chicken. His plate is always full! My favourite dish is my grandmother's soup."
     }
   },
   "glosses": [
     {
-      "text": "cousin",
-      "lemma": "cousin",
-      "meaningVi": "em họ",
+      "text": "dinner",
+      "lemma": "dinner",
+      "meaningVi": "bữa tối",
       "sentenceIndex": 0,
       "pos": "noun",
-      "phrase": "My cousin Lan",
-      "phraseVi": "Em họ mình, Lan"
+      "phrase": "Hoa's family has a big dinner",
+      "phraseVi": "gia đình Hoa cũng có một bữa tối lớn"
     },
     {
-      "text": "only child",
-      "lemma": "only child",
-      "meaningVi": "con một",
-      "sentenceIndex": 2,
-      "pos": "noun",
-      "phrase": "I am an only child",
-      "phraseVi": "Mình là con một"
-    },
-    {
-      "text": "like",
-      "lemma": "like",
-      "meaningVi": "giống như",
-      "sentenceIndex": 2,
-      "pos": "preposition",
-      "phrase": "like a sister to me",
-      "phraseVi": "giống như em gái của mình"
-    },
-    {
-      "text": "glasses",
-      "lemma": "glasses",
-      "meaningVi": "kính đeo mắt",
-      "sentenceIndex": 3,
-      "pos": "noun",
-      "phrase": "long black hair and glasses",
-      "phraseVi": "tóc đen dài và đeo kính"
-    },
-    {
-      "text": "clever",
-      "lemma": "clever",
-      "meaningVi": "thông minh",
+      "text": "cook",
+      "lemma": "cook",
+      "meaningVi": "người nấu ăn",
       "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "Hoa's mother is a great cook",
+      "phraseVi": "Mẹ của Hoa nấu ăn rất giỏi"
+    },
+    {
+      "text": "special",
+      "lemma": "special",
+      "meaningVi": "đặc biệt",
+      "sentenceIndex": 5,
       "pos": "adjective",
-      "phrase": "She is clever and kind",
-      "phraseVi": "Em ấy thông minh và tốt bụng"
+      "phrase": "Her special dishes",
+      "phraseVi": "Những món đặc biệt của mẹ"
     },
     {
-      "text": "doctor",
-      "lemma": "doctor",
-      "meaningVi": "bác sĩ",
-      "sentenceIndex": 6,
+      "text": "nem",
+      "lemma": "nem",
+      "meaningVi": "nem rán, chả giò",
+      "sentenceIndex": 5,
       "pos": "noun",
-      "phrase": "Uncle Tuan, is a doctor",
-      "phraseVi": "bác Tuấn là bác sĩ"
-    },
-    {
-      "text": "older",
-      "lemma": "older",
-      "meaningVi": "lớn tuổi hơn",
-      "sentenceIndex": 7,
-      "pos": "adjective",
-      "phrase": "an older brother",
-      "phraseVi": "một anh trai"
-    },
-    {
-      "text": "little sister",
-      "lemma": "little sister",
-      "meaningVi": "em gái",
-      "sentenceIndex": 7,
-      "pos": "noun",
-      "phrase": "a little sister",
-      "phraseVi": "một em gái"
-    },
-    {
-      "text": "bike",
-      "lemma": "bike",
-      "meaningVi": "xe đạp",
-      "sentenceIndex": 10,
-      "pos": "noun",
-      "phrase": "a blue bike",
-      "phraseVi": "một chiếc xe đạp màu xanh"
-    },
-    {
-      "text": "goes to school",
-      "lemma": "go to school",
-      "meaningVi": "đi học",
-      "sentenceIndex": 10,
-      "pos": "verb",
-      "phrase": "she goes to school on it",
-      "phraseVi": "em ấy đạp xe đến trường"
-    },
-    {
-      "text": "Sundays",
-      "lemma": "Sunday",
-      "meaningVi": "Chủ nhật",
-      "sentenceIndex": 12,
-      "pos": "noun",
-      "phrase": "On Sundays",
-      "phraseVi": "Chủ nhật nào cũng"
-    },
-    {
-      "text": "home",
-      "lemma": "home",
-      "meaningVi": "nhà",
-      "sentenceIndex": 12,
-      "pos": "noun",
-      "phrase": "at Lan's home",
-      "phraseVi": "ở nhà Lan"
-    },
-    {
-      "text": "same",
-      "lemma": "same",
-      "meaningVi": "cùng, giống nhau",
-      "sentenceIndex": 13,
-      "pos": "adjective",
-      "phrase": "in the same school",
-      "phraseVi": "học cùng trường"
+      "phrase": "fish soup and nem",
+      "phraseVi": "canh cá và nem rán"
     },
     {
       "text": "hungry",
       "lemma": "hungry",
       "meaningVi": "đói",
-      "sentenceIndex": 14,
+      "sentenceIndex": 9,
       "pos": "adjective",
-      "phrase": "are you hungry?",
-      "phraseVi": "cháu đói chưa?"
+      "phrase": "he is always hungry",
+      "phraseVi": "lúc nào cũng đói"
     },
     {
-      "text": "lunch",
-      "lemma": "lunch",
-      "meaningVi": "bữa trưa",
-      "sentenceIndex": 15,
+      "text": "bowls",
+      "lemma": "bowl",
+      "meaningVi": "cái bát",
+      "sentenceIndex": 11,
       "pos": "noun",
-      "phrase": "we all have lunch together",
-      "phraseVi": "cả nhà cùng ăn trưa"
+      "phrase": "two bowls of rice",
+      "phraseVi": "hai bát cơm"
+    },
+    {
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "Everyone laughs",
+      "phraseVi": "Cả nhà cười vang"
     }
   ]
 }

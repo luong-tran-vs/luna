@@ -1,0 +1,623 @@
+{
+  "content": "It is Friday afternoon. Linh and Huy are at a supermarket near their office. There is a small party for their team at three o'clock, and they have a list.\n\nLinh has a big bag. In the bag, there are four boxes of cookies, two bags of candy and ten bananas. Huy has a big bottle of water and twelve cups. Huy asks, \"Are the cookies good?\" \"Yes, they are. They are my favourite,\" she says.\n\nTheir team has eight people, so the food is for eight. Candy isn't a meal, but it is great for an afternoon break.\n\nAt three o'clock, the people in the team are happy. The cookies are delicious, and the water is cold. Linh and Huy aren't tired now. The party is a nice time for everyone.",
+  "targetWords": [
+    "party",
+    "team",
+    "cookie",
+    "candy",
+    "bottle",
+    "water",
+    "food",
+    "meal"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "party",
+        "lemma": "party",
+        "meaningVi": "bữa tiệc",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "nhóm, đội",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "cookies",
+        "lemma": "cookie",
+        "meaningVi": "(những cái) bánh quy",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "candy",
+        "lemma": "candy",
+        "meaningVi": "kẹo",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "bottle",
+        "lemma": "bottle",
+        "meaningVi": "cái chai",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "water",
+        "lemma": "water",
+        "meaningVi": "nước",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "food",
+        "lemma": "food",
+        "meaningVi": "đồ ăn",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "meal",
+        "lemma": "meal",
+        "meaningVi": "bữa ăn",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh and Huy buy food for a party at work",
+          "Linh's birthday at home",
+          "A new supermarket",
+          "Huy's lunch with his family"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh và Huy đi siêu thị mua bánh quy, kẹo, chuối và nước cho bữa tiệc nhỏ của nhóm ở chỗ làm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many boxes of cookies are in Linh's bag?",
+        "promptVi": "Trong túi của Linh có mấy hộp bánh quy?",
+        "options": [
+          "Two",
+          "Four",
+          "Eight",
+          "Ten"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"there are four boxes of cookies\": có bốn hộp bánh quy. Hai là số túi kẹo, mười là số quả chuối."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many people are in their team?",
+        "promptVi": "Nhóm của họ có bao nhiêu người?",
+        "options": [
+          "Three",
+          "Eight",
+          "Ten",
+          "Twelve"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Their team has eight people\": nhóm có tám người."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The party is at three o'clock.",
+        "promptVi": "Bữa tiệc lúc ba giờ.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"There is a small party for their team at three o'clock\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"break\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Candy isn't a meal, but it is great for an afternoon break.",
+        "options": [
+          "giờ nghỉ giải lao",
+          "cái hộp",
+          "bữa tối",
+          "công việc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Break\" ở đây là giờ nghỉ giải lao ngắn: kẹo rất hợp cho giờ nghỉ buổi chiều."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh từ số nhiều",
+      "bodyVi": "Nhiều vật thì thêm -s: cookie → cookies, cup → cups, bag → bags, banana → bananas. Danh từ tận cùng bằng -x, -s, -ch, -sh thêm -es: box → boxes. Một số danh từ đổi dạng: person → people. Sau số đếm (two, four, eight, ten, twelve) danh từ luôn ở số nhiều: four boxes of cookies, eight people.",
+      "examples": [
+        "In the bag, there are four boxes of cookies, two bags of candy and ten bananas.",
+        "Huy has a big bottle of water and twelve cups.",
+        "Their team has eight people, so the food is for eight."
+      ]
+    },
+    "writingPrompt": "Write about food for a party: what is on your list, and how many people are at the party?",
+    "sentenceTranslations": [
+      "Hôm nay là chiều thứ Sáu.",
+      "Linh và Huy đang ở một siêu thị gần văn phòng của họ.",
+      "Lúc ba giờ có một bữa tiệc nhỏ cho nhóm của họ, và họ có một danh sách đồ cần mua.",
+      "Linh có một cái túi to.",
+      "Trong túi có bốn hộp bánh quy, hai túi kẹo và mười quả chuối.",
+      "Huy có một chai nước lớn và mười hai cái cốc.",
+      "Huy hỏi: \"Bánh quy có ngon không?\"",
+      "\"Ngon chứ.",
+      "Đó là loại mình thích nhất,\" cô ấy nói.",
+      "Nhóm của họ có tám người, nên đồ ăn là cho tám người.",
+      "Kẹo không phải là một bữa ăn, nhưng rất hợp cho giờ nghỉ buổi chiều.",
+      "Lúc ba giờ, mọi người trong nhóm đều vui.",
+      "Bánh quy rất ngon, và nước thì mát lạnh.",
+      "Bây giờ Linh và Huy không còn mệt nữa.",
+      "Bữa tiệc là khoảng thời gian vui vẻ cho mọi người."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về đồ ăn, đồ uống cho một bữa tiệc nhỏ và dùng danh từ số nhiều với số đếm.",
+    "examples": [
+      {
+        "lemma": "party",
+        "sentence": "The party is at my house.",
+        "meaningVi": "Bữa tiệc ở nhà mình."
+      },
+      {
+        "lemma": "team",
+        "sentence": "My team has six people.",
+        "meaningVi": "Nhóm của mình có sáu người."
+      },
+      {
+        "lemma": "cookie",
+        "sentence": "Can I have a cookie, please?",
+        "meaningVi": "Cho mình một cái bánh quy nhé?"
+      },
+      {
+        "lemma": "candy",
+        "sentence": "This candy is very sweet.",
+        "meaningVi": "Kẹo này rất ngọt."
+      },
+      {
+        "lemma": "bottle",
+        "sentence": "There is a bottle of milk in the kitchen.",
+        "meaningVi": "Có một chai sữa trong bếp."
+      },
+      {
+        "lemma": "water",
+        "sentence": "The water is cold.",
+        "meaningVi": "Nước mát lạnh."
+      },
+      {
+        "lemma": "food",
+        "sentence": "The food for the party is on the table.",
+        "meaningVi": "Đồ ăn cho bữa tiệc ở trên bàn."
+      },
+      {
+        "lemma": "meal",
+        "sentence": "Breakfast is an important meal.",
+        "meaningVi": "Bữa sáng là một bữa ăn quan trọng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, what is on the list?",
+          "meaningVi": "Linh ơi, trong danh sách có gì thế?"
+        },
+        {
+          "speaker": 1,
+          "text": "Cookies, candy, bananas and water.",
+          "meaningVi": "Bánh quy, kẹo, chuối và nước."
+        },
+        {
+          "speaker": 0,
+          "text": "How many boxes of cookies?",
+          "meaningVi": "Mấy hộp bánh quy?"
+        },
+        {
+          "speaker": 1,
+          "text": "Four boxes. Our team has eight people.",
+          "meaningVi": "Bốn hộp. Nhóm mình có tám người."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Are two bags of candy OK?",
+          "meaningVi": "Ừ. Hai túi kẹo được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. And ten bananas, please.",
+          "meaningVi": "Được. Thêm mười quả chuối nữa nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Is a big bottle of water good?",
+          "meaningVi": "Một chai nước lớn được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, and twelve cups too.",
+          "meaningVi": "Được, thêm mười hai cái cốc nữa."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. The party is at three o'clock!",
+          "meaningVi": "Tuyệt. Bữa tiệc lúc ba giờ nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Box thêm -es: boxes. Person đổi thành people. Sau số đếm từ hai trở lên, danh từ luôn ở số nhiều.",
+    "translations": [
+      {
+        "vi": "Huy có một chai nước lớn.",
+        "en": "Huy has a big bottle of water.",
+        "distractors": [
+          "have",
+          "an",
+          "small"
+        ]
+      },
+      {
+        "vi": "Bánh quy rất ngon.",
+        "en": "The cookies are delicious.",
+        "distractors": [
+          "is",
+          "an",
+          "bad"
+        ]
+      },
+      {
+        "vi": "Đồ ăn là cho tám người.",
+        "en": "The food is for eight people.",
+        "distractors": [
+          "are",
+          "peoples",
+          "an"
+        ]
+      },
+      {
+        "vi": "Bữa tiệc là cho nhóm của họ.",
+        "en": "The party is for their team.",
+        "distractors": [
+          "are",
+          "his",
+          "an"
+        ]
+      },
+      {
+        "vi": "Kẹo không phải là một bữa ăn.",
+        "en": "Candy isn't a meal.",
+        "distractors": [
+          "aren't",
+          "the",
+          "two"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hai người đang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đồ cần mua cho bữa tiệc",
+          "Công việc ở văn phòng",
+          "Bữa tối ở nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy hỏi \"what is on the list?\" và hai người nói về bánh quy, kẹo, chuối, nước cho bữa tiệc.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ mua mấy hộp bánh quy?",
+        "promptVi": "",
+        "options": [
+          "Hai",
+          "Bốn",
+          "Tám"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"Four boxes\": bốn hộp bánh quy.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ cần mấy cái cốc?",
+        "promptVi": "",
+        "options": [
+          "Tám",
+          "Mười",
+          "Mười hai"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"twelve cups too\": mười hai cái cốc.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The party is at four o'clock.",
+        "promptVi": "Bữa tiệc lúc bốn giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huy nói \"The party is at three o'clock!\": bữa tiệc lúc ba giờ.",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Linh và Huy mua những gì, và mỗi thứ bao nhiêu?",
+    "grammarStep": {
+      "titleVi": "Danh từ số nhiều",
+      "noticing": [
+        {
+          "sentence": "In the bag, there are four boxes of cookies, two bags of candy and ten bananas.",
+          "highlights": [
+            "boxes",
+            "cookies",
+            "bags",
+            "bananas"
+          ]
+        },
+        {
+          "sentence": "Huy has a big bottle of water and twelve cups.",
+          "highlights": [
+            "cups"
+          ]
+        },
+        {
+          "sentence": "Their team has eight people, so the food is for eight.",
+          "highlights": [
+            "people"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"four boxes\" (thêm -es) nhưng \"twelve cups\" chỉ thêm -s?",
+      "options": [
+        "Vì box tận cùng bằng -x, nên thêm -es",
+        "Vì hộp to hơn cốc",
+        "Vì cups là đồ uống"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Phần lớn danh từ chỉ thêm -s (cup → cups). Danh từ tận cùng bằng -x, -s, -ch, -sh thì thêm -es (box → boxes).",
+      "whenVi": "Dùng danh từ số nhiều khi có hai vật trở lên, nhất là sau số đếm như two, four, eight, twelve.",
+      "table": [
+        {
+          "subject": "thêm -s",
+          "form": "cookie → cookies, cup → cups, bag → bags",
+          "negative": "—"
+        },
+        {
+          "subject": "-x, -s, -ch, -sh → thêm -es",
+          "form": "box → boxes",
+          "negative": "—"
+        },
+        {
+          "subject": "đổi dạng",
+          "form": "person → people, child → children",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There are four boxs of cookies.",
+          "right": "There are four boxes of cookies."
+        },
+        {
+          "wrong": "Their team has eight peoples.",
+          "right": "Their team has eight people."
+        }
+      ],
+      "noteVi": "People đã là số nhiều của person, nên không thêm -s nữa: eight people, không nói eight peoples.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Viết dạng số nhiều của từ trong ngoặc.",
+          "text": "Linh has four ___ (box) of cookies.",
+          "answers": [
+            "boxes"
+          ],
+          "explanationVi": "Box tận cùng bằng -x, nên thêm -es: boxes."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Their team has eight ___.",
+          "options": [
+            "person",
+            "persons",
+            "people",
+            "peoples"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Số nhiều của person là people."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Huy has twelve cup.",
+          "sentence": "Huy has twelve cups.",
+          "explanationVi": "Sau twelve phải dùng số nhiều: cups."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bánh quy rất ngon.",
+          "sentence": "The cookies are delicious.",
+          "words": [
+            "cookies",
+            "delicious",
+            "The",
+            "are",
+            "is"
+          ],
+          "explanationVi": "Cookies là số nhiều nên đi với are; is bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Huy has a big bottle of water and twelve cups.",
+        "tipVi": "Bottle /ˈbɒtl/ đọc âm /t/ nhẹ rồi chuyển ngay sang /l/, không đọc thành \"bốt-tồ\"."
+      },
+      {
+        "text": "The party is a nice time for everyone.",
+        "tipVi": "Party /ˈpɑːti/ nhấn âm đầu \"par\", kéo dài âm /ɑː/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What food is good for a party?",
+        "questionVi": "Món gì hợp cho một bữa tiệc?",
+        "frame": "___ and ___ are good for a party."
+      },
+      {
+        "question": "How many people are in your team or class?",
+        "questionVi": "Nhóm hoặc lớp của bạn có bao nhiêu người?",
+        "frame": "There are ___ people in my ___."
+      },
+      {
+        "question": "Is candy your favourite food?",
+        "questionVi": "Kẹo có phải là món bạn thích nhất không?",
+        "frame": "Yes, it is. / No, it isn't. My favourite food is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 danh từ số nhiều sau số đếm (four boxes, eight people …)",
+      "anyOf": [
+        "cookies",
+        "boxes",
+        "bottles",
+        "cups",
+        "people",
+        "bananas",
+        "cakes"
+      ],
+      "outlineVi": [
+        "Nói bữa tiệc ở đâu, lúc mấy giờ.",
+        "Kể đồ ăn, đồ uống trong danh sách (two boxes of …).",
+        "Nói bữa tiệc có bao nhiêu người và mọi người có vui không."
+      ],
+      "modelAnswer": "The party is at my house at six o'clock. On my list, there are three boxes of cookies, two cakes and four bottles of water. There are ten people at the party. The food is delicious, and everyone is happy."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Friday",
+      "lemma": "Friday",
+      "meaningVi": "thứ Sáu",
+      "pos": "noun",
+      "sentenceIndex": 0,
+      "phrase": "Friday afternoon",
+      "phraseVi": "chiều thứ Sáu"
+    },
+    {
+      "text": "supermarket",
+      "lemma": "supermarket",
+      "meaningVi": "siêu thị",
+      "pos": "noun",
+      "sentenceIndex": 1,
+      "phrase": "at a supermarket",
+      "phraseVi": "ở một siêu thị"
+    },
+    {
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng",
+      "pos": "noun",
+      "sentenceIndex": 1,
+      "phrase": "near their office",
+      "phraseVi": "gần văn phòng của họ"
+    },
+    {
+      "text": "list",
+      "lemma": "list",
+      "meaningVi": "danh sách",
+      "pos": "noun",
+      "sentenceIndex": 2,
+      "phrase": "they have a list",
+      "phraseVi": "họ có một danh sách"
+    },
+    {
+      "text": "boxes",
+      "lemma": "box",
+      "meaningVi": "(những cái) hộp",
+      "pos": "noun",
+      "sentenceIndex": 4,
+      "phrase": "four boxes of cookies",
+      "phraseVi": "bốn hộp bánh quy"
+    },
+    {
+      "text": "cups",
+      "lemma": "cup",
+      "meaningVi": "(những cái) cốc",
+      "pos": "noun",
+      "sentenceIndex": 5,
+      "phrase": "twelve cups",
+      "phraseVi": "mười hai cái cốc"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "loại thích nhất",
+      "pos": "noun",
+      "sentenceIndex": 8,
+      "phrase": "They are my favourite",
+      "phraseVi": "đó là loại mình thích nhất"
+    },
+    {
+      "text": "people",
+      "lemma": "person",
+      "meaningVi": "người (số nhiều)",
+      "pos": "noun",
+      "sentenceIndex": 9,
+      "phrase": "eight people",
+      "phraseVi": "tám người"
+    },
+    {
+      "text": "break",
+      "lemma": "break",
+      "meaningVi": "giờ nghỉ giải lao",
+      "pos": "noun",
+      "sentenceIndex": 10,
+      "phrase": "an afternoon break",
+      "phraseVi": "giờ nghỉ buổi chiều"
+    },
+    {
+      "text": "delicious",
+      "lemma": "delicious",
+      "meaningVi": "ngon",
+      "pos": "adjective",
+      "sentenceIndex": 12,
+      "phrase": "The cookies are delicious",
+      "phraseVi": "bánh quy rất ngon"
+    },
+    {
+      "text": "tired",
+      "lemma": "tired",
+      "meaningVi": "mệt",
+      "pos": "adjective",
+      "sentenceIndex": 13,
+      "phrase": "aren't tired now",
+      "phraseVi": "bây giờ không còn mệt nữa"
+    },
+    {
+      "text": "everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người",
+      "pos": "pronoun",
+      "sentenceIndex": 14,
+      "phrase": "for everyone",
+      "phraseVi": "cho mọi người"
+    }
+  ]
+}

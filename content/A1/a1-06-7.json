@@ -1,0 +1,570 @@
+{
+  "content": "Hoa sees her doctor every month. Today, she calls the small hospital near her home and talks to Mrs Lien.\n\n\"Hello, what time is the doctor there on Friday?\" asks Hoa.\n\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.\n\"He is here for four hours, from eight to twelve.\"\n\"Is he free at half past eight?\"\n\"No, he isn't, but he is free at a quarter to ten.\"\n\"That's OK. How long is the visit?\"\n\"It's about twenty minutes.\"\n\"And when is my visit after that?\"\n\"It's on the first Friday in December, at nine.\"\n\"Wait a second, please,\" says Hoa.\nShe looks for a pen.\n\"Where is the doctor's room?\"\n\"It's on the first floor, near the door.\"\n\"Thank you, see you on Friday!\"",
+  "targetWords": [
+    "time",
+    "o'clock",
+    "hour",
+    "minute",
+    "second",
+    "half past",
+    "quarter",
+    "morning"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "time",
+        "lemma": "time",
+        "meaningVi": "thời gian, giờ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "o'clock",
+        "lemma": "o'clock",
+        "meaningVi": "giờ (đúng)",
+        "pos": "adverb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "morning",
+        "lemma": "morning",
+        "meaningVi": "buổi sáng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "hours",
+        "lemma": "hour",
+        "meaningVi": "tiếng, giờ đồng hồ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "half past",
+        "lemma": "half past",
+        "meaningVi": "rưỡi (quá ba mươi phút)",
+        "pos": "phrase",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "mười lăm phút (một phần tư giờ)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "minutes",
+        "lemma": "minute",
+        "meaningVi": "phút",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "second",
+        "lemma": "second",
+        "meaningVi": "giây, một chút",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa is sick at home.",
+          "Hoa asks Mrs Lien about a time with the doctor.",
+          "Doctor Minh has a new room.",
+          "Mrs Lien looks for a pen."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa gọi điện đến bệnh viện nhỏ, hỏi bà Lien khi nào bác sĩ có mặt và chọn giờ khám."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time is Doctor Minh at the hospital on Friday?",
+        "promptVi": "Thứ Sáu bác sĩ Minh có mặt ở bệnh viện lúc mấy giờ?",
+        "options": [
+          "At half past eight",
+          "At eight o'clock in the morning",
+          "At a quarter to ten",
+          "At twelve o'clock"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Lien nói \"Doctor Minh is here at eight o'clock in the morning\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is Hoa's visit after that?",
+        "promptVi": "Lần khám sau đó của Hoa là khi nào?",
+        "options": [
+          "On the first Friday in December",
+          "On Monday",
+          "In November",
+          "At a quarter to ten today"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Lien nói \"It's on Saturday morning, at nine\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The doctor is free at half past eight.",
+        "promptVi": "Bác sĩ rảnh lúc tám giờ rưỡi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Lien nói \"No, he isn't, but he is free at a quarter to ten\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Wait a second\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Wait a second, please,\" says Hoa.",
+        "options": [
+          "Chờ hai giây",
+          "Chờ một chút",
+          "Đến lần thứ hai",
+          "Chờ đến sáng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Wait a second nghĩa là \"chờ một chút\": a second (một giây) chỉ một thời gian rất ngắn."
+      }
+    ],
+    "grammarNote": {
+      "title": "At, on, in với thời gian",
+      "bodyVi": "Dùng at với giờ (at eight o'clock, at a quarter to ten), on với thứ và ngày (on Friday, on the first Friday), in với tháng và buổi (in December, in the morning).",
+      "examples": [
+        "\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.",
+        "\"No, he isn't, but he is free at a quarter to ten.\"",
+        "\"It's on the first Friday in December, at nine.\""
+      ]
+    },
+    "writingPrompt": "Write about a visit to a doctor or a dentist: on which day it is, what time it is, and how long it is.",
+    "sentenceTranslations": [
+      "Hoa đi khám bác sĩ mỗi tháng.",
+      "Hôm nay, cô ấy gọi điện đến bệnh viện nhỏ gần nhà và nói chuyện với bà Lien.",
+      "\"Xin chào, thứ Sáu bác sĩ có mặt lúc mấy giờ ạ?\" Hoa hỏi.",
+      "\"Bác sĩ Minh có mặt ở đây lúc tám giờ sáng,\" bà Lien nói.",
+      "\"Ông ấy ở đây bốn tiếng, từ tám giờ đến mười hai giờ.\"",
+      "\"Ông ấy có rảnh lúc tám giờ rưỡi không ạ?\"",
+      "\"Không, nhưng ông ấy rảnh lúc mười giờ kém mười lăm.\"",
+      "\"Được ạ.",
+      "Lần khám dài bao lâu ạ?\"",
+      "\"Khoảng hai mươi phút.\"",
+      "\"Thế lần khám sau đó của tôi là khi nào ạ?\"",
+      "\"Vào thứ Sáu đầu tiên của tháng Mười Hai, lúc chín giờ.\"",
+      "\"Làm ơn chờ một chút,\" Hoa nói.",
+      "Cô ấy tìm một cây bút.",
+      "\"Phòng của bác sĩ ở đâu ạ?\"",
+      "\"Ở tầng một, gần cửa.\"",
+      "\"Cảm ơn bà, hẹn gặp vào thứ Sáu!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và nói giờ khám bệnh với at + giờ, on + thứ / ngày, in + tháng / buổi.",
+    "examples": [
+      {
+        "lemma": "time",
+        "sentence": "What time is the doctor here?",
+        "meaningVi": "Bác sĩ có mặt lúc mấy giờ?"
+      },
+      {
+        "lemma": "o'clock",
+        "sentence": "The doctor is free at ten o'clock.",
+        "meaningVi": "Bác sĩ rảnh lúc mười giờ."
+      },
+      {
+        "lemma": "hour",
+        "sentence": "The doctor is here for one hour.",
+        "meaningVi": "Bác sĩ ở đây một tiếng."
+      },
+      {
+        "lemma": "minute",
+        "sentence": "The doctor is here in one minute.",
+        "meaningVi": "Một phút nữa bác sĩ đến."
+      },
+      {
+        "lemma": "second",
+        "sentence": "Just a second, please.",
+        "meaningVi": "Làm ơn chờ một chút."
+      },
+      {
+        "lemma": "half past",
+        "sentence": "My visit is at half past nine.",
+        "meaningVi": "Giờ khám của tôi lúc chín giờ rưỡi."
+      },
+      {
+        "lemma": "quarter",
+        "sentence": "Be here at a quarter to nine.",
+        "meaningVi": "Hãy có mặt lúc chín giờ kém mười lăm."
+      },
+      {
+        "lemma": "morning",
+        "sentence": "The hospital is busy in the morning.",
+        "meaningVi": "Bệnh viện đông vào buổi sáng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Mrs Lien"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Good morning, Hoa. Your visit is at a quarter to ten, right?",
+          "meaningVi": "Chào buổi sáng, Hoa. Giờ khám của cháu lúc mười giờ kém mười lăm, đúng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. Is the doctor here?",
+          "meaningVi": "Vâng ạ. Bác sĩ có ở đây không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, but he is with a man now.",
+          "meaningVi": "Có, nhưng bây giờ ông ấy đang khám cho một người đàn ông."
+        },
+        {
+          "speaker": 0,
+          "text": "How long is it?",
+          "meaningVi": "Mất bao lâu ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "About ten minutes. Please sit here.",
+          "meaningVi": "Khoảng mười phút. Cháu ngồi đây nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you. When is the hospital closed today?",
+          "meaningVi": "Cảm ơn bà. Hôm nay bệnh viện đóng cửa lúc nào ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Today is Friday, so it's closed at five in the afternoon.",
+          "meaningVi": "Hôm nay thứ Sáu, nên đóng cửa lúc năm giờ chiều."
+        },
+        {
+          "speaker": 0,
+          "text": "And on Saturday?",
+          "meaningVi": "Thế còn thứ Bảy ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "On Saturday, it isn't open.",
+          "meaningVi": "Thứ Bảy thì không mở cửa."
+        }
+      ]
+    },
+    "grammarTipVi": "at + giờ: at a quarter to ten, at five. on + thứ / ngày: on Friday, on Saturday. in + buổi / tháng: in the afternoon, in December.",
+    "translations": [
+      {
+        "vi": "Bác sĩ có mặt ở đây lúc tám giờ sáng.",
+        "en": "The doctor is here at eight o'clock in the morning.",
+        "distractors": [
+          "on",
+          "evening",
+          "are"
+        ],
+        "accepted": [
+          "The doctor is here in the morning at eight o'clock."
+        ]
+      },
+      {
+        "vi": "Ông ấy rảnh lúc mười giờ kém mười lăm.",
+        "en": "He is free at a quarter to ten.",
+        "distractors": [
+          "past",
+          "She",
+          "on"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Lần khám dài khoảng hai mươi phút.",
+        "en": "The visit is about twenty minutes.",
+        "distractors": [
+          "hours",
+          "twelve",
+          "are"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Vào thứ Sáu, bác sĩ ở đây bốn tiếng.",
+        "en": "On Friday, the doctor is here for four hours.",
+        "distractors": [
+          "in",
+          "minutes",
+          "fourteen"
+        ],
+        "accepted": [
+          "The doctor is here for four hours on Friday."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa và bà Lien nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ khám và giờ đóng cửa của bệnh viện",
+          "Một người đàn ông bị ốm",
+          "Phòng của bác sĩ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Lien hỏi lại giờ khám của Hoa, Hoa hỏi phải chờ bao lâu và khi nào bệnh viện đóng cửa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa phải chờ khoảng bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Mười phút",
+          "Mười lăm phút",
+          "Một tiếng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Lien nói \"About ten minutes.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay bệnh viện đóng cửa lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Mười giờ",
+          "Năm giờ chiều",
+          "Mười hai giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Lien nói \"it's closed at five in the afternoon.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The hospital is open on Saturday.",
+        "promptVi": "Bệnh viện mở cửa vào thứ Bảy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Lien nói \"On Saturday, it isn't open.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Bác sĩ có mặt khi nào, và Hoa đi khám vào lúc mấy giờ?",
+    "grammarStep": {
+      "titleVi": "At, on, in với thời gian",
+      "noticing": [
+        {
+          "sentence": "\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.",
+          "highlights": [
+            "at eight o'clock",
+            "in the morning"
+          ]
+        },
+        {
+          "sentence": "\"No, he isn't, but he is free at a quarter to ten.\"",
+          "highlights": [
+            "at a quarter to ten"
+          ]
+        },
+        {
+          "sentence": "\"It's on the first Friday in December, at nine.\"",
+          "highlights": [
+            "on Friday",
+            "at nine"
+          ]
+        }
+      ],
+      "questionVi": "Trước giờ, trước thứ (hoặc ngày) và trước buổi trong ngày, bà Lien dùng từ nào?",
+      "options": [
+        "at trước giờ, on trước thứ / ngày, in trước buổi",
+        "on trước giờ, at trước thứ, in trước ngày",
+        "in trước tất cả"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "At eight o'clock, at a quarter to ten, at nine (giờ); on Friday (thứ, ngày); in the morning (buổi).",
+      "whenVi": "Dùng at, on, in khi hẹn giờ, nói ngày hoặc tháng của một việc.",
+      "table": [
+        {
+          "subject": "at + giờ",
+          "form": "at eight o'clock, at half past eight",
+          "negative": "at a quarter to ten"
+        },
+        {
+          "subject": "on + thứ / ngày",
+          "form": "on Friday, on Saturday",
+          "negative": "on Saturday morning"
+        },
+        {
+          "subject": "in + tháng / buổi",
+          "form": "in December",
+          "negative": "in the morning, in the afternoon"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The doctor is here on eight o'clock.",
+          "right": "The doctor is here at eight o'clock."
+        },
+        {
+          "wrong": "My visit is in Friday.",
+          "right": "My visit is on Friday."
+        }
+      ],
+      "noteVi": "Thứ (Friday) đi với on, kể cả \"on the first Friday in December\"; nhưng chỉ có tháng (December) thì đi với in.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền at, on hoặc in vào chỗ trống.",
+          "text": "He is free ___ a quarter to ten.",
+          "answers": [
+            "at"
+          ],
+          "explanationVi": "A quarter to ten là giờ, nên dùng at."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "My visit is ___ December.",
+          "options": [
+            "at",
+            "on",
+            "in",
+            "to"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "December là tháng, nên dùng in."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The hospital is closed in Saturday.",
+          "sentence": "The hospital is closed on Saturday.",
+          "explanationVi": "Saturday là thứ trong tuần, nên dùng on."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bác sĩ có mặt lúc tám giờ sáng.",
+          "sentence": "The doctor is here at eight in the morning.",
+          "words": [
+            "here",
+            "the",
+            "doctor",
+            "at",
+            "morning",
+            "The",
+            "is",
+            "eight",
+            "in",
+            "on"
+          ],
+          "explanationVi": "at + giờ (at eight), in + buổi (in the morning); từ \"on\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.",
+        "tipVi": "Nối \"here at\" thành /hɪr æt/; o'clock /əˈklɑk/ nhấn âm sau."
+      },
+      {
+        "text": "\"It's on the first Friday in December, at nine.\"",
+        "tipVi": "First /fɜrst/ nhớ đọc âm /st/ ở cuối; December nhấn âm giữa /dɪˈsɛmbər/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time is your doctor free?",
+        "questionVi": "Bác sĩ của bạn rảnh lúc mấy giờ?",
+        "frame": "He / She is free at ___."
+      },
+      {
+        "question": "When is your visit to the doctor?",
+        "questionVi": "Lần khám bác sĩ của bạn là khi nào?",
+        "frame": "It's on ___ / in ___."
+      },
+      {
+        "question": "Is the hospital near your home open on Sunday?",
+        "questionVi": "Bệnh viện gần nhà bạn có mở cửa vào Chủ nhật không?",
+        "frame": "Yes, it is. / No, it isn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 2 cụm at / on / in với thời gian",
+      "anyOf": [
+        "at eight",
+        "at nine",
+        "at ten",
+        "on Monday",
+        "on Friday",
+        "on Saturday",
+        "in the morning",
+        "in the afternoon",
+        "in December",
+        "o'clock",
+        "half past",
+        "quarter"
+      ],
+      "outlineVi": [
+        "Nói bạn đi khám bác sĩ nào, ở đâu.",
+        "Nói lần khám vào thứ mấy, lúc mấy giờ (on …, at …).",
+        "Nói lần khám dài bao lâu và lần sau vào tháng nào (in …)."
+      ],
+      "modelAnswer": "My doctor is at a small hospital near my home. My visit is on Tuesday at half past nine in the morning. It is about fifteen minutes long. The doctor is very nice. I go again in March."
+    }
+  },
+  "glosses": [
+    {
+      "text": "doctor",
+      "lemma": "doctor",
+      "meaningVi": "bác sĩ",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "sees her doctor every month",
+      "phraseVi": "đi khám bác sĩ mỗi tháng"
+    },
+    {
+      "text": "hospital",
+      "lemma": "hospital",
+      "meaningVi": "bệnh viện",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "the small hospital near her home",
+      "phraseVi": "bệnh viện nhỏ gần nhà"
+    },
+    {
+      "text": "visit",
+      "lemma": "visit",
+      "meaningVi": "lần khám, chuyến thăm",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "How long is the visit",
+      "phraseVi": "Lần khám dài bao lâu"
+    },
+    {
+      "text": "pen",
+      "lemma": "pen",
+      "meaningVi": "cây bút",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "looks for a pen",
+      "phraseVi": "tìm một cây bút"
+    },
+    {
+      "text": "floor",
+      "lemma": "floor",
+      "meaningVi": "tầng (nhà)",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "on the first floor",
+      "phraseVi": "ở tầng một"
+    }
+  ]
+}

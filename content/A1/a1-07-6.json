@@ -1,0 +1,595 @@
+{
+  "content": "Vy and Khoa work in the same office in Ho Chi Minh City. Their lunch break is from twelve to one.\n\nVy is always hungry at twelve. She often eats rice and chicken at a small restaurant near the office. The food is good, and it isn't expensive. After lunch, she usually drinks a glass of orange juice with her friends.\n\nKhoa never eats a big lunch. He usually has some bread at his desk. Then he takes a walk in the park near the office. He likes the trees and the birds there. Khoa is never tired in the afternoon.\n\nAt one, they are both back at work.\n\"Can you come to the park with me tomorrow, Vy?\" asks Khoa.\n\"Sorry, I'm always hungry at lunch,\" Vy says with a smile.",
+  "targetWords": [
+    "lunch break",
+    "hungry",
+    "eat rice",
+    "restaurant",
+    "food",
+    "take a walk",
+    "tree",
+    "afternoon"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "lunch break",
+        "lemma": "lunch break",
+        "meaningVi": "giờ nghỉ trưa",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "hungry",
+        "lemma": "hungry",
+        "meaningVi": "đói",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "eats rice",
+        "lemma": "eat rice",
+        "meaningVi": "ăn cơm",
+        "pos": "phrase",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "restaurant",
+        "lemma": "restaurant",
+        "meaningVi": "nhà hàng, quán ăn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "food",
+        "lemma": "food",
+        "meaningVi": "đồ ăn",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "takes a walk",
+        "lemma": "take a walk",
+        "meaningVi": "đi dạo",
+        "pos": "phrase",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "trees",
+        "lemma": "tree",
+        "meaningVi": "cây",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "afternoon",
+        "lemma": "afternoon",
+        "meaningVi": "buổi chiều",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text about?",
+        "promptVi": "Bài đọc nói về điều gì?",
+        "options": [
+          "Two friends and their lunch breaks",
+          "A new restaurant in the city",
+          "A park in Ho Chi Minh City",
+          "Vy's family"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài kể Vy và Khoa làm gì trong giờ nghỉ trưa: Vy ăn cơm ở nhà hàng, Khoa ăn bánh mì rồi đi dạo."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Their lunch break is …",
+        "promptVi": "Giờ nghỉ trưa của họ là …",
+        "options": [
+          "from eleven to twelve",
+          "from twelve to one",
+          "from one to two",
+          "at one"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Their lunch break is from twelve to one\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "After his bread, Khoa …",
+        "promptVi": "Ăn bánh mì xong, Khoa …",
+        "options": [
+          "drinks orange juice",
+          "goes to a restaurant",
+          "takes a walk in the park",
+          "sleeps at his desk"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Then he takes a walk in the park near the office\". Uống nước cam là việc của Vy."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The food at the restaurant is expensive.",
+        "promptVi": "Đồ ăn ở nhà hàng đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The food is good, and it isn't expensive\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"hungry\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Vy is always hungry at twelve.\"",
+        "options": [
+          "đói",
+          "no",
+          "mệt",
+          "vui"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hungry là đói, vì thế mười hai giờ là Vy đi ăn ngay."
+      }
+    ],
+    "grammarNote": {
+      "title": "Trạng từ chỉ tần suất",
+      "bodyVi": "Always (luôn luôn), usually (thường thường), often (hay), never (không bao giờ) đứng trước động từ thường: she often eats, he usually has, Khoa never eats. Nhưng với am, is, are thì trạng từ đứng sau: Vy is always hungry, Khoa is never tired.",
+      "examples": [
+        "Vy is always hungry at twelve.",
+        "She often eats rice and chicken at a small restaurant near the office.",
+        "Khoa is never tired in the afternoon."
+      ]
+    },
+    "writingPrompt": "Write about your lunch break: what time it is, where you eat, and what you usually do after lunch.",
+    "sentenceTranslations": [
+      "Vy và Khoa làm việc cùng một văn phòng ở Thành phố Hồ Chí Minh.",
+      "Giờ nghỉ trưa của họ là từ mười hai giờ đến một giờ.",
+      "Cứ mười hai giờ là Vy thấy đói.",
+      "Cô ấy hay ăn cơm gà ở một nhà hàng nhỏ gần văn phòng.",
+      "Đồ ăn ngon, lại không đắt.",
+      "Ăn trưa xong, cô ấy thường uống một cốc nước cam với bạn bè.",
+      "Khoa không bao giờ ăn trưa nhiều.",
+      "Anh ấy thường ăn một ít bánh mì ở bàn làm việc.",
+      "Rồi anh ấy đi dạo trong công viên gần văn phòng.",
+      "Anh ấy thích cây cối và chim chóc ở đó.",
+      "Buổi chiều Khoa không bao giờ thấy mệt.",
+      "Một giờ, cả hai đã quay lại làm việc.",
+      "\"Mai cậu đi công viên với tớ được không, Vy?\" Khoa hỏi.",
+      "\"Xin lỗi nhé, giờ trưa lúc nào tớ cũng đói,\" Vy mỉm cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể mình thường làm gì trong giờ nghỉ trưa, dùng always, usually, often, never với động từ thường và với be.",
+    "examples": [
+      {
+        "lemma": "lunch break",
+        "sentence": "My lunch break is one hour.",
+        "meaningVi": "Giờ nghỉ trưa của mình là một tiếng."
+      },
+      {
+        "lemma": "hungry",
+        "sentence": "I am hungry after school.",
+        "meaningVi": "Tan học là mình thấy đói."
+      },
+      {
+        "lemma": "eat rice",
+        "sentence": "We eat rice every day.",
+        "meaningVi": "Ngày nào nhà mình cũng ăn cơm."
+      },
+      {
+        "lemma": "restaurant",
+        "sentence": "There is a good restaurant near my house.",
+        "meaningVi": "Gần nhà mình có một nhà hàng ngon."
+      },
+      {
+        "lemma": "food",
+        "sentence": "The food here is very good.",
+        "meaningVi": "Đồ ăn ở đây rất ngon."
+      },
+      {
+        "lemma": "take a walk",
+        "sentence": "I take a walk after dinner.",
+        "meaningVi": "Mình đi dạo sau bữa tối."
+      },
+      {
+        "lemma": "tree",
+        "sentence": "There is a big tree in our garden.",
+        "meaningVi": "Trong vườn nhà mình có một cái cây to."
+      },
+      {
+        "lemma": "afternoon",
+        "sentence": "I study English in the afternoon.",
+        "meaningVi": "Mình học tiếng Anh vào buổi chiều."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khoa",
+        "Vy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "It's twelve! Are you hungry, Vy?",
+          "meaningVi": "Mười hai giờ rồi! Cậu có đói không, Vy?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. I'm always hungry at twelve! Are you ready for lunch?",
+          "meaningVi": "Có chứ. Mười hai giờ là tớ lúc nào cũng đói! Cậu đi ăn trưa chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I usually have some bread at my desk.",
+          "meaningVi": "Chưa, tớ thường ăn chút bánh mì ở bàn."
+        },
+        {
+          "speaker": 1,
+          "text": "Only bread? Is that your lunch every day?",
+          "meaningVi": "Chỉ bánh mì thôi á? Ngày nào cậu cũng ăn trưa như thế à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. I never eat a big lunch. After that, I take a walk in the park.",
+          "meaningVi": "Ừ. Tớ không bao giờ ăn trưa nhiều. Sau đó tớ đi dạo trong công viên."
+        },
+        {
+          "speaker": 1,
+          "text": "That's good for you. I often eat rice at the little restaurant.",
+          "meaningVi": "Thế tốt cho cậu đấy. Tớ hay ăn cơm ở cái quán nhỏ kia."
+        },
+        {
+          "speaker": 0,
+          "text": "Is it good?",
+          "meaningVi": "Có ngon không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, and it isn't expensive. Come with me on Friday!",
+          "meaningVi": "Ngon, mà lại không đắt. Thứ Sáu đi với tớ nhé!"
+        },
+        {
+          "speaker": 0,
+          "text": "OK. On Friday, rice. But after lunch, we take a walk!",
+          "meaningVi": "Được. Thứ Sáu thì ăn cơm. Nhưng ăn xong thì mình đi dạo nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Với be: chủ ngữ + am/is/are + always/never + tính từ (Vy is always hungry). Với động từ khác: chủ ngữ + always/never + động từ (Khoa never eats a big lunch).",
+    "translations": [
+      {
+        "vi": "Giờ nghỉ trưa của họ là từ mười hai giờ đến một giờ.",
+        "en": "Their lunch break is from twelve to one.",
+        "distractors": [
+          "are",
+          "His",
+          "two"
+        ]
+      },
+      {
+        "vi": "Vy lúc nào cũng đói.",
+        "en": "Vy is always hungry.",
+        "distractors": [
+          "never",
+          "are",
+          "tired"
+        ]
+      },
+      {
+        "vi": "Cô ấy hay ăn cơm ở một nhà hàng nhỏ.",
+        "en": "She often eats rice at a small restaurant.",
+        "distractors": [
+          "never",
+          "big",
+          "He"
+        ]
+      },
+      {
+        "vi": "Rồi anh ấy đi dạo trong công viên.",
+        "en": "Then he takes a walk in the park.",
+        "distractors": [
+          "taking",
+          "She",
+          "shop"
+        ]
+      },
+      {
+        "vi": "Buổi chiều Khoa không bao giờ thấy mệt.",
+        "en": "Khoa is never tired in the afternoon.",
+        "distractors": [
+          "always",
+          "morning",
+          "are"
+        ],
+        "accepted": [
+          "In the afternoon Khoa is never tired."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khoa và Vy nói về chuyện gì?",
+        "promptVi": "",
+        "options": [
+          "Bữa trưa và giờ nghỉ trưa của hai người",
+          "Công việc buổi chiều",
+          "Một công viên mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn kể mình thường ăn trưa ở đâu, ăn gì và làm gì sau bữa trưa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khoa thường ăn trưa ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở bàn làm việc",
+          "Ở nhà hàng",
+          "Ở công viên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa nói \"I usually have some bread at my desk\".",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Vy thích cái quán nhỏ?",
+        "promptVi": "",
+        "options": [
+          "Đồ ăn ngon và không đắt",
+          "Quán ở gần nhà cô ấy",
+          "Ở đó có nước cam"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa hỏi \"Is it good?\" và Vy nói \"Yes, and it isn't expensive\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa and Vy can have lunch together on Friday.",
+        "promptVi": "Thứ Sáu Khoa và Vy có thể ăn trưa cùng nhau.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Khoa nói \"OK. On Friday, rice\".",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Vy và Khoa làm gì khác nhau trong giờ nghỉ trưa, và vì sao buổi chiều Khoa không bao giờ thấy mệt?",
+    "grammarStep": {
+      "titleVi": "Trạng từ chỉ tần suất",
+      "noticing": [
+        {
+          "sentence": "Vy is always hungry at twelve.",
+          "highlights": [
+            "is always"
+          ]
+        },
+        {
+          "sentence": "Khoa is never tired in the afternoon.",
+          "highlights": [
+            "is never"
+          ]
+        },
+        {
+          "sentence": "She often eats rice and chicken at a small restaurant near the office.",
+          "highlights": [
+            "often eats"
+          ]
+        },
+        {
+          "sentence": "Khoa never eats a big lunch.",
+          "highlights": [
+            "never eats"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao always đứng sau is trong \"is always hungry\", nhưng never đứng trước eats trong \"never eats\"?",
+      "options": [
+        "Trạng từ tần suất đứng sau be nhưng đứng trước động từ thường",
+        "Vì hungry là tính từ dài",
+        "Vì never luôn đứng đầu câu"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Với am, is, are, trạng từ tần suất đứng sau: is always hungry, is never tired. Với động từ thường, nó đứng trước: often eats, never eats.",
+      "whenVi": "Dùng trạng từ tần suất để nói một việc hay một cảm giác (đói, mệt) xảy ra thường xuyên đến mức nào.",
+      "table": [
+        {
+          "subject": "am / is / are + trạng từ",
+          "form": "Vy is always hungry.",
+          "negative": "Khoa is never tired."
+        },
+        {
+          "subject": "trạng từ + động từ (he, she)",
+          "form": "He usually has some bread.",
+          "negative": "He never eats a big lunch."
+        },
+        {
+          "subject": "trạng từ + động từ (I, we, they)",
+          "form": "They often eat rice.",
+          "negative": "They never eat at their desks."
+        },
+        {
+          "subject": "I am / we are + trạng từ",
+          "form": "I am always hungry at twelve.",
+          "negative": "We are never late for work."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Vy always is hungry.",
+          "right": "Vy is always hungry."
+        },
+        {
+          "wrong": "Khoa eats never a big lunch.",
+          "right": "Khoa never eats a big lunch."
+        }
+      ],
+      "noteVi": "Mẹo nhớ: trạng từ tần suất đứng sau be (am, is, are) nhưng đứng trước các động từ khác.",
+      "exercises": [
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu đúng.",
+          "text": "Khoa ___ in the afternoon.",
+          "options": [
+            "never is tired",
+            "is never tired",
+            "is tired never",
+            "never tired is"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Never đứng sau is: Khoa is never tired."
+        },
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"thường thường\".",
+          "text": "Khoa ___ has some bread at his desk.",
+          "answers": [
+            "usually"
+          ],
+          "explanationVi": "Usually nghĩa là thường thường, đứng trước động từ has."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Vy always is hungry at twelve.",
+          "sentence": "Vy is always hungry at twelve.",
+          "explanationVi": "Với is, always phải đứng sau: is always hungry."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy hay uống nước cam.",
+          "sentence": "She often drinks orange juice.",
+          "words": [
+            "juice",
+            "often",
+            "She",
+            "orange",
+            "drinks",
+            "is"
+          ],
+          "explanationVi": "Drinks là động từ thường, nên often đứng trước nó; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Vy is always hungry at twelve.",
+        "tipVi": "Hungry /ˈhʌŋɡri/ nhấn âm đầu HUN; twelve /twelv/ có âm /lv/ ở cuối."
+      },
+      {
+        "text": "Then he takes a walk in the park near the office.",
+        "tipVi": "Walk /wɔːk/ không đọc chữ l; takes a nối âm thành /teɪksə/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time is your lunch break?",
+        "questionVi": "Giờ nghỉ trưa của bạn là mấy giờ?",
+        "frame": "My lunch break is from ___ to ___."
+      },
+      {
+        "question": "Are you often hungry at twelve?",
+        "questionVi": "Bạn có hay thấy đói lúc mười hai giờ không?",
+        "frame": "Yes, I am. I'm always hungry at ___. / No, I'm not. I'm usually hungry at ___."
+      },
+      {
+        "question": "Is there a good restaurant near your work or school?",
+        "questionVi": "Gần chỗ làm hoặc trường bạn có nhà hàng nào ngon không?",
+        "frame": "Yes, there is. I often eat ___ there. / No, there isn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng trạng từ tần suất (always, usually, often, never)",
+      "anyOf": [
+        "always",
+        "usually",
+        "often",
+        "never"
+      ],
+      "outlineVi": [
+        "Nói giờ nghỉ trưa của bạn từ mấy giờ đến mấy giờ.",
+        "Kể bạn thường ăn gì, ở đâu, với ai.",
+        "Kể bạn làm gì sau bữa trưa, dùng always, usually, often hoặc never."
+      ],
+      "modelAnswer": "My lunch break is from half past eleven to one. I am always hungry at twelve. I usually eat noodles at a small restaurant near my school. After lunch, I often take a walk with my friend. She never eats a big lunch."
+    }
+  },
+  "glosses": [
+    {
+      "text": "same",
+      "lemma": "same",
+      "meaningVi": "cùng, giống nhau",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "work in the same office",
+      "phraseVi": "làm việc cùng một văn phòng"
+    },
+    {
+      "text": "chicken",
+      "lemma": "chicken",
+      "meaningVi": "thịt gà",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "rice and chicken",
+      "phraseVi": "cơm gà"
+    },
+    {
+      "text": "expensive",
+      "lemma": "expensive",
+      "meaningVi": "đắt",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "it isn't expensive",
+      "phraseVi": "không đắt"
+    },
+    {
+      "text": "a glass of orange juice",
+      "lemma": "glass",
+      "meaningVi": "một cốc nước cam",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "drinks a glass of orange juice",
+      "phraseVi": "uống một cốc nước cam"
+    },
+    {
+      "text": "desk",
+      "lemma": "desk",
+      "meaningVi": "bàn làm việc",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "some bread at his desk",
+      "phraseVi": "một ít bánh mì ở bàn làm việc"
+    },
+    {
+      "text": "birds",
+      "lemma": "bird",
+      "meaningVi": "chim",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "the trees and the birds there",
+      "phraseVi": "cây cối và chim chóc ở đó"
+    },
+    {
+      "text": "back at work",
+      "lemma": "back",
+      "meaningVi": "quay lại làm việc",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "they are both back at work",
+      "phraseVi": "cả hai đã quay lại làm việc"
+    },
+    {
+      "text": "tomorrow",
+      "lemma": "tomorrow",
+      "meaningVi": "ngày mai",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "come to the park with me tomorrow",
+      "phraseVi": "mai đi công viên với tớ"
+    }
+  ]
+}

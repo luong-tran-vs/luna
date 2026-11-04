@@ -1,5 +1,5 @@
 {
-  "content": "Vy is a sales manager from Ho Chi Minh City. Tonight she is flying to Tokyo for an important meeting, but her flight is two hours late. She decides to wait in the airport lounge.\n\nAt the desk, she shows her boarding pass to the receptionist. \"Good evening. I'm on the flight to Tokyo. Could you tell me if I can wait here?\"\n\"Of course. You're flying business class, so the lounge is free for you. Welcome.\"\n\"Thank you. I need to send some emails. Do you know what the Wi-Fi password is?\"\n\"It's on this card. The connection is best near the windows.\"\n\"Great. I'd also like to know where I can charge my phone.\"\n\"There's a socket next to every seat.\"\nVy looks at the screen. \"There's a delay on my flight. Do you know when it will leave?\"\n\"The new departure time is a quarter past eleven. We'll make an announcement here when boarding starts.\"\n\"Could you tell me which gate it leaves from?\"\n\"Not yet, I'm afraid. We'll know about an hour before. Don't worry, we'll tell you.\"\n\"Thank you. And I wonder if there's somewhere quiet. I have a video call at ten.\"\n\"Yes. There are small rooms at the back. You can use one for free.\"\n\"Perfect. Do you know if the restaurant is still open?\"\n\"It's open until midnight. Try the beef noodle soup. Everyone loves it.\"\nVy smiles. \"Maybe this delay isn't so bad after all.\"",
+  "content": "Vy is a sales manager from Ho Chi Minh City. Tonight she is flying to Tokyo for an important meeting, but her flight is two hours late. She decides to wait in the airport lounge.\n\nAt the desk, she shows her boarding pass to the receptionist. \"Good evening. I'm on the flight to Tokyo. Could you tell me if I can wait here?\"\n\"Of course. You're flying business class, so the lounge is free for you. Welcome.\"\n\"Thank you. I need to send some emails before my flight leaves. Do you know what the Wi-Fi password is?\"\n\"It's on this card. The connection is best near the windows.\"\n\"Great. I'd also like to know where I can charge my phone.\"\n\"There's a socket next to every seat.\"\nVy looks at the screen. \"There's a delay on my flight. Do you know when it will leave?\"\n\"The new departure time is a quarter past eleven. We'll make an announcement here when boarding starts.\"\n\"Could you tell me which gate it leaves from?\"\n\"Not yet, I'm afraid. We'll know about an hour before. Don't worry, we'll tell you as soon as we know.\"\n\"Thank you. And I wonder if there's somewhere quiet. I have a video call at ten.\"\n\"Yes. There are small rooms at the back. You can use one for free until boarding starts.\"\n\"Perfect. Do you know if the restaurant is still open?\"\n\"It's open until midnight. Try the beef noodle soup. Everyone loves it.\"\nVy smiles. \"I'll have some soup after I finish my call. Maybe this delay isn't so bad after all.\"",
   "targetWords": [
     "manager",
     "meeting",
@@ -131,7 +131,7 @@
         "promptVi": "Vy phải trả tiền để dùng phòng nhỏ.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì nhân viên nói \"You can use one for free.\""
+        "explanationVi": "Sai, vì nhân viên nói \"You can use one for free until boarding starts.\""
       },
       {
         "kind": "vocab",
@@ -149,15 +149,15 @@
       }
     ],
     "grammarNote": {
-      "title": "Câu hỏi gián tiếp (Could you tell me where ...?)",
-      "bodyVi": "Câu hỏi gián tiếp có từ để hỏi: What is the Wi-Fi password? → Do you know what the Wi-Fi password is? When will it leave? → Do you know when it will leave? Which gate does it leave from? → Could you tell me which gate it leaves from? Câu hỏi Yes / No dùng if: Could you tell me if I can wait here? Câu bắt đầu bằng I'd like to know / I wonder thì kết thúc bằng dấu chấm.",
+      "title": "Mệnh đề thời gian chỉ tương lai (when, as soon as, until)",
+      "bodyVi": "Khi nói về tương lai, sau when (khi), as soon as (ngay khi), until (cho đến khi), before (trước khi), after (sau khi) dùng hiện tại đơn, còn vế chính dùng will, can hoặc câu mệnh lệnh: We'll make an announcement when boarding starts (không nói when boarding will start), we'll tell you as soon as we know, I'll have some soup after I finish my call. Chú ý: trong câu hỏi gián tiếp Do you know when it will leave?, when là từ để hỏi chứ không phải mốc thời gian, nên vẫn dùng will. Bài cũng ôn câu hỏi gián tiếp: Could you tell me which gate it leaves from?",
       "examples": [
-        "Do you know what the Wi-Fi password is?\"",
-        "I'd also like to know where I can charge my phone.\"",
-        "\"Could you tell me which gate it leaves from?\""
+        "We'll make an announcement here when boarding starts.\"",
+        "Don't worry, we'll tell you as soon as we know.\"",
+        "\"I'll have some soup after I finish my call."
       ]
     },
-    "writingPrompt": "Your flight is late and you are waiting at the airport. Write four polite questions to ask the staff (Could you tell me …? / Do you know …? / I'd like to know …).",
+    "writingPrompt": "Your flight is late and you are waiting at the airport. Write what you will do until you board (I'll … before / after / as soon as …), and two polite questions to the staff (Could you tell me …? / Do you know …?).",
     "sentenceTranslations": [
       "Vy là trưởng phòng kinh doanh ở Thành phố Hồ Chí Minh.",
       "Tối nay cô bay sang Tokyo dự một cuộc họp quan trọng, nhưng chuyến bay trễ hai tiếng.",
@@ -170,7 +170,7 @@
       "Chị bay hạng thương gia nên được dùng phòng chờ miễn phí.",
       "Mời chị vào.\"",
       "\"Cảm ơn chị.",
-      "Tôi cần gửi vài email.",
+      "Tôi cần gửi vài email trước khi chuyến bay cất cánh.",
       "Chị có biết mật khẩu Wi-Fi là gì không?\"",
       "\"Có trên tấm thẻ này.",
       "Kết nối tốt nhất ở gần cửa sổ.\"",
@@ -185,24 +185,25 @@
       "\"Chị cho tôi hỏi máy bay đi từ cửa nào?\"",
       "\"Tôi e là chưa có.",
       "Khoảng một tiếng trước chúng tôi mới biết.",
-      "Chị đừng lo, chúng tôi sẽ báo chị.\"",
+      "Chị đừng lo, ngay khi biết chúng tôi sẽ báo chị.\"",
       "\"Cảm ơn chị.",
       "Và không biết có chỗ nào yên tĩnh không.",
       "Mười giờ tôi có một cuộc gọi video.\"",
       "\"Có ạ.",
       "Có mấy phòng nhỏ ở phía sau.",
-      "Chị có thể dùng một phòng miễn phí.\"",
+      "Chị có thể dùng miễn phí một phòng cho đến khi bắt đầu lên máy bay.\"",
       "\"Tuyệt vời.",
       "Chị có biết nhà hàng còn mở không?\"",
       "\"Mở đến nửa đêm ạ.",
       "Chị ăn thử phở bò nhé.",
       "Ai cũng thích.\"",
       "Vy mỉm cười.",
-      "\"Có lẽ chuyến bay trễ này cũng không tệ lắm.\""
+      "\"Gọi xong tôi sẽ ăn chút phở.",
+      "Có lẽ chuyến bay trễ này cũng không tệ lắm.\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể hỏi lịch sự về Wi-Fi, giờ bay và cửa ra máy bay bằng câu hỏi gián tiếp khi chờ ở sân bay.",
+    "objectiveVi": "Bạn có thể nói việc sẽ làm trong lúc chờ bay bằng when / as soon as / until / before / after + hiện tại đơn, và hỏi nhân viên lịch sự bằng câu hỏi gián tiếp.",
     "examples": [
       {
         "lemma": "manager",
@@ -303,8 +304,8 @@
         },
         {
           "speaker": 0,
-          "text": "Thank you. I didn't expect such a nice evening.",
-          "meaningVi": "Cảm ơn chị. Tôi không ngờ có một buổi tối dễ chịu thế."
+          "text": "Thank you. I'll call my office as soon as I land in Tokyo.",
+          "meaningVi": "Cảm ơn chị. Ngay khi hạ cánh ở Tokyo tôi sẽ gọi cho văn phòng."
         },
         {
           "speaker": 1,
@@ -313,7 +314,7 @@
         }
       ]
     },
-    "grammarTipVi": "Could you tell me which gate it is? (không phải which gate is it). Do you know how long it takes? (không dùng does). I'd like to know if I can take a coffee. (dấu chấm cuối câu).",
+    "grammarTipVi": "Sau when, as soon as, until, before, after nói về tương lai dùng hiện tại đơn: I'll call my office as soon as I land (không nói as soon as I will land). Will chỉ ở vế chính. Câu hỏi gián tiếp Do you know how long it takes? không dùng does.",
     "translations": [
       {
         "vi": "Chị có biết mật khẩu là gì không?",
@@ -325,7 +326,7 @@
         ]
       },
       {
-        "vi": "Chị cho tôi hỏi vì sao chuyến bay bị hoãn?",
+        "vi": "Chị cho tôi hỏi vì sao lại bị trễ?",
         "en": "Could you tell me why there is a delay?",
         "distractors": [
           "does",
@@ -334,12 +335,27 @@
         ]
       },
       {
-        "vi": "Tôi muốn biết giờ cất cánh mới.",
-        "en": "I'd like to know the new departure time.",
+        "vi": "Chúng tôi sẽ thông báo khi bắt đầu lên máy bay.",
+        "en": "We will make an announcement when boarding starts.",
         "distractors": [
-          "old",
-          "wants",
-          "tell"
+          "started",
+          "until",
+          "making"
+        ],
+        "accepted": [
+          "When boarding starts, we will make an announcement."
+        ]
+      },
+      {
+        "vi": "Tôi sẽ sạc điện thoại trước khi lên máy bay.",
+        "en": "I will charge my phone before I get on the plane.",
+        "distractors": [
+          "got",
+          "after",
+          "charging"
+        ],
+        "accepted": [
+          "Before I get on the plane, I will charge my phone."
         ]
       },
       {
@@ -404,118 +420,131 @@
     ],
     "readingGuideVi": "Vy hỏi nhân viên phòng chờ những gì? Cô hỏi bằng những câu lịch sự nào?",
     "grammarStep": {
-      "titleVi": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "titleVi": "Mệnh đề thời gian chỉ tương lai (when, as soon as, until)",
       "noticing": [
         {
-          "sentence": "Could you tell me if I can wait here?\"",
+          "sentence": "I need to send some emails before my flight leaves.",
           "highlights": [
-            "if I can wait"
+            "before my flight leaves"
           ]
         },
         {
-          "sentence": "Do you know what the Wi-Fi password is?\"",
+          "sentence": "We'll make an announcement here when boarding starts.\"",
           "highlights": [
-            "what the Wi-Fi password is"
+            "We'll make",
+            "when boarding starts"
           ]
         },
         {
-          "sentence": "Do you know when it will leave?\"",
+          "sentence": "Don't worry, we'll tell you as soon as we know.\"",
           "highlights": [
-            "when it will leave"
+            "we'll tell",
+            "as soon as we know"
           ]
         },
         {
-          "sentence": "\"Could you tell me which gate it leaves from?\"",
+          "sentence": "You can use one for free until boarding starts.\"",
           "highlights": [
-            "which gate it leaves from"
+            "until boarding starts"
+          ]
+        },
+        {
+          "sentence": "\"I'll have some soup after I finish my call.",
+          "highlights": [
+            "I'll have",
+            "after I finish"
           ]
         }
       ],
-      "questionVi": "Câu \"What is the Wi-Fi password?\" chuyển thành câu hỏi gián tiếp thế nào?",
+      "questionVi": "Trong câu \"We'll make an announcement here when boarding starts\", vì sao dùng starts mà không dùng will start?",
       "options": [
-        "Do you know what the Wi-Fi password is?",
-        "Do you know what is the Wi-Fi password?",
-        "Do you know the Wi-Fi password what is?"
+        "Vì sau when nói về tương lai dùng hiện tại đơn; will chỉ ở vế chính.",
+        "Vì việc lên máy bay đã bắt đầu rồi.",
+        "Vì will start luôn sai trong mọi câu."
       ],
       "answerIndex": 0,
-      "explanationVi": "Từ để hỏi + chủ ngữ (the Wi-Fi password) + động từ (is).",
-      "whenVi": "Dùng câu hỏi gián tiếp để hỏi nhân viên sân bay, khách sạn một cách lịch sự, nhất là khi hỏi nhiều câu liền nhau.",
+      "explanationVi": "Việc lên máy bay xảy ra trong tương lai, nhưng sau when, as soon as, until, before, after ta dùng hiện tại đơn (starts). Will chỉ đứng ở vế chính: We'll make an announcement.",
+      "whenVi": "Dùng khi nói một việc trong tương lai gắn với một mốc khác cũng trong tương lai: when (khi), as soon as (ngay khi), until (cho đến khi), before (trước khi), after (sau khi).",
       "table": [
         {
-          "subject": "Với be",
-          "form": "What is the password? → … what the password is",
-          "negative": "—"
+          "subject": "when / as soon as",
+          "form": "We'll tell you as soon as we know.",
+          "negative": "Không nói: as soon as we will know"
         },
         {
-          "subject": "Với does",
-          "form": "Which gate does it leave from? → … which gate it leaves from",
-          "negative": "Bỏ does, thêm -s"
+          "subject": "before / after",
+          "form": "I'll have some soup after I finish my call.",
+          "negative": "Không nói: after I will finish"
         },
         {
-          "subject": "Câu hỏi Yes / No",
-          "form": "Can I wait here? → … if I can wait here",
-          "negative": "—"
+          "subject": "until",
+          "form": "You can use one until boarding starts.",
+          "negative": "Don't leave until we call you."
+        },
+        {
+          "subject": "Khác: câu hỏi gián tiếp",
+          "form": "Do you know when it will leave?",
+          "negative": "When ở đây là từ để hỏi, nên dùng will được"
         }
       ],
       "mistakes": [
         {
-          "wrong": "Do you know what is the Wi-Fi password?",
-          "right": "Do you know what the Wi-Fi password is?"
+          "wrong": "We'll tell you as soon as we will know.",
+          "right": "We'll tell you as soon as we know."
         },
         {
-          "wrong": "Could you tell me which gate does it leave from?",
-          "right": "Could you tell me which gate it leaves from?"
+          "wrong": "I'll have some soup after I will finish my call.",
+          "right": "I'll have some soup after I finish my call."
         }
       ],
-      "noteVi": "Giới từ có thể đứng cuối câu hỏi gián tiếp: which gate it leaves from.",
+      "noteVi": "Tiếng Việt không chia thì, nên người Việt hay thêm will sau when, as soon as. Nhớ: will chỉ ở vế chính. Nhưng khi when mở đầu một câu hỏi, kể cả câu hỏi gián tiếp như Do you know when it will leave?, thì dùng will bình thường.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền dạng đúng của động từ trong ngoặc (leave).",
-          "text": "Could you tell me which gate it ___ from?",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "We'll make an announcement when boarding ___ (start).",
           "answers": [
-            "leaves"
+            "starts"
           ],
-          "explanationVi": "Bỏ does, động từ thêm -s: it leaves."
+          "explanationVi": "Sau when nói về tương lai dùng hiện tại đơn: starts."
         },
         {
           "kind": "choice",
           "promptVi": "Chọn đáp án đúng.",
-          "text": "Do you know ___?",
+          "text": "I'll call my office as soon as I ___ in Tokyo.",
           "options": [
-            "what the password is",
-            "what is the password",
-            "what does the password",
-            "the password is what"
+            "land",
+            "will land",
+            "landed",
+            "am going to land"
           ],
           "answerIndex": 0,
-          "explanationVi": "Từ để hỏi + chủ ngữ + động từ: what the password is."
+          "explanationVi": "Sau as soon as dùng hiện tại đơn, không dùng will hay be going to."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Do you know when will it leave?",
-          "sentence": "Do you know when it will leave?",
-          "explanationVi": "Chủ ngữ it đứng trước will."
+          "text": "You can use the room until your flight will leave.",
+          "sentence": "You can use the room until your flight leaves.",
+          "explanationVi": "Sau until dùng hiện tại đơn: until your flight leaves."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Chị cho tôi hỏi tôi có thể chờ ở đây không?",
-          "sentence": "Could you tell me if I can wait here?",
+          "text": "Đừng rời phòng chờ cho đến khi chúng tôi gọi chị.",
+          "sentence": "Don't leave the lounge until we call you.",
           "words": [
+            "leave",
+            "Don't",
+            "until",
+            "the",
+            "we",
+            "lounge",
+            "call",
             "you",
-            "Could",
-            "tell",
-            "me",
-            "if",
-            "I",
-            "can",
-            "wait",
-            "here?",
-            "what"
+            "will"
           ],
-          "explanationVi": "Câu hỏi Yes / No dùng if; từ \"what\" bị thừa."
+          "explanationVi": "Sau until dùng hiện tại đơn (we call); từ \"will\" bị thừa."
         }
       ]
     },
@@ -536,9 +565,9 @@
         "frame": "When my flight is late, I usually ___."
       },
       {
-        "question": "Do you like waiting at airports? Why or why not?",
-        "questionVi": "Bạn có thích chờ ở sân bay không? Vì sao?",
-        "frame": "I like / don't like it because ___."
+        "question": "What will you do as soon as you get home today?",
+        "questionVi": "Hôm nay về đến nhà bạn sẽ làm gì đầu tiên?",
+        "frame": "As soon as I get home, I'll ___."
       },
       {
         "question": "Ask politely: what time does the restaurant close?",
@@ -547,19 +576,23 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu hỏi gián tiếp (Could you tell me … / Do you know … / I'd like to know …)",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng when / as soon as / until / before / after + hiện tại đơn để nói về tương lai",
       "anyOf": [
-        "tell me",
-        "do you know",
-        "wonder",
-        "like to know"
+        "as soon as",
+        "until",
+        "before",
+        "after",
+        "when I",
+        "when it",
+        "when we",
+        "when boarding"
       ],
       "outlineVi": [
-        "Nói chuyến bay của bạn bị trễ.",
-        "Hỏi về giờ bay mới và cửa ra máy bay (Do you know when … / Could you tell me which …).",
-        "Hỏi về Wi-Fi hoặc chỗ ăn uống (I'd like to know where …)."
+        "Nói chuyến bay của bạn bị trễ và bạn sẽ chờ ở đâu.",
+        "Kể bạn sẽ làm gì cho đến khi lên máy bay (before, after, as soon as + hiện tại đơn).",
+        "Hỏi nhân viên một, hai câu lịch sự (Do you know when … / Could you tell me which …)."
       ],
-      "modelAnswer": "Excuse me. My flight to Seoul is late. Do you know when it will leave? Could you tell me which gate I should go to? I'd also like to know where I can buy some food. And do you know what the Wi-Fi password is? I need to send an email to my office."
+      "modelAnswer": "My flight to Seoul is late, so I'm waiting in the lounge. I'll send some emails before boarding starts. After I finish, I'll have some noodles. I'll call my wife as soon as I land. Excuse me, do you know when the flight will leave? Could you tell me which gate I should go to?"
     }
   },
   "glosses": [
@@ -594,7 +627,7 @@
       "text": "after all",
       "lemma": "after all",
       "meaningVi": "rốt cuộc, hoá ra",
-      "sentenceIndex": 39,
+      "sentenceIndex": 40,
       "pos": "phrase",
       "phrase": "isn't so bad after all",
       "phraseVi": "cũng không tệ lắm"

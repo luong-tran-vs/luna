@@ -1,0 +1,568 @@
+{
+  "content": "On Saturday afternoon, three students from an evening English class meet at the city library. Ha, Ngoc and Khanh study together every week. They sit at a big table near the window.\n\nNgoc asks, \"What time does the library close?\"\n\"It closes at five, so we have three hours,\" Ha says. \"Does everyone have the book?\"\n\n\"Yes, I do,\" Ngoc says.\n\"Sorry, I don't,\" Khanh says. \"It is at home on my desk.\"\n\n\"No problem. You can look at my book,\" Ha says. She opens it at lesson six. \"Do you know the new words?\"\n\"No, I don't know them all,\" Khanh says.\n\nSo they read the words together, and Ha asks questions. At five, the library closes, and the three friends go for a coffee.",
+  "targetWords": [
+    "student",
+    "class",
+    "library",
+    "book",
+    "desk",
+    "lesson",
+    "word",
+    "question"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "students",
+        "lemma": "student",
+        "meaningVi": "học viên, học sinh",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "class",
+        "lemma": "class",
+        "meaningVi": "lớp học",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "library",
+        "lemma": "library",
+        "meaningVi": "thư viện",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "book",
+        "lemma": "book",
+        "meaningVi": "sách",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "desk",
+        "lemma": "desk",
+        "meaningVi": "bàn học, bàn làm việc",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "lesson",
+        "lemma": "lesson",
+        "meaningVi": "bài học",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "words",
+        "lemma": "word",
+        "meaningVi": "từ",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "questions",
+        "lemma": "question",
+        "meaningVi": "câu hỏi",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Three friends study together at a library",
+          "Three friends have coffee",
+          "A new teacher at the library",
+          "A test on Saturday"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hà, Ngọc và Khánh gặp nhau ở thư viện để cùng học bài sáu."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time does the library close?",
+        "promptVi": "Thư viện đóng cửa lúc mấy giờ?",
+        "options": [
+          "At three",
+          "At four",
+          "At five",
+          "At six"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hà nói \"It closes at five\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Khanh's book?",
+        "promptVi": "Sách của Khánh ở đâu?",
+        "options": [
+          "In his bag",
+          "At home on his desk",
+          "At the library",
+          "At work"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khánh nói \"It is at home on my desk\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khanh has his book today.",
+        "promptVi": "Hôm nay Khánh có mang sách.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Hà hỏi, Khánh nói \"Sorry, I don't\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"close\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"What time does the library close?\"",
+        "options": [
+          "mở cửa",
+          "đóng cửa",
+          "gần",
+          "dọn dẹp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Close (động từ) là đóng cửa: thư viện đóng cửa lúc năm giờ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Hỏi giờ giấc: What time + does + chủ ngữ số ít + động từ? (What time does the library close?). Hỏi mọi người: Does everyone have the book? (everyone đi với does). Hỏi các bạn: Do you know the new words? Trả lời ngắn: Yes, I do. / Sorry, I don't. Phủ định: I don't know them all.",
+      "examples": [
+        "Ngoc asks, \"What time does the library close?\"",
+        "\"Does everyone have the book?\"",
+        "\"Sorry, I don't,\" Khanh says."
+      ]
+    },
+    "writingPrompt": "Do you study with friends? Write where you meet, what time it closes, and what you do there.",
+    "sentenceTranslations": [
+      "Chiều thứ Bảy, ba học viên của một lớp tiếng Anh buổi tối gặp nhau ở thư viện thành phố.",
+      "Hà, Ngọc và Khánh học cùng nhau mỗi tuần.",
+      "Họ ngồi ở một chiếc bàn lớn gần cửa sổ.",
+      "Ngọc hỏi, \"Thư viện đóng cửa lúc mấy giờ?\"",
+      "\"Năm giờ thư viện đóng cửa, nên chúng mình có ba tiếng,\" Hà nói.",
+      "\"Mọi người có mang sách không?\"",
+      "\"Có, mình có,\" Ngọc nói.",
+      "\"Xin lỗi, mình không mang,\" Khánh nói.",
+      "\"Nó ở nhà, trên bàn học của mình.\"",
+      "\"Không sao.",
+      "Cậu có thể xem chung sách với mình,\" Hà nói.",
+      "Chị ấy mở sách ra ở bài sáu.",
+      "\"Các cậu có thuộc các từ mới không?\"",
+      "\"Không, mình chưa thuộc hết,\" Khánh nói.",
+      "Thế là họ cùng nhau đọc các từ, và Hà đặt câu hỏi.",
+      "Lúc năm giờ, thư viện đóng cửa, và ba người bạn đi uống cà phê."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi giờ đóng cửa bằng What time does … close?, hỏi nhóm học Does everyone …? và trả lời Sorry, I don't.",
+    "examples": [
+      {
+        "lemma": "student",
+        "sentence": "Every student has a book.",
+        "meaningVi": "Học viên nào cũng có một cuốn sách."
+      },
+      {
+        "lemma": "class",
+        "sentence": "We are in the same English class.",
+        "meaningVi": "Chúng tôi học cùng một lớp tiếng Anh."
+      },
+      {
+        "lemma": "library",
+        "sentence": "What time does the library open?",
+        "meaningVi": "Thư viện mở cửa lúc mấy giờ?"
+      },
+      {
+        "lemma": "book",
+        "sentence": "I don't have my book today.",
+        "meaningVi": "Hôm nay tôi không mang sách."
+      },
+      {
+        "lemma": "desk",
+        "sentence": "My book is on my desk.",
+        "meaningVi": "Sách của tôi ở trên bàn học."
+      },
+      {
+        "lemma": "lesson",
+        "sentence": "We study lesson six today.",
+        "meaningVi": "Hôm nay chúng tôi học bài sáu."
+      },
+      {
+        "lemma": "word",
+        "sentence": "What does this word mean?",
+        "meaningVi": "Từ này nghĩa là gì?"
+      },
+      {
+        "lemma": "question",
+        "sentence": "Ha asks a question.",
+        "meaningVi": "Hà đặt một câu hỏi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ha",
+        "Khanh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khanh, what does this word mean?",
+          "meaningVi": "Khánh ơi, từ này nghĩa là gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "Which word?",
+          "meaningVi": "Từ nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "This one: \"tired\".",
+          "meaningVi": "Từ này: \"tired\"."
+        },
+        {
+          "speaker": 1,
+          "text": "It means you want to sleep. Do you need a dictionary?",
+          "meaningVi": "Nó nghĩa là cậu buồn ngủ, mệt. Cậu có cần từ điển không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. Thanks. Are you tired?",
+          "meaningVi": "Không cần đâu. Cảm ơn. Cậu có mệt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, a little. Do we have a break?",
+          "meaningVi": "Có, một chút. Chúng mình có nghỉ giải lao không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. Ten minutes, then lesson seven.",
+          "meaningVi": "Có. Mười phút, rồi học bài bảy."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. I buy the water!",
+          "meaningVi": "Được. Mình đi mua nước nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Everyone (mọi người) là số ít trong tiếng Anh, nên đi với does: Does everyone have the book? (không nói \"Do everyone have\"). What time does the library close? – động từ close giữ nguyên.",
+    "translations": [
+      {
+        "vi": "Thư viện đóng cửa lúc mấy giờ?",
+        "en": "What time does the library close?",
+        "distractors": [
+          "are",
+          "closes",
+          "closing"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Mọi người có mang sách không?",
+        "en": "Does everyone have the book?",
+        "distractors": [
+          "Are",
+          "has",
+          "is"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Hôm nay anh ấy không mang sách của mình.",
+        "en": "He doesn't have his book today.",
+        "distractors": [
+          "don't",
+          "has",
+          "her"
+        ],
+        "accepted": [
+          "Today he doesn't have his book."
+        ]
+      },
+      {
+        "vi": "Ba học viên gặp nhau ở thư viện.",
+        "en": "Three students meet at the library.",
+        "distractors": [
+          "meets",
+          "on",
+          "is"
+        ],
+        "accepted": []
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hà và Khánh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một từ mới và giờ nghỉ",
+          "Giờ đóng cửa của thư viện",
+          "Một quán cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hà hỏi nghĩa của một từ, rồi hai người nói về giờ nghỉ giải lao.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Từ \"tired\" nghĩa là gì?",
+        "promptVi": "",
+        "options": [
+          "Mệt",
+          "Vui",
+          "Đói"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"It means you want to sleep\": tired là mệt.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Giờ nghỉ dài bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Năm phút",
+          "Mười phút",
+          "Hai mươi phút"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hà nói \"Ten minutes, then lesson seven\".",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ha needs a dictionary.",
+        "promptVi": "Hà cần từ điển.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hà nói \"No, I don't\".",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Thư viện đóng cửa lúc mấy giờ, và ai không mang sách?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "Ngoc asks, \"What time does the library close?\"",
+          "highlights": [
+            "What time does the library close"
+          ]
+        },
+        {
+          "sentence": "\"Does everyone have the book?\"",
+          "highlights": [
+            "Does everyone have"
+          ]
+        },
+        {
+          "sentence": "\"Sorry, I don't,\" Khanh says.",
+          "highlights": [
+            "I don't"
+          ]
+        },
+        {
+          "sentence": "\"No, I don't know them all,\" Khanh says.",
+          "highlights": [
+            "don't know"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Does everyone have the book?\", vì sao dùng Does?",
+      "options": [
+        "Vì everyone là số ít trong tiếng Anh",
+        "Vì có nhiều người",
+        "Vì câu nói về quá khứ"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Everyone nghĩa là \"mọi người\" nhưng ngữ pháp là số ít (giống he / she), nên dùng Does và have.",
+      "whenVi": "Dùng What time does … close / open? để hỏi giờ; Does everyone …? để hỏi cả nhóm; don't / doesn't để nói điều không có.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "Do you know the new words? – Sorry, I don't.",
+          "negative": "I don't know them all."
+        },
+        {
+          "subject": "he / she / it / everyone",
+          "form": "What time does the library close? Does everyone have the book?",
+          "negative": "He doesn't have his book."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "What time the library closes?",
+          "right": "What time does the library close?"
+        },
+        {
+          "wrong": "Do everyone have the book?",
+          "right": "Does everyone have the book?"
+        }
+      ],
+      "noteVi": "\"Mọi người\" nghe như số nhiều nên người Việt hay nói \"Do everyone\". Trong tiếng Anh, everyone đi với does / has.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền do hoặc does vào chỗ trống.",
+          "text": "What time ___ the library open?",
+          "answers": [
+            "does"
+          ],
+          "explanationVi": "Chủ ngữ the library (it) đi với does."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Khanh ___ have his book today.",
+          "options": [
+            "don't",
+            "doesn't",
+            "not",
+            "isn't"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chủ ngữ Khanh (he) đi với doesn't + have."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Do everyone have the book?",
+          "sentence": "Does everyone have the book?",
+          "explanationVi": "Everyone là số ít, nên dùng Does."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thư viện đóng cửa lúc mấy giờ?",
+          "sentence": "What time does the library close?",
+          "words": [
+            "close?",
+            "library",
+            "What",
+            "does",
+            "time",
+            "the"
+          ],
+          "explanationVi": "What time đứng đầu, rồi does, chủ ngữ the library và động từ close."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Ngoc asks, \"What time does the library close?\"",
+        "tipVi": "Câu hỏi có từ để hỏi xuống giọng ở cuối: …close? ↘. Library /ˈlaɪbrəri/ nhấn âm đầu."
+      },
+      {
+        "text": "They sit at a big table near the window.",
+        "tipVi": "Table /ˈteɪbl/ và window /ˈwɪndəʊ/ đều nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you study with friends?",
+        "questionVi": "Bạn có học cùng bạn bè không?",
+        "frame": "Yes, I do. We meet at ___. / No, I don't."
+      },
+      {
+        "question": "What time does the library in your city close?",
+        "questionVi": "Thư viện ở thành phố của bạn đóng cửa lúc mấy giờ?",
+        "frame": "It closes at ___."
+      },
+      {
+        "question": "Do you always have your book in class?",
+        "questionVi": "Bạn có luôn mang sách khi đi học không?",
+        "frame": "Yes, I do. / No, I don't. Sometimes it is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi Do / Does …? / What time does …? hoặc câu dùng don't / doesn't",
+      "anyOf": [
+        "don't",
+        "doesn't",
+        "do you",
+        "does",
+        "what time does"
+      ],
+      "outlineVi": [
+        "Nói bạn học cùng ai, ở đâu.",
+        "Viết nơi đó mở cửa, đóng cửa lúc mấy giờ.",
+        "Kể các bạn làm gì và một điều bạn không làm."
+      ],
+      "modelAnswer": "I study with two friends at a coffee shop near my home. It closes at ten. We read the lesson and say the new words. I don't like the library, because it is very quiet!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 1,
+      "pos": "adverb",
+      "phrase": "study together every week",
+      "phraseVi": "học cùng nhau mỗi tuần"
+    },
+    {
+      "text": "table",
+      "lemma": "table",
+      "meaningVi": "cái bàn",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a big table near the window",
+      "phraseVi": "một chiếc bàn lớn gần cửa sổ"
+    },
+    {
+      "text": "window",
+      "lemma": "window",
+      "meaningVi": "cửa sổ",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "near the window",
+      "phraseVi": "gần cửa sổ"
+    },
+    {
+      "text": "close",
+      "lemma": "close",
+      "meaningVi": "đóng cửa",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "What time does the library close?",
+      "phraseVi": "Thư viện đóng cửa lúc mấy giờ?"
+    },
+    {
+      "text": "everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người",
+      "sentenceIndex": 5,
+      "pos": "pronoun",
+      "phrase": "Does everyone have the book?",
+      "phraseVi": "Mọi người có mang sách không?"
+    },
+    {
+      "text": "problem",
+      "lemma": "problem",
+      "meaningVi": "vấn đề",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "No problem.",
+      "phraseVi": "Không sao."
+    },
+    {
+      "text": "opens",
+      "lemma": "open",
+      "meaningVi": "mở",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "She opens it at lesson six",
+      "phraseVi": "Chị ấy mở sách ra ở bài sáu"
+    }
+  ]
+}

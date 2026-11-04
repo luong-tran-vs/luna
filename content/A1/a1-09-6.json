@@ -1,0 +1,568 @@
+{
+  "content": "On Saturday, Phong and his wife Trang take their daughter Vy to Ba Vi Farm. There are a lot of animals at the farm: cows, pigs, chickens, horses and geese.\n\nVy loves the horses. \"Look, Mum! The horses can run very fast!\" she says. A farmer helps Vy, and she can sit on a small horse.\n\nThen they walk to the river. The white geese can swim in the water, and they can fly a little too. \"Can the pigs swim?\" asks Vy.\n\"No, they can't,\" Dad says. \"But they can eat all day!\"\n\nThe farm has a dog and a cat too. The dog can help with the cows, and the cat can catch a mouse or a rat in the kitchen. Vy has a pet rabbit at home. She wants a hamster too, but Mum doesn't like small animals in the house.",
+  "targetWords": [
+    "animal",
+    "pet",
+    "dog",
+    "cat",
+    "rabbit",
+    "hamster",
+    "mouse",
+    "rat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "động vật, con vật",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "cat",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "con chuột (nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "rat",
+        "lemma": "rat",
+        "meaningVi": "con chuột cống (chuột to)",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "pet",
+        "lemma": "pet",
+        "meaningVi": "thú cưng, con vật nuôi trong nhà",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "rabbit",
+        "lemma": "rabbit",
+        "meaningVi": "con thỏ",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "hamster",
+        "lemma": "hamster",
+        "meaningVi": "chuột hamster (chuột cảnh nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A family visits a farm and sees the animals.",
+          "Vy buys a hamster.",
+          "A day at the zoo",
+          "Dad works on a farm."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cả nhà Phong đến trang trại Ba Vì và xem các con vật làm được gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can the horses do?",
+        "promptVi": "Những con ngựa làm được gì?",
+        "options": [
+          "They can swim in the river.",
+          "They can run very fast.",
+          "They can fly a little.",
+          "They can catch a mouse."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"The horses can run very fast!\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can the geese do?",
+        "promptVi": "Những con ngỗng làm được gì?",
+        "options": [
+          "They can swim and fly a little.",
+          "They can run very fast.",
+          "They can help with the cows.",
+          "They can eat all day."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"The white geese can swim in the water, and they can fly a little too\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The pigs can swim.",
+        "promptVi": "Lợn biết bơi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bố nói \"No, they can't\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"farmer\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "A farmer helps Vy, and she can sit on a small horse.",
+        "options": [
+          "người nông dân",
+          "bác sĩ",
+          "người bán hàng",
+          "giáo viên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Farmer là người nông dân, người làm việc ở trang trại."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't: nói về khả năng",
+      "bodyVi": "Can + động từ nguyên mẫu nói con vật làm được gì: The horses can run very fast. Can't nói không làm được: No, they can't. Câu hỏi: Can the pigs swim? Với they cũng dùng can, không đổi: they can swim, they can't swim.",
+      "examples": [
+        "The horses can run very fast!\" she says.",
+        "The white geese can swim in the water, and they can fly a little too.",
+        "\"Can the pigs swim?\" asks Vy."
+      ]
+    },
+    "writingPrompt": "Write about animals on a farm: what can they do, and what can't they do?",
+    "sentenceTranslations": [
+      "Thứ bảy, Phong và vợ là Trang đưa con gái Vy đến trang trại Ba Vì.",
+      "Ở trang trại có rất nhiều con vật: bò, lợn, gà, ngựa và ngỗng.",
+      "Vy rất thích những con ngựa.",
+      "\"Mẹ ơi, nhìn kìa!",
+      "Ngựa chạy được rất nhanh!\" cô bé nói.",
+      "Một bác nông dân giúp Vy, và cô bé được ngồi lên một con ngựa nhỏ.",
+      "Rồi cả nhà đi bộ ra bờ sông.",
+      "Những con ngỗng trắng bơi được dưới nước, và chúng cũng bay được một chút.",
+      "\"Lợn có biết bơi không ạ?\" Vy hỏi.",
+      "\"Không, lợn không biết bơi,\" bố nói.",
+      "\"Nhưng chúng ăn được cả ngày!\"",
+      "Trang trại cũng có một con chó và một con mèo.",
+      "Con chó giúp được việc chăn bò, còn con mèo bắt được chuột nhắt hay chuột cống trong bếp.",
+      "Ở nhà, Vy nuôi một con thỏ.",
+      "Cô bé cũng muốn nuôi một con chuột hamster, nhưng mẹ không thích nuôi con vật nhỏ trong nhà."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói các con vật ở trang trại làm được gì (can) và không làm được gì (can't).",
+    "examples": [
+      {
+        "lemma": "animal",
+        "sentence": "The horse is a big animal.",
+        "meaningVi": "Ngựa là một con vật to."
+      },
+      {
+        "lemma": "pet",
+        "sentence": "Vy's pet is a white rabbit.",
+        "meaningVi": "Con vật nuôi của Vy là một con thỏ trắng."
+      },
+      {
+        "lemma": "dog",
+        "sentence": "The farm dog can run very fast.",
+        "meaningVi": "Con chó ở trang trại chạy được rất nhanh."
+      },
+      {
+        "lemma": "cat",
+        "sentence": "The cat can't swim in the river.",
+        "meaningVi": "Con mèo không bơi được ở sông."
+      },
+      {
+        "lemma": "rabbit",
+        "sentence": "A rabbit can eat a lot of grass.",
+        "meaningVi": "Thỏ ăn được rất nhiều cỏ."
+      },
+      {
+        "lemma": "hamster",
+        "sentence": "Vy wants a hamster.",
+        "meaningVi": "Vy muốn nuôi một con chuột hamster."
+      },
+      {
+        "lemma": "mouse",
+        "sentence": "The cat can catch a mouse.",
+        "meaningVi": "Con mèo bắt được chuột nhắt."
+      },
+      {
+        "lemma": "rat",
+        "sentence": "A big rat lives near the pigs.",
+        "meaningVi": "Một con chuột cống to sống gần chỗ lợn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Phong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Dad, can the cows run fast?",
+          "meaningVi": "Bố ơi, bò có chạy nhanh được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they can't. But they can give us milk.",
+          "meaningVi": "Không, bò không chạy nhanh được. Nhưng bò cho mình sữa."
+        },
+        {
+          "speaker": 0,
+          "text": "Can the chickens fly?",
+          "meaningVi": "Gà có bay được không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they can, but only a little.",
+          "meaningVi": "Có, nhưng chỉ bay được một chút thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Can I sit on a big horse?",
+          "meaningVi": "Con có được ngồi lên một con ngựa to không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, you can't. You are only six. Sit on the small horse.",
+          "meaningVi": "Không được con ạ. Con mới sáu tuổi. Con ngồi con ngựa nhỏ thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Do they have rabbits here?",
+          "meaningVi": "Vâng ạ. Ở đây có thỏ không bố?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they do. Let's go and see them.",
+          "meaningVi": "Có con ạ. Mình đi xem nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Can / can't + động từ nguyên mẫu, giống nhau với mọi chủ ngữ: The horses can run, they can't swim (không nói \"The horses cans run\" hay \"can runs\").",
+    "translations": [
+      {
+        "vi": "Con chó ở trang trại chạy được rất nhanh.",
+        "en": "The farm dog can run very fast.",
+        "distractors": [
+          "runs",
+          "cans",
+          "slow"
+        ]
+      },
+      {
+        "vi": "Con mèo bắt được chuột cống trong bếp.",
+        "en": "The cat can catch a rat in the kitchen.",
+        "distractors": [
+          "catches",
+          "cans",
+          "mouse"
+        ],
+        "accepted": [
+          "In the kitchen, the cat can catch a rat."
+        ]
+      },
+      {
+        "vi": "Con chó có bơi được không?",
+        "en": "Can the dog swim?",
+        "distractors": [
+          "swims",
+          "Is",
+          "cans"
+        ]
+      },
+      {
+        "vi": "Ở nhà, Vy nuôi một con thỏ.",
+        "en": "At home, Vy has a pet rabbit.",
+        "distractors": [
+          "have",
+          "rabbits",
+          "is"
+        ],
+        "accepted": [
+          "Vy has a pet rabbit at home.",
+          "At home, Vy has a rabbit.",
+          "Vy has a rabbit at home."
+        ]
+      },
+      {
+        "vi": "Mẹ không thích những con vật nhỏ.",
+        "en": "Mum doesn't like small animals.",
+        "distractors": [
+          "don't",
+          "animal",
+          "big"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy và bố nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Các con vật ở trang trại làm được gì",
+          "Bữa trưa ở trang trại",
+          "Con thỏ ở nhà Vy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy hỏi bò, gà, ngựa làm được gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bò không chạy nhanh được, nhưng bò cho mình gì?",
+        "promptVi": "",
+        "options": [
+          "Sữa",
+          "Trứng",
+          "Thịt"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bố nói \"But they can give us milk\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Vy không được ngồi lên con ngựa to?",
+        "promptVi": "",
+        "options": [
+          "Vì Vy mới sáu tuổi",
+          "Vì con ngựa đang ngủ",
+          "Vì Vy sợ ngựa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bố nói \"You are only six\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The chickens can fly a little.",
+        "promptVi": "Gà bay được một chút.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bố nói \"Yes, they can, but only a little\".",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Ở trang trại, con vật nào làm được gì, và con nào không làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't: nói về khả năng",
+      "noticing": [
+        {
+          "sentence": "The white geese can swim in the water, and they can fly a little too.",
+          "highlights": [
+            "can swim",
+            "can fly"
+          ]
+        },
+        {
+          "sentence": "\"No, they can't,\" Dad says.",
+          "highlights": [
+            "they can't"
+          ]
+        }
+      ],
+      "questionVi": "Chủ ngữ số nhiều (the horses, they), can có đổi không?",
+      "options": [
+        "Không đổi, vẫn là can",
+        "Đổi thành cans",
+        "Đổi thành are can"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Can giống nhau với mọi chủ ngữ, số ít hay số nhiều: The horses can run, they can swim, it can fly.",
+      "whenVi": "Dùng can để nói ai, con gì làm được việc gì; can't để nói không làm được; Can …? để hỏi.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "I can swim. – Can you swim? – Yes, I can.",
+          "negative": "We can't fly."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "It can fly. – Can it talk? – No, it can't.",
+          "negative": "He can't swim."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The horses can runs very fast.",
+          "right": "The horses can run very fast."
+        },
+        {
+          "wrong": "The pigs are can't swim.",
+          "right": "The pigs can't swim."
+        }
+      ],
+      "noteVi": "Không thêm is / are trước can: The pigs can't swim (không nói \"The pigs are can't swim\").",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't. (Những con ngỗng bơi được.)",
+          "text": "The geese ___ swim in the water.",
+          "answers": [
+            "can"
+          ],
+          "explanationVi": "Ngỗng bơi được nên dùng can + swim."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "The pigs ___ swim.",
+          "options": [
+            "can't",
+            "aren't can",
+            "cans",
+            "doesn't can"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Phủ định của can là can't: The pigs can't swim."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The horses can runs very fast.",
+          "sentence": "The horses can run very fast.",
+          "explanationVi": "Sau can, động từ ở dạng nguyên mẫu: can run."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Lợn có biết bơi không?",
+          "sentence": "Can the pigs swim?",
+          "words": [
+            "swim?",
+            "the",
+            "Can",
+            "pigs",
+            "Are"
+          ],
+          "explanationVi": "Câu hỏi: Can + chủ ngữ + động từ nguyên mẫu; từ \"Are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The white geese can swim in the water, and they can fly a little too.",
+        "tipVi": "Geese /ɡiːs/ có âm /iː/ dài; can trong câu khẳng định đọc nhẹ /kən/."
+      },
+      {
+        "text": "\"Can the pigs swim?\" asks Vy.",
+        "tipVi": "Câu hỏi Can …? lên giọng ở cuối; can ở đầu câu hỏi đọc rõ /kæn/; pigs /pɪɡz/ kết thúc bằng /z/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like farm animals?",
+        "questionVi": "Bạn có thích các con vật ở trang trại không?",
+        "frame": "Yes, I do. I like ___. / No, I don't."
+      },
+      {
+        "question": "What can a horse do?",
+        "questionVi": "Con ngựa làm được gì?",
+        "frame": "It can ___, but it can't ___."
+      },
+      {
+        "question": "Can a chicken swim?",
+        "questionVi": "Gà có biết bơi không?",
+        "frame": "Yes, it can. / No, it can't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can / can't hoặc câu hỏi Can …?",
+      "anyOf": [
+        "can",
+        "can't"
+      ],
+      "outlineVi": [
+        "Kể bạn đến trang trại nào, với ai.",
+        "Kể các con vật làm được gì (can …).",
+        "Kể các con vật không làm được gì (can't …)."
+      ],
+      "modelAnswer": "My grandpa has a small farm. He has two cows, a pig and ten chickens. The chickens can fly a little, but they can't swim. The cows can't run fast, but they can give us milk."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Farm",
+      "lemma": "farm",
+      "meaningVi": "trang trại",
+      "pos": "noun",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "horses",
+      "lemma": "horse",
+      "meaningVi": "con ngựa",
+      "pos": "noun",
+      "sentenceIndex": 2,
+      "phrase": "Vy loves the horses",
+      "phraseVi": "Vy rất thích những con ngựa"
+    },
+    {
+      "text": "geese",
+      "lemma": "goose",
+      "meaningVi": "những con ngỗng (số nhiều của goose)",
+      "pos": "noun",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "farmer",
+      "lemma": "farmer",
+      "meaningVi": "người nông dân",
+      "pos": "noun",
+      "sentenceIndex": 5,
+      "phrase": "A farmer helps Vy",
+      "phraseVi": "Một bác nông dân giúp Vy"
+    },
+    {
+      "text": "sit",
+      "lemma": "sit",
+      "meaningVi": "ngồi",
+      "pos": "verb",
+      "sentenceIndex": 5,
+      "phrase": "she can sit on a small horse",
+      "phraseVi": "cô bé được ngồi lên một con ngựa nhỏ"
+    },
+    {
+      "text": "river",
+      "lemma": "river",
+      "meaningVi": "con sông",
+      "pos": "noun",
+      "sentenceIndex": 6,
+      "phrase": "they walk to the river",
+      "phraseVi": "cả nhà đi bộ ra bờ sông"
+    },
+    {
+      "text": "swim",
+      "lemma": "swim",
+      "meaningVi": "bơi",
+      "pos": "verb",
+      "sentenceIndex": 7,
+      "phrase": "The white geese can swim in the water",
+      "phraseVi": "Những con ngỗng trắng bơi được dưới nước"
+    },
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "pos": "noun",
+      "sentenceIndex": 12,
+      "phrase": "in the kitchen",
+      "phraseVi": "trong bếp"
+    }
+  ]
+}

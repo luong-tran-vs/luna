@@ -1,72 +1,72 @@
 {
-  "content": "It is Monday morning. \"Good morning, class,\" says Mr Nam. \"This is our new student, Huy.\" Huy is tall and thin. He is fifteen. He is a little shy.\n\n\"Welcome to our class, Huy!\" says Anna. Huy sits with Minh and Tom. \"Hi, I'm Minh,\" Minh says. \"Are you from Hanoi?\"\n\"No, I'm from Da Nang,\" Huy answers. \"My family is in Hanoi now.\"\n\"Is your house near the school?\" asks Anna.\n\"Yes, it's on Le Loi Street,\" he says.\n\"Sorry, is your name Hung or Huy?\" asks Tom.\n\"It's Huy,\" he says, and everyone laughs.\n\nHuy is quiet today, but he isn't sad. The students are nice to him, and he is happy in his new class.\n\nAfter school, Minh asks for Huy's phone number. \"See you tomorrow, Huy!\" says Minh.\n\"Bye!\" says Huy.",
+  "content": "It is six in the evening. Hoa is thirty-one, and she is a nurse. Her flat is on the second floor of a building in Hanoi. A man and a woman are at the door of a flat near her. They are new here.\n\n\"Hello, I'm Hoa,\" she says to them. \"Hi, I'm David,\" the man says. \"Nice to meet you, David,\" she says. \"Are you from America?\" she asks him. \"No, I'm not,\" he says. \"I am from London, in England.\"\n\nDavid is twenty-nine, and he is a teacher. \"This is my sister, Kate,\" he says. \"She is a student, and she is here on holiday.\" Hoa says hello to her.\n\n\"I live in this flat,\" Hoa says. \"I am your neighbor now, so please ask me for help.\" \"Thank you, you are very kind,\" David says. \"Welcome to our building,\" Hoa says to them.",
   "targetWords": [
-    "good morning",
-    "Mr",
-    "welcome",
+    "hello",
     "hi",
-    "sorry",
-    "name",
-    "phone number",
-    "bye"
+    "nice to meet you",
+    "from",
+    "live",
+    "please",
+    "thank you",
+    "welcome"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "Good morning",
-        "lemma": "good morning",
-        "meaningVi": "chào buổi sáng",
-        "pos": "phrase",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "Mr",
-        "lemma": "Mr",
-        "meaningVi": "ông, thầy (trước tên hoặc họ của đàn ông)",
-        "pos": "noun",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "Welcome",
-        "lemma": "welcome",
-        "meaningVi": "chào mừng",
+        "text": "Hello",
+        "lemma": "hello",
+        "meaningVi": "xin chào",
         "pos": "interjection",
-        "sentenceIndex": 6
+        "sentenceIndex": 5
       },
       {
         "text": "Hi",
         "lemma": "hi",
         "meaningVi": "chào (thân mật)",
         "pos": "interjection",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "Nice to meet you",
+        "lemma": "nice to meet you",
+        "meaningVi": "rất vui được gặp bạn",
+        "pos": "phrase",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "from",
+        "lemma": "from",
+        "meaningVi": "đến từ",
+        "pos": "preposition",
         "sentenceIndex": 8
       },
       {
-        "text": "Sorry",
-        "lemma": "sorry",
-        "meaningVi": "xin lỗi (khi chưa nghe rõ)",
+        "text": "live",
+        "lemma": "live",
+        "meaningVi": "sống, ở",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "please",
+        "lemma": "please",
+        "meaningVi": "xin, cứ (lời mời lịch sự)",
+        "pos": "adverb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "Thank you",
+        "lemma": "thank you",
+        "meaningVi": "cảm ơn",
+        "pos": "phrase",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "Welcome",
+        "lemma": "welcome",
+        "meaningVi": "chào mừng",
         "pos": "interjection",
-        "sentenceIndex": 14
-      },
-      {
-        "text": "name",
-        "lemma": "name",
-        "meaningVi": "tên",
-        "pos": "noun",
-        "sentenceIndex": 14
-      },
-      {
-        "text": "phone number",
-        "lemma": "phone number",
-        "meaningVi": "số điện thoại",
-        "pos": "noun",
         "sentenceIndex": 18
-      },
-      {
-        "text": "Bye",
-        "lemma": "bye",
-        "meaningVi": "tạm biệt (thân mật)",
-        "pos": "interjection",
-        "sentenceIndex": 20
       }
     ],
     "questions": [
@@ -75,690 +75,664 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "A new student comes to the class, and the others ask about him.",
-          "Mr Nam talks about his family in Da Nang.",
-          "Minh and Tom are late for school.",
-          "Huy shows his new house to his friends."
+          "Hoa says hello to new people near her flat.",
+          "Hoa is on holiday in London.",
+          "David and Hoa are nurses in Hanoi.",
+          "Kate is a new teacher at a school."
         ],
         "answerIndex": 0,
-        "explanationVi": "Thầy Nam giới thiệu bạn mới Huy, rồi Anna, Minh và Tom chào và hỏi Huy quê ở đâu, nhà ở đâu, tên là gì."
+        "explanationVi": "Hoa gặp hai người mới đến ở căn hộ gần nhà cô, chào hỏi và làm quen với họ (\"Hello, I'm Hoa\", \"Welcome to our building\"). Người đi nghỉ là Kate, không phải Hoa."
       },
       {
         "kind": "detail",
-        "prompt": "Where is Huy from?",
-        "promptVi": "Huy quê ở đâu?",
+        "prompt": "Where is David from?",
+        "promptVi": "David đến từ đâu?",
         "options": [
+          "America",
           "Hanoi",
-          "Da Nang",
-          "Hue",
-          "Le Loi Street"
+          "London",
+          "Paris"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Huy trả lời \"No, I'm from Da Nang\": Huy quê ở Đà Nẵng, bây giờ gia đình Huy mới ở Hà Nội."
+        "answerIndex": 2,
+        "explanationVi": "David trả lời \"No, I'm not\" khi được hỏi có phải từ Mỹ không, rồi nói \"I am from London, in England\": anh đến từ Luân Đôn."
       },
       {
         "kind": "detail",
-        "prompt": "Where is Huy's house?",
-        "promptVi": "Nhà của Huy ở đâu?",
+        "prompt": "Who is Kate?",
+        "promptVi": "Kate là ai?",
         "options": [
-          "In Da Nang",
-          "Next to Minh's house",
-          "Far from the school",
-          "On Le Loi Street"
+          "David's sister",
+          "Hoa's sister",
+          "David's teacher",
+          "A nurse in Hanoi"
         ],
-        "answerIndex": 3,
-        "explanationVi": "Khi Anna hỏi nhà có gần trường không, Huy nói \"Yes, it's on Le Loi Street\": nhà Huy ở phố Lê Lợi, gần trường."
+        "answerIndex": 0,
+        "explanationVi": "David nói \"This is my sister, Kate\": Kate là em gái của David."
       },
       {
         "kind": "tfn",
-        "prompt": "Huy is fifteen.",
-        "promptVi": "Huy mười lăm tuổi.",
+        "prompt": "Kate is a teacher.",
+        "promptVi": "Kate là giáo viên.",
         "options": [],
-        "answerIndex": 0,
-        "explanationVi": "Đúng, vì bài viết \"He is fifteen\"."
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì David nói \"She is a student\": Kate là sinh viên. Giáo viên là David."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"shy\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"on holiday\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "He is a little shy.",
+        "quote": "\"She is a student, and she is here on holiday.\"",
         "options": [
-          "cao",
-          "buồn",
-          "nhút nhát",
-          "vui tính"
+          "đi nghỉ, đi du lịch",
+          "đi làm",
+          "đi học",
+          "ở nhà"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Huy là bạn mới nên hơi nhút nhát, ít nói (\"Huy is quiet today\"), nhưng bài nói rõ Huy không buồn (\"he isn't sad\")."
+        "answerIndex": 0,
+        "explanationVi": "\"On holiday\" nghĩa là đang đi nghỉ: Kate đến Hà Nội để chơi, không phải để làm việc hay học."
       }
     ],
     "grammarNote": {
-      "title": "Động từ to be (am / is / are)",
-      "bodyVi": "Câu hỏi Yes / No với to be bắt đầu bằng Am, Is hoặc Are: Are you from Hanoi? Is your house near the school? Trả lời ngắn bằng chính to be: Yes, I am. / No, I'm not. / Yes, it is. / No, it isn't. Câu trả lời ngắn có Yes thì không viết gọn: không nói \"Yes, I'm.\"",
+      "title": "Đại từ nhân xưng chủ ngữ và tân ngữ",
+      "bodyVi": "Chủ ngữ đứng trước động từ: I, you, he, she, we, they. Sau động từ (ask, says) hoặc giới từ (to) thì dùng tân ngữ: me, you, him, her, us, them. Hoa says to them (nói với họ), she asks him (hỏi anh ấy), Hoa says hello to her (chào cô ấy), ask me for help (nhờ tôi giúp).",
       "examples": [
-        "Are you from Hanoi?",
-        "Is your house near the school?",
-        "Huy is quiet today, but he isn't sad."
+        "\"Are you from America?\" she asks him.",
+        "Hoa says hello to her.",
+        "\"I am your neighbor now, so please ask me for help.\""
       ]
     },
-    "writingPrompt": "Write about a new student in your class: his or her name, age, where he or she is from and what he or she is like.",
+    "writingPrompt": "Write about a neighbor: his or her name, age, job and where he or she is from.",
     "sentenceTranslations": [
-      "Hôm nay là sáng thứ Hai.",
-      "\"Chào cả lớp,\" thầy Nam nói.",
-      "\"Đây là bạn mới của lớp mình, Huy.\"",
-      "Huy cao và gầy.",
-      "Bạn ấy mười lăm tuổi.",
-      "Bạn ấy hơi nhút nhát.",
-      "\"Chào mừng Huy đến với lớp mình!\" Anna nói.",
-      "Huy ngồi cùng Minh và Tom.",
-      "\"Chào bạn, mình là Minh,\" Minh nói.",
-      "\"Bạn là người Hà Nội à?\"",
-      "\"Không, mình quê ở Đà Nẵng,\" Huy trả lời.",
-      "\"Bây giờ gia đình mình ở Hà Nội.\"",
-      "\"Nhà bạn có gần trường không?\" Anna hỏi.",
-      "\"Có, nhà mình ở phố Lê Lợi,\" bạn ấy nói.",
-      "\"Xin lỗi, bạn tên là Hùng hay Huy?\" Tom hỏi.",
-      "\"Là Huy,\" bạn ấy nói, và cả lớp cùng cười.",
-      "Hôm nay Huy ít nói, nhưng bạn ấy không buồn.",
-      "Các bạn trong lớp đối xử tốt với bạn ấy, và bạn ấy vui khi ở lớp mới.",
-      "Sau giờ học, Minh xin số điện thoại của Huy.",
-      "\"Mai gặp lại nhé, Huy!\" Minh nói.",
-      "\"Tạm biệt!\" Huy nói."
+      "Bây giờ là sáu giờ tối.",
+      "Hoa ba mươi mốt tuổi, và cô là y tá.",
+      "Căn hộ của cô ở tầng hai của một tòa nhà ở Hà Nội.",
+      "Một người đàn ông và một người phụ nữ đang đứng ở cửa một căn hộ gần nhà cô.",
+      "Họ mới đến đây.",
+      "\"Xin chào, tôi là Hoa,\" cô nói với họ.",
+      "\"Chào chị, tôi là David,\" người đàn ông nói.",
+      "\"Rất vui được gặp anh, David,\" cô nói.",
+      "\"Anh có phải người Mỹ không?\" cô hỏi anh ấy.",
+      "\"Không, không phải,\" anh ấy nói.",
+      "\"Tôi đến từ Luân Đôn, ở nước Anh.\"",
+      "David hai mươi chín tuổi, và anh là giáo viên.",
+      "\"Đây là em gái tôi, Kate,\" anh nói.",
+      "\"Em ấy là sinh viên, và em ấy đến đây để đi nghỉ.\"",
+      "Hoa chào cô ấy.",
+      "\"Tôi sống ở căn hộ này,\" Hoa nói.",
+      "\"Bây giờ tôi là hàng xóm của anh chị, nên cứ nhờ tôi giúp nhé.\"",
+      "\"Cảm ơn chị, chị tốt quá,\" David nói.",
+      "\"Chào mừng anh chị đến với tòa nhà của chúng tôi,\" Hoa nói với họ."
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể chào bạn mới, hỏi bạn ấy bằng câu hỏi Yes / No với to be (Are you …? Is your …?) và trả lời ngắn (Yes, it is. / No, I'm not.).",
+    "objectiveVi": "Bạn có thể chào và làm quen với hàng xóm mới, và dùng đúng đại từ him, her, them, me sau động từ hoặc giới từ.",
     "examples": [
       {
-        "lemma": "good morning",
-        "sentence": "Good morning, Grandma! Are you OK today?",
-        "meaningVi": "Cháu chào bà buổi sáng! Hôm nay bà khỏe không ạ?"
+        "lemma": "hello",
+        "sentence": "Hello, I am your neighbor.",
+        "meaningVi": "Xin chào, tôi là hàng xóm của bạn."
       },
       {
-        "lemma": "Mr",
-        "sentence": "Mr Nam is our English teacher.",
-        "meaningVi": "Thầy Nam là giáo viên tiếng Anh của bọn mình."
+        "lemma": "hi",
+        "sentence": "Hi, David!",
+        "meaningVi": "Chào David!"
+      },
+      {
+        "lemma": "nice to meet you",
+        "sentence": "Nice to meet you, Kate.",
+        "meaningVi": "Rất vui được gặp em, Kate."
+      },
+      {
+        "lemma": "from",
+        "sentence": "He is from England.",
+        "meaningVi": "Anh ấy đến từ nước Anh."
+      },
+      {
+        "lemma": "live",
+        "sentence": "I live in Hanoi.",
+        "meaningVi": "Tôi sống ở Hà Nội."
+      },
+      {
+        "lemma": "please",
+        "sentence": "Please call me.",
+        "meaningVi": "Cứ gọi cho tôi nhé."
+      },
+      {
+        "lemma": "thank you",
+        "sentence": "Thank you for your help.",
+        "meaningVi": "Cảm ơn bạn đã giúp."
       },
       {
         "lemma": "welcome",
         "sentence": "Welcome to Hanoi!",
         "meaningVi": "Chào mừng bạn đến Hà Nội!"
-      },
-      {
-        "lemma": "hi",
-        "sentence": "Hi, Huy! Are you OK?",
-        "meaningVi": "Chào Huy! Bạn ổn chứ?"
-      },
-      {
-        "lemma": "sorry",
-        "sentence": "Sorry, is your name Lan or Lam?",
-        "meaningVi": "Xin lỗi, bạn tên là Lan hay Lâm?"
-      },
-      {
-        "lemma": "name",
-        "sentence": "His name is Huy, and he is fifteen.",
-        "meaningVi": "Bạn ấy tên là Huy, và bạn ấy mười lăm tuổi."
-      },
-      {
-        "lemma": "phone number",
-        "sentence": "Is this your phone number?",
-        "meaningVi": "Đây có phải số điện thoại của bạn không?"
-      },
-      {
-        "lemma": "bye",
-        "sentence": "Bye, Anna! See you on Monday.",
-        "meaningVi": "Tạm biệt Anna! Hẹn gặp bạn thứ Hai nhé."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Mum",
-        "Huy"
+        "Hoa",
+        "Kate"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Hi, Huy! How is your new class?",
-          "meaningVi": "Chào con! Lớp mới của con thế nào?"
+          "text": "Hi, Kate. Is David your brother?",
+          "meaningVi": "Chào Kate. David là anh trai của em à?"
         },
         {
           "speaker": 1,
-          "text": "It's great, Mum. My teacher is Mr Nam. He's very kind.",
-          "meaningVi": "Tuyệt lắm mẹ ạ. Thầy giáo của con là thầy Nam. Thầy rất tốt bụng."
+          "text": "Yes, he is. I am here with him for two weeks.",
+          "meaningVi": "Vâng ạ. Em ở đây với anh ấy hai tuần."
         },
         {
           "speaker": 0,
-          "text": "That's good. Are the students nice?",
-          "meaningVi": "Tốt quá. Các bạn có dễ mến không?"
+          "text": "Are you a teacher too?",
+          "meaningVi": "Em cũng là giáo viên à?"
         },
         {
           "speaker": 1,
-          "text": "Yes, they are. Minh is my new friend. He's from Hue.",
-          "meaningVi": "Có ạ. Minh là bạn mới của con. Bạn ấy quê ở Huế."
+          "text": "No, I'm not. I am a student in London.",
+          "meaningVi": "Không ạ. Em là sinh viên ở Luân Đôn."
         },
         {
           "speaker": 0,
-          "text": "Is he in your English class too?",
-          "meaningVi": "Bạn ấy cũng học lớp tiếng Anh với con à?"
+          "text": "How old are you?",
+          "meaningVi": "Em bao nhiêu tuổi?"
         },
         {
           "speaker": 1,
-          "text": "Yes, he is. He's very funny, and his phone number is in my book.",
-          "meaningVi": "Vâng ạ. Bạn ấy rất vui tính, và con có ghi số điện thoại của bạn ấy trong vở."
+          "text": "I am twenty. Are you a nurse, Hoa?",
+          "meaningVi": "Em hai mươi tuổi. Chị là y tá à, chị Hoa?"
         },
         {
           "speaker": 0,
-          "text": "Good. Are you tired?",
-          "meaningVi": "Tốt. Con có mệt không?"
+          "text": "Yes, I am. Please ask me for help.",
+          "meaningVi": "Ừ, đúng rồi. Cần gì cứ nhờ chị nhé."
         },
         {
           "speaker": 1,
-          "text": "No, I'm not. I'm hungry! Is dinner ready?",
-          "meaningVi": "Không ạ. Con đói! Cơm xong chưa mẹ?"
-        },
-        {
-          "speaker": 0,
-          "text": "Yes, it is. It's fish and rice.",
-          "meaningVi": "Xong rồi. Có cá và cơm."
-        },
-        {
-          "speaker": 1,
-          "text": "Great! Thank you, Mum.",
-          "meaningVi": "Tuyệt! Con cảm ơn mẹ."
+          "text": "Thank you. You are very kind to us.",
+          "meaningVi": "Cảm ơn chị. Chị tốt với bọn em quá."
         }
       ]
     },
-    "grammarTipVi": "Hỏi \"Is your house near the school?\" thì trả lời ngắn \"Yes, it is.\" hoặc \"No, it isn't.\"; dùng it thay cho your house, không lặp lại cả cụm.",
+    "grammarTipVi": "Sau động từ và sau giới từ (to, for, with) luôn dùng tân ngữ: kind to us, ask me for help, here with him. Không nói \"kind to we\".",
     "translations": [
       {
-        "vi": "Chào buổi sáng, thầy Nam.",
-        "en": "Good morning, Mr Nam.",
+        "vi": "Xin chào, tôi là Hoa.",
+        "en": "Hello, I'm Hoa.",
         "distractors": [
-          "afternoon",
-          "Mrs",
-          "is"
+          "is",
+          "me",
+          "her"
         ]
       },
       {
-        "vi": "Chào mừng bạn đến lớp của chúng mình!",
-        "en": "Welcome to our class!",
+        "vi": "Anh có phải người Mỹ không?",
+        "en": "Are you from America?",
         "distractors": [
-          "we",
-          "at",
-          "is"
+          "Is",
+          "your",
+          "England"
         ]
       },
       {
-        "vi": "Xin lỗi, bạn tên là Hùng hay Huy?",
-        "en": "Sorry, is your name Hung or Huy?",
+        "vi": "Tôi sống ở căn hộ này.",
+        "en": "I live in this flat.",
         "distractors": [
-          "are",
-          "you",
-          "and"
+          "lives",
+          "am",
+          "my"
         ]
       },
       {
-        "vi": "Đây có phải số điện thoại của bạn không?",
-        "en": "Is this your phone number?",
+        "vi": "Cảm ơn chị, chị tốt quá.",
+        "en": "Thank you, you are very kind.",
         "distractors": [
-          "are",
-          "you",
-          "name"
+          "is",
+          "your",
+          "am"
+        ]
+      },
+      {
+        "vi": "Chào mừng anh chị đến với tòa nhà của chúng tôi.",
+        "en": "Welcome to our building.",
+        "distractors": [
+          "us",
+          "they",
+          "from"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Huy và mẹ nói chuyện về điều gì?",
+        "prompt": "Hoa và Kate đang nói về điều gì?",
         "promptVi": "",
         "options": [
-          "Lớp học mới và bạn mới của Huy",
-          "Quê của mẹ ở Đà Nẵng",
-          "Một bài kiểm tra tiếng Anh"
+          "Về bản thân: anh trai, nghề và tuổi",
+          "Về món ăn ở Hà Nội",
+          "Về căn hộ mới của David"
         ],
         "answerIndex": 0,
-        "explanationVi": "Mẹ hỏi \"How is your new class?\", rồi Huy kể về thầy Nam và bạn mới Minh.",
+        "explanationVi": "Hai người hỏi nhau về anh trai (\"Is David your brother?\"), nghề nghiệp và tuổi.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Thầy giáo của Huy là ai?",
+        "prompt": "Kate ở Hà Nội bao lâu?",
         "promptVi": "",
         "options": [
-          "Minh",
-          "Thầy Nam",
-          "Tom"
+          "Hai ngày",
+          "Hai tuần",
+          "Hai năm"
         ],
         "answerIndex": 1,
-        "explanationVi": "Huy nói \"My teacher is Mr Nam\": thầy giáo của Huy là thầy Nam.",
+        "explanationVi": "Kate nói \"I am here with him for two weeks\": cô ở đây hai tuần.",
         "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Bữa tối có món gì?",
+        "prompt": "Kate bao nhiêu tuổi?",
         "promptVi": "",
         "options": [
-          "Phở",
-          "Gà và cơm",
-          "Cá và cơm"
+          "Hai mươi",
+          "Hai mươi chín",
+          "Ba mươi mốt"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Mẹ nói \"It's fish and rice\": bữa tối có cá và cơm.",
-        "turnIndex": 8
+        "answerIndex": 0,
+        "explanationVi": "Kate nói \"I am twenty\": cô hai mươi tuổi.",
+        "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "Huy is tired.",
-        "promptVi": "Huy mệt.",
+        "prompt": "Hoa is a nurse.",
+        "promptVi": "Hoa là y tá.",
         "options": [],
-        "answerIndex": 1,
-        "explanationVi": "Sai, vì khi mẹ hỏi \"Are you tired?\", Huy trả lời \"No, I'm not. I'm hungry!\": Huy không mệt mà đói.",
-        "turnIndex": 7
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì khi Kate hỏi \"Are you a nurse, Hoa?\", Hoa trả lời \"Yes, I am.\"",
+        "turnIndex": 6
       }
     ],
-    "readingGuideVi": "Các bạn hỏi Huy những gì, và Huy trả lời ra sao?",
+    "readingGuideVi": "Hàng xóm mới của Hoa là ai, và họ đến từ đâu?",
     "grammarStep": {
-      "titleVi": "Động từ to be (am / is / are)",
+      "titleVi": "Đại từ nhân xưng chủ ngữ và tân ngữ",
       "noticing": [
         {
-          "sentence": "\"Are you from Hanoi?\"",
+          "sentence": "\"Hello, I'm Hoa,\" she says to them.",
           "highlights": [
-            "Are"
+            "she",
+            "them"
           ]
         },
         {
-          "sentence": "\"Is your house near the school?\" asks Anna.",
+          "sentence": "\"Are you from America?\" she asks him.",
           "highlights": [
-            "Is"
+            "she",
+            "him"
           ]
         },
         {
-          "sentence": "\"Sorry, is your name Hung or Huy?\" asks Tom.",
+          "sentence": "Hoa says hello to her.",
           "highlights": [
-            "is"
+            "her"
           ]
         },
         {
-          "sentence": "Huy is quiet today, but he isn't sad.",
+          "sentence": "\"I am your neighbor now, so please ask me for help.\"",
           "highlights": [
-            "is",
-            "isn't"
+            "I",
+            "me"
           ]
         }
       ],
-      "questionVi": "Các câu hỏi Yes / No ở trên bắt đầu bằng từ gì?",
+      "questionVi": "Trong câu \"please ask me for help\", vì sao dùng me mà không dùng I?",
       "options": [
-        "Bằng tên của người được hỏi",
-        "Bằng Are hoặc Is, đứng trước chủ ngữ",
-        "Bằng Yes hoặc No"
+        "Vì me đứng sau động từ ask, làm tân ngữ",
+        "Vì me là cách nói lịch sự hơn I",
+        "Vì câu có chữ please"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Câu hỏi Yes / No với to be đưa am, is, are lên trước chủ ngữ: you are → Are you ...?, your house is → Is your house ...?",
-      "whenVi": "Dùng câu hỏi Am I / Is he / Are you ...? để hỏi thông tin của người mới gặp, và trả lời ngắn bằng Yes, I am / No, it isn't.",
+      "answerIndex": 0,
+      "explanationVi": "I làm chủ ngữ (I am your neighbor), còn me đứng sau động từ ask nên là tân ngữ.",
+      "whenVi": "Chọn I, he, she, they khi người đó làm việc gì; chọn me, him, her, them khi người đó được nói tới, được hỏi, được giúp.",
       "table": [
         {
-          "subject": "you",
-          "form": "Are you from Hanoi? – Yes, I am.",
-          "negative": "No, I'm not."
+          "subject": "I",
+          "form": "me",
+          "negative": "Please ask me."
         },
         {
-          "subject": "he / she / it",
-          "form": "Is he new? – Yes, he is.",
-          "negative": "No, he isn't."
+          "subject": "he",
+          "form": "him",
+          "negative": "She asks him."
+        },
+        {
+          "subject": "she",
+          "form": "her",
+          "negative": "Hoa says hello to her."
         },
         {
           "subject": "they",
-          "form": "Are they nice? – Yes, they are.",
-          "negative": "No, they aren't."
+          "form": "them",
+          "negative": "Hoa says to them."
         }
       ],
       "mistakes": [
         {
-          "wrong": "Your house is near the school?",
-          "right": "Is your house near the school?"
+          "wrong": "Please ask I for help.",
+          "right": "Please ask me for help."
         },
         {
-          "wrong": "Yes, I'm.",
-          "right": "Yes, I am."
+          "wrong": "Hoa says hello to she.",
+          "right": "Hoa says hello to her."
         }
       ],
-      "noteVi": "Tiếng Việt hỏi bằng cách thêm \"không, à\" ở cuối câu mà không đổi chỗ từ, nên người Việt hay giữ nguyên thứ tự câu kể khi hỏi bằng tiếng Anh.",
+      "noteVi": "Tiếng Việt nói \"tôi\" ở mọi vị trí (tôi nhờ, nhờ tôi), còn tiếng Anh đổi I thành me khi đứng sau động từ.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền câu trả lời ngắn dạng phủ định (viết gọn).",
-          "text": "Is Huy from Hanoi? – No, he ___.",
+          "promptVi": "Điền him, her hoặc them vào chỗ trống.",
+          "text": "David is new here. Hoa says hello to ___.",
           "answers": [
-            "isn't"
+            "him"
           ],
-          "explanationVi": "Hỏi bằng Is thì trả lời ngắn bằng is; phủ định viết gọn là isn't."
+          "explanationVi": "David là đàn ông, đứng sau giới từ to, nên dùng him."
         },
         {
           "kind": "choice",
           "promptVi": "Chọn từ đúng.",
-          "text": "___ your house near the school?",
+          "text": "David and Kate are new. Hoa says to ___, \"Welcome.\"",
           "options": [
-            "Are",
-            "Is",
-            "Am",
-            "Do"
+            "they",
+            "them",
+            "their",
+            "we"
           ],
           "answerIndex": 1,
-          "explanationVi": "Chủ ngữ \"your house\" là một vật (it), nên câu hỏi bắt đầu bằng Is."
+          "explanationVi": "Hai người, đứng sau giới từ to, nên dùng tân ngữ them."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Is the students nice?",
-          "sentence": "Are the students nice?",
-          "explanationVi": "\"The students\" là số nhiều (they), nên câu hỏi bắt đầu bằng Are."
+          "text": "Him is a teacher.",
+          "sentence": "He is a teacher.",
+          "explanationVi": "Đứng trước động từ is là chủ ngữ, nên dùng He."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
-          "text": "Bạn ấy có phải là học sinh mới không?",
-          "sentence": "Is he a new student?",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy hỏi họ.",
+          "sentence": "She asks them.",
           "words": [
-            "new",
-            "he",
-            "Is",
-            "a",
-            "student",
-            "are"
+            "them",
+            "asks",
+            "She",
+            "they"
           ],
-          "explanationVi": "Câu hỏi đưa Is lên trước he; are dùng cho you, we, they nên bị thừa."
+          "explanationVi": "She là chủ ngữ, asks là động từ, them là tân ngữ. Từ \"they\" thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Huy is tall and thin.",
-        "tipVi": "Thin /θɪn/ bắt đầu bằng âm /θ/: đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi, đừng đọc thành /t/ hay /s/."
+        "text": "Her flat is on the second floor of a building in Hanoi.",
+        "tipVi": "Đọc rõ cụm âm /fl/ ở đầu flat /flæt/ và floor /flɔː/, đừng bỏ âm /l/; đọc rõ âm cuối /d/ trong second."
       },
       {
-        "text": "The students are nice to him.",
-        "tipVi": "Đọc rõ cụm âm cuối /nts/ trong students /ˈstuːdənts/."
+        "text": "\"I live in this flat,\" Hoa says.",
+        "tipVi": "Phân biệt live /lɪv/ (âm i ngắn) với leave /liːv/ (âm i dài), và đọc rõ âm cuối /v/."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Is your school near your house?",
-        "questionVi": "Trường bạn có gần nhà không?",
-        "frame": "Yes, it is. / No, it isn't. My school is on ___."
+        "question": "Who is your neighbor?",
+        "questionVi": "Hàng xóm của bạn là ai?",
+        "frame": "My neighbor is ___. He / She is ___."
       },
       {
-        "question": "Are you quiet in a new class?",
-        "questionVi": "Bạn có ít nói khi vào lớp mới không?",
-        "frame": "Yes, I am. / No, I'm not. I'm ___."
+        "question": "Where is your home?",
+        "questionVi": "Nhà bạn ở đâu?",
+        "frame": "I live in ___."
       },
       {
-        "question": "Who is new in your class? What is he or she like?",
-        "questionVi": "Lớp bạn có ai mới? Bạn ấy là người thế nào?",
-        "frame": "___ is new. He / She is ___."
+        "question": "Are your neighbors kind to you?",
+        "questionVi": "Hàng xóm có tốt với bạn không?",
+        "frame": "Yes, they are. / No, they aren't. They are ___ to me."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu nói về người khác (he / she …)",
+      "grammarLabelVi": "Có ít nhất 1 đại từ tân ngữ (me, him, her, us, them)",
       "anyOf": [
-        "he",
-        "she",
-        "his",
+        "me",
+        "him",
         "her",
-        "the new student",
-        "my new friend"
+        "us",
+        "them"
       ],
       "outlineVi": [
-        "Nói lớp bạn có một bạn mới và tên bạn ấy.",
-        "Nói bạn ấy bao nhiêu tuổi, đến từ đâu.",
-        "Nói bạn ấy là người thế nào và bạn đã nói gì với bạn ấy."
+        "Viết bạn sống ở đâu.",
+        "Giới thiệu một người hàng xóm: tên, tuổi, nghề, quê quán.",
+        "Viết một câu về bạn và người đó có him, her hoặc them."
       ],
-      "modelAnswer": "Good morning! My name is Lan. A new student is in my class today. Her name is Mai. She is fourteen, and she is from Hue. She is a little shy, but she isn't sad. She is very nice. I say, \"Welcome, Mai!\" After school, I ask for her phone number."
+      "modelAnswer": "I live in a flat in Da Nang. My neighbor is Mrs Lan. She is sixty, and she is from Hue. She is not a nurse. She is a teacher. I say hello to her every morning. She is very kind to me."
     }
   },
   "glosses": [
     {
-      "text": "morning",
-      "lemma": "morning",
-      "meaningVi": "buổi sáng",
-      "sentenceIndex": 0,
+      "text": "evening",
+      "lemma": "evening",
+      "meaningVi": "buổi tối",
       "pos": "noun",
-      "phrase": "Monday morning",
-      "phraseVi": "sáng thứ Hai"
+      "phrase": "six in the evening",
+      "phraseVi": "sáu giờ tối",
+      "sentenceIndex": 0
     },
     {
-      "text": "Good morning",
-      "lemma": "good morning",
-      "meaningVi": "chào buổi sáng",
-      "sentenceIndex": 1,
-      "pos": "phrase",
-      "phrase": "Good morning, class",
-      "phraseVi": "Chào cả lớp"
-    },
-    {
-      "text": "class",
-      "lemma": "class",
-      "meaningVi": "lớp học, cả lớp",
-      "sentenceIndex": 1,
+      "text": "nurse",
+      "lemma": "nurse",
+      "meaningVi": "y tá",
       "pos": "noun",
-      "phrase": "Good morning, class",
-      "phraseVi": "Chào cả lớp"
+      "phrase": "she is a nurse",
+      "phraseVi": "cô là y tá",
+      "sentenceIndex": 1
     },
     {
-      "text": "Mr",
-      "lemma": "Mr",
-      "meaningVi": "thầy, ông",
-      "sentenceIndex": 1,
+      "text": "flat",
+      "lemma": "flat",
+      "meaningVi": "căn hộ",
       "pos": "noun",
-      "phrase": "Mr Nam",
-      "phraseVi": "thầy Nam"
+      "phrase": "Her flat",
+      "phraseVi": "Căn hộ của cô",
+      "sentenceIndex": 2
     },
     {
-      "text": "student",
-      "lemma": "student",
-      "meaningVi": "học sinh",
-      "sentenceIndex": 2,
+      "text": "second floor",
+      "lemma": "second floor",
+      "meaningVi": "tầng hai",
       "pos": "noun",
-      "phrase": "our new student",
-      "phraseVi": "bạn mới của lớp mình"
+      "phrase": "on the second floor",
+      "phraseVi": "ở tầng hai",
+      "sentenceIndex": 2
     },
     {
-      "text": "thin",
-      "lemma": "thin",
-      "meaningVi": "gầy",
-      "sentenceIndex": 3,
+      "text": "building",
+      "lemma": "building",
+      "meaningVi": "tòa nhà",
+      "pos": "noun",
+      "phrase": "a building in Hanoi",
+      "phraseVi": "một tòa nhà ở Hà Nội",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "door",
+      "lemma": "door",
+      "meaningVi": "cửa ra vào",
+      "pos": "noun",
+      "phrase": "at the door of a flat",
+      "phraseVi": "ở cửa một căn hộ",
+      "sentenceIndex": 3
+    },
+    {
+      "text": "new",
+      "lemma": "new",
+      "meaningVi": "mới (mới đến)",
       "pos": "adjective",
-      "phrase": "tall and thin",
-      "phraseVi": "cao và gầy"
+      "phrase": "They are new here",
+      "phraseVi": "Họ mới đến đây",
+      "sentenceIndex": 4
     },
     {
-      "text": "fifteen",
-      "lemma": "fifteen",
-      "meaningVi": "mười lăm",
-      "sentenceIndex": 4,
-      "pos": "number",
-      "phrase": "He is fifteen",
-      "phraseVi": "Bạn ấy mười lăm tuổi"
-    },
-    {
-      "text": "a little",
-      "lemma": "a little",
-      "meaningVi": "hơi, một chút",
-      "sentenceIndex": 5,
-      "pos": "phrase",
-      "phrase": "a little shy",
-      "phraseVi": "hơi nhút nhát"
-    },
-    {
-      "text": "shy",
-      "lemma": "shy",
-      "meaningVi": "nhút nhát",
-      "sentenceIndex": 5,
-      "pos": "adjective",
-      "phrase": "He is a little shy",
-      "phraseVi": "Bạn ấy hơi nhút nhát"
-    },
-    {
-      "text": "Welcome",
-      "lemma": "welcome",
-      "meaningVi": "chào mừng",
-      "sentenceIndex": 6,
+      "text": "Hello",
+      "lemma": "hello",
+      "meaningVi": "xin chào",
       "pos": "interjection",
-      "phrase": "Welcome to our class",
-      "phraseVi": "Chào mừng đến với lớp mình"
+      "phrase": "Hello, I'm Hoa",
+      "phraseVi": "Xin chào, tôi là Hoa",
+      "sentenceIndex": 5
     },
     {
-      "text": "sits with",
-      "lemma": "sit with",
-      "meaningVi": "ngồi cùng",
-      "sentenceIndex": 7,
-      "pos": "verb",
-      "phrase": "Huy sits with Minh and Tom",
-      "phraseVi": "Huy ngồi cùng Minh và Tom"
+      "text": "them",
+      "lemma": "them",
+      "meaningVi": "họ (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "she says to them",
+      "phraseVi": "cô nói với họ",
+      "sentenceIndex": 5
     },
     {
       "text": "Hi",
       "lemma": "hi",
       "meaningVi": "chào",
-      "sentenceIndex": 8,
       "pos": "interjection",
-      "phrase": "Hi, I'm Minh",
-      "phraseVi": "Chào bạn, mình là Minh"
+      "phrase": "Hi, I'm David",
+      "phraseVi": "Chào chị, tôi là David",
+      "sentenceIndex": 6
     },
     {
-      "text": "family",
-      "lemma": "family",
-      "meaningVi": "gia đình",
-      "sentenceIndex": 11,
-      "pos": "noun",
-      "phrase": "My family is in Hanoi now",
-      "phraseVi": "Bây giờ gia đình mình ở Hà Nội"
+      "text": "Nice to meet you",
+      "lemma": "nice to meet you",
+      "meaningVi": "rất vui được gặp bạn",
+      "pos": "phrase",
+      "phrase": "Nice to meet you, David",
+      "phraseVi": "Rất vui được gặp anh, David",
+      "sentenceIndex": 7
     },
     {
-      "text": "near",
-      "lemma": "near",
-      "meaningVi": "gần",
-      "sentenceIndex": 12,
-      "pos": "preposition",
-      "phrase": "near the school",
-      "phraseVi": "gần trường"
-    },
-    {
-      "text": "Street",
-      "lemma": "street",
-      "meaningVi": "phố, đường",
-      "sentenceIndex": 13,
-      "pos": "noun",
-      "phrase": "on Le Loi Street",
-      "phraseVi": "ở phố Lê Lợi"
-    },
-    {
-      "text": "Sorry",
-      "lemma": "sorry",
-      "meaningVi": "xin lỗi (khi chưa nghe rõ)",
-      "sentenceIndex": 14,
-      "pos": "interjection",
-      "phrase": "Sorry, is your name Hung or Huy?",
-      "phraseVi": "Xin lỗi, bạn tên là Hùng hay Huy?"
-    },
-    {
-      "text": "name",
-      "lemma": "name",
-      "meaningVi": "tên",
-      "sentenceIndex": 14,
-      "pos": "noun",
-      "phrase": "is your name Hung or Huy",
-      "phraseVi": "bạn tên là Hùng hay Huy"
-    },
-    {
-      "text": "everyone",
-      "lemma": "everyone",
-      "meaningVi": "mọi người",
-      "sentenceIndex": 15,
+      "text": "him",
+      "lemma": "him",
+      "meaningVi": "anh ấy (tân ngữ)",
       "pos": "pronoun",
-      "phrase": "everyone laughs",
-      "phraseVi": "cả lớp cùng cười"
+      "phrase": "she asks him",
+      "phraseVi": "cô hỏi anh ấy",
+      "sentenceIndex": 8
     },
     {
-      "text": "laughs",
-      "lemma": "laugh",
-      "meaningVi": "cười (thành tiếng)",
-      "sentenceIndex": 15,
-      "pos": "verb",
-      "phrase": "everyone laughs",
-      "phraseVi": "cả lớp cùng cười"
+      "text": "from",
+      "lemma": "from",
+      "meaningVi": "đến từ",
+      "pos": "preposition",
+      "phrase": "I am from London",
+      "phraseVi": "Tôi đến từ Luân Đôn",
+      "sentenceIndex": 10
     },
     {
-      "text": "quiet",
-      "lemma": "quiet",
-      "meaningVi": "ít nói",
-      "sentenceIndex": 16,
-      "pos": "adjective",
-      "phrase": "Huy is quiet today",
-      "phraseVi": "Hôm nay Huy ít nói"
-    },
-    {
-      "text": "sad",
-      "lemma": "sad",
-      "meaningVi": "buồn",
-      "sentenceIndex": 16,
-      "pos": "adjective",
-      "phrase": "he isn't sad",
-      "phraseVi": "bạn ấy không buồn"
-    },
-    {
-      "text": "nice to",
-      "lemma": "nice to",
-      "meaningVi": "tử tế với, đối xử tốt với",
-      "sentenceIndex": 17,
-      "pos": "phrase",
-      "phrase": "nice to him",
-      "phraseVi": "đối xử tốt với bạn ấy"
-    },
-    {
-      "text": "happy",
-      "lemma": "happy",
-      "meaningVi": "vui",
-      "sentenceIndex": 17,
-      "pos": "adjective",
-      "phrase": "he is happy in his new class",
-      "phraseVi": "bạn ấy vui khi ở lớp mới"
-    },
-    {
-      "text": "asks for",
-      "lemma": "ask for",
-      "meaningVi": "xin, hỏi xin",
-      "sentenceIndex": 18,
-      "pos": "verb",
-      "phrase": "Minh asks for Huy's phone number",
-      "phraseVi": "Minh xin số điện thoại của Huy"
-    },
-    {
-      "text": "phone number",
-      "lemma": "phone number",
-      "meaningVi": "số điện thoại",
-      "sentenceIndex": 18,
+      "text": "teacher",
+      "lemma": "teacher",
+      "meaningVi": "giáo viên",
       "pos": "noun",
-      "phrase": "Huy's phone number",
-      "phraseVi": "số điện thoại của Huy"
+      "phrase": "he is a teacher",
+      "phraseVi": "anh là giáo viên",
+      "sentenceIndex": 11
     },
     {
-      "text": "See you tomorrow",
-      "lemma": "see you tomorrow",
-      "meaningVi": "mai gặp lại",
-      "sentenceIndex": 19,
+      "text": "sister",
+      "lemma": "sister",
+      "meaningVi": "chị gái, em gái",
+      "pos": "noun",
+      "phrase": "This is my sister",
+      "phraseVi": "Đây là em gái tôi",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "student",
+      "lemma": "student",
+      "meaningVi": "sinh viên",
+      "pos": "noun",
+      "phrase": "She is a student",
+      "phraseVi": "Em ấy là sinh viên",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "on holiday",
+      "lemma": "on holiday",
+      "meaningVi": "đi nghỉ",
       "pos": "phrase",
-      "phrase": "See you tomorrow, Huy!",
-      "phraseVi": "Mai gặp lại nhé, Huy!"
+      "phrase": "she is here on holiday",
+      "phraseVi": "em ấy đến đây để đi nghỉ",
+      "sentenceIndex": 13
     },
     {
-      "text": "Bye",
-      "lemma": "bye",
-      "meaningVi": "tạm biệt",
-      "sentenceIndex": 20,
+      "text": "her",
+      "lemma": "her",
+      "meaningVi": "cô ấy (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "Hoa says hello to her",
+      "phraseVi": "Hoa chào cô ấy",
+      "sentenceIndex": 14
+    },
+    {
+      "text": "live",
+      "lemma": "live",
+      "meaningVi": "sống",
+      "pos": "verb",
+      "phrase": "I live in this flat",
+      "phraseVi": "Tôi sống ở căn hộ này",
+      "sentenceIndex": 15
+    },
+    {
+      "text": "neighbor",
+      "lemma": "neighbor",
+      "meaningVi": "hàng xóm",
+      "pos": "noun",
+      "phrase": "I am your neighbor now",
+      "phraseVi": "Bây giờ tôi là hàng xóm của anh chị",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "please",
+      "lemma": "please",
+      "meaningVi": "cứ, xin",
+      "pos": "adverb",
+      "phrase": "please ask me for help",
+      "phraseVi": "cứ nhờ tôi giúp nhé",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "me",
+      "lemma": "me",
+      "meaningVi": "tôi (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "ask me for help",
+      "phraseVi": "nhờ tôi giúp",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "tốt bụng",
+      "pos": "adjective",
+      "phrase": "you are very kind",
+      "phraseVi": "chị tốt quá",
+      "sentenceIndex": 17
+    },
+    {
+      "text": "Welcome",
+      "lemma": "welcome",
+      "meaningVi": "chào mừng",
       "pos": "interjection",
-      "phrase": "Bye!",
-      "phraseVi": "Tạm biệt!"
+      "phrase": "Welcome to our building",
+      "phraseVi": "Chào mừng anh chị đến với tòa nhà của chúng tôi",
+      "sentenceIndex": 18
     }
   ]
 }

@@ -1,0 +1,706 @@
+{
+  "content": "It is seven in the evening, and it is the first day of a new English class in Can Tho. The room is small, but it is full. The students are not children. They are men and women from the city.\n\n\"Good evening, everyone,\" the teacher says. \"My name is Ngoc, and I am your teacher,\" she says. \"Please say your name and your age.\"\n\nA man is first. \"Hi, I am Duc, and I am forty,\" he says. \"I am a doctor.\" Then a woman says hello. \"My name is Lien, and I am twenty-nine,\" she says. \"I am a cook at a restaurant.\"\n\n\"Are you all from Can Tho?\" she asks them. \"Yes, we are,\" they say. \"Welcome to the class,\" she says. \"Thank you, Miss Ngoc,\" they say. At nine, she says, \"Good night, see you on Thursday.\"",
+  "targetWords": [
+    "good evening",
+    "name",
+    "age",
+    "please",
+    "hi",
+    "welcome",
+    "Miss",
+    "good night"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Good evening",
+        "lemma": "good evening",
+        "meaningVi": "chào buổi tối",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "name",
+        "lemma": "name",
+        "meaningVi": "tên",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "Please",
+        "lemma": "please",
+        "meaningVi": "xin, vui lòng",
+        "pos": "adverb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "age",
+        "lemma": "age",
+        "meaningVi": "tuổi",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "Hi",
+        "lemma": "hi",
+        "meaningVi": "chào (thân mật)",
+        "pos": "interjection",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "Welcome",
+        "lemma": "welcome",
+        "meaningVi": "chào mừng",
+        "pos": "interjection",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "Miss",
+        "lemma": "Miss",
+        "meaningVi": "cô (gọi phụ nữ, cô giáo)",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "Good night",
+        "lemma": "good night",
+        "meaningVi": "chào nhé, chúc ngủ ngon (khi chia tay buổi tối)",
+        "pos": "phrase",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A teacher and her new students say their names and ages.",
+          "Children are at school in the morning.",
+          "A doctor and a cook are at a restaurant.",
+          "Ngoc is a new student in an English class."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đây là buổi đầu của một lớp tiếng Anh buổi tối: cô giáo Ngọc giới thiệu mình, rồi từng học viên nói tên và tuổi (\"Please say your name and your age\"). Học viên không phải trẻ con."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Duc?",
+        "promptVi": "Đức bao nhiêu tuổi?",
+        "options": [
+          "Twenty-nine",
+          "Forty",
+          "Seven",
+          "Nine"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh nói \"I am Duc, and I am forty\": Đức bốn mươi tuổi. Hai mươi chín là tuổi của Liên; bảy và chín là giờ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Lien's job?",
+        "promptVi": "Liên làm nghề gì?",
+        "options": [
+          "She is a teacher.",
+          "She is a doctor.",
+          "She is a student.",
+          "She is a cook."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Chị nói \"I am a cook at a restaurant\": Liên là đầu bếp ở một nhà hàng. Bác sĩ là Đức, giáo viên là cô Ngọc."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The students in the class are children.",
+        "promptVi": "Học viên trong lớp là trẻ con.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The students are not children. They are men and women from the city.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"full\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The room is small, but it is full.",
+        "options": [
+          "đầy, kín chỗ",
+          "trống",
+          "sạch sẽ",
+          "nóng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ở đây \"full\" nói căn phòng có rất nhiều người, không còn chỗ trống, nghĩa là đầy. \"Trống\" là nghĩa ngược lại (empty)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Động từ to be (am / is / are)",
+      "bodyVi": "To be đổi theo chủ ngữ: I am, he / she / it is, we / you / they are. Dùng nó để nói tên, tuổi, nghề: I am forty. I am a doctor. The room is small. Phủ định thêm not: The students are not children. Câu hỏi đưa to be lên đầu: Are you all from Can Tho? – Yes, we are.",
+      "examples": [
+        "\"Hi, I am Duc, and I am forty,\" he says.",
+        "The students are not children.",
+        "\"Are you all from Can Tho?\" she asks them."
+      ]
+    },
+    "writingPrompt": "Write about you on the first day of a class: your name, age, job and where you are from.",
+    "sentenceTranslations": [
+      "Bây giờ là bảy giờ tối, và đây là buổi đầu tiên của một lớp tiếng Anh mới ở Cần Thơ.",
+      "Căn phòng nhỏ, nhưng kín chỗ.",
+      "Học viên không phải là trẻ con.",
+      "Họ là những người đàn ông và phụ nữ trong thành phố.",
+      "\"Chào buổi tối cả lớp,\" cô giáo nói.",
+      "\"Tên cô là Ngọc, và cô là giáo viên của các bạn,\" cô nói.",
+      "\"Các bạn hãy nói tên và tuổi của mình.\"",
+      "Một người đàn ông nói đầu tiên.",
+      "\"Chào cô, tôi là Đức, và tôi bốn mươi tuổi,\" anh nói.",
+      "\"Tôi là bác sĩ.\"",
+      "Sau đó một người phụ nữ chào cả lớp.",
+      "\"Tôi tên là Liên, và tôi hai mươi chín tuổi,\" chị nói.",
+      "\"Tôi là đầu bếp ở một nhà hàng.\"",
+      "\"Các bạn đều là người Cần Thơ à?\" cô hỏi họ.",
+      "\"Vâng, đúng ạ,\" họ nói.",
+      "\"Chào mừng các bạn đến với lớp học,\" cô nói.",
+      "\"Cảm ơn cô Ngọc,\" họ nói.",
+      "Lúc chín giờ, cô nói: \"Chào các bạn, hẹn gặp lại vào thứ Năm.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tự giới thiệu tên, tuổi, nghề trước lớp và hỏi cả nhóm bằng am, is, are.",
+    "examples": [
+      {
+        "lemma": "good evening",
+        "sentence": "Good evening, Miss Ngoc.",
+        "meaningVi": "Chào buổi tối, cô Ngọc."
+      },
+      {
+        "lemma": "name",
+        "sentence": "My name is Duc.",
+        "meaningVi": "Tên tôi là Đức."
+      },
+      {
+        "lemma": "age",
+        "sentence": "What is your age?",
+        "meaningVi": "Bạn bao nhiêu tuổi?"
+      },
+      {
+        "lemma": "please",
+        "sentence": "Please say your name.",
+        "meaningVi": "Xin hãy nói tên của bạn."
+      },
+      {
+        "lemma": "hi",
+        "sentence": "Hi, I am Lien.",
+        "meaningVi": "Chào mọi người, tôi là Liên."
+      },
+      {
+        "lemma": "welcome",
+        "sentence": "Welcome to the class!",
+        "meaningVi": "Chào mừng đến với lớp học!"
+      },
+      {
+        "lemma": "Miss",
+        "sentence": "Thank you, Miss Ngoc.",
+        "meaningVi": "Cảm ơn cô Ngọc."
+      },
+      {
+        "lemma": "good night",
+        "sentence": "Good night, everyone.",
+        "meaningVi": "Chào cả lớp nhé, chúc ngủ ngon."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Miss Ngoc",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Good evening. Are you Duc?",
+          "meaningVi": "Chào buổi tối. Anh là Đức phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. I am forty, and I am a doctor.",
+          "meaningVi": "Vâng, đúng ạ. Tôi bốn mươi tuổi, và tôi là bác sĩ."
+        },
+        {
+          "speaker": 0,
+          "text": "Is your wife a doctor too?",
+          "meaningVi": "Vợ anh cũng là bác sĩ à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, she isn't. She is a teacher.",
+          "meaningVi": "Không ạ. Vợ tôi là giáo viên."
+        },
+        {
+          "speaker": 0,
+          "text": "Are your children in this class?",
+          "meaningVi": "Các con anh có học lớp này không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they aren't. They are at home.",
+          "meaningVi": "Không ạ. Các cháu ở nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Welcome to the class, Duc.",
+          "meaningVi": "Chào mừng anh đến với lớp, anh Đức."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you, Miss Ngoc. Good night.",
+          "meaningVi": "Cảm ơn cô Ngọc. Chào cô."
+        }
+      ]
+    },
+    "grammarTipVi": "Nói tuổi bằng to be: \"I am forty.\" Không nói \"I have forty years\" như tiếng Việt \"tôi có bốn mươi tuổi\".",
+    "translations": [
+      {
+        "vi": "Chào buổi tối cả lớp.",
+        "en": "Good evening, everyone.",
+        "distractors": [
+          "morning",
+          "are",
+          "you"
+        ]
+      },
+      {
+        "vi": "Tên tôi là Liên.",
+        "en": "My name is Lien.",
+        "distractors": [
+          "his",
+          "your",
+          "are"
+        ]
+      },
+      {
+        "vi": "Các bạn hãy nói tên và tuổi của mình.",
+        "en": "Please say your name and your age.",
+        "distractors": [
+          "are",
+          "old",
+          "his"
+        ],
+        "accepted": [
+          "Please say your age and your name."
+        ]
+      },
+      {
+        "vi": "Chào mừng các bạn đến với lớp học.",
+        "en": "Welcome to the class.",
+        "distractors": [
+          "from",
+          "for",
+          "is"
+        ]
+      },
+      {
+        "vi": "Chúc ngủ ngon, hẹn gặp lại vào thứ Năm.",
+        "en": "Good night, see you on Thursday.",
+        "distractors": [
+          "evening",
+          "at",
+          "in"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Cô Ngọc và anh Đức đang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Về anh Đức và gia đình anh",
+          "Về bài học hôm nay",
+          "Về bệnh viện của anh Đức"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô Ngọc hỏi tuổi, nghề của anh Đức, rồi hỏi về vợ và các con của anh.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vợ anh Đức làm nghề gì?",
+        "promptVi": "",
+        "options": [
+          "Bác sĩ",
+          "Giáo viên",
+          "Đầu bếp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh nói \"No, she isn't. She is a teacher\": vợ anh là giáo viên.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Các con của anh Đức đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở lớp học",
+          "Ở nhà",
+          "Ở trường"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh nói \"They are at home\": các con ở nhà.",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc is a doctor.",
+        "promptVi": "Anh Đức là bác sĩ.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì anh nói \"I am forty, and I am a doctor.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Cô giáo và các học viên là ai, bao nhiêu tuổi và làm nghề gì?",
+    "grammarStep": {
+      "titleVi": "Động từ to be (am / is / are)",
+      "noticing": [
+        {
+          "sentence": "\"Hi, I am Duc, and I am forty,\" he says.",
+          "highlights": [
+            "am"
+          ]
+        },
+        {
+          "sentence": "The room is small, but it is full.",
+          "highlights": [
+            "is"
+          ]
+        },
+        {
+          "sentence": "The students are not children.",
+          "highlights": [
+            "are not"
+          ]
+        },
+        {
+          "sentence": "\"Yes, we are,\" they say.",
+          "highlights": [
+            "are"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"The room is small\" nhưng lại nói \"The students are not children\"?",
+      "options": [
+        "Vì the room là một vật (it) nên dùng is, the students là nhiều người (they) nên dùng are",
+        "Vì câu phủ định luôn dùng are",
+        "Vì students là người, còn room là vật"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Chủ ngữ số ít (the room = it) đi với is; chủ ngữ số nhiều (the students = they) đi với are, dù câu khẳng định hay phủ định.",
+      "whenVi": "Dùng to be để nói tên, tuổi, nghề, quê và miêu tả người, vật.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I am forty.",
+          "negative": "I'm not a student."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "The room is small.",
+          "negative": "She isn't a doctor."
+        },
+        {
+          "subject": "we / you / they",
+          "form": "We are from Can Tho.",
+          "negative": "They aren't children."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I have forty years.",
+          "right": "I am forty."
+        },
+        {
+          "wrong": "The students is from Can Tho.",
+          "right": "The students are from Can Tho."
+        }
+      ],
+      "noteVi": "Tiếng Việt hay nói \"tôi có … tuổi\"; tiếng Anh dùng to be: I am forty (years old).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền am, is hoặc are vào chỗ trống.",
+          "text": "Lien ___ twenty-nine.",
+          "answers": [
+            "is"
+          ],
+          "explanationVi": "Liên là một người (she), nên dùng is."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Duc and Lien ___ in the class.",
+          "options": [
+            "am",
+            "is",
+            "are",
+            "be"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "\"Duc and Lien\" là hai người (they), nên dùng are."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have twenty-nine years.",
+          "sentence": "I am twenty-nine.",
+          "explanationVi": "Nói tuổi trong tiếng Anh dùng to be: I am + số tuổi."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Học viên không phải là trẻ con.",
+          "sentence": "The students are not children.",
+          "words": [
+            "not",
+            "children",
+            "The",
+            "are",
+            "students",
+            "is"
+          ],
+          "explanationVi": "Câu phủ định: The students + are + not + children. Từ \"is\" thừa vì chủ ngữ là số nhiều."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The room is small, but it is full.",
+        "tipVi": "Đọc rõ âm /sm/ đầu small /smɔːl/ (không chèn âm \"xơ\") và âm cuối /l/ trong small, full."
+      },
+      {
+        "text": "\"I am a cook at a restaurant.\"",
+        "tipVi": "Đọc rõ âm cuối /k/ trong cook /kʊk/, và nhấn âm đầu RES-tau-rant /ˈrestrɒnt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your name?",
+        "questionVi": "Bạn tên là gì?",
+        "frame": "My name is ___."
+      },
+      {
+        "question": "How old are you?",
+        "questionVi": "Bạn bao nhiêu tuổi?",
+        "frame": "I am ___."
+      },
+      {
+        "question": "Are you a doctor, a cook or a teacher?",
+        "questionVi": "Bạn là bác sĩ, đầu bếp hay giáo viên?",
+        "frame": "I am a ___. / I'm not a ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với am / is / are",
+      "anyOf": [
+        "I am",
+        "I'm",
+        "is",
+        "are"
+      ],
+      "outlineVi": [
+        "Chào cả lớp và nói tên của bạn.",
+        "Nói tuổi và nghề của bạn.",
+        "Nói bạn đến từ đâu."
+      ],
+      "modelAnswer": "Good evening, everyone. My name is Thao, and I am thirty-three. I am a nurse. I am from Vinh Long, but my home is in Can Tho now. I am not a teacher. I am very happy in this class."
+    }
+  },
+  "glosses": [
+    {
+      "text": "evening",
+      "lemma": "evening",
+      "meaningVi": "buổi tối",
+      "pos": "noun",
+      "phrase": "seven in the evening",
+      "phraseVi": "bảy giờ tối",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "first",
+      "lemma": "first",
+      "meaningVi": "đầu tiên",
+      "pos": "adjective",
+      "phrase": "the first day",
+      "phraseVi": "buổi đầu tiên",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "class",
+      "lemma": "class",
+      "meaningVi": "lớp học",
+      "pos": "noun",
+      "phrase": "a new English class",
+      "phraseVi": "một lớp tiếng Anh mới",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "room",
+      "lemma": "room",
+      "meaningVi": "căn phòng",
+      "pos": "noun",
+      "phrase": "The room is small",
+      "phraseVi": "Căn phòng nhỏ",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "full",
+      "lemma": "full",
+      "meaningVi": "đầy, kín chỗ",
+      "pos": "adjective",
+      "phrase": "it is full",
+      "phraseVi": "kín chỗ",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "students",
+      "lemma": "student",
+      "meaningVi": "học viên, học sinh",
+      "pos": "noun",
+      "phrase": "The students are not children",
+      "phraseVi": "Học viên không phải là trẻ con",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "children",
+      "lemma": "child",
+      "meaningVi": "trẻ con",
+      "pos": "noun",
+      "phrase": "are not children",
+      "phraseVi": "không phải là trẻ con",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "Good evening",
+      "lemma": "good evening",
+      "meaningVi": "chào buổi tối",
+      "pos": "phrase",
+      "phrase": "Good evening, everyone",
+      "phraseVi": "Chào buổi tối cả lớp",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người",
+      "pos": "pronoun",
+      "phrase": "Good evening, everyone",
+      "phraseVi": "Chào buổi tối cả lớp",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "name",
+      "lemma": "name",
+      "meaningVi": "tên",
+      "pos": "noun",
+      "phrase": "My name is Ngoc",
+      "phraseVi": "Tên cô là Ngọc",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "Please",
+      "lemma": "please",
+      "meaningVi": "xin, hãy",
+      "pos": "adverb",
+      "phrase": "Please say your name",
+      "phraseVi": "Các bạn hãy nói tên",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "age",
+      "lemma": "age",
+      "meaningVi": "tuổi",
+      "pos": "noun",
+      "phrase": "your name and your age",
+      "phraseVi": "tên và tuổi của mình",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "Hi",
+      "lemma": "hi",
+      "meaningVi": "chào",
+      "pos": "interjection",
+      "phrase": "Hi, I am Duc",
+      "phraseVi": "Chào cô, tôi là Đức",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "forty",
+      "lemma": "forty",
+      "meaningVi": "bốn mươi",
+      "pos": "number",
+      "phrase": "I am forty",
+      "phraseVi": "tôi bốn mươi tuổi",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "doctor",
+      "lemma": "doctor",
+      "meaningVi": "bác sĩ",
+      "pos": "noun",
+      "phrase": "I am a doctor",
+      "phraseVi": "Tôi là bác sĩ",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "cook",
+      "lemma": "cook",
+      "meaningVi": "đầu bếp",
+      "pos": "noun",
+      "phrase": "a cook at a restaurant",
+      "phraseVi": "đầu bếp ở một nhà hàng",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "restaurant",
+      "lemma": "restaurant",
+      "meaningVi": "nhà hàng",
+      "pos": "noun",
+      "phrase": "a cook at a restaurant",
+      "phraseVi": "đầu bếp ở một nhà hàng",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "them",
+      "lemma": "them",
+      "meaningVi": "họ (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "she asks them",
+      "phraseVi": "cô hỏi họ",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "Welcome",
+      "lemma": "welcome",
+      "meaningVi": "chào mừng",
+      "pos": "interjection",
+      "phrase": "Welcome to the class",
+      "phraseVi": "Chào mừng các bạn đến với lớp học",
+      "sentenceIndex": 15
+    },
+    {
+      "text": "Miss",
+      "lemma": "Miss",
+      "meaningVi": "cô",
+      "pos": "noun",
+      "phrase": "Thank you, Miss Ngoc",
+      "phraseVi": "Cảm ơn cô Ngọc",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "Good night",
+      "lemma": "good night",
+      "meaningVi": "chào nhé (khi chia tay buổi tối)",
+      "pos": "phrase",
+      "phrase": "Good night, see you on Thursday",
+      "phraseVi": "Chào các bạn, hẹn gặp lại vào thứ Năm",
+      "sentenceIndex": 17
+    }
+  ]
+}

@@ -1,0 +1,606 @@
+{
+  "content": "Nam lives in a small flat on the ninth floor. There isn't a garden, but there is a little place outside the living room. Nam calls it his sky garden.\n\nToday his friend Vy calls him on the phone. \"What is in your sky garden now?\" she asks. \"There are two old chairs, and there is a little brown table in front of them,\" Nam says. \"There are a lot of flowers in long boxes on the wall.\"\n\n\"Is there a tree?\" she asks. \"Yes, there is a small orange tree near the door,\" Nam says. \"It isn't big, but it is very nice.\" \"In the evening, I sit there with a cup of tea and look at the sky.\"\n\n\"Your sky garden is lovely,\" Vy says. \"Can I see it on Sunday?\"",
+  "targetWords": [
+    "flat",
+    "floor",
+    "garden",
+    "living room",
+    "chair",
+    "table",
+    "flower",
+    "door"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "tầng (nhà)",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "garden",
+        "lemma": "garden",
+        "meaningVi": "khu vườn",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "chairs",
+        "lemma": "chair",
+        "meaningVi": "cái ghế",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "table",
+        "lemma": "table",
+        "meaningVi": "cái bàn",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "flowers",
+        "lemma": "flower",
+        "meaningVi": "hoa",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "door",
+        "lemma": "door",
+        "meaningVi": "cánh cửa",
+        "pos": "noun",
+        "sentenceIndex": 8
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nam's little sky garden",
+          "Vy's new flat",
+          "A shop with flowers",
+          "Nam's big house"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam kể cho Vy nghe về ban công nhỏ bên ngoài phòng khách mà anh ấy gọi là khu vườn trên trời."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is in front of the chairs?",
+        "promptVi": "Trước hai cái ghế có gì?",
+        "options": [
+          "A little brown table",
+          "An orange tree",
+          "A lot of flowers",
+          "A TV"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam nói \"there is a little brown table in front of them\": \"them\" là hai cái ghế."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the orange tree?",
+        "promptVi": "Cây cam ở đâu?",
+        "options": [
+          "On the wall",
+          "Near the door",
+          "In the living room",
+          "In a long box"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"there is a small orange tree near the door\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is a garden at Nam's flat.",
+        "promptVi": "Căn hộ của Nam có vườn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"There isn't a garden\". Nam chỉ có một ban công nhỏ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"lives\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Nam lives in a small flat on the ninth floor.",
+        "options": [
+          "làm việc",
+          "sống",
+          "ngồi",
+          "mua"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Live là sống: Nam sống trong một căn hộ nhỏ."
+      }
+    ],
+    "grammarNote": {
+      "title": "There is / there are",
+      "bodyVi": "Muốn nói \"ở đâu đó có cái gì\", dùng there is + một vật (số ít) và there are + nhiều vật (số nhiều): There is a bed. There are two chairs. Phủ định: there isn't, there aren't. Câu hỏi: Is there a shower? – Yes, there is. / No, there isn't. Nơi chốn thường đứng cuối câu (in the room, on the bed) hoặc đầu câu (In the room, there is...).",
+      "examples": [
+        "There isn't a garden, but there is a little place outside the living room.",
+        "\"There are two old chairs, and there is a little brown table in front of them,\" Nam says.",
+        "\"There are a lot of flowers in long boxes on the wall.\""
+      ]
+    },
+    "writingPrompt": "Write about a little place outside your home, or a place you love in your home: what is there?",
+    "sentenceTranslations": [
+      "Nam sống trong một căn hộ nhỏ ở tầng chín.",
+      "Căn hộ không có vườn, nhưng bên ngoài phòng khách có một ban công nhỏ.",
+      "Nam gọi nó là khu vườn trên trời của mình.",
+      "Hôm nay bạn của anh ấy là Vy gọi điện cho anh ấy.",
+      "\"Bây giờ khu vườn trên trời của cậu có gì rồi?\" cô ấy hỏi.",
+      "\"Có hai cái ghế cũ, và trước ghế có một cái bàn nhỏ màu nâu,\" Nam nói.",
+      "\"Trên tường có rất nhiều hoa trồng trong những cái hộp dài.\"",
+      "\"Có cây không?\" cô ấy hỏi.",
+      "\"Có, gần cửa có một cây cam nhỏ,\" Nam nói.",
+      "\"Cây không to, nhưng rất đẹp.\"",
+      "\"Buổi tối, mình ngồi ở đó với một tách trà và ngắm bầu trời.\"",
+      "\"Khu vườn trên trời của cậu đáng yêu quá,\" Vy nói.",
+      "\"Chủ nhật mình đến xem được không?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả một ban công hay góc nhỏ trong nhà: ở đó có gì và đồ vật ở đâu, dùng there is / there are và giới từ chỉ nơi chốn.",
+    "examples": [
+      {
+        "lemma": "flat",
+        "sentence": "Our flat is near a big park.",
+        "meaningVi": "Căn hộ của chúng mình ở gần một công viên lớn."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "My office is on the ninth floor.",
+        "meaningVi": "Văn phòng của mình ở tầng chín."
+      },
+      {
+        "lemma": "garden",
+        "sentence": "There are a lot of trees in the garden.",
+        "meaningVi": "Trong vườn có rất nhiều cây."
+      },
+      {
+        "lemma": "living room",
+        "sentence": "There is a big TV in the living room.",
+        "meaningVi": "Trong phòng khách có một cái ti vi lớn."
+      },
+      {
+        "lemma": "chair",
+        "sentence": "There is a chair near the window.",
+        "meaningVi": "Gần cửa sổ có một cái ghế."
+      },
+      {
+        "lemma": "table",
+        "sentence": "The flowers are on the table.",
+        "meaningVi": "Hoa ở trên bàn."
+      },
+      {
+        "lemma": "flower",
+        "sentence": "There is a flower in my bag!",
+        "meaningVi": "Có một bông hoa trong túi mình!"
+      },
+      {
+        "lemma": "door",
+        "sentence": "The cat is in front of the door.",
+        "meaningVi": "Con mèo ở trước cửa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Nam"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Nam, how many chairs are there in your sky garden?",
+          "meaningVi": "Nam ơi, khu vườn trên trời của cậu có mấy cái ghế?"
+        },
+        {
+          "speaker": 1,
+          "text": "There are two. They are old, but they are nice.",
+          "meaningVi": "Có hai cái. Ghế cũ nhưng đẹp."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a table too?",
+          "meaningVi": "Có bàn nữa không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is a little brown one.",
+          "meaningVi": "Có, một cái bàn nhỏ màu nâu."
+        },
+        {
+          "speaker": 0,
+          "text": "What colour are your flowers?",
+          "meaningVi": "Hoa của cậu màu gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "They are red and yellow.",
+          "meaningVi": "Màu đỏ và vàng."
+        },
+        {
+          "speaker": 0,
+          "text": "Are there any birds?",
+          "meaningVi": "Có chim không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! In the morning, there are two birds in the orange tree.",
+          "meaningVi": "Có! Buổi sáng, trên cây cam có hai con chim."
+        }
+      ]
+    },
+    "grammarTipVi": "There are a lot of + danh từ số nhiều: There are a lot of flowers. Đừng nói \"There is a lot of flowers\" vì flowers là số nhiều.",
+    "translations": [
+      {
+        "vi": "Trên tường có rất nhiều hoa.",
+        "en": "There are a lot of flowers on the wall.",
+        "distractors": [
+          "is",
+          "have",
+          "under"
+        ],
+        "accepted": [
+          "On the wall there are a lot of flowers."
+        ]
+      },
+      {
+        "vi": "Trước hai cái ghế có một cái bàn nhỏ.",
+        "en": "There is a small table in front of the two chairs.",
+        "distractors": [
+          "are",
+          "behind",
+          "has"
+        ],
+        "accepted": [
+          "In front of the two chairs there is a small table."
+        ]
+      },
+      {
+        "vi": "Gần cửa có một cây cam.",
+        "en": "There is an orange tree near the door.",
+        "distractors": [
+          "are",
+          "trees",
+          "window"
+        ],
+        "accepted": [
+          "Near the door there is an orange tree."
+        ]
+      },
+      {
+        "vi": "Căn hộ của anh ấy không có vườn.",
+        "en": "There isn't a garden at his flat.",
+        "distractors": [
+          "aren't",
+          "she",
+          "have"
+        ],
+        "accepted": [
+          "At his flat there isn't a garden."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy và Nam nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Khu vườn trên trời của Nam",
+          "Văn phòng của Vy",
+          "Một cửa hàng chim"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy hỏi về ghế, bàn, hoa và chim ở ban công của Nam.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Có mấy cái ghế?",
+        "promptVi": "",
+        "options": [
+          "Một",
+          "Hai",
+          "Ba"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"There are two\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa của Nam màu gì?",
+        "promptVi": "",
+        "options": [
+          "Đỏ và vàng",
+          "Trắng và xanh",
+          "Hồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam nói \"They are red and yellow\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There are birds in the orange tree in the morning.",
+        "promptVi": "Buổi sáng trên cây cam có chim.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Nam nói \"In the morning, there are two birds in the orange tree\".",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Ở ban công nhỏ của Nam có những gì, và chúng ở đâu?",
+    "grammarStep": {
+      "titleVi": "There is / there are",
+      "noticing": [
+        {
+          "sentence": "There isn't a garden, but there is a little place outside the living room.",
+          "highlights": [
+            "There isn't",
+            "there is"
+          ]
+        },
+        {
+          "sentence": "\"There are two old chairs, and there is a little brown table in front of them,\" Nam says.",
+          "highlights": [
+            "There are",
+            "there is"
+          ]
+        },
+        {
+          "sentence": "\"There are a lot of flowers in long boxes on the wall.\"",
+          "highlights": [
+            "There are"
+          ]
+        },
+        {
+          "sentence": "\"Is there a tree?\" she asks.",
+          "highlights": [
+            "Is there"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao có câu dùng there is, có câu dùng there are?",
+      "options": [
+        "Vì there is đi với một vật (số ít), there are đi với nhiều vật (số nhiều)",
+        "Vì there are dùng cho phòng lớn",
+        "Vì there is luôn đứng cuối câu"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Nhìn danh từ đi sau: a garden, a little brown table, a tree (một) → there is / there isn't / is there; two old chairs, a lot of flowers (nhiều) → there are.",
+      "whenVi": "Dùng there is / there are để nói ở một nơi nào đó có cái gì (trong phòng, trên giường, dưới bàn).",
+      "table": [
+        {
+          "subject": "there is + số ít",
+          "form": "There is a bed.",
+          "negative": "There isn't a TV."
+        },
+        {
+          "subject": "there are + số nhiều",
+          "form": "There are two chairs.",
+          "negative": "There aren't any pictures."
+        },
+        {
+          "subject": "câu hỏi",
+          "form": "Is there a shower? – Yes, there is.",
+          "negative": "No, there isn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "In the room have a bed.",
+          "right": "There is a bed in the room."
+        },
+        {
+          "wrong": "There is two chairs.",
+          "right": "There are two chairs."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Phòng có một cái giường\" với chữ \"có\", nên người Việt hay dùng have thay cho there is / there are.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền There is hoặc There are vào chỗ trống.",
+          "text": "___ a small orange tree near the door.",
+          "answers": [
+            "There is",
+            "There's"
+          ],
+          "explanationVi": "A small orange tree là một vật (số ít), nên dùng There is."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "There ___ a lot of flowers on the wall.",
+          "options": [
+            "is",
+            "are",
+            "has",
+            "have"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "A lot of flowers là số nhiều, nên dùng there are."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There aren't a garden at my flat.",
+          "sentence": "There isn't a garden at my flat.",
+          "explanationVi": "A garden là số ít, nên phủ định là there isn't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Có hai cái ghế cũ.",
+          "sentence": "There are two old chairs.",
+          "words": [
+            "are",
+            "two",
+            "There",
+            "old",
+            "chairs",
+            "is"
+          ],
+          "explanationVi": "Two old chairs là số nhiều nên dùng there are; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Nam lives in a small flat on the ninth floor.",
+        "tipVi": "Ninth /naɪnθ/ kết thúc bằng âm /θ/; floor /flɔːr/."
+      },
+      {
+        "text": "\"There are a lot of flowers in long boxes on the wall.\"",
+        "tipVi": "Nối \"a lot of\" thành /əˈlɒtəv/; boxes /ˈbɒksɪz/ có hai âm tiết."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is outside your window?",
+        "questionVi": "Bên ngoài cửa sổ nhà bạn có gì?",
+        "frame": "There is ___ / There are ___."
+      },
+      {
+        "question": "Are there flowers in your home?",
+        "questionVi": "Nhà bạn có hoa không?",
+        "frame": "Yes, there are. They are ___ the ___. / No, there aren't."
+      },
+      {
+        "question": "What is your favourite place in your home?",
+        "questionVi": "Chỗ bạn thích nhất trong nhà là ở đâu?",
+        "frame": "My favourite place is the ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there is hoặc there are",
+      "anyOf": [
+        "there is",
+        "there are",
+        "there isn't",
+        "there aren't",
+        "there's"
+      ],
+      "outlineVi": [
+        "Nói chỗ đó ở đâu trong nhà bạn.",
+        "Kể ở đó có những đồ vật gì: ghế, bàn, hoa, cây...",
+        "Nói bạn làm gì ở đó."
+      ],
+      "modelAnswer": "There is a little place outside my bedroom. There is a small chair and a table. There are a lot of flowers in boxes near the door. There isn't a tree, but there are two birds in the morning. I sit there with a cup of tea."
+    }
+  },
+  "glosses": [
+    {
+      "text": "lives",
+      "lemma": "live",
+      "meaningVi": "sống",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Nam lives in a small flat",
+      "phraseVi": "Nam sống trong một căn hộ nhỏ"
+    },
+    {
+      "text": "ninth",
+      "lemma": "ninth",
+      "meaningVi": "thứ chín",
+      "sentenceIndex": 0,
+      "pos": "number",
+      "phrase": "on the ninth floor",
+      "phraseVi": "ở tầng chín"
+    },
+    {
+      "text": "a little place outside the living room",
+      "lemma": "little place",
+      "meaningVi": "ban công (một chỗ nhỏ bên ngoài phòng)",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "a little place outside the living room",
+      "phraseVi": "một ban công nhỏ bên ngoài phòng khách"
+    },
+    {
+      "text": "sky garden",
+      "lemma": "sky garden",
+      "meaningVi": "khu vườn trên trời",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "his sky garden",
+      "phraseVi": "khu vườn trên trời của mình"
+    },
+    {
+      "text": "calls",
+      "lemma": "call",
+      "meaningVi": "gọi; gọi điện",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Vy calls him on the phone",
+      "phraseVi": "Vy gọi điện cho anh ấy"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ở phía trước",
+      "sentenceIndex": 5,
+      "pos": "preposition",
+      "phrase": "in front of them",
+      "phraseVi": "trước chúng"
+    },
+    {
+      "text": "boxes",
+      "lemma": "box",
+      "meaningVi": "cái hộp, cái thùng",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "in long boxes",
+      "phraseVi": "trong những cái hộp dài"
+    },
+    {
+      "text": "orange tree",
+      "lemma": "orange tree",
+      "meaningVi": "cây cam",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "a small orange tree",
+      "phraseVi": "một cây cam nhỏ"
+    },
+    {
+      "text": "look at the sky",
+      "lemma": "look at the sky",
+      "meaningVi": "ngắm bầu trời",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "look at the sky",
+      "phraseVi": "ngắm bầu trời"
+    },
+    {
+      "text": "lovely",
+      "lemma": "lovely",
+      "meaningVi": "đáng yêu, rất đẹp",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "Your sky garden is lovely",
+      "phraseVi": "Khu vườn trên trời của cậu đáng yêu quá"
+    }
+  ]
+}

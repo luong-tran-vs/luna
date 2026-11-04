@@ -1,72 +1,72 @@
 {
-  "content": "It is Friday evening. Tomorrow, Minh's grandparents from Hue are at his home for dinner. Minh and his mum write a shopping list.\n\n\"We need some rice and a big fish,\" says Mum. \"And six eggs, four tomatoes and two potatoes.\"\n\"Is beef on the list?\" asks Minh. \"Grandpa loves beef.\"\n\"Yes, it is,\" says Mum.\n\n\"What fruit is on the list?\" asks Minh.\n\"Grandma loves bananas and oranges, so we need some bananas and three oranges,\" says Mum.\n\"And a cake?\" asks Minh.\n\"Yes, a chocolate cake for Grandpa, because he loves chocolate!\"\n\nThe list is long. \"The bags are very heavy on Saturday,\" says Mum with a smile. But Minh isn't sad. He loves dinner with his grandparents.",
+  "content": "Quan and his friend Ngoc want to go to the new dance club near their home.\n\n\"What time is the club open on Saturday?\" asks Quan.\n\"It's open at six o'clock in the morning,\" says Ngoc.\n\"And when is the dance class?\" he asks.\n\"It's at half past seven, and it's one hour long.\"\n\"That's early!\" says Quan.\n\"I'm not a morning person.\"\n\nNgoc looks at her phone.\n\"Wait a second,\" she says.\n\"In June, the club is open at five, because it's hot in the summer.\"\n\"Five is too early for me!\" says Quan.\n\"What about the evening class?\" asks Ngoc.\n\"It's at a quarter to six on Saturday, and it's forty minutes long.\"\n\"Great, and what time is it now?\"\n\"It's ten past four, so we have time for a drink first.\"",
   "targetWords": [
-    "dinner",
-    "shopping list",
-    "rice",
-    "fish",
-    "egg",
-    "beef",
-    "fruit",
-    "cake"
+    "time",
+    "o'clock",
+    "hour",
+    "minute",
+    "second",
+    "half past",
+    "quarter",
+    "morning"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "dinner",
-        "lemma": "dinner",
-        "meaningVi": "bữa tối",
+        "text": "time",
+        "lemma": "time",
+        "meaningVi": "thời gian, giờ",
         "pos": "noun",
         "sentenceIndex": 1
       },
       {
-        "text": "shopping list",
-        "lemma": "shopping list",
-        "meaningVi": "danh sách đi chợ, danh sách mua sắm",
+        "text": "o'clock",
+        "lemma": "o'clock",
+        "meaningVi": "giờ (đúng)",
+        "pos": "adverb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "morning",
+        "lemma": "morning",
+        "meaningVi": "buổi sáng",
         "pos": "noun",
         "sentenceIndex": 2
       },
       {
-        "text": "rice",
-        "lemma": "rice",
-        "meaningVi": "gạo, cơm",
-        "pos": "noun",
-        "sentenceIndex": 3
+        "text": "half past",
+        "lemma": "half past",
+        "meaningVi": "rưỡi (quá ba mươi phút)",
+        "pos": "phrase",
+        "sentenceIndex": 4
       },
       {
-        "text": "fish",
-        "lemma": "fish",
-        "meaningVi": "con cá",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "eggs",
-        "lemma": "egg",
-        "meaningVi": "quả trứng",
+        "text": "hour",
+        "lemma": "hour",
+        "meaningVi": "tiếng, giờ đồng hồ",
         "pos": "noun",
         "sentenceIndex": 4
       },
       {
-        "text": "beef",
-        "lemma": "beef",
-        "meaningVi": "thịt bò",
-        "pos": "noun",
-        "sentenceIndex": 5
-      },
-      {
-        "text": "fruit",
-        "lemma": "fruit",
-        "meaningVi": "hoa quả",
+        "text": "second",
+        "lemma": "second",
+        "meaningVi": "giây, một chút",
         "pos": "noun",
         "sentenceIndex": 8
       },
       {
-        "text": "cake",
-        "lemma": "cake",
-        "meaningVi": "bánh ngọt",
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "mười lăm phút (một phần tư giờ)",
         "pos": "noun",
-        "sentenceIndex": 10
+        "sentenceIndex": 12
+      },
+      {
+        "text": "minutes",
+        "lemma": "minute",
+        "meaningVi": "phút",
+        "pos": "noun",
+        "sentenceIndex": 12
       }
     ],
     "questions": [
@@ -75,531 +75,492 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Minh's grandparents' house in Hue",
-          "A chocolate cake shop",
-          "Minh's favourite fruit",
-          "Minh and his mum write a shopping list for a family dinner."
+          "Quan and Ngoc talk about the times of a dance club.",
+          "Ngoc buys a new phone.",
+          "Quan is late for work.",
+          "A hot day in June"
         ],
-        "answerIndex": 3,
-        "explanationVi": "Ông bà Minh sắp đến ăn tối, nên Minh và mẹ viết danh sách những thứ cần mua: gạo, cá, trứng, thịt bò, hoa quả, bánh."
+        "answerIndex": 0,
+        "explanationVi": "Quan và Ngoc nói về giờ mở cửa và giờ các lớp ở câu lạc bộ nhảy mới."
       },
       {
         "kind": "detail",
-        "prompt": "Who loves beef?",
-        "promptVi": "Ai thích thịt bò?",
+        "prompt": "What time is the club open on Saturday?",
+        "promptVi": "Câu lạc bộ mở cửa lúc mấy giờ vào thứ Bảy?",
         "options": [
-          "Grandma",
-          "Grandpa",
-          "Mum",
-          "Minh"
+          "At five o'clock",
+          "At six o'clock",
+          "At half past seven",
+          "At a quarter to six"
         ],
         "answerIndex": 1,
-        "explanationVi": "Minh nói \"Grandpa loves beef\". Bà thì thích chuối và cam."
+        "explanationVi": "Ngoc nói \"It's open at six o'clock in the morning\"."
       },
       {
         "kind": "detail",
-        "prompt": "How many eggs are on the list?",
-        "promptVi": "Danh sách có mấy quả trứng?",
+        "prompt": "When is the club open at five?",
+        "promptVi": "Khi nào câu lạc bộ mở cửa lúc năm giờ?",
         "options": [
-          "Four",
-          "Two",
-          "Six",
-          "Three"
+          "On Saturday",
+          "In the evening",
+          "In June",
+          "In the winter"
         ],
         "answerIndex": 2,
-        "explanationVi": "Mẹ nói \"And six eggs, four tomatoes and two potatoes\"."
+        "explanationVi": "Ngoc nói \"In June, the club is open at five\": vào tháng Sáu, vì mùa hè trời nóng."
       },
       {
         "kind": "tfn",
-        "prompt": "The chocolate cake is for Grandma.",
-        "promptVi": "Bánh sô-cô-la là để cho bà.",
+        "prompt": "Quan is a morning person.",
+        "promptVi": "Quan là người thích dậy sớm.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì mẹ nói \"a chocolate cake for Grandpa, because he loves chocolate!\": bánh dành cho ông."
+        "explanationVi": "Sai, vì Quan nói \"I'm not a morning person\"."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"heavy\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"half past\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "\"The bags are very heavy on Saturday,\" says Mum with a smile.",
+        "quote": "\"It's at half past seven, and it's one hour long.\"",
         "options": [
-          "nhẹ",
-          "to",
-          "nặng",
-          "rẻ"
+          "rưỡi (quá ba mươi phút)",
+          "kém mười lăm",
+          "đúng giờ",
+          "quá mười phút"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Heavy là nặng: danh sách dài nên túi đồ mua về sẽ rất nặng."
+        "answerIndex": 0,
+        "explanationVi": "Half past seven là bảy giờ rưỡi, tức bảy giờ ba mươi phút."
       }
     ],
     "grammarNote": {
-      "title": "Mạo từ a / an / the",
-      "bodyVi": "A / an đi với một vật đếm được: a big fish, a chocolate cake. Với danh từ không đếm được (rice, beef) hoặc nhiều vật (bananas), dùng some: some rice, some bananas. The dùng cho vật cả hai người đã biết: the list (danh sách hai mẹ con đang viết).",
+      "title": "At, on, in với thời gian",
+      "bodyVi": "Dùng at với giờ (at six o'clock, at half past seven), on với thứ trong tuần (on Saturday), in với tháng, mùa và buổi trong ngày (in June, in the summer, in the morning).",
       "examples": [
-        "We need some rice and a big fish",
-        "Yes, a chocolate cake for Grandpa, because he loves chocolate!",
-        "The list is long."
+        "\"It's open at six o'clock in the morning,\" says Ngoc.",
+        "\"What time is the club open on Saturday?\" asks Quan.",
+        "\"In June, the club is open at five, because it's hot in the summer.\""
       ]
     },
-    "writingPrompt": "Write a shopping list for a family dinner and say what each thing is for.",
+    "writingPrompt": "Write about a club, a shop or a class near your home: what time it is open, and on which days.",
     "sentenceTranslations": [
-      "Hôm nay là tối thứ Sáu.",
-      "Ngày mai, ông bà của Minh từ Huế đến nhà Minh ăn tối.",
-      "Minh và mẹ viết danh sách đi chợ.",
-      "\"Nhà mình cần ít gạo và một con cá to,\" mẹ nói.",
-      "\"Và sáu quả trứng, bốn quả cà chua và hai củ khoai tây.\"",
-      "\"Có thịt bò trong danh sách không mẹ?\" Minh hỏi.",
-      "\"Ông rất thích thịt bò.\"",
-      "\"Có rồi con,\" mẹ nói.",
-      "\"Trong danh sách có hoa quả gì ạ?\" Minh hỏi.",
-      "\"Bà thích chuối và cam, nên mình cần ít chuối và ba quả cam,\" mẹ nói.",
-      "\"Còn bánh thì sao ạ?\" Minh hỏi.",
-      "\"Có, một chiếc bánh sô-cô-la cho ông, vì ông rất thích sô-cô-la!\"",
-      "Danh sách dài quá.",
-      "\"Thứ Bảy mấy cái túi sẽ nặng lắm đây,\" mẹ mỉm cười nói.",
-      "Nhưng Minh không buồn.",
-      "Minh rất thích ăn tối với ông bà."
+      "Quan và bạn của anh ấy là Ngoc muốn đến câu lạc bộ nhảy mới gần nhà.",
+      "\"Thứ Bảy câu lạc bộ mở cửa lúc mấy giờ?\" Quan hỏi.",
+      "\"Mở cửa lúc sáu giờ sáng,\" Ngoc nói.",
+      "\"Thế lớp nhảy lúc nào?\" anh ấy hỏi.",
+      "\"Lúc bảy giờ rưỡi, và dài một tiếng.\"",
+      "\"Sớm quá!\" Quan nói.",
+      "\"Tôi không phải người thích dậy sớm.\"",
+      "Ngoc nhìn điện thoại của cô ấy.",
+      "\"Chờ một chút,\" cô ấy nói.",
+      "\"Vào tháng Sáu, câu lạc bộ mở cửa lúc năm giờ, vì mùa hè trời nóng.\"",
+      "\"Năm giờ thì quá sớm với tôi!\" Quan nói.",
+      "\"Thế còn lớp buổi tối thì sao?\" Ngoc hỏi.",
+      "\"Thứ Bảy lớp đó lúc sáu giờ kém mười lăm, và dài bốn mươi phút.\"",
+      "\"Tuyệt, thế bây giờ là mấy giờ?\"",
+      "\"Bây giờ là bốn giờ mười, nên chúng ta có thời gian uống chút gì trước.\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể viết danh sách đi chợ và dùng đúng a / an, some và danh từ số nhiều (a big fish, some rice, six eggs).",
+    "objectiveVi": "Bạn có thể nói giờ mở cửa và giờ các lớp với at + giờ, on + thứ, in + tháng / mùa / buổi.",
     "examples": [
       {
-        "lemma": "dinner",
-        "sentence": "We have fish for dinner today.",
-        "meaningVi": "Hôm nay nhà mình ăn cá vào bữa tối."
+        "lemma": "time",
+        "sentence": "What time is the class?",
+        "meaningVi": "Lớp học lúc mấy giờ?"
       },
       {
-        "lemma": "shopping list",
-        "sentence": "The shopping list is on the table.",
-        "meaningVi": "Danh sách đi chợ ở trên bàn."
+        "lemma": "o'clock",
+        "sentence": "The club is open at seven o'clock.",
+        "meaningVi": "Câu lạc bộ mở cửa lúc bảy giờ."
       },
       {
-        "lemma": "rice",
-        "sentence": "We need some rice.",
-        "meaningVi": "Nhà mình cần ít gạo."
+        "lemma": "hour",
+        "sentence": "The class is one hour long.",
+        "meaningVi": "Lớp học dài một tiếng."
       },
       {
-        "lemma": "fish",
-        "sentence": "My mum cooks a big fish on Sunday.",
-        "meaningVi": "Chủ nhật mẹ mình nấu một con cá to."
+        "lemma": "minute",
+        "sentence": "The bus is here in one minute.",
+        "meaningVi": "Một phút nữa xe buýt đến."
       },
       {
-        "lemma": "egg",
-        "sentence": "There is an egg in the bag.",
-        "meaningVi": "Trong túi có một quả trứng."
+        "lemma": "second",
+        "sentence": "Wait a second, please.",
+        "meaningVi": "Làm ơn chờ một chút."
       },
       {
-        "lemma": "beef",
-        "sentence": "My dad loves beef soup.",
-        "meaningVi": "Bố mình rất thích canh thịt bò."
+        "lemma": "half past",
+        "sentence": "The film is at half past eight.",
+        "meaningVi": "Bộ phim lúc tám giờ rưỡi."
       },
       {
-        "lemma": "fruit",
-        "sentence": "What fruit is on the list?",
-        "meaningVi": "Trong danh sách có hoa quả gì?"
+        "lemma": "quarter",
+        "sentence": "It's a quarter past ten.",
+        "meaningVi": "Bây giờ là mười giờ mười lăm."
       },
       {
-        "lemma": "cake",
-        "sentence": "The cake is for Grandma's birthday.",
-        "meaningVi": "Chiếc bánh là để mừng sinh nhật bà."
+        "lemma": "morning",
+        "sentence": "The park is quiet in the morning.",
+        "meaningVi": "Công viên yên tĩnh vào buổi sáng."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Mum",
-        "Minh"
+        "Quan",
+        "Ngoc"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Minh, is the rice in the bag?",
-          "meaningVi": "Minh ơi, gạo cho vào túi chưa con?"
+          "text": "Ngoc, is the club open on Sunday?",
+          "meaningVi": "Ngoc ơi, câu lạc bộ có mở cửa vào Chủ nhật không?"
         },
         {
           "speaker": 1,
-          "text": "Yes, it is. And the fish is in the bag too.",
-          "meaningVi": "Rồi ạ. Cá cũng ở trong túi rồi."
+          "text": "Yes, it is. It's open at seven in the morning.",
+          "meaningVi": "Có. Mở cửa lúc bảy giờ sáng."
         },
         {
           "speaker": 0,
-          "text": "Good. Are there six eggs?",
-          "meaningVi": "Tốt. Có đủ sáu quả trứng không?"
+          "text": "What time is the dance class?",
+          "meaningVi": "Lớp nhảy lúc mấy giờ?"
         },
         {
           "speaker": 1,
-          "text": "No, there are only five eggs here.",
-          "meaningVi": "Không ạ, ở đây chỉ có năm quả thôi."
+          "text": "It's at nine o'clock.",
+          "meaningVi": "Lúc chín giờ."
         },
         {
           "speaker": 0,
-          "text": "OK, five eggs are fine. Where are the tomatoes?",
-          "meaningVi": "Được, năm quả cũng được. Cà chua đâu con?"
+          "text": "How long is it?",
+          "meaningVi": "Lớp dài bao lâu?"
         },
         {
           "speaker": 1,
-          "text": "They're near the potatoes.",
-          "meaningVi": "Ở gần chỗ khoai tây ạ."
+          "text": "It's one hour long.",
+          "meaningVi": "Dài một tiếng."
         },
         {
           "speaker": 0,
-          "text": "Great. Is the cake on the list?",
-          "meaningVi": "Tốt. Bánh có trong danh sách không?"
+          "text": "Is the club open in the evening?",
+          "meaningVi": "Buổi tối câu lạc bộ có mở cửa không?"
         },
         {
           "speaker": 1,
-          "text": "Yes. A chocolate cake for Grandpa!",
-          "meaningVi": "Có ạ. Một chiếc bánh sô-cô-la cho ông!"
+          "text": "No, it isn't. It's closed at six on Sunday.",
+          "meaningVi": "Không. Chủ nhật đóng cửa lúc sáu giờ."
         },
         {
           "speaker": 0,
-          "text": "Here it is. It's a big cake.",
-          "meaningVi": "Đây rồi. Bánh to lắm."
-        },
-        {
-          "speaker": 1,
-          "text": "Grandpa loves big cakes!",
-          "meaningVi": "Ông thích bánh to lắm!"
+          "text": "OK, see you at the club at a quarter to nine!",
+          "meaningVi": "Được, hẹn gặp ở câu lạc bộ lúc chín giờ kém mười lăm nhé!"
         }
       ]
     },
-    "grammarTipVi": "Some đi với danh từ số nhiều (some bananas) và danh từ không đếm được (some rice, some beef). A / an chỉ đi với một vật đếm được: a fish, an orange.",
+    "grammarTipVi": "at + giờ: at nine o'clock. on + thứ: on Sunday. in + tháng / mùa / buổi: in June, in the summer, in the evening.",
     "translations": [
       {
-        "vi": "Chúng tôi cần ít gạo.",
-        "en": "We need some rice.",
+        "vi": "Câu lạc bộ mở cửa lúc sáu giờ sáng.",
+        "en": "The club is open at six o'clock in the morning.",
         "distractors": [
-          "a",
-          "an",
-          "rices"
-        ]
-      },
-      {
-        "vi": "Mẹ mua một con cá to.",
-        "en": "Mum buys a big fish.",
-        "distractors": [
-          "an",
-          "fishes",
-          "buy"
-        ]
-      },
-      {
-        "vi": "Ông tôi rất thích thịt bò.",
-        "en": "My grandpa loves beef.",
-        "distractors": [
-          "a",
-          "love",
-          "the"
-        ]
-      },
-      {
-        "vi": "Danh sách đi chợ dài lắm.",
-        "en": "The shopping list is very long.",
-        "distractors": [
-          "A",
+          "on",
           "are",
-          "lists"
+          "evening"
+        ],
+        "accepted": [
+          "The club is open in the morning at six o'clock."
+        ]
+      },
+      {
+        "vi": "Lớp nhảy lúc bảy giờ rưỡi.",
+        "en": "The dance class is at half past seven.",
+        "distractors": [
+          "on",
+          "quarter",
+          "to"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Lớp buổi tối dài bốn mươi phút.",
+        "en": "The evening class is forty minutes long.",
+        "distractors": [
+          "hours",
+          "fourteen",
+          "morning"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Vào thứ Bảy, lớp học lúc sáu giờ kém mười lăm.",
+        "en": "On Saturday, the class is at a quarter to six.",
+        "distractors": [
+          "in",
+          "past",
+          "half"
+        ],
+        "accepted": [
+          "The class is at a quarter to six on Saturday."
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Minh và mẹ đang làm gì?",
+        "prompt": "Quan hỏi Ngoc về điều gì?",
         "promptVi": "",
         "options": [
-          "Mua đồ ở cửa hàng theo danh sách",
-          "Nấu bữa tối cho ông bà",
-          "Viết thiệp cho ông"
+          "Giờ của câu lạc bộ vào Chủ nhật",
+          "Điện thoại mới của Ngoc",
+          "Một bộ phim buổi tối"
         ],
         "answerIndex": 0,
-        "explanationVi": "Hai mẹ con kiểm tra gạo, cá, trứng, cà chua và bánh có trong túi chưa.",
+        "explanationVi": "Quan hỏi câu lạc bộ có mở cửa vào Chủ nhật không, lớp nhảy lúc mấy giờ và dài bao lâu.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Ở cửa hàng có mấy quả trứng?",
+        "prompt": "Lớp nhảy vào Chủ nhật lúc mấy giờ?",
         "promptVi": "",
         "options": [
-          "Bốn",
-          "Năm",
-          "Sáu"
+          "Bảy giờ",
+          "Chín giờ",
+          "Sáu giờ"
         ],
         "answerIndex": 1,
-        "explanationVi": "Minh nói \"there are only five eggs here\".",
+        "explanationVi": "Ngoc nói \"It's at nine o'clock.\"",
         "turnIndex": 3
       },
       {
         "kind": "detail",
-        "prompt": "Cà chua ở đâu?",
+        "prompt": "Lớp nhảy dài bao lâu?",
         "promptVi": "",
         "options": [
-          "Trong túi",
-          "Gần chỗ bánh",
-          "Gần chỗ khoai tây"
+          "Bốn mươi phút",
+          "Hai tiếng",
+          "Một tiếng"
         ],
         "answerIndex": 2,
-        "explanationVi": "Minh nói \"They're near the potatoes\".",
+        "explanationVi": "Ngoc nói \"It's one hour long.\"",
         "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "The chocolate cake is small.",
-        "promptVi": "Chiếc bánh sô-cô-la nhỏ.",
+        "prompt": "The club is open in the evening on Sunday.",
+        "promptVi": "Chủ nhật câu lạc bộ mở cửa buổi tối.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì mẹ nói \"It's a big cake\".",
-        "turnIndex": 8
+        "explanationVi": "Sai, vì Ngoc nói \"No, it isn't. It's closed at six on Sunday.\"",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Trong danh sách đi chợ có những gì, và mỗi thứ dành cho ai?",
+    "readingGuideVi": "Câu lạc bộ mở cửa lúc mấy giờ, và các lớp học lúc mấy giờ?",
     "grammarStep": {
-      "titleVi": "Mạo từ a / an / the",
+      "titleVi": "At, on, in với thời gian",
       "noticing": [
         {
-          "sentence": "\"We need some rice and a big fish,\" says Mum.",
+          "sentence": "\"It's open at six o'clock in the morning,\" says Ngoc.",
           "highlights": [
-            "some",
-            "a"
+            "at six o'clock",
+            "in the morning"
           ]
         },
         {
-          "sentence": "\"Yes, a chocolate cake for Grandpa, because he loves chocolate!\"",
+          "sentence": "\"What time is the club open on Saturday?\" asks Quan.",
           "highlights": [
-            "a"
+            "on Saturday"
           ]
         },
         {
-          "sentence": "\"Grandma loves bananas and oranges, so we need some bananas and three oranges,\" says Mum.",
+          "sentence": "\"In June, the club is open at five, because it's hot in the summer.\"",
           "highlights": [
-            "some"
-          ]
-        },
-        {
-          "sentence": "The list is long.",
-          "highlights": [
-            "The"
+            "In June",
+            "at five",
+            "in the summer"
           ]
         }
       ],
-      "questionVi": "Vì sao nói some rice nhưng lại nói a big fish?",
+      "questionVi": "Từ nào đứng trước giờ, từ nào đứng trước thứ, và từ nào đứng trước tháng hoặc mùa?",
       "options": [
-        "Vì cá đắt hơn gạo",
-        "Vì rice (gạo) không đếm từng hạt được, còn fish đếm được (một con)",
-        "Vì rice đứng trước trong câu"
+        "at trước giờ, on trước thứ, in trước tháng / mùa / buổi",
+        "in trước giờ, at trước thứ, on trước tháng",
+        "on trước tất cả"
       ],
-      "answerIndex": 1,
-      "explanationVi": "A / an chỉ đi với một vật đếm được (a big fish, a chocolate cake). Gạo không đếm được, nhiều quả chuối là số nhiều, nên dùng some.",
-      "whenVi": "Dùng a / an cho một vật đếm được, some cho nhiều vật hoặc thứ không đếm được, và the cho vật người nghe đã biết.",
+      "answerIndex": 0,
+      "explanationVi": "At six o'clock (giờ), on Saturday (thứ), in June, in the summer, in the morning (tháng, mùa, buổi).",
+      "whenVi": "Dùng at, on, in khi nói một việc xảy ra vào lúc nào: giờ, ngày, tháng, mùa.",
       "table": [
         {
-          "subject": "a / an + một vật đếm được",
-          "form": "a big fish, an orange",
-          "negative": "—"
+          "subject": "at + giờ",
+          "form": "at six o'clock, at half past seven",
+          "negative": "at a quarter to six"
         },
         {
-          "subject": "some + nhiều vật / không đếm được",
-          "form": "some bananas, some rice",
-          "negative": "—"
+          "subject": "on + thứ / ngày",
+          "form": "on Saturday, on Sunday",
+          "negative": "on Saturday morning"
         },
         {
-          "subject": "the + vật đã biết",
-          "form": "the list, the bags",
-          "negative": "—"
+          "subject": "in + tháng / mùa / buổi",
+          "form": "in June, in the summer",
+          "negative": "in the morning, in the evening"
         }
       ],
       "mistakes": [
         {
-          "wrong": "We need a rice.",
-          "right": "We need some rice."
+          "wrong": "The class is on half past seven.",
+          "right": "The class is at half past seven."
         },
         {
-          "wrong": "We need six egg.",
-          "right": "We need six eggs."
+          "wrong": "The club is open at five on June.",
+          "right": "The club is open at five in June."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"một ít gạo\", \"một con cá\" và không có mạo từ, nên người Việt hay dùng a cho cả thứ không đếm được như rice.",
+      "noteVi": "Tiếng Việt dùng \"lúc\" cho giờ và \"vào\" cho cả thứ lẫn tháng, nên người Việt hay nhầm on và in.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền a hoặc an vào chỗ trống.",
-          "text": "We need ___ big fish.",
+          "promptVi": "Điền at, on hoặc in vào chỗ trống.",
+          "text": "The club is open ___ six o'clock.",
           "answers": [
-            "a"
+            "at"
           ],
-          "explanationVi": "Big bắt đầu bằng âm phụ âm /b/, nên dùng a."
+          "explanationVi": "Six o'clock là giờ, nên dùng at."
         },
         {
           "kind": "choice",
           "promptVi": "Chọn từ đúng.",
-          "text": "Grandma loves bananas, so we need ___ bananas.",
+          "text": "It's hot ___ the summer.",
           "options": [
-            "a",
-            "an",
-            "some",
-            "one"
+            "at",
+            "on",
+            "in",
+            "to"
           ],
           "answerIndex": 2,
-          "explanationVi": "Bananas là số nhiều, nên dùng some, không dùng a, an hay one."
+          "explanationVi": "Summer là mùa, nên dùng in."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "We need a rice and a big fish.",
-          "sentence": "We need some rice and a big fish.",
-          "explanationVi": "Rice không đếm được, nên dùng some rice, không dùng a rice."
+          "text": "The dance class is in Saturday.",
+          "sentence": "The dance class is on Saturday.",
+          "explanationVi": "Saturday là thứ trong tuần, nên dùng on."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Chúng tôi cần ba quả cam.",
-          "sentence": "We need three oranges.",
+          "text": "Lớp học buổi tối lúc sáu giờ.",
+          "sentence": "The evening class is at six.",
           "words": [
-            "need",
-            "three",
-            "We",
-            "oranges",
-            "orange"
+            "class",
+            "six",
+            "The",
+            "at",
+            "is",
+            "evening",
+            "on"
           ],
-          "explanationVi": "Có three nên dùng oranges (số nhiều); từ \"orange\" bị thừa."
+          "explanationVi": "Six là giờ nên dùng at; từ \"on\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "And six eggs, four tomatoes and two potatoes.",
-        "tipVi": "Potatoes /pəˈteɪtoʊz/ và tomatoes /təˈmeɪtoʊz/ đều nhấn âm giữa và có /z/ ở cuối."
+        "text": "\"It's open at six o'clock in the morning,\" says Ngoc.",
+        "tipVi": "Nối \"open at\" thành /ˈoʊpən æt/; o'clock /əˈklɑk/ nhấn âm sau."
       },
       {
-        "text": "He loves dinner with his grandparents.",
-        "tipVi": "Loves /lʌvz/ có âm /vz/ ở cuối; grandparents /ˈɡrænperənts/ có cụm âm cuối /nts/."
+        "text": "\"It's at half past seven, and it's one hour long.\"",
+        "tipVi": "Half /hæf/ không đọc chữ l; hour /ˈaʊər/ không đọc chữ h."
       }
     ],
     "speakQuestions": [
       {
-        "question": "What is on your family's shopping list this week?",
-        "questionVi": "Tuần này danh sách đi chợ của nhà bạn có gì?",
-        "frame": "We need some ___ and a / an ___."
+        "question": "What time is a shop near your home open?",
+        "questionVi": "Một cửa hàng gần nhà bạn mở cửa lúc mấy giờ?",
+        "frame": "It's open at ___."
       },
       {
-        "question": "What is your favourite fruit?",
-        "questionVi": "Bạn thích loại quả nào nhất?",
-        "frame": "My favourite fruit is ___."
+        "question": "When is your English class?",
+        "questionVi": "Lớp tiếng Anh của bạn vào khi nào?",
+        "frame": "It's on ___ at ___."
       },
       {
-        "question": "What is your grandma's or grandpa's favourite food?",
-        "questionVi": "Ông hoặc bà bạn thích món gì nhất?",
-        "frame": "He / She loves ___."
+        "question": "Are you a morning person?",
+        "questionVi": "Bạn có phải người thích dậy sớm không?",
+        "frame": "Yes, I am. / No, I'm not."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 cụm dùng some hoặc a / an (some rice, a fish, an egg)",
+      "grammarLabelVi": "Có ít nhất 2 cụm at / on / in với thời gian",
       "anyOf": [
-        "some",
-        "an egg",
-        "an orange",
-        "an apple",
-        "a fish",
-        "a cake"
+        "at six",
+        "at seven",
+        "at eight",
+        "at nine",
+        "on Monday",
+        "on Saturday",
+        "on Sunday",
+        "in the morning",
+        "in the evening",
+        "in June",
+        "in the summer",
+        "o'clock"
       ],
       "outlineVi": [
-        "Nói vì sao bạn viết danh sách đi chợ.",
-        "Kể những thứ cần mua (some …, a / an …, số nhiều).",
-        "Nói một món dành cho ai."
+        "Nói tên câu lạc bộ, cửa hàng hoặc lớp học ở gần nhà bạn.",
+        "Nói nó mở cửa lúc mấy giờ và vào những ngày nào (at …, on …).",
+        "Nói một điều khác vào một tháng hoặc mùa (in …)."
       ],
-      "modelAnswer": "Today, my mum and I write a shopping list for dinner. We need some rice, a big fish and four eggs. We also need some beef for my dad. For fruit, we need some bananas and an orange. And a cake? Yes, a small cake for my sister!"
+      "modelAnswer": "There is a small shop near my home. It is open at seven o'clock in the morning. On Sunday, it is open at eight. It is closed at ten in the evening. In the summer, it is open late, and there are a lot of people in the shop."
     }
   },
   "glosses": [
     {
-      "text": "Tomorrow",
-      "lemma": "tomorrow",
-      "meaningVi": "ngày mai",
-      "sentenceIndex": 1,
-      "pos": "adverb",
-      "phrase": "Tomorrow, Minh's grandparents",
-      "phraseVi": "Ngày mai, ông bà của Minh"
+      "text": "club",
+      "lemma": "club",
+      "meaningVi": "câu lạc bộ",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the new dance club",
+      "phraseVi": "câu lạc bộ nhảy mới"
     },
     {
-      "text": "need",
-      "lemma": "need",
-      "meaningVi": "cần",
+      "text": "dance",
+      "lemma": "dance",
+      "meaningVi": "nhảy, khiêu vũ",
       "sentenceIndex": 3,
-      "pos": "verb",
-      "phrase": "We need some rice",
-      "phraseVi": "Nhà mình cần ít gạo"
-    },
-    {
-      "text": "tomatoes",
-      "lemma": "tomato",
-      "meaningVi": "cà chua",
-      "sentenceIndex": 4,
       "pos": "noun",
-      "phrase": "four tomatoes",
-      "phraseVi": "bốn quả cà chua"
+      "phrase": "the dance class",
+      "phraseVi": "lớp nhảy"
     },
     {
-      "text": "potatoes",
-      "lemma": "potato",
-      "meaningVi": "khoai tây",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "two potatoes",
-      "phraseVi": "hai củ khoai tây"
-    },
-    {
-      "text": "list",
-      "lemma": "list",
-      "meaningVi": "danh sách",
+      "text": "early",
+      "lemma": "early",
+      "meaningVi": "sớm",
       "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "on the list",
-      "phraseVi": "trong danh sách"
-    },
-    {
-      "text": "bananas",
-      "lemma": "banana",
-      "meaningVi": "quả chuối",
-      "sentenceIndex": 9,
-      "pos": "noun",
-      "phrase": "some bananas",
-      "phraseVi": "ít chuối"
-    },
-    {
-      "text": "oranges",
-      "lemma": "orange",
-      "meaningVi": "quả cam",
-      "sentenceIndex": 9,
-      "pos": "noun",
-      "phrase": "three oranges",
-      "phraseVi": "ba quả cam"
-    },
-    {
-      "text": "long",
-      "lemma": "long",
-      "meaningVi": "dài",
-      "sentenceIndex": 12,
       "pos": "adjective",
-      "phrase": "The list is long",
-      "phraseVi": "Danh sách dài quá"
+      "phrase": "That's early",
+      "phraseVi": "Sớm quá"
     },
     {
-      "text": "heavy",
-      "lemma": "heavy",
-      "meaningVi": "nặng",
-      "sentenceIndex": 13,
+      "text": "hot",
+      "lemma": "hot",
+      "meaningVi": "nóng",
+      "sentenceIndex": 9,
       "pos": "adjective",
-      "phrase": "The bags are very heavy",
-      "phraseVi": "Mấy cái túi nặng lắm"
+      "phrase": "it's hot in the summer",
+      "phraseVi": "mùa hè trời nóng"
     },
     {
-      "text": "grandparents",
-      "lemma": "grandparents",
-      "meaningVi": "ông bà",
-      "sentenceIndex": 15,
+      "text": "drink",
+      "lemma": "drink",
+      "meaningVi": "đồ uống",
+      "sentenceIndex": 14,
       "pos": "noun",
-      "phrase": "dinner with his grandparents",
-      "phraseVi": "ăn tối với ông bà"
+      "phrase": "time for a drink first",
+      "phraseVi": "thời gian uống nước trước"
     }
   ]
 }

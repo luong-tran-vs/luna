@@ -1,0 +1,619 @@
+{
+  "content": "My name is Hưng, and I work in a phone factory in Bac Ninh. My day starts very early.\n\nI get up at five and have breakfast with my wife. The factory bus comes at a quarter to six. I start work at half past six. I check new phones before they go to the shops.\n\nAt nine, I always take a short tea break with my coworkers. We sit together, drink tea and talk. My friend Chi works with me. She often brings some fruit for us.\n\nWe have lunch at twelve. I finish work at three, and then I go home. In the afternoon, I usually sleep for an hour. My work isn't easy, but I like my coworkers.\n\nMy wife often asks, \"Are you tired, Hưng?\"\n\"Yes, a little,\" I say. \"But I'm happy.\"",
+  "targetWords": [
+    "factory",
+    "early",
+    "start work",
+    "tea break",
+    "coworker",
+    "bring",
+    "finish work",
+    "easy"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "factory",
+        "lemma": "factory",
+        "meaningVi": "nhà máy",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "early",
+        "lemma": "early",
+        "meaningVi": "sớm",
+        "pos": "adverb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "start work",
+        "lemma": "start work",
+        "meaningVi": "bắt đầu làm việc",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "tea break",
+        "lemma": "tea break",
+        "meaningVi": "giờ nghỉ uống trà",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "coworkers",
+        "lemma": "coworker",
+        "meaningVi": "đồng nghiệp",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "brings",
+        "lemma": "bring",
+        "meaningVi": "mang đến",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "finish work",
+        "lemma": "finish work",
+        "meaningVi": "tan làm, xong việc",
+        "pos": "phrase",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "easy",
+        "lemma": "easy",
+        "meaningVi": "dễ",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text about?",
+        "promptVi": "Bài đọc nói về điều gì?",
+        "options": [
+          "Hưng's day at the factory",
+          "A new phone shop",
+          "Chi's family",
+          "The factory bus"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hưng kể một ngày làm việc ở nhà máy: dậy sớm, bắt đầu làm, nghỉ uống trà, tan làm và về nhà."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hưng starts work at …",
+        "promptVi": "Hưng bắt đầu làm việc lúc …",
+        "options": [
+          "five",
+          "a quarter to six",
+          "half past six",
+          "nine"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"I start work at half past six\". Sáu giờ kém mười lăm là lúc xe buýt đến."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chi often brings … for her coworkers.",
+        "promptVi": "Chi hay mang … cho các đồng nghiệp.",
+        "options": [
+          "tea",
+          "some fruit",
+          "new phones",
+          "bread"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She often brings some fruit for us\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hưng's work is easy.",
+        "promptVi": "Công việc của Hưng dễ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hưng nói \"My work isn't easy, but I like my coworkers\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"coworkers\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"My work isn't easy, but I like my coworkers.\"",
+        "options": [
+          "đồng nghiệp",
+          "hàng xóm",
+          "học sinh",
+          "anh em"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Coworkers là những người làm cùng chỗ với mình, tức đồng nghiệp, như Chi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Khi tự kể về mình (I) hoặc nhóm mình (we), động từ giữ nguyên: I start, I check, we sit. Khi nói về một người hay một vật khác (she, Chi, my day, the bus), động từ thêm -s: Chi works, she brings, my day starts, the bus comes.",
+      "examples": [
+        "I start work at half past six.",
+        "She often brings some fruit for us.",
+        "My day starts very early."
+      ]
+    },
+    "writingPrompt": "Write about your work or school day: when it starts, when you take a break and when you finish.",
+    "sentenceTranslations": [
+      "Tôi tên là Hưng, tôi làm việc ở một nhà máy điện thoại ở Bắc Ninh.",
+      "Một ngày của tôi bắt đầu rất sớm.",
+      "Tôi dậy lúc năm giờ và ăn sáng với vợ.",
+      "Xe buýt của nhà máy đến lúc sáu giờ kém mười lăm.",
+      "Tôi bắt đầu làm việc lúc sáu rưỡi.",
+      "Tôi kiểm tra điện thoại mới trước khi chúng được đưa đến các cửa hàng.",
+      "Chín giờ, tôi luôn nghỉ uống trà một lát với các đồng nghiệp.",
+      "Chúng tôi ngồi cùng nhau, uống trà và nói chuyện.",
+      "Bạn tôi là Chi làm cùng tôi.",
+      "Cô ấy hay mang ít hoa quả cho chúng tôi.",
+      "Chúng tôi ăn trưa lúc mười hai giờ.",
+      "Ba giờ tôi tan làm, rồi về nhà.",
+      "Buổi chiều, tôi thường ngủ một tiếng.",
+      "Công việc của tôi không dễ, nhưng tôi quý các đồng nghiệp.",
+      "Vợ tôi hay hỏi: \"Anh có mệt không, Hưng?\"",
+      "\"Có, hơi mệt,\" tôi nói.",
+      "\"Nhưng anh vui.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tự kể một ngày làm việc của mình (I start, I finish) và kể về đồng nghiệp (she works, she brings).",
+    "examples": [
+      {
+        "lemma": "factory",
+        "sentence": "My father works in a factory.",
+        "meaningVi": "Bố mình làm việc ở một nhà máy."
+      },
+      {
+        "lemma": "early",
+        "sentence": "I go to bed early.",
+        "meaningVi": "Mình đi ngủ sớm."
+      },
+      {
+        "lemma": "start work",
+        "sentence": "We start work at eight.",
+        "meaningVi": "Chúng mình bắt đầu làm việc lúc tám giờ."
+      },
+      {
+        "lemma": "tea break",
+        "sentence": "We have a tea break at ten.",
+        "meaningVi": "Mười giờ chúng mình nghỉ uống trà."
+      },
+      {
+        "lemma": "coworker",
+        "sentence": "My coworker is very nice.",
+        "meaningVi": "Đồng nghiệp của mình rất tốt."
+      },
+      {
+        "lemma": "bring",
+        "sentence": "I bring my lunch to work.",
+        "meaningVi": "Mình mang cơm trưa đi làm."
+      },
+      {
+        "lemma": "finish work",
+        "sentence": "I finish work at five.",
+        "meaningVi": "Mình tan làm lúc năm giờ."
+      },
+      {
+        "lemma": "easy",
+        "sentence": "English is easy for me.",
+        "meaningVi": "Với mình tiếng Anh dễ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tâm",
+        "Hưng"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi, I'm Tâm. I'm new here. Is work always at half past six?",
+          "meaningVi": "Chào anh, em là Tâm. Em mới vào làm. Lúc nào cũng vào làm lúc sáu rưỡi ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. We start work at half past six every day.",
+          "meaningVi": "Đúng rồi. Ngày nào chúng ta cũng bắt đầu làm lúc sáu rưỡi."
+        },
+        {
+          "speaker": 0,
+          "text": "That's early! Can I take the factory bus?",
+          "meaningVi": "Sớm thế! Em đi xe buýt của nhà máy được không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, you can. It comes at a quarter to six.",
+          "meaningVi": "Được chứ. Xe đến lúc sáu giờ kém mười lăm."
+        },
+        {
+          "speaker": 0,
+          "text": "And is there a break?",
+          "meaningVi": "Thế có giờ nghỉ không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. At nine, we always have a tea break. Chi often brings fruit.",
+          "meaningVi": "Có. Chín giờ, bọn anh luôn nghỉ uống trà. Chi hay mang hoa quả đến."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! What time is lunch?",
+          "meaningVi": "Tuyệt quá! Mấy giờ ăn trưa ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "At twelve. We finish work at three.",
+          "meaningVi": "Mười hai giờ. Ba giờ thì tan làm."
+        },
+        {
+          "speaker": 0,
+          "text": "Three o'clock? That's nice!",
+          "meaningVi": "Ba giờ á? Thích thế!"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, but we never get up late!",
+          "meaningVi": "Ừ, nhưng không bao giờ được ngủ dậy muộn đâu nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Kể về mình: I start, I check. Kể về bạn: Chi works, she brings. Chỉ cần nhìn chủ ngữ: nếu là một người hay một vật khác (he, she, it) thì thêm -s.",
+    "translations": [
+      {
+        "vi": "Tôi làm việc ở một nhà máy.",
+        "en": "I work in a factory.",
+        "distractors": [
+          "works",
+          "the",
+          "am"
+        ]
+      },
+      {
+        "vi": "Tôi bắt đầu làm việc lúc sáu rưỡi.",
+        "en": "I start work at half past six.",
+        "distractors": [
+          "starts",
+          "seven",
+          "in"
+        ],
+        "accepted": [
+          "At half past six I start work."
+        ]
+      },
+      {
+        "vi": "Chín giờ, chúng tôi nghỉ uống trà.",
+        "en": "At nine, we have a tea break.",
+        "distractors": [
+          "has",
+          "coffee",
+          "ten"
+        ],
+        "accepted": [
+          "We have a tea break at nine."
+        ]
+      },
+      {
+        "vi": "Cô ấy hay mang ít hoa quả cho chúng tôi.",
+        "en": "She often brings some fruit for us.",
+        "distractors": [
+          "never",
+          "we",
+          "He"
+        ],
+        "accepted": [
+          "She often brings us some fruit.",
+          "She often brings fruit for us.",
+          "She often brings us fruit."
+        ]
+      },
+      {
+        "vi": "Ba giờ tôi tan làm.",
+        "en": "I finish work at three.",
+        "distractors": [
+          "finishes",
+          "four",
+          "in"
+        ],
+        "accepted": [
+          "At three I finish work."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tâm và Hưng nói về chuyện gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ giấc làm việc ở nhà máy",
+          "Gia đình của Hưng",
+          "Một cửa hàng điện thoại"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tâm mới vào làm nên hỏi Hưng giờ bắt đầu, xe buýt, giờ nghỉ, giờ ăn trưa và giờ tan làm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Xe buýt của nhà máy đến lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ kém mười lăm",
+          "Sáu rưỡi",
+          "Chín giờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hưng nói \"It comes at a quarter to six\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai hay mang hoa quả đến?",
+        "promptVi": "",
+        "options": [
+          "Hưng",
+          "Chi",
+          "Tâm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hưng nói \"Chi often brings fruit\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The workers finish work at five.",
+        "promptVi": "Công nhân tan làm lúc năm giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hưng nói \"We finish work at three\".",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Một ngày làm việc của Hưng ở nhà máy diễn ra thế nào, và việc gì anh ấy luôn làm lúc chín giờ?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "I start work at half past six.",
+          "highlights": [
+            "start"
+          ]
+        },
+        {
+          "sentence": "We sit together, drink tea and talk.",
+          "highlights": [
+            "sit",
+            "drink",
+            "talk"
+          ]
+        },
+        {
+          "sentence": "My friend Chi works with me.",
+          "highlights": [
+            "works"
+          ]
+        },
+        {
+          "sentence": "She often brings some fruit for us.",
+          "highlights": [
+            "brings"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Hưng nói I start, we sit, nhưng lại nói Chi works, she brings?",
+      "options": [
+        "Vì sau I, we động từ giữ nguyên, còn sau she (Chi) thì thêm -s",
+        "Vì Chi làm việc chăm hơn",
+        "Vì works, brings là việc buổi sáng"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Ở thì hiện tại đơn, chủ ngữ I, we, you, they đi với động từ nguyên dạng: I start, we sit. Chủ ngữ he, she, it (Chi, my day) thì động từ thêm -s: Chi works, she brings.",
+      "whenVi": "Dùng thì hiện tại đơn để kể lịch làm việc hằng ngày của mình và của người khác.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I start work at half past six.",
+          "negative": "I never start work late."
+        },
+        {
+          "subject": "we / you / they",
+          "form": "We have lunch at twelve.",
+          "negative": "We never have lunch at eleven."
+        },
+        {
+          "subject": "he / she (Chi)",
+          "form": "Chi works with me. She brings fruit.",
+          "negative": "She never brings coffee."
+        },
+        {
+          "subject": "it (my day, the bus)",
+          "form": "My day starts early. The bus comes at a quarter to six.",
+          "negative": "The bus is never late."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I starts work at half past six.",
+          "right": "I start work at half past six."
+        },
+        {
+          "wrong": "Chi work with me.",
+          "right": "Chi works with me."
+        }
+      ],
+      "noteVi": "Khi tự kể về mình, nhiều người thêm -s nhầm (I works). Hãy nhớ: chỉ thêm -s khi chủ ngữ là he, she, it, tức là một người hay một vật khác.",
+      "exercises": [
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "My friend Chi ___ with me.",
+          "options": [
+            "work",
+            "works",
+            "is work",
+            "to work"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chi là she, nên work thêm -s: works."
+        },
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của come.",
+          "text": "The factory bus ___ at a quarter to six.",
+          "answers": [
+            "comes"
+          ],
+          "explanationVi": "The factory bus là it, nên come thêm -s: comes."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I finishes work at three.",
+          "sentence": "I finish work at three.",
+          "explanationVi": "Chủ ngữ là I, nên động từ giữ nguyên: finish."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi kiểm tra điện thoại mới.",
+          "sentence": "I check new phones.",
+          "words": [
+            "phones",
+            "I",
+            "new",
+            "check",
+            "checks"
+          ],
+          "explanationVi": "Chủ ngữ là I nên dùng check; từ \"checks\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "At nine, I always take a short tea break with my coworkers.",
+        "tipVi": "Short /ʃɔːt/ có âm /t/ ở cuối; coworkers /ˈkəʊwɜːkəz/ nhấn âm đầu CO."
+      },
+      {
+        "text": "My day starts very early.",
+        "tipVi": "Starts /stɑːts/ có cụm âm /ts/ ở cuối; early /ˈɜːli/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is your day long or short?",
+        "questionVi": "Một ngày làm việc hoặc đi học của bạn dài hay ngắn?",
+        "frame": "My day is ___. I start at ___ and I finish at ___."
+      },
+      {
+        "question": "Can you take a break at work or school?",
+        "questionVi": "Ở chỗ làm hoặc ở trường, bạn có được nghỉ giải lao không?",
+        "frame": "Yes, I can. I usually take a break at ___."
+      },
+      {
+        "question": "Who is your friend at work or school?",
+        "questionVi": "Bạn của bạn ở chỗ làm hoặc ở trường là ai?",
+        "frame": "My friend is ___. He / She often ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng thì hiện tại đơn (I start, she starts)",
+      "anyOf": [
+        "start",
+        "starts",
+        "work",
+        "works",
+        "finish",
+        "finishes",
+        "have",
+        "has"
+      ],
+      "outlineVi": [
+        "Nói bạn làm việc hoặc học ở đâu và một ngày của bạn bắt đầu lúc mấy giờ.",
+        "Kể bạn nghỉ giải lao lúc nào và làm gì trong giờ nghỉ.",
+        "Kể về một người bạn cùng chỗ làm hoặc cùng lớp (he works, she brings...)."
+      ],
+      "modelAnswer": "I work in a shop in the city. My day starts at eight. I start work at nine. At eleven, I take a short break. My friend Nam works with me. He often brings coffee for me. I finish work at six."
+    }
+  },
+  "glosses": [
+    {
+      "text": "starts",
+      "lemma": "start",
+      "meaningVi": "bắt đầu",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "My day starts very early",
+      "phraseVi": "Một ngày của tôi bắt đầu rất sớm"
+    },
+    {
+      "text": "comes",
+      "lemma": "come",
+      "meaningVi": "đến",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "The factory bus comes",
+      "phraseVi": "Xe buýt của nhà máy đến"
+    },
+    {
+      "text": "a quarter to six",
+      "lemma": "quarter",
+      "meaningVi": "sáu giờ kém mười lăm",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "at a quarter to six",
+      "phraseVi": "lúc sáu giờ kém mười lăm"
+    },
+    {
+      "text": "before",
+      "lemma": "before",
+      "meaningVi": "trước khi",
+      "sentenceIndex": 5,
+      "pos": "conjunction",
+      "phrase": "before they go to the shops",
+      "phraseVi": "trước khi chúng được đưa đến các cửa hàng"
+    },
+    {
+      "text": "sit together",
+      "lemma": "sit",
+      "meaningVi": "ngồi cùng nhau",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "We sit together",
+      "phraseVi": "Chúng tôi ngồi cùng nhau"
+    },
+    {
+      "text": "talk",
+      "lemma": "talk",
+      "meaningVi": "nói chuyện",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "drink tea and talk",
+      "phraseVi": "uống trà và nói chuyện"
+    },
+    {
+      "text": "for an hour",
+      "lemma": "hour",
+      "meaningVi": "trong một tiếng",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "I usually sleep for an hour",
+      "phraseVi": "tôi thường ngủ một tiếng"
+    },
+    {
+      "text": "a little",
+      "lemma": "little",
+      "meaningVi": "hơi, một chút",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "Yes, a little",
+      "phraseVi": "Có, hơi mệt"
+    }
+  ]
+}

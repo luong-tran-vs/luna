@@ -1,601 +1,586 @@
 {
-  "content": "Hi Sophie,\n\nHow is London? Is it cold there now? Here in Hanoi, the weather is very different in spring, summer, autumn and winter.\n\nIn spring, it is usually warm, and it often rains a little. In summer, it is always very hot and sunny. People often go to the beach, and children eat a lot of ice cream.\n\nAutumn is my favourite. The sky is usually blue, and the wind is cool. Lan loves autumn too. She often walks in the park with her mum after school.\n\nIn winter, it is often cold and cloudy, but it never snows. I usually wear my coat to school. In Ho Chi Minh City, it is never cold!\n\nLove,\nAnna",
+  "content": "Linh lives in Ho Chi Minh City. Today her friend Anna is here from England. They want to go to a big park. The park is on the other side of a busy street.\n\nAnna looks at the street. There are a lot of cars and buses. \"Let's go over here,\" she says.\n\n\"No, stop,\" Linh says. \"Don't go over here. The cars and buses are very fast.\"\n\n\"But the park is near,\" Anna says. \"How do we get there?\"\n\n\"Look up. Can you see the bridge in front of the station? It's only for people. Let's walk to the bridge. Go up the steps and walk over the street. Then go down and turn left. The park is just there.\"\n\nAnna smiles. \"OK, thank you. Your city is very busy!\"",
   "targetWords": [
-    "spring",
-    "summer",
-    "autumn",
-    "winter",
-    "warm",
-    "hot",
-    "snow",
-    "coat"
+    "city",
+    "street",
+    "park",
+    "bridge",
+    "station",
+    "near",
+    "left",
+    "in front of"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "spring",
-        "lemma": "spring",
-        "meaningVi": "mùa xuân",
+        "text": "park",
+        "lemma": "park",
+        "meaningVi": "công viên",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "đường phố, con phố",
         "pos": "noun",
         "sentenceIndex": 3
       },
       {
-        "text": "summer",
-        "lemma": "summer",
-        "meaningVi": "mùa hè",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "autumn",
-        "lemma": "autumn",
-        "meaningVi": "mùa thu",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "winter",
-        "lemma": "winter",
-        "meaningVi": "mùa đông",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "warm",
-        "lemma": "warm",
-        "meaningVi": "ấm, ấm áp",
+        "text": "near",
+        "lemma": "near",
+        "meaningVi": "gần",
         "pos": "adjective",
-        "sentenceIndex": 4
+        "sentenceIndex": 10
       },
       {
-        "text": "hot",
-        "lemma": "hot",
-        "meaningVi": "nóng",
-        "pos": "adjective",
-        "sentenceIndex": 5
-      },
-      {
-        "text": "snows",
-        "lemma": "snow",
-        "meaningVi": "có tuyết rơi",
-        "pos": "verb",
-        "sentenceIndex": 11
-      },
-      {
-        "text": "coat",
-        "lemma": "coat",
-        "meaningVi": "áo khoác",
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
         "pos": "noun",
-        "sentenceIndex": 12
+        "sentenceIndex": 13
+      },
+      {
+        "text": "in front of",
+        "lemma": "in front of",
+        "meaningVi": "ở phía trước",
+        "pos": "preposition",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "station",
+        "lemma": "station",
+        "meaningVi": "nhà ga",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "left",
+        "lemma": "left",
+        "meaningVi": "bên trái",
+        "pos": "adverb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "city",
+        "lemma": "city",
+        "meaningVi": "thành phố",
+        "pos": "noun",
+        "sentenceIndex": 21
       }
     ],
     "questions": [
       {
         "kind": "gist",
-        "prompt": "What does Anna tell Sophie about?",
-        "promptVi": "Anna kể với Sophie về điều gì?",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "The weather in Hanoi in spring, summer, autumn and winter",
-          "Her new school in Hanoi",
-          "A trip to the beach",
-          "Lan and her mum"
+          "Linh and Anna take a taxi to the station.",
+          "Linh tells Anna a good way to get to the park.",
+          "Anna buys a bike in the city.",
+          "Anna shows Linh the way to England."
         ],
-        "answerIndex": 0,
-        "explanationVi": "Anna kể thời tiết Hà Nội thường thế nào vào mùa xuân, hè, thu, đông và mọi người hay làm gì."
+        "answerIndex": 1,
+        "explanationVi": "Anna muốn băng qua con phố đông xe, nhưng Linh bảo đừng băng qua và chỉ cho cô đi cầu dành cho người đi bộ để đến công viên."
       },
       {
         "kind": "detail",
-        "prompt": "What is the weather usually like in Hanoi in spring?",
-        "promptVi": "Mùa xuân ở Hà Nội thời tiết thường thế nào?",
+        "prompt": "Where is the park?",
+        "promptVi": "Công viên ở đâu?",
         "options": [
-          "Cold and cloudy",
-          "Very hot and sunny",
-          "Warm, with a little rain",
-          "Cool, with snow"
+          "Behind the station",
+          "On the bridge",
+          "On the other side of a busy street",
+          "Next to Linh's house"
         ],
         "answerIndex": 2,
-        "explanationVi": "Anna viết \"In spring, it is usually warm, and it often rains a little\": trời ấm và hay mưa nhẹ."
+        "explanationVi": "Bài viết \"The park is on the other side of a busy street\": công viên ở bên kia một con phố đông xe."
       },
       {
         "kind": "detail",
-        "prompt": "Why does Anna wear her coat to school in winter?",
-        "promptVi": "Vì sao mùa đông Anna mặc áo khoác đi học?",
+        "prompt": "Where is the bridge?",
+        "promptVi": "Cây cầu ở đâu?",
         "options": [
-          "It always rains.",
-          "It snows a lot.",
-          "She likes her new coat.",
-          "It is often cold."
+          "In front of the station",
+          "In the park",
+          "Behind a café",
+          "In England"
         ],
-        "answerIndex": 3,
-        "explanationVi": "Anna viết \"In winter, it is often cold and cloudy\", nên bạn ấy thường mặc áo khoác đi học. Hà Nội không có tuyết."
+        "answerIndex": 0,
+        "explanationVi": "Linh hỏi \"Can you see the bridge in front of the station?\": cây cầu ở phía trước nhà ga."
       },
       {
         "kind": "tfn",
-        "prompt": "It snows in Hanoi in winter.",
-        "promptVi": "Mùa đông ở Hà Nội có tuyết rơi.",
+        "prompt": "Linh says the cars are slow.",
+        "promptVi": "Linh nói ô tô chạy chậm.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Anna viết \"it never snows\": mùa đông lạnh nhưng không bao giờ có tuyết, nên bài nói ngược lại."
+        "explanationVi": "Sai, vì Linh nói \"The cars and buses are very fast\": ô tô và xe buýt chạy rất nhanh."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"usually\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"bridge\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "In spring, it is usually warm, and it often rains a little.",
+        "quote": "Can you see the bridge in front of the station?",
         "options": [
-          "không bao giờ",
-          "thường, thường thường",
-          "luôn luôn",
-          "hiếm khi"
+          "con phố",
+          "cây cầu",
+          "bậc thang",
+          "nhà ga"
         ],
         "answerIndex": 1,
-        "explanationVi": "Usually là thường: phần lớn thời gian mùa xuân trời ấm, nhưng không phải lúc nào cũng vậy (lúc nào cũng vậy là always)."
+        "explanationVi": "Bridge là cây cầu: ở đây là cây cầu chỉ dành cho người đi bộ."
       }
     ],
     "grammarNote": {
-      "title": "Trạng từ tần suất",
-      "bodyVi": "Trạng từ tần suất cho biết việc gì xảy ra thường xuyên đến đâu: always (luôn luôn), usually (thường), often (hay), never (không bao giờ). Chúng đứng sau is / am / are: it is usually warm. Với động từ khác, chúng đứng trước động từ: it often rains, she often walks, it never snows.",
+      "title": "Câu mệnh lệnh (Imperatives)",
+      "bodyVi": "Muốn bảo ai đừng làm gì, ta dùng Don't + động từ nguyên mẫu: Don't go over here. Muốn bảo ai làm gì, đặt động từ nguyên mẫu ở đầu câu: Look up. Go up the steps. Muốn rủ ai cùng làm, dùng Let's + động từ: Let's walk to the bridge.",
       "examples": [
-        "In spring, it is usually warm, and it often rains a little.",
-        "In summer, it is always very hot and sunny.",
-        "In winter, it is often cold and cloudy, but it never snows."
+        "\"Don't go over here.",
+        "Let's walk to the bridge.",
+        "Go up the steps and walk over the street."
       ]
     },
-    "writingPrompt": "Write about the weather in your city in spring, summer, autumn and winter, and what people often do.",
+    "writingPrompt": "Write how to go from your home to a park or a shop safely. Use go, turn, let's and don't.",
     "sentenceTranslations": [
-      "Chào Sophie,",
-      "London dạo này thế nào?",
-      "Bây giờ ở đó có lạnh không?",
-      "Ở Hà Nội này, thời tiết mùa xuân, mùa hè, mùa thu và mùa đông rất khác nhau.",
-      "Mùa xuân trời thường ấm, và hay có mưa nhẹ.",
-      "Mùa hè lúc nào cũng rất nóng và nắng.",
-      "Mọi người hay đi biển, còn trẻ con thì ăn thật nhiều kem.",
-      "Mình thích nhất là mùa thu.",
-      "Bầu trời thường xanh, và gió mát.",
-      "Lan cũng rất thích mùa thu.",
-      "Bạn ấy hay đi dạo trong công viên với mẹ sau giờ học.",
-      "Mùa đông trời hay lạnh và nhiều mây, nhưng không bao giờ có tuyết.",
-      "Mình thường mặc áo khoác đi học.",
-      "Còn ở Thành phố Hồ Chí Minh thì không bao giờ lạnh!",
-      "Thương, Anna"
+      "Linh sống ở Thành phố Hồ Chí Minh.",
+      "Hôm nay bạn của cô là Anna từ Anh sang chơi.",
+      "Hai người muốn đến một công viên lớn.",
+      "Công viên nằm ở bên kia một con phố đông xe.",
+      "Anna nhìn con phố.",
+      "Có rất nhiều ô tô và xe buýt.",
+      "\"Mình băng qua đây đi,\" cô nói.",
+      "\"Không, dừng lại,\" Linh nói.",
+      "\"Đừng băng qua ở đây.",
+      "Ô tô và xe buýt chạy rất nhanh.\"",
+      "\"Nhưng công viên ở gần mà,\" Anna nói.",
+      "\"Thế mình đến đó bằng cách nào?\"",
+      "\"Cậu nhìn lên đi.",
+      "Cậu có thấy cây cầu ở phía trước nhà ga không?",
+      "Cầu đó chỉ dành cho người đi bộ.",
+      "Mình đi bộ đến cây cầu nhé.",
+      "Cậu đi lên bậc thang rồi đi bộ qua con phố.",
+      "Sau đó đi xuống và rẽ trái.",
+      "Công viên ở ngay đó.\"",
+      "Anna mỉm cười.",
+      "\"Được rồi, cảm ơn cậu.",
+      "Thành phố của cậu đông đúc quá!\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể nói thời tiết các mùa thường thế nào và mọi người hay làm gì, dùng always / usually / often / never.",
+    "objectiveVi": "Bạn có thể nhắc người khác đừng làm gì (Don't go over here), chỉ đường (Go up the steps, Turn left) và rủ cùng đi (Let's walk to the bridge).",
     "examples": [
       {
-        "lemma": "spring",
-        "sentence": "Spring is warm in Hanoi.",
-        "meaningVi": "Mùa xuân ở Hà Nội ấm áp."
+        "lemma": "city",
+        "sentence": "Ho Chi Minh City is a very big city.",
+        "meaningVi": "Thành phố Hồ Chí Minh là một thành phố rất lớn."
       },
       {
-        "lemma": "summer",
-        "sentence": "We go to the beach in summer.",
-        "meaningVi": "Mùa hè bọn mình đi biển."
+        "lemma": "street",
+        "sentence": "Don't play on the street.",
+        "meaningVi": "Đừng chơi ngoài đường."
       },
       {
-        "lemma": "autumn",
-        "sentence": "I love autumn.",
-        "meaningVi": "Mình rất thích mùa thu."
+        "lemma": "park",
+        "sentence": "Let's have lunch in the park.",
+        "meaningVi": "Mình ăn trưa ở công viên đi."
       },
       {
-        "lemma": "winter",
-        "sentence": "It is cold in winter.",
-        "meaningVi": "Mùa đông trời lạnh."
+        "lemma": "bridge",
+        "sentence": "The bridge is only for people.",
+        "meaningVi": "Cây cầu này chỉ dành cho người đi bộ."
       },
       {
-        "lemma": "warm",
-        "sentence": "The water is warm.",
-        "meaningVi": "Nước ấm."
+        "lemma": "station",
+        "sentence": "Meet me at the station at six.",
+        "meaningVi": "Gặp mình ở nhà ga lúc sáu giờ nhé."
       },
       {
-        "lemma": "hot",
-        "sentence": "It is very hot today.",
-        "meaningVi": "Hôm nay trời rất nóng."
+        "lemma": "near",
+        "sentence": "Is there a bank near here?",
+        "meaningVi": "Gần đây có ngân hàng nào không?"
       },
       {
-        "lemma": "snow",
-        "sentence": "There is no snow in Hue.",
-        "meaningVi": "Ở Huế không có tuyết."
+        "lemma": "left",
+        "sentence": "Go down and turn left at the bank.",
+        "meaningVi": "Đi xuống rồi rẽ trái ở chỗ ngân hàng."
       },
       {
-        "lemma": "coat",
-        "sentence": "My coat is red.",
-        "meaningVi": "Áo khoác của mình màu đỏ."
+        "lemma": "in front of",
+        "sentence": "Wait for me in front of the cinema.",
+        "meaningVi": "Đợi mình ở phía trước rạp chiếu phim nhé."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Lan",
-        "Tom"
+        "Linh",
+        "Anna"
       ],
       "turns": [
         {
-          "speaker": 0,
-          "text": "Tom, is it cold in Sydney in winter?",
-          "meaningVi": "Tom ơi, mùa đông ở Sydney có lạnh không?"
-        },
-        {
           "speaker": 1,
-          "text": "Not very. It is usually cool, and it often rains.",
-          "meaningVi": "Không lạnh lắm. Trời thường mát, và hay mưa."
+          "text": "Linh, where is the cinema? Is it near here?",
+          "meaningVi": "Linh ơi, rạp chiếu phim ở đâu? Có gần đây không?"
         },
         {
           "speaker": 0,
-          "text": "Does it snow?",
-          "meaningVi": "Có tuyết không?"
+          "text": "Yes, it is. It's behind the station.",
+          "meaningVi": "Có, gần lắm. Nó ở phía sau nhà ga."
         },
         {
           "speaker": 1,
-          "text": "No, it never snows in Sydney. What about Hanoi?",
-          "meaningVi": "Không, ở Sydney không bao giờ có tuyết. Còn Hà Nội thì sao?"
+          "text": "Can we walk there?",
+          "meaningVi": "Mình đi bộ đến đó được không?"
         },
         {
           "speaker": 0,
-          "text": "It never snows here, but winter is often cold.",
-          "meaningVi": "Ở đây cũng không bao giờ có tuyết, nhưng mùa đông hay lạnh."
+          "text": "Yes. But don't go on the big street. Let's take the bridge again.",
+          "meaningVi": "Được. Nhưng đừng đi xuống con phố lớn. Mình lại đi cầu nhé."
         },
         {
           "speaker": 1,
-          "text": "What do you usually do in summer?",
-          "meaningVi": "Mùa hè cậu thường làm gì?"
+          "text": "OK. And after the bridge?",
+          "meaningVi": "Được. Thế qua cầu rồi thì sao?"
         },
         {
           "speaker": 0,
-          "text": "I often go to the beach with my family.",
-          "meaningVi": "Mình hay đi biển với gia đình."
+          "text": "Turn right and walk to the station. The cinema is behind it.",
+          "meaningVi": "Rẽ phải rồi đi bộ đến nhà ga. Rạp chiếu phim ở phía sau nhà ga."
         },
         {
           "speaker": 1,
-          "text": "Me too! I always swim in the sea in summer.",
-          "meaningVi": "Mình cũng vậy! Mùa hè nào mình cũng bơi ở biển."
+          "text": "Great. What time is the film?",
+          "meaningVi": "Tuyệt. Mấy giờ phim chiếu?"
         },
         {
           "speaker": 0,
-          "text": "Do you like summer or winter?",
-          "meaningVi": "Cậu thích mùa hè hay mùa đông?"
-        },
-        {
-          "speaker": 1,
-          "text": "Summer, because I love swimming!",
-          "meaningVi": "Mùa hè, vì mình mê bơi lắm!"
+          "text": "It's at seven. Let's go now!",
+          "meaningVi": "Lúc bảy giờ. Mình đi ngay thôi!"
         }
       ]
     },
-    "grammarTipVi": "Hỏi ai đó thường làm gì: What do you usually do in summer? Trả lời: I often go to the beach.",
+    "grammarTipVi": "Khi nhắc ai đừng làm gì, chỉ cần Don't + động từ, không cần chủ ngữ: Don't go over here. Don't go on the big street.",
     "translations": [
       {
-        "vi": "Mùa xuân trời thường ấm.",
-        "en": "In spring, it is usually warm.",
+        "vi": "Đừng đi bộ trên con phố này.",
+        "en": "Don't walk on this street.",
         "distractors": [
-          "always",
-          "are",
-          "cold"
+          "Doesn't",
+          "walks",
+          "that"
         ]
       },
       {
-        "vi": "Mùa hè lúc nào cũng rất nóng.",
-        "en": "Summer is always very hot.",
+        "vi": "Chúng ta hãy đi bộ đến cây cầu.",
+        "en": "Let's walk to the bridge.",
         "distractors": [
-          "usually",
-          "never",
-          "are"
-        ]
-      },
-      {
-        "vi": "Ở Hà Nội không bao giờ có tuyết.",
-        "en": "It never snows in Hanoi.",
-        "distractors": [
-          "snow",
-          "always",
-          "don't"
-        ]
-      },
-      {
-        "vi": "Mùa đông tôi thường mặc áo khoác đi học.",
-        "en": "I usually wear my coat to school in winter.",
-        "distractors": [
-          "wears",
-          "never",
+          "Lets",
+          "walks",
           "at"
+        ]
+      },
+      {
+        "vi": "Công viên ở gần nhà ga.",
+        "en": "The park is near the station.",
+        "distractors": [
+          "are",
+          "behind",
+          "parks"
+        ]
+      },
+      {
+        "vi": "Đi xuống rồi rẽ trái.",
+        "en": "Go down and turn left.",
+        "distractors": [
+          "right",
+          "turns",
+          "Goes"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Lan và Tom nói chuyện về điều gì?",
+        "prompt": "Anna hỏi Linh điều gì?",
         "promptVi": "",
         "options": [
-          "Một buổi học bơi",
-          "Những món ăn mùa hè",
-          "Thời tiết các mùa ở Sydney và Hà Nội"
+          "Đường đến rạp chiếu phim",
+          "Đường đến công viên",
+          "Giờ tàu chạy"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Lan hỏi \"is it cold in Sydney in winter?\", rồi hai bạn nói về mùa đông, tuyết và mùa hè ở hai nơi.",
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi \"where is the cinema?\" và Linh chỉ đường cho cô.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Mùa đông ở Sydney thường thế nào?",
+        "prompt": "Rạp chiếu phim ở đâu?",
         "promptVi": "",
         "options": [
-          "Rất lạnh và có tuyết",
-          "Mát và hay mưa",
-          "Nóng và nắng"
+          "Phía trước công viên",
+          "Phía sau nhà ga",
+          "Trên cây cầu"
         ],
         "answerIndex": 1,
-        "explanationVi": "Tom nói \"It is usually cool, and it often rains.\"",
+        "explanationVi": "Linh nói \"It's behind the station.\"",
         "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Mùa hè Lan hay làm gì?",
+        "prompt": "Qua cầu rồi, hai người rẽ hướng nào?",
         "promptVi": "",
         "options": [
-          "Đi biển cùng gia đình",
-          "Ở nhà đọc sách",
-          "Đi chơi Đà Lạt"
+          "Rẽ trái",
+          "Đi thẳng",
+          "Rẽ phải"
         ],
-        "answerIndex": 0,
-        "explanationVi": "Lan nói \"I often go to the beach with my family.\"",
-        "turnIndex": 6
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Turn right and walk to the station.\"",
+        "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "Tom likes winter more than summer.",
-        "promptVi": "Tom thích mùa đông hơn mùa hè.",
+        "prompt": "The film is at eight.",
+        "promptVi": "Phim chiếu lúc tám giờ.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Tom chọn \"Summer, because I love swimming!\"",
-        "turnIndex": 9
+        "explanationVi": "Sai, vì Linh nói \"It's at seven.\"",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Ở Hà Nội, mùa nào có thời tiết mà Anna thích nhất, và mùa đó thường thế nào?",
+    "readingGuideVi": "Vì sao Linh bảo Anna đừng băng qua con phố, và hai người đến công viên bằng đường nào?",
     "grammarStep": {
-      "titleVi": "Trạng từ tần suất",
+      "titleVi": "Câu mệnh lệnh",
       "noticing": [
         {
-          "sentence": "In spring, it is usually warm, and it often rains a little.",
+          "sentence": "\"Don't go over here.",
           "highlights": [
-            "is usually",
-            "often rains"
+            "Don't go"
           ]
         },
         {
-          "sentence": "In summer, it is always very hot and sunny.",
+          "sentence": "Let's walk to the bridge.",
           "highlights": [
-            "is always"
+            "Let's walk"
           ]
         },
         {
-          "sentence": "She often walks in the park with her mum after school.",
+          "sentence": "Go up the steps and walk over the street.",
           "highlights": [
-            "often walks"
+            "Go",
+            "walk"
           ]
         },
         {
-          "sentence": "In winter, it is often cold and cloudy, but it never snows.",
+          "sentence": "Then go down and turn left.",
           "highlights": [
-            "is often",
-            "never snows"
+            "go",
+            "turn"
           ]
         }
       ],
-      "questionVi": "Trong \"it is usually warm\" và \"it often rains\", trạng từ tần suất đứng ở đâu?",
+      "questionVi": "Linh dùng Don't go over, Let's walk và Go up để làm gì?",
       "options": [
-        "Luôn đứng ở đầu câu",
-        "Sau is (am, are), nhưng trước động từ thường (rains, walks)",
-        "Luôn đứng ở cuối câu"
+        "Để kể chuyện hôm qua",
+        "Để bảo, nhắc và rủ Anna làm gì",
+        "Để hỏi Anna một câu hỏi"
       ],
       "answerIndex": 1,
-      "explanationVi": "Với is / am / are, trạng từ đứng sau: is usually, is always, is often. Với động từ thường, trạng từ đứng trước: often rains, often walks, never snows.",
-      "whenVi": "Dùng always, usually, often, never để nói một việc xảy ra thường xuyên đến mức nào.",
+      "explanationVi": "Đây là câu mệnh lệnh: Don't + động từ để bảo đừng làm, động từ đứng đầu để bảo làm, Let's + động từ để rủ cùng làm.",
+      "whenVi": "Dùng câu mệnh lệnh để chỉ đường, nhắc ai đừng làm điều nguy hiểm, hoặc rủ ai cùng làm.",
       "table": [
         {
-          "subject": "always (luôn luôn)",
-          "form": "In summer, it is always very hot.",
-          "negative": "—"
+          "subject": "Làm",
+          "form": "Go up the steps. Turn left.",
+          "negative": ""
         },
         {
-          "subject": "usually (thường)",
-          "form": "I usually wear my coat to school.",
-          "negative": "—"
+          "subject": "Đừng làm",
+          "form": "Don't + động từ",
+          "negative": "Don't go on the busy street."
         },
         {
-          "subject": "often (hay)",
-          "form": "It often rains a little.",
-          "negative": "—"
-        },
-        {
-          "subject": "never (không bao giờ)",
-          "form": "It never snows in Hanoi.",
-          "negative": "—"
+          "subject": "Rủ cùng làm",
+          "form": "Let's + động từ: Let's walk to the bridge.",
+          "negative": ""
         }
       ],
       "mistakes": [
         {
-          "wrong": "It snows never in Hanoi.",
-          "right": "It never snows in Hanoi."
+          "wrong": "No go on the busy street.",
+          "right": "Don't go on the busy street."
         },
         {
-          "wrong": "It usually is warm in spring.",
-          "right": "It is usually warm in spring."
+          "wrong": "Let's to walk to the bridge.",
+          "right": "Let's walk to the bridge."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"trời thường ấm\" (\"thường\" đứng trước \"ấm\"), nên người Việt hay viết \"it usually is warm\" thay vì để usually sau is.",
+      "noteVi": "Người Việt hay nói \"Không được băng qua\", nên dễ viết \"No go\". Trong tiếng Anh, bảo ai đừng làm gì phải dùng Don't + động từ. Sau Let's là động từ nguyên mẫu, không có to.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền trạng từ có nghĩa \"không bao giờ\" vào chỗ trống.",
-          "text": "It ___ snows in Hanoi.",
+          "promptVi": "Điền một từ để bảo người khác đừng đi xuống con phố lớn.",
+          "text": "___ go on the big street. The cars are very fast.",
           "answers": [
-            "never"
+            "Don't"
           ],
-          "explanationVi": "Không bao giờ là never, đứng trước động từ thường: never snows."
+          "explanationVi": "Muốn bảo ai đừng làm gì, dùng Don't + động từ nguyên mẫu."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn trạng từ có nghĩa \"luôn luôn\".",
-          "text": "In summer, it is ___ very hot.",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Let's ___ to the bridge.",
           "options": [
-            "never",
-            "always",
-            "often",
-            "usually"
+            "walks",
+            "walk",
+            "to walk",
+            "walking"
           ],
           "answerIndex": 1,
-          "explanationVi": "Luôn luôn là always, đứng sau is: is always."
+          "explanationVi": "Sau Let's là động từ nguyên mẫu: Let's walk."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "It usually is warm in spring.",
-          "sentence": "It is usually warm in spring.",
-          "explanationVi": "Trạng từ tần suất đứng sau is: is usually."
+          "text": "Not walk on the street here.",
+          "sentence": "Don't walk on the street here.",
+          "explanationVi": "Câu mệnh lệnh phủ định dùng Don't, không dùng Not."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Cô ấy hay đi dạo trong công viên.",
-          "sentence": "She often walks in the park.",
+          "text": "Sau đó đi xuống và rẽ trái.",
+          "sentence": "Then go down and turn left.",
           "words": [
-            "walks",
-            "She",
-            "park",
-            "often",
-            "the",
-            "in",
-            "always"
+            "turn",
+            "Then",
+            "left",
+            "down",
+            "go",
+            "and",
+            "turns"
           ],
-          "explanationVi": "Often (hay) đứng trước động từ walks; từ \"always\" bị thừa."
+          "explanationVi": "Câu mệnh lệnh dùng động từ nguyên mẫu go, turn; từ \"turns\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "The sky is usually blue, and the wind is cool.",
-        "tipVi": "Usually /ˈjuːʒuəli/ có âm /ʒ/ ở giữa (gần như \"giu-giu-ờ-li\"), nhấn ở âm đầu."
+        "text": "Go up the steps and walk over the street.",
+        "tipVi": "Steps /steps/ kết thúc bằng âm /s/; street /striːt/ có cụm /str/ ở đầu, đừng thêm âm \"ơ\"."
       },
       {
-        "text": "In summer, it is always very hot and sunny.",
-        "tipVi": "Always /ˈɔlweɪz/ kết thúc bằng /z/; very /ˈvɛri/ có âm /v/, môi dưới chạm răng trên, không đọc thành \"bê\"."
+        "text": "Can you see the bridge in front of the station?",
+        "tipVi": "Bridge /brɪdʒ/ kết thúc bằng âm /dʒ/; station /ˈsteɪʃn/ nhấn âm đầu \"STA\"; cuối câu hỏi lên giọng."
       }
     ],
     "speakQuestions": [
       {
-        "question": "What is the weather usually like in winter where you live?",
-        "questionVi": "Nơi bạn sống, mùa đông thời tiết thường thế nào?",
-        "frame": "In winter, it is usually ___. It never ___."
+        "question": "Is there a busy street near your home?",
+        "questionVi": "Gần nhà bạn có con phố nào đông xe không?",
+        "frame": "Yes, there is. It's near the ___."
       },
       {
-        "question": "What do you often do in summer?",
-        "questionVi": "Mùa hè bạn hay làm gì?",
-        "frame": "In summer, I often ___."
+        "question": "What do you say to a child near a busy street?",
+        "questionVi": "Bạn nói gì với một em nhỏ ở gần con phố đông xe?",
+        "frame": "Don't ___. Stop and ___."
       },
       {
-        "question": "What does your best friend usually do in autumn?",
-        "questionVi": "Mùa thu bạn thân của bạn thường làm gì?",
-        "frame": "He / She usually ___ in autumn."
+        "question": "Where do you like to go with friends in your city?",
+        "questionVi": "Bạn thích đi đâu với bạn bè ở thành phố của bạn?",
+        "frame": "Let's go to the ___. It's near ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng always / usually / often / never",
+      "grammarLabelVi": "Có ít nhất 2 câu mệnh lệnh (Go, Turn, Don't, Let's …)",
       "anyOf": [
-        "always",
-        "usually",
-        "often",
-        "never"
+        "go",
+        "turn",
+        "walk",
+        "don't",
+        "let's",
+        "stop"
       ],
       "outlineVi": [
-        "Nói mùa xuân và mùa hè ở thành phố bạn thường thế nào.",
-        "Nói mùa thu và mùa đông thường thế nào (it never …).",
-        "Kể một người bạn hoặc người thân hay làm gì vào mùa họ thích."
+        "Nói nơi bạn muốn đến và nó ở đâu (The park is near …).",
+        "Chỉ đường từng bước (Go out of …, turn left …, walk to …).",
+        "Thêm một lời nhắc với Don't (Don't go over …) và một lời rủ với Let's."
       ],
-      "modelAnswer": "In my city, spring is usually warm, and it often rains. Summer is always very hot, so people often go to the beach. In autumn, the sky is usually blue. Winter is cold, but it never snows. My brother loves winter, and he always wears his big coat."
+      "modelAnswer": "There is a big park near my home. Go out of my house and turn right. Walk to the bus stop. Don't walk on the big street there. The cars are very fast. Walk over the bridge. Then turn left. The park is in front of you. Let's go there on Sunday!"
     }
   },
   "glosses": [
     {
-      "text": "different",
-      "lemma": "different",
-      "meaningVi": "khác nhau",
+      "text": "on the other side of",
+      "lemma": "on the other side of",
+      "meaningVi": "ở bên kia",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "on the other side of a busy street",
+      "phraseVi": "ở bên kia một con phố đông xe"
+    },
+    {
+      "text": "busy",
+      "lemma": "busy",
+      "meaningVi": "đông đúc, nhiều xe",
       "sentenceIndex": 3,
       "pos": "adjective",
-      "phrase": "the weather is very different",
-      "phraseVi": "thời tiết rất khác nhau"
+      "phrase": "a busy street",
+      "phraseVi": "một con phố đông xe"
     },
     {
-      "text": "a little",
-      "lemma": "a little",
-      "meaningVi": "một chút, nhẹ",
-      "sentenceIndex": 4,
+      "text": "go over",
+      "lemma": "go over",
+      "meaningVi": "băng qua (đường)",
+      "sentenceIndex": 6,
       "pos": "phrase",
-      "phrase": "it often rains a little",
-      "phraseVi": "hay có mưa nhẹ"
+      "phrase": "Let's go over here",
+      "phraseVi": "Mình băng qua đây đi"
     },
     {
-      "text": "beach",
-      "lemma": "beach",
-      "meaningVi": "bãi biển",
-      "sentenceIndex": 6,
-      "pos": "noun",
-      "phrase": "go to the beach",
-      "phraseVi": "đi biển"
-    },
-    {
-      "text": "ice cream",
-      "lemma": "ice cream",
-      "meaningVi": "kem",
-      "sentenceIndex": 6,
-      "pos": "noun",
-      "phrase": "eat a lot of ice cream",
-      "phraseVi": "ăn thật nhiều kem"
-    },
-    {
-      "text": "favourite",
-      "lemma": "favourite",
-      "meaningVi": "điều được yêu thích nhất",
-      "sentenceIndex": 7,
-      "pos": "noun",
-      "phrase": "Autumn is my favourite",
-      "phraseVi": "Mình thích nhất là mùa thu"
-    },
-    {
-      "text": "sky",
-      "lemma": "sky",
-      "meaningVi": "bầu trời",
-      "sentenceIndex": 8,
-      "pos": "noun",
-      "phrase": "The sky is usually blue",
-      "phraseVi": "Bầu trời thường xanh"
-    },
-    {
-      "text": "walks",
-      "lemma": "walk",
-      "meaningVi": "đi bộ, đi dạo",
-      "sentenceIndex": 10,
-      "pos": "verb",
-      "phrase": "She often walks in the park",
-      "phraseVi": "Bạn ấy hay đi dạo trong công viên"
-    },
-    {
-      "text": "cloudy",
-      "lemma": "cloudy",
-      "meaningVi": "nhiều mây",
-      "sentenceIndex": 11,
-      "pos": "adjective",
-      "phrase": "cold and cloudy",
-      "phraseVi": "lạnh và nhiều mây"
-    },
-    {
-      "text": "wear",
-      "lemma": "wear",
-      "meaningVi": "mặc",
+      "text": "Look up",
+      "lemma": "look up",
+      "meaningVi": "nhìn lên",
       "sentenceIndex": 12,
-      "pos": "verb",
-      "phrase": "I usually wear my coat",
-      "phraseVi": "Mình thường mặc áo khoác"
+      "pos": "phrase",
+      "phrase": "Look up",
+      "phraseVi": "Nhìn lên đi"
+    },
+    {
+      "text": "only for people",
+      "lemma": "only for people",
+      "meaningVi": "chỉ dành cho người đi bộ",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "It's only for people",
+      "phraseVi": "Cầu đó chỉ dành cho người đi bộ"
+    },
+    {
+      "text": "steps",
+      "lemma": "step",
+      "meaningVi": "bậc thang",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "Go up the steps",
+      "phraseVi": "Đi lên bậc thang"
+    },
+    {
+      "text": "walk over",
+      "lemma": "walk over",
+      "meaningVi": "đi bộ qua (bên trên)",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "walk over the street",
+      "phraseVi": "đi bộ qua con phố"
+    },
+    {
+      "text": "just there",
+      "lemma": "just there",
+      "meaningVi": "ở ngay đó",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "The park is just there",
+      "phraseVi": "Công viên ở ngay đó"
     }
   ]
 }

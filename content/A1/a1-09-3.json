@@ -1,600 +1,564 @@
 {
-  "content": "I'm Minh, and I have a music lesson every Tuesday. Our music class is in a big room with a piano and ten guitars. Our teacher, Mr Long, is young and funny.\n\nAt the start of the lesson, he often plays a music game with us, and we love it. Then we sing together, or we play a song on the guitar. I like playing the guitar, but it is difficult for me. So I have guitar practice after school on Thursday.\n\nMy friend Huy loves playing the piano because his grandfather plays it at home. Mr Long often asks us, \"Do you like the guitar or the piano?\"\n\"The piano, because it is beautiful,\" says Huy.\n\nMy friend Bao doesn't like music lessons because he likes football more. But he loves the music game, and he is sad when the bell rings!",
+  "content": "Thu and Quan work in the same office. Every day, they eat lunch together. Today, they talk about their pets.\n\nThu has a black cat. His name is Mun. \"Mun is a very good cat,\" Thu says. \"He can catch a mouse in two minutes. He can catch a big rat too!\"\n\nQuan laughs. \"My cat, Miu, can't catch mice. She can only sleep!\" Miu sleeps on Quan's bed all day. She is afraid of the neighbour's dog, and she doesn't play with the rabbit in the garden.\n\n\"Can she do anything?\" asks Thu.\n\"Yes, she can,\" Quan says. \"She can sleep for fifteen hours a day! She can watch my hamster for an hour too, but she can't catch it.\"\n\nThu and Quan both love animals, but their cats are very different!",
   "targetWords": [
-    "music lesson",
-    "music class",
-    "piano",
-    "guitar",
-    "music game",
-    "play a song",
-    "practice",
-    "bell"
+    "animal",
+    "pet",
+    "dog",
+    "cat",
+    "rabbit",
+    "hamster",
+    "mouse",
+    "rat"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "music lesson",
-        "lemma": "music lesson",
-        "meaningVi": "giờ học nhạc, tiết âm nhạc",
-        "pos": "phrase",
-        "sentenceIndex": 0
-      },
-      {
-        "text": "music class",
-        "lemma": "music class",
-        "meaningVi": "lớp học nhạc, giờ học nhạc",
-        "pos": "phrase",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "piano",
-        "lemma": "piano",
-        "meaningVi": "đàn piano, dương cầm",
+        "text": "pets",
+        "lemma": "pet",
+        "meaningVi": "thú cưng, con vật nuôi trong nhà",
         "pos": "noun",
-        "sentenceIndex": 1
+        "sentenceIndex": 2
       },
       {
-        "text": "guitars",
-        "lemma": "guitar",
-        "meaningVi": "đàn guitar, đàn ghi-ta",
+        "text": "cat",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
         "pos": "noun",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "music game",
-        "lemma": "music game",
-        "meaningVi": "trò chơi âm nhạc",
-        "pos": "phrase",
         "sentenceIndex": 3
       },
       {
-        "text": "play a song",
-        "lemma": "play a song",
-        "meaningVi": "chơi (đàn) một bài hát",
-        "pos": "phrase",
-        "sentenceIndex": 4
-      },
-      {
-        "text": "practice",
-        "lemma": "practice",
-        "meaningVi": "buổi tập, sự luyện tập",
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "con chuột (nhỏ)",
         "pos": "noun",
         "sentenceIndex": 6
       },
       {
-        "text": "bell",
-        "lemma": "bell",
-        "meaningVi": "chuông (báo hết giờ)",
+        "text": "rat",
+        "lemma": "rat",
+        "meaningVi": "con chuột cống (chuột to)",
         "pos": "noun",
-        "sentenceIndex": 11
+        "sentenceIndex": 7
+      },
+      {
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "rabbit",
+        "lemma": "rabbit",
+        "meaningVi": "con thỏ",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "hamster",
+        "lemma": "hamster",
+        "meaningVi": "chuột hamster (chuột cảnh nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "động vật, con vật",
+        "pos": "noun",
+        "sentenceIndex": 17
       }
     ],
     "questions": [
       {
         "kind": "gist",
-        "prompt": "What does Minh talk about?",
-        "promptVi": "Minh nói về điều gì?",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "His music lessons at school and what the students like",
-          "A big concert in Hue",
-          "His favourite singer",
-          "Huy's grandfather and his piano"
+          "Two friends from work talk about their cats.",
+          "Thu buys a new cat.",
+          "A day at the zoo",
+          "Quan's dog and rabbit"
         ],
         "answerIndex": 0,
-        "explanationVi": "Minh kể về giờ học nhạc ở trường: thầy Long, trò chơi âm nhạc, đàn guitar, đàn piano, và các bạn thích hay không thích gì."
+        "explanationVi": "Thu và Quân làm cùng văn phòng, ăn trưa và kể con mèo của mình làm được gì."
       },
       {
         "kind": "detail",
-        "prompt": "When does Minh have guitar practice?",
-        "promptVi": "Minh tập đàn guitar vào lúc nào?",
+        "prompt": "What can Mun do?",
+        "promptVi": "Mun làm được gì?",
         "options": [
-          "On Tuesday morning",
-          "After school on Thursday",
-          "On Sunday evening",
-          "Before school on Monday"
+          "He can sleep all day.",
+          "He can catch a mouse and a rat.",
+          "He can open the door.",
+          "He can swim."
         ],
         "answerIndex": 1,
-        "explanationVi": "Minh viết \"So I have guitar practice after school on Thursday\". Thứ Ba là ngày có giờ học nhạc trên lớp."
+        "explanationVi": "Thu nói Mun bắt được chuột nhắt trong hai phút, và bắt được cả chuột cống to."
       },
       {
         "kind": "detail",
-        "prompt": "Why does Huy love playing the piano?",
-        "promptVi": "Vì sao Huy rất thích chơi đàn piano?",
+        "prompt": "Where does Miu sleep?",
+        "promptVi": "Miu ngủ ở đâu?",
         "options": [
-          "It is easy for him.",
-          "Mr Long plays it in class.",
-          "His grandfather plays it at home.",
-          "He has piano practice every day."
+          "In the garden",
+          "On Quan's bed",
+          "In the office",
+          "With the rabbit"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Bài viết \"Huy loves playing the piano because his grandfather plays it at home\": lý do nằm sau because."
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Miu sleeps on Quan's bed all day\"."
       },
       {
         "kind": "tfn",
-        "prompt": "Mr Long plays the guitar in a band.",
-        "promptVi": "Thầy Long chơi guitar trong một ban nhạc.",
+        "prompt": "Miu can catch Quan's hamster.",
+        "promptVi": "Miu bắt được con chuột hamster của Quân.",
         "options": [],
-        "answerIndex": 2,
-        "explanationVi": "Không có thông tin: bài chỉ nói thầy Long trẻ, vui tính và hay cho cả lớp chơi trò chơi âm nhạc, không nhắc đến ban nhạc nào, nên không thể nói đúng hay sai."
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quân nói Miu chỉ nhìn con chuột hamster \"but she can't catch it\"."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"practice\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"afraid of\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "So I have guitar practice after school on Thursday.",
+        "quote": "She is afraid of the neighbour's dog, and she doesn't play with the rabbit in the garden.",
         "options": [
-          "bài kiểm tra",
-          "buổi tập, luyện tập",
-          "câu lạc bộ",
-          "buổi biểu diễn"
+          "sợ",
+          "thích",
+          "chơi với",
+          "đuổi theo"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Guitar practice là buổi tập đàn guitar: Minh thấy guitar khó nên tập thêm sau giờ học vào thứ Năm."
+        "answerIndex": 0,
+        "explanationVi": "Be afraid of là sợ: Miu sợ con chó nhà hàng xóm."
       }
     ],
     "grammarNote": {
-      "title": "Liên từ and / but / or / because",
-      "bodyVi": "Bốn từ này nối hai ý thành một câu. And (và) nối hai ý cùng chiều. But (nhưng) nối hai ý trái ngược: I like playing the guitar, but it is difficult. Or (hay, hoặc) đưa ra lựa chọn: the guitar or the piano? Because (vì) đứng trước lý do: Huy loves the piano because his grandfather plays it.",
+      "title": "Can / can't: nói về khả năng",
+      "bodyVi": "Can + động từ nguyên mẫu nói ai, con gì làm được việc gì: He can catch a mouse. Can't (= cannot) nói không làm được: My cat can't catch mice. Câu hỏi đưa Can lên đầu: Can she do anything? Trả lời ngắn: Yes, she can. / No, she can't. Can giống nhau với mọi chủ ngữ, và động từ sau nó không thêm -s.",
       "examples": [
-        "I like playing the guitar, but it is difficult for me.",
-        "My friend Huy loves playing the piano because his grandfather plays it at home.",
-        "Mr Long often asks us, \"Do you like the guitar or the piano?\""
+        "\"He can catch a mouse in two minutes.",
+        "\"My cat, Miu, can't catch mice.",
+        "\"Can she do anything?\" asks Thu."
       ]
     },
-    "writingPrompt": "Write about music lessons at your school: what you like, what a friend likes, and why.",
+    "writingPrompt": "Write about your pet or a friend's pet: what can it do, and what can't it do?",
     "sentenceTranslations": [
-      "Mình là Minh, và thứ Ba nào mình cũng có giờ học nhạc.",
-      "Giờ học nhạc của lớp mình diễn ra trong một phòng lớn có một cây đàn piano và mười cây đàn guitar.",
-      "Thầy giáo của bọn mình, thầy Long, còn trẻ và rất vui tính.",
-      "Đầu giờ học, thầy hay cho cả lớp chơi một trò chơi âm nhạc, và bọn mình rất thích.",
-      "Sau đó bọn mình cùng nhau hát, hoặc tập chơi một bài hát bằng đàn guitar.",
-      "Mình thích chơi guitar, nhưng với mình thì khó lắm.",
-      "Vì thế thứ Năm nào mình cũng ở lại tập đàn guitar sau giờ học.",
-      "Bạn mình, Huy, rất thích chơi đàn piano vì ông của bạn ấy chơi đàn piano ở nhà.",
-      "Thầy Long hay hỏi bọn mình: \"Các em thích đàn guitar hay đàn piano?\"",
-      "\"Đàn piano ạ, vì nó hay lắm,\" Huy trả lời.",
-      "Bạn mình, Bảo, không thích giờ học nhạc vì bạn ấy thích bóng đá hơn.",
-      "Nhưng Bảo lại rất mê trò chơi âm nhạc, và bạn ấy buồn khi chuông reo hết giờ!"
+      "Thu và Quân làm cùng một văn phòng.",
+      "Ngày nào hai người cũng ăn trưa cùng nhau.",
+      "Hôm nay, họ nói chuyện về thú cưng của mình.",
+      "Thu nuôi một con mèo đen.",
+      "Nó tên là Mun.",
+      "\"Mun là một con mèo rất giỏi,\" Thu nói.",
+      "\"Nó bắt được một con chuột nhắt trong hai phút.",
+      "Nó bắt được cả chuột cống to nữa!\"",
+      "Quân cười.",
+      "\"Mèo của mình, con Miu, không bắt được chuột.",
+      "Nó chỉ biết ngủ thôi!\"",
+      "Miu ngủ trên giường của Quân cả ngày.",
+      "Nó sợ con chó nhà hàng xóm, và nó không chơi với con thỏ trong vườn.",
+      "\"Thế nó có làm được gì không?\" Thu hỏi.",
+      "\"Có chứ,\" Quân nói.",
+      "\"Nó ngủ được mười lăm tiếng một ngày!",
+      "Nó còn nhìn con chuột hamster của mình được cả tiếng, nhưng nó không bắt được con chuột.\"",
+      "Thu và Quân đều yêu động vật, nhưng hai con mèo của họ khác nhau quá!"
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể về giờ học nhạc ở trường, nói mình thích gì và vì sao, nối ý bằng and / but / or / because.",
+    "objectiveVi": "Bạn có thể so sánh hai con vật: con này làm được gì (can), con kia không làm được gì (can't).",
     "examples": [
       {
-        "lemma": "music lesson",
-        "sentence": "My music lesson is on Tuesday.",
-        "meaningVi": "Giờ học nhạc của mình vào thứ Ba."
+        "lemma": "animal",
+        "sentence": "A cat is a small animal.",
+        "meaningVi": "Mèo là một con vật nhỏ."
       },
       {
-        "lemma": "music class",
-        "sentence": "There are thirty students in my music class.",
-        "meaningVi": "Lớp học nhạc của mình có ba mươi học sinh."
+        "lemma": "pet",
+        "sentence": "Do you have a pet?",
+        "meaningVi": "Bạn có nuôi con vật nào không?"
       },
       {
-        "lemma": "piano",
-        "sentence": "My grandfather plays the piano.",
-        "meaningVi": "Ông mình chơi đàn piano."
+        "lemma": "dog",
+        "sentence": "My dog can't climb trees.",
+        "meaningVi": "Con chó của mình không trèo được cây."
       },
       {
-        "lemma": "guitar",
-        "sentence": "This guitar is new.",
-        "meaningVi": "Cây đàn guitar này còn mới."
+        "lemma": "cat",
+        "sentence": "Our cat can sleep all day.",
+        "meaningVi": "Con mèo nhà mình ngủ được cả ngày."
       },
       {
-        "lemma": "music game",
-        "sentence": "We play a music game at the start of the lesson.",
-        "meaningVi": "Đầu giờ học, bọn mình chơi một trò chơi âm nhạc."
+        "lemma": "rabbit",
+        "sentence": "The rabbit can run very fast.",
+        "meaningVi": "Con thỏ chạy được rất nhanh."
       },
       {
-        "lemma": "play a song",
-        "sentence": "Huy wants to play a song for us.",
-        "meaningVi": "Huy muốn chơi một bài hát cho bọn mình nghe."
+        "lemma": "hamster",
+        "sentence": "Can your hamster swim?",
+        "meaningVi": "Con chuột hamster của bạn có biết bơi không?"
       },
       {
-        "lemma": "practice",
-        "sentence": "I have guitar practice on Thursday.",
-        "meaningVi": "Thứ Năm mình có buổi tập đàn guitar."
+        "lemma": "mouse",
+        "sentence": "The mouse lives in the kitchen.",
+        "meaningVi": "Con chuột nhắt sống trong bếp."
       },
       {
-        "lemma": "bell",
-        "sentence": "The school bell rings at seven o'clock.",
-        "meaningVi": "Chuông trường reo lúc bảy giờ."
+        "lemma": "rat",
+        "sentence": "A rat can eat a lot of rice.",
+        "meaningVi": "Một con chuột cống ăn được rất nhiều gạo."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Linh",
-        "Anna"
+        "Thu",
+        "Quan"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Anna, do you like music lessons?",
-          "meaningVi": "Anna ơi, cậu có thích giờ học nhạc không?"
+          "text": "Quan, can Miu catch a mouse?",
+          "meaningVi": "Quân ơi, Miu có bắt được chuột không?"
         },
         {
           "speaker": 1,
-          "text": "Yes, I do, because I love playing the guitar.",
-          "meaningVi": "Có chứ, vì mình rất thích chơi đàn guitar."
+          "text": "No, she can't. She is very lazy.",
+          "meaningVi": "Không. Nó lười lắm."
         },
         {
           "speaker": 0,
-          "text": "Is the guitar difficult?",
-          "meaningVi": "Đàn guitar có khó không?"
+          "text": "Can she climb trees?",
+          "meaningVi": "Nó có trèo được cây không?"
         },
         {
           "speaker": 1,
-          "text": "A little, but I practise every day. Do you play the guitar or the piano?",
-          "meaningVi": "Hơi khó, nhưng ngày nào mình cũng tập. Cậu chơi guitar hay piano?"
+          "text": "Yes, she can, but she doesn't want to.",
+          "meaningVi": "Có, nhưng nó không muốn trèo."
         },
         {
           "speaker": 0,
-          "text": "The piano. My mum has a piano at home.",
-          "meaningVi": "Piano. Mẹ mình có một cây đàn piano ở nhà."
+          "text": "Mun can climb very high. Can your rabbit jump?",
+          "meaningVi": "Mun trèo được rất cao. Con thỏ nhà cậu có nhảy được không?"
         },
         {
           "speaker": 1,
-          "text": "Great! What do you like in the music class?",
-          "meaningVi": "Tuyệt quá! Trong giờ học nhạc cậu thích gì?"
+          "text": "Yes, it can. It can jump very high!",
+          "meaningVi": "Có chứ. Nó nhảy được rất cao!"
         },
         {
           "speaker": 0,
-          "text": "I like the music games, but I don't like the tests.",
-          "meaningVi": "Mình thích các trò chơi âm nhạc, nhưng không thích những bài kiểm tra."
+          "text": "Do you want a good cat? Mun has three kittens.",
+          "meaningVi": "Cậu có muốn một con mèo giỏi không? Mun có ba con mèo con đấy."
         },
         {
           "speaker": 1,
-          "text": "Me too! Does Lan like music lessons?",
-          "meaningVi": "Mình cũng vậy! Lan có thích giờ học nhạc không?"
-        },
-        {
-          "speaker": 0,
-          "text": "Yes, she does. She loves dancing to the songs.",
-          "meaningVi": "Có. Bạn ấy rất thích nhảy theo các bài hát."
-        },
-        {
-          "speaker": 1,
-          "text": "That's nice. Music is more fun with friends!",
-          "meaningVi": "Hay đấy. Học nhạc cùng bạn bè vui hơn nhiều!"
+          "text": "Ha ha, no, thank you. One lazy cat is OK!",
+          "meaningVi": "Ha ha, thôi, cảm ơn cậu. Một con mèo lười là đủ rồi!"
         }
       ]
     },
-    "grammarTipVi": "Muốn hỏi lựa chọn, dùng or: Do you play the guitar or the piano? Muốn nói lý do, dùng because: I like music lessons because I love playing the guitar.",
+    "grammarTipVi": "Can / can't + động từ nguyên mẫu, giống nhau với mọi chủ ngữ: He can catch (không nói \"He cans catch\" hay \"He can catches\").",
     "translations": [
       {
-        "vi": "Tôi thích chơi đàn guitar, nhưng nó khó.",
-        "en": "I like playing the guitar, but it is difficult.",
+        "vi": "Con mèo của tôi bắt được một con chuột cống to.",
+        "en": "My cat can catch a big rat.",
         "distractors": [
-          "and",
-          "because",
-          "play"
+          "catches",
+          "cans",
+          "small"
         ]
       },
       {
-        "vi": "Bảo rất thích trò chơi âm nhạc vì nó vui.",
-        "en": "Bao loves the music game because it is fun.",
+        "vi": "Miu không bắt được chuột nhắt.",
+        "en": "Miu can't catch a mouse.",
         "distractors": [
-          "but",
-          "or",
-          "likes",
-          "are"
+          "catches",
+          "cans",
+          "rat"
         ]
       },
       {
-        "vi": "Bạn thích đàn guitar hay đàn piano?",
-        "en": "Do you like the guitar or the piano?",
+        "vi": "Con mèo của bạn có trèo được cây không?",
+        "en": "Can your cat climb trees?",
         "distractors": [
-          "and",
-          "Does",
-          "but"
+          "climbs",
+          "Is",
+          "cans"
         ]
       },
       {
-        "vi": "Chúng tôi có giờ học nhạc vào thứ Ba.",
-        "en": "We have a music lesson on Tuesday.",
+        "vi": "Họ nói chuyện về thú cưng của họ.",
+        "en": "They talk about their pets.",
         "distractors": [
-          "has",
-          "in",
-          "class"
+          "talks",
+          "pet",
+          "them"
+        ]
+      },
+      {
+        "vi": "Nó sợ con chó.",
+        "en": "She is afraid of the dog.",
+        "distractors": [
+          "are",
+          "dogs",
+          "cans"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Linh và Anna nói chuyện về điều gì?",
+        "prompt": "Thu và Quân nói chuyện về điều gì?",
         "promptVi": "",
         "options": [
-          "Tiệm bánh nhà Linh",
-          "Giờ học nhạc ở trường",
-          "Một buổi hoà nhạc ngoài công viên"
+          "Con vật nuôi của họ làm được gì",
+          "Bữa trưa ở văn phòng",
+          "Một con chó mới"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Linh hỏi \"do you like music lessons?\", rồi hai bạn nói về đàn guitar, đàn piano và giờ học nhạc.",
+        "answerIndex": 0,
+        "explanationVi": "Thu hỏi Miu và con thỏ nhà Quân làm được những gì.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Linh chơi loại đàn nào?",
+        "prompt": "Vì sao Miu không bắt được chuột?",
         "promptVi": "",
         "options": [
-          "Đàn guitar",
-          "Đàn piano",
-          "Trống"
+          "Vì nó rất lười",
+          "Vì nó còn nhỏ",
+          "Vì nó sợ chuột"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Linh trả lời \"The piano. My mum has a piano at home.\"",
-        "turnIndex": 4
+        "answerIndex": 0,
+        "explanationVi": "Quân nói \"She is very lazy\".",
+        "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Trong giờ học nhạc, Linh không thích điều gì?",
+        "prompt": "Con thỏ nhà Quân làm được gì?",
         "promptVi": "",
         "options": [
-          "Các trò chơi âm nhạc",
-          "Đàn piano",
-          "Những bài kiểm tra"
+          "Trèo cây",
+          "Nhảy rất cao",
+          "Bắt chuột"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Linh nói \"I like the music games, but I don't like the tests.\"",
-        "turnIndex": 6
+        "answerIndex": 1,
+        "explanationVi": "Quân nói \"It can jump very high!\".",
+        "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "Anna practises the guitar every day.",
-        "promptVi": "Anna tập đàn guitar mỗi ngày.",
+        "prompt": "Quan wants one of Mun's kittens.",
+        "promptVi": "Quân muốn một con mèo con của Mun.",
         "options": [],
-        "answerIndex": 0,
-        "explanationVi": "Đúng, vì Anna nói \"A little, but I practise every day.\"",
-        "turnIndex": 3
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quân nói \"no, thank you. One lazy cat is OK!\".",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Mỗi bạn trong lớp Minh thích hay không thích giờ học nhạc, và vì sao?",
+    "readingGuideVi": "Con mèo của Thu và con mèo của Quân khác nhau thế nào: con nào làm được gì?",
     "grammarStep": {
-      "titleVi": "Liên từ and / but / or / because",
+      "titleVi": "Can / can't: nói về khả năng",
       "noticing": [
         {
-          "sentence": "At the start of the lesson, he often plays a music game with us, and we love it.",
+          "sentence": "\"He can catch a mouse in two minutes.",
           "highlights": [
-            "and"
+            "can catch"
           ]
         },
         {
-          "sentence": "Then we sing together, or we play a song on the guitar.",
+          "sentence": "\"My cat, Miu, can't catch mice.",
           "highlights": [
-            "or"
-          ]
-        },
-        {
-          "sentence": "I like playing the guitar, but it is difficult for me.",
-          "highlights": [
-            "but"
-          ]
-        },
-        {
-          "sentence": "My friend Huy loves playing the piano because his grandfather plays it at home.",
-          "highlights": [
-            "because"
+            "can't catch"
           ]
         }
       ],
-      "questionVi": "Trong bốn từ được tô, từ nào đứng trước lý do (trả lời câu hỏi \"vì sao?\")?",
+      "questionVi": "Chủ ngữ là he / she, sau can động từ có thêm -s không?",
       "options": [
-        "but",
-        "because",
-        "or"
+        "Không, giữ nguyên (catch)",
+        "Có, thêm -es (catches)",
+        "Thêm -ing (catching)"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Because (vì) đứng trước lý do: Huy thích piano vì ông bạn ấy chơi piano. But nối hai ý trái ngược, or đưa ra lựa chọn, and nối hai ý cùng chiều.",
-      "whenVi": "Dùng and, but, or, because để nối hai ý thành một câu dài hơn: thêm ý, ý trái ngược, lựa chọn, hoặc lý do.",
+      "answerIndex": 0,
+      "explanationVi": "Sau can và can't, động từ luôn ở dạng nguyên mẫu, kể cả với he / she / it: He can catch, she can't catch.",
+      "whenVi": "Dùng can để nói ai, con gì làm được việc gì; can't để nói không làm được; Can …? để hỏi.",
       "table": [
         {
-          "subject": "and (và)",
-          "form": "He plays a game with us, and we love it.",
-          "negative": "—"
+          "subject": "I / you / we / they",
+          "form": "I can swim. – Can you swim? – Yes, I can.",
+          "negative": "We can't fly."
         },
         {
-          "subject": "but (nhưng)",
-          "form": "I like the guitar, but it is difficult.",
-          "negative": "—"
-        },
-        {
-          "subject": "or (hay, hoặc)",
-          "form": "Do you like the guitar or the piano?",
-          "negative": "—"
-        },
-        {
-          "subject": "because (vì)",
-          "form": "Huy loves the piano because his grandfather plays it.",
-          "negative": "—"
+          "subject": "he / she / it",
+          "form": "It can fly. – Can it talk? – No, it can't.",
+          "negative": "He can't swim."
         }
       ],
       "mistakes": [
         {
-          "wrong": "Do you like the guitar and the piano? (muốn hỏi bạn thích cái nào)",
-          "right": "Do you like the guitar or the piano?"
+          "wrong": "He can catches a mouse.",
+          "right": "He can catch a mouse."
         },
         {
-          "wrong": "We love the music game because is fun.",
-          "right": "We love the music game because it is fun."
+          "wrong": "She don't can catch mice.",
+          "right": "She can't catch mice."
         }
       ],
-      "noteVi": "Tiếng Việt hỏi lựa chọn bằng \"hay\" và hay bỏ chủ ngữ sau \"vì\" (\"vì vui\"), nên người Việt dễ dùng and thay cho or và quên it sau because.",
+      "noteVi": "Phủ định của can là can't, không dùng don't / doesn't: She can't catch (không nói \"She doesn't can catch\").",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền because hoặc but vào chỗ trống.",
-          "text": "I love music lessons ___ Mr Long is funny.",
+          "promptVi": "Điền can hoặc can't. (Mun bắt được chuột.)",
+          "text": "Mun ___ catch a mouse.",
           "answers": [
-            "because"
+            "can"
           ],
-          "explanationVi": "Thầy Long vui tính là lý do mình thích giờ học nhạc, nên dùng because."
+          "explanationVi": "Mun bắt được nên dùng can + catch."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng để hỏi bạn chọn cái nào.",
-          "text": "Do you play the guitar ___ the piano?",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Miu ___ catch mice.",
           "options": [
-            "or",
-            "because",
-            "but",
-            "so"
+            "can't",
+            "doesn't can",
+            "don't",
+            "cans"
           ],
           "answerIndex": 0,
-          "explanationVi": "Câu hỏi lựa chọn giữa hai thứ dùng or (hay)."
+          "explanationVi": "Phủ định của can là can't: Miu can't catch mice."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "We love the music game because is fun.",
-          "sentence": "We love the music game because it is fun.",
-          "explanationVi": "Sau because là một câu đầy đủ, cần có chủ ngữ: because it is fun."
+          "text": "Mun can catches a big rat.",
+          "sentence": "Mun can catch a big rat.",
+          "explanationVi": "Sau can, động từ không thêm -es: can catch."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Huy rất thích đàn piano vì ông của bạn ấy chơi nó.",
-          "sentence": "Huy loves the piano because his grandfather plays it.",
+          "text": "Nó có làm được gì không?",
+          "sentence": "Can she do anything?",
           "words": [
-            "because",
-            "plays",
-            "Huy",
-            "the",
-            "his",
-            "loves",
-            "piano",
-            "grandfather",
-            "it",
-            "but"
+            "she",
+            "anything?",
+            "Can",
+            "do",
+            "does"
           ],
-          "explanationVi": "Lý do đứng sau because; từ \"but\" bị thừa."
+          "explanationVi": "Câu hỏi: Can + chủ ngữ + động từ nguyên mẫu; từ \"does\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Our teacher, Mr Long, is young and funny.",
-        "tipVi": "Young /jʌŋ/ kết thúc bằng âm /ŋ/ như \"ng\" trong tiếng Việt, không có âm /g/ ở cuối."
+        "text": "\"He can catch a mouse in two minutes.",
+        "tipVi": "Can đọc nhẹ /kən/; mouse /maʊs/ kết thúc bằng /s/, minutes /ˈmɪnɪts/ có /ts/ ở cuối."
       },
       {
-        "text": "I like playing the guitar, but it is difficult for me.",
-        "tipVi": "Guitar /ɡɪˈtɑːr/ nhấn ở âm tiết thứ hai: \"ghi-TAR\"; difficult /ˈdɪfɪkəlt/ nhấn ở âm đầu và có /lt/ ở cuối."
+        "text": "\"My cat, Miu, can't catch mice.",
+        "tipVi": "Can't /kænt/ đọc mạnh hơn can; mice /maɪs/ khác mouse /maʊs/."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Do you like music lessons at school?",
-        "questionVi": "Bạn có thích giờ học nhạc ở trường không?",
-        "frame": "Yes, I do, because ___. / No, I don't, because ___."
+        "question": "Do you have a cat?",
+        "questionVi": "Bạn có nuôi mèo không?",
+        "frame": "Yes, I do. / No, I don't."
       },
       {
-        "question": "Do you like the guitar or the piano?",
-        "questionVi": "Bạn thích đàn guitar hay đàn piano?",
-        "frame": "I like the ___ because ___."
+        "question": "Can a cat catch a mouse?",
+        "questionVi": "Mèo có bắt được chuột không?",
+        "frame": "Yes, it can. / No, it can't."
       },
       {
-        "question": "Does your best friend like music?",
-        "questionVi": "Bạn thân của bạn có thích âm nhạc không?",
-        "frame": "Yes, he / she does, because ___. / No, he / she doesn't, but he / she likes ___."
+        "question": "What can your pet do?",
+        "questionVi": "Con vật nuôi của bạn làm được gì?",
+        "frame": "It can ___, but it can't ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu nối bằng because, but hoặc or",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can / can't hoặc câu hỏi Can …?",
       "anyOf": [
-        "because",
-        "but",
-        "or",
-        "because it"
+        "can",
+        "can't"
       ],
       "outlineVi": [
-        "Nói bạn có giờ học nhạc vào ngày nào và thầy cô dạy nhạc thế nào.",
-        "Kể bạn thích gì trong giờ học và vì sao (because …).",
-        "Kể một người bạn thích hoặc không thích giờ học nhạc (He / She … but …)."
+        "Giới thiệu con vật: tên, màu lông, của ai.",
+        "Kể nó làm được gì (can …).",
+        "Kể nó không làm được gì (can't …)."
       ],
-      "modelAnswer": "I have a music lesson every Friday. I like the music class because our teacher is kind and funny. I love playing the piano, but it is difficult for me. My friend Lan likes the guitar because it is small. She has guitar practice after school, and she plays a song for us every week."
+      "modelAnswer": "My friend Ngoc has a white cat. Her name is Na. Na can jump very high, and she can climb trees. But she can't catch a mouse, and she is afraid of dogs!"
     }
   },
   "glosses": [
     {
-      "text": "funny",
-      "lemma": "funny",
-      "meaningVi": "vui tính, hài hước",
-      "sentenceIndex": 2,
-      "pos": "adjective",
-      "phrase": "young and funny",
-      "phraseVi": "trẻ và vui tính"
-    },
-    {
-      "text": "start",
-      "lemma": "start",
-      "meaningVi": "lúc bắt đầu, đầu (giờ)",
-      "sentenceIndex": 3,
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng",
       "pos": "noun",
-      "phrase": "At the start of the lesson",
-      "phraseVi": "Đầu giờ học"
+      "sentenceIndex": 0,
+      "phrase": "work in the same office",
+      "phraseVi": "làm cùng một văn phòng"
     },
     {
-      "text": "together",
-      "lemma": "together",
-      "meaningVi": "cùng nhau",
-      "sentenceIndex": 4,
-      "pos": "adverb",
-      "phrase": "we sing together",
-      "phraseVi": "bọn mình cùng nhau hát"
-    },
-    {
-      "text": "difficult",
-      "lemma": "difficult",
-      "meaningVi": "khó",
-      "sentenceIndex": 5,
-      "pos": "adjective",
-      "phrase": "it is difficult for me",
-      "phraseVi": "với mình thì khó"
-    },
-    {
-      "text": "after school",
-      "lemma": "after school",
-      "meaningVi": "sau giờ học",
-      "sentenceIndex": 6,
-      "pos": "phrase",
-      "phrase": "guitar practice after school",
-      "phraseVi": "tập đàn guitar sau giờ học"
-    },
-    {
-      "text": "grandfather",
-      "lemma": "grandfather",
-      "meaningVi": "ông",
-      "sentenceIndex": 7,
+      "text": "lunch",
+      "lemma": "lunch",
+      "meaningVi": "bữa trưa",
       "pos": "noun",
-      "phrase": "his grandfather plays it at home",
-      "phraseVi": "ông bạn ấy chơi đàn ở nhà"
+      "sentenceIndex": 1,
+      "phrase": "they eat lunch together",
+      "phraseVi": "họ ăn trưa cùng nhau"
     },
     {
-      "text": "beautiful",
-      "lemma": "beautiful",
-      "meaningVi": "hay, đẹp",
-      "sentenceIndex": 9,
-      "pos": "adjective",
-      "phrase": "because it is beautiful",
-      "phraseVi": "vì nó hay lắm"
-    },
-    {
-      "text": "football",
-      "lemma": "football",
-      "meaningVi": "bóng đá",
-      "sentenceIndex": 10,
-      "pos": "noun",
-      "phrase": "he likes football more",
-      "phraseVi": "bạn ấy thích bóng đá hơn"
-    },
-    {
-      "text": "rings",
-      "lemma": "ring",
-      "meaningVi": "reo (chuông)",
-      "sentenceIndex": 11,
+      "text": "catch",
+      "lemma": "catch",
+      "meaningVi": "bắt",
       "pos": "verb",
-      "phrase": "when the bell rings",
-      "phraseVi": "khi chuông reo"
+      "sentenceIndex": 6,
+      "phrase": "He can catch a mouse",
+      "phraseVi": "Nó bắt được một con chuột"
+    },
+    {
+      "text": "mice",
+      "lemma": "mouse",
+      "meaningVi": "những con chuột nhắt (số nhiều của mouse)",
+      "pos": "noun",
+      "sentenceIndex": 9,
+      "phrase": "can't catch mice",
+      "phraseVi": "không bắt được chuột"
+    },
+    {
+      "text": "afraid",
+      "lemma": "afraid",
+      "meaningVi": "sợ",
+      "pos": "adjective",
+      "sentenceIndex": 12,
+      "phrase": "She is afraid of the neighbour's dog",
+      "phraseVi": "Nó sợ con chó nhà hàng xóm"
+    },
+    {
+      "text": "neighbour's",
+      "lemma": "neighbour",
+      "meaningVi": "của hàng xóm",
+      "pos": "noun",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "watch",
+      "lemma": "watch",
+      "meaningVi": "nhìn, xem, theo dõi",
+      "pos": "verb",
+      "sentenceIndex": 16,
+      "phrase": "She can watch my hamster for an hour too",
+      "phraseVi": "Nó còn nhìn con chuột hamster của mình được cả tiếng"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác nhau",
+      "pos": "adjective",
+      "sentenceIndex": 17,
+      "phrase": "their cats are very different",
+      "phraseVi": "hai con mèo của họ khác nhau quá"
     }
   ]
 }

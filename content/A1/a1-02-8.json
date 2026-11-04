@@ -1,0 +1,576 @@
+{
+  "content": "At four o'clock, two parents, Mrs Hien and Mr Phuc, are outside their children's school.\n\nMrs Hien has two children. Her son, Kien, is nine. His hobby is football, and he has a new ball. Her daughter, Thu, is six. Kien is her big brother. Thu has a lot of pens, and her pictures are on the kitchen wall.\n\nMr Phuc has a daughter and a baby son. His daughter, Ngan, is eight. Her favourite thing is music, and she has a small piano. She is a good big sister. \"Our house isn't quiet,\" Mr Phuc says, and Mrs Hien laughs.\n\nMrs Hien asks, \"Where is your wife today?\"\n\"She is at home with the baby,\" he says. \"She is a great mother. And your husband?\"\n\"Kien's father is in Da Nang this week,\" she says. \"Our family is very busy, too!\"",
+  "targetWords": [
+    "family",
+    "parents",
+    "father",
+    "mother",
+    "son",
+    "daughter",
+    "brother",
+    "sister"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "parents",
+        "lemma": "parents",
+        "meaningVi": "bố mẹ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "son",
+        "lemma": "son",
+        "meaningVi": "con trai",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "daughter",
+        "lemma": "daughter",
+        "meaningVi": "con gái",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "brother",
+        "lemma": "brother",
+        "meaningVi": "anh trai, em trai",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "sister",
+        "lemma": "sister",
+        "meaningVi": "chị gái, em gái",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "mother",
+        "lemma": "mother",
+        "meaningVi": "mẹ",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "father",
+        "lemma": "father",
+        "meaningVi": "bố, cha",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "family",
+        "lemma": "family",
+        "meaningVi": "gia đình",
+        "pos": "noun",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A new teacher at the school",
+          "Two parents and their children",
+          "A football game",
+          "Mr Phuc's new house"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Hiền và anh Phúc đứng trước cổng trường và nói về tuổi, sở thích của các con."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Kien's hobby?",
+        "promptVi": "Sở thích của Kiên là gì?",
+        "options": [
+          "Music",
+          "Football",
+          "Books",
+          "Pictures"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"His hobby is football\": Kiên thích bóng đá."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Ngan?",
+        "promptVi": "Ngân bao nhiêu tuổi?",
+        "options": [
+          "Six",
+          "Eight",
+          "Nine",
+          "Four"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"His daughter, Ngan, is eight\": Ngân tám tuổi."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Phuc's wife is at the school.",
+        "promptVi": "Vợ anh Phúc đang ở trường.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh Phúc nói \"She is at home with the baby\": vợ anh ở nhà với em bé."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"brother\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Kien is her big brother.",
+        "options": [
+          "bố",
+          "anh trai",
+          "chị gái",
+          "con trai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Brother là anh trai hoặc em trai; big brother là anh trai: Kiên là anh trai của Thu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Have / has and possessives",
+      "bodyVi": "Has dùng với he, she hoặc một người: Mrs Hien has two children, she has a small piano. Nói tuổi thì dùng is, không dùng has: Her son, Kien, is nine. Nói của ai dùng his / her / our hoặc 's: their children's school (trường của các con họ), Kien's father (bố của Kiên). Children là số nhiều của child, nên viết children's.",
+      "examples": [
+        "Mrs Hien has two children.",
+        "Her son, Kien, is nine.",
+        "At four o'clock, two parents, Mrs Hien and Mr Phuc, are outside their children's school."
+      ]
+    },
+    "writingPrompt": "Write about the children in your family or your friend's family: their names, ages and favourite things.",
+    "sentenceTranslations": [
+      "Lúc bốn giờ, hai phụ huynh là chị Hiền và anh Phúc đứng trước trường của các con.",
+      "Chị Hiền có hai con.",
+      "Con trai chị là Kiên, chín tuổi.",
+      "Sở thích của Kiên là bóng đá, và cậu bé có một quả bóng mới.",
+      "Con gái chị là Thu, sáu tuổi.",
+      "Kiên là anh trai của Thu.",
+      "Thu có rất nhiều bút, và tranh của bé ở trên tường bếp.",
+      "Anh Phúc có một con gái và một con trai nhỏ.",
+      "Con gái anh là Ngân, tám tuổi.",
+      "Thứ Ngân thích nhất là âm nhạc, và bé có một cây đàn piano nhỏ.",
+      "Bé là một người chị tốt.",
+      "\"Nhà tôi không yên tĩnh đâu,\" anh Phúc nói, và chị Hiền cười.",
+      "Chị Hiền hỏi: \"Hôm nay vợ anh đâu?\"",
+      "\"Cô ấy ở nhà với em bé,\" anh nói.",
+      "\"Cô ấy là một người mẹ tuyệt vời.",
+      "Còn chồng chị?\"",
+      "\"Bố của Kiên tuần này ở Đà Nẵng,\" chị nói.",
+      "\"Nhà tôi cũng bận lắm!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về tuổi và sở thích của con cái, dùng is để nói tuổi, has để nói có gì và his / her để nói của ai.",
+    "examples": [
+      {
+        "lemma": "family",
+        "sentence": "Our family is very busy.",
+        "meaningVi": "Gia đình tôi rất bận."
+      },
+      {
+        "lemma": "parents",
+        "sentence": "Their parents are busy, too.",
+        "meaningVi": "Bố mẹ các cháu cũng bận."
+      },
+      {
+        "lemma": "father",
+        "sentence": "Kien's father is in Da Nang.",
+        "meaningVi": "Bố của Kiên ở Đà Nẵng."
+      },
+      {
+        "lemma": "mother",
+        "sentence": "She is a great mother.",
+        "meaningVi": "Cô ấy là một người mẹ tuyệt vời."
+      },
+      {
+        "lemma": "son",
+        "sentence": "Her son is nine.",
+        "meaningVi": "Con trai chị ấy chín tuổi."
+      },
+      {
+        "lemma": "daughter",
+        "sentence": "His daughter has a small piano.",
+        "meaningVi": "Con gái anh ấy có một cây đàn piano nhỏ."
+      },
+      {
+        "lemma": "brother",
+        "sentence": "Kien is her big brother.",
+        "meaningVi": "Kiên là anh trai của bé."
+      },
+      {
+        "lemma": "sister",
+        "sentence": "She is a good big sister.",
+        "meaningVi": "Bé là một người chị tốt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Phuc",
+        "Mrs Hien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hello! Is your son in class 4A?",
+          "meaningVi": "Chào chị! Con trai chị học lớp 4A à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is. His name is Kien. And your daughter?",
+          "meaningVi": "Vâng, đúng rồi. Cháu tên là Kiên. Còn con gái anh?"
+        },
+        {
+          "speaker": 0,
+          "text": "Ngan is in class 3B. She is eight.",
+          "meaningVi": "Ngân học lớp 3B. Cháu tám tuổi."
+        },
+        {
+          "speaker": 1,
+          "text": "What is her favourite thing?",
+          "meaningVi": "Cháu thích gì nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "Music! She has a small piano at home.",
+          "meaningVi": "Âm nhạc! Cháu có một cây đàn piano nhỏ ở nhà."
+        },
+        {
+          "speaker": 1,
+          "text": "That is great. Kien's favourite thing is football.",
+          "meaningVi": "Hay quá. Kiên thì thích nhất là bóng đá."
+        },
+        {
+          "speaker": 0,
+          "text": "How old is your daughter?",
+          "meaningVi": "Con gái chị bao nhiêu tuổi?"
+        },
+        {
+          "speaker": 1,
+          "text": "Thu is six. Her pictures are on our kitchen wall.",
+          "meaningVi": "Thu sáu tuổi. Tranh của cháu dán trên tường bếp nhà tôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Our children are very busy!",
+          "meaningVi": "Bọn trẻ nhà mình bận rộn thật!"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, and their parents are busy, too!",
+          "meaningVi": "Vâng, và bố mẹ chúng cũng bận nữa!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi tuổi: How old is your daughter? – She is six. Hỏi sở thích: What is her favourite thing? – Music!",
+    "translations": [
+      {
+        "vi": "Con trai tôi chín tuổi.",
+        "en": "My son is nine.",
+        "distractors": [
+          "has",
+          "daughter",
+          "are"
+        ]
+      },
+      {
+        "vi": "Con gái anh ấy có một cây đàn piano nhỏ.",
+        "en": "His daughter has a small piano.",
+        "distractors": [
+          "have",
+          "her",
+          "big"
+        ]
+      },
+      {
+        "vi": "Vợ tôi là một người mẹ tuyệt vời.",
+        "en": "My wife is a great mother.",
+        "distractors": [
+          "father",
+          "are",
+          "an"
+        ]
+      },
+      {
+        "vi": "Gia đình chúng tôi rất bận.",
+        "en": "Our family is very busy.",
+        "distractors": [
+          "are",
+          "we",
+          "free"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Phúc và chị Hiền nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Các con của họ",
+          "Công việc của họ",
+          "Một chuyến đi Đà Nẵng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người hỏi nhau về lớp, tuổi và sở thích của các con.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngân học lớp nào?",
+        "promptVi": "",
+        "options": [
+          "Lớp 4A",
+          "Lớp 3B",
+          "Lớp 2C"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh Phúc nói \"Ngan is in class 3B.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Kiên thích gì nhất?",
+        "promptVi": "",
+        "options": [
+          "Âm nhạc",
+          "Vẽ tranh",
+          "Bóng đá"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị Hiền nói \"Kien's favourite thing is football.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu is eight.",
+        "promptVi": "Thu tám tuổi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Hiền nói \"Thu is six.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Mỗi người có mấy con, các con bao nhiêu tuổi và thích gì?",
+    "grammarStep": {
+      "titleVi": "Has (có) và is (tuổi)",
+      "noticing": [
+        {
+          "sentence": "Mrs Hien has two children.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "Her son, Kien, is nine.",
+          "highlights": [
+            "is"
+          ]
+        },
+        {
+          "sentence": "His hobby is football, and he has a new ball.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "Mr Phuc has a daughter and a baby son.",
+          "highlights": [
+            "has"
+          ]
+        }
+      ],
+      "questionVi": "Nói \"Kiên chín tuổi\" thế nào cho đúng?",
+      "options": [
+        "Kien is nine.",
+        "Kien has nine.",
+        "Kien has nine years."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Tiếng Anh nói tuổi bằng is (Kien is nine), không dùng has. Has chỉ dùng để nói có người thân hay đồ vật: Mrs Hien has two children, he has a new ball.",
+      "whenVi": "Dùng has / have để nói ai có con, có đồ vật; dùng is / are để nói tuổi.",
+      "table": [
+        {
+          "subject": "he, she + has",
+          "form": "She has two children. He has a new ball.",
+          "negative": "She has no pens."
+        },
+        {
+          "subject": "I, you, we, they + have",
+          "form": "We have a baby son.",
+          "negative": "We have no piano."
+        },
+        {
+          "subject": "Tuổi: is / are",
+          "form": "Her son is nine. They are six.",
+          "negative": "He isn't nine."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Her son has nine years old.",
+          "right": "Her son is nine years old."
+        },
+        {
+          "wrong": "Mr Phuc have a daughter.",
+          "right": "Mr Phuc has a daughter."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"có hai con\" và \"chín tuổi\" mà không cần \"là\", nên người Việt hay nói He has nine years. Nhớ: tuổi đi với is, đồ vật và người thân đi với has.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của từ trong ngoặc.",
+          "text": "Mr Phuc ___ a daughter and a baby son. (have)",
+          "answers": [
+            "has"
+          ],
+          "explanationVi": "Mr Phuc là một người (he), nên dùng has."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu đúng.",
+          "text": "Con gái tôi tám tuổi.",
+          "options": [
+            "My daughter is eight.",
+            "My daughter has eight.",
+            "My daughter have eight years.",
+            "My daughter are eight."
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Nói tuổi dùng is; my daughter là một người nên dùng is, không dùng are."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Her son has nine years old.",
+          "sentence": "Her son is nine years old.",
+          "explanationVi": "Nói tuổi dùng is, không dùng has."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chị Hiền có hai người con.",
+          "sentence": "Mrs Hien has two children.",
+          "words": [
+            "two",
+            "Hien",
+            "children",
+            "Mrs",
+            "has",
+            "have"
+          ],
+          "explanationVi": "Mrs Hien là một người nên dùng has, từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "At four o'clock, two parents, Mrs Hien and Mr Phuc, are outside their children's school.",
+        "tipVi": "Children's /ˈtʃɪldrənz/ kết thúc bằng /z/; o'clock /əˈklɒk/ nhấn âm sau."
+      },
+      {
+        "text": "His hobby is football, and he has a new ball.",
+        "tipVi": "Hobby /ˈhɒbi/ nhấn âm đầu; nối \"has_a\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How old are the children in your family?",
+        "questionVi": "Các bạn nhỏ trong gia đình bạn bao nhiêu tuổi?",
+        "frame": "My ___ is ___, and my ___ is ___."
+      },
+      {
+        "question": "What is your hobby?",
+        "questionVi": "Sở thích của bạn là gì?",
+        "frame": "My hobby is ___."
+      },
+      {
+        "question": "What is your child's or your friend's favourite thing?",
+        "questionVi": "Con bạn hoặc bạn của bạn thích gì nhất?",
+        "frame": "His / Her favourite thing is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng have / has",
+      "anyOf": [
+        "have",
+        "has"
+      ],
+      "outlineVi": [
+        "Nói gia đình có mấy con (My sister has two children.).",
+        "Nói tên và tuổi từng bạn nhỏ (Her son, Nam, is seven.).",
+        "Kể sở thích và đồ vật của các bạn (His hobby is …, she has a …)."
+      ],
+      "modelAnswer": "My sister has two children. Her son, Nam, is seven. His hobby is football, and he has a red ball. Her daughter, Vy, is four. Her favourite thing is music, and she has a small guitar. Their house is very busy. My sister is a great mother."
+    }
+  },
+  "glosses": [
+    {
+      "text": "children",
+      "lemma": "child",
+      "meaningVi": "con, trẻ em",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "their children's school",
+      "phraseVi": "trường của các con"
+    },
+    {
+      "text": "hobby",
+      "lemma": "hobby",
+      "meaningVi": "sở thích",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "His hobby is football",
+      "phraseVi": "Sở thích của Kiên là bóng đá"
+    },
+    {
+      "text": "wall",
+      "lemma": "wall",
+      "meaningVi": "bức tường",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "on the kitchen wall",
+      "phraseVi": "ở trên tường bếp"
+    },
+    {
+      "text": "music",
+      "lemma": "music",
+      "meaningVi": "âm nhạc",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "Her favourite thing is music",
+      "phraseVi": "Thứ Ngân thích nhất là âm nhạc"
+    },
+    {
+      "text": "quiet",
+      "lemma": "quiet",
+      "meaningVi": "yên tĩnh",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "Our house isn't quiet",
+      "phraseVi": "Nhà tôi không yên tĩnh đâu"
+    },
+    {
+      "text": "wife",
+      "lemma": "wife",
+      "meaningVi": "vợ",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "Where is your wife today?",
+      "phraseVi": "Hôm nay vợ anh đâu?"
+    },
+    {
+      "text": "husband",
+      "lemma": "husband",
+      "meaningVi": "chồng",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "And your husband?",
+      "phraseVi": "Còn chồng chị?"
+    }
+  ]
+}

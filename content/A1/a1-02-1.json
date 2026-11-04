@@ -1,14 +1,14 @@
 {
-  "content": "Hi! My name is Lan. I am fourteen, and I live in Hanoi with my family. We have a small flat near a big park.\n\nMy parents have three children: two daughters and one son. So I have one brother and one sister. My brother Duc is seventeen. He is tall, and he has a lot of friends. My sister Mai is six. She has long hair and a big smile.\n\nMy father is a doctor. He has a small blue car. My mother is a teacher. She has a lot of books, and she reads every evening. We have a cat too. His name is Milo, and he has green eyes.\n\nMy grandparents aren't in Hanoi. They have a big house in Hue. My family isn't very big, but we are happy together. Is your family big or small?",
+  "content": "It is lunch time at the office. Lan and her friend Thu are at a small table. Lan has a new photo on her phone.\n\n\"This is my family,\" she says. \"This man is my father. His name is Tuan, and he is a doctor. This woman is my mother. Her name is Hoa, and she is a teacher. My parents have one son and two daughters. I am their first daughter.\"\n\nThu asks, \"Who is this tall man?\"\n\"That is my brother, Nam. He is a cook. He has a small restaurant in Da Nang, and his food is very good.\"\n\"And who is this girl?\"\n\"That is my sister, Mai. She is a student in Hue. She isn't at home now, but she has a lot of friends there.\"\n\"You have a big family, Lan!\"",
   "targetWords": [
     "family",
     "parents",
-    "daughter",
-    "son",
-    "brother",
-    "sister",
     "father",
-    "mother"
+    "mother",
+    "son",
+    "daughter",
+    "brother",
+    "sister"
   ],
   "annotate": {
     "annotations": [
@@ -17,56 +17,56 @@
         "lemma": "family",
         "meaningVi": "gia đình",
         "pos": "noun",
-        "sentenceIndex": 2
-      },
-      {
-        "text": "parents",
-        "lemma": "parents",
-        "meaningVi": "bố mẹ",
-        "pos": "noun",
-        "sentenceIndex": 4
-      },
-      {
-        "text": "daughters",
-        "lemma": "daughter",
-        "meaningVi": "con gái",
-        "pos": "noun",
-        "sentenceIndex": 4
-      },
-      {
-        "text": "son",
-        "lemma": "son",
-        "meaningVi": "con trai",
-        "pos": "noun",
-        "sentenceIndex": 4
-      },
-      {
-        "text": "brother",
-        "lemma": "brother",
-        "meaningVi": "anh trai, em trai",
-        "pos": "noun",
-        "sentenceIndex": 5
-      },
-      {
-        "text": "sister",
-        "lemma": "sister",
-        "meaningVi": "chị gái, em gái",
-        "pos": "noun",
-        "sentenceIndex": 5
+        "sentenceIndex": 3
       },
       {
         "text": "father",
         "lemma": "father",
-        "meaningVi": "bố",
+        "meaningVi": "bố, cha",
         "pos": "noun",
-        "sentenceIndex": 10
+        "sentenceIndex": 4
       },
       {
         "text": "mother",
         "lemma": "mother",
         "meaningVi": "mẹ",
         "pos": "noun",
-        "sentenceIndex": 12
+        "sentenceIndex": 6
+      },
+      {
+        "text": "parents",
+        "lemma": "parents",
+        "meaningVi": "bố mẹ",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "son",
+        "lemma": "son",
+        "meaningVi": "con trai",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "daughter",
+        "lemma": "daughter",
+        "meaningVi": "con gái",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "brother",
+        "lemma": "brother",
+        "meaningVi": "anh trai, em trai",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "sister",
+        "lemma": "sister",
+        "meaningVi": "chị gái, em gái",
+        "pos": "noun",
+        "sentenceIndex": 15
       }
     ],
     "questions": [
@@ -75,619 +75,499 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Lan's school and her friends",
-          "Lan's family and what they have",
-          "A trip to Hue",
-          "Lan's cat, Milo"
+          "Lan's new phone",
+          "Lan talks about her family in a photo.",
+          "A small restaurant in Da Nang",
+          "Thu's family in Hue"
         ],
         "answerIndex": 1,
-        "explanationVi": "Lan giới thiệu từng người trong gia đình (bố mẹ, anh Đức, em Mai) và nói mỗi người có gì. Mèo Milo chỉ là một chi tiết nhỏ."
-      },
-      {
-        "kind": "detail",
-        "prompt": "How old is Duc?",
-        "promptVi": "Đức bao nhiêu tuổi?",
-        "options": [
-          "Six",
-          "Fourteen",
-          "Seventeen",
-          "Sixteen"
-        ],
-        "answerIndex": 2,
-        "explanationVi": "Bài viết \"My brother Duc is seventeen\": anh Đức mười bảy tuổi. Mười bốn là tuổi của Lan, sáu là tuổi của Mai."
+        "explanationVi": "Giờ ăn trưa, Lan cho Thu xem ảnh gia đình trên điện thoại và kể về bố, mẹ, anh trai và em gái."
       },
       {
         "kind": "detail",
         "prompt": "What is Lan's father's job?",
         "promptVi": "Bố của Lan làm nghề gì?",
         "options": [
-          "A doctor",
-          "A teacher",
-          "A student",
-          "A cook"
+          "He is a teacher.",
+          "He is a cook.",
+          "He is a doctor.",
+          "He is a student."
         ],
-        "answerIndex": 0,
-        "explanationVi": "Bài viết \"My father is a doctor\": bố Lan là bác sĩ. Mẹ Lan mới là giáo viên."
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"His name is Tuan, and he is a doctor\": bố Lan là bác sĩ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the restaurant of Nam?",
+        "promptVi": "Nhà hàng của Nam ở đâu?",
+        "options": [
+          "In Hue",
+          "In Da Nang",
+          "In Hanoi",
+          "At the office"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"He has a small restaurant in Da Nang\": Nam có một nhà hàng nhỏ ở Đà Nẵng."
       },
       {
         "kind": "tfn",
-        "prompt": "Lan's grandparents are in Hanoi.",
-        "promptVi": "Ông bà của Lan ở Hà Nội.",
+        "prompt": "Mai is at home now.",
+        "promptVi": "Bây giờ Mai đang ở nhà.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bài viết \"My grandparents aren't in Hanoi. They have a big house in Hue\": ông bà Lan ở Huế."
+        "explanationVi": "Sai, vì Lan nói \"She isn't at home now\": Mai đang học ở Huế, không ở nhà."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"smile\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"parents\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "She has long hair and a big smile.",
+        "quote": "My parents have one son and two daughters.",
         "options": [
-          "đôi mắt",
-          "giọng nói",
-          "cái mũ",
-          "nụ cười"
+          "ông bà",
+          "bố mẹ",
+          "anh chị em",
+          "con cái"
         ],
-        "answerIndex": 3,
-        "explanationVi": "\"A big smile\" là một nụ cười thật tươi: Lan tả em Mai có tóc dài và hay cười tươi."
+        "answerIndex": 1,
+        "explanationVi": "Parents là bố mẹ: bố Tuan và mẹ Hoa có một con trai và hai con gái."
       }
     ],
     "grammarNote": {
-      "title": "Have / has (có)",
-      "bodyVi": "Have / has nghĩa là \"có\". I, you, we, they và nhiều người (my parents) đi với have: We have a cat. He, she, it và một người hay một con vật (my father, Milo) đi với has: He has a small blue car. Tiếng Việt chỉ nói \"có\", nên cần nhìn chủ ngữ để chọn have hay has.",
+      "title": "My, his, her, their",
+      "bodyVi": "Tính từ sở hữu đứng trước danh từ để nói người hay vật thuộc về ai: I → my, you → your, he → his, she → her, we → our, they → their. His dùng cho con trai, đàn ông; her dùng cho con gái, phụ nữ: his name is Tuan, her name is Hoa. Have / has nói ai có gì: I, you, we, they have; he, she has.",
       "examples": [
-        "My parents have three children: two daughters and one son.",
-        "He has a small blue car.",
-        "We have a cat too."
+        "His name is Tuan, and he is a doctor.",
+        "Her name is Hoa, and she is a teacher.",
+        "My parents have one son and two daughters."
       ]
     },
-    "writingPrompt": "Write about your family: who is in it and what each person has.",
+    "writingPrompt": "Write about a photo of your family: who is in it, their names and their jobs.",
     "sentenceTranslations": [
-      "Chào các bạn!",
-      "Mình tên là Lan.",
-      "Mình mười bốn tuổi, và mình sống ở Hà Nội cùng gia đình.",
-      "Nhà mình có một căn hộ nhỏ gần một công viên lớn.",
-      "Bố mẹ mình có ba người con: hai con gái và một con trai.",
-      "Vậy là mình có một anh trai và một em gái.",
-      "Anh trai mình, anh Đức, mười bảy tuổi.",
-      "Anh ấy cao, và anh ấy có rất nhiều bạn.",
-      "Em gái mình, bé Mai, sáu tuổi.",
-      "Em ấy có mái tóc dài và nụ cười thật tươi.",
-      "Bố mình là bác sĩ.",
-      "Bố có một chiếc ô tô nhỏ màu xanh dương.",
-      "Mẹ mình là giáo viên.",
-      "Mẹ có rất nhiều sách, và tối nào mẹ cũng đọc sách.",
-      "Nhà mình còn có một con mèo.",
-      "Nó tên là Milo, và nó có đôi mắt màu xanh lá.",
-      "Ông bà mình không ở Hà Nội.",
-      "Ông bà có một ngôi nhà lớn ở Huế.",
-      "Gia đình mình không đông lắm, nhưng cả nhà sống bên nhau rất vui.",
-      "Gia đình bạn đông hay ít người?"
+      "Đang là giờ ăn trưa ở văn phòng.",
+      "Lan và cô bạn Thu ngồi ở một chiếc bàn nhỏ.",
+      "Trong điện thoại của Lan có một tấm ảnh mới.",
+      "\"Đây là gia đình mình,\" Lan nói.",
+      "\"Người đàn ông này là bố mình.",
+      "Bố tên là Tuấn, và bố là bác sĩ.",
+      "Người phụ nữ này là mẹ mình.",
+      "Mẹ tên là Hoa, và mẹ là giáo viên.",
+      "Bố mẹ mình có một con trai và hai con gái.",
+      "Mình là con gái đầu của bố mẹ.\"",
+      "Thu hỏi: \"Anh cao cao này là ai thế?\"",
+      "\"Đó là anh trai mình, anh Nam.",
+      "Anh ấy là đầu bếp.",
+      "Anh ấy có một nhà hàng nhỏ ở Đà Nẵng, và đồ ăn của anh ấy ngon lắm.\"",
+      "\"Còn cô gái này là ai?\"",
+      "\"Đó là em gái mình, Mai.",
+      "Em ấy là sinh viên ở Huế.",
+      "Bây giờ em ấy không ở nhà, nhưng ở đó em ấy có nhiều bạn lắm.\"",
+      "\"Nhà cậu đông người ghê, Lan!\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể giới thiệu gia đình mình và nói mỗi người có gì bằng have / has.",
+    "objectiveVi": "Bạn có thể giới thiệu các thành viên trong gia đình qua một tấm ảnh: tên, nghề nghiệp của họ, dùng my, his, her, their và have / has.",
     "examples": [
       {
         "lemma": "family",
-        "sentence": "My family is small, but it is happy.",
-        "meaningVi": "Gia đình mình nhỏ, nhưng rất vui vẻ."
+        "sentence": "My family is small.",
+        "meaningVi": "Gia đình mình nhỏ."
       },
       {
         "lemma": "parents",
-        "sentence": "My parents have a small shop.",
-        "meaningVi": "Bố mẹ mình có một cửa hàng nhỏ."
-      },
-      {
-        "lemma": "daughter",
-        "sentence": "Mrs Hoa has one daughter.",
-        "meaningVi": "Cô Hoa có một con gái."
-      },
-      {
-        "lemma": "son",
-        "sentence": "Their son is ten years old.",
-        "meaningVi": "Con trai của họ mười tuổi."
-      },
-      {
-        "lemma": "brother",
-        "sentence": "My brother has a red bike.",
-        "meaningVi": "Anh trai mình có một chiếc xe đạp màu đỏ."
-      },
-      {
-        "lemma": "sister",
-        "sentence": "I have one sister, and she is nine.",
-        "meaningVi": "Mình có một em gái, em ấy chín tuổi."
+        "sentence": "Her parents are from Hue.",
+        "meaningVi": "Bố mẹ cô ấy quê ở Huế."
       },
       {
         "lemma": "father",
-        "sentence": "My father is a driver.",
-        "meaningVi": "Bố mình là tài xế."
+        "sentence": "My father is a doctor.",
+        "meaningVi": "Bố mình là bác sĩ."
       },
       {
         "lemma": "mother",
-        "sentence": "My mother has long black hair.",
-        "meaningVi": "Mẹ mình có mái tóc đen dài."
+        "sentence": "His mother is a teacher.",
+        "meaningVi": "Mẹ anh ấy là giáo viên."
+      },
+      {
+        "lemma": "son",
+        "sentence": "They have one son.",
+        "meaningVi": "Họ có một con trai."
+      },
+      {
+        "lemma": "daughter",
+        "sentence": "Her daughter is six years old.",
+        "meaningVi": "Con gái chị ấy sáu tuổi."
+      },
+      {
+        "lemma": "brother",
+        "sentence": "My brother has a small restaurant.",
+        "meaningVi": "Anh trai mình có một nhà hàng nhỏ."
+      },
+      {
+        "lemma": "sister",
+        "sentence": "I have one sister.",
+        "meaningVi": "Mình có một em gái."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Linh",
+        "Thu",
         "Lan"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Hi, Lan! Is this your brother in the photo?",
-          "meaningVi": "Chào Lan! Người trong ảnh là anh trai bạn à?"
+          "text": "Lan, is this your family?",
+          "meaningVi": "Lan ơi, đây là gia đình cậu à?"
         },
         {
           "speaker": 1,
-          "text": "Yes, it is. That's Duc. He's seventeen.",
-          "meaningVi": "Đúng rồi. Đó là anh Đức. Anh ấy mười bảy tuổi."
+          "text": "Yes, it is. These are my parents.",
+          "meaningVi": "Ừ, đúng rồi. Đây là bố mẹ mình."
         },
         {
           "speaker": 0,
-          "text": "He's very tall! Is your family big?",
-          "meaningVi": "Anh ấy cao quá! Gia đình bạn có đông không?"
+          "text": "What is your father's job?",
+          "meaningVi": "Bố cậu làm nghề gì?"
         },
         {
           "speaker": 1,
-          "text": "Not very big. I have one brother and one sister. And you?",
-          "meaningVi": "Không đông lắm. Mình có một anh trai và một em gái. Còn bạn?"
+          "text": "He is a doctor, and my mother is a teacher.",
+          "meaningVi": "Bố là bác sĩ, còn mẹ mình là giáo viên."
         },
         {
           "speaker": 0,
-          "text": "I have two brothers. They're nine and twelve.",
-          "meaningVi": "Mình có hai em trai. Các em ấy chín tuổi và mười hai tuổi."
+          "text": "And who is this man? Is he your brother?",
+          "meaningVi": "Còn anh này là ai? Anh trai cậu à?"
         },
         {
           "speaker": 1,
-          "text": "Really? Are they nice?",
-          "meaningVi": "Thật à? Các em ấy có ngoan không?"
+          "text": "Yes. His name is Nam. He has a restaurant in Da Nang.",
+          "meaningVi": "Ừ. Anh ấy tên Nam. Anh ấy có một nhà hàng ở Đà Nẵng."
         },
         {
           "speaker": 0,
-          "text": "Yes, they are. They're very funny.",
-          "meaningVi": "Có chứ. Các em ấy vui tính lắm."
+          "text": "How old is your sister?",
+          "meaningVi": "Em gái cậu bao nhiêu tuổi?"
         },
         {
           "speaker": 1,
-          "text": "My sister Mai is funny too. She has a big smile.",
-          "meaningVi": "Em gái mình, bé Mai, cũng vui tính. Em ấy cười rất tươi."
+          "text": "She is twenty. She is a student in Hue.",
+          "meaningVi": "Em ấy hai mươi tuổi. Em ấy là sinh viên ở Huế."
         },
         {
           "speaker": 0,
-          "text": "Is your dad a teacher?",
-          "meaningVi": "Bố bạn là giáo viên à?"
-        },
-        {
-          "speaker": 1,
-          "text": "No, he isn't. He's a doctor, and my mum is a teacher.",
-          "meaningVi": "Không phải. Bố mình là bác sĩ, còn mẹ mình là giáo viên."
+          "text": "You have a nice family.",
+          "meaningVi": "Gia đình cậu dễ thương ghê."
         }
       ]
     },
-    "grammarTipVi": "Nói về một người (my father, my sister) thì dùng has; hai người trở lên (my parents, my brothers) thì dùng have, dù tiếng Việt đều nói \"có\".",
+    "grammarTipVi": "Hỏi về người trong ảnh: Who is this man? Is he your brother? What is your father's job? Trả lời: He is my brother. His name is Nam.",
     "translations": [
       {
-        "vi": "Bố mẹ tôi có ba người con.",
-        "en": "My parents have three children.",
+        "vi": "Đây là gia đình của tôi.",
+        "en": "This is my family.",
+        "distractors": [
+          "me",
+          "are",
+          "her"
+        ]
+      },
+      {
+        "vi": "Bố tôi là bác sĩ.",
+        "en": "My father is a doctor.",
+        "distractors": [
+          "his",
+          "are",
+          "mother"
+        ]
+      },
+      {
+        "vi": "Bố mẹ tôi có hai con gái.",
+        "en": "My parents have two daughters.",
         "distractors": [
           "has",
           "son",
-          "is"
+          "our"
         ]
       },
       {
-        "vi": "Anh trai tôi có rất nhiều bạn.",
-        "en": "My brother has a lot of friends.",
+        "vi": "Anh trai tôi có một nhà hàng nhỏ.",
+        "en": "My brother has a small restaurant.",
         "distractors": [
           "have",
           "sister",
-          "is"
-        ]
-      },
-      {
-        "vi": "Mẹ tôi là giáo viên.",
-        "en": "My mother is a teacher.",
-        "distractors": [
-          "has",
-          "father",
-          "are"
-        ]
-      },
-      {
-        "vi": "Tôi có một em gái.",
-        "en": "I have one sister.",
-        "distractors": [
-          "has",
-          "brother",
-          "am"
+          "big"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Hai bạn nói chuyện về điều gì?",
+        "prompt": "Thu và Lan nói chuyện về điều gì?",
         "promptVi": "",
         "options": [
-          "Gia đình của mỗi người",
-          "Trường học mới của Linh",
-          "Một chuyến đi chơi cuối tuần"
+          "Gia đình của Lan",
+          "Công việc ở văn phòng",
+          "Một nhà hàng ở Huế"
         ],
         "answerIndex": 0,
-        "explanationVi": "Hai bạn hỏi nhau gia đình có đông không (\"Is your family big?\") và kể về anh chị em, bố mẹ.",
+        "explanationVi": "Thu hỏi về những người trong ảnh, và Lan kể về bố mẹ, anh trai và em gái.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Linh có mấy em trai?",
+        "prompt": "Mẹ của Lan làm nghề gì?",
         "promptVi": "",
         "options": [
-          "Một",
-          "Hai",
-          "Ba"
+          "Bác sĩ",
+          "Giáo viên",
+          "Đầu bếp"
         ],
         "answerIndex": 1,
-        "explanationVi": "Linh nói \"I have two brothers\": Linh có hai em trai, chín tuổi và mười hai tuổi.",
-        "turnIndex": 4
+        "explanationVi": "Lan nói \"my mother is a teacher.\"",
+        "turnIndex": 3
       },
       {
         "kind": "detail",
-        "prompt": "Bố của Lan làm nghề gì?",
+        "prompt": "Em gái của Lan bao nhiêu tuổi?",
         "promptVi": "",
         "options": [
-          "Giáo viên",
-          "Đầu bếp",
-          "Bác sĩ"
+          "Mười tám tuổi",
+          "Hai mươi tuổi",
+          "Hai mươi hai tuổi"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Lan nói \"He's a doctor, and my mum is a teacher\": bố là bác sĩ, mẹ mới là giáo viên.",
-        "turnIndex": 9
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"She is twenty.\"",
+        "turnIndex": 7
       },
       {
         "kind": "tfn",
-        "prompt": "Lan's family is very big.",
-        "promptVi": "Gia đình Lan rất đông.",
+        "prompt": "Lan's brother has a restaurant in Hanoi.",
+        "promptVi": "Anh trai của Lan có một nhà hàng ở Hà Nội.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Lan trả lời \"Not very big\": gia đình Lan không đông lắm.",
-        "turnIndex": 3
+        "explanationVi": "Sai, vì Lan nói \"He has a restaurant in Da Nang.\"",
+        "turnIndex": 5
       }
     ],
-    "readingGuideVi": "Mỗi người trong gia đình Lan có gì?",
+    "readingGuideVi": "Trong ảnh có những ai, họ tên là gì và làm nghề gì?",
     "grammarStep": {
-      "titleVi": "Have / has (có)",
+      "titleVi": "Tính từ sở hữu: my, his, her, their",
       "noticing": [
         {
-          "sentence": "My parents have three children: two daughters and one son.",
+          "sentence": "His name is Tuan, and he is a doctor.",
           "highlights": [
-            "have"
+            "His"
           ]
         },
         {
-          "sentence": "He has a small blue car.",
+          "sentence": "Her name is Hoa, and she is a teacher.",
           "highlights": [
-            "has"
+            "Her"
           ]
         },
         {
-          "sentence": "We have a cat too.",
+          "sentence": "I am their first daughter.\"",
           "highlights": [
-            "have"
+            "their"
           ]
         },
         {
-          "sentence": "She has long hair and a big smile.",
+          "sentence": "He has a small restaurant in Da Nang, and his food is very good.\"",
           "highlights": [
-            "has"
+            "his"
           ]
         }
       ],
-      "questionVi": "Vì sao có câu dùng have, có câu dùng has?",
+      "questionVi": "Vì sao nói về bố thì dùng his, nói về mẹ thì dùng her?",
       "options": [
-        "Vì has dùng cho đồ vật đắt tiền như ô tô",
-        "Vì he, she (một người) đi với has; we, my parents đi với have",
-        "Vì have luôn đứng ở đầu câu"
+        "His dùng cho đàn ông, con trai; her dùng cho phụ nữ, con gái",
+        "His dùng cho người lớn tuổi, her dùng cho người trẻ",
+        "His dùng ở đầu câu, her dùng ở giữa câu"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Have / has đổi theo chủ ngữ: he, she, it và một người đi với has; I, you, we, they và nhiều người đi với have.",
-      "whenVi": "Dùng have / has để nói ai có người thân, đồ vật, con vật hay đặc điểm gì (tóc dài, mắt xanh).",
+      "answerIndex": 0,
+      "explanationVi": "Bố Tuấn và anh Nam là đàn ông (he) nên dùng his; mẹ Hoa là phụ nữ (she) nên dùng her. Bố mẹ là hai người (they) nên dùng their.",
+      "whenVi": "Dùng my, your, his, her, our, their trước danh từ để nói người hay vật đó thuộc về ai.",
       "table": [
         {
-          "subject": "I / you / we / they",
-          "form": "have: We have a cat.",
-          "negative": "—"
+          "subject": "I / you",
+          "form": "my / your: my father, your sister",
+          "negative": "This isn't my phone."
         },
         {
           "subject": "he / she / it",
-          "form": "has: She has long hair.",
-          "negative": "—"
+          "form": "his / her / its: his food, her name",
+          "negative": "Her name isn't Mai."
+        },
+        {
+          "subject": "we / they",
+          "form": "our / their: our office, their daughter",
+          "negative": "It isn't their house."
         }
       ],
       "mistakes": [
         {
-          "wrong": "My father have a car.",
-          "right": "My father has a car."
+          "wrong": "My father is a doctor. Her name is Tuan.",
+          "right": "My father is a doctor. His name is Tuan."
         },
         {
-          "wrong": "I has one sister.",
-          "right": "I have one sister."
+          "wrong": "This is family my.",
+          "right": "This is my family."
         }
       ],
-      "noteVi": "Tiếng Việt chỉ có một chữ \"có\" cho mọi người, nên người Việt hay dùng have cho he, she hoặc dùng has cho I.",
+      "noteVi": "Tiếng Việt nói \"gia đình của tôi\", từ chỉ người sở hữu đứng sau, và \"anh ấy\", \"chị ấy\" đều có thể dịch là \"của bạn ấy\", nên người Việt hay đặt my sau danh từ hoặc nhầm his với her.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền have hoặc has vào chỗ trống.",
-          "text": "My sister Mai ___ long hair.",
+          "promptVi": "Điền his hoặc her vào chỗ trống.",
+          "text": "This woman is my mother. ___ name is Hoa.",
           "answers": [
-            "has"
+            "Her"
           ],
-          "explanationVi": "\"My sister Mai\" là một người (she), nên dùng has."
+          "explanationVi": "My mother là phụ nữ (she), nên dùng her."
         },
         {
           "kind": "choice",
           "promptVi": "Chọn từ đúng.",
-          "text": "My parents ___ three children.",
+          "text": "My brother is a cook. ___ food is very good.",
           "options": [
-            "has",
-            "have",
-            "is",
-            "are"
+            "Her",
+            "His",
+            "Their",
+            "My"
           ],
           "answerIndex": 1,
-          "explanationVi": "\"My parents\" là hai người (they), nên dùng have."
+          "explanationVi": "My brother là đàn ông (he), nên dùng his."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "My father have a small blue car.",
-          "sentence": "My father has a small blue car.",
-          "explanationVi": "\"My father\" là một người (he), nên dùng has, không dùng have."
+          "text": "My parents have two daughters. I am her first daughter.",
+          "sentence": "My parents have two daughters. I am their first daughter.",
+          "explanationVi": "My parents là hai người (they), nên dùng their."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Chúng tôi có một con mèo.",
-          "sentence": "We have a cat.",
+          "text": "Đây là gia đình của tôi.",
+          "sentence": "This is my family.",
           "words": [
-            "cat",
-            "have",
-            "We",
-            "a",
-            "has"
+            "family",
+            "This",
+            "my",
+            "is",
+            "me"
           ],
-          "explanationVi": "Chủ ngữ we đi với have; has dùng cho he, she, it nên bị thừa."
+          "explanationVi": "My đứng trước danh từ family; từ \"me\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "She has long hair and a big smile.",
-        "tipVi": "Smile /smaɪl/ kết thúc bằng âm /l/: cong lưỡi chạm lợi trên ở cuối từ, đừng bỏ âm này."
+        "text": "My parents have one son and two daughters.",
+        "tipVi": "Parents /ˈperənts/ nhấn âm đầu, cuối có cụm /nts/; daughters /ˈdɔːtərz/ không đọc chữ \"gh\"."
       },
       {
-        "text": "My parents have three children.",
-        "tipVi": "Three /θriː/ bắt đầu bằng âm /θ/: đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi, đừng đọc thành /t/ hay /s/."
+        "text": "His name is Tuan, and he is a doctor.",
+        "tipVi": "Doctor /ˈdɑːktər/ nhấn âm đầu; his /hɪz/ kết thúc bằng /z/."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Is your family big or small?",
-        "questionVi": "Gia đình bạn đông hay ít người?",
-        "frame": "My family is ___. I have ___."
-      },
-      {
         "question": "Who is in your family?",
         "questionVi": "Gia đình bạn có những ai?",
-        "frame": "I have ___, ___ and ___."
+        "frame": "My family has ___ people: my ___, my ___ and me."
       },
       {
-        "question": "Who is one person in your family? What is he or she like?",
-        "questionVi": "Hãy kể về một người trong gia đình bạn. Người đó thế nào?",
-        "frame": "My ___ is ___. He / She has ___."
+        "question": "What is your father's job?",
+        "questionVi": "Bố bạn làm nghề gì?",
+        "frame": "My father is a ___. His name is ___."
+      },
+      {
+        "question": "What is your mother's name?",
+        "questionVi": "Mẹ bạn tên là gì?",
+        "frame": "Her name is ___. She is a ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng has để nói về một người khác (he / she …)",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng his / her / their nói về người trong gia đình",
       "anyOf": [
-        "has",
-        "he has",
-        "she has",
-        "my father has",
-        "my mother has",
-        "my brother has"
+        "his",
+        "her",
+        "their",
+        "has"
       ],
       "outlineVi": [
-        "Nói gia đình bạn có những ai.",
-        "Nói bố, mẹ làm nghề gì và có gì.",
-        "Nói anh chị em của bạn có gì."
+        "Giới thiệu tấm ảnh: This is my family.",
+        "Nói về bố mẹ: tên và nghề nghiệp (His name is …, her name is …).",
+        "Nói về anh chị em của bạn (I have …, he has …)."
       ],
-      "modelAnswer": "I have a small family. My parents have two children: one son and one daughter. I am the daughter. My brother is twelve, and he has a lot of games. My father is a driver, and he has a big car. My mother has a small shop near our house."
+      "modelAnswer": "This is a photo of my family. This man is my father. His name is Long, and he is a driver. This woman is my mother. Her name is Lien. She is a nurse. I have one brother. His name is Khoa, and he is a student. We have a small house in Can Tho."
     }
   },
   "glosses": [
     {
-      "text": "fourteen",
-      "lemma": "fourteen",
-      "meaningVi": "mười bốn",
+      "text": "lunch time",
+      "lemma": "lunch time",
+      "meaningVi": "giờ ăn trưa",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "It is lunch time at the office",
+      "phraseVi": "Đang là giờ ăn trưa ở văn phòng"
+    },
+    {
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "at the office",
+      "phraseVi": "ở văn phòng"
+    },
+    {
+      "text": "photo",
+      "lemma": "photo",
+      "meaningVi": "tấm ảnh",
       "sentenceIndex": 2,
-      "pos": "number",
-      "phrase": "I am fourteen",
-      "phraseVi": "Mình mười bốn tuổi"
-    },
-    {
-      "text": "flat",
-      "lemma": "flat",
-      "meaningVi": "căn hộ",
-      "sentenceIndex": 3,
       "pos": "noun",
-      "phrase": "a small flat",
-      "phraseVi": "một căn hộ nhỏ"
-    },
-    {
-      "text": "park",
-      "lemma": "park",
-      "meaningVi": "công viên",
-      "sentenceIndex": 3,
-      "pos": "noun",
-      "phrase": "near a big park",
-      "phraseVi": "gần một công viên lớn"
-    },
-    {
-      "text": "parents",
-      "lemma": "parents",
-      "meaningVi": "bố mẹ",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "My parents have three children",
-      "phraseVi": "Bố mẹ mình có ba người con"
-    },
-    {
-      "text": "children",
-      "lemma": "child",
-      "meaningVi": "con, trẻ em (số nhiều)",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "three children",
-      "phraseVi": "ba người con"
-    },
-    {
-      "text": "daughters",
-      "lemma": "daughter",
-      "meaningVi": "con gái",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "two daughters",
-      "phraseVi": "hai con gái"
-    },
-    {
-      "text": "son",
-      "lemma": "son",
-      "meaningVi": "con trai",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "one son",
-      "phraseVi": "một con trai"
-    },
-    {
-      "text": "brother",
-      "lemma": "brother",
-      "meaningVi": "anh trai, em trai",
-      "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "one brother",
-      "phraseVi": "một anh trai"
-    },
-    {
-      "text": "sister",
-      "lemma": "sister",
-      "meaningVi": "chị gái, em gái",
-      "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "one sister",
-      "phraseVi": "một em gái"
-    },
-    {
-      "text": "a lot of",
-      "lemma": "a lot of",
-      "meaningVi": "rất nhiều",
-      "sentenceIndex": 7,
-      "pos": "phrase",
-      "phrase": "a lot of friends",
-      "phraseVi": "rất nhiều bạn"
-    },
-    {
-      "text": "hair",
-      "lemma": "hair",
-      "meaningVi": "tóc",
-      "sentenceIndex": 9,
-      "pos": "noun",
-      "phrase": "long hair",
-      "phraseVi": "tóc dài"
-    },
-    {
-      "text": "smile",
-      "lemma": "smile",
-      "meaningVi": "nụ cười",
-      "sentenceIndex": 9,
-      "pos": "noun",
-      "phrase": "a big smile",
-      "phraseVi": "nụ cười thật tươi"
-    },
-    {
-      "text": "father",
-      "lemma": "father",
-      "meaningVi": "bố",
-      "sentenceIndex": 10,
-      "pos": "noun",
-      "phrase": "My father is a doctor",
-      "phraseVi": "Bố mình là bác sĩ"
+      "phrase": "a new photo on her phone",
+      "phraseVi": "một tấm ảnh mới trong điện thoại"
     },
     {
       "text": "doctor",
       "lemma": "doctor",
       "meaningVi": "bác sĩ",
-      "sentenceIndex": 10,
+      "sentenceIndex": 5,
       "pos": "noun",
-      "phrase": "a doctor",
-      "phraseVi": "bác sĩ"
+      "phrase": "he is a doctor",
+      "phraseVi": "bố là bác sĩ"
     },
     {
-      "text": "car",
-      "lemma": "car",
-      "meaningVi": "ô tô",
-      "sentenceIndex": 11,
-      "pos": "noun",
-      "phrase": "a small blue car",
-      "phraseVi": "một chiếc ô tô nhỏ màu xanh dương"
-    },
-    {
-      "text": "mother",
-      "lemma": "mother",
-      "meaningVi": "mẹ",
+      "text": "cook",
+      "lemma": "cook",
+      "meaningVi": "đầu bếp",
       "sentenceIndex": 12,
       "pos": "noun",
-      "phrase": "My mother is a teacher",
-      "phraseVi": "Mẹ mình là giáo viên"
+      "phrase": "He is a cook",
+      "phraseVi": "Anh ấy là đầu bếp"
     },
     {
-      "text": "reads",
-      "lemma": "read",
-      "meaningVi": "đọc",
+      "text": "restaurant",
+      "lemma": "restaurant",
+      "meaningVi": "nhà hàng",
       "sentenceIndex": 13,
-      "pos": "verb",
-      "phrase": "she reads every evening",
-      "phraseVi": "tối nào mẹ cũng đọc sách"
-    },
-    {
-      "text": "eyes",
-      "lemma": "eye",
-      "meaningVi": "mắt",
-      "sentenceIndex": 15,
       "pos": "noun",
-      "phrase": "green eyes",
-      "phraseVi": "đôi mắt màu xanh lá"
+      "phrase": "a small restaurant in Da Nang",
+      "phraseVi": "một nhà hàng nhỏ ở Đà Nẵng"
     },
     {
-      "text": "grandparents",
-      "lemma": "grandparents",
-      "meaningVi": "ông bà",
-      "sentenceIndex": 16,
-      "pos": "noun",
-      "phrase": "My grandparents aren't in Hanoi",
-      "phraseVi": "Ông bà mình không ở Hà Nội"
-    },
-    {
-      "text": "together",
-      "lemma": "together",
-      "meaningVi": "cùng nhau",
-      "sentenceIndex": 18,
-      "pos": "adverb",
-      "phrase": "we are happy together",
-      "phraseVi": "cả nhà sống bên nhau rất vui"
+      "text": "a lot of",
+      "lemma": "a lot of",
+      "meaningVi": "nhiều",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "she has a lot of friends there",
+      "phraseVi": "ở đó em ấy có nhiều bạn"
     }
   ]
 }

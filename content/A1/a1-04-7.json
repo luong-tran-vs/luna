@@ -1,0 +1,608 @@
+{
+  "content": "Tuan is a student, and he reads a lot. His old glasses are not good now, so today he is in a glasses store near his school.\n\nThese black glasses in front of him are nice. He puts them on. \"These glasses are good for my face,\" he says.\n\nHe asks Mrs Thanh, the woman in the store, \"What is the price of these black glasses?\"\n\n\"They are 900,000 dong,\" Mrs Thanh answers.\n\nThen Tuan looks at the top shelf. \"And those grey glasses up there?\" he asks.\n\n\"Those new grey glasses are 1,500,000 dong,\" she says.\n\nThose glasses are expensive, and Tuan isn't rich. That is a lot of money for a student! So he buys these black glasses. He pays 900,000 dong, and now he reads very well.",
+  "targetWords": [
+    "store",
+    "price",
+    "look",
+    "new",
+    "expensive",
+    "money",
+    "buy",
+    "pay"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "store",
+        "lemma": "store",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá tiền",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "looks",
+        "lemma": "look",
+        "meaningVi": "nhìn",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "new",
+        "lemma": "new",
+        "meaningVi": "mới",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "money",
+        "lemma": "money",
+        "meaningVi": "tiền",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "buys",
+        "lemma": "buy",
+        "meaningVi": "mua",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "pays",
+        "lemma": "pay",
+        "meaningVi": "trả tiền",
+        "pos": "verb",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Tuan buys new glasses",
+          "Tuan's school",
+          "Mrs Thanh's family",
+          "A book for Tuan"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn đến cửa hàng kính gần trường, thử cặp kính đen, hỏi giá cặp kính xám rồi mua cặp kính đen."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much are the black glasses?",
+        "promptVi": "Cặp kính đen giá bao nhiêu?",
+        "options": [
+          "900,000 dong",
+          "1,500,000 dong",
+          "500,000 dong",
+          "1,000,000 dong"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô Thanh nói \"They are 900,000 dong\" khi Tuấn hỏi giá cặp kính đen."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the grey glasses?",
+        "promptVi": "Cặp kính màu xám ở đâu?",
+        "options": [
+          "In front of Tuan",
+          "On the top shelf",
+          "In Tuan's bag",
+          "On the table"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tuấn nhìn lên kệ trên cùng và hỏi \"those grey glasses up there\" (cặp kính xám trên kia)."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan buys the grey glasses.",
+        "promptVi": "Tuấn mua cặp kính màu xám.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, kính xám đắt, Tuấn mua \"these black glasses\" (cặp kính đen này)."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"money\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "That is a lot of money for a student!",
+        "options": [
+          "tiền",
+          "thời gian",
+          "học sinh",
+          "cửa hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Money là tiền: 1.500.000 đồng là nhiều tiền đối với một học sinh."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "This (cái này) và that (cái kia) đi với danh từ số ít; these (những cái này) và those (những cái kia) đi với danh từ số nhiều. Glasses (cặp kính) luôn là số nhiều trong tiếng Anh, giống shoes: these glasses are, those glasses are. Đồ ở ngay trước mặt dùng these; đồ ở xa (kệ trên cùng, trên kia) dùng those.",
+      "examples": [
+        "These black glasses in front of him are nice.",
+        "\"And those grey glasses up there?\" he asks.",
+        "That is a lot of money for a student!"
+      ]
+    },
+    "writingPrompt": "You are in a glasses store. Write about the glasses in front of you and the glasses up on the shelf, their prices, and what you buy.",
+    "sentenceTranslations": [
+      "Tuấn là học sinh, và cậu ấy đọc sách rất nhiều.",
+      "Cặp kính cũ của cậu ấy giờ không còn tốt nữa, nên hôm nay cậu ấy đến một cửa hàng kính gần trường.",
+      "Cặp kính đen ngay trước mặt cậu ấy này đẹp.",
+      "Cậu ấy đeo thử vào.",
+      "\"Cặp kính này hợp với mặt cháu,\" cậu ấy nói.",
+      "Cậu ấy hỏi cô Thanh, người phụ nữ trong cửa hàng: \"Cặp kính đen này giá bao nhiêu ạ?\"",
+      "\"Cặp đó giá 900.000 đồng,\" cô Thanh trả lời.",
+      "Rồi Tuấn nhìn lên kệ trên cùng.",
+      "\"Còn cặp kính màu xám trên kia thì sao ạ?\" cậu ấy hỏi.",
+      "\"Cặp kính xám mới kia giá 1.500.000 đồng,\" cô ấy nói.",
+      "Cặp kính đó đắt, mà Tuấn lại không giàu.",
+      "Đó là nhiều tiền đối với một học sinh!",
+      "Vậy nên cậu ấy mua cặp kính đen này.",
+      "Cậu ấy trả 900.000 đồng, và giờ cậu ấy đọc rất rõ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về món đồ ngay trước mặt (these) và hỏi giá món đồ ở xa (those) trong cửa hàng kính.",
+    "examples": [
+      {
+        "lemma": "store",
+        "sentence": "That store is near my school.",
+        "meaningVi": "Cửa hàng kia ở gần trường mình."
+      },
+      {
+        "lemma": "price",
+        "sentence": "The price of these glasses is good.",
+        "meaningVi": "Giá của cặp kính này tốt."
+      },
+      {
+        "lemma": "look",
+        "sentence": "Look at those red glasses!",
+        "meaningVi": "Nhìn cặp kính đỏ kia kìa!"
+      },
+      {
+        "lemma": "new",
+        "sentence": "My glasses are new.",
+        "meaningVi": "Kính của mình là kính mới."
+      },
+      {
+        "lemma": "expensive",
+        "sentence": "These glasses are expensive.",
+        "meaningVi": "Cặp kính này đắt."
+      },
+      {
+        "lemma": "money",
+        "sentence": "I have a little money in my bag.",
+        "meaningVi": "Mình có một ít tiền trong túi."
+      },
+      {
+        "lemma": "buy",
+        "sentence": "I want to buy new glasses.",
+        "meaningVi": "Mình muốn mua kính mới."
+      },
+      {
+        "lemma": "pay",
+        "sentence": "Please pay here.",
+        "meaningVi": "Vui lòng trả tiền ở đây."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khoa",
+        "Tuan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tuan, are those new glasses?",
+          "meaningVi": "Tuấn ơi, đó là kính mới à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they are. They are from a store near our school.",
+          "meaningVi": "Ừ. Mình mua ở một cửa hàng gần trường mình đấy."
+        },
+        {
+          "speaker": 0,
+          "text": "They are nice! Are they expensive?",
+          "meaningVi": "Đẹp đấy! Có đắt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they aren't very expensive. They are 900,000 dong.",
+          "meaningVi": "Không đắt lắm. 900.000 đồng thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "My glasses are very old. What is the name of that store?",
+          "meaningVi": "Kính của mình cũ lắm rồi. Cửa hàng đó tên là gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's Thanh Glasses. It's on Hai Ba Trung Street.",
+          "meaningVi": "Tên là Thanh Glasses. Nó ở trên đường Hai Bà Trưng."
+        },
+        {
+          "speaker": 0,
+          "text": "Are there a lot of glasses in that store?",
+          "meaningVi": "Cửa hàng đó có nhiều kính không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there are. Black, grey, red and blue glasses!",
+          "meaningVi": "Có chứ. Kính đen, xám, đỏ và xanh dương!"
+        },
+        {
+          "speaker": 0,
+          "text": "Great! I want some new glasses too.",
+          "meaningVi": "Tuyệt! Mình cũng muốn mua kính mới."
+        }
+      ]
+    },
+    "grammarTipVi": "Glasses luôn là số nhiều: these glasses are, those glasses are. Không nói \"this glasses\" hay \"these glasses is\".",
+    "translations": [
+      {
+        "vi": "Cặp kính này đắt.",
+        "en": "These glasses are expensive.",
+        "distractors": [
+          "This",
+          "is",
+          "Those"
+        ]
+      },
+      {
+        "vi": "Cặp kính màu xám kia là hàng mới.",
+        "en": "Those grey glasses are new.",
+        "distractors": [
+          "That",
+          "is",
+          "These"
+        ]
+      },
+      {
+        "vi": "Cặp kính đen này giá bao nhiêu?",
+        "en": "What is the price of these black glasses?",
+        "distractors": [
+          "this",
+          "are",
+          "those"
+        ]
+      },
+      {
+        "vi": "Đó là nhiều tiền đối với một học sinh.",
+        "en": "That is a lot of money for a student.",
+        "distractors": [
+          "Those",
+          "are",
+          "students"
+        ]
+      },
+      {
+        "vi": "Cậu ấy mua cặp kính đen này.",
+        "en": "He buys these black glasses.",
+        "distractors": [
+          "His",
+          "this",
+          "buying"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hai bạn nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cặp kính mới của Tuấn",
+          "Trường học",
+          "Một cửa hàng giày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa hỏi \"are those new glasses?\" và hai bạn nói về giá và cửa hàng kính.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Kính của Tuấn giá bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "900.000 đồng",
+          "1.500.000 đồng",
+          "500.000 đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói \"They are 900,000 dong\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cửa hàng kính ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên đường Hai Bà Trưng",
+          "Trên đường Lê Lợi",
+          "Trên đường Trần Phú"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói \"It's on Hai Ba Trung Street\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa's glasses are new.",
+        "promptVi": "Kính của Khoa là kính mới.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Khoa nói \"My glasses are very old\" (kính của mình cũ lắm rồi).",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Tuấn thử cặp kính nào, hỏi giá cặp nào, và cuối cùng mua cặp nào?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "These black glasses in front of him are nice.",
+          "highlights": [
+            "These black glasses"
+          ]
+        },
+        {
+          "sentence": "\"And those grey glasses up there?\" he asks.",
+          "highlights": [
+            "those grey glasses"
+          ]
+        },
+        {
+          "sentence": "That is a lot of money for a student!",
+          "highlights": [
+            "That"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết nói these black glasses nhưng lại nói those grey glasses?",
+      "options": [
+        "Vì kính đen rẻ hơn",
+        "Vì cặp kính đen ở ngay trước mặt Tuấn (gần), còn cặp kính xám ở trên kệ trên cùng (xa)",
+        "Vì these chỉ dùng cho màu đen"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Glasses là số nhiều, nên dùng these (gần) hoặc those (xa). Cặp kính trước mặt là these black glasses; cặp trên kệ cao là those grey glasses. That đứng một mình chỉ một điều vừa nói (giá 1.500.000 đồng).",
+      "whenVi": "Dùng these cho đồ số nhiều ở gần (trước mặt, trên tay) và those cho đồ số nhiều ở xa (kệ trên cùng, trên kia).",
+      "table": [
+        {
+          "subject": "this + số ít (gần)",
+          "form": "This shelf is high.",
+          "negative": "This shelf isn't high."
+        },
+        {
+          "subject": "these + số nhiều (gần)",
+          "form": "These glasses are black.",
+          "negative": "These glasses aren't grey."
+        },
+        {
+          "subject": "that / those (xa)",
+          "form": "That store is new. Those glasses are grey.",
+          "negative": "Those glasses aren't black."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "This glasses are nice.",
+          "right": "These glasses are nice."
+        },
+        {
+          "wrong": "Those glasses is expensive.",
+          "right": "Those glasses are expensive."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"cặp kính này\" (một cặp), nhưng tiếng Anh coi glasses là số nhiều: these glasses, those glasses, và luôn đi với are.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền these hoặc those vào chỗ trống (cặp kính bạn đang đeo thử).",
+          "text": "___ glasses are good for my face.",
+          "answers": [
+            "These"
+          ],
+          "explanationVi": "Glasses là số nhiều và ở gần (đang đeo), nên dùng These."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng (cặp kính trên kệ cao).",
+          "text": "How much are ___ glasses up there?",
+          "options": [
+            "this",
+            "that",
+            "these",
+            "those"
+          ],
+          "answerIndex": 3,
+          "explanationVi": "Glasses là số nhiều và ở xa (up there), nên dùng those."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "That glasses are new.",
+          "sentence": "Those glasses are new.",
+          "explanationVi": "Glasses là số nhiều, nên phải dùng those, không dùng that."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cặp kính màu xám kia đắt.",
+          "sentence": "Those grey glasses are expensive.",
+          "words": [
+            "are",
+            "grey",
+            "expensive",
+            "Those",
+            "glasses",
+            "is"
+          ],
+          "explanationVi": "Glasses là số nhiều nên đi với those và are; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "These black glasses in front of him are nice.",
+        "tipVi": "Glasses /ˈɡlɑːsɪz/ có hai âm tiết \"gla-xiz\", nhấn âm đầu; these /ðiːz/ đặt lưỡi giữa hai răng."
+      },
+      {
+        "text": "That is a lot of money for a student!",
+        "tipVi": "Money /ˈmʌni/ đọc như \"ma-ni\"; student /ˈstjuːdənt/ nhấn âm đầu \"stu\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Are your glasses new or old?",
+        "questionVi": "Kính của bạn mới hay cũ? (Nếu không đeo kính, nói về kính của một người thân.)",
+        "frame": "My glasses are ___."
+      },
+      {
+        "question": "What colour are your glasses?",
+        "questionVi": "Kính của bạn màu gì?",
+        "frame": "My glasses are ___."
+      },
+      {
+        "question": "Is there a glasses store near your home?",
+        "questionVi": "Gần nhà bạn có cửa hàng kính không?",
+        "frame": "Yes, there is. / No, there isn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "anyOf": [
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói bạn đang ở cửa hàng kính nào.",
+        "Tả cặp kính trước mặt bạn (these glasses): màu, giá.",
+        "Tả cặp kính ở trên kệ (those glasses) và giá, rồi nói bạn mua cặp nào."
+      ],
+      "modelAnswer": "I am in a glasses store near my home. These red glasses in front of me are nice, and they are 700,000 dong. Those blue glasses on the top shelf are new, but they are expensive. I buy these red glasses."
+    }
+  },
+  "glosses": [
+    {
+      "text": "student",
+      "lemma": "student",
+      "meaningVi": "học sinh",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Tuan is a student",
+      "phraseVi": "Tuấn là học sinh"
+    },
+    {
+      "text": "reads",
+      "lemma": "read",
+      "meaningVi": "đọc (sách)",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "he reads a lot",
+      "phraseVi": "cậu ấy đọc sách rất nhiều"
+    },
+    {
+      "text": "glasses",
+      "lemma": "glasses",
+      "meaningVi": "cặp kính, kính đeo mắt",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "His old glasses",
+      "phraseVi": "Cặp kính cũ của cậu ấy"
+    },
+    {
+      "text": "school",
+      "lemma": "school",
+      "meaningVi": "trường học",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "near his school",
+      "phraseVi": "gần trường"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ở phía trước",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "in front of him",
+      "phraseVi": "ngay trước mặt cậu ấy"
+    },
+    {
+      "text": "puts them on",
+      "lemma": "put on",
+      "meaningVi": "đeo vào, mặc vào",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "He puts them on.",
+      "phraseVi": "Cậu ấy đeo thử vào."
+    },
+    {
+      "text": "face",
+      "lemma": "face",
+      "meaningVi": "khuôn mặt",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "good for my face",
+      "phraseVi": "hợp với mặt cháu"
+    },
+    {
+      "text": "top",
+      "lemma": "top",
+      "meaningVi": "trên cùng",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "the top shelf",
+      "phraseVi": "kệ trên cùng"
+    },
+    {
+      "text": "up there",
+      "lemma": "up there",
+      "meaningVi": "trên kia",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "those grey glasses up there",
+      "phraseVi": "cặp kính xám trên kia"
+    },
+    {
+      "text": "grey",
+      "lemma": "grey",
+      "meaningVi": "màu xám",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "those grey glasses",
+      "phraseVi": "cặp kính màu xám kia"
+    },
+    {
+      "text": "rich",
+      "lemma": "rich",
+      "meaningVi": "giàu",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "Tuan isn't rich",
+      "phraseVi": "Tuấn không giàu"
+    }
+  ]
+}

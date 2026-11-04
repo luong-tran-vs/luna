@@ -1,594 +1,596 @@
 {
-  "content": "On Sunday, Minh, my little sister Mai and I visit Uncle Hai's farm near Hue. Uncle Hai and Aunt Hoa have a lot of animals.\n\nThere are ten cows, five pigs and twenty chickens. The cows eat grass all day, and they give milk. The chickens can't fly very high, but they can run fast! Every morning, Aunt Hoa gets a lot of eggs from them.\n\nUncle Hai also has two horses and three sheep. \"Can we ride the horses?\" asks Minh.\n\"Yes, you can, but only the small horse,\" says Uncle Hai.\n\nMai loves the baby pigs, but she can't touch them, because they run away. Little Bo is two, and he can say \"moo\" like a cow!\n\nIn the evening, we drink milk from the farm and eat eggs for dinner. I love the farm!",
+  "content": "Lan works in a bank in Da Nang. On Friday, her friends from work want to go to Star Karaoke after work. They love going there because they can sing together. \"Do you want to come, Lan?\" asks Thu.\n\nLan likes listening to music, but she doesn't want to go. The rooms there are small, and she can't sing well. Lan loves listening to a band from England. She listens to their songs on the bus every day. \"I love my band, but I can't sing their songs,\" she says.\n\nQuang laughs. \"You can sing with us, or you can listen to us.\" \"Come with us, Lan,\" Thu says. \"We can sing pop songs, and you can choose a song by your band.\"\n\nIn the end, Lan says yes. At Star Karaoke, Thu and Quang sing pop songs. Then Lan sings her favorite song, and her friends love it!",
   "targetWords": [
-    "farm",
-    "cow",
-    "pig",
-    "chicken",
-    "grass",
-    "egg",
-    "horse",
-    "sheep"
+    "music",
+    "song",
+    "sing",
+    "band",
+    "room",
+    "listen to",
+    "choose",
+    "pop"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "farm",
-        "lemma": "farm",
-        "meaningVi": "trang trại",
-        "pos": "noun",
-        "sentenceIndex": 0
-      },
-      {
-        "text": "cows",
-        "lemma": "cow",
-        "meaningVi": "con bò",
-        "pos": "noun",
+        "text": "sing",
+        "lemma": "sing",
+        "meaningVi": "hát",
+        "pos": "verb",
         "sentenceIndex": 2
       },
       {
-        "text": "pigs",
-        "lemma": "pig",
-        "meaningVi": "con lợn, con heo",
+        "text": "music",
+        "lemma": "music",
+        "meaningVi": "âm nhạc, nhạc",
         "pos": "noun",
-        "sentenceIndex": 2
+        "sentenceIndex": 4
       },
       {
-        "text": "chickens",
-        "lemma": "chicken",
-        "meaningVi": "con gà",
-        "pos": "noun",
-        "sentenceIndex": 2
-      },
-      {
-        "text": "grass",
-        "lemma": "grass",
-        "meaningVi": "cỏ",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "eggs",
-        "lemma": "egg",
-        "meaningVi": "quả trứng",
+        "text": "rooms",
+        "lemma": "room",
+        "meaningVi": "phòng",
         "pos": "noun",
         "sentenceIndex": 5
       },
       {
-        "text": "horses",
-        "lemma": "horse",
-        "meaningVi": "con ngựa",
+        "text": "band",
+        "lemma": "band",
+        "meaningVi": "ban nhạc",
         "pos": "noun",
         "sentenceIndex": 6
       },
       {
-        "text": "sheep",
-        "lemma": "sheep",
-        "meaningVi": "con cừu",
+        "text": "song",
+        "lemma": "song",
+        "meaningVi": "bài hát",
         "pos": "noun",
-        "sentenceIndex": 6
+        "sentenceIndex": 12
+      },
+      {
+        "text": "listen to",
+        "lemma": "listen to",
+        "meaningVi": "nghe, lắng nghe",
+        "pos": "phrase",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "pop",
+        "lemma": "pop",
+        "meaningVi": "(nhạc) pop",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "choose",
+        "lemma": "choose",
+        "meaningVi": "chọn",
+        "pos": "verb",
+        "sentenceIndex": 12
       }
     ],
     "questions": [
       {
         "kind": "gist",
         "prompt": "What is the story about?",
-        "promptVi": "Câu chuyện nói về điều gì?",
+        "promptVi": "Bài đọc nói về điều gì?",
         "options": [
-          "A trip to the zoo",
-          "A day at Uncle Hai's farm",
-          "Aunt Hoa and her food",
-          "A big horse show"
+          "Lan and her friends from work go to sing after work",
+          "Lan buys a new phone",
+          "Lan plays in a band",
+          "Lan goes to England"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài kể về Lan: bạn cùng chỗ làm rủ cô đi hát ở Star Karaoke sau giờ làm, lúc đầu cô không muốn đi nhưng cuối cùng lại đi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Lan want to go?",
+        "promptVi": "Vì sao lúc đầu Lan không muốn đi?",
+        "options": [
+          "She doesn't like music.",
+          "The rooms are small, and she can't sing well.",
+          "She has to work on Friday night.",
+          "Her friends don't like her band."
         ],
         "answerIndex": 1,
-        "explanationVi": "Lan, Mai và Minh đến trang trại của chú Hai gần Huế, xem các con vật và chúng làm được gì."
+        "explanationVi": "Bài viết \"The rooms there are small, and she can't sing well.\""
       },
       {
         "kind": "detail",
-        "prompt": "How many chickens are there on the farm?",
-        "promptVi": "Trang trại có bao nhiêu con gà?",
+        "prompt": "When does Lan listen to her band?",
+        "promptVi": "Lan nghe ban nhạc của mình khi nào?",
         "options": [
-          "Five",
-          "Ten",
-          "Twenty",
-          "Three"
+          "At work",
+          "On the bus every day",
+          "At night in bed",
+          "On Sunday"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Bài viết \"There are ten cows, five pigs and twenty chickens\": có hai mươi con gà."
-      },
-      {
-        "kind": "detail",
-        "prompt": "Why can't Mai touch the baby pigs?",
-        "promptVi": "Vì sao Mai không chạm vào được mấy con lợn con?",
-        "options": [
-          "They are very big.",
-          "Uncle Hai says no.",
-          "She doesn't like them.",
-          "They run away."
-        ],
-        "answerIndex": 3,
-        "explanationVi": "Bài viết \"she can't touch them, because they run away\": lợn con chạy mất nên Mai không chạm vào được."
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She listens to their songs on the bus every day.\""
       },
       {
         "kind": "tfn",
-        "prompt": "The children can ride the big horse.",
-        "promptVi": "Các bạn nhỏ được cưỡi con ngựa lớn.",
+        "prompt": "Lan's friends love her song.",
+        "promptVi": "Các bạn của Lan rất thích bài cô hát.",
         "options": [],
-        "answerIndex": 1,
-        "explanationVi": "Sai, vì chú Hai nói \"Yes, you can, but only the small horse\": chỉ được cưỡi con ngựa nhỏ."
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"Then Lan sings her favorite song, and her friends love it!\""
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"sheep\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"choose\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "Uncle Hai also has two horses and three sheep.",
+        "quote": "\"We can sing pop songs, and you can choose a song by your band.\"",
         "options": [
-          "con cừu",
-          "con dê",
-          "con bò",
-          "con ngựa"
+          "chọn",
+          "mua",
+          "viết",
+          "quên"
         ],
         "answerIndex": 0,
-        "explanationVi": "Sheep là con cừu. Sheep giữ nguyên ở số nhiều: one sheep, three sheep (không nói \"sheeps\")."
+        "explanationVi": "Choose là chọn: Lan có thể chọn một bài của ban nhạc cô thích."
       }
     ],
     "grammarNote": {
-      "title": "Can / can't (khả năng)",
-      "bodyVi": "Can + động từ nói ai, con vật nào làm được gì: they can run fast, Bo can say \"moo\". Can't nói không làm được: the chickens can't fly very high. Can còn dùng để xin phép: Can we ride the horses? Trả lời: Yes, you can. / No, you can't.",
+      "title": "Like / love + danh từ hoặc V-ing, và các từ nối and / but / or / because",
+      "bodyVi": "Nói điều mình thích: like / love + danh từ (I love my band) hoặc like / love + động từ thêm -ing (Lan loves listening to a band from England). Với he / she thì thêm -s: likes, loves. Nối hai ý bằng and (và), but (nhưng), or (hoặc), because (vì): Lan likes listening to music, but she doesn't want to go.",
       "examples": [
-        "The chickens can't fly very high, but they can run fast!",
-        "\"Yes, you can, but only the small horse,\" says Uncle Hai.",
-        "Mai loves the baby pigs, but she can't touch them, because they run away."
+        "They love going there because they can sing together.",
+        "Lan likes listening to music, but she doesn't want to go.",
+        "Lan loves listening to a band from England."
       ]
     },
-    "writingPrompt": "Write about a farm: the animals there and what they can and can't do.",
+    "writingPrompt": "Write about your favorite singer or band: when you listen to them and why you like them.",
     "sentenceTranslations": [
-      "Chủ nhật, anh Minh, em gái Mai và mình đến thăm trang trại của chú Hai gần Huế.",
-      "Chú Hai và thím Hoa nuôi rất nhiều con vật.",
-      "Có mười con bò, năm con lợn và hai mươi con gà.",
-      "Bò ăn cỏ cả ngày, và chúng cho sữa.",
-      "Gà không bay cao được, nhưng chạy rất nhanh!",
-      "Sáng nào thím Hoa cũng nhặt được rất nhiều trứng gà.",
-      "Chú Hai còn có hai con ngựa và ba con cừu.",
-      "\"Bọn cháu cưỡi ngựa được không ạ?\" anh Minh hỏi.",
-      "\"Được chứ, nhưng chỉ con ngựa nhỏ thôi,\" chú Hai nói.",
-      "Mai rất thích mấy con lợn con, nhưng em không chạm vào chúng được, vì chúng chạy mất.",
-      "Bé Bo hai tuổi, và em kêu được \"ò ó\" giống con bò!",
-      "Buổi tối, cả nhà uống sữa của trang trại và ăn trứng cho bữa tối.",
-      "Mình thích trang trại lắm!"
+      "Lan làm việc ở một ngân hàng tại Đà Nẵng.",
+      "Thứ Sáu, mấy bạn cùng chỗ làm muốn đi hát ở Star Karaoke sau giờ làm.",
+      "Họ rất thích đến đó vì họ có thể hát cùng nhau.",
+      "\"Lan có muốn đi không?\" Thu hỏi.",
+      "Lan thích nghe nhạc, nhưng cô ấy không muốn đi.",
+      "Phòng ở đó thì nhỏ, mà cô ấy lại hát không hay.",
+      "Lan rất thích nghe một ban nhạc của Anh.",
+      "Ngày nào cô ấy cũng nghe các bài hát của họ trên xe buýt.",
+      "\"Mình mê ban nhạc của mình lắm, nhưng mình không hát được bài của họ,\" cô ấy nói.",
+      "Quang cười.",
+      "\"Cậu có thể hát với bọn mình, hoặc nghe bọn mình hát cũng được.\"",
+      "\"Đi với bọn mình đi, Lan,\" Thu nói.",
+      "\"Bọn mình hát nhạc pop, còn cậu có thể chọn một bài của ban nhạc cậu thích.\"",
+      "Cuối cùng, Lan đồng ý.",
+      "Ở Star Karaoke, Thu và Quang hát nhạc pop.",
+      "Rồi Lan hát bài cô thích nhất, và các bạn cô rất thích!"
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể về các con vật ở trang trại, nói chúng làm được gì, và xin phép bằng Can we …?",
+    "objectiveVi": "Bạn có thể nói mình thích hay không thích làm gì với bạn bè sau giờ làm, dùng like / love và các từ nối and, but, or, because.",
     "examples": [
       {
-        "lemma": "farm",
-        "sentence": "The farm is near Hue.",
-        "meaningVi": "Trang trại ở gần Huế."
+        "lemma": "music",
+        "sentence": "I love music from Korea.",
+        "meaningVi": "Mình rất thích nhạc Hàn Quốc."
       },
       {
-        "lemma": "cow",
-        "sentence": "A cow gives milk.",
-        "meaningVi": "Bò cho sữa."
+        "lemma": "song",
+        "sentence": "What is your favorite song?",
+        "meaningVi": "Bài hát bạn thích nhất là bài gì?"
       },
       {
-        "lemma": "pig",
-        "sentence": "The pig is pink and fat.",
-        "meaningVi": "Con lợn màu hồng và béo."
+        "lemma": "sing",
+        "sentence": "My mother likes to sing in the kitchen.",
+        "meaningVi": "Mẹ mình thích hát trong bếp."
       },
       {
-        "lemma": "chicken",
-        "sentence": "This chicken can't fly.",
-        "meaningVi": "Con gà này không bay được."
+        "lemma": "band",
+        "sentence": "My brother plays in a band.",
+        "meaningVi": "Anh trai mình chơi trong một ban nhạc."
       },
       {
-        "lemma": "grass",
-        "sentence": "The grass is very green.",
-        "meaningVi": "Cỏ xanh lắm."
+        "lemma": "room",
+        "sentence": "This room is very small.",
+        "meaningVi": "Phòng này rất nhỏ."
       },
       {
-        "lemma": "egg",
-        "sentence": "I eat an egg for breakfast.",
-        "meaningVi": "Bữa sáng mình ăn một quả trứng."
+        "lemma": "listen to",
+        "sentence": "I listen to music every evening.",
+        "meaningVi": "Tối nào mình cũng nghe nhạc."
       },
       {
-        "lemma": "horse",
-        "sentence": "A horse can run very fast.",
-        "meaningVi": "Ngựa chạy được rất nhanh."
+        "lemma": "choose",
+        "sentence": "You can choose a song.",
+        "meaningVi": "Bạn có thể chọn một bài hát."
       },
       {
-        "lemma": "sheep",
-        "sentence": "The sheep is white.",
-        "meaningVi": "Con cừu màu trắng."
+        "lemma": "pop",
+        "sentence": "She likes pop music.",
+        "meaningVi": "Cô ấy thích nhạc pop."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Minh",
-        "Tom"
+        "Thu",
+        "Lan"
       ],
       "turns": [
         {
-          "speaker": 1,
-          "text": "Minh, are there farms near Hue?",
-          "meaningVi": "Minh ơi, gần Huế có trang trại không?"
-        },
-        {
           "speaker": 0,
-          "text": "Yes, there are. My uncle has a farm with a lot of animals.",
-          "meaningVi": "Có chứ. Chú mình có một trang trại nuôi rất nhiều con vật."
+          "text": "Lan, do you want to go to Star Karaoke tonight?",
+          "meaningVi": "Lan ơi, tối nay cậu có muốn đi Star Karaoke không?"
         },
         {
           "speaker": 1,
-          "text": "What animals does he have?",
-          "meaningVi": "Chú nuôi những con gì?"
+          "text": "I don't know. I can't sing well.",
+          "meaningVi": "Mình không biết nữa. Mình hát không hay."
         },
         {
           "speaker": 0,
-          "text": "Cows, pigs, chickens and two horses.",
-          "meaningVi": "Bò, lợn, gà và hai con ngựa."
+          "text": "That's OK! Do you like pop songs?",
+          "meaningVi": "Không sao đâu! Cậu có thích nhạc pop không?"
         },
         {
           "speaker": 1,
-          "text": "Wow! Can you ride a horse?",
-          "meaningVi": "Ồ! Cậu có cưỡi ngựa được không?"
+          "text": "Not really. I love listening to my band from England.",
+          "meaningVi": "Không lắm. Mình mê nghe ban nhạc Anh của mình cơ."
         },
         {
           "speaker": 0,
-          "text": "Yes, I can, but only a small one. Can you?",
-          "meaningVi": "Được, nhưng chỉ con nhỏ thôi. Còn cậu?"
+          "text": "Great! You can choose one of their songs.",
+          "meaningVi": "Tuyệt! Cậu có thể chọn một bài của họ."
         },
         {
           "speaker": 1,
-          "text": "No, I can't. But I can ride a bike!",
-          "meaningVi": "Không. Nhưng mình đi xe đạp được!"
+          "text": "Can you sing with me?",
+          "meaningVi": "Cậu hát cùng mình được không?"
         },
         {
           "speaker": 0,
-          "text": "Ha! Do you have animals at home?",
-          "meaningVi": "Ha! Nhà cậu có nuôi con vật nào không?"
+          "text": "Yes, of course. Quang and I can sing with you.",
+          "meaningVi": "Được chứ. Mình và Quang sẽ hát cùng cậu."
         },
         {
           "speaker": 1,
-          "text": "Only my dog Sam. He can't give us milk!",
-          "meaningVi": "Chỉ có con chó Sam thôi. Nó đâu có cho sữa được!"
-        },
-        {
-          "speaker": 0,
-          "text": "But he can catch a ball!",
-          "meaningVi": "Nhưng nó bắt được bóng mà!"
+          "text": "OK, I can come! But only for one hour, because I'm tired.",
+          "meaningVi": "Được, mình đi! Nhưng chỉ một tiếng thôi nhé, vì mình mệt."
         }
       ]
     },
-    "grammarTipVi": "Hỏi ai đó có làm được không: Can you ride a horse? Hỏi lại ngắn gọn: Can you? Trả lời: Yes, I can. / No, I can't.",
+    "grammarTipVi": "Hỏi sở thích bằng Do you like …? và trả lời: Yes, I do. / Not really. Nói lý do bằng because: I can come for one hour because I'm tired.",
     "translations": [
       {
-        "vi": "Có mười con bò và năm con lợn.",
-        "en": "There are ten cows and five pigs.",
+        "vi": "Cô ấy thích nghe nhạc trên xe buýt.",
+        "en": "She likes listening to music on the bus.",
+        "distractors": [
+          "listened",
+          "liking",
+          "car"
+        ],
+        "accepted": [
+          "On the bus she likes listening to music."
+        ]
+      },
+      {
+        "vi": "Tôi hát không hay, nhưng tôi thích âm nhạc.",
+        "en": "I can't sing well, but I like music.",
+        "distractors": [
+          "sings",
+          "because",
+          "likes"
+        ]
+      },
+      {
+        "vi": "Bạn có thể hát, hoặc nghe chúng tôi.",
+        "en": "You can sing, or you can listen to us.",
+        "distractors": [
+          "and",
+          "sings",
+          "we"
+        ],
+        "accepted": [
+          "You can sing or listen to us."
+        ]
+      },
+      {
+        "vi": "Các phòng ở đây nhỏ.",
+        "en": "The rooms here are small.",
         "distractors": [
           "is",
-          "cow",
-          "pig"
+          "big",
+          "there"
         ]
       },
       {
-        "vi": "Gà không bay cao được.",
-        "en": "The chickens can't fly very high.",
+        "vi": "Ban nhạc tôi thích nhất đến từ Anh.",
+        "en": "My favorite band is from England.",
         "distractors": [
-          "can",
-          "flies",
-          "chicken"
-        ]
-      },
-      {
-        "vi": "Chúng tôi cưỡi ngựa được không?",
-        "en": "Can we ride the horses?",
-        "distractors": [
-          "Do",
-          "Are",
-          "horse"
-        ]
-      },
-      {
-        "vi": "Bò ăn cỏ cả ngày.",
-        "en": "The cows eat grass all day.",
-        "distractors": [
-          "eats",
-          "every",
-          "cow"
+          "are",
+          "in",
+          "singer"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Minh và Tom nói chuyện về điều gì?",
+        "prompt": "Thu rủ Lan làm gì?",
         "promptVi": "",
         "options": [
-          "Trang trại của chú Minh và các con vật",
-          "Con chó của Minh",
-          "Một chuyến đi Sydney"
+          "Đi hát ở Star Karaoke tối nay",
+          "Đi ăn tối",
+          "Đi xem ban nhạc ở Anh"
         ],
         "answerIndex": 0,
-        "explanationVi": "Tom hỏi \"are there farms near Hue?\" và Minh kể về trang trại của chú mình.",
-        "turnIndex": -1
+        "explanationVi": "Thu hỏi \"do you want to go to Star Karaoke tonight?\"",
+        "turnIndex": 0
       },
       {
         "kind": "detail",
-        "prompt": "Chú của Minh có mấy con ngựa?",
+        "prompt": "Lan có thích nhạc pop không?",
         "promptVi": "",
         "options": [
-          "Một con",
-          "Hai con",
-          "Ba con"
+          "Rất thích",
+          "Không thích lắm",
+          "Chỉ thích khi hát cùng bạn"
         ],
         "answerIndex": 1,
-        "explanationVi": "Minh nói \"Cows, pigs, chickens and two horses.\"",
+        "explanationVi": "Lan nói \"Not really. I love listening to my band from England.\"",
         "turnIndex": 3
       },
       {
         "kind": "detail",
-        "prompt": "Tom làm được gì?",
+        "prompt": "Ai sẽ hát cùng Lan?",
         "promptVi": "",
         "options": [
-          "Vắt sữa bò",
-          "Cưỡi ngựa",
-          "Đi xe đạp"
+          "Không ai",
+          "Thu và Quang",
+          "Một ca sĩ"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Tom nói \"No, I can't. But I can ride a bike!\"",
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"Quang and I can sing with you.\"",
         "turnIndex": 6
       },
       {
         "kind": "tfn",
-        "prompt": "Tom can ride a horse.",
-        "promptVi": "Tom cưỡi ngựa được.",
+        "prompt": "Lan wants to stay for three hours.",
+        "promptVi": "Lan muốn ở lại ba tiếng.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì khi Minh hỏi lại, Tom nói \"No, I can't.\"",
-        "turnIndex": 6
+        "explanationVi": "Sai, vì Lan nói \"But only for one hour, because I'm tired.\"",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Trang trại của chú Hai có những con vật nào, và mỗi con làm được gì?",
+    "readingGuideVi": "Vì sao lúc đầu Lan không muốn đi hát, và cuối cùng cô ấy hát bài gì?",
     "grammarStep": {
-      "titleVi": "Can / can't (khả năng)",
+      "titleVi": "Like / love + danh từ hoặc V-ing; and / but / or / because",
       "noticing": [
         {
-          "sentence": "The chickens can't fly very high, but they can run fast!",
+          "sentence": "They love going there because they can sing together.",
           "highlights": [
-            "can't fly",
-            "can run"
+            "love going",
+            "because"
           ]
         },
         {
-          "sentence": "\"Can we ride the horses?\" asks Minh.",
+          "sentence": "Lan likes listening to music, but she doesn't want to go.",
           "highlights": [
-            "Can we ride"
+            "likes listening",
+            "but"
           ]
         },
         {
-          "sentence": "\"Yes, you can, but only the small horse,\" says Uncle Hai.",
+          "sentence": "Lan loves listening to a band from England.",
           "highlights": [
-            "you can"
+            "loves listening"
           ]
         },
         {
-          "sentence": "Little Bo is two, and he can say \"moo\" like a cow!",
+          "sentence": "\"You can sing with us, or you can listen to us.\"",
           "highlights": [
-            "can say"
+            "or"
           ]
         }
       ],
-      "questionVi": "Minh hỏi \"Can we ride the horses?\". Chú Hai trả lời ngắn thế nào?",
+      "questionVi": "Trong câu \"Lan loves listening to a band from England\", sau loves là gì?",
       "options": [
-        "Yes, you can.",
-        "Yes, we do.",
-        "Yes, you ride."
+        "Động từ thêm -ing (listening)",
+        "Động từ nguyên mẫu (listen)",
+        "Một tính từ"
       ],
       "answerIndex": 0,
-      "explanationVi": "Câu hỏi với can được trả lời ngắn bằng can: Yes, you can. / No, you can't. Minh hỏi \"we\" nên chú Hai trả lời \"you\".",
-      "whenVi": "Dùng can / can't để nói làm được hay không, và Can we …? để xin phép làm một việc.",
+      "explanationVi": "Sau like / love có thể dùng danh từ (music) hoặc động từ thêm -ing (listening, going).",
+      "whenVi": "Dùng like / love + danh từ hoặc V-ing để nói sở thích; and để thêm ý, but để nói ý ngược lại, or để nói lựa chọn, because để nói lý do.",
       "table": [
         {
           "subject": "I / you / we / they",
-          "form": "We can ride the small horse.",
-          "negative": "You can't ride the big horse."
+          "form": "I love my band. / They love going there.",
+          "negative": "I don't like pop songs."
         },
         {
-          "subject": "he / she / it",
-          "form": "Bo can say \"moo\".",
-          "negative": "Mai can't touch the pigs."
+          "subject": "he / she",
+          "form": "Lan loves listening to a band.",
+          "negative": "Lan doesn't like pop songs."
         },
         {
-          "subject": "Câu hỏi",
-          "form": "Can we ride the horses? – Yes, you can.",
-          "negative": "No, you can't."
+          "subject": "Từ nối",
+          "form": "and (và), but (nhưng), or (hoặc), because (vì)",
+          "negative": "—"
         }
       ],
       "mistakes": [
         {
-          "wrong": "Can we to ride the horses?",
-          "right": "Can we ride the horses?"
+          "wrong": "Lan loves listen to her band.",
+          "right": "Lan loves listening to her band."
         },
         {
-          "wrong": "Mai can't touches them.",
-          "right": "Mai can't touch them."
+          "wrong": "Lan like music.",
+          "right": "Lan likes music."
         }
       ],
-      "noteVi": "Người Việt hay thêm to sau can (vì nhớ want to, need to) hoặc thêm -s vào động từ sau can khi chủ ngữ là he / she; sau can, động từ luôn giữ nguyên.",
+      "noteVi": "Người Việt hay viết \"love listen\" vì tiếng Việt nói \"thích nghe\". Trong tiếng Anh, sau love / like, động từ thêm -ing: loves listening.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền can hoặc can't vào chỗ trống.",
-          "text": "Chickens ___ fly very high, but they can run fast.",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (listen).",
+          "text": "Lan loves ___ to her band on the bus.",
           "answers": [
-            "can't",
-            "cannot"
+            "listening"
           ],
-          "explanationVi": "Vế sau có but … can run, nên vế trước là việc không làm được: can't fly."
+          "explanationVi": "Sau love, động từ thêm -ing: loves listening."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "___ we ride the horses? – Yes, you can.",
+          "promptVi": "Chọn từ nối đúng.",
+          "text": "Lan likes music, ___ she can't sing well.",
           "options": [
-            "Do",
-            "Can",
-            "Are",
-            "Does"
+            "but",
+            "because",
+            "or",
+            "so"
           ],
-          "answerIndex": 1,
-          "explanationVi": "Câu trả lời là \"Yes, you can\", nên câu hỏi phải bắt đầu bằng Can."
+          "answerIndex": 0,
+          "explanationVi": "Hai ý ngược nhau (thích nhạc / hát không hay), nên dùng but (nhưng)."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Bo can says \"moo\" like a cow.",
-          "sentence": "Bo can say \"moo\" like a cow.",
-          "explanationVi": "Sau can, động từ giữ nguyên: can say."
+          "text": "They love go there after work.",
+          "sentence": "They love going there after work.",
+          "explanationVi": "Sau love, động từ thêm -ing: love going."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Mai không chạm vào được những con lợn con.",
-          "sentence": "Mai can't touch the baby pigs.",
+          "text": "Bạn có thể hát hoặc nghe chúng tôi hát.",
+          "sentence": "You can sing or listen to us.",
           "words": [
-            "touch",
-            "Mai",
-            "pigs",
-            "can't",
-            "the",
-            "baby",
-            "touches"
+            "You",
+            "can",
+            "sing",
+            "or",
+            "listen",
+            "to",
+            "us.",
+            "because"
           ],
-          "explanationVi": "Sau can't, động từ giữ nguyên: can't touch; từ \"touches\" bị thừa."
+          "explanationVi": "Or nối hai lựa chọn (hát / nghe); từ because bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "There are ten cows, five pigs and twenty chickens.",
-        "tipVi": "Cows /kaʊz/ và chickens /ˈtʃɪkənz/ đều kết thúc bằng /z/; pigs /pɪɡz/ có cụm /ɡz/ ở cuối."
+        "text": "Lan likes listening to music, but she doesn't want to go.",
+        "tipVi": "Music /ˈmjuːzɪk/ nhấn âm đầu; nghỉ một chút trước but."
       },
       {
-        "text": "The cows eat grass all day, and they give milk.",
-        "tipVi": "Grass /ɡræs/ có cụm /ɡr/ ở đầu; milk /mɪlk/ có cụm /lk/ ở cuối, đọc rõ /k/."
+        "text": "Lan loves listening to a band from England.",
+        "tipVi": "England /ˈɪŋɡlənd/ nhấn âm đầu; band có /d/ nhẹ ở cuối."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Can you ride a horse?",
-        "questionVi": "Bạn có cưỡi ngựa được không?",
-        "frame": "Yes, I can. / No, I can't, but I can ___."
+        "question": "Do you like going out with your friends after work or school?",
+        "questionVi": "Bạn có thích đi chơi với bạn bè sau giờ làm hoặc giờ học không?",
+        "frame": "Yes, I love going to ___ because ___. / No, I don't, but ___."
       },
       {
-        "question": "What farm animals do you like?",
-        "questionVi": "Bạn thích con vật nào ở trang trại?",
-        "frame": "I like ___ because they can ___."
+        "question": "What is your favorite band or singer?",
+        "questionVi": "Ban nhạc hoặc ca sĩ bạn thích nhất là ai?",
+        "frame": "My favorite ___ is ___, and I love ___."
       },
       {
-        "question": "What animals does your grandfather or grandmother have?",
-        "questionVi": "Ông hoặc bà của bạn nuôi những con vật gì?",
-        "frame": "He / She has ___ and ___."
+        "question": "Can you sing well?",
+        "questionVi": "Bạn hát có hay không?",
+        "frame": "Yes, I can. / No, I can't, but I like ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng like / love và 1 từ nối and, but, or hoặc because",
       "anyOf": [
-        "can",
-        "can't",
-        "cannot",
-        "they can"
+        "like",
+        "likes",
+        "love",
+        "loves",
+        "because",
+        "but"
       ],
       "outlineVi": [
-        "Nói trang trại của ai, ở đâu, có những con vật nào (There are …).",
-        "Nói các con vật cho gì hoặc làm được gì (They can …).",
-        "Kể một người làm được hoặc không làm được gì ở đó (He / She can't …)."
+        "Nói tên ca sĩ hoặc ban nhạc bạn thích nhất (My favorite band is …).",
+        "Nói bạn nghe họ khi nào, ở đâu.",
+        "Nói vì sao bạn thích họ (because …) và điều bạn không làm được (but I can't …)."
       ],
-      "modelAnswer": "My grandfather has a small farm. There are three cows, four pigs and ten chickens. The cows give milk, and the chickens give eggs. My grandfather also has a horse, and it can run very fast. My little brother loves the pigs, but he can't catch them!"
+      "modelAnswer": "My favorite band is from Korea. I love listening to their songs, and I listen to them every morning on the bus. I like their music because it makes me happy. I can't sing their songs, but my sister can sing them well."
     }
   },
   "glosses": [
     {
-      "text": "visit",
-      "lemma": "visit",
-      "meaningVi": "đến thăm",
-      "sentenceIndex": 0,
-      "pos": "verb",
-      "phrase": "visit Uncle Hai's farm",
-      "phraseVi": "đến thăm trang trại của chú Hai"
+      "text": "bank",
+      "lemma": "bank",
+      "meaningVi": "ngân hàng",
+      "pos": "noun",
+      "phrase": "Lan works in a bank",
+      "phraseVi": "Lan làm việc ở một ngân hàng",
+      "sentenceIndex": 0
     },
     {
-      "text": "all day",
-      "lemma": "all day",
-      "meaningVi": "cả ngày",
-      "sentenceIndex": 3,
-      "pos": "phrase",
-      "phrase": "The cows eat grass all day",
-      "phraseVi": "Bò ăn cỏ cả ngày"
-    },
-    {
-      "text": "gets",
-      "lemma": "get",
-      "meaningVi": "lấy, nhặt được",
-      "sentenceIndex": 5,
-      "pos": "verb",
-      "phrase": "gets a lot of eggs from them",
-      "phraseVi": "nhặt được rất nhiều trứng gà"
-    },
-    {
-      "text": "ride",
-      "lemma": "ride",
-      "meaningVi": "cưỡi",
-      "sentenceIndex": 7,
-      "pos": "verb",
-      "phrase": "Can we ride the horses",
-      "phraseVi": "Bọn cháu cưỡi ngựa được không"
-    },
-    {
-      "text": "only",
-      "lemma": "only",
-      "meaningVi": "chỉ",
-      "sentenceIndex": 8,
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
       "pos": "adverb",
-      "phrase": "only the small horse",
-      "phraseVi": "chỉ con ngựa nhỏ thôi"
+      "phrase": "they can sing together",
+      "phraseVi": "họ có thể hát cùng nhau",
+      "sentenceIndex": 2
     },
     {
-      "text": "touch",
-      "lemma": "touch",
-      "meaningVi": "chạm vào, sờ",
-      "sentenceIndex": 9,
+      "text": "small",
+      "lemma": "small",
+      "meaningVi": "nhỏ",
+      "pos": "adjective",
+      "phrase": "The rooms there are small",
+      "phraseVi": "Phòng ở đó nhỏ",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "well",
+      "lemma": "well",
+      "meaningVi": "giỏi, hay",
+      "pos": "adverb",
+      "phrase": "she can't sing well",
+      "phraseVi": "cô ấy hát không hay",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "bus",
+      "lemma": "bus",
+      "meaningVi": "xe buýt",
+      "pos": "noun",
+      "phrase": "on the bus every day",
+      "phraseVi": "trên xe buýt mỗi ngày",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười (thành tiếng)",
       "pos": "verb",
-      "phrase": "she can't touch them",
-      "phraseVi": "em không chạm vào chúng được"
+      "phrase": "Quang laughs",
+      "phraseVi": "Quang cười",
+      "sentenceIndex": 9
     },
     {
-      "text": "run away",
-      "lemma": "run away",
-      "meaningVi": "chạy mất, chạy đi",
-      "sentenceIndex": 9,
-      "pos": "phrasal verb",
-      "phrase": "because they run away",
-      "phraseVi": "vì chúng chạy mất"
-    },
-    {
-      "text": "like a cow",
-      "lemma": "like",
-      "meaningVi": "giống như con bò",
-      "sentenceIndex": 10,
-      "pos": "preposition",
-      "phrase": "he can say \"moo\" like a cow",
-      "phraseVi": "em kêu được \"ò ó\" giống con bò"
-    },
-    {
-      "text": "for dinner",
-      "lemma": "for dinner",
-      "meaningVi": "cho bữa tối",
-      "sentenceIndex": 11,
+      "text": "In the end",
+      "lemma": "in the end",
+      "meaningVi": "cuối cùng",
       "pos": "phrase",
-      "phrase": "eat eggs for dinner",
-      "phraseVi": "ăn trứng cho bữa tối"
+      "phrase": "In the end, Lan says yes",
+      "phraseVi": "Cuối cùng, Lan đồng ý",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "favorite",
+      "lemma": "favorite",
+      "meaningVi": "yêu thích nhất",
+      "pos": "adjective",
+      "phrase": "her favorite song",
+      "phraseVi": "bài cô thích nhất",
+      "sentenceIndex": 15
     }
   ]
 }

@@ -1,606 +1,574 @@
 {
-  "content": "Huy is a new student at Minh's school, and he wants a club after school.\n\n\"What clubs does our school have?\" asks Huy.\n\"There's a football club, a music club and an English club,\" says Minh.\n\"Does the English club meet every day?\"\n\"No, it doesn't,\" says Minh. \"It meets on Tuesday and Thursday.\"\n\n\"Do you play football?\" asks Huy.\n\"Yes, I do,\" says Minh. \"Our team plays on Wednesday afternoon.\"\n\"I don't like football,\" says Anna. \"I go to the music club too, and we sing and play the guitar there.\"\n\nHuy thinks about it. He doesn't play football, and he doesn't sing very well. But he loves English.\n\"Are there a lot of students in the English club?\" he asks.\n\"Yes, there are, and Miss Lee is very nice,\" says Minh. So Huy joins the English club.",
+  "content": "Phuong and Quang work in the same office. On Tuesday and Thursday evenings, they go to a computer class at a school near the office. Quang is new in the class, and he has a lot of questions.\n\nAt lunch on Wednesday, Quang asks, \"Do you like our teacher?\"\n\"Yes, I do. Mr Khai is very good,\" Phuong says. \"He doesn't speak fast, and every lesson is easy.\"\n\n\"Does he give a lot of homework?\"\n\"Yes, he does. We have homework after every lesson.\"\n\n\"Oh no! Does the homework take a long time?\"\n\"No, it doesn't. It takes about twenty minutes. I do it on the bus.\"\n\n\"That is good. I don't have much time in the evening,\" Quang says. \"I have two children.\"\n\nPhuong smiles. \"You can ask Mr Khai for help. He likes questions, and he always helps the students.\"",
   "targetWords": [
-    "student",
-    "club",
-    "football",
-    "meet",
-    "team",
-    "music",
-    "sing",
-    "join"
+    "computer",
+    "class",
+    "school",
+    "question",
+    "teacher",
+    "lesson",
+    "homework",
+    "student"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "student",
-        "lemma": "student",
-        "meaningVi": "học sinh",
+        "text": "computer",
+        "lemma": "computer",
+        "meaningVi": "máy tính (computer class: lớp tin học)",
         "pos": "noun",
-        "sentenceIndex": 0
+        "sentenceIndex": 1
       },
       {
-        "text": "club",
-        "lemma": "club",
-        "meaningVi": "câu lạc bộ",
+        "text": "class",
+        "lemma": "class",
+        "meaningVi": "lớp học",
         "pos": "noun",
-        "sentenceIndex": 0
+        "sentenceIndex": 1
       },
       {
-        "text": "football",
-        "lemma": "football",
-        "meaningVi": "bóng đá",
+        "text": "school",
+        "lemma": "school",
+        "meaningVi": "trường",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "questions",
+        "lemma": "question",
+        "meaningVi": "câu hỏi",
         "pos": "noun",
         "sentenceIndex": 2
       },
       {
-        "text": "meet",
-        "lemma": "meet",
-        "meaningVi": "họp, gặp nhau",
-        "pos": "verb",
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "giáo viên, thầy giáo",
+        "pos": "noun",
         "sentenceIndex": 3
       },
       {
-        "text": "team",
-        "lemma": "team",
-        "meaningVi": "đội",
+        "text": "lesson",
+        "lemma": "lesson",
+        "meaningVi": "buổi học, bài học",
         "pos": "noun",
-        "sentenceIndex": 8
+        "sentenceIndex": 6
       },
       {
-        "text": "music",
-        "lemma": "music",
-        "meaningVi": "âm nhạc",
+        "text": "homework",
+        "lemma": "homework",
+        "meaningVi": "bài tập về nhà",
         "pos": "noun",
-        "sentenceIndex": 10
+        "sentenceIndex": 7
       },
       {
-        "text": "sing",
-        "lemma": "sing",
-        "meaningVi": "hát",
-        "pos": "verb",
-        "sentenceIndex": 10
-      },
-      {
-        "text": "joins",
-        "lemma": "join",
-        "meaningVi": "tham gia",
-        "pos": "verb",
-        "sentenceIndex": 16
+        "text": "students",
+        "lemma": "student",
+        "meaningVi": "học viên, học sinh",
+        "pos": "noun",
+        "sentenceIndex": 20
       }
     ],
     "questions": [
       {
         "kind": "gist",
-        "prompt": "What is the story about?",
-        "promptVi": "Câu chuyện nói về điều gì?",
+        "prompt": "What do Phuong and Quang talk about?",
+        "promptVi": "Phương và Quang nói chuyện về điều gì?",
         "options": [
-          "Minh's football match",
-          "Anna's music lesson",
-          "Miss Lee's English class",
-          "Huy asks about the clubs at school and chooses one."
+          "Their computer class and teacher",
+          "Their boss at work",
+          "Quang's children",
+          "A new computer"
         ],
-        "answerIndex": 3,
-        "explanationVi": "Huy là học sinh mới, hỏi trường có những câu lạc bộ nào, rồi chọn câu lạc bộ tiếng Anh."
+        "answerIndex": 0,
+        "explanationVi": "Quang mới vào lớp tin học nên hỏi Phương về thầy giáo và bài tập về nhà."
       },
       {
         "kind": "detail",
-        "prompt": "When does the English club meet?",
-        "promptVi": "Câu lạc bộ tiếng Anh họp vào khi nào?",
+        "prompt": "How long does the homework take?",
+        "promptVi": "Bài tập về nhà mất bao lâu?",
         "options": [
-          "Every day",
-          "On Tuesday and Thursday",
-          "On Wednesday",
-          "On Friday"
+          "About ten minutes",
+          "About twenty minutes",
+          "About one hour",
+          "Two hours"
         ],
         "answerIndex": 1,
-        "explanationVi": "Minh nói \"It meets on Tuesday and Thursday\". Thứ Tư là ngày đội bóng thi đấu."
+        "explanationVi": "Phương nói \"It takes about twenty minutes\"."
       },
       {
         "kind": "detail",
-        "prompt": "Which club does Huy join?",
-        "promptVi": "Huy tham gia câu lạc bộ nào?",
+        "prompt": "Where does Phuong do her homework?",
+        "promptVi": "Phương làm bài tập về nhà ở đâu?",
         "options": [
-          "The football club",
-          "The music club",
-          "The English club",
-          "No club"
+          "At the office",
+          "At school",
+          "On the bus",
+          "At home"
         ],
         "answerIndex": 2,
-        "explanationVi": "Huy không chơi bóng đá, hát không hay, nhưng rất thích tiếng Anh: \"So Huy joins the English club\"."
+        "explanationVi": "Phương nói \"I do it on the bus\"."
       },
       {
         "kind": "tfn",
-        "prompt": "Huy sings very well.",
-        "promptVi": "Huy hát rất hay.",
+        "prompt": "Mr Khai speaks very fast.",
+        "promptVi": "Thầy Khải nói rất nhanh.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bài viết \"he doesn't sing very well\"."
+        "explanationVi": "Sai, vì Phương nói \"He doesn't speak fast\"."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"joins\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"takes\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "So Huy joins the English club.",
+        "quote": "\"It takes about twenty minutes.\"",
         "options": [
-          "rời khỏi",
-          "tham gia",
-          "đến thăm",
-          "mở ra"
+          "cầm lấy",
+          "mất (thời gian)",
+          "mang đi",
+          "đưa cho"
         ],
         "answerIndex": 1,
-        "explanationVi": "Join là tham gia, trở thành thành viên: Huy tham gia câu lạc bộ tiếng Anh."
+        "explanationVi": "It takes + thời gian = mất bao nhiêu thời gian để làm việc gì."
       }
     ],
     "grammarNote": {
       "title": "Hiện tại đơn: phủ định và câu hỏi",
-      "bodyVi": "Hỏi về một nơi hay một nhóm (our school, the English club) thì dùng does, vì chúng được coi là it: What clubs does our school have? Does the English club meet every day? – No, it doesn't. Nói điều một người không làm: He doesn't play football.",
+      "bodyVi": "Hỏi về một người hay một việc (he / she / it): Does he give a lot of homework? Does the homework take a long time? Trả lời ngắn: Yes, he does. / No, it doesn't. Hỏi bạn: Do you like our teacher? Phủ định: He doesn't speak fast. / I don't have much time. Sau do, does, don't, doesn't, động từ giữ nguyên.",
       "examples": [
-        "What clubs does our school have?",
-        "Does the English club meet every day?",
-        "He doesn't play football, and he doesn't sing very well."
+        "\"Does he give a lot of homework?\"",
+        "At lunch on Wednesday, Quang asks, \"Do you like our teacher?\"",
+        "\"He doesn't speak fast, and every lesson is easy.\""
       ]
     },
-    "writingPrompt": "Write about the clubs at your school: which clubs there are, when they meet and which one you like.",
+    "writingPrompt": "Write about a teacher you know. Does he or she give a lot of homework? What does he or she not do?",
     "sentenceTranslations": [
-      "Huy là học sinh mới ở trường của Minh, và bạn ấy muốn tham gia một câu lạc bộ sau giờ học.",
-      "\"Trường mình có những câu lạc bộ nào?\" Huy hỏi.",
-      "\"Có câu lạc bộ bóng đá, câu lạc bộ âm nhạc và câu lạc bộ tiếng Anh,\" Minh nói.",
-      "\"Câu lạc bộ tiếng Anh có họp hằng ngày không?\"",
-      "\"Không,\" Minh nói.",
-      "\"Câu lạc bộ họp vào thứ Ba và thứ Năm.\"",
-      "\"Bạn có chơi bóng đá không?\" Huy hỏi.",
-      "\"Có,\" Minh nói.",
-      "\"Đội mình thi đấu vào chiều thứ Tư.\"",
-      "\"Mình không thích bóng đá,\" Anna nói.",
-      "\"Mình cũng đi câu lạc bộ âm nhạc nữa, ở đó bọn mình hát và chơi đàn ghi-ta.\"",
-      "Huy suy nghĩ.",
-      "Bạn ấy không chơi bóng đá, và hát cũng không hay lắm.",
-      "Nhưng bạn ấy rất thích tiếng Anh.",
-      "\"Câu lạc bộ tiếng Anh có đông học sinh không?\" Huy hỏi.",
-      "\"Đông lắm, mà cô Lee rất dễ mến,\" Minh nói.",
-      "Thế là Huy tham gia câu lạc bộ tiếng Anh."
+      "Phương và Quang làm việc cùng một văn phòng.",
+      "Vào tối thứ Ba và thứ Năm, họ đi học một lớp tin học ở một trường gần văn phòng.",
+      "Quang mới vào lớp, và anh ấy có rất nhiều câu hỏi.",
+      "Giờ ăn trưa thứ Tư, Quang hỏi, \"Chị có thích thầy giáo của chúng mình không?\"",
+      "\"Có chứ.",
+      "Thầy Khải dạy rất hay,\" Phương nói.",
+      "\"Thầy ấy không nói nhanh, và buổi học nào cũng dễ hiểu.\"",
+      "\"Thầy ấy có giao nhiều bài tập về nhà không?\"",
+      "\"Có đấy.",
+      "Sau mỗi buổi học chúng mình đều có bài tập về nhà.\"",
+      "\"Ôi không!",
+      "Bài tập về nhà có mất nhiều thời gian không?\"",
+      "\"Không đâu.",
+      "Chỉ mất khoảng hai mươi phút.",
+      "Chị làm trên xe buýt.\"",
+      "\"Thế thì tốt.",
+      "Buổi tối em không có nhiều thời gian,\" Quang nói.",
+      "\"Em có hai đứa con nhỏ.\"",
+      "Phương mỉm cười.",
+      "\"Em có thể nhờ thầy Khải giúp.",
+      "Thầy thích được hỏi, và thầy luôn giúp các học viên.\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể hỏi về các câu lạc bộ ở trường (What clubs does …? Does the club meet …?) và trả lời Yes, it does / No, it doesn't.",
+    "objectiveVi": "Bạn có thể hỏi về giáo viên và bài tập bằng Do you …? / Does he …? và trả lời ngắn Yes, he does. / No, it doesn't.",
     "examples": [
       {
+        "lemma": "computer",
+        "sentence": "I have a computer class after work.",
+        "meaningVi": "Tôi có lớp tin học sau giờ làm."
+      },
+      {
+        "lemma": "class",
+        "sentence": "Does your class start at seven?",
+        "meaningVi": "Lớp của bạn có bắt đầu lúc bảy giờ không?"
+      },
+      {
+        "lemma": "school",
+        "sentence": "The school is near the office.",
+        "meaningVi": "Trường ở gần văn phòng."
+      },
+      {
+        "lemma": "question",
+        "sentence": "Can I ask a question?",
+        "meaningVi": "Tôi hỏi một câu được không?"
+      },
+      {
+        "lemma": "teacher",
+        "sentence": "Do you like your teacher?",
+        "meaningVi": "Bạn có thích giáo viên của mình không?"
+      },
+      {
+        "lemma": "lesson",
+        "sentence": "The lesson is easy today.",
+        "meaningVi": "Bài học hôm nay dễ."
+      },
+      {
+        "lemma": "homework",
+        "sentence": "The homework doesn't take long.",
+        "meaningVi": "Bài tập về nhà không mất nhiều thời gian."
+      },
+      {
         "lemma": "student",
-        "sentence": "Every student has a club after school.",
-        "meaningVi": "Học sinh nào cũng có một câu lạc bộ sau giờ học."
-      },
-      {
-        "lemma": "club",
-        "sentence": "Does your school have an art club?",
-        "meaningVi": "Trường bạn có câu lạc bộ mỹ thuật không?"
-      },
-      {
-        "lemma": "football",
-        "sentence": "My brother plays football on Sunday.",
-        "meaningVi": "Anh mình đá bóng vào Chủ nhật."
-      },
-      {
-        "lemma": "meet",
-        "sentence": "We meet in Room 12.",
-        "meaningVi": "Bọn mình họp ở phòng 12."
-      },
-      {
-        "lemma": "team",
-        "sentence": "Our team doesn't play on Monday.",
-        "meaningVi": "Đội của bọn mình không thi đấu vào thứ Hai."
-      },
-      {
-        "lemma": "music",
-        "sentence": "Do you like music?",
-        "meaningVi": "Bạn có thích âm nhạc không?"
-      },
-      {
-        "lemma": "sing",
-        "sentence": "My sister doesn't sing in the morning.",
-        "meaningVi": "Em gái mình không hát vào buổi sáng."
-      },
-      {
-        "lemma": "join",
-        "sentence": "I want to join the music club.",
-        "meaningVi": "Mình muốn tham gia câu lạc bộ âm nhạc."
+        "sentence": "He helps every student.",
+        "meaningVi": "Thầy ấy giúp mọi học viên."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Kenji",
-        "Huy"
+        "Quang",
+        "Mr Khai"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Hi! Are you new here?",
-          "meaningVi": "Chào bạn! Bạn mới đến à?"
+          "text": "Excuse me, Mr Khai. Can I ask a question?",
+          "meaningVi": "Thưa thầy Khải, em hỏi một câu được không ạ?"
         },
         {
           "speaker": 1,
-          "text": "Yes, I am. I'm Huy. Do you come every week?",
-          "meaningVi": "Đúng rồi. Mình là Huy. Tuần nào bạn cũng đến à?"
+          "text": "Of course. What is it?",
+          "meaningVi": "Tất nhiên rồi. Em hỏi gì?"
         },
         {
           "speaker": 0,
-          "text": "Yes, I do. I come on Tuesday and Thursday.",
-          "meaningVi": "Ừ. Mình đến vào thứ Ba và thứ Năm."
+          "text": "I don't have a computer at home. Is that a problem?",
+          "meaningVi": "Ở nhà em không có máy tính. Như vậy có sao không ạ?"
         },
         {
           "speaker": 1,
-          "text": "What do you do here?",
-          "meaningVi": "Ở đây các bạn làm gì?"
+          "text": "No, it is OK. Do you have a phone?",
+          "meaningVi": "Không sao. Em có điện thoại không?"
         },
         {
           "speaker": 0,
-          "text": "We talk in English, and we play games.",
-          "meaningVi": "Bọn mình nói chuyện bằng tiếng Anh và chơi trò chơi."
+          "text": "Yes, I do.",
+          "meaningVi": "Có ạ."
         },
         {
           "speaker": 1,
-          "text": "Do you sing songs too?",
-          "meaningVi": "Các bạn có hát không?"
+          "text": "You can do the homework on your phone.",
+          "meaningVi": "Em có thể làm bài tập về nhà trên điện thoại."
         },
         {
           "speaker": 0,
-          "text": "No, we don't. The music club sings songs.",
-          "meaningVi": "Không. Câu lạc bộ âm nhạc mới hát."
+          "text": "Great! Does it take a long time?",
+          "meaningVi": "Tuyệt quá! Có mất nhiều thời gian không ạ?"
         },
         {
           "speaker": 1,
-          "text": "Does Miss Lee give homework?",
-          "meaningVi": "Cô Lee có giao bài tập về nhà không?"
-        },
-        {
-          "speaker": 0,
-          "text": "No, she doesn't. That's great!",
-          "meaningVi": "Không. Tuyệt chưa!"
-        },
-        {
-          "speaker": 1,
-          "text": "Yes! I like this club.",
-          "meaningVi": "Đúng thế! Mình thích câu lạc bộ này."
+          "text": "No, it doesn't. About twenty minutes.",
+          "meaningVi": "Không đâu. Khoảng hai mươi phút thôi."
         }
       ]
     },
-    "grammarTipVi": "Câu hỏi có từ để hỏi: What / When / Why + do / does + chủ ngữ + động từ giữ nguyên. What clubs does our school have? What do you do here?",
+    "grammarTipVi": "Với he / she / it, câu hỏi dùng Does và động từ giữ nguyên: Does the homework take a long time? (không nói \"Does the homework takes\"). Trả lời ngắn không lặp lại động từ: No, it doesn't.",
     "translations": [
       {
-        "vi": "Câu lạc bộ có họp hằng ngày không?",
-        "en": "Does the club meet every day?",
+        "vi": "Bạn có thích giáo viên của chúng ta không?",
+        "en": "Do you like our teacher?",
         "distractors": [
-          "Do",
-          "meets",
-          "is"
-        ]
-      },
-      {
-        "vi": "Tôi không thích bóng đá.",
-        "en": "I don't like football.",
-        "distractors": [
-          "doesn't",
+          "Does",
           "likes",
-          "not"
+          "we"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Bài tập về nhà không mất nhiều thời gian.",
+        "en": "The homework doesn't take long.",
+        "distractors": [
+          "don't",
+          "takes",
+          "is"
+        ],
+        "accepted": [
+          "Homework doesn't take long."
         ]
       },
       {
-        "vi": "Đội của chúng tôi thi đấu vào thứ Tư.",
-        "en": "Our team plays on Wednesday.",
+        "vi": "Chúng tôi có bài tập về nhà sau mỗi buổi học.",
+        "en": "We have homework after every lesson.",
         "distractors": [
-          "play",
-          "in",
-          "at"
-        ]
-      },
-      {
-        "vi": "Huy tham gia câu lạc bộ tiếng Anh.",
-        "en": "Huy joins the English club.",
-        "distractors": [
-          "join",
+          "has",
           "does",
-          "clubs"
+          "in"
+        ],
+        "accepted": [
+          "After every lesson we have homework."
+        ]
+      },
+      {
+        "vi": "Thầy ấy luôn giúp các học viên.",
+        "en": "He always helps the students.",
+        "distractors": [
+          "helping",
+          "is",
+          "never"
+        ],
+        "accepted": [
+          "He always helps students."
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Kenji và Huy nói chuyện về điều gì?",
+        "prompt": "Quang hỏi thầy Khải về điều gì?",
         "promptVi": "",
         "options": [
-          "Câu lạc bộ tiếng Anh",
-          "Đội bóng của trường",
-          "Bài tập về nhà môn toán"
+          "Làm bài tập khi không có máy tính",
+          "Giờ học của lớp",
+          "Giá của khoá học"
         ],
         "answerIndex": 0,
-        "explanationVi": "Huy mới đến câu lạc bộ, và Kenji kể ở đây các bạn làm gì, họp khi nào, cô Lee có giao bài tập không.",
+        "explanationVi": "Quang không có máy tính ở nhà, thầy bảo có thể làm bài trên điện thoại.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Ở câu lạc bộ các bạn làm gì?",
+        "prompt": "Quang không có gì ở nhà?",
         "promptVi": "",
         "options": [
-          "Hát và chơi đàn",
-          "Nói tiếng Anh và chơi trò chơi",
-          "Đá bóng"
+          "Điện thoại",
+          "Máy tính",
+          "Sách"
         ],
         "answerIndex": 1,
-        "explanationVi": "Kenji nói \"We talk in English, and we play games\".",
-        "turnIndex": 4
+        "explanationVi": "Quang nói \"I don't have a computer at home\".",
+        "turnIndex": 2
       },
       {
         "kind": "detail",
-        "prompt": "Cô Lee có giao bài tập về nhà không?",
+        "prompt": "Quang có thể làm bài tập trên cái gì?",
         "promptVi": "",
         "options": [
-          "Có, mỗi tuần",
-          "Có, mỗi ngày",
-          "Không"
+          "Trên điện thoại",
+          "Trên giấy",
+          "Trên máy tính ở trường"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Kenji nói \"No, she doesn't. That's great!\"",
-        "turnIndex": 8
+        "answerIndex": 0,
+        "explanationVi": "Thầy Khải nói \"You can do the homework on your phone\".",
+        "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "The English club sings songs.",
-        "promptVi": "Câu lạc bộ tiếng Anh hát.",
+        "prompt": "The homework takes a long time.",
+        "promptVi": "Bài tập về nhà mất nhiều thời gian.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Kenji nói \"No, we don't. The music club sings songs\".",
-        "turnIndex": 6
+        "explanationVi": "Sai, vì thầy Khải nói \"No, it doesn't. About twenty minutes\".",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Trường có những câu lạc bộ nào, và vì sao Huy chọn câu lạc bộ tiếng Anh?",
+    "readingGuideVi": "Thầy Khải dạy thế nào, và bài tập về nhà mất bao lâu?",
     "grammarStep": {
       "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
       "noticing": [
         {
-          "sentence": "\"What clubs does our school have?\" asks Huy.",
+          "sentence": "At lunch on Wednesday, Quang asks, \"Do you like our teacher?\"",
           "highlights": [
-            "does",
-            "have"
+            "Do you like"
           ]
         },
         {
-          "sentence": "\"Does the English club meet every day?\"",
+          "sentence": "\"He doesn't speak fast, and every lesson is easy.\"",
           "highlights": [
-            "Does",
-            "meet"
+            "doesn't speak"
           ]
         },
         {
-          "sentence": "\"No, it doesn't,\" says Minh.",
+          "sentence": "Does the homework take a long time?\"",
           "highlights": [
-            "doesn't"
+            "Does the homework take"
           ]
         },
         {
-          "sentence": "He doesn't play football, and he doesn't sing very well.",
+          "sentence": "\"No, it doesn't.",
           "highlights": [
-            "doesn't play",
-            "doesn't sing"
+            "it doesn't"
           ]
         }
       ],
-      "questionVi": "Trong \"What clubs does our school have?\", vì sao dùng does?",
+      "questionVi": "Trong câu \"Does the homework take a long time?\", vì sao động từ là take mà không phải takes?",
       "options": [
-        "Vì clubs là số nhiều",
-        "Vì our school là một (it), nên dùng does",
-        "Vì câu bắt đầu bằng What"
+        "Vì sau Does, động từ giữ nguyên",
+        "Vì homework là số nhiều",
+        "Vì câu nói về quá khứ"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Chủ ngữ của câu hỏi là our school (it), không phải clubs. It đi với does, và sau does động từ giữ nguyên: have.",
-      "whenVi": "Dùng What / When … + do / does và Does …? để hỏi về câu lạc bộ, đội nhóm, trường học.",
+      "answerIndex": 0,
+      "explanationVi": "Does đã mang -s của ngôi thứ ba, nên động từ sau nó giữ nguyên: Does the homework take …? Câu khẳng định thì có -s: It takes about twenty minutes.",
+      "whenVi": "Dùng Do / Does …? để hỏi về thói quen, cách dạy, bài tập; don't / doesn't để nói điều không xảy ra.",
       "table": [
         {
-          "subject": "What + does + it …?",
-          "form": "What clubs does our school have?",
-          "negative": "—"
+          "subject": "I / you / we / they",
+          "form": "Do you like our teacher? – Yes, I do.",
+          "negative": "I don't have much time."
         },
         {
-          "subject": "Does + it …?",
-          "form": "Does the English club meet every day?",
-          "negative": "No, it doesn't."
-        },
-        {
-          "subject": "he + doesn't",
-          "form": "He doesn't play football.",
-          "negative": "—"
+          "subject": "he / she / it",
+          "form": "Does the homework take a long time? – No, it doesn't.",
+          "negative": "He doesn't speak fast."
         }
       ],
       "mistakes": [
         {
-          "wrong": "What clubs our school has?",
-          "right": "What clubs does our school have?"
+          "wrong": "Does the homework takes a long time?",
+          "right": "Does the homework take a long time?"
         },
         {
-          "wrong": "Does the club meets on Tuesday?",
-          "right": "Does the club meet on Tuesday?"
+          "wrong": "He don't speak fast.",
+          "right": "He doesn't speak fast."
         }
       ],
-      "noteVi": "Tiếng Việt hỏi \"Trường mình có câu lạc bộ nào?\" mà không đảo từ, nên người Việt hay quên does và giữ has trong câu hỏi.",
+      "noteVi": "Người Việt hay giữ -s ở cả does và động từ (\"Does he gives\"). Chỉ một chỗ có -s: does.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền Do hoặc Does vào chỗ trống.",
-          "text": "___ the English club meet on Tuesday? – Yes, it does.",
+          "promptVi": "Điền do hoặc does vào chỗ trống.",
+          "text": "___ you do your homework on the bus?",
           "answers": [
-            "Does"
+            "Do"
           ],
-          "explanationVi": "The English club là một (it), nên hỏi bằng Does."
+          "explanationVi": "Chủ ngữ you đi với Do."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "Huy ___ play football.",
+          "promptVi": "Chọn câu trả lời ngắn đúng cho câu hỏi \"Does he give a lot of homework?\"",
+          "text": "Yes, he ___.",
           "options": [
-            "don't",
-            "doesn't",
-            "isn't",
-            "not"
+            "do",
+            "does",
+            "is",
+            "gives"
           ],
           "answerIndex": 1,
-          "explanationVi": "Huy là một người (he), nên phủ định là doesn't play."
+          "explanationVi": "Câu hỏi bắt đầu bằng Does, chủ ngữ he, nên trả lời Yes, he does."
         },
         {
           "kind": "fix",
-          "promptVi": "Câu hỏi sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Does the club meets every day?",
-          "sentence": "Does the club meet every day?",
-          "explanationVi": "Sau Does, động từ giữ nguyên: meet."
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Does the homework takes a long time?",
+          "sentence": "Does the homework take a long time?",
+          "explanationVi": "Sau Does, động từ giữ nguyên: take."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
-          "text": "Bạn có chơi bóng đá không?",
-          "sentence": "Do you play football?",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thầy ấy không nói nhanh.",
+          "sentence": "He doesn't speak fast.",
           "words": [
-            "play",
-            "you",
-            "Do",
-            "football",
-            "Does"
+            "speak",
+            "doesn't",
+            "fast.",
+            "He"
           ],
-          "explanationVi": "Chủ ngữ you đi với Do; từ \"Does\" bị thừa."
+          "explanationVi": "Chủ ngữ He + doesn't + động từ speak + fast."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "So Huy joins the English club.",
-        "tipVi": "Joins /dʒɔɪnz/ bắt đầu bằng /dʒ/, có âm /z/ ở cuối; club /klʌb/ kết thúc bằng /b/."
+        "text": "\"He doesn't speak fast, and every lesson is easy.\"",
+        "tipVi": "Doesn't /ˈdʌznt/ đọc nhanh, âm /t/ cuối rất nhẹ. Easy /ˈiːzi/ có âm /z/."
       },
       {
-        "text": "He doesn't play football, and he doesn't sing very well.",
-        "tipVi": "Doesn't /ˈdʌznt/ đọc gọn hai âm tiết; football /ˈfʊtbɔːl/ nhấn âm đầu."
+        "text": "Phuong smiles.",
+        "tipVi": "Smiles /smaɪlz/ kết thúc bằng âm /z/."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Do you go to a club after school?",
-        "questionVi": "Sau giờ học bạn có đi câu lạc bộ nào không?",
-        "frame": "Yes, I do. I go to the ___ club. / No, I don't."
+        "question": "Do you like your teacher?",
+        "questionVi": "Bạn có thích giáo viên của mình không?",
+        "frame": "Yes, I do. He / She ___. / No, I don't."
       },
       {
-        "question": "What clubs does your school have?",
-        "questionVi": "Trường bạn có những câu lạc bộ nào?",
-        "frame": "My school has ___."
+        "question": "Does your homework take a long time?",
+        "questionVi": "Bài tập về nhà của bạn có mất nhiều thời gian không?",
+        "frame": "No, it doesn't. It takes about ___. / Yes, it does."
       },
       {
-        "question": "Does your best friend play a sport?",
-        "questionVi": "Bạn thân của bạn có chơi môn thể thao nào không?",
-        "frame": "Yes, he / she does. He / She plays ___. / No, he / she doesn't."
+        "question": "Where do you do your homework?",
+        "questionVi": "Bạn làm bài tập về nhà ở đâu?",
+        "frame": "I do it ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng don't / doesn't hoặc câu hỏi Do / Does …?",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng doesn't hoặc câu hỏi Does …?",
       "anyOf": [
         "don't",
         "doesn't",
-        "do you",
-        "does"
+        "does",
+        "do you"
       ],
       "outlineVi": [
-        "Kể trường bạn có những câu lạc bộ nào.",
-        "Hỏi và trả lời: câu lạc bộ họp khi nào (Does … meet …?).",
-        "Nói bạn chọn câu lạc bộ nào và vì sao."
+        "Nói tên giáo viên và môn học.",
+        "Viết thầy / cô ấy làm gì và không làm gì (doesn't).",
+        "Viết về bài tập về nhà: có nhiều không, mất bao lâu."
       ],
-      "modelAnswer": "My school has a football club, an art club and an English club. I don't play football, but I love English. Does the English club meet every day? No, it doesn't. It meets on Monday and Wednesday. There are a lot of students in the club, and we sing English songs. I join the English club this year."
+      "modelAnswer": "My English teacher is Ms Lan. She is very kind, and she doesn't speak fast. Does she give a lot of homework? Yes, she does, but it doesn't take long. I do it after dinner."
     }
   },
   "glosses": [
     {
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "work in the same office",
+      "phraseVi": "làm việc cùng một văn phòng"
+    },
+    {
       "text": "new",
       "lemma": "new",
       "meaningVi": "mới",
-      "sentenceIndex": 0,
+      "sentenceIndex": 2,
       "pos": "adjective",
-      "phrase": "a new student",
-      "phraseVi": "học sinh mới"
+      "phrase": "Quang is new in the class",
+      "phraseVi": "Quang mới vào lớp"
     },
     {
-      "text": "after school",
-      "lemma": "after school",
-      "meaningVi": "sau giờ học",
-      "sentenceIndex": 0,
-      "pos": "phrase",
-      "phrase": "a club after school",
-      "phraseVi": "một câu lạc bộ sau giờ học"
-    },
-    {
-      "text": "every day",
-      "lemma": "every day",
-      "meaningVi": "hằng ngày",
-      "sentenceIndex": 3,
-      "pos": "phrase",
-      "phrase": "meet every day",
-      "phraseVi": "họp hằng ngày"
-    },
-    {
-      "text": "meets",
-      "lemma": "meet",
-      "meaningVi": "họp",
-      "sentenceIndex": 5,
-      "pos": "verb",
-      "phrase": "It meets on Tuesday and Thursday",
-      "phraseVi": "Câu lạc bộ họp vào thứ Ba và thứ Năm"
-    },
-    {
-      "text": "plays",
-      "lemma": "play",
-      "meaningVi": "chơi, thi đấu",
-      "sentenceIndex": 8,
-      "pos": "verb",
-      "phrase": "Our team plays on Wednesday afternoon",
-      "phraseVi": "Đội mình thi đấu vào chiều thứ Tư"
-    },
-    {
-      "text": "guitar",
-      "lemma": "guitar",
-      "meaningVi": "đàn ghi-ta",
-      "sentenceIndex": 10,
-      "pos": "noun",
-      "phrase": "play the guitar",
-      "phraseVi": "chơi đàn ghi-ta"
-    },
-    {
-      "text": "thinks about",
-      "lemma": "think about",
-      "meaningVi": "suy nghĩ về",
-      "sentenceIndex": 11,
-      "pos": "verb",
-      "phrase": "Huy thinks about it",
-      "phraseVi": "Huy suy nghĩ"
-    },
-    {
-      "text": "well",
-      "lemma": "well",
-      "meaningVi": "hay, giỏi",
-      "sentenceIndex": 12,
+      "text": "fast",
+      "lemma": "fast",
+      "meaningVi": "nhanh",
+      "sentenceIndex": 6,
       "pos": "adverb",
-      "phrase": "he doesn't sing very well",
-      "phraseVi": "bạn ấy hát không hay lắm"
+      "phrase": "He doesn't speak fast",
+      "phraseVi": "Thầy ấy không nói nhanh"
     },
     {
-      "text": "a lot of",
-      "lemma": "a lot of",
-      "meaningVi": "nhiều",
-      "sentenceIndex": 14,
-      "pos": "phrase",
-      "phrase": "a lot of students",
-      "phraseVi": "nhiều học sinh"
-    },
-    {
-      "text": "nice",
-      "lemma": "nice",
-      "meaningVi": "dễ mến",
-      "sentenceIndex": 15,
+      "text": "easy",
+      "lemma": "easy",
+      "meaningVi": "dễ",
+      "sentenceIndex": 6,
       "pos": "adjective",
-      "phrase": "Miss Lee is very nice",
-      "phraseVi": "cô Lee rất dễ mến"
+      "phrase": "every lesson is easy",
+      "phraseVi": "buổi học nào cũng dễ hiểu"
+    },
+    {
+      "text": "takes",
+      "lemma": "take",
+      "meaningVi": "mất (thời gian)",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "It takes about twenty minutes",
+      "phraseVi": "Chỉ mất khoảng hai mươi phút"
+    },
+    {
+      "text": "smiles",
+      "lemma": "smile",
+      "meaningVi": "mỉm cười",
+      "sentenceIndex": 18,
+      "pos": "verb",
+      "phrase": "Phuong smiles",
+      "phraseVi": "Phương mỉm cười"
+    },
+    {
+      "text": "always",
+      "lemma": "always",
+      "meaningVi": "luôn luôn",
+      "sentenceIndex": 20,
+      "pos": "adverb",
+      "phrase": "he always helps the students",
+      "phraseVi": "thầy luôn giúp các học viên"
     }
   ]
 }

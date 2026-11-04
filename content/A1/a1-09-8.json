@@ -1,0 +1,578 @@
+{
+  "content": "Hoa and Linh live in a small flat on the second floor. In the evening, they sit at the window and drink tea. They like to watch the street cats.\n\nThe cats don't have a home, but they can climb very well. An orange cat can climb the tall tree near the flat. A grey cat can jump from one wall to another wall. \"Look! She can jump very high,\" Hoa says.\n\"Can we give them some fish?\" asks Linh.\n\"Yes, we can,\" Hoa says.\n\nLinh loves animals. She has a pet rabbit and a hamster in the flat. Hoa has a dog, but the dog can't climb trees. It only sits and looks at the cats. The street cats are good for the street too. They can catch a mouse or a rat at night.",
+  "targetWords": [
+    "animal",
+    "pet",
+    "dog",
+    "cat",
+    "rabbit",
+    "hamster",
+    "mouse",
+    "rat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cats",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "cat",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "động vật, con vật",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "pet",
+        "lemma": "pet",
+        "meaningVi": "thú cưng, con vật nuôi trong nhà",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "rabbit",
+        "lemma": "rabbit",
+        "meaningVi": "con thỏ",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "hamster",
+        "lemma": "hamster",
+        "meaningVi": "chuột hamster (chuột cảnh nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "con chuột (nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "rat",
+        "lemma": "rat",
+        "meaningVi": "con chuột cống (chuột to)",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa and Linh watch the street cats.",
+          "Linh buys a new cat.",
+          "Hoa's dog climbs a tree.",
+          "A day at the zoo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa và Linh ngồi bên cửa sổ ngắm những con mèo hoang trèo cây, nhảy tường."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can the grey cat do?",
+        "promptVi": "Con mèo xám làm được gì?",
+        "options": [
+          "It can climb the tall tree.",
+          "It can jump from one wall to another wall.",
+          "It can catch fish.",
+          "It can swim."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"A grey cat can jump from one wall to another wall\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What pets does Linh have?",
+        "promptVi": "Linh nuôi những con gì?",
+        "options": [
+          "A dog and a cat",
+          "A rabbit and a hamster",
+          "A mouse and a rat",
+          "Two street cats"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She has a pet rabbit and a hamster in the flat\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa's dog can climb trees.",
+        "promptVi": "Con chó của Hoa trèo được cây.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"the dog can't climb trees\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"climb\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "An orange cat can climb the tall tree near the flat.",
+        "options": [
+          "trèo, leo",
+          "nhảy",
+          "chạy",
+          "ngủ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Climb là trèo, leo: con mèo cam trèo lên cây cao."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't: nói về khả năng",
+      "bodyVi": "Can + động từ nguyên mẫu nói con vật làm được gì: An orange cat can climb the tall tree. Can't nói không làm được: the dog can't climb trees. Câu hỏi đưa Can lên đầu: Can we give them some fish? Câu hỏi này còn dùng để xin phép, rủ nhau làm gì. Trả lời ngắn: Yes, we can.",
+      "examples": [
+        "An orange cat can climb the tall tree near the flat.",
+        "Hoa has a dog, but the dog can't climb trees.",
+        "\"Can we give them some fish?\" asks Linh."
+      ]
+    },
+    "writingPrompt": "Write about the animals on your street: what can they do, and what can't they do?",
+    "sentenceTranslations": [
+      "Hoa và Linh sống trong một căn hộ nhỏ ở tầng hai.",
+      "Buổi tối, hai bạn ngồi bên cửa sổ và uống trà.",
+      "Hai bạn thích ngắm những con mèo hoang.",
+      "Những con mèo không có nhà, nhưng chúng trèo rất giỏi.",
+      "Một con mèo màu cam trèo được lên cái cây cao gần căn hộ.",
+      "Một con mèo xám nhảy được từ bức tường này sang bức tường khác.",
+      "\"Nhìn kìa!",
+      "Nó nhảy được cao quá,\" Hoa nói.",
+      "\"Mình cho chúng ít cá được không?\" Linh hỏi.",
+      "\"Được chứ,\" Hoa nói.",
+      "Linh rất yêu động vật.",
+      "Bạn ấy nuôi một con thỏ và một con chuột hamster trong căn hộ.",
+      "Hoa nuôi một con chó, nhưng con chó không trèo được cây.",
+      "Nó chỉ ngồi nhìn những con mèo.",
+      "Mèo hoang cũng có ích cho khu phố.",
+      "Ban đêm, chúng bắt được chuột nhắt hay chuột cống."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả những con vật quanh nhà làm được gì (can climb, can jump) và không làm được gì (can't).",
+    "examples": [
+      {
+        "lemma": "animal",
+        "sentence": "There is a small animal in the tree.",
+        "meaningVi": "Có một con vật nhỏ trên cây."
+      },
+      {
+        "lemma": "pet",
+        "sentence": "Linh's pet can't climb trees.",
+        "meaningVi": "Con vật nuôi của Linh không trèo được cây."
+      },
+      {
+        "lemma": "dog",
+        "sentence": "The dog can't jump very high.",
+        "meaningVi": "Con chó không nhảy cao được."
+      },
+      {
+        "lemma": "cat",
+        "sentence": "The orange cat can climb very high.",
+        "meaningVi": "Con mèo cam trèo được rất cao."
+      },
+      {
+        "lemma": "rabbit",
+        "sentence": "Can a rabbit climb a tree?",
+        "meaningVi": "Thỏ có trèo được cây không?"
+      },
+      {
+        "lemma": "hamster",
+        "sentence": "Linh's hamster sleeps in the day.",
+        "meaningVi": "Con chuột hamster của Linh ngủ vào ban ngày."
+      },
+      {
+        "lemma": "mouse",
+        "sentence": "The grey cat can catch a mouse.",
+        "meaningVi": "Con mèo xám bắt được chuột nhắt."
+      },
+      {
+        "lemma": "rat",
+        "sentence": "A big rat runs on the wall.",
+        "meaningVi": "Một con chuột cống to chạy trên tường."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Hoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hoa, where is the orange cat?",
+          "meaningVi": "Hoa ơi, con mèo cam đâu rồi?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's at the top of the tree. Can you see it?",
+          "meaningVi": "Nó ở trên ngọn cây ấy. Cậu có thấy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I can. Can it come down?",
+          "meaningVi": "Có, mình thấy rồi. Nó có xuống được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it can. Cats can climb up and down.",
+          "meaningVi": "Có chứ. Mèo trèo lên trèo xuống được mà."
+        },
+        {
+          "speaker": 0,
+          "text": "Can your dog climb a tree?",
+          "meaningVi": "Con chó của cậu có trèo được cây không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it can't! It only sits under the tree.",
+          "meaningVi": "Không đâu! Nó chỉ ngồi dưới gốc cây thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Ha ha. Do the cats like milk?",
+          "meaningVi": "Ha ha. Mấy con mèo có thích sữa không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they do. But fish is better for them.",
+          "meaningVi": "Có. Nhưng cá thì tốt cho chúng hơn."
+        }
+      ]
+    },
+    "grammarTipVi": "Can / can't + động từ nguyên mẫu: The cat can climb (không nói \"The cat can climbs\"). Can we …? dùng để hỏi mình làm việc gì được không.",
+    "translations": [
+      {
+        "vi": "Con mèo cam trèo được rất cao.",
+        "en": "The orange cat can climb very high.",
+        "distractors": [
+          "climbs",
+          "cans",
+          "tall"
+        ]
+      },
+      {
+        "vi": "Con chó không trèo được cây.",
+        "en": "The dog can't climb trees.",
+        "distractors": [
+          "climbs",
+          "cans",
+          "cat"
+        ]
+      },
+      {
+        "vi": "Mình cho mấy con mèo ít cá được không?",
+        "en": "Can we give the cats some fish?",
+        "distractors": [
+          "gives",
+          "Do",
+          "cat"
+        ]
+      },
+      {
+        "vi": "Linh nuôi một con thỏ và một con chuột hamster.",
+        "en": "Linh has a pet rabbit and a hamster.",
+        "distractors": [
+          "have",
+          "rabbits",
+          "is"
+        ],
+        "accepted": [
+          "Linh has a rabbit and a hamster.",
+          "Linh has a hamster and a rabbit.",
+          "Linh has a hamster and a pet rabbit."
+        ]
+      },
+      {
+        "vi": "Ban đêm, mèo bắt được chuột cống.",
+        "en": "At night, cats can catch a rat.",
+        "distractors": [
+          "catches",
+          "cans",
+          "mouse"
+        ],
+        "accepted": [
+          "Cats can catch a rat at night."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh và Hoa nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Con mèo cam trên cây và con chó của Hoa",
+          "Con thỏ của Linh",
+          "Bữa tối của hai bạn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn nói về con mèo cam trên ngọn cây và con chó không trèo được cây.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con mèo cam ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên ngọn cây",
+          "Trên tường",
+          "Dưới gốc cây"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"It's at the top of the tree\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con chó của Hoa làm gì khi mèo ở trên cây?",
+        "promptVi": "",
+        "options": [
+          "Ngồi dưới gốc cây",
+          "Trèo lên cây",
+          "Chạy về nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"It only sits under the tree\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa says fish is better for the cats.",
+        "promptVi": "Hoa nói cá tốt cho mèo hơn.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Hoa nói \"But fish is better for them\".",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Những con mèo hoang làm được gì, và con chó của Hoa không làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't: nói về khả năng",
+      "noticing": [
+        {
+          "sentence": "An orange cat can climb the tall tree near the flat.",
+          "highlights": [
+            "can climb"
+          ]
+        },
+        {
+          "sentence": "Hoa has a dog, but the dog can't climb trees.",
+          "highlights": [
+            "can't climb"
+          ]
+        }
+      ],
+      "questionVi": "Can't là viết tắt của từ nào?",
+      "options": [
+        "cannot",
+        "can not to",
+        "don't can"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Can't = cannot (viết liền). Sau cả hai, động từ ở dạng nguyên mẫu: the dog can't climb / cannot climb trees.",
+      "whenVi": "Dùng can để nói ai, con gì làm được việc gì; can't để nói không làm được; Can …? để hỏi.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "I can swim. – Can you swim? – Yes, I can.",
+          "negative": "We can't fly."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "It can fly. – Can it talk? – No, it can't.",
+          "negative": "He can't swim."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The cat can climbs the tree.",
+          "right": "The cat can climb the tree."
+        },
+        {
+          "wrong": "The dog don't can climb trees.",
+          "right": "The dog can't climb trees."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"trèo được\", \"không trèo được\". Tiếng Anh đặt can / can't trước động từ, và không dùng don't / doesn't với can.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't. (Con chó không trèo được cây.)",
+          "text": "The dog ___ climb trees.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Không làm được nên dùng can't + climb."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "A grey cat can ___ very high.",
+          "options": [
+            "jump",
+            "jumps",
+            "to jump",
+            "jumped"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau can, động từ ở dạng nguyên mẫu: can jump."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The orange cat can climbs the tree.",
+          "sentence": "The orange cat can climb the tree.",
+          "explanationVi": "Sau can, động từ không thêm -s: can climb."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mình cho chúng ít cá được không?",
+          "sentence": "Can we give them some fish?",
+          "words": [
+            "we",
+            "fish?",
+            "Can",
+            "them",
+            "give",
+            "some",
+            "gives"
+          ],
+          "explanationVi": "Câu hỏi: Can + chủ ngữ + động từ nguyên mẫu; từ \"gives\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "An orange cat can climb the tall tree near the flat.",
+        "tipVi": "Climb /klaɪm/ không đọc chữ b ở cuối; can đọc nhẹ /kən/."
+      },
+      {
+        "text": "Hoa has a dog, but the dog can't climb trees.",
+        "tipVi": "Can't /kænt/ đọc mạnh; trees /triːz/ có âm /tr/ ở đầu và /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Are there cats on your street?",
+        "questionVi": "Đường nhà bạn có mèo không?",
+        "frame": "Yes, there are. / No, there aren't."
+      },
+      {
+        "question": "Can a cat climb a tree?",
+        "questionVi": "Mèo có trèo được cây không?",
+        "frame": "Yes, it can. / No, it can't."
+      },
+      {
+        "question": "Can you jump very high?",
+        "questionVi": "Bạn có nhảy cao được không?",
+        "frame": "Yes, I can. / No, I can't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can / can't hoặc câu hỏi Can …?",
+      "anyOf": [
+        "can",
+        "can't"
+      ],
+      "outlineVi": [
+        "Giới thiệu con vật ở gần nhà bạn.",
+        "Kể nó làm được gì (can …).",
+        "Kể nó không làm được gì (can't …)."
+      ],
+      "modelAnswer": "There is a black cat on my street. It can climb the tall tree, and it can jump on the wall. But it can't come in my house, because my dog doesn't like it!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "flat",
+      "lemma": "flat",
+      "meaningVi": "căn hộ",
+      "pos": "noun",
+      "sentenceIndex": 0,
+      "phrase": "live in a small flat",
+      "phraseVi": "sống trong một căn hộ nhỏ"
+    },
+    {
+      "text": "floor",
+      "lemma": "floor",
+      "meaningVi": "tầng (nhà)",
+      "pos": "noun",
+      "sentenceIndex": 0,
+      "phrase": "on the second floor",
+      "phraseVi": "ở tầng hai"
+    },
+    {
+      "text": "street",
+      "lemma": "street",
+      "meaningVi": "đường phố; mèo đường phố là mèo hoang",
+      "pos": "noun",
+      "sentenceIndex": 2,
+      "phrase": "the street cats",
+      "phraseVi": "những con mèo hoang"
+    },
+    {
+      "text": "climb",
+      "lemma": "climb",
+      "meaningVi": "trèo, leo",
+      "pos": "verb",
+      "sentenceIndex": 4,
+      "phrase": "An orange cat can climb the tall tree",
+      "phraseVi": "Một con mèo màu cam trèo được lên cái cây cao"
+    },
+    {
+      "text": "tall",
+      "lemma": "tall",
+      "meaningVi": "cao",
+      "pos": "adjective",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "jump",
+      "lemma": "jump",
+      "meaningVi": "nhảy",
+      "pos": "verb",
+      "sentenceIndex": 5,
+      "phrase": "A grey cat can jump from one wall to another wall",
+      "phraseVi": "Một con mèo xám nhảy được từ bức tường này sang bức tường khác"
+    },
+    {
+      "text": "wall",
+      "lemma": "wall",
+      "meaningVi": "bức tường",
+      "pos": "noun",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "looks at",
+      "lemma": "look at",
+      "meaningVi": "nhìn",
+      "pos": "verb",
+      "sentenceIndex": 13,
+      "phrase": "It only sits and looks at the cats",
+      "phraseVi": "Nó chỉ ngồi nhìn những con mèo"
+    }
+  ]
+}

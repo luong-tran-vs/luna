@@ -1,0 +1,605 @@
+{
+  "content": "Linh works at a bank. She needs some notebooks and pens for her work, so she goes to a shop near her home. This shop sells a lot of books, notebooks and pens.\n\nThis thick notebook on the big table is very nice. Linh looks at the price: 55,000 dong. That isn't expensive.\n\nThen she points to the pens behind the cashier. \"How much are those pens?\" she asks.\n\n\"Those black pens are 10,000 dong, and those red pens are 15,000 dong,\" the cashier answers.\n\nThe red pens are very nice, but Linh needs black pens for the bank. So she buys this thick notebook and three black pens. She pays 85,000 dong. Now she has good things for her work!",
+  "targetWords": [
+    "need",
+    "shop",
+    "sell",
+    "price",
+    "expensive",
+    "cashier",
+    "buy",
+    "pay"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "needs",
+        "lemma": "need",
+        "meaningVi": "cần",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "sells",
+        "lemma": "sell",
+        "meaningVi": "bán",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá tiền",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "cashier",
+        "lemma": "cashier",
+        "meaningVi": "người thu ngân",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "buys",
+        "lemma": "buy",
+        "meaningVi": "mua",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "pays",
+        "lemma": "pay",
+        "meaningVi": "trả tiền",
+        "pos": "verb",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh buys things for her work",
+          "Linh's work at the bank",
+          "A new bank near Linh's home",
+          "Linh's family"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh đến cửa hàng gần nhà mua sổ và bút để dùng cho công việc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is the thick notebook?",
+        "promptVi": "Cuốn sổ dày giá bao nhiêu?",
+        "options": [
+          "55,000 dong",
+          "10,000 dong",
+          "15,000 dong",
+          "85,000 dong"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Linh looks at the price: 55,000 dong\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the pens?",
+        "promptVi": "Mấy cây bút ở đâu?",
+        "options": [
+          "On the big table",
+          "Behind the cashier",
+          "In Linh's bag",
+          "Near the door"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh chỉ vào \"the pens behind the cashier\" (mấy cây bút sau lưng người thu ngân)."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh buys red pens.",
+        "promptVi": "Linh mua bút màu đỏ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Linh cần bút đen cho ngân hàng, nên cô ấy mua \"three black pens\" (ba cây bút đen)."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"thick\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "This thick notebook on the big table is very nice.",
+        "options": [
+          "dày",
+          "mỏng",
+          "đắt",
+          "mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thick là dày: cuốn sổ dày trên cái bàn lớn."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "This (cái này) và that (cái kia) đi với danh từ số ít; these (những cái này) và those (những cái kia) đi với danh từ số nhiều. Đồ ở gần (trên bàn trước mặt) dùng this / these; đồ ở xa (sau lưng người thu ngân) dùng that / those. That đứng một mình còn chỉ điều vừa nói: That isn't expensive (Như thế không đắt).",
+      "examples": [
+        "This thick notebook on the big table is very nice.",
+        "\"How much are those pens?\" she asks.",
+        "That isn't expensive."
+      ]
+    },
+    "writingPrompt": "You are in a shop for books and pens. Write about the things near you and the things over there, their prices, and what you buy for your work or school.",
+    "sentenceTranslations": [
+      "Linh làm việc ở một ngân hàng.",
+      "Cô ấy cần vài cuốn sổ và vài cây bút cho công việc, nên cô ấy đến một cửa hàng gần nhà.",
+      "Cửa hàng này bán rất nhiều sách, sổ và bút.",
+      "Cuốn sổ dày trên cái bàn lớn này rất đẹp.",
+      "Linh xem giá: 55.000 đồng.",
+      "Như thế không đắt.",
+      "Rồi cô ấy chỉ vào mấy cây bút sau lưng người thu ngân.",
+      "\"Mấy cây bút kia bao nhiêu tiền ạ?\" cô ấy hỏi.",
+      "\"Mấy cây bút đen kia giá 10.000 đồng, còn mấy cây bút đỏ kia giá 15.000 đồng,\" người thu ngân trả lời.",
+      "Bút đỏ rất đẹp, nhưng Linh cần bút đen để dùng ở ngân hàng.",
+      "Vậy nên cô ấy mua cuốn sổ dày này và ba cây bút đen.",
+      "Cô ấy trả 85.000 đồng.",
+      "Giờ cô ấy đã có đồ tốt cho công việc!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi giá món đồ ở gần (this, these) và chỉ vào món đồ ở xa (that, those) khi mua đồ dùng cho công việc.",
+    "examples": [
+      {
+        "lemma": "need",
+        "sentence": "I need a new pen.",
+        "meaningVi": "Mình cần một cây bút mới."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "That shop sells books.",
+        "meaningVi": "Cửa hàng kia bán sách."
+      },
+      {
+        "lemma": "sell",
+        "sentence": "They sell notebooks and pens.",
+        "meaningVi": "Họ bán sổ và bút."
+      },
+      {
+        "lemma": "price",
+        "sentence": "The price of this pen is 10,000 dong.",
+        "meaningVi": "Giá của cây bút này là 10.000 đồng."
+      },
+      {
+        "lemma": "expensive",
+        "sentence": "This big book is expensive.",
+        "meaningVi": "Cuốn sách to này đắt."
+      },
+      {
+        "lemma": "cashier",
+        "sentence": "The cashier is behind the table.",
+        "meaningVi": "Người thu ngân ở sau cái bàn."
+      },
+      {
+        "lemma": "buy",
+        "sentence": "I buy pens for my school.",
+        "meaningVi": "Mình mua bút để đi học."
+      },
+      {
+        "lemma": "pay",
+        "sentence": "I pay 20,000 dong for two pens.",
+        "meaningVi": "Mình trả 20.000 đồng cho hai cây bút."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Trang",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, is that a new notebook?",
+          "meaningVi": "Linh ơi, đó là sổ mới à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It's from a shop near my home.",
+          "meaningVi": "Ừ. Mình mua ở một cửa hàng gần nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "It's very nice. What is the price?",
+          "meaningVi": "Đẹp quá. Giá bao nhiêu thế?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's 55,000 dong.",
+          "meaningVi": "55.000 đồng."
+        },
+        {
+          "speaker": 0,
+          "text": "That's a good price! Are these pens new too?",
+          "meaningVi": "Giá tốt đấy! Mấy cây bút này cũng mới à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they are. They are 10,000 dong each.",
+          "meaningVi": "Ừ. Mỗi cây 10.000 đồng."
+        },
+        {
+          "speaker": 0,
+          "text": "I need some pens for work. What is the name of that shop?",
+          "meaningVi": "Mình cần vài cây bút để đi làm. Cửa hàng đó tên là gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's Minh Anh Books. It's on Nguyen Hue Street.",
+          "meaningVi": "Tên là Minh Anh Books. Nó ở trên đường Nguyễn Huệ."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks, Linh!",
+          "meaningVi": "Cảm ơn Linh nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Một món ở gần: this notebook; nhiều món ở xa: those pens. Nhiều món thì dùng are: \"How much are those pens?\", không nói \"How much is those pens?\"",
+    "translations": [
+      {
+        "vi": "Cuốn sổ dày này giá bao nhiêu?",
+        "en": "What is the price of this thick notebook?",
+        "distractors": [
+          "these",
+          "are",
+          "that"
+        ]
+      },
+      {
+        "vi": "Cửa hàng này bán sổ và bút.",
+        "en": "This shop sells notebooks and pens.",
+        "distractors": [
+          "These",
+          "selling",
+          "buys"
+        ],
+        "accepted": [
+          "This shop sells pens and notebooks."
+        ]
+      },
+      {
+        "vi": "Mấy cây bút kia không đắt.",
+        "en": "Those pens are not expensive.",
+        "distractors": [
+          "That",
+          "is",
+          "these"
+        ]
+      },
+      {
+        "vi": "Cô ấy cần vài cây bút cho công việc.",
+        "en": "She needs some pens for her work.",
+        "distractors": [
+          "They",
+          "needing",
+          "is"
+        ],
+        "accepted": [
+          "She needs some pens for work."
+        ]
+      },
+      {
+        "vi": "Cô ấy trả 85.000 đồng.",
+        "en": "She pays 85,000 dong.",
+        "distractors": [
+          "Her",
+          "paying",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hai người nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuốn sổ và bút mới của Linh",
+          "Ngân hàng của Linh",
+          "Một cửa hàng giày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang hỏi \"is that a new notebook?\" rồi hỏi giá sổ và bút.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cuốn sổ giá bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "55.000 đồng",
+          "10.000 đồng",
+          "85.000 đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"It's 55,000 dong\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cửa hàng tên là gì?",
+        "promptVi": "",
+        "options": [
+          "Minh Anh Books",
+          "Linh Books",
+          "Trang Books"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"It's Minh Anh Books\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Trang needs some pens.",
+        "promptVi": "Trang cần vài cây bút.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Trang nói \"I need some pens for work\".",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Linh cần mua gì, những món đó ở đâu trong cửa hàng, và cô ấy trả bao nhiêu tiền?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "This thick notebook on the big table is very nice.",
+          "highlights": [
+            "This thick notebook"
+          ]
+        },
+        {
+          "sentence": "\"How much are those pens?\" she asks.",
+          "highlights": [
+            "those pens"
+          ]
+        },
+        {
+          "sentence": "\"Those black pens are 10,000 dong, and those red pens are 15,000 dong,\" the cashier answers.",
+          "highlights": [
+            "Those black pens",
+            "those red pens"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Linh nói this thick notebook nhưng lại nói those pens?",
+      "options": [
+        "Vì sổ đắt hơn bút",
+        "Vì cuốn sổ ở trên bàn ngay trước mặt Linh (gần, một cuốn), còn mấy cây bút ở sau lưng người thu ngân (xa, nhiều cây)",
+        "Vì this chỉ dùng cho sách vở"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Gần + một vật → this; xa + nhiều vật → those; gần + nhiều vật → these; xa + một vật → that. Cuốn sổ trên bàn là this thick notebook; bút sau lưng người thu ngân là those pens.",
+      "whenVi": "Dùng this / these cho đồ ở gần mình (trên bàn trước mặt, trên tay) và that / those cho đồ ở xa (sau quầy, đằng kia).",
+      "table": [
+        {
+          "subject": "this + số ít (gần)",
+          "form": "This notebook is thick.",
+          "negative": "This notebook isn't expensive."
+        },
+        {
+          "subject": "these + số nhiều (gần)",
+          "form": "These pens are black.",
+          "negative": "These pens aren't red."
+        },
+        {
+          "subject": "that / those (xa)",
+          "form": "That pen is red. Those notebooks are big.",
+          "negative": "Those pens aren't expensive."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "How much is those pens?",
+          "right": "How much are those pens?"
+        },
+        {
+          "wrong": "These notebook is nice.",
+          "right": "This notebook is nice."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"cuốn sổ này\", \"mấy cây bút kia\": chỉ cần \"này\", \"kia\". Tiếng Anh phải đổi theo số: this notebook → these notebooks, that pen → those pens.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền that hoặc those vào chỗ trống (bút ở sau quầy).",
+          "text": "How much are ___ pens behind the cashier?",
+          "answers": [
+            "those"
+          ],
+          "explanationVi": "Pens là số nhiều và ở xa (sau lưng người thu ngân), nên dùng those."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng (cuốn sổ trên tay bạn).",
+          "text": "___ notebook in my hand is thick.",
+          "options": [
+            "These",
+            "This",
+            "That",
+            "Those"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Một cuốn sổ (số ít) ở gần (trên tay), nên dùng This."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Those pen is black.",
+          "sentence": "That pen is black.",
+          "explanationVi": "Pen là số ít và đi với is, nên phải dùng that, không dùng those."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mấy cây bút đỏ kia đẹp.",
+          "sentence": "Those red pens are nice.",
+          "words": [
+            "red",
+            "are",
+            "Those",
+            "nice",
+            "pens",
+            "That"
+          ],
+          "explanationVi": "Pens là số nhiều và ở xa nên dùng Those; từ \"That\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "This thick notebook on the big table is very nice.",
+        "tipVi": "This /ðɪs/ và thick /θɪk/ đều đặt lưỡi giữa hai răng: this rung tiếng, thick thổi hơi nhẹ."
+      },
+      {
+        "text": "So she buys this thick notebook and three black pens.",
+        "tipVi": "Three /θriː/ thổi hơi qua kẽ răng, đừng đọc thành \"tri\"; pens /penz/ cuối là /z/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What things are on your desk?",
+        "questionVi": "Trên bàn của bạn có những đồ gì?",
+        "frame": "There are ___ on my desk."
+      },
+      {
+        "question": "What colour is your pen?",
+        "questionVi": "Cây bút của bạn màu gì?",
+        "frame": "My pen is ___."
+      },
+      {
+        "question": "Look at a thing near you. What is this?",
+        "questionVi": "Nhìn một món đồ ở gần bạn. Đây là cái gì?",
+        "frame": "This is a ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "anyOf": [
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói bạn đang ở cửa hàng nào và cần mua gì.",
+        "Tả món đồ ở gần bạn (this, these) và giá của nó.",
+        "Tả món đồ ở đằng kia (that, those), rồi nói bạn mua gì và trả bao nhiêu."
+      ],
+      "modelAnswer": "I am in a shop near my school. I need a notebook and some pens. This blue notebook on the table is 30,000 dong. Those pens behind the cashier are 8,000 dong each. I buy this notebook and two pens. I pay 46,000 dong."
+    }
+  },
+  "glosses": [
+    {
+      "text": "works",
+      "lemma": "work",
+      "meaningVi": "làm việc",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Linh works at a bank",
+      "phraseVi": "Linh làm việc ở một ngân hàng"
+    },
+    {
+      "text": "bank",
+      "lemma": "bank",
+      "meaningVi": "ngân hàng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "at a bank",
+      "phraseVi": "ở một ngân hàng"
+    },
+    {
+      "text": "notebooks",
+      "lemma": "notebook",
+      "meaningVi": "cuốn sổ",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "some notebooks and pens",
+      "phraseVi": "vài cuốn sổ và vài cây bút"
+    },
+    {
+      "text": "pens",
+      "lemma": "pen",
+      "meaningVi": "cây bút",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "some notebooks and pens",
+      "phraseVi": "vài cuốn sổ và vài cây bút"
+    },
+    {
+      "text": "thick",
+      "lemma": "thick",
+      "meaningVi": "dày",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "This thick notebook",
+      "phraseVi": "Cuốn sổ dày này"
+    },
+    {
+      "text": "table",
+      "lemma": "table",
+      "meaningVi": "cái bàn",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "on the big table",
+      "phraseVi": "trên cái bàn lớn"
+    },
+    {
+      "text": "points to",
+      "lemma": "point to",
+      "meaningVi": "chỉ vào",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "she points to the pens",
+      "phraseVi": "cô ấy chỉ vào mấy cây bút"
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "phía sau",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "behind the cashier",
+      "phraseVi": "sau lưng người thu ngân"
+    },
+    {
+      "text": "How much",
+      "lemma": "how much",
+      "meaningVi": "bao nhiêu (tiền)",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "How much are those pens?",
+      "phraseVi": "Mấy cây bút kia bao nhiêu tiền?"
+    },
+    {
+      "text": "things",
+      "lemma": "thing",
+      "meaningVi": "đồ, đồ vật",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "good things for her work",
+      "phraseVi": "đồ tốt cho công việc"
+    }
+  ]
+}

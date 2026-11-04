@@ -1,70 +1,70 @@
 {
-  "content": "Milo is our cat. He is orange and white, and he loves sleeping under the sofa.\n\nThis evening, Milo isn't at home. He isn't under the sofa, and he isn't in the kitchen. \"Where is Milo?\" my little sister Mai asks. She is very sad.\n\nMy dad and my brother Duc look in the garden, but they can't find him. My mum calls, \"Milo, where are you?\" but he doesn't come.\n\nThen we ask our neighbours for help. Mrs Lien looks under her car, and the children in our street look in the park. Then Mr Binh says, \"I can see a cat in my tree!\"\n\nWe all run to his house. Milo is high in the tree, and he can't come down! Duc can climb very well, so he climbs up and gets Milo.\n\nMai holds Milo and says, \"Bad cat, but I love you!\"",
+  "content": "Phong likes to exercise at a club near his home every morning. He loves exercising there, but he always needs music.\n\nEvery evening, Phong chooses songs for the morning. He likes fast songs because they make him strong and happy. \"Fast music is great when I run,\" he says.\n\nHis friend Khanh goes to the club with him. She likes exercising too, but she doesn't like fast music. She loves listening to slow songs on her phone.\n\nOne morning, Phong turns on his music in the club. \"Do you like this song?\" he asks. \"It's too fast for me,\" Khanh says. \"Can we listen to a slow song, or can I use my phone?\"\n\nPhong laughs. \"OK, you can choose a song.\" Now they listen to fast songs when they run, and slow songs at the end.",
   "targetWords": [
-    "cat",
-    "sofa",
-    "garden",
-    "find",
-    "neighbour",
-    "street",
-    "tree",
-    "climb"
+    "fast",
+    "slow",
+    "song",
+    "music",
+    "phone",
+    "exercise",
+    "choose",
+    "turn on"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "cat",
-        "lemma": "cat",
-        "meaningVi": "con mèo",
-        "pos": "noun",
+        "text": "exercise",
+        "lemma": "exercise",
+        "meaningVi": "tập thể dục",
+        "pos": "verb",
         "sentenceIndex": 0
       },
       {
-        "text": "sofa",
-        "lemma": "sofa",
-        "meaningVi": "ghế sofa",
+        "text": "music",
+        "lemma": "music",
+        "meaningVi": "âm nhạc, nhạc",
         "pos": "noun",
         "sentenceIndex": 1
       },
       {
-        "text": "garden",
-        "lemma": "garden",
-        "meaningVi": "khu vườn",
-        "pos": "noun",
-        "sentenceIndex": 6
+        "text": "fast",
+        "lemma": "fast",
+        "meaningVi": "nhanh",
+        "pos": "adjective",
+        "sentenceIndex": 3
       },
       {
-        "text": "find",
-        "lemma": "find",
-        "meaningVi": "tìm thấy",
-        "pos": "verb",
-        "sentenceIndex": 6
+        "text": "slow",
+        "lemma": "slow",
+        "meaningVi": "chậm",
+        "pos": "adjective",
+        "sentenceIndex": 7
       },
       {
-        "text": "neighbours",
-        "lemma": "neighbour",
-        "meaningVi": "hàng xóm",
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
         "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "turns on",
+        "lemma": "turn on",
+        "meaningVi": "bật (máy, đèn, nhạc)",
+        "pos": "phrase",
         "sentenceIndex": 8
       },
       {
-        "text": "street",
-        "lemma": "street",
-        "meaningVi": "con phố, đường phố",
+        "text": "song",
+        "lemma": "song",
+        "meaningVi": "bài hát",
         "pos": "noun",
         "sentenceIndex": 9
       },
       {
-        "text": "tree",
-        "lemma": "tree",
-        "meaningVi": "cái cây",
-        "pos": "noun",
-        "sentenceIndex": 10
-      },
-      {
-        "text": "climb",
-        "lemma": "climb",
-        "meaningVi": "trèo, leo",
+        "text": "choose",
+        "lemma": "choose",
+        "meaningVi": "chọn",
         "pos": "verb",
         "sentenceIndex": 13
       }
@@ -73,520 +73,516 @@
       {
         "kind": "gist",
         "prompt": "What is the story about?",
-        "promptVi": "Câu chuyện nói về điều gì?",
+        "promptVi": "Bài đọc nói về điều gì?",
         "options": [
-          "Lan's family and their neighbours look for Milo.",
-          "A new cat comes to the street.",
-          "Mr Binh and his garden",
-          "Duc and his new bike"
+          "Two friends and the music they like for exercising",
+          "A new club in the city",
+          "A music class at school",
+          "A dance class"
         ],
         "answerIndex": 0,
-        "explanationVi": "Tối nay Milo không có ở nhà, cả nhà Lan và hàng xóm cùng đi tìm, cuối cùng thấy Milo trên cây nhà ông Bình."
+        "explanationVi": "Bài kể về Phong và Khanh: hai bạn tập thể dục ở câu lạc bộ, Phong thích nhạc nhanh còn Khanh thích nhạc chậm."
       },
       {
         "kind": "detail",
-        "prompt": "Where does Mr Binh see Milo?",
-        "promptVi": "Ông Bình nhìn thấy Milo ở đâu?",
+        "prompt": "Why does Phong like fast songs?",
+        "promptVi": "Vì sao Phong thích bài hát nhanh?",
         "options": [
-          "Under the sofa",
-          "In the kitchen",
-          "Under a car",
-          "In his tree"
-        ],
-        "answerIndex": 3,
-        "explanationVi": "Ông Bình nói \"I can see a cat in my tree!\": Milo ở trên cây nhà ông."
-      },
-      {
-        "kind": "detail",
-        "prompt": "Why does Duc climb the tree?",
-        "promptVi": "Vì sao anh Đức trèo lên cây?",
-        "options": [
-          "Mr Binh asks him.",
-          "Milo can't come down.",
-          "He wants to see the park.",
-          "Mai is in the tree."
+          "Because Khanh likes them",
+          "Because they make him strong and happy",
+          "Because they are new",
+          "Because he can sing them"
         ],
         "answerIndex": 1,
-        "explanationVi": "Bài viết \"Milo is high in the tree, and he can't come down!\" nên anh Đức, người trèo giỏi, trèo lên đưa Milo xuống."
+        "explanationVi": "Bài viết \"He likes fast songs because they make him strong and happy.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What music does Khanh love?",
+        "promptVi": "Khanh thích loại nhạc nào?",
+        "options": [
+          "Fast music",
+          "Slow songs",
+          "Old music from her parents",
+          "No music"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She loves listening to slow songs on her phone.\""
       },
       {
         "kind": "tfn",
-        "prompt": "Mrs Lien finds Milo.",
-        "promptVi": "Bà Liên tìm thấy Milo.",
+        "prompt": "Khanh likes fast music.",
+        "promptVi": "Khanh thích nhạc nhanh.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bà Liên chỉ tìm dưới gầm xe; người nhìn thấy Milo là ông Bình (\"I can see a cat in my tree!\")."
+        "explanationVi": "Sai, vì bài viết \"she doesn't like fast music\": Khanh thích bài chậm hơn."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"neighbours\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"too fast\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "Then we ask our neighbours for help.",
+        "quote": "\"It's too fast for me,\" Khanh says.",
         "options": [
-          "bạn cùng lớp",
-          "họ hàng",
-          "hàng xóm",
-          "thầy cô"
+          "nhanh quá",
+          "hơi chậm",
+          "rất hay",
+          "không nhanh"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Neighbours là hàng xóm, những người sống gần nhà mình, như bà Liên, ông Bình và các bạn nhỏ cùng phố."
+        "answerIndex": 0,
+        "explanationVi": "Too + tính từ là \"quá\": too fast là nhanh quá, Khanh thấy bài này nhanh quá với cô."
       }
     ],
     "grammarNote": {
-      "title": "Can / can't (khả năng)",
-      "bodyVi": "Can + động từ nói làm được gì: Duc can climb very well, I can see a cat. Can't + động từ nói không làm được: they can't find him, he can't come down. Phủ định của can là can't (cannot), không dùng don't / doesn't với can.",
+      "title": "Like / love + danh từ hoặc V-ing, và các từ nối and / but / or / because",
+      "bodyVi": "Nói điều mình thích: like / love + danh từ (He likes fast songs) hoặc like / love + động từ thêm -ing (He loves exercising there, She loves listening to slow songs). Với he / she thì thêm -s: likes, loves; câu phủ định: she doesn't like fast music. Nối hai ý bằng and (và), but (nhưng), or (hoặc), because (vì): He likes fast songs because they make him strong and happy.",
       "examples": [
-        "My dad and my brother Duc look in the garden, but they can't find him.",
-        "Milo is high in the tree, and he can't come down!",
-        "Duc can climb very well, so he climbs up and gets Milo."
+        "He loves exercising there, but he always needs music.",
+        "He likes fast songs because they make him strong and happy.",
+        "She likes exercising too, but she doesn't like fast music."
       ]
     },
-    "writingPrompt": "Write a short story about a pet that is not at home: who looks for it, and where is it?",
+    "writingPrompt": "Write about the music you like when you exercise, and why.",
     "sentenceTranslations": [
-      "Milo là con mèo nhà mình.",
-      "Nó có lông màu cam và trắng, và rất thích ngủ dưới gầm ghế sofa.",
-      "Tối nay, Milo không có ở nhà.",
-      "Nó không ở dưới ghế sofa, cũng không ở trong bếp.",
-      "\"Milo đâu rồi?\" em gái Mai hỏi.",
-      "Em buồn lắm.",
-      "Bố và anh Đức tìm ngoài vườn, nhưng không thấy nó đâu.",
-      "Mẹ gọi: \"Milo ơi, con đâu rồi?\" nhưng nó không về.",
-      "Thế là cả nhà nhờ hàng xóm giúp.",
-      "Bà Liên tìm dưới gầm xe của bà, còn bọn trẻ trong phố thì tìm ở công viên.",
-      "Rồi ông Bình nói: \"Ông thấy một con mèo trên cây nhà ông này!\"",
-      "Cả nhà chạy sang nhà ông.",
-      "Milo ở tít trên cây cao, và nó không xuống được!",
-      "Anh Đức trèo rất giỏi, nên anh trèo lên và đưa Milo xuống.",
-      "Mai ôm Milo và nói: \"Mèo hư, nhưng chị vẫn thương em!\""
+      "Sáng nào Phong cũng thích tập thể dục ở một câu lạc bộ gần nhà.",
+      "Cậu ấy rất thích tập ở đó, nhưng lúc nào cậu ấy cũng cần có nhạc.",
+      "Tối nào Phong cũng chọn bài hát cho buổi sáng hôm sau.",
+      "Cậu ấy thích những bài hát nhanh vì chúng làm cậu ấy thấy khoẻ và vui.",
+      "\"Nhạc nhanh rất hợp khi mình chạy,\" cậu ấy nói.",
+      "Bạn của cậu ấy là Khanh cũng đến câu lạc bộ cùng cậu ấy.",
+      "Khanh cũng thích tập thể dục, nhưng cô ấy không thích nhạc nhanh.",
+      "Cô ấy rất thích nghe những bài hát chậm trên điện thoại.",
+      "Một buổi sáng, Phong bật nhạc của mình trong câu lạc bộ.",
+      "\"Cậu có thích bài này không?\" cậu ấy hỏi.",
+      "\"Với mình thì nhanh quá,\" Khanh nói.",
+      "\"Mình nghe một bài chậm được không, hay để mình dùng điện thoại của mình nhé?\"",
+      "Phong cười.",
+      "\"Được, cậu chọn một bài đi.\"",
+      "Giờ hai bạn nghe bài nhanh khi chạy, và nghe bài chậm lúc cuối buổi tập."
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể chuyện đi tìm một con vật, nói ai làm được và không làm được gì, dùng can / can't.",
+    "objectiveVi": "Bạn có thể nói mình thích nhạc nhanh hay nhạc chậm khi tập thể dục và nói lý do, dùng like / love + V-ing và các từ nối and, but, or, because.",
     "examples": [
       {
-        "lemma": "cat",
-        "sentence": "Our cat is orange and white.",
-        "meaningVi": "Con mèo nhà mình màu cam và trắng."
+        "lemma": "fast",
+        "sentence": "This train is very fast.",
+        "meaningVi": "Chuyến tàu này rất nhanh."
       },
       {
-        "lemma": "sofa",
-        "sentence": "The cat sleeps on the sofa.",
-        "meaningVi": "Con mèo ngủ trên ghế sofa."
+        "lemma": "slow",
+        "sentence": "My old computer is slow.",
+        "meaningVi": "Cái máy tính cũ của mình chạy chậm."
       },
       {
-        "lemma": "garden",
-        "sentence": "We have a small garden.",
-        "meaningVi": "Nhà mình có một khu vườn nhỏ."
+        "lemma": "song",
+        "sentence": "Do you know this song?",
+        "meaningVi": "Bạn có biết bài hát này không?"
       },
       {
-        "lemma": "find",
-        "sentence": "I can't find my phone.",
-        "meaningVi": "Mình không tìm thấy điện thoại."
+        "lemma": "music",
+        "sentence": "We listen to music in the car.",
+        "meaningVi": "Chúng mình nghe nhạc trên xe ô tô."
       },
       {
-        "lemma": "neighbour",
-        "sentence": "Our neighbour has a big dog.",
-        "meaningVi": "Nhà hàng xóm có một con chó to."
+        "lemma": "phone",
+        "sentence": "My phone is in my bag.",
+        "meaningVi": "Điện thoại của mình ở trong túi."
       },
       {
-        "lemma": "street",
-        "sentence": "There are a lot of trees in our street.",
-        "meaningVi": "Phố nhà mình có rất nhiều cây."
+        "lemma": "exercise",
+        "sentence": "I exercise in the park every day.",
+        "meaningVi": "Ngày nào mình cũng tập thể dục ở công viên."
       },
       {
-        "lemma": "tree",
-        "sentence": "The cat is in the tree.",
-        "meaningVi": "Con mèo ở trên cây."
+        "lemma": "choose",
+        "sentence": "Please choose a color.",
+        "meaningVi": "Bạn hãy chọn một màu."
       },
       {
-        "lemma": "climb",
-        "sentence": "My brother can climb trees.",
-        "meaningVi": "Anh trai mình trèo cây được."
+        "lemma": "turn on",
+        "sentence": "Can you turn on the light?",
+        "meaningVi": "Bạn bật đèn lên được không?"
       }
     ],
     "dialogue": {
       "speakers": [
-        "Lan",
-        "Anna"
+        "Khanh",
+        "Phong"
       ],
       "turns": [
         {
-          "speaker": 1,
-          "text": "Lan, is Milo OK now?",
-          "meaningVi": "Lan ơi, giờ Milo ổn chưa?"
-        },
-        {
           "speaker": 0,
-          "text": "Yes, he is. He's at home, and he's very hungry!",
-          "meaningVi": "Ổn rồi. Nó ở nhà, và đói lắm!"
+          "text": "Phong, what music do you like for exercising?",
+          "meaningVi": "Phong ơi, cậu thích nhạc gì khi tập thể dục?"
         },
         {
           "speaker": 1,
-          "text": "Can cats come down from trees?",
-          "meaningVi": "Mèo có tự xuống khỏi cây được không?"
+          "text": "I love fast songs. They make me happy.",
+          "meaningVi": "Mình mê bài nhanh. Chúng làm mình vui."
         },
         {
           "speaker": 0,
-          "text": "Some cats can, but Milo can't. He's very bad at it!",
-          "meaningVi": "Có con được, nhưng Milo thì không. Nó kém khoản đó lắm!"
+          "text": "Really? I don't like fast music. I like slow songs.",
+          "meaningVi": "Thật à? Mình không thích nhạc nhanh. Mình thích bài chậm."
         },
         {
           "speaker": 1,
-          "text": "My cat Snow can climb and jump very well.",
-          "meaningVi": "Con mèo Snow nhà mình trèo và nhảy giỏi lắm."
+          "text": "Why?",
+          "meaningVi": "Sao thế?"
         },
         {
           "speaker": 0,
-          "text": "Does Snow go out at night?",
-          "meaningVi": "Buổi tối Snow có ra ngoài không?"
+          "text": "Because I like quiet music in the morning.",
+          "meaningVi": "Vì buổi sáng mình thích nhạc nhẹ nhàng."
         },
         {
           "speaker": 1,
-          "text": "No, she doesn't. She sleeps on my bed.",
-          "meaningVi": "Không. Nó ngủ trên giường của mình."
+          "text": "OK. Do you want to listen to my songs or your songs today?",
+          "meaningVi": "Được rồi. Hôm nay cậu muốn nghe bài của mình hay bài của cậu?"
         },
         {
           "speaker": 0,
-          "text": "Milo loves the garden at night.",
-          "meaningVi": "Milo thì tối nào cũng thích ra vườn."
+          "text": "Can we listen to your songs first, and then my songs?",
+          "meaningVi": "Mình nghe bài của cậu trước, rồi đến bài của mình được không?"
         },
         {
           "speaker": 1,
-          "text": "Can you put a bell on him? Then you can hear him!",
-          "meaningVi": "Cậu đeo cho nó một cái chuông được không? Thế là cậu nghe thấy nó!"
-        },
-        {
-          "speaker": 0,
-          "text": "That's a great idea!",
-          "meaningVi": "Ý hay đấy!"
+          "text": "Good idea! Let's go.",
+          "meaningVi": "Ý hay đấy! Mình bắt đầu thôi."
         }
       ]
     },
-    "grammarTipVi": "Hỏi có làm được không: Can cats come down from trees? Trả lời: Some cats can, but Milo can't.",
+    "grammarTipVi": "Hỏi sở thích bằng What music do you like? và trả lời bằng I like / I love …. Hỏi lý do bằng Why? và trả lời bằng Because ….",
     "translations": [
       {
-        "vi": "Chúng tôi không tìm thấy con mèo.",
-        "en": "We can't find the cat.",
+        "vi": "Anh ấy thích những bài hát nhanh.",
+        "en": "He likes fast songs.",
         "distractors": [
-          "can",
-          "finds",
-          "dog"
+          "slow",
+          "quickly",
+          "liking"
         ]
       },
       {
-        "vi": "Con mèo ở trên cây, và nó không xuống được.",
-        "en": "The cat is in the tree, and it can't come down.",
+        "vi": "Cô ấy thích nghe nhạc chậm trên điện thoại của cô ấy.",
+        "en": "She likes listening to slow music on her phone.",
         "distractors": [
-          "can",
-          "comes",
-          "up"
+          "fast",
+          "his",
+          "listened"
+        ],
+        "accepted": [
+          "On her phone she likes listening to slow music."
         ]
       },
       {
-        "vi": "Anh Đức trèo rất giỏi.",
-        "en": "Duc can climb very well.",
+        "vi": "Khi tập thể dục, anh ấy luôn cần nhạc.",
+        "en": "He always needs music when he exercises.",
         "distractors": [
-          "climbs",
-          "good",
-          "can't"
+          "needing",
+          "never",
+          "his"
+        ],
+        "accepted": [
+          "When he exercises he always needs music."
         ]
       },
       {
-        "vi": "Chúng tôi nhờ hàng xóm giúp đỡ.",
-        "en": "We ask our neighbours for help.",
+        "vi": "Bạn có thể chọn một bài hát.",
+        "en": "You can choose a song.",
         "distractors": [
-          "asks",
-          "neighbour",
-          "to"
+          "chooses",
+          "sing",
+          "two"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Lan và Anna nói chuyện về điều gì?",
+        "prompt": "Khanh và Phong nói chuyện về điều gì?",
         "promptVi": "",
         "options": [
-          "Một chuyến đi sở thú",
-          "Con mèo của hai bạn",
-          "Ông Bình và khu vườn"
+          "Nhạc mỗi người thích khi tập thể dục",
+          "Một câu lạc bộ mới",
+          "Một chiếc điện thoại mới"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Anna hỏi \"is Milo OK now?\", rồi hai bạn nói về Milo và con mèo Snow của Anna.",
+        "answerIndex": 0,
+        "explanationVi": "Khanh hỏi \"what music do you like for exercising?\", rồi hai bạn nói về nhạc nhanh và nhạc chậm.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Bây giờ Milo thế nào?",
+        "prompt": "Phong thích bài hát nào?",
         "promptVi": "",
         "options": [
-          "Ở nhà và rất đói",
-          "Vẫn ở trên cây",
-          "Ngủ ở nhà Anna"
+          "Bài nhanh",
+          "Bài chậm",
+          "Bài cũ"
         ],
         "answerIndex": 0,
-        "explanationVi": "Lan nói \"He's at home, and he's very hungry!\"",
+        "explanationVi": "Phong nói \"I love fast songs.\"",
         "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Buổi tối Snow ngủ ở đâu?",
+        "prompt": "Vì sao Khanh thích bài chậm?",
         "promptVi": "",
         "options": [
-          "Ngoài vườn",
-          "Trên giường của Anna",
-          "Dưới ghế sofa"
+          "Vì buổi sáng cô ấy thích nhạc nhẹ nhàng",
+          "Vì cô ấy chạy chậm",
+          "Vì Phong thích bài chậm"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Anna nói \"She sleeps on my bed.\"",
-        "turnIndex": 6
+        "answerIndex": 0,
+        "explanationVi": "Khanh nói \"Because I like quiet music in the morning.\"",
+        "turnIndex": 4
       },
       {
         "kind": "tfn",
-        "prompt": "Snow goes out at night.",
-        "promptVi": "Buổi tối Snow ra ngoài.",
+        "prompt": "They listen to Khanh's songs first.",
+        "promptVi": "Hai bạn nghe bài của Khanh trước.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Anna nói \"No, she doesn't. She sleeps on my bed.\"",
+        "explanationVi": "Sai, vì Khanh nói \"Can we listen to your songs first, and then my songs?\": nghe bài của Phong trước.",
         "turnIndex": 6
       }
     ],
-    "readingGuideVi": "Mỗi người tìm Milo ở đâu, và ai tìm thấy nó?",
+    "readingGuideVi": "Phong thích nhạc nào khi tập thể dục, và Khanh thì sao?",
     "grammarStep": {
-      "titleVi": "Can / can't (khả năng)",
+      "titleVi": "Like / love + danh từ hoặc V-ing; and / but / or / because",
       "noticing": [
         {
-          "sentence": "My dad and my brother Duc look in the garden, but they can't find him.",
+          "sentence": "He loves exercising there, but he always needs music.",
           "highlights": [
-            "can't find"
+            "loves exercising",
+            "but"
           ]
         },
         {
-          "sentence": "Then Mr Binh says, \"I can see a cat in my tree!\"",
+          "sentence": "He likes fast songs because they make him strong and happy.",
           "highlights": [
-            "can see"
+            "likes fast songs",
+            "because"
           ]
         },
         {
-          "sentence": "Milo is high in the tree, and he can't come down!",
+          "sentence": "She loves listening to slow songs on her phone.",
           "highlights": [
-            "can't come down"
+            "loves listening"
           ]
         },
         {
-          "sentence": "Duc can climb very well, so he climbs up and gets Milo.",
+          "sentence": "\"Can we listen to a slow song, or can I use my phone?\"",
           "highlights": [
-            "can climb"
+            "or"
           ]
         }
       ],
-      "questionVi": "Muốn nói Milo không xuống được, câu trong bài viết thế nào?",
+      "questionVi": "Trong câu \"He likes fast songs because they make him strong and happy\", phần sau because cho biết điều gì?",
       "options": [
-        "Milo doesn't can come down.",
-        "Milo can't come down.",
-        "Milo can't comes down."
+        "Lý do Phong thích bài nhanh",
+        "Thời gian Phong tập",
+        "Một lựa chọn khác"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Phủ định của can là can't, không dùng doesn't; sau can't động từ giữ nguyên: can't come down, can't find.",
-      "whenVi": "Dùng can để nói làm được gì (can see, can climb), can't để nói không làm được (can't find, can't come down).",
+      "answerIndex": 0,
+      "explanationVi": "Because (vì) đứng trước lý do: bài nhanh làm Phong thấy khoẻ và vui.",
+      "whenVi": "Dùng like / love + danh từ hoặc V-ing để nói sở thích; and để thêm ý, but để nói ý ngược lại, or để nói lựa chọn, because để nói lý do.",
       "table": [
         {
           "subject": "I / you / we / they",
-          "form": "I can see a cat.",
-          "negative": "They can't find him."
+          "form": "I like fast songs. / We love exercising.",
+          "negative": "I don't like fast music."
         },
         {
-          "subject": "he / she / it",
-          "form": "Duc can climb very well.",
-          "negative": "Milo can't come down."
+          "subject": "he / she",
+          "form": "She loves listening to slow songs.",
+          "negative": "She doesn't like fast music."
+        },
+        {
+          "subject": "Từ nối",
+          "form": "and (và), but (nhưng), or (hoặc), because (vì)",
+          "negative": "—"
         }
       ],
       "mistakes": [
         {
-          "wrong": "He doesn't can come down.",
-          "right": "He can't come down."
+          "wrong": "He loves exercise there.",
+          "right": "He loves exercising there."
         },
         {
-          "wrong": "I can sees a cat.",
-          "right": "I can see a cat."
+          "wrong": "She doesn't likes fast music.",
+          "right": "She doesn't like fast music."
         }
       ],
-      "noteVi": "Người Việt đã quen dùng don't / doesn't để phủ định, nên hay viết \"doesn't can\"; với can, chỉ cần thêm n't: can't.",
+      "noteVi": "Sau doesn't, động từ giữ nguyên, không thêm -s: she doesn't like (không viết doesn't likes). Sau like / love, động từ thêm -ing: loves exercising.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền can hoặc can't vào chỗ trống.",
-          "text": "Milo is high in the tree, and he ___ come down.",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (exercise).",
+          "text": "Phong loves ___ in the morning.",
           "answers": [
-            "can't",
-            "cannot"
+            "exercising"
           ],
-          "explanationVi": "Milo ở trên cao và cần anh Đức giúp, nên nó không xuống được: can't."
+          "explanationVi": "Sau love, động từ thêm -ing; exercise bỏ e rồi thêm -ing: exercising."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "Duc can ___ very well.",
+          "promptVi": "Chọn từ nối đúng.",
+          "text": "Khanh likes exercising, ___ she doesn't like fast music.",
           "options": [
-            "climbs",
-            "climb",
-            "to climb",
-            "is climb"
+            "but",
+            "because",
+            "or",
+            "so"
           ],
-          "answerIndex": 1,
-          "explanationVi": "Sau can, động từ giữ nguyên: can climb."
+          "answerIndex": 0,
+          "explanationVi": "Hai ý ngược nhau (thích tập / không thích nhạc nhanh), nên dùng but (nhưng)."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "We don't can find Milo.",
-          "sentence": "We can't find Milo.",
-          "explanationVi": "Phủ định của can là can't, không dùng don't."
+          "text": "Khanh doesn't likes fast songs.",
+          "sentence": "Khanh doesn't like fast songs.",
+          "explanationVi": "Sau doesn't, động từ giữ nguyên: doesn't like."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Tôi nhìn thấy một con mèo trên cây.",
-          "sentence": "I can see a cat in the tree.",
+          "text": "Anh ấy thích bài hát nhanh vì chúng làm anh ấy vui.",
+          "sentence": "He likes fast songs because they make him happy.",
           "words": [
-            "see",
-            "I",
-            "tree",
-            "can",
-            "a",
-            "in",
-            "cat",
-            "the",
-            "sees"
+            "He",
+            "likes",
+            "fast",
+            "songs",
+            "because",
+            "they",
+            "make",
+            "him",
+            "happy.",
+            "but"
           ],
-          "explanationVi": "Sau can, động từ giữ nguyên: can see; từ \"sees\" bị thừa."
+          "explanationVi": "Vế sau because nói lý do; từ but bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Milo is high in the tree, and he can't come down!",
-        "tipVi": "High /haɪ/ không đọc chữ gh; can't /kænt/ đọc rõ âm /t/ ở cuối để người nghe không nhầm với can."
+        "text": "He likes fast songs because they make him strong and happy.",
+        "tipVi": "Fast /fɑːst/ có /st/ ở cuối; songs /sɒŋz/ có /z/."
       },
       {
-        "text": "Then we ask our neighbours for help.",
-        "tipVi": "Neighbours /ˈneɪbərz/ không đọc chữ gh và kết thúc bằng /z/; help /hɛlp/ có cụm /lp/ ở cuối."
+        "text": "She likes exercising too, but she doesn't like fast music.",
+        "tipVi": "Exercising /ˈeksəsaɪzɪŋ/ nhấn âm đầu; nhấn vào doesn't."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Do you have a cat or a dog?",
-        "questionVi": "Bạn có nuôi mèo hay chó không?",
-        "frame": "Yes, I have a ___. / No, I don't, but I like ___."
+        "question": "Do you like exercising?",
+        "questionVi": "Bạn có thích tập thể dục không?",
+        "frame": "Yes, I love exercising in ___. / No, I don't, but I like ___."
       },
       {
-        "question": "What can cats do?",
-        "questionVi": "Mèo làm được những gì?",
-        "frame": "Cats can ___, but they can't ___."
+        "question": "Do you like fast songs or slow songs?",
+        "questionVi": "Bạn thích bài hát nhanh hay bài hát chậm?",
+        "frame": "I like ___ songs because ___."
       },
       {
-        "question": "Does your neighbour have a pet?",
-        "questionVi": "Hàng xóm nhà bạn có nuôi con vật nào không?",
-        "frame": "Yes, he / she does. He / She has a ___. / No, he / she doesn't."
+        "question": "What music do you listen to on your phone?",
+        "questionVi": "Bạn nghe nhạc gì trên điện thoại?",
+        "frame": "I listen to ___, and I like ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng like / love và 1 từ nối and, but, or hoặc because",
       "anyOf": [
-        "can",
-        "can't",
-        "cannot",
-        "can see"
+        "like",
+        "likes",
+        "love",
+        "loves",
+        "because",
+        "but"
       ],
       "outlineVi": [
-        "Nói con vật nào không có ở nhà và nó trông thế nào.",
-        "Kể ai đi tìm và tìm ở đâu (we can't find …).",
-        "Kể ai nhìn thấy nó và nó ở đâu (I can see …)."
+        "Nói bạn thích tập thể dục ở đâu, khi nào (I love exercising in …).",
+        "Nói bạn thích nhạc nhanh hay nhạc chậm.",
+        "Nói vì sao (because …) và điều bạn không thích (but I don't like …)."
       ],
-      "modelAnswer": "Our dog Lucky is not at home today. My brother and I look in the garden, but we can't find him. Then our neighbour, Mrs Mai, says, \"I can see a dog in my kitchen!\" Lucky is there, under her table. He loves her food!"
+      "modelAnswer": "I love exercising in the park in the evening. I like listening to music on my phone when I exercise. I like fast songs because they make me happy, but I don't like very slow music. My sister likes slow songs, and she listens to them at night."
     }
   },
   "glosses": [
     {
-      "text": "kitchen",
-      "lemma": "kitchen",
-      "meaningVi": "nhà bếp",
-      "sentenceIndex": 3,
+      "text": "club",
+      "lemma": "club",
+      "meaningVi": "câu lạc bộ",
       "pos": "noun",
-      "phrase": "he isn't in the kitchen",
-      "phraseVi": "nó không ở trong bếp"
+      "phrase": "a club near his home",
+      "phraseVi": "một câu lạc bộ gần nhà",
+      "sentenceIndex": 0
     },
     {
-      "text": "sad",
-      "lemma": "sad",
-      "meaningVi": "buồn",
-      "sentenceIndex": 5,
-      "pos": "adjective",
-      "phrase": "She is very sad",
-      "phraseVi": "Em buồn lắm"
-    },
-    {
-      "text": "calls",
-      "lemma": "call",
-      "meaningVi": "gọi",
-      "sentenceIndex": 7,
+      "text": "needs",
+      "lemma": "need",
+      "meaningVi": "cần",
       "pos": "verb",
-      "phrase": "My mum calls",
-      "phraseVi": "Mẹ gọi"
+      "phrase": "he always needs music",
+      "phraseVi": "lúc nào cậu ấy cũng cần có nhạc",
+      "sentenceIndex": 1
     },
     {
-      "text": "for help",
-      "lemma": "ask for help",
-      "meaningVi": "nhờ giúp đỡ",
-      "sentenceIndex": 8,
-      "pos": "phrase",
-      "phrase": "ask our neighbours for help",
-      "phraseVi": "nhờ hàng xóm giúp"
+      "text": "evening",
+      "lemma": "evening",
+      "meaningVi": "buổi tối",
+      "pos": "noun",
+      "phrase": "Every evening",
+      "phraseVi": "Tối nào",
+      "sentenceIndex": 2
     },
     {
-      "text": "under her car",
-      "lemma": "under",
-      "meaningVi": "dưới gầm xe của bà",
-      "sentenceIndex": 9,
-      "pos": "phrase",
-      "phrase": "Mrs Lien looks under her car",
-      "phraseVi": "Bà Liên tìm dưới gầm xe của bà"
-    },
-    {
-      "text": "high",
-      "lemma": "high",
-      "meaningVi": "cao, trên cao",
-      "sentenceIndex": 12,
+      "text": "strong",
+      "lemma": "strong",
+      "meaningVi": "khoẻ",
       "pos": "adjective",
-      "phrase": "Milo is high in the tree",
-      "phraseVi": "Milo ở tít trên cây cao"
+      "phrase": "they make him strong and happy",
+      "phraseVi": "chúng làm cậu ấy thấy khoẻ và vui",
+      "sentenceIndex": 3
     },
     {
-      "text": "come down",
-      "lemma": "come down",
-      "meaningVi": "xuống, đi xuống",
-      "sentenceIndex": 12,
-      "pos": "phrasal verb",
-      "phrase": "he can't come down",
-      "phraseVi": "nó không xuống được"
+      "text": "run",
+      "lemma": "run",
+      "meaningVi": "chạy (bộ)",
+      "pos": "verb",
+      "phrase": "great when I run",
+      "phraseVi": "rất hợp khi mình chạy",
+      "sentenceIndex": 4
     },
     {
-      "text": "very well",
-      "lemma": "well",
-      "meaningVi": "rất giỏi",
-      "sentenceIndex": 13,
+      "text": "too",
+      "lemma": "too",
+      "meaningVi": "quá",
       "pos": "adverb",
-      "phrase": "Duc can climb very well",
-      "phraseVi": "Anh Đức trèo rất giỏi"
+      "phrase": "too fast for me",
+      "phraseVi": "nhanh quá với mình",
+      "sentenceIndex": 10
     },
     {
-      "text": "holds",
-      "lemma": "hold",
-      "meaningVi": "ôm, bế",
-      "sentenceIndex": 14,
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười (thành tiếng)",
       "pos": "verb",
-      "phrase": "Mai holds Milo",
-      "phraseVi": "Mai ôm Milo"
+      "phrase": "Phong laughs",
+      "phraseVi": "Phong cười",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "at the end",
+      "lemma": "at the end",
+      "meaningVi": "lúc cuối",
+      "pos": "phrase",
+      "phrase": "slow songs at the end",
+      "phraseVi": "bài chậm lúc cuối buổi tập",
+      "sentenceIndex": 14
     }
   ]
 }

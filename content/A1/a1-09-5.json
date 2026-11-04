@@ -1,590 +1,563 @@
 {
-  "content": "My name is Linh, and this is my little brother, Khang. He is ten, and he loves music. Every morning, he turns on the radio and sings a song in the bathroom!\n\nKhang likes listening to happy songs, and his favourite song is \"Hello Sun\". He doesn't like sad songs because he loves dancing too.\n\nAfter school, Khang has practice with the music club. The school music show is on Friday evening, and Khang is in it.\n\nOur family has a cake shop, and on Saturday, Khang often plays music there. People in the shop love listening to him, and they sing along!\n\nMy friend Lan often asks me, \"Is your brother good?\"\n\"Yes, my brother can sing, and he can dance too,\" I answer.\n\nOn Friday, Mum, Dad and I want to watch him at the show. I love my brother because he makes everyone happy!",
+  "content": "Uncle Tam lives in a small house in Saigon. He has a pet bird. Its name is Xu. Xu is green, and it is very smart.\n\nEvery morning, Uncle Tam's neighbours come to see Xu. Xu can say \"Hello!\" and \"Xin chào!\" It can say \"Good morning\" and \"Thank you\" too. The children love it.\n\n\"Can it sing?\" a little girl asks.\n\"Yes, it can,\" Uncle Tam says. \"But it can't say your name. It only knows six words.\"\n\nUncle Tam loves animals. He has a dog and a cat, and his son has a rabbit and a hamster. The cat wants to catch Xu, but it can't. Xu's home is very high on the wall. At night, a mouse and a rat come and eat Xu's food!",
   "targetWords": [
-    "turn on",
-    "sing a song",
-    "happy song",
-    "favourite song",
-    "practice",
-    "music show",
-    "play music",
-    "sing along"
+    "animal",
+    "pet",
+    "dog",
+    "cat",
+    "rabbit",
+    "hamster",
+    "mouse",
+    "rat"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "turns on",
-        "lemma": "turn on",
-        "meaningVi": "bật (đài, đèn, máy)",
-        "pos": "phrasal verb",
-        "sentenceIndex": 2
-      },
-      {
-        "text": "sings a song",
-        "lemma": "sing a song",
-        "meaningVi": "hát một bài",
-        "pos": "phrase",
-        "sentenceIndex": 2
-      },
-      {
-        "text": "happy songs",
-        "lemma": "happy song",
-        "meaningVi": "bài hát vui",
-        "pos": "phrase",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "favourite song",
-        "lemma": "favourite song",
-        "meaningVi": "bài hát yêu thích",
-        "pos": "phrase",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "practice",
-        "lemma": "practice",
-        "meaningVi": "buổi tập",
+        "text": "pet",
+        "lemma": "pet",
+        "meaningVi": "thú cưng, con vật nuôi trong nhà",
         "pos": "noun",
-        "sentenceIndex": 5
+        "sentenceIndex": 1
       },
       {
-        "text": "music show",
-        "lemma": "music show",
-        "meaningVi": "buổi biểu diễn âm nhạc",
-        "pos": "phrase",
-        "sentenceIndex": 6
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "động vật, con vật",
+        "pos": "noun",
+        "sentenceIndex": 12
       },
       {
-        "text": "plays music",
-        "lemma": "play music",
-        "meaningVi": "chơi nhạc",
-        "pos": "phrase",
-        "sentenceIndex": 7
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 13
       },
       {
-        "text": "sing along",
-        "lemma": "sing along",
-        "meaningVi": "hát theo, hát cùng",
-        "pos": "phrasal verb",
-        "sentenceIndex": 8
+        "text": "cat",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "rabbit",
+        "lemma": "rabbit",
+        "meaningVi": "con thỏ",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "hamster",
+        "lemma": "hamster",
+        "meaningVi": "chuột hamster (chuột cảnh nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "con chuột (nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "rat",
+        "lemma": "rat",
+        "meaningVi": "con chuột cống (chuột to)",
+        "pos": "noun",
+        "sentenceIndex": 16
       }
     ],
     "questions": [
       {
         "kind": "gist",
-        "prompt": "What does Linh talk about?",
-        "promptVi": "Linh nói về điều gì?",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Her music lessons at school",
-          "Her little brother and the music he loves",
-          "Her family's cake shop",
-          "A concert in the park"
-        ],
-        "answerIndex": 1,
-        "explanationVi": "Linh kể về em trai Khang: em thích bài hát gì, tập với câu lạc bộ âm nhạc, chơi nhạc ở tiệm bánh và sắp biểu diễn."
-      },
-      {
-        "kind": "detail",
-        "prompt": "What does Khang do every morning?",
-        "promptVi": "Sáng nào Khang cũng làm gì?",
-        "options": [
-          "He plays the piano at school.",
-          "He helps in the cake shop.",
-          "He watches music videos.",
-          "He turns on the radio and sings a song."
-        ],
-        "answerIndex": 3,
-        "explanationVi": "Linh viết \"Every morning, he turns on the radio and sings a song in the bathroom!\""
-      },
-      {
-        "kind": "detail",
-        "prompt": "Why doesn't Khang like sad songs?",
-        "promptVi": "Vì sao Khang không thích bài hát buồn?",
-        "options": [
-          "He loves dancing.",
-          "They are very long.",
-          "His mum doesn't like them.",
-          "He doesn't know them."
+          "Uncle Tam's smart bird can say some words.",
+          "Uncle Tam buys a dog.",
+          "A bird at the zoo",
+          "The children's school"
         ],
         "answerIndex": 0,
-        "explanationVi": "Linh viết \"He doesn't like sad songs because he loves dancing too\": lý do đứng sau because, Khang mê nhảy nên thích bài vui."
+        "explanationVi": "Chú Tám có con chim Xu nói được vài câu chào bằng tiếng Anh và tiếng Việt."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can Xu say?",
+        "promptVi": "Xu nói được gì?",
+        "options": [
+          "The girl's name",
+          "\"Hello\" and \"Xin chào\"",
+          "Ten English words",
+          "\"Good night\""
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết Xu can say \"Hello!\" and \"Xin chào!\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many words does Xu know?",
+        "promptVi": "Xu biết bao nhiêu từ?",
+        "options": [
+          "Two",
+          "Four",
+          "Six",
+          "Ten"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chú Tám nói \"It only knows six words\"."
       },
       {
         "kind": "tfn",
-        "prompt": "Linh is in the music club.",
-        "promptVi": "Linh ở trong câu lạc bộ âm nhạc.",
+        "prompt": "The cat can catch Xu.",
+        "promptVi": "Con mèo bắt được Xu.",
         "options": [],
-        "answerIndex": 2,
-        "explanationVi": "Không có thông tin: bài chỉ nói Khang tập với câu lạc bộ âm nhạc, không nói Linh có ở câu lạc bộ đó hay không."
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The cat wants to catch Xu, but it can't\". Nhà của Xu ở rất cao."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"practice\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"neighbours\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "After school, Khang has practice with the music club.",
+        "quote": "Every morning, Uncle Tam's neighbours come to see Xu.",
         "options": [
-          "bài tập về nhà",
-          "buổi biểu diễn",
-          "buổi tập",
-          "cuộc thi"
+          "hàng xóm",
+          "con cái",
+          "học sinh",
+          "bạn học"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Practice ở đây là buổi tập: sau giờ học Khang tập cùng câu lạc bộ âm nhạc để chuẩn bị cho buổi biểu diễn."
+        "answerIndex": 0,
+        "explanationVi": "Neighbours là hàng xóm, những người sống gần nhà chú Tám."
       }
     ],
     "grammarNote": {
-      "title": "Like / love + danh từ hoặc V-ing",
-      "bodyVi": "Like / love + danh từ để nói thích một thứ: he loves music. Like / love + V-ing để nói thích làm gì: Khang likes listening to happy songs, people love listening to him. He / she đi với likes, loves; I, you, we, they, people đi với like, love. Không thích thì dùng doesn't / don't like.",
+      "title": "Can / can't: nói về khả năng",
+      "bodyVi": "Can + động từ nguyên mẫu nói ai, con gì làm được việc gì: Xu can say \"Hello!\". Can't (= cannot) nói không làm được: it can't say your name. Câu hỏi đưa Can lên đầu: Can it sing? Trả lời ngắn: Yes, it can. / No, it can't. Can không đổi theo chủ ngữ.",
       "examples": [
-        "Khang likes listening to happy songs, and his favourite song is \"Hello Sun\".",
-        "He doesn't like sad songs because he loves dancing too.",
-        "People in the shop love listening to him, and they sing along!"
+        "Xu can say \"Hello!\" and \"Xin chào!\"",
+        "\"Can it sing?\" a little girl asks.",
+        "The cat wants to catch Xu, but it can't."
       ]
     },
-    "writingPrompt": "Write about someone in your family who loves music: what he or she likes doing, and why.",
+    "writingPrompt": "Write about a smart animal you know: what can it do, and what can't it do?",
     "sentenceTranslations": [
-      "Mình tên là Linh, và đây là em trai mình, Khang.",
-      "Em mười tuổi, và em mê âm nhạc lắm.",
-      "Sáng nào em cũng bật radio rồi hát một bài trong nhà tắm!",
-      "Khang thích nghe những bài hát vui, và bài hát em yêu thích là \"Hello Sun\".",
-      "Em không thích bài hát buồn vì em cũng rất mê nhảy.",
-      "Sau giờ học, Khang có buổi tập với câu lạc bộ âm nhạc.",
-      "Buổi biểu diễn âm nhạc của trường diễn ra vào tối thứ Sáu, và Khang có tham gia.",
-      "Nhà mình có một tiệm bánh, và thứ Bảy Khang hay chơi nhạc ở đó.",
-      "Khách trong tiệm rất thích nghe em, và họ hát theo!",
-      "Bạn mình là Lan hay hỏi mình: \"Em trai cậu có giỏi không?\"",
-      "\"Có chứ, em trai mình hát được, mà nhảy cũng giỏi nữa,\" mình trả lời.",
-      "Thứ Sáu này, bố mẹ và mình muốn đến xem em biểu diễn.",
-      "Mình thương em trai mình lắm vì em làm cho mọi người vui!"
+      "Chú Tám sống trong một ngôi nhà nhỏ ở Sài Gòn.",
+      "Chú nuôi một con chim.",
+      "Nó tên là Xu.",
+      "Xu màu xanh lá, và nó rất khôn.",
+      "Sáng nào hàng xóm của chú Tám cũng đến xem Xu.",
+      "Xu nói được \"Hello!\" và \"Xin chào!\"",
+      "Nó còn nói được \"Good morning\" (chào buổi sáng) và \"Thank you\" (cảm ơn).",
+      "Bọn trẻ rất thích nó.",
+      "\"Nó có hát được không ạ?\" một cô bé hỏi.",
+      "\"Có chứ,\" chú Tám nói.",
+      "\"Nhưng nó không nói được tên cháu đâu.",
+      "Nó chỉ biết sáu từ thôi.\"",
+      "Chú Tám rất yêu động vật.",
+      "Chú nuôi một con chó và một con mèo, còn con trai chú nuôi một con thỏ và một con chuột hamster.",
+      "Con mèo muốn bắt Xu, nhưng nó không bắt được.",
+      "Nhà của Xu ở rất cao trên tường.",
+      "Ban đêm, một con chuột nhắt và một con chuột cống đến ăn thức ăn của Xu!"
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể về một người thân mê âm nhạc, nói người đó thích làm gì và vì sao, dùng likes / loves + V-ing.",
+    "objectiveVi": "Bạn có thể kể một con vật khôn làm được gì (can say, can sing) và không làm được gì (can't).",
     "examples": [
       {
-        "lemma": "turn on",
-        "sentence": "I turn on the radio after school.",
-        "meaningVi": "Mình bật radio sau giờ học."
+        "lemma": "animal",
+        "sentence": "A bird is a small animal.",
+        "meaningVi": "Chim là một con vật nhỏ."
       },
       {
-        "lemma": "sing a song",
-        "sentence": "Khang wants to sing a song for Mum.",
-        "meaningVi": "Khang muốn hát một bài tặng mẹ."
+        "lemma": "pet",
+        "sentence": "Uncle Tam's pet can talk.",
+        "meaningVi": "Con vật nuôi của chú Tám biết nói."
       },
       {
-        "lemma": "happy song",
-        "sentence": "This is a happy song.",
-        "meaningVi": "Đây là một bài hát vui."
+        "lemma": "dog",
+        "sentence": "The dog can't say hello.",
+        "meaningVi": "Con chó không nói được xin chào."
       },
       {
-        "lemma": "favourite song",
-        "sentence": "Her favourite song is very old.",
-        "meaningVi": "Bài hát cô ấy yêu thích đã cũ lắm rồi."
+        "lemma": "cat",
+        "sentence": "The cat can't jump very high.",
+        "meaningVi": "Con mèo không nhảy cao lắm được."
       },
       {
-        "lemma": "practice",
-        "sentence": "Football practice is on Monday.",
-        "meaningVi": "Buổi tập bóng đá vào thứ Hai."
+        "lemma": "rabbit",
+        "sentence": "Can a rabbit sing?",
+        "meaningVi": "Thỏ có hát được không?"
       },
       {
-        "lemma": "music show",
-        "sentence": "The music show is on Friday evening.",
-        "meaningVi": "Buổi biểu diễn âm nhạc diễn ra vào tối thứ Sáu."
+        "lemma": "hamster",
+        "sentence": "His son's hamster can run all night.",
+        "meaningVi": "Con chuột hamster của con trai chú chạy được cả đêm."
       },
       {
-        "lemma": "play music",
-        "sentence": "We play music in the car.",
-        "meaningVi": "Bọn mình mở nhạc trên xe."
+        "lemma": "mouse",
+        "sentence": "A mouse can come in at night.",
+        "meaningVi": "Chuột nhắt có thể vào nhà ban đêm."
       },
       {
-        "lemma": "sing along",
-        "sentence": "Grandma likes to sing along to old songs.",
-        "meaningVi": "Bà thích hát theo những bài hát cũ."
+        "lemma": "rat",
+        "sentence": "The rat eats the bird's food.",
+        "meaningVi": "Con chuột cống ăn thức ăn của con chim."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Huy",
-        "Anna"
+        "Mai",
+        "Uncle Tam"
       ],
       "turns": [
         {
-          "speaker": 1,
-          "text": "Huy, does your sister Vy like music?",
-          "meaningVi": "Huy ơi, em gái Vy của cậu có thích âm nhạc không?"
-        },
-        {
           "speaker": 0,
-          "text": "Yes, she does. She loves dancing, and she sings every day.",
-          "meaningVi": "Có chứ. Em ấy rất thích nhảy, và ngày nào cũng hát."
+          "text": "Good morning, Uncle Tam! Can Xu say my name?",
+          "meaningVi": "Cháu chào chú Tám! Xu có nói được tên cháu không ạ?"
         },
         {
           "speaker": 1,
-          "text": "Really? What songs does she like?",
-          "meaningVi": "Thật à? Em ấy thích những bài hát nào?"
+          "text": "No, it can't. But it can learn.",
+          "meaningVi": "Không, nó chưa nói được. Nhưng nó học được."
         },
         {
           "speaker": 0,
-          "text": "Happy songs. Her favourite song is \"Sunny Day\" by Mia Rose.",
-          "meaningVi": "Những bài hát vui. Bài em ấy yêu thích là \"Sunny Day\" của Mia Rose."
+          "text": "Can you teach it? My name is Mai.",
+          "meaningVi": "Chú dạy nó được không ạ? Cháu tên là Mai."
         },
         {
           "speaker": 1,
-          "text": "I love that song too! Is Vy good?",
-          "meaningVi": "Mình cũng mê bài đó! Vy hát có hay không?"
+          "text": "Yes, I can. Xu, say \"Mai\"!",
+          "meaningVi": "Được chứ. Xu, nói \"Mai\" đi!"
         },
         {
           "speaker": 0,
-          "text": "Yes! She has practice with the school music club every Monday.",
-          "meaningVi": "Hay lắm! Thứ Hai nào em ấy cũng tập với câu lạc bộ âm nhạc của trường."
+          "text": "Hmm. It says \"Hello\" again.",
+          "meaningVi": "Hừm. Nó lại nói \"Hello\" rồi."
         },
         {
           "speaker": 1,
-          "text": "Does she sing in music shows?",
-          "meaningVi": "Em ấy có hát trong các buổi biểu diễn âm nhạc không?"
+          "text": "Ha ha! Come again tomorrow. Do you like birds?",
+          "meaningVi": "Ha ha! Mai cháu lại đến nhé. Cháu có thích chim không?"
         },
         {
           "speaker": 0,
-          "text": "Yes. There's a music show at her school on Saturday. Do you want to come?",
-          "meaningVi": "Có. Thứ Bảy này trường em ấy có một buổi biểu diễn âm nhạc. Cậu có muốn đến không?"
-        },
-        {
-          "speaker": 1,
-          "text": "Yes, please! Is it free?",
-          "meaningVi": "Có chứ! Có mất tiền không?"
-        },
-        {
-          "speaker": 0,
-          "text": "Yes, it is. My grandfather wants to come too!",
-          "meaningVi": "Miễn phí. Ông mình cũng muốn đi nữa!"
+          "text": "Yes, I do. I want a bird too!",
+          "meaningVi": "Có ạ. Cháu cũng muốn nuôi một con chim!"
         }
       ]
     },
-    "grammarTipVi": "Hỏi về người khác: Does your sister like music? – Yes, she does. She loves dancing. Với he / she, câu hỏi dùng Does, câu trả lời dùng loves, likes.",
+    "grammarTipVi": "Can / can't + động từ nguyên mẫu: It can say (không nói \"It can says\"). Hỏi: Can it sing? Trả lời: Yes, it can. / No, it can't.",
     "translations": [
       {
-        "vi": "Em trai tôi hát một bài hát mỗi sáng.",
-        "en": "My brother sings a song every morning.",
+        "vi": "Con vật nuôi của tôi nói được xin chào.",
+        "en": "My pet can say hello.",
         "distractors": [
-          "sing",
-          "in",
-          "songs"
+          "says",
+          "cans",
+          "is"
         ]
       },
       {
-        "vi": "Bài hát yêu thích của em ấy là một bài hát vui.",
-        "en": "His favourite song is a happy song.",
+        "vi": "Con mèo không bắt được con chim.",
+        "en": "The cat can't catch the bird.",
         "distractors": [
-          "He",
-          "sad",
-          "are"
+          "catches",
+          "cans",
+          "dog"
         ]
       },
       {
-        "vi": "Khang có buổi tập sau giờ học.",
-        "en": "Khang has practice after school.",
-        "distractors": [
-          "have",
-          "at",
-          "before"
-        ]
-      },
-      {
-        "vi": "Mọi người trong tiệm cùng hát theo.",
-        "en": "People in the shop sing along.",
+        "vi": "Con chó của chú có hát được không?",
+        "en": "Can your dog sing?",
         "distractors": [
           "sings",
-          "with",
-          "shops"
+          "Is",
+          "cans"
+        ]
+      },
+      {
+        "vi": "Chú Tám rất yêu động vật.",
+        "en": "Uncle Tam loves animals.",
+        "distractors": [
+          "love",
+          "animal",
+          "is"
+        ]
+      },
+      {
+        "vi": "Con trai chú có một con thỏ và một con chuột hamster.",
+        "en": "His son has a rabbit and a hamster.",
+        "distractors": [
+          "have",
+          "he",
+          "rabbits"
+        ],
+        "accepted": [
+          "His son has a hamster and a rabbit."
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Anna và Huy nói chuyện về ai?",
+        "prompt": "Mai muốn làm gì?",
         "promptVi": "",
         "options": [
-          "Ông của Huy",
-          "Vy, em gái của Huy",
-          "Ca sĩ Mia Rose"
+          "Muốn Xu nói được tên mình",
+          "Muốn mua con chim Xu",
+          "Muốn chơi với con mèo"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Anna hỏi \"does your sister Vy like music?\", rồi hai bạn nói về bài hát, buổi tập và buổi biểu diễn của Vy.",
+        "answerIndex": 0,
+        "explanationVi": "Mai hỏi Xu có nói được tên mình không, và nhờ chú Tám dạy.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Vy tập với câu lạc bộ âm nhạc vào ngày nào?",
+        "prompt": "Chú Tám nói Xu có học được không?",
         "promptVi": "",
         "options": [
-          "Thứ Hai",
-          "Thứ Bảy",
-          "Chủ nhật"
+          "Có, nó học được",
+          "Không, nó không học được",
+          "Chú không biết"
         ],
         "answerIndex": 0,
-        "explanationVi": "Huy nói \"She has practice with the school music club every Monday.\"",
-        "turnIndex": 5
+        "explanationVi": "Chú Tám nói \"But it can learn\".",
+        "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Buổi biểu diễn âm nhạc diễn ra ở đâu?",
+        "prompt": "Khi chú Tám bảo nói \"Mai\", Xu nói gì?",
         "promptVi": "",
         "options": [
-          "Trong công viên",
-          "Ở nhà Huy",
-          "Ở trường của Vy"
+          "\"Mai\"",
+          "\"Hello\"",
+          "\"Thank you\""
         ],
-        "answerIndex": 2,
-        "explanationVi": "Huy nói \"There's a music show at her school on Saturday.\"",
-        "turnIndex": 7
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"It says Hello again\".",
+        "turnIndex": 4
       },
       {
         "kind": "tfn",
-        "prompt": "Anna likes Vy's favourite song.",
-        "promptVi": "Anna thích bài hát mà Vy yêu thích.",
+        "prompt": "Mai wants a bird too.",
+        "promptVi": "Mai cũng muốn nuôi một con chim.",
         "options": [],
         "answerIndex": 0,
-        "explanationVi": "Đúng, vì khi nghe tên bài \"Sunny Day\", Anna nói \"I love that song too!\"",
-        "turnIndex": 4
+        "explanationVi": "Đúng, vì Mai nói \"I want a bird too!\".",
+        "turnIndex": 6
       }
     ],
-    "readingGuideVi": "Khang thích làm gì, và vì sao Linh thương em mình?",
+    "readingGuideVi": "Con chim Xu nói được những gì, và không làm được gì?",
     "grammarStep": {
-      "titleVi": "Like / love + danh từ hoặc V-ing",
+      "titleVi": "Can / can't: nói về khả năng",
       "noticing": [
         {
-          "sentence": "He is ten, and he loves music.",
+          "sentence": "Xu can say \"Hello!\" and \"Xin chào!\"",
           "highlights": [
-            "loves music"
+            "can say"
           ]
         },
         {
-          "sentence": "Khang likes listening to happy songs, and his favourite song is \"Hello Sun\".",
+          "sentence": "The cat wants to catch Xu, but it can't.",
           "highlights": [
-            "likes listening"
-          ]
-        },
-        {
-          "sentence": "He doesn't like sad songs because he loves dancing too.",
-          "highlights": [
-            "doesn't like sad songs",
-            "loves dancing"
-          ]
-        },
-        {
-          "sentence": "People in the shop love listening to him, and they sing along!",
-          "highlights": [
-            "love listening"
+            "can't"
           ]
         }
       ],
-      "questionVi": "Vì sao có câu viết loves, likes, có câu lại viết love?",
+      "questionVi": "Trong câu \"…but it can't.\", vì sao sau can't không có động từ?",
       "options": [
-        "Vì he / Khang đi với loves, likes, còn people (they) đi với love",
-        "Vì loves chỉ dùng cho bài hát vui",
-        "Vì love chỉ dùng trong câu hỏi"
+        "Vì động từ (catch Xu) đã có ở trước, không cần nhắc lại",
+        "Vì can't không bao giờ đi với động từ",
+        "Vì đây là câu hỏi"
       ],
       "answerIndex": 0,
-      "explanationVi": "Chủ ngữ là he, she hoặc một người (Khang) thì thêm -s: loves, likes. Chủ ngữ là I, you, we, they, people thì giữ nguyên: love. Sau đó là danh từ (music) hoặc V-ing (listening, dancing).",
-      "whenVi": "Dùng likes / loves + danh từ hoặc V-ing để kể một người khác thích cái gì, thích làm gì.",
+      "explanationVi": "Khi động từ đã nói ở trước, có thể dừng ở can / can't: The cat wants to catch Xu, but it can't (catch Xu). Giống câu trả lời ngắn: Yes, it can. / No, it can't.",
+      "whenVi": "Dùng can để nói ai, con gì làm được việc gì; can't để nói không làm được; Can …? để hỏi.",
       "table": [
         {
           "subject": "I / you / we / they",
-          "form": "People love listening to him.",
-          "negative": "We don't like sad songs."
+          "form": "I can swim. – Can you swim? – Yes, I can.",
+          "negative": "We can't fly."
         },
         {
           "subject": "he / she / it",
-          "form": "He loves music. He likes listening to happy songs.",
-          "negative": "He doesn't like sad songs."
+          "form": "It can fly. – Can it talk? – No, it can't.",
+          "negative": "He can't swim."
         }
       ],
       "mistakes": [
         {
-          "wrong": "He love dancing.",
-          "right": "He loves dancing."
+          "wrong": "Xu can says hello.",
+          "right": "Xu can say hello."
         },
         {
-          "wrong": "Khang likes listen to happy songs.",
-          "right": "Khang likes listening to happy songs."
+          "wrong": "Can it sings?",
+          "right": "Can it sing?"
         }
       ],
-      "noteVi": "Tiếng Việt không thêm gì vào động từ khi nói về người khác (\"em ấy thích nghe\"), nên người Việt hay quên -s ở loves, likes và quên -ing ở listening.",
+      "noteVi": "Tiếng Việt trả lời \"Được\" hoặc \"Không được\". Tiếng Anh trả lời ngắn bằng chủ ngữ + can / can't: Yes, it can. / No, it can't.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền dạng V-ing của động từ trong ngoặc.",
-          "text": "Khang loves ___ (play) music in the shop.",
+          "promptVi": "Điền can hoặc can't. (Xu không nói được tên cháu.)",
+          "text": "Xu ___ say your name.",
           "answers": [
-            "playing"
+            "can't",
+            "cannot"
           ],
-          "explanationVi": "Sau loves, việc thích làm có dạng V-ing: playing."
+          "explanationVi": "Không làm được nên dùng can't + say."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "People in the shop ___ listening to him.",
+          "promptVi": "Chọn câu trả lời đúng cho \"Can it sing?\" (Nó hát được).",
+          "text": "Yes, it ___.",
           "options": [
-            "loving",
-            "loves",
-            "is love",
-            "love"
+            "can",
+            "does",
+            "is",
+            "cans"
           ],
-          "answerIndex": 3,
-          "explanationVi": "Chủ ngữ people (họ, they) đi với love, không thêm -s."
+          "answerIndex": 0,
+          "explanationVi": "Trả lời ngắn câu hỏi Can …?: Yes, it can."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "My brother love dancing.",
-          "sentence": "My brother loves dancing.",
-          "explanationVi": "Chủ ngữ my brother (he) nên love phải thêm -s: loves."
+          "text": "Xu can says \"Good morning\".",
+          "sentence": "Xu can say \"Good morning\".",
+          "explanationVi": "Sau can, động từ không thêm -s: can say."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Em trai tôi không thích bài hát buồn.",
-          "sentence": "My brother doesn't like sad songs.",
+          "text": "Con mèo không bắt được Xu.",
+          "sentence": "The cat can't catch Xu.",
           "words": [
-            "sad",
-            "My",
-            "like",
-            "doesn't",
-            "songs",
-            "brother",
-            "likes"
+            "catch",
+            "The",
+            "Xu.",
+            "can't",
+            "cat",
+            "catches"
           ],
-          "explanationVi": "Sau doesn't, like giữ nguyên; từ \"likes\" bị thừa."
+          "explanationVi": "Thứ tự: chủ ngữ + can't + động từ nguyên mẫu; từ \"catches\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "He is ten, and he loves music.",
-        "tipVi": "Loves /lʌvz/ có âm /v/ (môi dưới chạm răng trên) và /z/ ở cuối; music /ˈmjuːzɪk/ có âm /z/ ở giữa."
+        "text": "Xu can say \"Hello!\" and \"Xin chào!\"",
+        "tipVi": "Can đọc nhẹ /kən/; hello /həˈloʊ/ nhấn vào âm thứ hai."
       },
       {
-        "text": "After school, Khang has practice with the music club.",
-        "tipVi": "Practice /ˈpræktɪs/ có cụm /pr/ ở đầu và /kt/ ở giữa; club /klʌb/ có cụm /kl/ và âm /b/ ở cuối."
+        "text": "The cat wants to catch Xu, but it can't.",
+        "tipVi": "Can't ở cuối câu đọc rõ và mạnh /kænt/; wants /wɒnts/ có /ts/ ở cuối."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Do you sing at home?",
-        "questionVi": "Ở nhà bạn có hát không?",
-        "frame": "Yes, I do. I sing ___. / No, I don't, but I like ___."
+        "question": "Do you like birds?",
+        "questionVi": "Bạn có thích chim không?",
+        "frame": "Yes, I do. / No, I don't."
       },
       {
-        "question": "What songs do you like listening to?",
-        "questionVi": "Bạn thích nghe những bài hát nào?",
-        "frame": "I like listening to ___ songs because ___."
+        "question": "Can your pet do something special?",
+        "questionVi": "Con vật nuôi của bạn có làm được điều gì đặc biệt không?",
+        "frame": "Yes, it can ___. / No, it can't."
       },
       {
-        "question": "Does your brother or sister like music?",
-        "questionVi": "Anh chị em của bạn có thích âm nhạc không?",
-        "frame": "Yes, he / she does. He / She loves ___. / No, he / she doesn't, but he / she likes ___."
+        "question": "Can you say hello in English?",
+        "questionVi": "Bạn có nói được xin chào bằng tiếng Anh không?",
+        "frame": "Yes, I can. I can say \"___\"."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu về người khác dùng likes / loves + V-ing",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can / can't hoặc câu hỏi Can …?",
       "anyOf": [
-        "listening",
-        "dancing",
-        "playing",
-        "watching",
-        "going",
-        "reading"
+        "can",
+        "can't"
       ],
       "outlineVi": [
-        "Giới thiệu người thân đó: tên, tuổi, và người đó mê âm nhạc.",
-        "Kể người đó thích làm gì với âm nhạc (He / She likes …ing).",
-        "Nói vì sao bạn thích nghe người đó hát hoặc chơi nhạc (because …)."
+        "Giới thiệu con vật: tên, màu, của ai.",
+        "Kể nó làm được gì (can …).",
+        "Kể nó không làm được gì (can't …)."
       ],
-      "modelAnswer": "My sister Hoa is twelve, and she loves music. She likes listening to happy songs, and her favourite song is \"Hello Sun\". She often sings a song after dinner. She has practice with her music club on Monday, because there is a music show at her school. I love watching her!"
+      "modelAnswer": "My grandpa has a bird. Its name is Ky, and it is yellow. Ky can sing in the morning, and it can say \"Hi!\" But it can't say my name. It only knows two words!"
     }
   },
   "glosses": [
     {
-      "text": "little brother",
-      "lemma": "little brother",
-      "meaningVi": "em trai",
-      "sentenceIndex": 0,
-      "pos": "phrase",
-      "phrase": "my little brother, Khang",
-      "phraseVi": "em trai mình, Khang"
-    },
-    {
-      "text": "bathroom",
-      "lemma": "bathroom",
-      "meaningVi": "nhà tắm",
-      "sentenceIndex": 2,
+      "text": "Uncle",
+      "lemma": "uncle",
+      "meaningVi": "chú, bác, cậu",
       "pos": "noun",
-      "phrase": "in the bathroom",
-      "phraseVi": "trong nhà tắm"
+      "sentenceIndex": 0
     },
     {
-      "text": "listening to",
-      "lemma": "listen to",
-      "meaningVi": "nghe",
+      "text": "bird",
+      "lemma": "bird",
+      "meaningVi": "con chim",
+      "pos": "noun",
+      "sentenceIndex": 1,
+      "phrase": "He has a pet bird",
+      "phraseVi": "Chú nuôi một con chim"
+    },
+    {
+      "text": "smart",
+      "lemma": "smart",
+      "meaningVi": "khôn, thông minh",
+      "pos": "adjective",
       "sentenceIndex": 3,
-      "pos": "phrasal verb",
-      "phrase": "listening to happy songs",
-      "phraseVi": "nghe những bài hát vui"
+      "phrase": "it is very smart",
+      "phraseVi": "nó rất khôn"
     },
     {
-      "text": "because",
-      "lemma": "because",
-      "meaningVi": "vì",
-      "sentenceIndex": 4,
-      "pos": "conjunction",
-      "phrase": "because he loves dancing too",
-      "phraseVi": "vì em cũng rất mê nhảy"
-    },
-    {
-      "text": "After school",
-      "lemma": "after school",
-      "meaningVi": "sau giờ học",
-      "sentenceIndex": 5,
-      "pos": "phrase",
-      "phrase": "After school, Khang has practice",
-      "phraseVi": "Sau giờ học, Khang có buổi tập"
-    },
-    {
-      "text": "cake shop",
-      "lemma": "cake shop",
-      "meaningVi": "tiệm bánh",
-      "sentenceIndex": 7,
+      "text": "neighbours",
+      "lemma": "neighbour",
+      "meaningVi": "hàng xóm",
       "pos": "noun",
-      "phrase": "Our family has a cake shop",
-      "phraseVi": "Nhà mình có một tiệm bánh"
+      "sentenceIndex": 4,
+      "phrase": "Uncle Tam's neighbours come to see Xu",
+      "phraseVi": "hàng xóm của chú Tám đến xem Xu"
     },
     {
-      "text": "can sing",
-      "lemma": "can",
-      "meaningVi": "có thể, biết (hát)",
-      "sentenceIndex": 10,
+      "text": "children",
+      "lemma": "child",
+      "meaningVi": "trẻ con, bọn trẻ",
+      "pos": "noun",
+      "sentenceIndex": 7,
+      "phrase": "The children love it",
+      "phraseVi": "Bọn trẻ rất thích nó"
+    },
+    {
+      "text": "knows",
+      "lemma": "know",
+      "meaningVi": "biết",
       "pos": "verb",
-      "phrase": "my brother can sing",
-      "phraseVi": "em trai mình hát được"
-    },
-    {
-      "text": "watch",
-      "lemma": "watch",
-      "meaningVi": "xem",
       "sentenceIndex": 11,
-      "pos": "verb",
-      "phrase": "want to watch him at the show",
-      "phraseVi": "muốn đến xem em biểu diễn"
+      "phrase": "It only knows six words",
+      "phraseVi": "Nó chỉ biết sáu từ thôi"
     },
     {
-      "text": "makes everyone happy",
-      "lemma": "make someone happy",
-      "meaningVi": "làm cho mọi người vui",
-      "sentenceIndex": 12,
-      "pos": "phrase",
-      "phrase": "he makes everyone happy",
-      "phraseVi": "em làm cho mọi người vui"
+      "text": "wall",
+      "lemma": "wall",
+      "meaningVi": "bức tường",
+      "pos": "noun",
+      "sentenceIndex": 15,
+      "phrase": "very high on the wall",
+      "phraseVi": "rất cao trên tường"
+    },
+    {
+      "text": "night",
+      "lemma": "night",
+      "meaningVi": "ban đêm",
+      "pos": "noun",
+      "sentenceIndex": 16,
+      "phrase": "At night",
+      "phraseVi": "Ban đêm"
     }
   ]
 }

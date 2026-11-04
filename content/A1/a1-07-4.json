@@ -1,607 +1,601 @@
 {
-  "content": "Hoa's birthday is on Saturday, and Lan and Linh want a present for her. After school, they go to a small shop with toys, books and cards.\n\n\"What about this teddy bear?\" asks Linh.\n\"It's nice, but Hoa isn't a little girl,\" says Lan.\nThen Lan sees some books on a shelf. \"Those books are about music, and Hoa loves music!\"\n\"Is this book in English?\" asks Linh.\n\"Yes, and Hoa is good at English too,\" says Lan.\n\nThey also want a card. \"This card is pink, and that card is blue,\" says Linh. \"Hoa's favourite colour is blue, so that one is good.\"\n\nThe woman in the shop puts the book and the card in a nice bag. Lan and Linh are very happy. It is a great present for Hoa!",
+  "content": "Linh lives in a small house in Hanoi. From Monday to Friday, she works in a shop. At the weekend, she is at home.\n\nOn Saturdays, Linh always gets up late. She has breakfast at nine. Then she cleans the house. She often washes her clothes and waters the flowers in the garden. In the afternoon, she usually reads a book or listens to music.\n\nOn Sundays, Linh usually visits her parents. They live in a small town near Hanoi. Her mother cooks a big lunch, and Linh helps her. Linh never works at the weekend.\n\nHer neighbour Thu often sees her in the garden on Saturdays.\n\"Are you busy today, Linh?\" asks Thu.\n\"No, I'm not,\" Linh says.\n\"Then come and have tea with me,\" says Thu.",
   "targetWords": [
-    "birthday",
-    "present",
-    "toy",
-    "shop",
-    "teddy bear",
-    "book",
-    "card",
-    "bag"
+    "weekend",
+    "get up",
+    "clean the house",
+    "water the flowers",
+    "read a book",
+    "listen to music",
+    "visit",
+    "neighbour"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "birthday",
-        "lemma": "birthday",
-        "meaningVi": "sinh nhật",
-        "pos": "noun",
-        "sentenceIndex": 0
-      },
-      {
-        "text": "present",
-        "lemma": "present",
-        "meaningVi": "món quà",
-        "pos": "noun",
-        "sentenceIndex": 0
-      },
-      {
-        "text": "toys",
-        "lemma": "toy",
-        "meaningVi": "đồ chơi",
-        "pos": "noun",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "shop",
-        "lemma": "shop",
-        "meaningVi": "cửa hàng",
-        "pos": "noun",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "teddy bear",
-        "lemma": "teddy bear",
-        "meaningVi": "gấu bông",
+        "text": "weekend",
+        "lemma": "weekend",
+        "meaningVi": "cuối tuần",
         "pos": "noun",
         "sentenceIndex": 2
       },
       {
-        "text": "books",
-        "lemma": "book",
-        "meaningVi": "quyển sách",
-        "pos": "noun",
-        "sentenceIndex": 4
+        "text": "gets up",
+        "lemma": "get up",
+        "meaningVi": "dậy, ra khỏi giường",
+        "pos": "verb",
+        "sentenceIndex": 3
       },
       {
-        "text": "card",
-        "lemma": "card",
-        "meaningVi": "tấm thiệp",
-        "pos": "noun",
+        "text": "cleans the house",
+        "lemma": "clean the house",
+        "meaningVi": "dọn nhà",
+        "pos": "phrase",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "waters the flowers",
+        "lemma": "water the flowers",
+        "meaningVi": "tưới hoa",
+        "pos": "phrase",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "reads a book",
+        "lemma": "read a book",
+        "meaningVi": "đọc sách",
+        "pos": "phrase",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "listens to music",
+        "lemma": "listen to music",
+        "meaningVi": "nghe nhạc",
+        "pos": "phrase",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "visits",
+        "lemma": "visit",
+        "meaningVi": "thăm",
+        "pos": "verb",
         "sentenceIndex": 8
       },
       {
-        "text": "bag",
-        "lemma": "bag",
-        "meaningVi": "cái túi",
+        "text": "neighbour",
+        "lemma": "neighbour",
+        "meaningVi": "hàng xóm",
         "pos": "noun",
-        "sentenceIndex": 11
+        "sentenceIndex": 12
       }
     ],
     "questions": [
       {
         "kind": "gist",
-        "prompt": "What is the story about?",
-        "promptVi": "Câu chuyện nói về điều gì?",
+        "prompt": "What is the text about?",
+        "promptVi": "Bài đọc nói về điều gì?",
         "options": [
-          "Hoa's birthday party",
-          "A music class",
-          "Linh's new teddy bear",
-          "Lan and Linh choose a present for Hoa."
+          "Linh's work in a shop",
+          "Linh's weekend",
+          "The house of Linh's parents",
+          "A garden in Hanoi"
         ],
-        "answerIndex": 3,
-        "explanationVi": "Sắp đến sinh nhật Hoa, Lan và Linh vào cửa hàng chọn quà: gấu bông, sách, thiệp."
+        "answerIndex": 1,
+        "explanationVi": "Bài kể Linh làm gì vào thứ Bảy và Chủ nhật: dọn nhà, tưới hoa, đọc sách và về thăm bố mẹ."
       },
       {
         "kind": "detail",
-        "prompt": "What is the present for Hoa?",
-        "promptVi": "Món quà tặng Hoa là gì?",
+        "prompt": "On Saturdays, Linh has breakfast at …",
+        "promptVi": "Vào thứ Bảy, Linh ăn sáng lúc …",
         "options": [
-          "A teddy bear",
-          "A book about music and a card",
-          "A pink card",
-          "Some toys"
+          "seven",
+          "eight",
+          "nine",
+          "ten"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Cô bán hàng \"puts the book and the card in a nice bag\": quyển sách về âm nhạc và tấm thiệp."
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"She has breakfast at nine\", vì thứ Bảy Linh luôn dậy muộn."
       },
       {
         "kind": "detail",
-        "prompt": "What colour is the card?",
-        "promptVi": "Tấm thiệp màu gì?",
+        "prompt": "Linh's parents live …",
+        "promptVi": "Bố mẹ Linh sống …",
         "options": [
-          "Pink",
-          "Blue",
-          "Red",
-          "Green"
+          "in Hanoi",
+          "in a small town near Hanoi",
+          "in Linh's house",
+          "in a big city"
         ],
         "answerIndex": 1,
-        "explanationVi": "Hoa thích màu xanh nhất, nên Linh chọn \"that one\", tấm thiệp màu xanh."
+        "explanationVi": "Bài viết \"They live in a small town near Hanoi\"."
       },
       {
         "kind": "tfn",
-        "prompt": "Hoa loves music.",
-        "promptVi": "Hoa rất thích âm nhạc.",
+        "prompt": "Linh often works on Sundays.",
+        "promptVi": "Linh hay đi làm vào Chủ nhật.",
         "options": [],
-        "answerIndex": 0,
-        "explanationVi": "Đúng, vì Lan nói \"Hoa loves music!\""
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Linh never works at the weekend\". Chủ nhật cô ấy thường về thăm bố mẹ."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"shelf\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"neighbour\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "Then Lan sees some books on a shelf.",
+        "quote": "\"Her neighbour Thu often sees her in the garden on Saturdays.\"",
         "options": [
-          "cái bàn",
-          "cái hộp",
-          "cái giá, kệ",
-          "cái túi"
+          "hàng xóm",
+          "em gái",
+          "bạn cùng lớp",
+          "mẹ"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Shelf là cái giá, cái kệ để sách: sách được xếp trên giá."
+        "answerIndex": 0,
+        "explanationVi": "Neighbour là người sống ở nhà bên cạnh, tức hàng xóm."
       }
     ],
     "grammarNote": {
-      "title": "This / that / these / those",
-      "bodyVi": "Khi chọn quà, dùng this / these cho đồ ở gần, that / those cho đồ ở xa: this teddy bear, those books. What about this …? dùng để gợi ý (cái này thì sao?). That one thay cho danh từ vừa nói: that one = tấm thiệp màu xanh kia.",
+      "title": "Trạng từ chỉ tần suất",
+      "bodyVi": "Always (luôn luôn), usually (thường thường), often (hay), never (không bao giờ) đứng trước động từ thường: Linh always gets up late, she often washes her clothes. Động từ vẫn thêm -s sau he, she. Muốn nói vào ngày nào, dùng On Saturdays, On Sundays, At the weekend ở đầu hoặc cuối câu.",
       "examples": [
-        "What about this teddy bear?",
-        "Those books are about music, and Hoa loves music!",
-        "This card is pink, and that card is blue"
+        "On Saturdays, Linh always gets up late.",
+        "In the afternoon, she usually reads a book or listens to music.",
+        "Linh never works at the weekend."
       ]
     },
-    "writingPrompt": "Write about choosing a birthday present for a friend: what you look at and what you take.",
+    "writingPrompt": "Write about your weekend: what you usually do on Saturday and on Sunday.",
     "sentenceTranslations": [
-      "Thứ Bảy là sinh nhật của Hoa, và Lan với Linh muốn mua một món quà cho bạn ấy.",
-      "Sau giờ học, hai bạn đến một cửa hàng nhỏ bán đồ chơi, sách và thiệp.",
-      "\"Con gấu bông này thì sao?\" Linh hỏi.",
-      "\"Đẹp đấy, nhưng Hoa đâu còn là cô bé nữa,\" Lan nói.",
-      "Rồi Lan nhìn thấy mấy quyển sách trên giá.",
-      "\"Mấy quyển sách kia viết về âm nhạc, mà Hoa rất thích âm nhạc!\"",
-      "\"Quyển sách này bằng tiếng Anh à?\" Linh hỏi.",
-      "\"Ừ, mà Hoa cũng giỏi tiếng Anh nữa,\" Lan nói.",
-      "Hai bạn cũng muốn mua một tấm thiệp.",
-      "\"Tấm thiệp này màu hồng, còn tấm kia màu xanh,\" Linh nói.",
-      "\"Hoa thích màu xanh nhất, nên tấm kia hợp đấy.\"",
-      "Cô bán hàng cho quyển sách và tấm thiệp vào một chiếc túi xinh xắn.",
-      "Lan và Linh rất vui.",
-      "Đây là một món quà tuyệt vời cho Hoa!"
+      "Linh sống trong một ngôi nhà nhỏ ở Hà Nội.",
+      "Từ thứ Hai đến thứ Sáu, cô ấy làm việc ở một cửa hàng.",
+      "Cuối tuần, cô ấy ở nhà.",
+      "Thứ Bảy nào Linh cũng dậy muộn.",
+      "Cô ấy ăn sáng lúc chín giờ.",
+      "Sau đó cô ấy dọn nhà.",
+      "Cô ấy hay giặt quần áo và tưới hoa trong vườn.",
+      "Buổi chiều, cô ấy thường đọc sách hoặc nghe nhạc.",
+      "Chủ nhật, Linh thường về thăm bố mẹ.",
+      "Bố mẹ cô ấy sống ở một thị trấn nhỏ gần Hà Nội.",
+      "Mẹ cô ấy nấu một bữa trưa thịnh soạn, và Linh phụ mẹ.",
+      "Linh không bao giờ đi làm vào cuối tuần.",
+      "Thứ Bảy, bác Thu hàng xóm hay thấy cô ấy ở ngoài vườn.",
+      "\"Hôm nay cháu có bận không, Linh?\" bác Thu hỏi.",
+      "\"Dạ không ạ,\" Linh nói.",
+      "\"Thế thì sang uống trà với bác nhé,\" bác Thu nói."
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể cùng bạn bè chọn quà, gợi ý bằng What about this …? và chỉ đồ vật bằng this, that, these, those.",
+    "objectiveVi": "Bạn có thể kể mình thường làm gì vào cuối tuần bằng always, usually, often, never và On Saturdays, On Sundays.",
     "examples": [
       {
-        "lemma": "birthday",
-        "sentence": "My birthday is in June.",
-        "meaningVi": "Sinh nhật mình vào tháng Sáu."
+        "lemma": "weekend",
+        "sentence": "I visit my grandmother at the weekend.",
+        "meaningVi": "Cuối tuần mình về thăm bà."
       },
       {
-        "lemma": "present",
-        "sentence": "This present is for you.",
-        "meaningVi": "Món quà này là dành cho bạn."
+        "lemma": "get up",
+        "sentence": "I get up late on Sundays.",
+        "meaningVi": "Chủ nhật mình dậy muộn."
       },
       {
-        "lemma": "toy",
-        "sentence": "That toy car is red.",
-        "meaningVi": "Chiếc ô tô đồ chơi kia màu đỏ."
+        "lemma": "clean the house",
+        "sentence": "We clean the house on Saturdays.",
+        "meaningVi": "Thứ Bảy nhà mình dọn nhà."
       },
       {
-        "lemma": "shop",
-        "sentence": "Is that shop open on Sunday?",
-        "meaningVi": "Cửa hàng kia Chủ nhật có mở cửa không?"
+        "lemma": "water the flowers",
+        "sentence": "I water the flowers every evening.",
+        "meaningVi": "Tối nào mình cũng tưới hoa."
       },
       {
-        "lemma": "teddy bear",
-        "sentence": "My little sister has a big teddy bear.",
-        "meaningVi": "Em gái mình có một con gấu bông to."
+        "lemma": "read a book",
+        "sentence": "I read a book before bed.",
+        "meaningVi": "Mình đọc sách trước khi ngủ."
       },
       {
-        "lemma": "book",
-        "sentence": "This book is about animals.",
-        "meaningVi": "Quyển sách này viết về động vật."
+        "lemma": "listen to music",
+        "sentence": "We listen to music in the car.",
+        "meaningVi": "Chúng mình nghe nhạc trên ô tô."
       },
       {
-        "lemma": "card",
-        "sentence": "This card is for my mum.",
-        "meaningVi": "Tấm thiệp này là để tặng mẹ mình."
+        "lemma": "visit",
+        "sentence": "I often visit my grandparents.",
+        "meaningVi": "Mình hay về thăm ông bà."
       },
       {
-        "lemma": "bag",
-        "sentence": "The present is in a blue bag.",
-        "meaningVi": "Món quà ở trong một chiếc túi xanh."
+        "lemma": "neighbour",
+        "sentence": "My neighbour has a big dog.",
+        "meaningVi": "Hàng xóm nhà mình có một con chó to."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Minh",
-        "Tom"
+        "Thu",
+        "Linh"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Tom, Anna's birthday is on the tenth of May. What about a present?",
-          "meaningVi": "Tom ơi, sinh nhật Anna là ngày mùng mười tháng Năm. Mình mua quà nhé?"
+          "text": "Good morning, Linh! Are you in the garden again?",
+          "meaningVi": "Chào cháu Linh! Cháu lại ra vườn à?"
         },
         {
           "speaker": 1,
-          "text": "Good idea! Is this watch OK?",
-          "meaningVi": "Ý hay! Chiếc đồng hồ này được không?"
+          "text": "Yes, I am. I always water the flowers on Saturdays.",
+          "meaningVi": "Vâng ạ. Thứ Bảy nào cháu cũng tưới hoa."
         },
         {
           "speaker": 0,
-          "text": "It's very expensive. What about those books?",
-          "meaningVi": "Đắt lắm. Thế mấy quyển sách kia thì sao?"
+          "text": "Your house is always very clean!",
+          "meaningVi": "Nhà cháu lúc nào cũng sạch sẽ thật!"
         },
         {
           "speaker": 1,
-          "text": "Hmm, Anna has a lot of books. Her dad writes books!",
-          "meaningVi": "Ừm, Anna có nhiều sách lắm rồi. Bố bạn ấy viết sách mà!"
+          "text": "Thank you! I clean the house every Saturday morning.",
+          "meaningVi": "Cháu cảm ơn bác! Sáng thứ Bảy nào cháu cũng dọn nhà."
         },
         {
           "speaker": 0,
-          "text": "That's true! What about that toy cat on the shelf?",
-          "meaningVi": "Đúng thật! Thế con mèo đồ chơi trên giá kia thì sao?"
+          "text": "And on Sundays? Are you at home?",
+          "meaningVi": "Thế còn Chủ nhật? Cháu có ở nhà không?"
         },
         {
           "speaker": 1,
-          "text": "A toy cat? Anna has a white cat, Snow!",
-          "meaningVi": "Mèo đồ chơi à? Anna có một con mèo trắng tên Snow đấy!"
+          "text": "No, I'm not. I usually visit my parents. They live near Hanoi.",
+          "meaningVi": "Dạ không ạ. Cháu thường về thăm bố mẹ. Bố mẹ cháu sống gần Hà Nội."
         },
         {
           "speaker": 0,
-          "text": "Yes! So this small white cat is a good present.",
-          "meaningVi": "Đúng vậy! Nên con mèo trắng nhỏ này là món quà hợp đấy."
+          "text": "That's nice. Can you come for tea this afternoon?",
+          "meaningVi": "Hay quá. Chiều nay cháu sang uống trà được không?"
         },
         {
           "speaker": 1,
-          "text": "Great. And these cards?",
-          "meaningVi": "Tuyệt. Còn mấy tấm thiệp này?"
-        },
-        {
-          "speaker": 0,
-          "text": "That blue one is nice.",
-          "meaningVi": "Tấm màu xanh kia đẹp."
-        },
-        {
-          "speaker": 1,
-          "text": "OK, the toy cat and that blue card!",
-          "meaningVi": "Được, lấy con mèo đồ chơi và tấm thiệp xanh kia nhé!"
+          "text": "Yes, I can. I'm always free on Saturday afternoon!",
+          "meaningVi": "Dạ được ạ. Chiều thứ Bảy cháu lúc nào cũng rảnh!"
         }
       ]
     },
-    "grammarTipVi": "What about this …? dùng để gợi ý: What about this teddy bear? (Con gấu bông này thì sao?) Trả lời: It's nice, but … hoặc Good idea!",
+    "grammarTipVi": "On Saturdays (có -s) nghĩa là thứ Bảy nào cũng vậy, tức là một thói quen. Các cụm này thường đứng đầu câu, còn always, usually, often, never đứng ngay trước động từ.",
     "translations": [
       {
-        "vi": "Con gấu bông này thì sao?",
-        "en": "What about this teddy bear?",
+        "vi": "Cuối tuần, cô ấy ở nhà.",
+        "en": "At the weekend, she is at home.",
         "distractors": [
-          "these",
-          "those",
-          "is"
-        ]
-      },
-      {
-        "vi": "Mấy quyển sách kia viết về âm nhạc.",
-        "en": "Those books are about music.",
-        "distractors": [
-          "That",
-          "is",
-          "book"
-        ]
-      },
-      {
-        "vi": "Tấm thiệp này màu hồng.",
-        "en": "This card is pink.",
-        "distractors": [
-          "These",
           "are",
-          "cards"
+          "in",
+          "He"
+        ],
+        "accepted": [
+          "She is at home at the weekend."
         ]
       },
       {
-        "vi": "Đây là một món quà sinh nhật.",
-        "en": "This is a birthday present.",
+        "vi": "Thứ Bảy nào Linh cũng dậy muộn.",
+        "en": "On Saturdays, Linh always gets up late.",
         "distractors": [
-          "These",
-          "are",
-          "an"
+          "never",
+          "early",
+          "getting"
+        ],
+        "accepted": [
+          "Linh always gets up late on Saturdays."
+        ]
+      },
+      {
+        "vi": "Sau đó cô ấy dọn nhà.",
+        "en": "Then she cleans the house.",
+        "distractors": [
+          "cleaning",
+          "he",
+          "a"
+        ]
+      },
+      {
+        "vi": "Buổi chiều, cô ấy thường đọc sách.",
+        "en": "In the afternoon, she usually reads a book.",
+        "distractors": [
+          "never",
+          "morning",
+          "reading"
+        ],
+        "accepted": [
+          "She usually reads a book in the afternoon."
+        ]
+      },
+      {
+        "vi": "Chủ nhật, Linh thường về thăm bố mẹ.",
+        "en": "On Sundays, Linh usually visits her parents.",
+        "distractors": [
+          "his",
+          "always",
+          "visiting"
+        ],
+        "accepted": [
+          "Linh usually visits her parents on Sundays."
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Minh và Tom đang làm gì?",
+        "prompt": "Linh và bác Thu nói về chuyện gì?",
         "promptVi": "",
         "options": [
-          "Chọn quà sinh nhật cho Anna",
-          "Mua sách cho bố Anna",
-          "Chơi với con mèo của Anna"
+          "Những việc Linh làm vào cuối tuần",
+          "Công việc ở cửa hàng",
+          "Bố mẹ của bác Thu"
         ],
         "answerIndex": 0,
-        "explanationVi": "Minh nói \"Anna's birthday is on the tenth of May. What about a present?\", rồi hai bạn chọn quà.",
+        "explanationVi": "Hai người nói về việc Linh tưới hoa, dọn nhà vào thứ Bảy và về thăm bố mẹ vào Chủ nhật.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Vì sao hai bạn không mua sách?",
+        "prompt": "Sáng thứ Bảy nào Linh cũng làm gì?",
         "promptVi": "",
         "options": [
-          "Vì sách rất đắt",
-          "Vì Anna đã có rất nhiều sách",
-          "Vì Anna không thích đọc"
+          "Dọn nhà",
+          "Đi làm",
+          "Về thăm bố mẹ"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Tom nói \"Anna has a lot of books. Her dad writes books!\"",
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"I clean the house every Saturday morning\".",
         "turnIndex": 3
       },
       {
         "kind": "detail",
-        "prompt": "Hai bạn chọn món quà gì?",
+        "prompt": "Chủ nhật Linh thường làm gì?",
         "promptVi": "",
         "options": [
-          "Một chiếc đồng hồ",
-          "Một quyển sách",
-          "Một con mèo đồ chơi và một tấm thiệp xanh"
+          "Ở nhà đọc sách",
+          "Về thăm bố mẹ",
+          "Sang nhà bác Thu"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Tom nói \"the toy cat and that blue card!\"",
-        "turnIndex": 9
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"I usually visit my parents\".",
+        "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "Anna's birthday is on the tenth of May.",
-        "promptVi": "Sinh nhật Anna là ngày mùng mười tháng Năm.",
+        "prompt": "Linh can come for tea this afternoon.",
+        "promptVi": "Chiều nay Linh có thể sang uống trà.",
         "options": [],
         "answerIndex": 0,
-        "explanationVi": "Đúng, vì Minh nói \"Anna's birthday is on the tenth of May\".",
-        "turnIndex": 0
+        "explanationVi": "Đúng, vì Linh nói \"Yes, I can. I'm always free on Saturday afternoon\".",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Lan và Linh xem những món quà nào, và cuối cùng chọn gì?",
+    "readingGuideVi": "Linh làm những việc gì vào thứ Bảy và Chủ nhật, và việc nào cô ấy không bao giờ làm vào cuối tuần?",
     "grammarStep": {
-      "titleVi": "This / that / these / those",
+      "titleVi": "Trạng từ chỉ tần suất",
       "noticing": [
         {
-          "sentence": "\"What about this teddy bear?\" asks Linh.",
+          "sentence": "On Saturdays, Linh always gets up late.",
           "highlights": [
-            "this"
+            "always"
           ]
         },
         {
-          "sentence": "\"Those books are about music, and Hoa loves music!\"",
+          "sentence": "She often washes her clothes and waters the flowers in the garden.",
           "highlights": [
-            "Those"
+            "often"
           ]
         },
         {
-          "sentence": "\"This card is pink, and that card is blue,\" says Linh.",
+          "sentence": "In the afternoon, she usually reads a book or listens to music.",
           "highlights": [
-            "This",
-            "that"
+            "usually"
           ]
         },
         {
-          "sentence": "\"Hoa's favourite colour is blue, so that one is good.\"",
+          "sentence": "Linh never works at the weekend.",
           "highlights": [
-            "that one"
+            "never"
           ]
         }
       ],
-      "questionVi": "Trong \"so that one is good\", that one thay cho từ nào?",
+      "questionVi": "Các từ always, often, usually, never đứng ở đâu so với động từ?",
       "options": [
-        "that book (quyển sách kia)",
-        "that card (tấm thiệp màu xanh kia)",
-        "that shop (cửa hàng kia)"
+        "Ngay trước động từ (gets, washes, reads, works)",
+        "Ngay sau động từ",
+        "Luôn ở đầu câu"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Câu trước nói về hai tấm thiệp (this card, that card), nên that one là that card, tấm thiệp màu xanh.",
-      "whenVi": "Dùng this / that / these / those và this one / that one khi chỉ và chọn đồ vật.",
+      "answerIndex": 0,
+      "explanationVi": "Trạng từ tần suất đứng ngay trước động từ thường: Linh always gets up, she usually reads. Còn On Saturdays, In the afternoon có thể đứng đầu câu.",
+      "whenVi": "Dùng trạng từ tần suất để nói một việc xảy ra thường xuyên đến mức nào, nhất là những thói quen vào cuối tuần.",
       "table": [
         {
-          "subject": "this (gần, số ít)",
-          "form": "this teddy bear, this card",
-          "negative": "—"
+          "subject": "always (luôn luôn)",
+          "form": "She always gets up late on Saturdays.",
+          "negative": "She never gets up early on Saturdays."
         },
         {
-          "subject": "that (xa, số ít)",
-          "form": "that card, that one",
-          "negative": "—"
+          "subject": "usually (thường thường)",
+          "form": "She usually reads a book.",
+          "negative": "She never reads at work."
         },
         {
-          "subject": "these (gần, số nhiều)",
-          "form": "these cards",
-          "negative": "—"
+          "subject": "often (hay)",
+          "form": "She often waters the flowers.",
+          "negative": "She never waters them at night."
         },
         {
-          "subject": "those (xa, số nhiều)",
-          "form": "those books",
-          "negative": "—"
+          "subject": "never (không bao giờ)",
+          "form": "Linh never works at the weekend.",
+          "negative": "Linh isn't at work at the weekend."
         }
       ],
       "mistakes": [
         {
-          "wrong": "That books are about music.",
-          "right": "Those books are about music."
+          "wrong": "Linh cleans always the house.",
+          "right": "Linh always cleans the house."
         },
         {
-          "wrong": "This cards are nice.",
-          "right": "These cards are nice."
+          "wrong": "She usually visit her parents.",
+          "right": "She usually visits her parents."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"mấy quyển sách kia\" với chữ \"kia\" không đổi, nên người Việt hay dùng that cho cả nhiều vật.",
+      "noteVi": "Never đã có nghĩa phủ định, nên câu Linh never works không cần thêm not.",
       "exercises": [
         {
-          "kind": "fill",
-          "promptVi": "Điền This hoặc That (tấm thiệp ở ngay đây).",
-          "text": "___ card here is pink.",
-          "answers": [
-            "This"
+          "kind": "choice",
+          "promptVi": "Chọn câu đúng.",
+          "text": "On Sundays, Linh ___ her parents.",
+          "options": [
+            "visits usually",
+            "usually visits",
+            "usually visit",
+            "visit usually"
           ],
-          "explanationVi": "Card là một tấm và ở gần (here), nên dùng This."
+          "answerIndex": 1,
+          "explanationVi": "Usually đứng trước động từ, và Linh là she nên dùng visits."
         },
         {
-          "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "___ books on the shelf over there are about music.",
-          "options": [
-            "This",
-            "That",
-            "These",
-            "Those"
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"không bao giờ\".",
+          "text": "Linh ___ works at the weekend.",
+          "answers": [
+            "never"
           ],
-          "answerIndex": 3,
-          "explanationVi": "Books là số nhiều và ở xa (over there), nên dùng Those."
+          "explanationVi": "Never nghĩa là không bao giờ, đứng trước động từ works."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "That books are about music.",
-          "sentence": "Those books are about music.",
-          "explanationVi": "Books là số nhiều, nên dùng those, không dùng that."
+          "text": "She reads often a book in the afternoon.",
+          "sentence": "She often reads a book in the afternoon.",
+          "explanationVi": "Often phải đứng trước động từ reads."
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Tấm thiệp màu xanh kia đẹp.",
-          "sentence": "That blue card is nice.",
+          "text": "Cô ấy luôn dọn nhà.",
+          "sentence": "She always cleans the house.",
           "words": [
-            "blue",
-            "card",
-            "That",
-            "is",
-            "nice",
-            "Those"
+            "the",
+            "always",
+            "She",
+            "house",
+            "cleans",
+            "clean"
           ],
-          "explanationVi": "Card là một tấm, nên dùng That; từ \"Those\" bị thừa."
+          "explanationVi": "Always đứng trước cleans; She là một người nên dùng cleans, từ \"clean\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "Then Lan sees some books on a shelf.",
-        "tipVi": "Books /bʊks/ có âm /ks/ ở cuối; shelf /ʃelf/ có cụm âm cuối /lf/."
+        "text": "On Saturdays, Linh always gets up late.",
+        "tipVi": "Saturdays /ˈsætədeɪz/ nhấn âm đầu SA; always /ˈɔːlweɪz/ nhấn âm đầu AL."
       },
       {
-        "text": "This card is pink, and that card is blue.",
-        "tipVi": "This /ðɪs/ và that /ðæt/ đều bắt đầu bằng /ð/ (lưỡi giữa răng); card /kɑːrd/ có /d/ ở cuối."
+        "text": "In the afternoon, she usually reads a book or listens to music.",
+        "tipVi": "Afternoon /ˌɑːftəˈnuːn/ nhấn âm cuối NOON; listens /ˈlɪsnz/ không đọc chữ t."
       }
     ],
     "speakQuestions": [
       {
-        "question": "What is your favourite birthday present?",
-        "questionVi": "Món quà sinh nhật bạn thích nhất là gì?",
-        "frame": "My favourite present is ___."
+        "question": "What is your favourite day of the week?",
+        "questionVi": "Bạn thích ngày nào trong tuần nhất?",
+        "frame": "My favourite day is ___. I usually ___."
       },
       {
-        "question": "Is there a toy shop near your home?",
-        "questionVi": "Gần nhà bạn có cửa hàng đồ chơi không?",
-        "frame": "Yes, there is. / No, there isn't."
+        "question": "Are you at home at the weekend?",
+        "questionVi": "Cuối tuần bạn có ở nhà không?",
+        "frame": "Yes, I am. I often ___. / No, I'm not. I usually ___."
       },
       {
-        "question": "What is a good present for your best friend?",
-        "questionVi": "Món quà nào hợp với bạn thân của bạn?",
-        "frame": "A good present for him / her is ___, because he / she loves ___."
+        "question": "Who is your neighbour?",
+        "questionVi": "Hàng xóm của bạn là ai?",
+        "frame": "My neighbour is ___. He / She often ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng trạng từ tần suất (always, usually, often, never)",
       "anyOf": [
-        "this",
-        "that",
-        "these",
-        "those"
+        "always",
+        "usually",
+        "often",
+        "never"
       ],
       "outlineVi": [
-        "Nói sinh nhật của ai, và bạn đi mua quà với ai.",
-        "Kể các món bạn xem (this …, those …).",
-        "Nói bạn chọn món nào và vì sao."
+        "Kể bạn thường làm gì vào thứ Bảy.",
+        "Kể bạn thường làm gì vào Chủ nhật, đi đâu, thăm ai.",
+        "Nói một việc bạn không bao giờ làm vào cuối tuần (never)."
       ],
-      "modelAnswer": "My friend Nam's birthday is on Sunday. My sister and I go to a small shop. This teddy bear is nice, but Nam isn't a little boy. Those books are about football, and Nam loves football! We take a book and that green card. It is a great present."
+      "modelAnswer": "At the weekend, I always get up late. On Saturdays, I usually clean the house and wash my clothes. In the afternoon, I often listen to music. On Sundays, I visit my grandmother. She lives near my house. I never work at the weekend."
     }
   },
   "glosses": [
     {
-      "text": "present",
-      "lemma": "present",
-      "meaningVi": "món quà",
-      "sentenceIndex": 0,
-      "pos": "noun",
-      "phrase": "a present for her",
-      "phraseVi": "một món quà cho bạn ấy"
-    },
-    {
-      "text": "cards",
-      "lemma": "card",
-      "meaningVi": "tấm thiệp",
+      "text": "From Monday to Friday",
+      "lemma": "from ... to",
+      "meaningVi": "từ thứ Hai đến thứ Sáu",
       "sentenceIndex": 1,
-      "pos": "noun",
-      "phrase": "toys, books and cards",
-      "phraseVi": "đồ chơi, sách và thiệp"
-    },
-    {
-      "text": "What about",
-      "lemma": "what about",
-      "meaningVi": "… thì sao?",
-      "sentenceIndex": 2,
       "pos": "phrase",
-      "phrase": "What about this teddy bear?",
-      "phraseVi": "Con gấu bông này thì sao?"
+      "phrase": "From Monday to Friday, she works in a shop",
+      "phraseVi": "Từ thứ Hai đến thứ Sáu, cô ấy làm việc ở một cửa hàng"
     },
     {
-      "text": "little",
-      "lemma": "little",
-      "meaningVi": "nhỏ",
+      "text": "late",
+      "lemma": "late",
+      "meaningVi": "muộn",
       "sentenceIndex": 3,
-      "pos": "adjective",
-      "phrase": "a little girl",
-      "phraseVi": "một cô bé"
+      "pos": "adverb",
+      "phrase": "Linh always gets up late",
+      "phraseVi": "Linh luôn dậy muộn"
     },
     {
-      "text": "shelf",
-      "lemma": "shelf",
-      "meaningVi": "cái giá, kệ",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "on a shelf",
-      "phraseVi": "trên giá"
-    },
-    {
-      "text": "music",
-      "lemma": "music",
-      "meaningVi": "âm nhạc",
-      "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "books are about music",
-      "phraseVi": "sách viết về âm nhạc"
-    },
-    {
-      "text": "good at",
-      "lemma": "good at",
-      "meaningVi": "giỏi (về)",
-      "sentenceIndex": 7,
+      "text": "washes her clothes",
+      "lemma": "wash",
+      "meaningVi": "giặt quần áo",
+      "sentenceIndex": 6,
       "pos": "phrase",
-      "phrase": "good at English",
-      "phraseVi": "giỏi tiếng Anh"
+      "phrase": "She often washes her clothes",
+      "phraseVi": "Cô ấy hay giặt quần áo"
     },
     {
-      "text": "pink",
-      "lemma": "pink",
-      "meaningVi": "màu hồng",
+      "text": "garden",
+      "lemma": "garden",
+      "meaningVi": "vườn",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "the flowers in the garden",
+      "phraseVi": "hoa trong vườn"
+    },
+    {
+      "text": "town",
+      "lemma": "town",
+      "meaningVi": "thị trấn",
       "sentenceIndex": 9,
-      "pos": "adjective",
-      "phrase": "This card is pink",
-      "phraseVi": "Tấm thiệp này màu hồng"
+      "pos": "noun",
+      "phrase": "a small town near Hanoi",
+      "phraseVi": "một thị trấn nhỏ gần Hà Nội"
     },
     {
-      "text": "puts",
-      "lemma": "put",
-      "meaningVi": "đặt, cho vào",
-      "sentenceIndex": 11,
+      "text": "a big lunch",
+      "lemma": "big",
+      "meaningVi": "một bữa trưa thịnh soạn",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "Her mother cooks a big lunch",
+      "phraseVi": "Mẹ cô ấy nấu một bữa trưa thịnh soạn"
+    },
+    {
+      "text": "helps",
+      "lemma": "help",
+      "meaningVi": "giúp, phụ",
+      "sentenceIndex": 10,
       "pos": "verb",
-      "phrase": "puts the book and the card in a nice bag",
-      "phraseVi": "cho quyển sách và tấm thiệp vào một chiếc túi xinh"
+      "phrase": "Linh helps her",
+      "phraseVi": "Linh phụ mẹ"
     },
     {
-      "text": "great",
-      "lemma": "great",
-      "meaningVi": "tuyệt vời",
-      "sentenceIndex": 13,
-      "pos": "adjective",
-      "phrase": "a great present",
-      "phraseVi": "một món quà tuyệt vời"
+      "text": "come and have tea",
+      "lemma": "come",
+      "meaningVi": "sang uống trà",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "come and have tea with me",
+      "phraseVi": "sang uống trà với bác"
     }
   ]
 }

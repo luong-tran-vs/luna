@@ -1,72 +1,72 @@
 {
-  "content": "At twelve o'clock, Lan and Linh go to the school dining room. There are a lot of students and teachers there. The lunch is different every day.\n\nToday there is rice, chicken, vegetables and soup. Lan takes a bowl of rice, a piece of chicken and some vegetables. Linh never eats meat, so she takes rice, an egg and some beans.\n\nThe girls sit at a table near the window. The soup is hot, and the chicken is delicious. \"Is there any fruit?\" asks Linh.\n\"Yes, there are some bananas on the big table,\" says Lan.\n\nAfter lunch, the children put their bowls in a big box near the door. Then they go back to their classroom. School lunch is the girls' favourite time of the day!",
+  "content": "Phong has a new job outside the city. On his first day, he talks to Mrs Ha at the door.\n\n\"Excuse me, where is the work bus?\" asks Phong.\n\"It's near the door, on the left,\" says Mrs Ha.\n\"What time is the bus in the morning?\"\n\"It leaves at half past six, from Monday to Friday.\"\n\"And when is the bus home?\"\n\"It's at five o'clock in the afternoon.\"\n\"How long is the bus trip?\" he asks.\n\"It's about one hour, but on Friday it's fifty minutes.\"\n\"Is there a bus on Saturday?\"\n\"No, there isn't. On Saturday, you can take the city bus at a quarter past seven.\"\n\nPhong looks at the time on his phone.\n\"Wait a second, the bus is here!\" says Mrs Ha.\n\"Run, Phong!\"",
   "targetWords": [
-    "lunch",
-    "rice",
-    "chicken",
-    "vegetable",
-    "soup",
-    "meat",
-    "delicious",
-    "fruit"
+    "time",
+    "o'clock",
+    "hour",
+    "minute",
+    "second",
+    "half past",
+    "quarter",
+    "morning"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "lunch",
-        "lemma": "lunch",
-        "meaningVi": "bữa trưa",
+        "text": "time",
+        "lemma": "time",
+        "meaningVi": "thời gian, giờ",
         "pos": "noun",
-        "sentenceIndex": 2
+        "sentenceIndex": 4
       },
       {
-        "text": "rice",
-        "lemma": "rice",
-        "meaningVi": "cơm, gạo",
+        "text": "morning",
+        "lemma": "morning",
+        "meaningVi": "buổi sáng",
         "pos": "noun",
-        "sentenceIndex": 3
+        "sentenceIndex": 4
       },
       {
-        "text": "chicken",
-        "lemma": "chicken",
-        "meaningVi": "thịt gà",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "vegetables",
-        "lemma": "vegetable",
-        "meaningVi": "rau",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "soup",
-        "lemma": "soup",
-        "meaningVi": "canh, súp",
-        "pos": "noun",
-        "sentenceIndex": 3
-      },
-      {
-        "text": "meat",
-        "lemma": "meat",
-        "meaningVi": "thịt",
-        "pos": "noun",
+        "text": "half past",
+        "lemma": "half past",
+        "meaningVi": "rưỡi (quá ba mươi phút)",
+        "pos": "phrase",
         "sentenceIndex": 5
       },
       {
-        "text": "delicious",
-        "lemma": "delicious",
-        "meaningVi": "ngon",
-        "pos": "adjective",
+        "text": "o'clock",
+        "lemma": "o'clock",
+        "meaningVi": "giờ (đúng)",
+        "pos": "adverb",
         "sentenceIndex": 7
       },
       {
-        "text": "fruit",
-        "lemma": "fruit",
-        "meaningVi": "hoa quả",
+        "text": "hour",
+        "lemma": "hour",
+        "meaningVi": "tiếng, giờ đồng hồ",
         "pos": "noun",
-        "sentenceIndex": 8
+        "sentenceIndex": 9
+      },
+      {
+        "text": "minutes",
+        "lemma": "minute",
+        "meaningVi": "phút",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "mười lăm phút (một phần tư giờ)",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "second",
+        "lemma": "second",
+        "meaningVi": "giây, một chút",
+        "pos": "noun",
+        "sentenceIndex": 14
       }
     ],
     "questions": [
@@ -75,532 +75,487 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "A cooking class at school",
-          "Lan and Linh have lunch at school.",
-          "Linh's favourite vegetables",
-          "A big school party"
+          "Phong buys a new phone.",
+          "Phong asks Mrs Ha about the work bus.",
+          "Mrs Ha is late for the bus.",
+          "A day in the city"
         ],
         "answerIndex": 1,
-        "explanationVi": "Lan và Linh ăn trưa ở phòng ăn của trường: mỗi bạn lấy món gì, ngồi ở đâu, ăn xong làm gì."
+        "explanationVi": "Phong có việc làm mới, anh hỏi bà Ha ở cửa về xe buýt đưa đón: ở đâu, mấy giờ, đi bao lâu."
       },
       {
         "kind": "detail",
-        "prompt": "What is Linh's lunch?",
-        "promptVi": "Bữa trưa của Linh gồm những gì?",
+        "prompt": "What time is the bus in the morning?",
+        "promptVi": "Buổi sáng xe buýt chạy lúc mấy giờ?",
         "options": [
-          "Rice, chicken and vegetables",
-          "Rice, an egg and some beans",
-          "Soup and bread",
-          "Some bananas"
+          "At six o'clock",
+          "At half past six",
+          "At a quarter past seven",
+          "At five o'clock"
         ],
         "answerIndex": 1,
-        "explanationVi": "Linh không ăn thịt, nên \"she takes rice, an egg and some beans\". Thịt gà là món của Lan."
+        "explanationVi": "Bà Ha nói \"It leaves at half past six, from Monday to Friday\"."
       },
       {
         "kind": "detail",
-        "prompt": "Where are the bananas?",
-        "promptVi": "Chuối ở đâu?",
+        "prompt": "How long is the bus trip on Friday?",
+        "promptVi": "Thứ Sáu chuyến xe đi mất bao lâu?",
         "options": [
-          "Near the window",
-          "In a box near the door",
-          "On the big table",
-          "In the classroom"
+          "One hour",
+          "Fifteen minutes",
+          "Two hours",
+          "Fifty minutes"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Lan nói \"there are some bananas on the big table\"."
+        "answerIndex": 3,
+        "explanationVi": "Bà Ha nói \"It's about one hour, but on Friday it's fifty minutes\"."
       },
       {
         "kind": "tfn",
-        "prompt": "Linh often eats chicken.",
-        "promptVi": "Linh hay ăn thịt gà.",
+        "prompt": "There is a work bus on Saturday.",
+        "promptVi": "Thứ Bảy có xe buýt đưa đón.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bài viết \"Linh never eats meat\": Linh không bao giờ ăn thịt."
+        "explanationVi": "Sai, vì bà Ha nói \"No, there isn't\": thứ Bảy Phong phải đi xe buýt thành phố."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"piece\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"quarter past seven\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "Lan takes a bowl of rice, a piece of chicken and some vegetables.",
+        "quote": "On Saturday, you can take the city bus at a quarter past seven.\"",
         "options": [
-          "bát",
-          "cốc",
-          "con",
-          "miếng"
+          "bảy giờ kém mười lăm",
+          "bảy giờ mười lăm",
+          "bảy giờ rưỡi",
+          "bảy giờ đúng"
         ],
-        "answerIndex": 3,
-        "explanationVi": "A piece of chicken là một miếng thịt gà. A bowl of rice là một bát cơm."
+        "answerIndex": 1,
+        "explanationVi": "A quarter past seven là bảy giờ quá mười lăm phút, tức bảy giờ mười lăm."
       }
     ],
     "grammarNote": {
-      "title": "Mạo từ a / an / the",
-      "bodyVi": "A / an đi với một vật đếm được: an egg, a table. Với thứ không đếm được như rice, chicken, ta đếm bằng a bowl of, a piece of: a bowl of rice, a piece of chicken. The dùng cho món người nghe đã biết: the soup, the chicken (món vừa kể ở trên).",
+      "title": "Từ để hỏi: where, what time, when, how long",
+      "bodyVi": "Câu hỏi thông tin bắt đầu bằng từ để hỏi, rồi đến is và chủ ngữ: Where is the bus? (ở đâu), What time is the bus? (mấy giờ), When is the bus home? (khi nào), How long is the trip? (bao lâu). Câu hỏi có / không thì bắt đầu bằng Is: Is there a bus on Saturday?",
       "examples": [
-        "Lan takes a bowl of rice, a piece of chicken and some vegetables.",
-        "Linh never eats meat, so she takes rice, an egg and some beans.",
-        "The soup is hot, and the chicken is delicious."
+        "\"Excuse me, where is the work bus?\" asks Phong.",
+        "\"What time is the bus in the morning?\"",
+        "\"How long is the bus trip?\" he asks."
       ]
     },
-    "writingPrompt": "Write about lunch at your school or at home: what there is and what you take.",
+    "writingPrompt": "Write about a bus or a train you take: where it is, what time it is, and how long the trip is.",
     "sentenceTranslations": [
-      "Lúc mười hai giờ, Lan và Linh đến phòng ăn của trường.",
-      "Ở đó có rất nhiều học sinh và thầy cô.",
-      "Bữa trưa mỗi ngày một khác.",
-      "Hôm nay có cơm, thịt gà, rau và canh.",
-      "Lan lấy một bát cơm, một miếng thịt gà và ít rau.",
-      "Linh không bao giờ ăn thịt, nên Linh lấy cơm, một quả trứng và ít đậu.",
-      "Hai bạn ngồi ở một cái bàn gần cửa sổ.",
-      "Canh thì nóng, còn thịt gà rất ngon.",
-      "\"Có hoa quả không?\" Linh hỏi.",
-      "\"Có, trên cái bàn to có mấy quả chuối,\" Lan nói.",
-      "Ăn xong, các bạn học sinh để bát vào một cái thùng to gần cửa.",
-      "Rồi các bạn quay về lớp.",
-      "Bữa trưa ở trường là lúc hai bạn thích nhất trong ngày!"
+      "Phong có một việc làm mới ở ngoài thành phố.",
+      "Vào ngày đầu tiên, anh ấy nói chuyện với bà Ha ở cửa.",
+      "\"Xin lỗi, xe buýt đưa đón ở đâu ạ?\" Phong hỏi.",
+      "\"Ở gần cửa, bên trái,\" bà Ha nói.",
+      "\"Buổi sáng xe buýt lúc mấy giờ ạ?\"",
+      "\"Xe chạy lúc sáu giờ rưỡi, từ thứ Hai đến thứ Sáu.\"",
+      "\"Thế xe về nhà lúc nào ạ?\"",
+      "\"Lúc năm giờ chiều.\"",
+      "\"Chuyến xe đi bao lâu ạ?\" anh ấy hỏi.",
+      "\"Khoảng một tiếng, nhưng thứ Sáu thì năm mươi phút.\"",
+      "\"Thứ Bảy có xe buýt không ạ?\"",
+      "\"Không có.",
+      "Thứ Bảy, cháu có thể đi xe buýt thành phố lúc bảy giờ mười lăm.\"",
+      "Phong xem giờ trên điện thoại của anh ấy.",
+      "\"Chờ chút, xe buýt đến rồi kìa!\" bà Ha nói.",
+      "\"Chạy đi, Phong!\""
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể kể bữa trưa ở trường và dùng đúng a / an, the, a bowl of, a piece of.",
+    "objectiveVi": "Bạn có thể hỏi về xe buýt với Where / What time / When / How long và hiểu câu trả lời có giờ.",
     "examples": [
       {
-        "lemma": "lunch",
-        "sentence": "Lunch is at twelve o'clock.",
-        "meaningVi": "Bữa trưa lúc mười hai giờ."
+        "lemma": "time",
+        "sentence": "What time is the train?",
+        "meaningVi": "Tàu lúc mấy giờ?"
       },
       {
-        "lemma": "rice",
-        "sentence": "I have a bowl of rice.",
-        "meaningVi": "Mình ăn một bát cơm."
+        "lemma": "o'clock",
+        "sentence": "The bus is at eight o'clock.",
+        "meaningVi": "Xe buýt lúc tám giờ."
       },
       {
-        "lemma": "chicken",
-        "sentence": "The chicken is very good.",
-        "meaningVi": "Thịt gà rất ngon."
+        "lemma": "hour",
+        "sentence": "The trip is one hour long.",
+        "meaningVi": "Chuyến đi dài một tiếng."
       },
       {
-        "lemma": "vegetable",
-        "sentence": "My little sister never eats vegetables.",
-        "meaningVi": "Em gái mình không bao giờ ăn rau."
+        "lemma": "minute",
+        "sentence": "The bus is here in one minute.",
+        "meaningVi": "Một phút nữa xe buýt đến."
       },
       {
-        "lemma": "soup",
-        "sentence": "There is a bowl of soup on the table.",
-        "meaningVi": "Trên bàn có một bát canh."
+        "lemma": "second",
+        "sentence": "Wait a second, where is my bag?",
+        "meaningVi": "Chờ chút, túi của tôi đâu rồi?"
       },
       {
-        "lemma": "meat",
-        "sentence": "My dad loves meat.",
-        "meaningVi": "Bố mình rất thích ăn thịt."
+        "lemma": "half past",
+        "sentence": "The bus home is at half past five.",
+        "meaningVi": "Xe buýt về nhà lúc năm giờ rưỡi."
       },
       {
-        "lemma": "delicious",
-        "sentence": "School lunch is delicious today.",
-        "meaningVi": "Bữa trưa ở trường hôm nay rất ngon."
+        "lemma": "quarter",
+        "sentence": "It's a quarter to seven.",
+        "meaningVi": "Bây giờ là bảy giờ kém mười lăm."
       },
       {
-        "lemma": "fruit",
-        "sentence": "We often have fruit after lunch.",
-        "meaningVi": "Bọn mình hay ăn hoa quả sau bữa trưa."
+        "lemma": "morning",
+        "sentence": "The bus is full in the morning.",
+        "meaningVi": "Buổi sáng xe buýt đông kín."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Tom",
-        "Huy"
+        "Phong",
+        "Mrs Ha"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Huy, what is for lunch today?",
-          "meaningVi": "Huy ơi, hôm nay trưa ăn gì?"
+          "text": "Good morning, Mrs Ha. Where is the bus today?",
+          "meaningVi": "Chào buổi sáng bà Ha. Hôm nay xe buýt ở đâu ạ?"
         },
         {
           "speaker": 1,
-          "text": "There is rice, fish and vegetables.",
-          "meaningVi": "Có cơm, cá và rau."
+          "text": "It's in front of the shop today.",
+          "meaningVi": "Hôm nay xe ở trước cửa hàng."
         },
         {
           "speaker": 0,
-          "text": "Is there any soup?",
-          "meaningVi": "Có canh không?"
+          "text": "What time is it now?",
+          "meaningVi": "Bây giờ là mấy giờ ạ?"
         },
         {
           "speaker": 1,
-          "text": "Yes, there is. It's tomato soup.",
-          "meaningVi": "Có. Canh cà chua."
+          "text": "It's twenty past six.",
+          "meaningVi": "Sáu giờ hai mươi."
         },
         {
           "speaker": 0,
-          "text": "Great! A bowl of soup, please.",
-          "meaningVi": "Tuyệt! Cho cháu một bát canh ạ."
+          "text": "Good, I'm not late. Who is the driver today?",
+          "meaningVi": "Tốt quá, cháu không muộn. Hôm nay ai lái xe ạ?"
         },
         {
           "speaker": 1,
-          "text": "And a piece of fish for me, please.",
-          "meaningVi": "Còn cháu một miếng cá ạ."
+          "text": "It's Mr Tam. He is very nice.",
+          "meaningVi": "Là ông Tam. Ông ấy rất tốt."
         },
         {
           "speaker": 0,
-          "text": "Are there any bananas?",
-          "meaningVi": "Có chuối không?"
+          "text": "When is the bus home today?",
+          "meaningVi": "Hôm nay xe về lúc nào ạ?"
         },
         {
           "speaker": 1,
-          "text": "No, there aren't, but there are some apples.",
-          "meaningVi": "Không có, nhưng có táo."
+          "text": "Today is Friday, so it's at four o'clock.",
+          "meaningVi": "Hôm nay thứ Sáu, nên lúc bốn giờ."
         },
         {
           "speaker": 0,
-          "text": "OK, an apple for me.",
-          "meaningVi": "Được, mình lấy một quả táo."
-        },
-        {
-          "speaker": 1,
-          "text": "Two apples for me. I'm very hungry!",
-          "meaningVi": "Mình lấy hai quả. Mình đói lắm!"
+          "text": "Great, thank you!",
+          "meaningVi": "Tuyệt, cảm ơn bà!"
         }
       ]
     },
-    "grammarTipVi": "Với thứ không đếm được, dùng a bowl of, a piece of, a glass of để đếm: a bowl of rice, a piece of chicken, a glass of milk. Không nói \"a rice\".",
+    "grammarTipVi": "Hỏi nơi: Where is the bus? Hỏi giờ: What time is it? Hỏi người: Who is the driver? Hỏi khi nào: When is the bus home? Hỏi bao lâu: How long is the trip?",
     "translations": [
       {
-        "vi": "Tôi lấy một bát cơm.",
-        "en": "I take a bowl of rice.",
+        "vi": "Xe buýt về nhà lúc mấy giờ?",
+        "en": "What time is the bus home?",
         "distractors": [
-          "an",
-          "rices",
-          "the"
-        ]
-      },
-      {
-        "vi": "Canh rất nóng.",
-        "en": "The soup is very hot.",
-        "distractors": [
-          "A",
+          "Where",
           "are",
-          "soups"
+          "Who"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Buổi sáng xe buýt lúc mấy giờ?",
+        "en": "What time is the bus in the morning?",
+        "distractors": [
+          "on",
+          "Where",
+          "evening"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Xe buýt về nhà lúc năm giờ chiều.",
+        "en": "The bus home is at five o'clock in the afternoon.",
+        "distractors": [
+          "on",
+          "morning",
+          "are"
+        ],
+        "accepted": [
+          "The bus home is in the afternoon at five o'clock."
         ]
       },
       {
-        "vi": "Cô ấy không bao giờ ăn thịt.",
-        "en": "She never eats meat.",
+        "vi": "Chuyến xe dài khoảng một tiếng.",
+        "en": "The trip is about one hour long.",
         "distractors": [
-          "eat",
-          "a",
-          "meats"
-        ]
-      },
-      {
-        "vi": "Thịt gà rất ngon.",
-        "en": "The chicken is delicious.",
-        "distractors": [
-          "An",
-          "are",
-          "chickens"
-        ]
+          "minute",
+          "Where",
+          "are"
+        ],
+        "accepted": []
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Tom và Huy đang làm gì?",
+        "prompt": "Phong hỏi bà Ha về điều gì?",
         "promptVi": "",
         "options": [
-          "Chọn món cho bữa trưa ở trường",
-          "Nấu canh cà chua",
-          "Đi mua hoa quả"
+          "Xe buýt hôm nay",
+          "Cửa hàng mới",
+          "Bữa sáng"
         ],
         "answerIndex": 0,
-        "explanationVi": "Hai bạn hỏi hôm nay có món gì rồi lấy canh, cá và táo.",
+        "explanationVi": "Phong hỏi xe buýt ở đâu, ai lái xe và mấy giờ xe về.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Hôm nay có canh gì?",
+        "prompt": "Hôm nay xe buýt ở đâu?",
         "promptVi": "",
         "options": [
-          "Canh rau",
-          "Canh cà chua",
-          "Canh cá"
+          "Gần cửa",
+          "Trước cửa hàng",
+          "Bên trái cửa"
         ],
         "answerIndex": 1,
-        "explanationVi": "Huy nói \"It's tomato soup\".",
-        "turnIndex": 3
+        "explanationVi": "Bà Ha nói \"It's in front of the shop today.\"",
+        "turnIndex": 1
       },
       {
         "kind": "detail",
-        "prompt": "Hôm nay có chuối không?",
+        "prompt": "Ai lái xe hôm nay?",
         "promptVi": "",
         "options": [
-          "Có",
-          "Không, nhưng có táo",
-          "Không, nhưng có cam"
+          "Ông Tam",
+          "Bà Ha",
+          "Phong"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Huy nói \"No, there aren't, but there are some apples\".",
-        "turnIndex": 7
+        "answerIndex": 0,
+        "explanationVi": "Bà Ha nói \"It's Mr Tam.\"",
+        "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "Huy takes two apples.",
-        "promptVi": "Huy lấy hai quả táo.",
+        "prompt": "Today, the bus home is at five o'clock.",
+        "promptVi": "Hôm nay xe về lúc năm giờ.",
         "options": [],
-        "answerIndex": 0,
-        "explanationVi": "Đúng, vì Huy nói \"Two apples for me. I'm very hungry!\"",
-        "turnIndex": 9
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Ha nói \"Today is Friday, so it's at four o'clock.\"",
+        "turnIndex": 7
       }
     ],
-    "readingGuideVi": "Lan và Linh mỗi bạn lấy những món gì?",
+    "readingGuideVi": "Phong hỏi bà Ha những câu gì về xe buýt đưa đón?",
     "grammarStep": {
-      "titleVi": "Mạo từ a / an / the",
+      "titleVi": "Từ để hỏi: where, what time, when, how long",
       "noticing": [
         {
-          "sentence": "Lan takes a bowl of rice, a piece of chicken and some vegetables.",
+          "sentence": "\"Excuse me, where is the work bus?\" asks Phong.",
           "highlights": [
-            "a bowl of",
-            "a piece of"
+            "where"
           ]
         },
         {
-          "sentence": "Linh never eats meat, so she takes rice, an egg and some beans.",
+          "sentence": "\"What time is the bus in the morning?\"",
           "highlights": [
-            "an"
+            "What time"
           ]
         },
         {
-          "sentence": "The soup is hot, and the chicken is delicious.",
+          "sentence": "\"And when is the bus home?\"",
           "highlights": [
-            "The",
-            "the"
+            "when"
           ]
         },
         {
-          "sentence": "\"Yes, there are some bananas on the big table,\" says Lan.",
+          "sentence": "\"How long is the bus trip?\" he asks.",
           "highlights": [
-            "some",
-            "the"
+            "How long"
           ]
         }
       ],
-      "questionVi": "Vì sao nói a bowl of rice mà không nói a rice?",
+      "questionVi": "Phong muốn biết điều gì khi hỏi bằng where, what time, when và how long?",
       "options": [
-        "Vì rice là số nhiều",
-        "Vì rice không đếm được, nên phải đếm bằng a bowl of",
-        "Vì bowl đứng trước rice"
+        "where hỏi nơi, what time hỏi giờ, when hỏi khi nào, how long hỏi bao lâu",
+        "Tất cả đều hỏi giờ",
+        "where hỏi giờ, when hỏi nơi"
       ],
-      "answerIndex": 1,
-      "explanationVi": "Cơm, thịt gà không đếm được từng cái, nên không dùng a trực tiếp mà dùng a bowl of (một bát), a piece of (một miếng).",
-      "whenVi": "Dùng a / an cho một vật đếm được, a bowl of / a piece of cho thứ không đếm được, và the cho món người nghe đã biết.",
+      "answerIndex": 0,
+      "explanationVi": "Mỗi từ để hỏi hỏi một loại thông tin, và theo sau là is + chủ ngữ: Where is the bus? What time is the bus? How long is the trip?",
+      "whenVi": "Dùng từ để hỏi ở đầu câu khi cần thông tin, không phải câu trả lời có / không.",
       "table": [
         {
-          "subject": "a / an + một vật",
-          "form": "an egg, a table",
-          "negative": "—"
+          "subject": "Where",
+          "form": "Where is the bus?",
+          "negative": "Near the door."
         },
         {
-          "subject": "a bowl of / a piece of + không đếm được",
-          "form": "a bowl of rice, a piece of chicken",
-          "negative": "—"
+          "subject": "What time / When",
+          "form": "What time is the bus? When is the bus home?",
+          "negative": "At half past six. / At five o'clock."
         },
         {
-          "subject": "the + vật đã biết",
-          "form": "the soup, the chicken, the big table",
-          "negative": "—"
+          "subject": "How long",
+          "form": "How long is the trip?",
+          "negative": "About one hour."
         }
       ],
       "mistakes": [
         {
-          "wrong": "Lan takes a rice.",
-          "right": "Lan takes a bowl of rice."
+          "wrong": "Where the bus is?",
+          "right": "Where is the bus?"
         },
         {
-          "wrong": "The girls sit at an table.",
-          "right": "The girls sit at a table."
+          "wrong": "How long the trip?",
+          "right": "How long is the trip?"
         }
       ],
-      "noteVi": "Tiếng Việt nói \"một cơm\" là sai nhưng \"một bát cơm\" thì đúng, giống tiếng Anh; người Việt chỉ cần nhớ dùng a bowl of, a piece of với rice, chicken.",
+      "noteVi": "Tiếng Việt để từ hỏi ở cuối câu (\"Xe buýt ở đâu?\"), còn tiếng Anh để từ hỏi ở đầu câu, rồi đến is.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền từ có nghĩa là \"miếng\".",
-          "text": "Lan takes a ___ of chicken.",
+          "promptVi": "Điền từ để hỏi đúng vào chỗ trống (where, who, how).",
+          "text": "___ is the bus? – Near the door.",
           "answers": [
-            "piece"
+            "Where"
           ],
-          "explanationVi": "A piece of chicken là một miếng thịt gà."
+          "explanationVi": "Câu trả lời là một nơi (Near the door), nên hỏi bằng Where."
         },
         {
           "kind": "choice",
           "promptVi": "Chọn từ đúng.",
-          "text": "Linh takes rice, ___ egg and some beans.",
+          "text": "___ is the driver? – Mr Tam.",
           "options": [
-            "a",
-            "an",
-            "many",
-            "two"
+            "Where",
+            "Who",
+            "When",
+            "How"
           ],
           "answerIndex": 1,
-          "explanationVi": "Egg bắt đầu bằng âm nguyên âm, nên dùng an."
+          "explanationVi": "Câu trả lời là một người, nên hỏi bằng Who."
         },
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "The girls sit at an table near the window.",
-          "sentence": "The girls sit at a table near the window.",
-          "explanationVi": "Table bắt đầu bằng âm phụ âm /t/, nên dùng a."
+          "text": "What time the bus is?",
+          "sentence": "What time is the bus?",
+          "explanationVi": "Trong câu hỏi, is đứng trước chủ ngữ: What time is the bus?"
         },
         {
           "kind": "reorder",
           "promptVi": "Sắp xếp các từ thành câu đúng.",
-          "text": "Tôi lấy một miếng thịt gà.",
-          "sentence": "I take a piece of chicken.",
+          "text": "Chuyến xe đi bao lâu?",
+          "sentence": "How long is the trip?",
           "words": [
-            "piece",
-            "of",
-            "I",
-            "take",
-            "a",
-            "chicken",
-            "an"
+            "trip",
+            "long",
+            "is",
+            "How",
+            "the",
+            "Where"
           ],
-          "explanationVi": "Piece bắt đầu bằng âm phụ âm nên dùng a; từ \"an\" bị thừa."
+          "explanationVi": "Hỏi bao lâu dùng How long, rồi đến is và chủ ngữ; từ \"Where\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "The soup is hot, and the chicken is delicious.",
-        "tipVi": "Delicious /dɪˈlɪʃəs/ nhấn âm giữa LI, giữa từ là âm /ʃ/."
+        "text": "\"What time is the bus in the morning?\"",
+        "tipVi": "Lên giọng nhẹ ở time, xuống giọng ở morning vì đây là câu hỏi có từ để hỏi."
       },
       {
-        "text": "There are a lot of students and teachers there.",
-        "tipVi": "Students /ˈstuːdənts/ có cụm âm cuối /nts/; teachers /ˈtiːtʃɚz/ có /z/ ở cuối."
+        "text": "\"It leaves at half past six, from Monday to Friday.\"",
+        "tipVi": "Half /hæf/ không đọc chữ l; six /sɪks/ nhớ đọc âm /ks/ ở cuối."
       }
     ],
     "speakQuestions": [
       {
-        "question": "Where is your lunch on school days?",
-        "questionVi": "Những ngày đi học bạn ăn trưa ở đâu?",
-        "frame": "My lunch is at ___."
+        "question": "Where is the bus stop near your home?",
+        "questionVi": "Trạm xe buýt gần nhà bạn ở đâu?",
+        "frame": "It's near ___."
       },
       {
-        "question": "What is your favourite lunch?",
-        "questionVi": "Bữa trưa bạn thích nhất là gì?",
-        "frame": "My favourite lunch is a bowl of ___."
+        "question": "What time is your bus or train in the morning?",
+        "questionVi": "Buổi sáng xe buýt hoặc tàu của bạn lúc mấy giờ?",
+        "frame": "It's at ___."
       },
       {
-        "question": "What is your best friend's favourite food?",
-        "questionVi": "Bạn thân của bạn thích món gì nhất?",
-        "frame": "He / She loves ___."
+        "question": "How long is your trip to work or school?",
+        "questionVi": "Bạn đi đến chỗ làm hoặc trường mất bao lâu?",
+        "frame": "It's about ___ minutes."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 cụm dùng a / an hoặc a bowl of / a piece of",
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi với where, what time, when hoặc how long",
       "anyOf": [
-        "a bowl of",
-        "a piece of",
-        "a glass of",
-        "an egg",
-        "an apple",
-        "some"
+        "Where is",
+        "What time",
+        "When is",
+        "How long",
+        "Who is",
+        "what time"
       ],
       "outlineVi": [
-        "Nói bạn ăn trưa ở đâu, lúc mấy giờ.",
-        "Kể hôm nay có những món gì.",
-        "Kể bạn và một người bạn lấy món gì."
+        "Nói bạn đi xe buýt hoặc tàu nào, và nó ở đâu.",
+        "Nói nó chạy lúc mấy giờ và đi mất bao lâu.",
+        "Viết một hai câu hỏi bạn muốn hỏi về nó (What time …? How long …?)."
       ],
-      "modelAnswer": "At twelve o'clock, I have lunch at school. Today there is rice, fish, vegetables and soup. I take a bowl of rice and a piece of fish. My friend never eats meat, so she has an egg and some vegetables. The soup is delicious. After lunch, we have some fruit."
+      "modelAnswer": "I take the bus to work. The bus stop is near my home. The bus is at a quarter past seven in the morning. The trip is about forty minutes. What time is the bus home? It is at half past five. How long is the trip home? It is one hour, because there are a lot of cars."
     }
   },
   "glosses": [
     {
-      "text": "dining room",
-      "lemma": "dining room",
-      "meaningVi": "phòng ăn",
+      "text": "job",
+      "lemma": "job",
+      "meaningVi": "việc làm",
       "sentenceIndex": 0,
       "pos": "noun",
-      "phrase": "the school dining room",
-      "phraseVi": "phòng ăn của trường"
+      "phrase": "a new job outside the city",
+      "phraseVi": "một việc làm mới ở ngoài thành phố"
     },
     {
-      "text": "students",
-      "lemma": "student",
-      "meaningVi": "học sinh",
+      "text": "door",
+      "lemma": "door",
+      "meaningVi": "cửa",
       "sentenceIndex": 1,
       "pos": "noun",
-      "phrase": "a lot of students and teachers",
-      "phraseVi": "rất nhiều học sinh và thầy cô"
+      "phrase": "at the door",
+      "phraseVi": "ở cửa"
     },
     {
-      "text": "different",
-      "lemma": "different",
-      "meaningVi": "khác nhau",
-      "sentenceIndex": 2,
-      "pos": "adjective",
-      "phrase": "different every day",
-      "phraseVi": "mỗi ngày một khác"
-    },
-    {
-      "text": "bowl",
-      "lemma": "bowl",
-      "meaningVi": "cái bát",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "a bowl of rice",
-      "phraseVi": "một bát cơm"
-    },
-    {
-      "text": "piece",
-      "lemma": "piece",
-      "meaningVi": "miếng",
-      "sentenceIndex": 4,
-      "pos": "noun",
-      "phrase": "a piece of chicken",
-      "phraseVi": "một miếng thịt gà"
-    },
-    {
-      "text": "beans",
-      "lemma": "bean",
-      "meaningVi": "đậu",
+      "text": "leaves",
+      "lemma": "leave",
+      "meaningVi": "rời đi, khởi hành",
       "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "some beans",
-      "phraseVi": "ít đậu"
+      "pos": "verb",
+      "phrase": "It leaves at half past six",
+      "phraseVi": "Xe chạy lúc sáu giờ rưỡi"
     },
     {
-      "text": "hot",
-      "lemma": "hot",
-      "meaningVi": "nóng",
-      "sentenceIndex": 7,
-      "pos": "adjective",
-      "phrase": "The soup is hot",
-      "phraseVi": "Canh thì nóng"
+      "text": "trip",
+      "lemma": "trip",
+      "meaningVi": "chuyến đi",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "the bus trip",
+      "phraseVi": "chuyến xe buýt"
     },
     {
-      "text": "bananas",
-      "lemma": "banana",
-      "meaningVi": "quả chuối",
-      "sentenceIndex": 9,
-      "pos": "noun",
-      "phrase": "some bananas",
-      "phraseVi": "mấy quả chuối"
-    },
-    {
-      "text": "children",
-      "lemma": "child",
-      "meaningVi": "trẻ em, các bạn nhỏ",
-      "sentenceIndex": 10,
-      "pos": "noun",
-      "phrase": "the children put their bowls",
-      "phraseVi": "các bạn học sinh để bát"
-    },
-    {
-      "text": "classroom",
-      "lemma": "classroom",
-      "meaningVi": "lớp học",
-      "sentenceIndex": 11,
-      "pos": "noun",
-      "phrase": "back to their classroom",
-      "phraseVi": "quay về lớp"
+      "text": "Run",
+      "lemma": "run",
+      "meaningVi": "chạy",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "Run, Phong",
+      "phraseVi": "Chạy đi, Phong"
     }
   ]
 }

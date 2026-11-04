@@ -1,0 +1,567 @@
+{
+  "content": "Duy and Khanh sit in a small coffee shop. They drink coffee and watch funny videos on Khanh's phone.\n\nIn the first video, a monkey can ride a bicycle! It can open a box too, and it eats the bananas in the box. \"Wow! Can a monkey really ride a bicycle?\" asks Duy.\n\"Yes, it can,\" Khanh says. \"Monkeys are very smart animals.\"\n\nThen they watch a video of a dog. It can dance with a little girl. After that, a white cat opens a door with its head.\n\nThere is a video of a rabbit, a hamster and a rat too. The rat can find cheese in a big box, but the hamster can't find its food.\n\nDuy laughs. \"My pet mouse can't do anything,\" he says. \"It only eats and sleeps!\"",
+  "targetWords": [
+    "animal",
+    "pet",
+    "dog",
+    "cat",
+    "rabbit",
+    "hamster",
+    "mouse",
+    "rat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "động vật, con vật",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "cat",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "rabbit",
+        "lemma": "rabbit",
+        "meaningVi": "con thỏ",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "hamster",
+        "lemma": "hamster",
+        "meaningVi": "chuột hamster (chuột cảnh nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "rat",
+        "lemma": "rat",
+        "meaningVi": "con chuột cống (chuột to)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "pet",
+        "lemma": "pet",
+        "meaningVi": "thú cưng, con vật nuôi trong nhà",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "con chuột (nhỏ)",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Two friends watch funny animal videos.",
+          "Duy buys a monkey.",
+          "A day at the zoo",
+          "Khanh's new phone"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy và Khánh uống cà phê và xem video về những con vật làm được việc lạ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can the monkey do?",
+        "promptVi": "Con khỉ làm được gì?",
+        "options": [
+          "It can dance with a girl.",
+          "It can ride a bicycle and open a box.",
+          "It can find cheese.",
+          "It can open a door with its head."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"a monkey can ride a bicycle! It can open a box too\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can the rat find?",
+        "promptVi": "Con chuột cống tìm được gì?",
+        "options": [
+          "Bananas",
+          "Cheese",
+          "A bicycle",
+          "Its home"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"The rat can find cheese in a big box\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The hamster can find its food.",
+        "promptVi": "Con chuột hamster tìm được thức ăn của nó.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"the hamster can't find its food\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"ride a bicycle\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In the first video, a monkey can ride a bicycle!",
+        "options": [
+          "đi xe đạp",
+          "sửa xe đạp",
+          "mua xe đạp",
+          "đẩy xe đạp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ride a bicycle là đi xe đạp."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't: nói về khả năng",
+      "bodyVi": "Can + động từ nguyên mẫu nói con vật làm được gì: a monkey can ride a bicycle. Can't nói không làm được: the hamster can't find its food. Câu hỏi: Can a monkey really ride a bicycle? Trả lời ngắn: Yes, it can. / No, it can't. Really đứng sau chủ ngữ, trước động từ.",
+      "examples": [
+        "In the first video, a monkey can ride a bicycle!",
+        "The rat can find cheese in a big box, but the hamster can't find its food.",
+        "Can a monkey really ride a bicycle?\" asks Duy."
+      ]
+    },
+    "writingPrompt": "Write about a funny animal video: what can the animal do, and what can't it do?",
+    "sentenceTranslations": [
+      "Duy và Khánh ngồi trong một quán cà phê nhỏ.",
+      "Hai bạn uống cà phê và xem những video vui nhộn trên điện thoại của Khánh.",
+      "Trong video đầu tiên, một con khỉ biết đi xe đạp!",
+      "Nó còn mở được một cái hộp, và nó ăn chuối trong hộp.",
+      "\"Chà!",
+      "Khỉ đi được xe đạp thật à?\" Duy hỏi.",
+      "\"Thật mà,\" Khánh nói.",
+      "\"Khỉ là loài vật rất khôn.\"",
+      "Rồi hai bạn xem một video về một con chó.",
+      "Nó biết nhảy cùng một cô bé.",
+      "Sau đó, một con mèo trắng mở cửa bằng đầu.",
+      "Còn có một video về một con thỏ, một con chuột hamster và một con chuột cống.",
+      "Con chuột cống tìm được pho mát trong một cái hộp to, nhưng con chuột hamster không tìm được thức ăn của nó.",
+      "Duy cười.",
+      "\"Con chuột nhắt của mình chẳng làm được gì cả,\" cậu nói.",
+      "\"Nó chỉ ăn và ngủ thôi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể các con vật trong video làm được gì (can) và không làm được gì (can't).",
+    "examples": [
+      {
+        "lemma": "animal",
+        "sentence": "A monkey is a smart animal.",
+        "meaningVi": "Khỉ là một con vật khôn."
+      },
+      {
+        "lemma": "pet",
+        "sentence": "Duy's pet can't do anything.",
+        "meaningVi": "Con vật nuôi của Duy chẳng làm được gì."
+      },
+      {
+        "lemma": "dog",
+        "sentence": "This dog can dance.",
+        "meaningVi": "Con chó này biết nhảy."
+      },
+      {
+        "lemma": "cat",
+        "sentence": "Can your cat open the door?",
+        "meaningVi": "Mèo nhà bạn có mở được cửa không?"
+      },
+      {
+        "lemma": "rabbit",
+        "sentence": "The rabbit can't ride a bicycle.",
+        "meaningVi": "Con thỏ không đi được xe đạp."
+      },
+      {
+        "lemma": "hamster",
+        "sentence": "My hamster can eat a banana.",
+        "meaningVi": "Con chuột hamster của mình ăn được một quả chuối."
+      },
+      {
+        "lemma": "mouse",
+        "sentence": "Duy's mouse only eats and sleeps.",
+        "meaningVi": "Con chuột nhắt của Duy chỉ ăn và ngủ."
+      },
+      {
+        "lemma": "rat",
+        "sentence": "The rat can open a small box.",
+        "meaningVi": "Con chuột cống mở được một cái hộp nhỏ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khanh",
+        "Duy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Look at this video. Can you see the cat?",
+          "meaningVi": "Xem video này đi. Cậu có thấy con mèo không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I can. Is it on the piano?",
+          "meaningVi": "Có. Nó đang ở trên đàn piano à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! It can play the piano. Listen!",
+          "meaningVi": "Đúng! Nó chơi được đàn piano đấy. Nghe này!"
+        },
+        {
+          "speaker": 1,
+          "text": "Ha ha! I can't play the piano, but this cat can!",
+          "meaningVi": "Ha ha! Mình không chơi được piano, mà con mèo này thì chơi được!"
+        },
+        {
+          "speaker": 0,
+          "text": "Can your mouse do something funny?",
+          "meaningVi": "Con chuột của cậu có làm được trò gì vui không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it can't. But it can eat a lot of cheese!",
+          "meaningVi": "Không. Nhưng nó ăn được rất nhiều pho mát!"
+        },
+        {
+          "speaker": 0,
+          "text": "Do you want another coffee?",
+          "meaningVi": "Cậu có muốn uống thêm cà phê không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. And one more video!",
+          "meaningVi": "Có, cảm ơn cậu. Và xem thêm một video nữa!"
+        }
+      ]
+    },
+    "grammarTipVi": "Can / can't + động từ nguyên mẫu: a monkey can ride (không nói \"a monkey can rides\"). Hỏi: Can a monkey ride a bicycle?",
+    "translations": [
+      {
+        "vi": "Con chó này biết nhảy.",
+        "en": "This dog can dance.",
+        "distractors": [
+          "dances",
+          "cans",
+          "is"
+        ]
+      },
+      {
+        "vi": "Con mèo mở được cửa.",
+        "en": "The cat can open the door.",
+        "distractors": [
+          "opens",
+          "cans",
+          "dog"
+        ]
+      },
+      {
+        "vi": "Con chuột hamster không tìm được thức ăn.",
+        "en": "The hamster can't find its food.",
+        "distractors": [
+          "finds",
+          "cans",
+          "rat"
+        ]
+      },
+      {
+        "vi": "Con chuột nhắt của tôi không làm được gì cả.",
+        "en": "My pet mouse can't do anything.",
+        "distractors": [
+          "does",
+          "cans",
+          "rat"
+        ],
+        "accepted": [
+          "My mouse can't do anything."
+        ]
+      },
+      {
+        "vi": "Khỉ là loài vật rất khôn.",
+        "en": "Monkeys are very smart animals.",
+        "distractors": [
+          "is",
+          "animal",
+          "Monkey"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khánh cho Duy xem video về con vật nào?",
+        "promptVi": "",
+        "options": [
+          "Một con mèo chơi đàn piano",
+          "Một con khỉ đi xe đạp",
+          "Một con chó biết bơi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"It can play the piano\" khi nói về con mèo.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con mèo trong video ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên đàn piano",
+          "Trong hộp",
+          "Trên xe đạp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy hỏi \"Is it on the piano?\" và Khánh nói \"Yes!\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con chuột của Duy ăn được nhiều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuối",
+          "Pho mát",
+          "Gạo"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"it can eat a lot of cheese!\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy can play the piano.",
+        "promptVi": "Duy chơi được đàn piano.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Duy nói \"I can't play the piano\".",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Trong các video, mỗi con vật làm được gì, và con nào không làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't: nói về khả năng",
+      "noticing": [
+        {
+          "sentence": "In the first video, a monkey can ride a bicycle!",
+          "highlights": [
+            "can ride"
+          ]
+        },
+        {
+          "sentence": "The rat can find cheese in a big box, but the hamster can't find its food.",
+          "highlights": [
+            "can find",
+            "can't find"
+          ]
+        }
+      ],
+      "questionVi": "Câu nào dùng đúng can?",
+      "options": [
+        "A monkey can ride a bicycle.",
+        "A monkey cans ride a bicycle.",
+        "A monkey can rides a bicycle."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Can không thêm -s, và động từ sau can ở dạng nguyên mẫu: can ride, can find, can't find.",
+      "whenVi": "Dùng can để nói ai, con gì làm được việc gì; can't để nói không làm được; Can …? để hỏi.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "I can swim. – Can you swim? – Yes, I can.",
+          "negative": "We can't fly."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "It can fly. – Can it talk? – No, it can't.",
+          "negative": "He can't swim."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The monkey can opens a box.",
+          "right": "The monkey can open a box."
+        },
+        {
+          "wrong": "Can a monkey to ride a bicycle?",
+          "right": "Can a monkey ride a bicycle?"
+        }
+      ],
+      "noteVi": "Sau can không dùng to: can ride (không nói \"can to ride\"). Tiếng Việt nói \"biết đi xe đạp\", \"mở được hộp\"; tiếng Anh đều dùng can.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't. (Con chuột hamster không tìm được thức ăn.)",
+          "text": "The hamster ___ find its food.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Không làm được nên dùng can't + find."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "A monkey can ___ a box.",
+          "options": [
+            "open",
+            "opens",
+            "to open",
+            "opening"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau can, động từ ở dạng nguyên mẫu, không có to: can open."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The dog can to dance.",
+          "sentence": "The dog can dance.",
+          "explanationVi": "Sau can không dùng to: can dance."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Khỉ có đi được xe đạp không?",
+          "sentence": "Can a monkey ride a bicycle?",
+          "words": [
+            "a",
+            "ride",
+            "Can",
+            "monkey",
+            "bicycle?",
+            "a",
+            "to"
+          ],
+          "explanationVi": "Câu hỏi: Can + chủ ngữ + động từ nguyên mẫu; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "In the first video, a monkey can ride a bicycle!",
+        "tipVi": "Can đọc nhẹ /kən/; ride /raɪd/ có /d/ ở cuối; bicycle /ˈbaɪsɪkl/ nhấn âm đầu."
+      },
+      {
+        "text": "The rat can find cheese in a big box, but the hamster can't find its food.",
+        "tipVi": "Can't /kænt/ đọc mạnh hơn can; cheese /tʃiːz/ có âm /iː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you watch animal videos?",
+        "questionVi": "Bạn có hay xem video về con vật không?",
+        "frame": "Yes, I do. / No, I don't."
+      },
+      {
+        "question": "Can you ride a bicycle?",
+        "questionVi": "Bạn có biết đi xe đạp không?",
+        "frame": "Yes, I can. / No, I can't."
+      },
+      {
+        "question": "What can a monkey do?",
+        "questionVi": "Con khỉ làm được gì?",
+        "frame": "It can ___, but it can't ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can / can't hoặc câu hỏi Can …?",
+      "anyOf": [
+        "can",
+        "can't"
+      ],
+      "outlineVi": [
+        "Kể bạn xem video về con vật gì.",
+        "Kể con vật làm được gì (can …).",
+        "Kể nó không làm được gì (can't …)."
+      ],
+      "modelAnswer": "I like a video of a little dog. It can dance, and it can open a box with its nose. But it can't ride a bicycle. It is very funny!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "coffee shop",
+      "lemma": "coffee shop",
+      "meaningVi": "quán cà phê",
+      "pos": "noun",
+      "sentenceIndex": 0,
+      "phrase": "sit in a small coffee shop",
+      "phraseVi": "ngồi trong một quán cà phê nhỏ"
+    },
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "meaningVi": "vui nhộn, buồn cười",
+      "pos": "adjective",
+      "sentenceIndex": 1,
+      "phrase": "watch funny videos",
+      "phraseVi": "xem những video vui nhộn"
+    },
+    {
+      "text": "monkey",
+      "lemma": "monkey",
+      "meaningVi": "con khỉ",
+      "pos": "noun",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "ride",
+      "lemma": "ride",
+      "meaningVi": "đi, cưỡi (xe đạp, ngựa)",
+      "pos": "verb",
+      "sentenceIndex": 2,
+      "phrase": "a monkey can ride a bicycle",
+      "phraseVi": "một con khỉ biết đi xe đạp"
+    },
+    {
+      "text": "box",
+      "lemma": "box",
+      "meaningVi": "cái hộp",
+      "pos": "noun",
+      "sentenceIndex": 3,
+      "phrase": "It can open a box too",
+      "phraseVi": "Nó còn mở được một cái hộp"
+    },
+    {
+      "text": "dance",
+      "lemma": "dance",
+      "meaningVi": "nhảy, khiêu vũ",
+      "pos": "verb",
+      "sentenceIndex": 9,
+      "phrase": "It can dance with a little girl",
+      "phraseVi": "Nó biết nhảy cùng một cô bé"
+    },
+    {
+      "text": "find",
+      "lemma": "find",
+      "meaningVi": "tìm thấy, tìm được",
+      "pos": "verb",
+      "sentenceIndex": 12,
+      "phrase": "The rat can find cheese",
+      "phraseVi": "Con chuột cống tìm được pho mát"
+    },
+    {
+      "text": "cheese",
+      "lemma": "cheese",
+      "meaningVi": "pho mát",
+      "pos": "noun",
+      "sentenceIndex": 12
+    }
+  ]
+}

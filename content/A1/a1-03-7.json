@@ -1,0 +1,603 @@
+{
+  "content": "There is a small bread shop near Hoa's house. Every morning, the shop has hot bread and nice cakes. Today is her son's birthday, and Hoa is at the shop at eight o'clock.\n\nMr Tam makes the bread and the cakes. He is old and very kind. Hoa asks him, \"What is good today?\" \"The chocolate cakes are new, and they are very sweet,\" he says. Hoa says, \"Can I have three small cakes and a bag of bread, please?\"\n\nThe bread is for breakfast, and the cakes are for the birthday party. There are two chocolate cakes and an orange cake. The orange cake is for Hoa. It is her favourite. The chocolate cakes are for her son and his friend.\n\nHoa's bag isn't heavy. The bread is warm, and the cakes smell good.",
+  "targetWords": [
+    "bread",
+    "cake",
+    "breakfast",
+    "chocolate",
+    "birthday",
+    "sweet",
+    "warm",
+    "shop"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "bread",
+        "lemma": "bread",
+        "meaningVi": "bánh mì",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "cakes",
+        "lemma": "cake",
+        "meaningVi": "(những cái) bánh ngọt",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "birthday",
+        "lemma": "birthday",
+        "meaningVi": "sinh nhật",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "chocolate",
+        "lemma": "chocolate",
+        "meaningVi": "sô-cô-la",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sweet",
+        "lemma": "sweet",
+        "meaningVi": "ngọt",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "breakfast",
+        "lemma": "breakfast",
+        "meaningVi": "bữa sáng",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "warm",
+        "lemma": "warm",
+        "meaningVi": "ấm",
+        "pos": "adjective",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa buys bread and cakes at a shop near her house",
+          "Mr Tam's birthday party",
+          "Hoa's breakfast at a cafe",
+          "A new shop in the city"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa đến cửa hàng bánh gần nhà mua bánh mì cho bữa sáng và ba cái bánh ngọt cho sinh nhật con trai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why are the cakes for a party?",
+        "promptVi": "Vì sao có bánh cho bữa tiệc?",
+        "options": [
+          "It is Hoa's birthday",
+          "It is her son's birthday",
+          "It is Mr Tam's birthday",
+          "It is a party at work"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Today is her son's birthday\": hôm nay là sinh nhật con trai Hoa."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which cake is for Hoa?",
+        "promptVi": "Cái bánh nào là của Hoa?",
+        "options": [
+          "A chocolate cake",
+          "A banana cake",
+          "The orange cake",
+          "A small bread"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"The orange cake is for Hoa. It is her favourite\": bánh cam là của Hoa."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa's bag is very heavy.",
+        "promptVi": "Túi của Hoa rất nặng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Hoa's bag isn't heavy\": túi của Hoa không nặng."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"kind\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He is old and very kind.",
+        "options": [
+          "tốt bụng",
+          "giàu có",
+          "bận rộn",
+          "cao"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Kind\" (tính từ) là tốt bụng, dễ mến: ông Tâm lớn tuổi và rất tốt bụng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mạo từ a / an / the",
+      "bodyVi": "Khi Hoa hỏi mua, cô ấy dùng a: a bag of bread. Trước âm nguyên âm thì dùng an: an orange cake. Khi đồ vật đã được nhắc đến, cả hai đều biết là vật nào, thì dùng the: the bread, the cakes, the orange cake. Câu \"There is a small bread shop\" giới thiệu cửa hàng lần đầu, nên dùng a; sau đó bài viết gọi là the shop.",
+      "examples": [
+        "There is a small bread shop near Hoa's house.",
+        "There are two chocolate cakes and an orange cake.",
+        "The orange cake is for Hoa."
+      ]
+    },
+    "writingPrompt": "Write about a bread shop or cake shop near your house: what is good there?",
+    "sentenceTranslations": [
+      "Có một cửa hàng bánh mì nhỏ gần nhà Hoa.",
+      "Sáng nào cửa hàng cũng có bánh mì nóng và bánh ngọt ngon.",
+      "Hôm nay là sinh nhật con trai của cô ấy, và Hoa đến cửa hàng lúc tám giờ.",
+      "Ông Tâm làm bánh mì và bánh ngọt.",
+      "Ông ấy lớn tuổi và rất tốt bụng.",
+      "Hoa hỏi ông ấy: \"Hôm nay bánh gì ngon ạ?\"",
+      "\"Bánh sô-cô-la mới làm, và rất ngọt,\" ông ấy nói.",
+      "Hoa nói: \"Cho cháu ba cái bánh ngọt nhỏ và một túi bánh mì được không ạ?\"",
+      "Bánh mì là cho bữa sáng, còn bánh ngọt là cho bữa tiệc sinh nhật.",
+      "Có hai cái bánh sô-cô-la và một cái bánh cam.",
+      "Bánh cam là của Hoa.",
+      "Đó là loại bánh cô ấy thích nhất.",
+      "Bánh sô-cô-la là cho con trai cô ấy và bạn của cậu bé.",
+      "Túi của Hoa không nặng.",
+      "Bánh mì còn ấm, và bánh ngọt có mùi thơm."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mua bánh mì, bánh ngọt ở cửa hàng và dùng a / an / the khi nói về chúng.",
+    "examples": [
+      {
+        "lemma": "bread",
+        "sentence": "The bread is on the table.",
+        "meaningVi": "Bánh mì ở trên bàn."
+      },
+      {
+        "lemma": "cake",
+        "sentence": "There is a cake for my birthday.",
+        "meaningVi": "Có một cái bánh cho sinh nhật của mình."
+      },
+      {
+        "lemma": "breakfast",
+        "sentence": "Bread and milk are my breakfast.",
+        "meaningVi": "Bánh mì và sữa là bữa sáng của mình."
+      },
+      {
+        "lemma": "chocolate",
+        "sentence": "My daughter has a chocolate cake.",
+        "meaningVi": "Con gái mình có một cái bánh sô-cô-la."
+      },
+      {
+        "lemma": "birthday",
+        "sentence": "Today is my mother's birthday.",
+        "meaningVi": "Hôm nay là sinh nhật mẹ mình."
+      },
+      {
+        "lemma": "sweet",
+        "sentence": "This cake is very sweet.",
+        "meaningVi": "Cái bánh này rất ngọt."
+      },
+      {
+        "lemma": "warm",
+        "sentence": "The milk is warm.",
+        "meaningVi": "Sữa còn ấm."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "There is a small shop on my street.",
+        "meaningVi": "Có một cửa hàng nhỏ trên phố nhà mình."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Tam",
+        "Hoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Good morning, Hoa! How are you?",
+          "meaningVi": "Chào Hoa! Cháu khỏe không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm fine, thank you. Is the bread hot today?",
+          "meaningVi": "Cháu khỏe ạ, cảm ơn bác. Hôm nay bánh mì có nóng không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. It is new this morning.",
+          "meaningVi": "Nóng chứ. Bánh mới ra lò sáng nay."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. A bag of bread, please.",
+          "meaningVi": "Tuyệt quá. Cho cháu một túi bánh mì ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Sure. And a cake for your son?",
+          "meaningVi": "Được. Thêm một cái bánh cho con trai cháu nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! It is his birthday today. What cakes are good?",
+          "meaningVi": "Vâng! Hôm nay là sinh nhật cháu nó. Bánh nào ngon ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "The chocolate cakes. They are very sweet.",
+          "meaningVi": "Bánh sô-cô-la. Ngọt lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "OK, two chocolate cakes and an orange cake, please.",
+          "meaningVi": "Vâng, cho cháu hai cái bánh sô-cô-la và một cái bánh cam ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Here you are. Happy birthday to your son!",
+          "meaningVi": "Của cháu đây. Chúc mừng sinh nhật con trai cháu nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Orange bắt đầu bằng âm nguyên âm nên nói an orange cake, không nói a orange cake. Vật đã nhắc đến thì dùng the.",
+    "translations": [
+      {
+        "vi": "Cho tôi một túi bánh mì nhé?",
+        "en": "Can I have a bag of bread, please?",
+        "distractors": [
+          "has",
+          "two",
+          "the"
+        ]
+      },
+      {
+        "vi": "Những cái bánh sô-cô-la rất ngọt.",
+        "en": "The chocolate cakes are very sweet.",
+        "distractors": [
+          "is",
+          "an",
+          "small"
+        ]
+      },
+      {
+        "vi": "Bánh mì là cho bữa sáng.",
+        "en": "The bread is for breakfast.",
+        "distractors": [
+          "are",
+          "an",
+          "lunch"
+        ]
+      },
+      {
+        "vi": "Hôm nay là sinh nhật con trai cô ấy.",
+        "en": "Today is her son's birthday.",
+        "distractors": [
+          "his",
+          "daughter's",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bánh mì còn ấm.",
+        "en": "The bread is warm.",
+        "distractors": [
+          "are",
+          "cold",
+          "an"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở cửa hàng bánh",
+          "Ở nhà",
+          "Ở quán cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa mua bánh mì và bánh ngọt của ông Tâm: cô ấy đang ở cửa hàng bánh.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bánh mì hôm nay thế nào?",
+        "promptVi": "",
+        "options": [
+          "Nguội",
+          "Nóng, mới làm sáng nay",
+          "Không còn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Tâm nói \"Yes, it is. It is new this morning\": bánh nóng, mới làm sáng nay.",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa mua mấy cái bánh sô-cô-la?",
+        "promptVi": "",
+        "options": [
+          "Một",
+          "Hai",
+          "Ba"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"two chocolate cakes and an orange cake\": hai cái bánh sô-cô-la.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Today is Hoa's son's birthday.",
+        "promptVi": "Hôm nay là sinh nhật con trai Hoa.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Hoa nói \"It is his birthday today\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Hoa mua những gì ở cửa hàng bánh, và mỗi thứ là cho ai?",
+    "grammarStep": {
+      "titleVi": "Mạo từ a / an / the",
+      "noticing": [
+        {
+          "sentence": "There is a small bread shop near Hoa's house.",
+          "highlights": [
+            "a"
+          ]
+        },
+        {
+          "sentence": "There are two chocolate cakes and an orange cake.",
+          "highlights": [
+            "an"
+          ]
+        },
+        {
+          "sentence": "The orange cake is for Hoa.",
+          "highlights": [
+            "The"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"an orange cake\" trước, rồi sau đó lại viết \"The orange cake\"?",
+      "options": [
+        "Vì bánh cam to hơn bánh sô-cô-la",
+        "Vì lần đầu nhắc đến dùng an; sau đó người đọc đã biết đó là cái bánh nào nên dùng the",
+        "Vì The dùng ở đầu câu"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Lần đầu nhắc đến một vật: a / an (an orange cake, vì orange bắt đầu bằng âm nguyên âm). Đã biết là vật nào: the (the orange cake).",
+      "whenVi": "Dùng a / an khi giới thiệu một vật lần đầu; dùng the khi người nghe đã biết đó là vật nào.",
+      "table": [
+        {
+          "subject": "a + âm phụ âm",
+          "form": "a bag, a small shop, a cake",
+          "negative": "—"
+        },
+        {
+          "subject": "an + âm nguyên âm",
+          "form": "an orange cake, an egg",
+          "negative": "—"
+        },
+        {
+          "subject": "the + vật đã biết",
+          "form": "the bread, the cakes, the shop",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There is a orange cake.",
+          "right": "There is an orange cake."
+        },
+        {
+          "wrong": "There is the small bread shop near my house.",
+          "right": "There is a small bread shop near my house."
+        }
+      ],
+      "noteVi": "Khi giới thiệu một nơi lần đầu bằng There is …, ta dùng a / an, không dùng the.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền a hoặc an vào chỗ trống.",
+          "text": "There is ___ orange cake for Hoa.",
+          "answers": [
+            "an"
+          ],
+          "explanationVi": "Orange bắt đầu bằng âm nguyên âm /ɒ/, nên dùng an."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Hoa has a bag of bread. ___ bread is warm.",
+          "options": [
+            "The",
+            "A",
+            "An",
+            "Two"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bánh mì đã được nhắc đến (túi bánh của Hoa), nên dùng The."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There is a orange cake.",
+          "sentence": "There is an orange cake.",
+          "explanationVi": "Orange bắt đầu bằng âm nguyên âm, nên phải dùng an."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bánh mì là cho bữa sáng.",
+          "sentence": "The bread is for breakfast.",
+          "words": [
+            "bread",
+            "breakfast",
+            "The",
+            "for",
+            "is",
+            "an"
+          ],
+          "explanationVi": "Bánh mì đã biết nên dùng The; an bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Mr Tam makes the bread and the cakes.",
+        "tipVi": "Bread /bred/ đọc ngắn, kết thúc bằng /d/ nhẹ; cakes /keɪks/ đọc rõ /ks/ ở cuối."
+      },
+      {
+        "text": "The bread is warm, and the cakes smell good.",
+        "tipVi": "Warm /wɔːm/ đọc tròn môi, kéo dài âm /ɔː/, không đọc thành \"oam\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your breakfast today?",
+        "questionVi": "Hôm nay bữa sáng của bạn là gì?",
+        "frame": "My breakfast is ___."
+      },
+      {
+        "question": "Is there a bread shop near your house?",
+        "questionVi": "Gần nhà bạn có cửa hàng bánh mì không?",
+        "frame": "Yes, there is. / No, there isn't."
+      },
+      {
+        "question": "What cake is your favourite?",
+        "questionVi": "Bạn thích loại bánh ngọt nào nhất?",
+        "frame": "My favourite is a ___ cake."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 lần dùng a / an khi giới thiệu và the khi nhắc lại",
+      "anyOf": [
+        "a cake",
+        "an orange",
+        "a bag",
+        "a small",
+        "the bread",
+        "the cake",
+        "the shop"
+      ],
+      "outlineVi": [
+        "Giới thiệu cửa hàng (There is a … near my house).",
+        "Kể cửa hàng có những loại bánh gì.",
+        "Nói bạn thích bánh nào nhất và vì sao (the … is …)."
+      ],
+      "modelAnswer": "There is a small cake shop near my house. The shop has bread, cakes and milk. I have a chocolate cake there every Sunday. The chocolate cake is sweet, and the bread is warm."
+    }
+  },
+  "glosses": [
+    {
+      "text": "near",
+      "lemma": "near",
+      "meaningVi": "gần",
+      "pos": "preposition",
+      "sentenceIndex": 0,
+      "phrase": "near Hoa's house",
+      "phraseVi": "gần nhà Hoa"
+    },
+    {
+      "text": "son's",
+      "lemma": "son",
+      "meaningVi": "của con trai",
+      "pos": "noun",
+      "sentenceIndex": 2,
+      "phrase": "her son's birthday",
+      "phraseVi": "sinh nhật con trai của cô ấy"
+    },
+    {
+      "text": "makes",
+      "lemma": "make",
+      "meaningVi": "làm",
+      "pos": "verb",
+      "sentenceIndex": 3,
+      "phrase": "Mr Tam makes the bread",
+      "phraseVi": "ông Tâm làm bánh mì"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "tốt bụng",
+      "pos": "adjective",
+      "sentenceIndex": 4,
+      "phrase": "very kind",
+      "phraseVi": "rất tốt bụng"
+    },
+    {
+      "text": "new",
+      "lemma": "new",
+      "meaningVi": "mới (làm)",
+      "pos": "adjective",
+      "sentenceIndex": 6,
+      "phrase": "The chocolate cakes are new",
+      "phraseVi": "bánh sô-cô-la mới làm"
+    },
+    {
+      "text": "bag",
+      "lemma": "bag",
+      "meaningVi": "cái túi",
+      "pos": "noun",
+      "sentenceIndex": 7,
+      "phrase": "a bag of bread",
+      "phraseVi": "một túi bánh mì"
+    },
+    {
+      "text": "party",
+      "lemma": "party",
+      "meaningVi": "bữa tiệc",
+      "pos": "noun",
+      "sentenceIndex": 8,
+      "phrase": "the birthday party",
+      "phraseVi": "bữa tiệc sinh nhật"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "loại thích nhất",
+      "pos": "noun",
+      "sentenceIndex": 11,
+      "phrase": "It is her favourite",
+      "phraseVi": "đó là loại cô ấy thích nhất"
+    },
+    {
+      "text": "heavy",
+      "lemma": "heavy",
+      "meaningVi": "nặng",
+      "pos": "adjective",
+      "sentenceIndex": 13,
+      "phrase": "Hoa's bag isn't heavy",
+      "phraseVi": "túi của Hoa không nặng"
+    },
+    {
+      "text": "smell",
+      "lemma": "smell",
+      "meaningVi": "có mùi",
+      "pos": "verb",
+      "sentenceIndex": 14,
+      "phrase": "the cakes smell good",
+      "phraseVi": "bánh ngọt có mùi thơm"
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "content": "It's twelve o'clock, and Nam and Vy are at lunch near their office. They talk about birthdays.\n\n\"When is your birthday, Vy?\" asks Nam.\n\"It's in October,\" she says.\n\"And your birthday?\"\n\"My birthday is in October, too!\" says Nam.\n\"Which month has a lot of birthdays in our office?\" asks Vy.\n\"October, I think. There are six birthdays in October, so there are a lot of parties in the autumn.\"\n\"What time is the party this month?\"\n\"It's on Friday at half past four, and it's one hour long.\"\n\"Who is the cake from?\"\n\"It's from Mrs Thao. She buys it in the morning.\"\n\"Is it a big cake?\"\n\"Yes, but I'm not a big cake person,\" says Nam.\n\nVy looks at the time.\n\"It's a quarter to one, so we have fifteen minutes.\"\n\"Wait a second, I have a photo of the cake on my phone.\"",
+  "targetWords": [
+    "time",
+    "o'clock",
+    "hour",
+    "minute",
+    "second",
+    "half past",
+    "quarter",
+    "morning"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "o'clock",
+        "lemma": "o'clock",
+        "meaningVi": "giờ (đúng)",
+        "pos": "adverb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "time",
+        "lemma": "time",
+        "meaningVi": "thời gian, giờ",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "half past",
+        "lemma": "half past",
+        "meaningVi": "rưỡi (quá ba mươi phút)",
+        "pos": "phrase",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "hour",
+        "lemma": "hour",
+        "meaningVi": "tiếng, giờ đồng hồ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "morning",
+        "lemma": "morning",
+        "meaningVi": "buổi sáng",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "mười lăm phút (một phần tư giờ)",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "minutes",
+        "lemma": "minute",
+        "meaningVi": "phút",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "second",
+        "lemma": "second",
+        "meaningVi": "giây, một chút",
+        "pos": "noun",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nam and Vy talk about birthdays in their office.",
+          "Mrs Thao buys a new phone.",
+          "Nam and Vy are late for work.",
+          "A cake shop in the autumn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trong bữa trưa, Nam và Vy nói về sinh nhật: sinh nhật của họ vào tháng nào, và tiệc sinh nhật trong văn phòng lúc mấy giờ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is Vy's birthday?",
+        "promptVi": "Sinh nhật của Vy vào khi nào?",
+        "options": [
+          "In June",
+          "In October",
+          "On Friday",
+          "In December"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"It's in October\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time is the party this month?",
+        "promptVi": "Bữa tiệc tháng này lúc mấy giờ?",
+        "options": [
+          "At twelve o'clock",
+          "At a quarter to one",
+          "On Friday at half past four",
+          "In the morning"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"It's on Friday at half past four, and it's one hour long\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam is a big cake person.",
+        "promptVi": "Nam là người rất thích bánh ngọt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"I'm not a big cake person\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"a quarter to one\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It's a quarter to one, so we have fifteen minutes.\"",
+        "options": [
+          "một giờ mười lăm",
+          "một giờ kém mười lăm",
+          "một giờ rưỡi",
+          "mười lăm giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "A quarter to one là còn mười lăm phút nữa đến một giờ, tức một giờ kém mười lăm (12:45)."
+      }
+    ],
+    "grammarNote": {
+      "title": "At, on, in với thời gian",
+      "bodyVi": "Dùng at với giờ (at half past four), on với thứ (on Friday), in với tháng, mùa và buổi (in October, in the autumn, in the morning). Có thể nói cả hai: on Friday at half past four.",
+      "examples": [
+        "\"It's in October,\" she says.",
+        "\"It's on Friday at half past four, and it's one hour long.\"",
+        "She buys it in the morning.\""
+      ]
+    },
+    "writingPrompt": "Write about birthdays in your family or at your work: in which month they are, and what time the party is.",
+    "sentenceTranslations": [
+      "Bây giờ là mười hai giờ, Nam và Vy đang ăn trưa gần văn phòng.",
+      "Họ nói chuyện về sinh nhật.",
+      "\"Sinh nhật của Vy vào khi nào?\" Nam hỏi.",
+      "\"Vào tháng Mười,\" cô ấy nói.",
+      "\"Thế còn sinh nhật của anh?\"",
+      "\"Sinh nhật của tôi cũng vào tháng Mười!\" Nam nói.",
+      "\"Tháng nào văn phòng mình có nhiều sinh nhật?\" Vy hỏi.",
+      "\"Tháng Mười, tôi nghĩ vậy.",
+      "Tháng Mười có sáu người sinh nhật, nên mùa thu có nhiều bữa tiệc.\"",
+      "\"Bữa tiệc tháng này lúc mấy giờ?\"",
+      "\"Vào thứ Sáu lúc bốn giờ rưỡi, và dài một tiếng.\"",
+      "\"Bánh là của ai mua?\"",
+      "\"Của bà Thao.",
+      "Bà ấy mua bánh vào buổi sáng.\"",
+      "\"Bánh có to không?\"",
+      "\"To, nhưng tôi không thích bánh ngọt lắm,\" Nam nói.",
+      "Vy xem giờ.",
+      "\"Bây giờ là một giờ kém mười lăm, nên chúng ta còn mười lăm phút.\"",
+      "\"Chờ chút, tôi có ảnh cái bánh trong điện thoại.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và nói sinh nhật và giờ tiệc với in + tháng / mùa, on + thứ, at + giờ.",
+    "examples": [
+      {
+        "lemma": "time",
+        "sentence": "What time is the party?",
+        "meaningVi": "Bữa tiệc lúc mấy giờ?"
+      },
+      {
+        "lemma": "o'clock",
+        "sentence": "The party is at five o'clock.",
+        "meaningVi": "Bữa tiệc lúc năm giờ."
+      },
+      {
+        "lemma": "hour",
+        "sentence": "The party is one hour long.",
+        "meaningVi": "Bữa tiệc dài một tiếng."
+      },
+      {
+        "lemma": "minute",
+        "sentence": "The cake is here in one minute.",
+        "meaningVi": "Một phút nữa bánh đến."
+      },
+      {
+        "lemma": "second",
+        "sentence": "Wait a second, where is the cake?",
+        "meaningVi": "Chờ chút, cái bánh đâu rồi?"
+      },
+      {
+        "lemma": "half past",
+        "sentence": "The party is at half past six.",
+        "meaningVi": "Bữa tiệc lúc sáu giờ rưỡi."
+      },
+      {
+        "lemma": "quarter",
+        "sentence": "It's a quarter past five.",
+        "meaningVi": "Bây giờ là năm giờ mười lăm."
+      },
+      {
+        "lemma": "morning",
+        "sentence": "My birthday party is in the morning.",
+        "meaningVi": "Tiệc sinh nhật của tôi vào buổi sáng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Nam"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Nam, when is Mrs Thao's birthday?",
+          "meaningVi": "Nam ơi, sinh nhật của bà Thao vào khi nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's in March, on Monday.",
+          "meaningVi": "Vào tháng Ba, vào thứ Hai."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a party for her?",
+          "meaningVi": "Có tiệc cho bà ấy không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is. It's at four o'clock in the afternoon.",
+          "meaningVi": "Có. Lúc bốn giờ chiều."
+        },
+        {
+          "speaker": 0,
+          "text": "Where is the party?",
+          "meaningVi": "Bữa tiệc ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's in the big room on the first floor.",
+          "meaningVi": "Ở phòng lớn trên tầng một."
+        },
+        {
+          "speaker": 0,
+          "text": "Who is the cake from?",
+          "meaningVi": "Bánh do ai mua?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's from me and you! It isn't from the boss this time.",
+          "meaningVi": "Của tôi và chị! Lần này không phải sếp mua."
+        },
+        {
+          "speaker": 0,
+          "text": "OK, no problem.",
+          "meaningVi": "Được, không vấn đề gì."
+        }
+      ]
+    },
+    "grammarTipVi": "in + tháng / mùa: in March, in the autumn. on + thứ: on Monday. at + giờ: at four o'clock. Buổi trong ngày: in the afternoon.",
+    "translations": [
+      {
+        "vi": "Bữa tiệc dài một tiếng.",
+        "en": "The party is one hour long.",
+        "distractors": [
+          "minute",
+          "are",
+          "on"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Bữa tiệc vào thứ Sáu lúc bốn giờ rưỡi.",
+        "en": "The party is on Friday at half past four.",
+        "distractors": [
+          "in",
+          "quarter",
+          "fourteen"
+        ],
+        "accepted": [
+          "The party is at half past four on Friday.",
+          "On Friday the party is at half past four."
+        ]
+      },
+      {
+        "vi": "Bà Thao mua bánh vào buổi sáng.",
+        "en": "Mrs Thao buys the cake in the morning.",
+        "distractors": [
+          "on",
+          "evening",
+          "buy"
+        ],
+        "accepted": [
+          "In the morning Mrs Thao buys the cake."
+        ]
+      },
+      {
+        "vi": "Bây giờ là một giờ kém mười lăm.",
+        "en": "It's a quarter to one.",
+        "distractors": [
+          "past",
+          "half",
+          "on"
+        ],
+        "accepted": []
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy và Nam nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tiệc sinh nhật của bà Thao",
+          "Sinh nhật của Vy",
+          "Một cửa hàng bánh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy hỏi sinh nhật bà Thao vào khi nào, tiệc lúc mấy giờ, ở đâu và ai mua bánh.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sinh nhật của bà Thao vào tháng nào?",
+        "promptVi": "",
+        "options": [
+          "Tháng Ba",
+          "Tháng Mười",
+          "Tháng Năm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam nói \"It's in March, on Monday.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bữa tiệc ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở nhà hàng gần văn phòng",
+          "Ở phòng lớn trên tầng một",
+          "Ở phòng của sếp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"It's in the big room on the first floor.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The cake is from the boss.",
+        "promptVi": "Bánh do sếp mua.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"It's from me and you! It isn't from the boss this time.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Sinh nhật của Nam và Vy vào tháng nào, và bữa tiệc lúc mấy giờ?",
+    "grammarStep": {
+      "titleVi": "At, on, in với thời gian",
+      "noticing": [
+        {
+          "sentence": "\"It's in October,\" she says.",
+          "highlights": [
+            "in October"
+          ]
+        },
+        {
+          "sentence": "\"It's on Friday at half past four, and it's one hour long.\"",
+          "highlights": [
+            "on Friday",
+            "at half past four"
+          ]
+        },
+        {
+          "sentence": "She buys it in the morning.\"",
+          "highlights": [
+            "in the morning"
+          ]
+        }
+      ],
+      "questionVi": "Trước tháng, trước thứ và trước giờ, Nam và Vy dùng từ nào?",
+      "options": [
+        "in trước tháng / mùa / buổi, on trước thứ, at trước giờ",
+        "on trước tháng, in trước thứ, at trước buổi",
+        "at trước tất cả"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "In October, in the autumn, in the morning (tháng, mùa, buổi); on Friday (thứ); at half past four (giờ).",
+      "whenVi": "Dùng at, on, in khi nói sinh nhật, ngày tiệc và giờ tiệc.",
+      "table": [
+        {
+          "subject": "in + tháng / mùa / buổi",
+          "form": "in October, in the autumn",
+          "negative": "in the morning"
+        },
+        {
+          "subject": "on + thứ",
+          "form": "on Friday, on Monday",
+          "negative": "on Friday afternoon"
+        },
+        {
+          "subject": "at + giờ",
+          "form": "at half past four, at five o'clock",
+          "negative": "on Friday at half past four"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My birthday is on October.",
+          "right": "My birthday is in October."
+        },
+        {
+          "wrong": "The party is in Friday.",
+          "right": "The party is on Friday."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"vào tháng Mười\" và \"vào thứ Sáu\" với cùng một từ \"vào\", nhưng tiếng Anh dùng in October và on Friday.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền at, on hoặc in vào chỗ trống.",
+          "text": "My birthday is ___ October.",
+          "answers": [
+            "in"
+          ],
+          "explanationVi": "October là tháng, nên dùng in."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "The party is ___ half past four.",
+          "options": [
+            "in",
+            "on",
+            "at",
+            "to"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Half past four là giờ, nên dùng at."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There are a lot of parties on the autumn.",
+          "sentence": "There are a lot of parties in the autumn.",
+          "explanationVi": "Autumn là mùa, nên dùng in."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bữa tiệc vào thứ Sáu.",
+          "sentence": "The party is on Friday.",
+          "words": [
+            "Friday",
+            "is",
+            "The",
+            "on",
+            "party",
+            "in"
+          ],
+          "explanationVi": "Friday là thứ nên dùng on; từ \"in\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"It's on Friday at half past four, and it's one hour long.\"",
+        "tipVi": "Half /hæf/ không đọc chữ l; hour /ˈaʊər/ không đọc chữ h."
+      },
+      {
+        "text": "\"It's a quarter to one, so we have fifteen minutes.\"",
+        "tipVi": "Quarter /ˈkwɔrtər/ nhấn âm đầu; fifteen /fɪfˈtin/ nhấn âm sau."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "When is your birthday?",
+        "questionVi": "Sinh nhật của bạn vào khi nào?",
+        "frame": "It's in ___."
+      },
+      {
+        "question": "Which month has a lot of birthdays in your family?",
+        "questionVi": "Tháng nào gia đình bạn có nhiều sinh nhật?",
+        "frame": "___, I think."
+      },
+      {
+        "question": "What time is a birthday party in your family?",
+        "questionVi": "Tiệc sinh nhật trong gia đình bạn thường lúc mấy giờ?",
+        "frame": "It's at ___ in the evening."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 2 cụm at / on / in với thời gian",
+      "anyOf": [
+        "in January",
+        "in March",
+        "in May",
+        "in June",
+        "in October",
+        "in December",
+        "in the autumn",
+        "in the summer",
+        "on Friday",
+        "on Sunday",
+        "at six",
+        "at seven",
+        "o'clock",
+        "half past"
+      ],
+      "outlineVi": [
+        "Nói sinh nhật của bạn và một người trong gia đình hoặc ở chỗ làm vào tháng nào (in …).",
+        "Nói tháng nào có nhiều sinh nhật.",
+        "Nói bữa tiệc vào ngày nào và lúc mấy giờ (on …, at …)."
+      ],
+      "modelAnswer": "My birthday is in June, and my mother's birthday is in June, too. There are a lot of birthdays in the summer in my family. The party is on Sunday at seven o'clock in the evening. It is at my home, and my sister buys the cake."
+    }
+  },
+  "glosses": [
+    {
+      "text": "birthdays",
+      "lemma": "birthday",
+      "meaningVi": "sinh nhật",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "They talk about birthdays",
+      "phraseVi": "Họ nói chuyện về sinh nhật"
+    },
+    {
+      "text": "Which",
+      "lemma": "which",
+      "meaningVi": "nào",
+      "sentenceIndex": 6,
+      "pos": "determiner",
+      "phrase": "Which month",
+      "phraseVi": "Tháng nào"
+    },
+    {
+      "text": "autumn",
+      "lemma": "autumn",
+      "meaningVi": "mùa thu",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "in the autumn",
+      "phraseVi": "vào mùa thu"
+    },
+    {
+      "text": "cake",
+      "lemma": "cake",
+      "meaningVi": "bánh ngọt",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "Who is the cake from",
+      "phraseVi": "Bánh là của ai mua"
+    },
+    {
+      "text": "photo",
+      "lemma": "photo",
+      "meaningVi": "bức ảnh",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "a photo of the cake",
+      "phraseVi": "ảnh cái bánh"
+    }
+  ]
+}

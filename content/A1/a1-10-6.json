@@ -1,0 +1,572 @@
+{
+  "content": "Khoa lives in Hoi An, a small town in Vietnam. Every morning, he shows his town to people from England, Korea and Japan. They go by bike. Today there are six people in his group.\n\nThey ride to the river. There is an old bridge over the river, and it is very beautiful. Everyone wants to take photos.\n\n\"Listen, please,\" Khoa says. \"Don't stop on the bridge. It is small, and a lot of people walk on it. Don't take photos there.\"\n\n\"Where can we stop?\" a woman asks.\n\n\"Ride over the bridge and turn right. Don't ride on the busy street. There is a small park near the river. Put your bikes behind the café in the park. Then stand in front of the café and take photos. The bridge looks great from there.\"\n\n\"OK,\" everyone says. \"Let's go!\"",
+  "targetWords": [
+    "town",
+    "bridge",
+    "park",
+    "right",
+    "near",
+    "behind",
+    "in front of",
+    "street"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "town",
+        "lemma": "town",
+        "meaningVi": "thị trấn, phố nhỏ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "right",
+        "lemma": "right",
+        "meaningVi": "bên phải",
+        "pos": "adverb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "đường phố, con phố",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "park",
+        "lemma": "park",
+        "meaningVi": "công viên",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "near",
+        "lemma": "near",
+        "meaningVi": "gần",
+        "pos": "preposition",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "behind",
+        "lemma": "behind",
+        "meaningVi": "ở phía sau",
+        "pos": "preposition",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "in front of",
+        "lemma": "in front of",
+        "meaningVi": "ở phía trước",
+        "pos": "preposition",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Khoa buys a new bike in Hoi An.",
+          "Khoa tells his group where to stop and where not to stop.",
+          "A woman shows Khoa the way to the river.",
+          "Khoa takes photos on the old bridge."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa dẫn một nhóm người đi xe đạp quanh Hội An. Anh dặn họ đừng dừng trên cầu và chỉ chỗ để xe, chỗ chụp ảnh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many people are in Khoa's group today?",
+        "promptVi": "Hôm nay nhóm của Khoa có bao nhiêu người?",
+        "options": [
+          "Three",
+          "Six",
+          "Seven",
+          "Ten"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Today there are six people in his group\": hôm nay nhóm có sáu người."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where do they put their bikes?",
+        "promptVi": "Họ để xe đạp ở đâu?",
+        "options": [
+          "On the bridge",
+          "On the busy street",
+          "Behind the café in the park",
+          "In front of the river"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khoa nói \"Put your bikes behind the café in the park\": để xe phía sau quán cà phê trong công viên."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa tells the group to take photos on the bridge.",
+        "promptVi": "Khoa bảo cả nhóm chụp ảnh trên cầu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"Don't stop on the bridge… Don't take photos there\": đừng dừng lại và đừng chụp ảnh trên cầu."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"in front of\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then stand in front of the café and take photos.",
+        "options": [
+          "ở phía sau",
+          "ở bên trong",
+          "ở phía trước",
+          "ở bên trên"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "In front of là ở phía trước: đứng phía trước quán cà phê để chụp ảnh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh (Imperatives)",
+      "bodyVi": "Khi dặn dò cả nhóm, ta dùng câu mệnh lệnh. Bảo đừng làm gì: Don't + động từ (Don't stop on the bridge.). Bảo làm gì: động từ nguyên mẫu đứng đầu câu (Ride over the bridge. Put your bikes behind the café.). Rủ cùng làm: Let's + động từ (Let's go!).",
+      "examples": [
+        "\"Don't stop on the bridge.",
+        "\"Ride over the bridge and turn right.",
+        "Put your bikes behind the café in the park."
+      ]
+    },
+    "writingPrompt": "You show your town to a friend by bike. Tell them where to stop and where not to stop. Use don't, ride, put and let's.",
+    "sentenceTranslations": [
+      "Khoa sống ở Hội An, một thị trấn nhỏ ở Việt Nam.",
+      "Sáng nào anh cũng dẫn những người từ Anh, Hàn Quốc và Nhật Bản đi thăm thị trấn của mình.",
+      "Họ đi bằng xe đạp.",
+      "Hôm nay nhóm của anh có sáu người.",
+      "Họ đạp xe đến bờ sông.",
+      "Có một cây cầu cổ bắc qua sông, và nó rất đẹp.",
+      "Ai cũng muốn chụp ảnh.",
+      "\"Mọi người nghe này,\" Khoa nói.",
+      "\"Đừng dừng lại trên cầu.",
+      "Cầu nhỏ, và có rất nhiều người đi bộ trên đó.",
+      "Đừng chụp ảnh ở đó.\"",
+      "\"Thế chúng tôi dừng ở đâu được?\" một người phụ nữ hỏi.",
+      "\"Mọi người đạp xe qua cầu rồi rẽ phải.",
+      "Đừng đạp xe trên con phố đông người.",
+      "Có một công viên nhỏ gần bờ sông.",
+      "Hãy để xe đạp phía sau quán cà phê trong công viên.",
+      "Sau đó đứng phía trước quán cà phê và chụp ảnh.",
+      "Từ chỗ đó nhìn cây cầu rất đẹp.\"",
+      "\"Được,\" mọi người nói.",
+      "\"Mình đi thôi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể dặn người khác nên dừng ở đâu và đừng dừng ở đâu bằng câu mệnh lệnh: Don't stop on the bridge, Put your bikes behind …, Let's go!",
+    "examples": [
+      {
+        "lemma": "town",
+        "sentence": "My town is small and quiet.",
+        "meaningVi": "Thị trấn của mình nhỏ và yên tĩnh."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "Don't stop on the bridge.",
+        "meaningVi": "Đừng dừng lại trên cầu."
+      },
+      {
+        "lemma": "park",
+        "sentence": "There are a lot of trees in the park.",
+        "meaningVi": "Trong công viên có rất nhiều cây."
+      },
+      {
+        "lemma": "right",
+        "sentence": "Ride to the river and turn right.",
+        "meaningVi": "Đạp xe đến bờ sông rồi rẽ phải."
+      },
+      {
+        "lemma": "near",
+        "sentence": "We live near the river.",
+        "meaningVi": "Chúng tôi sống gần bờ sông."
+      },
+      {
+        "lemma": "behind",
+        "sentence": "Put your bike behind the house.",
+        "meaningVi": "Để xe đạp của bạn phía sau nhà."
+      },
+      {
+        "lemma": "in front of",
+        "sentence": "Let's take a photo in front of the hotel.",
+        "meaningVi": "Mình chụp một tấm ảnh phía trước khách sạn đi."
+      },
+      {
+        "lemma": "street",
+        "sentence": "Don't ride on the busy street.",
+        "meaningVi": "Đừng đạp xe trên con phố đông người."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Paul",
+        "Khoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khoa, where do we go after the park?",
+          "meaningVi": "Khoa ơi, đi công viên xong thì mình đi đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "Let's have lunch at a small restaurant.",
+          "meaningVi": "Mình đi ăn trưa ở một nhà hàng nhỏ nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! Is it near here?",
+          "meaningVi": "Tuyệt! Nhà hàng có gần đây không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. Ride down this street and turn left.",
+          "meaningVi": "Có, gần lắm. Anh đạp xe theo con phố này rồi rẽ trái."
+        },
+        {
+          "speaker": 0,
+          "text": "Can we ride on the big street?",
+          "meaningVi": "Mình có đạp xe trên con phố lớn được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. Don't ride on the big street. It's very busy.",
+          "meaningVi": "Không. Đừng đạp xe trên phố lớn. Ở đó rất đông xe."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. What food do they have?",
+          "meaningVi": "Được. Ở đó có món gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "Noodles and fish. They're very good. Let's go!",
+          "meaningVi": "Mì và cá. Ngon lắm. Mình đi thôi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Khi dặn cả nhóm, ta vẫn dùng câu mệnh lệnh như khi nói với một người. Muốn lịch sự hơn, thêm please: Listen, please.",
+    "translations": [
+      {
+        "vi": "Đừng dừng lại trên cầu.",
+        "en": "Don't stop on the bridge.",
+        "distractors": [
+          "Doesn't",
+          "stops",
+          "under"
+        ]
+      },
+      {
+        "vi": "Đạp xe qua cầu rồi rẽ phải.",
+        "en": "Ride over the bridge and turn right.",
+        "distractors": [
+          "left",
+          "Rides",
+          "turns"
+        ]
+      },
+      {
+        "vi": "Các bạn để xe đạp phía sau quán cà phê.",
+        "en": "Put your bikes behind the café.",
+        "distractors": [
+          "Puts",
+          "front",
+          "you"
+        ]
+      },
+      {
+        "vi": "Có một công viên nhỏ gần bờ sông.",
+        "en": "There is a small park near the river.",
+        "distractors": [
+          "are",
+          "big",
+          "behind"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Paul và Khoa nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chỗ chụp ảnh đẹp",
+          "Đi ăn trưa ở đâu và đi đường nào",
+          "Giá thuê xe đạp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa rủ cả nhóm đi ăn trưa ở một nhà hàng nhỏ và chỉ đường đạp xe đến đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đến nhà hàng, họ rẽ hướng nào?",
+        "promptVi": "",
+        "options": [
+          "Rẽ trái",
+          "Rẽ phải",
+          "Đi thẳng qua cầu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa nói \"Ride down this street and turn left.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao không đạp xe trên phố lớn?",
+        "promptVi": "",
+        "options": [
+          "Vì phố lớn rất xa",
+          "Vì phố lớn rất đông xe",
+          "Vì phố lớn đóng cửa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa nói \"Don't ride on the big street. It's very busy.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The restaurant has noodles and fish.",
+        "promptVi": "Nhà hàng có mì và cá.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Khoa nói \"Noodles and fish. They're very good.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Khoa dặn cả nhóm đừng làm gì trên cầu, và họ nên để xe, chụp ảnh ở đâu?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Don't stop on the bridge.",
+          "highlights": [
+            "Don't stop"
+          ]
+        },
+        {
+          "sentence": "Don't take photos there.\"",
+          "highlights": [
+            "Don't take"
+          ]
+        },
+        {
+          "sentence": "Put your bikes behind the café in the park.",
+          "highlights": [
+            "Put"
+          ]
+        },
+        {
+          "sentence": "\"Let's go!\"",
+          "highlights": [
+            "Let's go"
+          ]
+        }
+      ],
+      "questionVi": "Khoa dùng câu nào để dặn cả nhóm đừng làm gì?",
+      "options": [
+        "Put your bikes …",
+        "Don't stop … / Don't take …",
+        "Let's go!"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Don't + động từ là bảo đừng làm gì: Don't stop, Don't take. Put là bảo làm gì, còn Let's go là rủ cùng đi.",
+      "whenVi": "Dùng câu mệnh lệnh để dặn dò, nhắc nhở cả nhóm về chỗ nên dừng, chỗ không nên dừng.",
+      "table": [
+        {
+          "subject": "Làm",
+          "form": "Ride over the bridge. Put your bikes here.",
+          "negative": ""
+        },
+        {
+          "subject": "Đừng làm",
+          "form": "Don't + động từ",
+          "negative": "Don't stop on the bridge."
+        },
+        {
+          "subject": "Rủ cùng làm",
+          "form": "Let's + động từ: Let's go!",
+          "negative": ""
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "No stop on the bridge.",
+          "right": "Don't stop on the bridge."
+        },
+        {
+          "wrong": "Don't takes photos there.",
+          "right": "Don't take photos there."
+        }
+      ],
+      "noteVi": "Biển báo tiếng Việt hay viết \"Không dừng xe\", nên người Việt dễ nói \"No stop\". Khi nói với người khác, hãy dùng Don't + động từ nguyên mẫu.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ để dặn cả nhóm đừng dừng lại trên cầu.",
+          "text": "___ stop on the bridge. It is very small.",
+          "answers": [
+            "Don't"
+          ],
+          "explanationVi": "Bảo ai đừng làm gì: Don't + động từ nguyên mẫu."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ your bikes behind the café.",
+          "options": [
+            "Puts",
+            "Putting",
+            "Put",
+            "To put"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Put."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Don't rides on the busy street.",
+          "sentence": "Don't ride on the busy street.",
+          "explanationVi": "Sau Don't là động từ nguyên mẫu: ride, không phải rides."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đừng dừng lại trên cầu.",
+          "sentence": "Don't stop on the bridge.",
+          "words": [
+            "stop",
+            "the",
+            "Don't",
+            "bridge",
+            "on",
+            "stops"
+          ],
+          "explanationVi": "Don't đứng đầu, sau đó là động từ nguyên mẫu stop; từ \"stops\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There is a small park near the river.",
+        "tipVi": "There is đọc nối /ðeərɪz/; river /ˈrɪvə/ nhấn âm đầu \"RI\"."
+      },
+      {
+        "text": "Put your bikes behind the café in the park.",
+        "tipVi": "Bikes /baɪks/ kết thúc bằng cụm /ks/; café /ˈkæfeɪ/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a bridge in your town?",
+        "questionVi": "Thị trấn của bạn có cây cầu nào không?",
+        "frame": "Yes, there is. It's near the ___."
+      },
+      {
+        "question": "Where do you put your bike?",
+        "questionVi": "Bạn để xe ở đâu?",
+        "frame": "I put my bike behind / in front of the ___."
+      },
+      {
+        "question": "Where do you like to take photos in your town?",
+        "questionVi": "Bạn thích chụp ảnh ở đâu trong thị trấn của bạn?",
+        "frame": "I like to take photos in front of the ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với Don't và 1 câu mệnh lệnh khác (Ride, Put, Let's …)",
+      "anyOf": [
+        "don't",
+        "ride",
+        "put",
+        "turn",
+        "stop",
+        "let's"
+      ],
+      "outlineVi": [
+        "Nói hai bạn đi đâu bằng xe đạp (Let's go to the …).",
+        "Chỉ đường và chỗ dừng (Ride over …, turn right …, put your bike …).",
+        "Dặn một điều không nên làm (Don't stop on … / Don't ride on …)."
+      ],
+      "modelAnswer": "Let's go to the river by bike. Ride down my street and turn right. Don't ride on the big street. It's very busy. Ride over the bridge. Don't stop on the bridge. Put your bike in front of the café near the park. Then let's have tea!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "shows his town",
+      "lemma": "show",
+      "meaningVi": "dẫn đi thăm (thị trấn)",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "he shows his town to people",
+      "phraseVi": "anh dẫn mọi người đi thăm thị trấn của mình"
+    },
+    {
+      "text": "by bike",
+      "lemma": "by bike",
+      "meaningVi": "bằng xe đạp",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "They go by bike",
+      "phraseVi": "Họ đi bằng xe đạp"
+    },
+    {
+      "text": "group",
+      "lemma": "group",
+      "meaningVi": "nhóm",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "six people in his group",
+      "phraseVi": "nhóm của anh có sáu người"
+    },
+    {
+      "text": "ride",
+      "lemma": "ride",
+      "meaningVi": "đạp xe, đi xe",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "They ride to the river",
+      "phraseVi": "Họ đạp xe đến bờ sông"
+    },
+    {
+      "text": "take photos",
+      "lemma": "take photos",
+      "meaningVi": "chụp ảnh",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "Everyone wants to take photos",
+      "phraseVi": "Ai cũng muốn chụp ảnh"
+    },
+    {
+      "text": "busy",
+      "lemma": "busy",
+      "meaningVi": "đông đúc, nhiều xe",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "the busy street",
+      "phraseVi": "con phố đông người"
+    },
+    {
+      "text": "looks great",
+      "lemma": "look great",
+      "meaningVi": "trông rất đẹp",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "The bridge looks great from there",
+      "phraseVi": "Từ chỗ đó nhìn cây cầu rất đẹp"
+    }
+  ]
+}

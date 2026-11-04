@@ -1,0 +1,721 @@
+{
+  "content": "It is six in the morning. Minh is at a club near his home, and he runs there every morning. He is twenty-seven, and he is an engineer. A tall woman is near him. She is not Vietnamese.\n\n\"Good morning,\" Minh says to her. \"Hello, I'm Maria,\" she says. \"Are you new here?\" \"Yes, I am, and my name is Minh,\" he says. \"Nice to meet you, Minh,\" she says.\n\nMaria is thirty-four, and she is from Spain. She is a teacher at a school in Hanoi. \"I live near here,\" she says. \"Is your office near here too?\" she asks him. \"Yes, it is,\" he says.\n\nTwo people say hello to Maria. \"These are my friends, Paul and Sophie,\" she says to Minh. \"They are from France.\" Minh says hello to them. Maria writes her phone number for him. \"Bye, see you tomorrow,\" they say to him.",
+  "targetWords": [
+    "good morning",
+    "hello",
+    "name",
+    "nice to meet you",
+    "from",
+    "live",
+    "phone number",
+    "bye"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Good morning",
+        "lemma": "good morning",
+        "meaningVi": "chào buổi sáng",
+        "pos": "phrase",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "Hello",
+        "lemma": "hello",
+        "meaningVi": "xin chào",
+        "pos": "interjection",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "name",
+        "lemma": "name",
+        "meaningVi": "tên",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "Nice to meet you",
+        "lemma": "nice to meet you",
+        "meaningVi": "rất vui được gặp bạn",
+        "pos": "phrase",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "from",
+        "lemma": "from",
+        "meaningVi": "đến từ",
+        "pos": "preposition",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "live",
+        "lemma": "live",
+        "meaningVi": "sống, ở",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "phone number",
+        "lemma": "phone number",
+        "meaningVi": "số điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "Bye",
+        "lemma": "bye",
+        "meaningVi": "tạm biệt (thân mật)",
+        "pos": "interjection",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh meets new people at a club and they say who they are.",
+          "Minh is a new teacher at a school.",
+          "Maria and Minh are at an office in Spain.",
+          "Paul and Sophie are on holiday in Spain."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh chạy bộ ở câu lạc bộ gần nhà, gặp Maria và hai người bạn của cô, và họ chào hỏi, nói tên, quê quán của mình."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Maria from?",
+        "promptVi": "Maria đến từ đâu?",
+        "options": [
+          "France",
+          "Spain",
+          "Vietnam",
+          "Hanoi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"she is from Spain\": Maria đến từ Tây Ban Nha. Paul và Sophie mới là người từ Pháp."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Maria's job?",
+        "promptVi": "Maria làm nghề gì?",
+        "options": [
+          "She is an engineer.",
+          "She is a nurse.",
+          "She is a teacher.",
+          "She is a cook."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"She is a teacher at a school in Hanoi\": Maria là giáo viên. Kỹ sư là Minh."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh is new at the club.",
+        "promptVi": "Minh mới đến câu lạc bộ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"he runs there every morning\": Minh chạy ở đó mỗi sáng. Khi Minh hỏi \"Are you new here?\", Maria trả lời \"Yes, I am\": người mới là Maria."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"every morning\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Minh is at a club near his home, and he runs there every morning.",
+        "options": [
+          "mỗi buổi sáng",
+          "sáng mai",
+          "cả buổi sáng",
+          "sáng hôm qua"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Every\" nghĩa là mỗi, nên \"every morning\" là mỗi buổi sáng. \"Sáng mai\" là tomorrow morning."
+      }
+    ],
+    "grammarNote": {
+      "title": "Động từ to be (am / is / are)",
+      "bodyVi": "To be đổi theo chủ ngữ: I am, he / she / it is, we / you / they are. Câu hỏi đưa to be lên trước chủ ngữ: Are you new here? Is your office near here? Trả lời ngắn: Yes, I am. / Yes, it is. Phủ định thêm not: She is not Vietnamese.",
+      "examples": [
+        "Maria is thirty-four, and she is from Spain.",
+        "\"Is your office near here too?\" she asks him.",
+        "She is not Vietnamese."
+      ]
+    },
+    "writingPrompt": "Write about a new friend: his or her name, age, job and where he or she is from.",
+    "sentenceTranslations": [
+      "Bây giờ là sáu giờ sáng.",
+      "Minh đang ở một câu lạc bộ gần nhà, và sáng nào anh cũng chạy ở đó.",
+      "Anh hai mươi bảy tuổi, và anh là kỹ sư.",
+      "Có một người phụ nữ cao ở gần anh.",
+      "Cô ấy không phải người Việt Nam.",
+      "\"Chào buổi sáng,\" Minh nói với cô ấy.",
+      "\"Xin chào, tôi là Maria,\" cô nói.",
+      "\"Anh là người mới ở đây à?\"",
+      "\"Đúng vậy, và tên tôi là Minh,\" anh nói.",
+      "\"Rất vui được gặp anh, Minh,\" cô nói.",
+      "Maria ba mươi bốn tuổi, và cô đến từ Tây Ban Nha.",
+      "Cô là giáo viên ở một trường học tại Hà Nội.",
+      "\"Tôi sống ở gần đây,\" cô nói.",
+      "\"Văn phòng của anh cũng ở gần đây à?\" cô hỏi anh.",
+      "\"Vâng, đúng vậy,\" anh nói.",
+      "Có hai người chào Maria.",
+      "\"Đây là bạn của tôi, Paul và Sophie,\" cô nói với Minh.",
+      "\"Họ đến từ Pháp.\"",
+      "Minh chào họ.",
+      "Maria viết số điện thoại của cô cho anh.",
+      "\"Chào nhé, hẹn gặp lại ngày mai,\" họ nói với anh."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể làm quen với một người mới ở câu lạc bộ: nói tên, tuổi, nghề, quê quán và hỏi lại bằng Are you…? / Is…?",
+    "examples": [
+      {
+        "lemma": "good morning",
+        "sentence": "Good morning, Maria.",
+        "meaningVi": "Chào buổi sáng, Maria."
+      },
+      {
+        "lemma": "hello",
+        "sentence": "Hello, I am Minh.",
+        "meaningVi": "Xin chào, tôi là Minh."
+      },
+      {
+        "lemma": "name",
+        "sentence": "Her name is Sophie.",
+        "meaningVi": "Tên cô ấy là Sophie."
+      },
+      {
+        "lemma": "nice to meet you",
+        "sentence": "Nice to meet you, Paul.",
+        "meaningVi": "Rất vui được gặp anh, Paul."
+      },
+      {
+        "lemma": "from",
+        "sentence": "We are from France.",
+        "meaningVi": "Chúng tôi đến từ Pháp."
+      },
+      {
+        "lemma": "live",
+        "sentence": "I live in Hanoi.",
+        "meaningVi": "Tôi sống ở Hà Nội."
+      },
+      {
+        "lemma": "phone number",
+        "sentence": "This is my phone number.",
+        "meaningVi": "Đây là số điện thoại của tôi."
+      },
+      {
+        "lemma": "bye",
+        "sentence": "Bye, see you tomorrow.",
+        "meaningVi": "Chào nhé, mai gặp lại."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Maria"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Are you a teacher, Maria?",
+          "meaningVi": "Chị là giáo viên à, chị Maria?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. I am an English teacher.",
+          "meaningVi": "Đúng vậy. Tôi là giáo viên tiếng Anh."
+        },
+        {
+          "speaker": 0,
+          "text": "Are Paul and Sophie teachers too?",
+          "meaningVi": "Paul và Sophie cũng là giáo viên à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they aren't. They are cooks.",
+          "meaningVi": "Không. Họ là đầu bếp."
+        },
+        {
+          "speaker": 0,
+          "text": "Is their restaurant in Hanoi?",
+          "meaningVi": "Nhà hàng của họ ở Hà Nội à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It is near the river.",
+          "meaningVi": "Đúng vậy. Nó ở gần sông."
+        },
+        {
+          "speaker": 0,
+          "text": "What is your phone number?",
+          "meaningVi": "Số điện thoại của chị là gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "It is 0987 654 321. Here, it is on this paper.",
+          "meaningVi": "Là 0987 654 321. Đây, số ở trên tờ giấy này."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you. Bye, Maria!",
+          "meaningVi": "Cảm ơn chị. Chào chị Maria nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Với hai người (Paul and Sophie) thì dùng are và trả lời bằng they: Are Paul and Sophie teachers? – No, they aren't.",
+    "translations": [
+      {
+        "vi": "Chào buổi sáng, tên tôi là Minh.",
+        "en": "Good morning, my name is Minh.",
+        "distractors": [
+          "evening",
+          "your",
+          "are"
+        ]
+      },
+      {
+        "vi": "Rất vui được gặp anh, Minh.",
+        "en": "Nice to meet you, Minh.",
+        "distractors": [
+          "see",
+          "your",
+          "him"
+        ]
+      },
+      {
+        "vi": "Cô ấy đến từ Tây Ban Nha.",
+        "en": "She is from Spain.",
+        "distractors": [
+          "are",
+          "her",
+          "at"
+        ]
+      },
+      {
+        "vi": "Tôi sống ở gần đây.",
+        "en": "I live near here.",
+        "distractors": [
+          "lives",
+          "am",
+          "there"
+        ]
+      },
+      {
+        "vi": "Họ đến từ Pháp.",
+        "en": "They are from France.",
+        "distractors": [
+          "is",
+          "them",
+          "their"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Maria đang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Về nghề của Maria và hai người bạn",
+          "Về câu lạc bộ chạy bộ",
+          "Về chuyến đi đến Pháp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh hỏi Maria có phải giáo viên không, rồi hỏi về nghề và nhà hàng của Paul và Sophie.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Paul và Sophie làm nghề gì?",
+        "promptVi": "",
+        "options": [
+          "Giáo viên",
+          "Đầu bếp",
+          "Kỹ sư"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Maria nói \"No, they aren't. They are cooks\": họ là đầu bếp.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nhà hàng của họ ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Gần sông",
+          "Gần câu lạc bộ",
+          "Ở Pháp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Maria nói \"It is near the river.: nhà hàng ở gần hồ.",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Maria is an English teacher.",
+        "promptVi": "Maria là giáo viên tiếng Anh.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Maria nói \"Yes, I am. I am an English teacher.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Minh gặp những ai ở câu lạc bộ, và họ đến từ đâu?",
+    "grammarStep": {
+      "titleVi": "Động từ to be: câu kể, câu hỏi và phủ định",
+      "noticing": [
+        {
+          "sentence": "Maria is thirty-four, and she is from Spain.",
+          "highlights": [
+            "is"
+          ]
+        },
+        {
+          "sentence": "\"Are you new here?\"",
+          "highlights": [
+            "Are you"
+          ]
+        },
+        {
+          "sentence": "\"They are from France.\"",
+          "highlights": [
+            "are"
+          ]
+        },
+        {
+          "sentence": "She is not Vietnamese.",
+          "highlights": [
+            "is not"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Are you new here?\", vì sao are đứng trước you?",
+      "options": [
+        "Vì đây là câu hỏi: to be đứng trước chủ ngữ",
+        "Vì you luôn đứng sau are",
+        "Vì câu có chữ new"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu kể là \"You are new here\"; khi hỏi thì đưa are lên trước you: Are you new here?",
+      "whenVi": "Dùng to be để nói và hỏi về tên, tuổi, nghề, quê quán của người mới gặp.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I am an engineer.",
+          "negative": "I'm not a teacher."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "She is from Spain.",
+          "negative": "She isn't Vietnamese."
+        },
+        {
+          "subject": "we / you / they",
+          "form": "They are from France.",
+          "negative": "They aren't teachers."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She not Vietnamese.",
+          "right": "She is not Vietnamese."
+        },
+        {
+          "wrong": "You are new here?",
+          "right": "Are you new here?"
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Cô ấy không phải người Việt\" không cần chữ \"là\", nhưng tiếng Anh phải có is: She is not Vietnamese.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền am, is hoặc are vào chỗ trống.",
+          "text": "Paul and Sophie ___ from France.",
+          "answers": [
+            "are"
+          ],
+          "explanationVi": "Hai người (they) đi với are."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu trả lời đúng.",
+          "text": "Is Minh an engineer? – Yes, ___.",
+          "options": [
+            "he is",
+            "he's",
+            "she is",
+            "I am"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Minh là nam nên dùng he; câu trả lời ngắn \"Yes\" không viết tắt: Yes, he is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Maria are from Spain.",
+          "sentence": "Maria is from Spain.",
+          "explanationVi": "Maria là một người (she), nên dùng is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Văn phòng của anh có ở gần đây không?",
+          "sentence": "Is your office near here?",
+          "words": [
+            "near",
+            "Is",
+            "office",
+            "here",
+            "your",
+            "Are"
+          ],
+          "explanationVi": "Câu hỏi: Is + your office + near here. Từ \"Are\" thừa vì your office là số ít."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He is twenty-seven, and he is an engineer.",
+        "tipVi": "Nối \"an engineer\" thành /ənˌendʒɪˈnɪə/, nhấn vào âm cuối -NEER."
+      },
+      {
+        "text": "\"These are my friends, Paul and Sophie,\" she says to Minh.",
+        "tipVi": "Đọc rõ âm /ð/ trong these /ðiːz/ (đặt lưỡi giữa hai hàm răng) và âm cuối /dz/ trong friends."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is a new friend of yours?",
+        "questionVi": "Một người bạn mới của bạn là ai?",
+        "frame": "My new friend is ___."
+      },
+      {
+        "question": "Where is he or she from?",
+        "questionVi": "Người đó đến từ đâu?",
+        "frame": "He / She is from ___."
+      },
+      {
+        "question": "Is your home near your office or school?",
+        "questionVi": "Nhà bạn có gần chỗ làm hay trường học không?",
+        "frame": "Yes, it is. / No, it isn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với to be nói về người khác (he is / she is / they are)",
+      "anyOf": [
+        "he is",
+        "she is",
+        "they are",
+        "he's",
+        "she's"
+      ],
+      "outlineVi": [
+        "Viết bạn gặp người bạn mới ở đâu.",
+        "Viết tên, tuổi, quê quán của người đó.",
+        "Viết nghề của người đó và một câu phủ định."
+      ],
+      "modelAnswer": "My new friend is Ken. He is from Japan, and he is thirty. He is not a teacher. He is a cook at a hotel in Da Nang. His wife is Vietnamese. They are very nice, and they live near me."
+    }
+  },
+  "glosses": [
+    {
+      "text": "morning",
+      "lemma": "morning",
+      "meaningVi": "buổi sáng",
+      "pos": "noun",
+      "phrase": "six in the morning",
+      "phraseVi": "sáu giờ sáng",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "club",
+      "lemma": "club",
+      "meaningVi": "câu lạc bộ",
+      "pos": "noun",
+      "phrase": "at a club near his home",
+      "phraseVi": "ở một câu lạc bộ gần nhà",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "runs",
+      "lemma": "run",
+      "meaningVi": "chạy",
+      "pos": "verb",
+      "phrase": "he runs there every morning",
+      "phraseVi": "sáng nào anh cũng chạy ở đó",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "every morning",
+      "lemma": "every morning",
+      "meaningVi": "mỗi buổi sáng",
+      "pos": "phrase",
+      "phrase": "he runs there every morning",
+      "phraseVi": "sáng nào anh cũng chạy ở đó",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "engineer",
+      "lemma": "engineer",
+      "meaningVi": "kỹ sư",
+      "pos": "noun",
+      "phrase": "he is an engineer",
+      "phraseVi": "anh là kỹ sư",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "tall",
+      "lemma": "tall",
+      "meaningVi": "cao",
+      "pos": "adjective",
+      "phrase": "A tall woman",
+      "phraseVi": "Một người phụ nữ cao",
+      "sentenceIndex": 3
+    },
+    {
+      "text": "Vietnamese",
+      "lemma": "Vietnamese",
+      "meaningVi": "người Việt Nam",
+      "pos": "adjective",
+      "phrase": "She is not Vietnamese",
+      "phraseVi": "Cô ấy không phải người Việt Nam",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "Good morning",
+      "lemma": "good morning",
+      "meaningVi": "chào buổi sáng",
+      "pos": "phrase",
+      "phrase": "\"Good morning,\" Minh says",
+      "phraseVi": "\"Chào buổi sáng,\" Minh nói",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "Hello",
+      "lemma": "hello",
+      "meaningVi": "xin chào",
+      "pos": "interjection",
+      "phrase": "Hello, I'm Maria",
+      "phraseVi": "Xin chào, tôi là Maria",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "new",
+      "lemma": "new",
+      "meaningVi": "mới",
+      "pos": "adjective",
+      "phrase": "Are you new here?",
+      "phraseVi": "Anh là người mới ở đây à?",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "name",
+      "lemma": "name",
+      "meaningVi": "tên",
+      "pos": "noun",
+      "phrase": "my name is Minh",
+      "phraseVi": "tên tôi là Minh",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "Nice to meet you",
+      "lemma": "nice to meet you",
+      "meaningVi": "rất vui được gặp bạn",
+      "pos": "phrase",
+      "phrase": "Nice to meet you, Minh",
+      "phraseVi": "Rất vui được gặp anh, Minh",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "from",
+      "lemma": "from",
+      "meaningVi": "đến từ",
+      "pos": "preposition",
+      "phrase": "she is from Spain",
+      "phraseVi": "cô đến từ Tây Ban Nha",
+      "sentenceIndex": 10
+    },
+    {
+      "text": "teacher",
+      "lemma": "teacher",
+      "meaningVi": "giáo viên",
+      "pos": "noun",
+      "phrase": "She is a teacher",
+      "phraseVi": "Cô là giáo viên",
+      "sentenceIndex": 11
+    },
+    {
+      "text": "live",
+      "lemma": "live",
+      "meaningVi": "sống",
+      "pos": "verb",
+      "phrase": "I live near here",
+      "phraseVi": "Tôi sống ở gần đây",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng",
+      "pos": "noun",
+      "phrase": "Is your office near here",
+      "phraseVi": "Văn phòng của anh có ở gần đây không",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "him",
+      "lemma": "him",
+      "meaningVi": "anh ấy (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "she asks him",
+      "phraseVi": "cô hỏi anh",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "friends",
+      "lemma": "friend",
+      "meaningVi": "người bạn",
+      "pos": "noun",
+      "phrase": "These are my friends",
+      "phraseVi": "Đây là bạn của tôi",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "them",
+      "lemma": "them",
+      "meaningVi": "họ (tân ngữ)",
+      "pos": "pronoun",
+      "phrase": "Minh says hello to them",
+      "phraseVi": "Minh chào họ",
+      "sentenceIndex": 18
+    },
+    {
+      "text": "phone number",
+      "lemma": "phone number",
+      "meaningVi": "số điện thoại",
+      "pos": "noun",
+      "phrase": "writes her phone number for him",
+      "phraseVi": "viết số điện thoại của cô cho anh",
+      "sentenceIndex": 19
+    },
+    {
+      "text": "Bye",
+      "lemma": "bye",
+      "meaningVi": "chào nhé, tạm biệt",
+      "pos": "interjection",
+      "phrase": "Bye, see you tomorrow",
+      "phraseVi": "Chào nhé, hẹn gặp lại ngày mai",
+      "sentenceIndex": 20
+    },
+    {
+      "text": "tomorrow",
+      "lemma": "tomorrow",
+      "meaningVi": "ngày mai",
+      "pos": "adverb",
+      "phrase": "see you tomorrow",
+      "phraseVi": "hẹn gặp lại ngày mai",
+      "sentenceIndex": 20
+    }
+  ]
+}

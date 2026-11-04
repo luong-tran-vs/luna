@@ -1,72 +1,72 @@
 {
-  "content": "My name is Mai, and I am six. This is a picture of my dream bedroom.\n\nIn my dream bedroom, there is a big pink bed. There are ten toys on the bed. There is a television on the wall, and there is a small table in front of it. There are a lot of stars on the wall too.\n\nThere is a big window, and behind the window, there is a garden with flowers and a small pool. There is a door to the garden, so I am in the garden every morning.\n\nIs there a bed for Milo? Yes, there is! His bed is under my bed, and it is pink too.\n\nMy real bedroom isn't big, and it isn't pink. But I love my picture!",
+  "content": "Mai works in an office on Tran Phu Street. Her desk isn't very nice, so she wants some flowers for it.\n\nAfter work, she goes to a small flower shop near her office. This shop sells flowers from Da Lat.\n\nThis yellow rose on the table is beautiful. Mai takes it and asks Mrs Ha, the cashier, \"What is the price of this rose?\"\n\n\"It's 30,000 dong, and these little white flowers are 20,000 dong each,\" Mrs Ha says.\n\nThen Mai looks at the big red flowers near the door. \"How much are those red flowers?\" she asks.\n\n\"Those red flowers are 250,000 dong,\" Mrs Ha answers.\n\nThose flowers are expensive, and Mai isn't rich. So she buys this yellow rose and two little white flowers. She pays 70,000 dong. Now her desk is very pretty!",
   "targetWords": [
-    "picture",
-    "bedroom",
-    "bed",
-    "television",
-    "wall",
-    "window",
-    "garden",
-    "door"
+    "shop",
+    "small",
+    "sell",
+    "price",
+    "cashier",
+    "expensive",
+    "buy",
+    "pay"
   ],
   "annotate": {
     "annotations": [
       {
-        "text": "picture",
-        "lemma": "picture",
-        "meaningVi": "bức tranh",
-        "pos": "noun",
-        "sentenceIndex": 1
+        "text": "small",
+        "lemma": "small",
+        "meaningVi": "nhỏ",
+        "pos": "adjective",
+        "sentenceIndex": 2
       },
       {
-        "text": "bedroom",
-        "lemma": "bedroom",
-        "meaningVi": "phòng ngủ",
-        "pos": "noun",
-        "sentenceIndex": 1
-      },
-      {
-        "text": "bed",
-        "lemma": "bed",
-        "meaningVi": "cái giường",
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
         "pos": "noun",
         "sentenceIndex": 2
       },
       {
-        "text": "television",
-        "lemma": "television",
-        "meaningVi": "ti vi",
-        "pos": "noun",
-        "sentenceIndex": 4
+        "text": "sells",
+        "lemma": "sell",
+        "meaningVi": "bán",
+        "pos": "verb",
+        "sentenceIndex": 3
       },
       {
-        "text": "wall",
-        "lemma": "wall",
-        "meaningVi": "bức tường",
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá tiền",
         "pos": "noun",
-        "sentenceIndex": 4
+        "sentenceIndex": 5
       },
       {
-        "text": "window",
-        "lemma": "window",
-        "meaningVi": "cửa sổ",
+        "text": "cashier",
+        "lemma": "cashier",
+        "meaningVi": "người thu ngân",
         "pos": "noun",
-        "sentenceIndex": 6
+        "sentenceIndex": 5
       },
       {
-        "text": "garden",
-        "lemma": "garden",
-        "meaningVi": "khu vườn",
-        "pos": "noun",
-        "sentenceIndex": 6
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 10
       },
       {
-        "text": "door",
-        "lemma": "door",
-        "meaningVi": "cánh cửa",
-        "pos": "noun",
-        "sentenceIndex": 7
+        "text": "buys",
+        "lemma": "buy",
+        "meaningVi": "mua",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "pays",
+        "lemma": "pay",
+        "meaningVi": "trả tiền",
+        "pos": "verb",
+        "sentenceIndex": 12
       }
     ],
     "questions": [
@@ -75,528 +75,534 @@
         "prompt": "What is the story about?",
         "promptVi": "Câu chuyện nói về điều gì?",
         "options": [
-          "Mai's real bedroom",
-          "Mai's picture of her dream bedroom",
-          "Milo's new bed",
-          "A garden with a pool"
-        ],
-        "answerIndex": 1,
-        "explanationVi": "Mai tả bức tranh căn phòng ngủ mơ ước: giường hồng, đồ chơi, ti vi, khu vườn. Phòng thật của Mai chỉ được nhắc ở cuối."
-      },
-      {
-        "kind": "detail",
-        "prompt": "What colour is the bed in the picture?",
-        "promptVi": "Chiếc giường trong tranh màu gì?",
-        "options": [
-          "Blue",
-          "White",
-          "Pink",
-          "Yellow"
-        ],
-        "answerIndex": 2,
-        "explanationVi": "Bài viết \"there is a big pink bed\": chiếc giường lớn màu hồng."
-      },
-      {
-        "kind": "detail",
-        "prompt": "Where is Milo's bed in the picture?",
-        "promptVi": "Trong tranh, giường của Milo ở đâu?",
-        "options": [
-          "Under Mai's bed",
-          "On the wall",
-          "In the garden",
-          "In front of the television"
+          "Mai buys flowers for her desk",
+          "Mai's new office",
+          "Mrs Ha's family",
+          "A trip to Da Lat"
         ],
         "answerIndex": 0,
-        "explanationVi": "Bài viết \"His bed is under my bed, and it is pink too\"."
+        "explanationVi": "Mai ghé cửa hàng hoa gần văn phòng, hỏi giá rồi mua hoa để trang trí bàn làm việc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is the yellow rose?",
+        "promptVi": "Bông hồng vàng giá bao nhiêu?",
+        "options": [
+          "30,000 dong",
+          "20,000 dong",
+          "250,000 dong",
+          "70,000 dong"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô Hà nói \"It's 30,000 dong\" khi Mai hỏi giá bông hồng vàng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the red flowers?",
+        "promptVi": "Mấy bông hoa đỏ ở đâu?",
+        "options": [
+          "On the table",
+          "Near the door",
+          "On Mai's desk",
+          "In Mai's bag"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"the big red flowers near the door\" (mấy bông hoa đỏ to gần cửa)."
       },
       {
         "kind": "tfn",
-        "prompt": "Mai's real bedroom is big and pink.",
-        "promptVi": "Phòng ngủ thật của Mai rộng và màu hồng.",
+        "prompt": "Mai buys the red flowers.",
+        "promptVi": "Mai mua mấy bông hoa đỏ.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì Mai viết \"My real bedroom isn't big, and it isn't pink\"."
+        "explanationVi": "Sai, hoa đỏ đắt, Mai mua \"this yellow rose and two little white flowers\" (bông hồng vàng và hai bông hoa trắng nhỏ)."
       },
       {
         "kind": "vocab",
-        "prompt": "Trong câu này, \"real\" nghĩa là gì?",
+        "prompt": "Trong câu này, \"expensive\" nghĩa là gì?",
         "promptVi": "",
-        "quote": "My real bedroom isn't big, and it isn't pink.",
+        "quote": "Those flowers are expensive, and Mai isn't rich.",
         "options": [
-          "mơ ước",
-          "mới",
-          "cũ",
-          "thật, ngoài đời"
+          "rẻ",
+          "đắt",
+          "đẹp",
+          "nhỏ"
         ],
-        "answerIndex": 3,
-        "explanationVi": "Real là thật: phòng ngủ thật của Mai, khác với căn phòng mơ ước trong tranh."
+        "answerIndex": 1,
+        "explanationVi": "Expensive là đắt: hoa đỏ giá 250.000 đồng, mà Mai không giàu."
       }
     ],
     "grammarNote": {
-      "title": "There is / there are",
-      "bodyVi": "There is + một vật, there are + nhiều vật. Muốn hỏi \"có … không?\", đưa is / are lên trước there: Is there a bed for Milo? Are there any books? Trả lời ngắn: Yes, there is. / No, there isn't. / Yes, there are. / No, there aren't.",
+      "title": "This / that / these / those",
+      "bodyVi": "This (cái này) và that (cái kia) đi với danh từ số ít; these (những cái này) và those (những cái kia) đi với danh từ số nhiều. Đồ ở gần (trên bàn trước mặt, trên tay) dùng this / these; đồ ở xa (gần cửa, đằng kia) dùng that / those. Một bông hoa: this rose is; nhiều bông hoa: those flowers are.",
       "examples": [
-        "In my dream bedroom, there is a big pink bed.",
-        "There are ten toys on the bed.",
-        "Is there a bed for Milo?"
+        "This yellow rose on the table is beautiful.",
+        "\"How much are those red flowers?\" she asks.",
+        "Those flowers are expensive, and Mai isn't rich."
       ]
     },
-    "writingPrompt": "Write about your dream bedroom: what there is in it and where each thing is.",
+    "writingPrompt": "You are in a flower shop. Write about the flowers near you and the flowers over there, their prices, and what you buy.",
     "sentenceTranslations": [
-      "Em tên là Mai, và em sáu tuổi.",
-      "Đây là bức tranh căn phòng ngủ mơ ước của em.",
-      "Trong phòng ngủ mơ ước của em có một chiếc giường lớn màu hồng.",
-      "Trên giường có mười món đồ chơi.",
-      "Trên tường có một cái ti vi, và trước ti vi có một cái bàn nhỏ.",
-      "Trên tường còn có rất nhiều ngôi sao nữa.",
-      "Có một cửa sổ lớn, và sau cửa sổ là một khu vườn có hoa và một bể bơi nhỏ.",
-      "Có một cánh cửa dẫn ra vườn, nên sáng nào em cũng ra vườn.",
-      "Có giường cho Milo không?",
-      "Có chứ!",
-      "Giường của nó ở dưới giường em, và cũng màu hồng.",
-      "Phòng ngủ thật của em không rộng, và cũng không có màu hồng.",
-      "Nhưng em rất thích bức tranh của mình!"
+      "Mai làm việc ở một văn phòng trên đường Trần Phú.",
+      "Bàn làm việc của cô ấy không đẹp lắm, nên cô ấy muốn mua ít hoa để bàn.",
+      "Tan làm, cô ấy đến một cửa hàng hoa nhỏ gần văn phòng.",
+      "Cửa hàng này bán hoa từ Đà Lạt.",
+      "Bông hồng vàng trên bàn này đẹp quá.",
+      "Mai cầm nó lên và hỏi cô Hà, người thu ngân: \"Bông hồng này giá bao nhiêu ạ?\"",
+      "\"30.000 đồng, còn mấy bông hoa trắng nhỏ này 20.000 đồng một bông,\" cô Hà nói.",
+      "Rồi Mai nhìn mấy bông hoa đỏ to gần cửa.",
+      "\"Mấy bông hoa đỏ kia bao nhiêu tiền ạ?\" cô ấy hỏi.",
+      "\"Mấy bông hoa đỏ kia giá 250.000 đồng,\" cô Hà trả lời.",
+      "Mấy bông hoa đó đắt, mà Mai lại không giàu.",
+      "Vậy nên cô ấy mua bông hồng vàng này và hai bông hoa trắng nhỏ.",
+      "Cô ấy trả 70.000 đồng.",
+      "Giờ bàn làm việc của cô ấy đẹp lắm!"
     ]
   },
   "practice": {
-    "objectiveVi": "Bạn có thể tả căn phòng mơ ước bằng there is / there are và hỏi \"có … không?\" bằng Is there …? / Are there …?",
+    "objectiveVi": "Bạn có thể hỏi giá món đồ ở gần (this, these) và món đồ ở xa (that, those) trong cửa hàng hoa.",
     "examples": [
       {
-        "lemma": "picture",
-        "sentence": "This picture is very beautiful.",
-        "meaningVi": "Bức tranh này rất đẹp."
+        "lemma": "shop",
+        "sentence": "There is a flower shop near my home.",
+        "meaningVi": "Gần nhà mình có một cửa hàng hoa."
       },
       {
-        "lemma": "bedroom",
-        "sentence": "Is there a television in your bedroom?",
-        "meaningVi": "Phòng ngủ của bạn có ti vi không?"
+        "lemma": "small",
+        "sentence": "This small bag is very cute.",
+        "meaningVi": "Cái túi nhỏ này rất dễ thương."
       },
       {
-        "lemma": "bed",
-        "sentence": "There is a teddy bear on my bed.",
-        "meaningVi": "Trên giường mình có một con gấu bông."
+        "lemma": "sell",
+        "sentence": "They sell flowers and cards.",
+        "meaningVi": "Họ bán hoa và thiệp."
       },
       {
-        "lemma": "television",
-        "sentence": "The television is on the wall.",
-        "meaningVi": "Cái ti vi được treo trên tường."
+        "lemma": "price",
+        "sentence": "What is the price of that rose?",
+        "meaningVi": "Bông hồng kia giá bao nhiêu?"
       },
       {
-        "lemma": "wall",
-        "sentence": "My bedroom wall is blue.",
-        "meaningVi": "Tường phòng ngủ của mình màu xanh."
+        "lemma": "cashier",
+        "sentence": "The cashier is very nice.",
+        "meaningVi": "Người thu ngân rất dễ mến."
       },
       {
-        "lemma": "window",
-        "sentence": "Are there flowers near the window?",
-        "meaningVi": "Gần cửa sổ có hoa không?"
+        "lemma": "expensive",
+        "sentence": "These red roses are expensive.",
+        "meaningVi": "Mấy bông hồng đỏ này đắt."
       },
       {
-        "lemma": "garden",
-        "sentence": "There is a small pool in the garden.",
-        "meaningVi": "Trong vườn có một bể bơi nhỏ."
+        "lemma": "buy",
+        "sentence": "I buy flowers for my mother.",
+        "meaningVi": "Mình mua hoa tặng mẹ."
       },
       {
-        "lemma": "door",
-        "sentence": "There is a picture on the door.",
-        "meaningVi": "Trên cánh cửa có một bức tranh."
+        "lemma": "pay",
+        "sentence": "I pay 30,000 dong for a rose.",
+        "meaningVi": "Mình trả 30.000 đồng cho một bông hồng."
       }
     ],
     "dialogue": {
       "speakers": [
-        "Lan",
+        "Phuong",
         "Mai"
       ],
       "turns": [
         {
           "speaker": 0,
-          "text": "Mai, is this your picture?",
-          "meaningVi": "Mai ơi, đây là tranh của em à?"
+          "text": "Mai, these flowers are beautiful! Are they new?",
+          "meaningVi": "Mai ơi, mấy bông hoa này đẹp quá! Hoa mới à?"
         },
         {
           "speaker": 1,
-          "text": "Yes! It's my dream bedroom.",
-          "meaningVi": "Vâng! Đó là phòng ngủ mơ ước của em."
+          "text": "Yes, they are. They are from a flower shop near our office.",
+          "meaningVi": "Ừ. Hoa mua ở một cửa hàng hoa gần văn phòng mình đấy."
         },
         {
           "speaker": 0,
-          "text": "Is there a computer in it?",
-          "meaningVi": "Trong đó có máy tính không?"
+          "text": "What is the name of that shop?",
+          "meaningVi": "Cửa hàng đó tên là gì?"
         },
         {
           "speaker": 1,
-          "text": "No, there isn't. But there's a big television.",
-          "meaningVi": "Không có ạ. Nhưng có một cái ti vi to."
+          "text": "It's Ha Flowers. It's on Tran Phu Street.",
+          "meaningVi": "Tên là Ha Flowers. Nó ở trên đường Trần Phú."
         },
         {
           "speaker": 0,
-          "text": "Are there any books?",
-          "meaningVi": "Có quyển sách nào không?"
+          "text": "Is this yellow rose expensive?",
+          "meaningVi": "Bông hồng vàng này có đắt không?"
         },
         {
           "speaker": 1,
-          "text": "Yes, there are. They're on a pink shelf.",
-          "meaningVi": "Có ạ. Sách ở trên một cái giá màu hồng."
+          "text": "No, it isn't. It's only 30,000 dong.",
+          "meaningVi": "Không đắt đâu. Chỉ 30.000 đồng thôi."
         },
         {
           "speaker": 0,
-          "text": "And who is this girl in the garden?",
-          "meaningVi": "Còn bạn gái trong vườn này là ai?"
+          "text": "That's a good price! And those white flowers?",
+          "meaningVi": "Giá tốt đấy! Còn mấy bông hoa trắng kia?"
         },
         {
           "speaker": 1,
-          "text": "That's me! And the cat is Milo.",
-          "meaningVi": "Là em đấy! Còn con mèo là Milo."
+          "text": "They are 20,000 dong each.",
+          "meaningVi": "20.000 đồng một bông."
         },
         {
           "speaker": 0,
-          "text": "Is there a room for me?",
-          "meaningVi": "Có phòng cho chị không?"
-        },
-        {
-          "speaker": 1,
-          "text": "Yes, there is. Your room is near my room!",
-          "meaningVi": "Có chứ. Phòng của chị ở gần phòng em!"
+          "text": "Great! I want some flowers for my desk too.",
+          "meaningVi": "Tuyệt! Mình cũng muốn mua ít hoa để bàn."
         }
       ]
     },
-    "grammarTipVi": "Trả lời ngắn không viết gọn khi có Yes: nói \"Yes, there is.\", không nói \"Yes, there's.\". Khi có No thì viết gọn được: \"No, there isn't.\"",
+    "grammarTipVi": "Một bông hoa ở gần: this rose; nhiều bông ở gần: these flowers. Ở xa: that rose, those flowers. Nhiều bông thì dùng are: \"How much are those red flowers?\"",
     "translations": [
       {
-        "vi": "Trong phòng tôi có một chiếc giường màu hồng.",
-        "en": "There is a pink bed in my room.",
+        "vi": "Bông hồng vàng này giá bao nhiêu?",
+        "en": "What is the price of this yellow rose?",
         "distractors": [
+          "these",
           "are",
-          "has",
-          "on"
+          "that"
         ]
       },
       {
-        "vi": "Trên tường có rất nhiều ngôi sao.",
-        "en": "There are a lot of stars on the wall.",
+        "vi": "Mấy bông hoa đỏ kia đắt.",
+        "en": "Those red flowers are expensive.",
         "distractors": [
+          "That",
           "is",
-          "in",
-          "star"
+          "These"
         ]
       },
       {
-        "vi": "Có cửa sổ không?",
-        "en": "Is there a window?",
+        "vi": "Cửa hàng này bán hoa.",
+        "en": "This shop sells flowers.",
         "distractors": [
-          "Are",
-          "Has",
-          "it"
+          "These",
+          "selling",
+          "buys"
         ]
       },
       {
-        "vi": "Sau cửa sổ có một khu vườn.",
-        "en": "There is a garden behind the window.",
+        "vi": "Cô ấy mua bông hồng vàng này.",
+        "en": "She buys this yellow rose.",
         "distractors": [
-          "are",
-          "in",
-          "front"
+          "Her",
+          "that",
+          "buying"
+        ]
+      },
+      {
+        "vi": "Cô ấy trả 70.000 đồng.",
+        "en": "She pays 70,000 dong.",
+        "distractors": [
+          "Her",
+          "paying",
+          "is"
         ]
       }
     ],
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Lan và Mai nói chuyện về điều gì?",
+        "prompt": "Hai người nói về điều gì?",
         "promptVi": "",
         "options": [
-          "Bức tranh phòng ngủ mơ ước của Mai",
-          "Phòng của Lan",
-          "Một bài học vẽ ở trường"
+          "Hoa trên bàn làm việc của Mai",
+          "Một chuyến đi Đà Lạt",
+          "Một cửa hàng giày"
         ],
         "answerIndex": 0,
-        "explanationVi": "Lan hỏi về bức tranh (\"is this your picture?\") và Mai kể trong phòng mơ ước có gì.",
+        "explanationVi": "Phương khen \"these flowers are beautiful\" và hỏi Mai mua hoa ở đâu, giá bao nhiêu.",
         "turnIndex": -1
       },
       {
         "kind": "detail",
-        "prompt": "Trong phòng mơ ước có máy tính không?",
+        "prompt": "Cửa hàng hoa tên là gì?",
         "promptVi": "",
         "options": [
-          "Có, ở trên bàn",
-          "Không có",
-          "Có hai cái"
+          "Ha Flowers",
+          "Mai Flowers",
+          "Phuong Flowers"
         ],
-        "answerIndex": 1,
-        "explanationVi": "Mai nói \"No, there isn't. But there's a big television\": không có máy tính, chỉ có ti vi.",
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"It's Ha Flowers\".",
         "turnIndex": 3
       },
       {
         "kind": "detail",
-        "prompt": "Sách ở đâu?",
+        "prompt": "Bông hồng vàng giá bao nhiêu?",
         "promptVi": "",
         "options": [
-          "Dưới gầm giường",
-          "Trong vườn",
-          "Trên giá màu hồng"
+          "30.000 đồng",
+          "20.000 đồng",
+          "250.000 đồng"
         ],
-        "answerIndex": 2,
-        "explanationVi": "Mai nói \"They're on a pink shelf\".",
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"It's only 30,000 dong\".",
         "turnIndex": 5
       },
       {
         "kind": "tfn",
-        "prompt": "There is a room for Lan in the picture.",
-        "promptVi": "Trong tranh có một phòng cho Lan.",
+        "prompt": "Phuong wants flowers for her desk.",
+        "promptVi": "Phương muốn mua hoa để bàn làm việc.",
         "options": [],
         "answerIndex": 0,
-        "explanationVi": "Đúng, vì Mai nói \"Yes, there is. Your room is near my room!\"",
-        "turnIndex": 9
+        "explanationVi": "Đúng, Phương nói \"I want some flowers for my desk too\".",
+        "turnIndex": 8
       }
     ],
-    "readingGuideVi": "Trong căn phòng mơ ước của Mai có những gì?",
+    "readingGuideVi": "Mai hỏi giá những bông hoa nào, và cuối cùng cô ấy mua gì?",
     "grammarStep": {
-      "titleVi": "There is / there are",
+      "titleVi": "This / that / these / those",
       "noticing": [
         {
-          "sentence": "In my dream bedroom, there is a big pink bed.",
+          "sentence": "This yellow rose on the table is beautiful.",
           "highlights": [
-            "there is"
+            "This yellow rose"
           ]
         },
         {
-          "sentence": "There are ten toys on the bed.",
+          "sentence": "\"It's 30,000 dong, and these little white flowers are 20,000 dong each,\" Mrs Ha says.",
           "highlights": [
-            "There are"
+            "these little white flowers"
           ]
         },
         {
-          "sentence": "Is there a bed for Milo?",
+          "sentence": "\"How much are those red flowers?\" she asks.",
           "highlights": [
-            "Is there"
-          ]
-        },
-        {
-          "sentence": "Yes, there is!",
-          "highlights": [
-            "there is"
+            "those red flowers"
           ]
         }
       ],
-      "questionVi": "Muốn hỏi \"có … không?\", ta đặt từ nào lên đầu câu?",
+      "questionVi": "Vì sao Mai nói this yellow rose nhưng lại nói those red flowers?",
       "options": [
-        "There",
-        "Is (hoặc Are)",
-        "Yes"
+        "Vì hoa hồng rẻ hơn",
+        "Vì bông hồng vàng ở trên bàn ngay trước mặt Mai (gần, một bông), còn mấy bông hoa đỏ ở gần cửa (xa, nhiều bông)",
+        "Vì this chỉ dùng cho màu vàng"
       ],
       "answerIndex": 1,
-      "explanationVi": "Câu kể là There is a bed; câu hỏi đổi chỗ thành Is there a bed …? Với số nhiều: Are there any toys?",
-      "whenVi": "Dùng Is there …? / Are there …? để hỏi một nơi có cái gì không, và trả lời ngắn bằng Yes, there is / No, there isn't.",
+      "explanationVi": "Gần + một vật → this; gần + nhiều vật → these; xa + nhiều vật → those. Bông hồng trên bàn là this yellow rose; hoa đỏ gần cửa là those red flowers.",
+      "whenVi": "Dùng this / these cho đồ ở gần mình (trên bàn trước mặt, trên tay) và that / those cho đồ ở xa (gần cửa, đằng kia).",
       "table": [
         {
-          "subject": "câu hỏi số ít",
-          "form": "Is there a bed for Milo? – Yes, there is.",
-          "negative": "No, there isn't."
+          "subject": "this + số ít (gần)",
+          "form": "This rose is yellow.",
+          "negative": "This rose isn't red."
         },
         {
-          "subject": "câu hỏi số nhiều",
-          "form": "Are there any books? – Yes, there are.",
-          "negative": "No, there aren't."
+          "subject": "these + số nhiều (gần)",
+          "form": "These flowers are white.",
+          "negative": "These flowers aren't expensive."
         },
         {
-          "subject": "câu kể",
-          "form": "There is a pink bed. There are ten toys.",
-          "negative": "There isn't a computer."
+          "subject": "that / those (xa)",
+          "form": "That rose is red. Those flowers are big.",
+          "negative": "Those flowers aren't small."
         }
       ],
       "mistakes": [
         {
-          "wrong": "There is a bed for Milo?",
-          "right": "Is there a bed for Milo?"
+          "wrong": "How much is those flowers?",
+          "right": "How much are those flowers?"
         },
         {
-          "wrong": "Yes, there's.",
-          "right": "Yes, there is."
+          "wrong": "This flowers are beautiful.",
+          "right": "These flowers are beautiful."
         }
       ],
-      "noteVi": "Tiếng Việt hỏi bằng cách thêm \"không\" ở cuối câu (\"Có giường cho Milo không?\"), nên người Việt hay giữ nguyên thứ tự câu kể khi hỏi.",
+      "noteVi": "Tiếng Việt nói \"bông hoa này\" hay \"mấy bông hoa này\" đều dùng \"này\". Tiếng Anh phải đổi: this rose → these roses, that flower → those flowers.",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền Is hoặc Are vào chỗ trống.",
-          "text": "___ there any toys on the bed? – Yes, there are.",
+          "promptVi": "Điền that hoặc those vào chỗ trống (hoa ở gần cửa).",
+          "text": "___ flowers near the door are red.",
           "answers": [
-            "Are"
+            "Those"
           ],
-          "explanationVi": "Any toys là số nhiều, nên hỏi bằng Are there …?"
+          "explanationVi": "Flowers là số nhiều và ở xa (gần cửa), nên dùng Those."
         },
         {
           "kind": "choice",
-          "promptVi": "Chọn từ đúng.",
-          "text": "Is there a garden behind the window? – Yes, there ___.",
+          "promptVi": "Chọn từ đúng (bông hồng trên tay bạn).",
+          "text": "___ rose in my hand is yellow.",
           "options": [
-            "are",
-            "is",
-            "has",
-            "be"
+            "These",
+            "Those",
+            "This",
+            "That"
           ],
-          "answerIndex": 1,
-          "explanationVi": "Hỏi bằng Is there thì trả lời ngắn Yes, there is."
+          "answerIndex": 2,
+          "explanationVi": "Một bông hồng (số ít) ở gần (trên tay), nên dùng This."
         },
         {
           "kind": "fix",
-          "promptVi": "Câu hỏi sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "There is a television in your room?",
-          "sentence": "Is there a television in your room?",
-          "explanationVi": "Câu hỏi đưa is lên trước there: Is there …?"
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "These rose is beautiful.",
+          "sentence": "This rose is beautiful.",
+          "explanationVi": "Rose là số ít và đi với is, nên phải dùng this, không dùng these."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
-          "text": "Có giường cho Milo không?",
-          "sentence": "Is there a bed for Milo?",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mấy bông hoa trắng này nhỏ.",
+          "sentence": "These white flowers are small.",
           "words": [
-            "bed",
-            "there",
-            "Is",
-            "a",
-            "for",
-            "Milo",
-            "Are"
+            "small",
+            "white",
+            "These",
+            "are",
+            "flowers",
+            "This"
           ],
-          "explanationVi": "A bed là số ít nên hỏi bằng Is there; từ \"Are\" bị thừa."
+          "explanationVi": "Flowers là số nhiều và ở gần nên đi với These; từ \"This\" bị thừa."
         }
       ]
     },
     "readAloud": [
       {
-        "text": "There are a lot of stars on the wall too.",
-        "tipVi": "Stars /stɑːrz/ có cụm /st/ ở đầu và /z/ ở cuối, đừng đọc thành \"sờ-ta\"."
+        "text": "This yellow rose on the table is beautiful.",
+        "tipVi": "Rose /rəʊz/ cuối là /z/; yellow /ˈjeləʊ/ nhấn âm đầu \"ye\"."
       },
       {
-        "text": "In my dream bedroom, there is a big pink bed.",
-        "tipVi": "Dream /driːm/ có cụm /dr/ đọc liền; pink /pɪŋk/ kết thúc bằng /ŋk/."
+        "text": "Those flowers are expensive, and Mai isn't rich.",
+        "tipVi": "Flowers /ˈflaʊəz/ đọc như \"flao-ơz\", nhớ âm /z/ ở cuối."
       }
     ],
     "speakQuestions": [
       {
-        "question": "What colour is your bedroom?",
-        "questionVi": "Phòng ngủ của bạn màu gì?",
-        "frame": "My bedroom is ___."
+        "question": "What is your favourite flower?",
+        "questionVi": "Bạn thích loài hoa nào nhất?",
+        "frame": "My favourite flower is ___."
       },
       {
-        "question": "Is there a television in your bedroom?",
-        "questionVi": "Phòng ngủ của bạn có ti vi không?",
-        "frame": "Yes, there is. / No, there isn't. There is ___ in my bedroom."
+        "question": "Is there a flower shop near your home?",
+        "questionVi": "Gần nhà bạn có cửa hàng hoa không?",
+        "frame": "Yes, there is. / No, there isn't."
       },
       {
-        "question": "What is in your brother's or sister's bedroom?",
-        "questionVi": "Trong phòng ngủ của anh chị em bạn có gì?",
-        "frame": "In his / her bedroom, there is ___."
+        "question": "What colour is your desk?",
+        "questionVi": "Bàn của bạn màu gì?",
+        "frame": "My desk is ___."
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu dùng there is hoặc there are",
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
       "anyOf": [
-        "there is",
-        "there are",
-        "is there",
-        "are there",
-        "there's"
+        "this",
+        "that",
+        "these",
+        "those"
       ],
       "outlineVi": [
-        "Giới thiệu bức tranh căn phòng mơ ước của bạn.",
-        "Kể trong phòng có gì và ở đâu (giường, ti vi, sách).",
-        "Nói ngoài cửa sổ có gì."
+        "Nói bạn đang ở cửa hàng hoa nào.",
+        "Tả bông hoa ở gần bạn (this, these) và giá của nó.",
+        "Tả hoa ở đằng kia (that, those), rồi nói bạn mua gì."
       ],
-      "modelAnswer": "This is a picture of my dream bedroom. There is a big blue bed near the window. There are a lot of books on the wall. There is a television in front of my bed. Behind the window, there is a garden with a small pool. Is there a desk? Yes, there is!"
+      "modelAnswer": "I am in a flower shop near my home. These white roses on the table are 25,000 dong each. Those yellow flowers near the door are beautiful, but they are expensive. I buy three white roses for my mother."
     }
   },
   "glosses": [
     {
-      "text": "dream",
-      "lemma": "dream",
-      "meaningVi": "mơ ước",
+      "text": "works",
+      "lemma": "work",
+      "meaningVi": "làm việc",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Mai works in an office",
+      "phraseVi": "Mai làm việc ở một văn phòng"
+    },
+    {
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "an office on Tran Phu Street",
+      "phraseVi": "một văn phòng trên đường Trần Phú"
+    },
+    {
+      "text": "desk",
+      "lemma": "desk",
+      "meaningVi": "bàn làm việc",
       "sentenceIndex": 1,
       "pos": "noun",
-      "phrase": "my dream bedroom",
-      "phraseVi": "căn phòng ngủ mơ ước của em"
+      "phrase": "Her desk isn't very nice",
+      "phraseVi": "Bàn làm việc của cô ấy không đẹp lắm"
     },
     {
-      "text": "pink",
-      "lemma": "pink",
-      "meaningVi": "màu hồng",
+      "text": "flowers",
+      "lemma": "flower",
+      "meaningVi": "bông hoa",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "some flowers for it",
+      "phraseVi": "ít hoa để bàn"
+    },
+    {
+      "text": "After work",
+      "lemma": "after work",
+      "meaningVi": "tan làm, sau giờ làm",
       "sentenceIndex": 2,
-      "pos": "adjective",
-      "phrase": "a big pink bed",
-      "phraseVi": "một chiếc giường lớn màu hồng"
-    },
-    {
-      "text": "toys",
-      "lemma": "toy",
-      "meaningVi": "đồ chơi",
-      "sentenceIndex": 3,
-      "pos": "noun",
-      "phrase": "ten toys on the bed",
-      "phraseVi": "mười món đồ chơi trên giường"
-    },
-    {
-      "text": "in front of",
-      "lemma": "in front of",
-      "meaningVi": "phía trước",
-      "sentenceIndex": 4,
-      "pos": "preposition",
-      "phrase": "in front of it",
-      "phraseVi": "trước ti vi"
-    },
-    {
-      "text": "stars",
-      "lemma": "star",
-      "meaningVi": "ngôi sao",
-      "sentenceIndex": 5,
-      "pos": "noun",
-      "phrase": "a lot of stars",
-      "phraseVi": "rất nhiều ngôi sao"
-    },
-    {
-      "text": "behind",
-      "lemma": "behind",
-      "meaningVi": "phía sau",
-      "sentenceIndex": 6,
-      "pos": "preposition",
-      "phrase": "behind the window",
-      "phraseVi": "sau cửa sổ"
-    },
-    {
-      "text": "pool",
-      "lemma": "pool",
-      "meaningVi": "bể bơi",
-      "sentenceIndex": 6,
-      "pos": "noun",
-      "phrase": "a small pool",
-      "phraseVi": "một bể bơi nhỏ"
-    },
-    {
-      "text": "every morning",
-      "lemma": "every morning",
-      "meaningVi": "mỗi sáng",
-      "sentenceIndex": 7,
       "pos": "phrase",
-      "phrase": "in the garden every morning",
-      "phraseVi": "sáng nào cũng ra vườn"
+      "phrase": "After work",
+      "phraseVi": "Tan làm"
     },
     {
-      "text": "real",
-      "lemma": "real",
-      "meaningVi": "thật",
-      "sentenceIndex": 11,
-      "pos": "adjective",
-      "phrase": "My real bedroom",
-      "phraseVi": "Phòng ngủ thật của em"
+      "text": "rose",
+      "lemma": "rose",
+      "meaningVi": "hoa hồng",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "This yellow rose",
+      "phraseVi": "Bông hồng vàng này"
     },
     {
-      "text": "love",
-      "lemma": "love",
-      "meaningVi": "rất thích",
-      "sentenceIndex": 12,
+      "text": "takes",
+      "lemma": "take",
+      "meaningVi": "cầm lấy",
+      "sentenceIndex": 5,
       "pos": "verb",
-      "phrase": "I love my picture",
-      "phraseVi": "em rất thích bức tranh của mình"
+      "phrase": "Mai takes it",
+      "phraseVi": "Mai cầm nó lên"
+    },
+    {
+      "text": "each",
+      "lemma": "each",
+      "meaningVi": "mỗi cái, mỗi bông",
+      "sentenceIndex": 6,
+      "pos": "adverb",
+      "phrase": "20,000 dong each",
+      "phraseVi": "20.000 đồng một bông"
+    },
+    {
+      "text": "door",
+      "lemma": "door",
+      "meaningVi": "cửa ra vào",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "near the door",
+      "phraseVi": "gần cửa"
+    },
+    {
+      "text": "rich",
+      "lemma": "rich",
+      "meaningVi": "giàu",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "Mai isn't rich",
+      "phraseVi": "Mai không giàu"
+    },
+    {
+      "text": "pretty",
+      "lemma": "pretty",
+      "meaningVi": "đẹp, xinh",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "her desk is very pretty",
+      "phraseVi": "bàn làm việc của cô ấy đẹp lắm"
     }
   ]
 }

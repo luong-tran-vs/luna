@@ -1,0 +1,579 @@
+{
+  "content": "On Saturday afternoon, Mrs Ngoc and her son, Khoi, are at Thong Nhat Park. Khoi is seven. Khoi's parents have a lot of work, so Saturday is their family day. Her daughter, Mi, is at home with her father. She is Khoi's big sister.\n\nNow Khoi is very sad. \"Mum, my bag isn't here!\" he says.\n\nThey go to Mr Tam at the park office. Mrs Ngoc says, \"Excuse me. My son's bag isn't here. It is blue, and it has a yellow cat on it.\"\nMr Tam asks, \"What is in the bag?\"\n\"His water bottle and his books,\" she says.\nMr Tam has a blue bag in his office. \"Is this your son's bag?\" he asks.\n\"Yes, it is!\" says Khoi.\n\nMrs Ngoc calls home. \"We have the bag!\" she says.\nMi asks, \"Is my brother happy now?\"\n\"Yes, he is,\" her mother says.",
+  "targetWords": [
+    "family",
+    "parents",
+    "father",
+    "mother",
+    "son",
+    "daughter",
+    "brother",
+    "sister"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "son",
+        "lemma": "son",
+        "meaningVi": "con trai",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "parents",
+        "lemma": "parents",
+        "meaningVi": "bố mẹ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "family",
+        "lemma": "family",
+        "meaningVi": "gia đình",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "daughter",
+        "lemma": "daughter",
+        "meaningVi": "con gái",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "father",
+        "lemma": "father",
+        "meaningVi": "bố, cha",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sister",
+        "lemma": "sister",
+        "meaningVi": "chị gái, em gái",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "brother",
+        "lemma": "brother",
+        "meaningVi": "anh trai, em trai",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "mother",
+        "lemma": "mother",
+        "meaningVi": "mẹ",
+        "pos": "noun",
+        "sentenceIndex": 19
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Khoi's new school",
+          "Khoi's bag at the park",
+          "Mi's birthday",
+          "A new park in the city"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ở công viên, Khôi không thấy túi của mình; mẹ và Khôi hỏi bác Tâm ở văn phòng công viên và tìm lại được túi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Khoi?",
+        "promptVi": "Khôi bao nhiêu tuổi?",
+        "options": [
+          "Four",
+          "Five",
+          "Seven",
+          "Nine"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Khoi is seven\": Khôi bảy tuổi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is on Khoi's bag?",
+        "promptVi": "Trên túi của Khôi có hình gì?",
+        "options": [
+          "A blue dog",
+          "A yellow cat",
+          "A big book",
+          "A red fish"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mẹ Khôi nói \"it has a yellow cat on it\": túi có hình một con mèo vàng."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mi is at the park.",
+        "promptVi": "Mi đang ở công viên.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Her daughter, Mi, is at home with her father\": Mi ở nhà với bố."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"son\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mrs Ngoc and her son, Khoi, are at Thong Nhat Park.",
+        "options": [
+          "con gái",
+          "con trai",
+          "anh trai",
+          "bạn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Son là con trai: Khôi là con trai của chị Ngọc."
+      }
+    ],
+    "grammarNote": {
+      "title": "my, your, his, her",
+      "bodyVi": "Tính từ sở hữu đứng trước danh từ: my bag (túi của con), your son's bag (túi của con trai chị), his books (sách của cậu bé), her daughter (con gái chị ấy). My là của tôi, your là của bạn, his là của anh ấy hoặc cậu bé, her là của chị ấy. Có thể ghép với 's: my son's bag (túi của con trai tôi). Has nói vật có gì: it has a yellow cat on it.",
+      "examples": [
+        "\"Is this your son's bag?\" he asks.",
+        "Her daughter, Mi, is at home with her father.",
+        "\"His water bottle and his books,\" she says."
+      ]
+    },
+    "writingPrompt": "Write about a bag in your family: whose bag it is, what colour it is and what is in it.",
+    "sentenceTranslations": [
+      "Chiều thứ Bảy, chị Ngọc và con trai là Khôi đang ở công viên Thống Nhất.",
+      "Khôi bảy tuổi.",
+      "Bố mẹ Khôi có nhiều việc, nên thứ Bảy là ngày của gia đình.",
+      "Con gái chị là Mi đang ở nhà với bố.",
+      "Mi là chị gái của Khôi.",
+      "Bây giờ Khôi rất buồn.",
+      "\"Mẹ ơi, túi của con không có ở đây!\" cậu bé nói.",
+      "Hai mẹ con đến chỗ bác Tâm ở văn phòng công viên.",
+      "Chị Ngọc nói: \"Xin lỗi bác.",
+      "Túi của con trai tôi không thấy đâu.",
+      "Túi màu xanh dương, có hình một con mèo màu vàng.\"",
+      "Bác Tâm hỏi: \"Trong túi có gì?\"",
+      "\"Chai nước và sách của cháu,\" chị nói.",
+      "Bác Tâm có một cái túi màu xanh dương trong phòng làm việc.",
+      "\"Đây có phải túi của con trai chị không?\" bác hỏi.",
+      "\"Đúng rồi ạ!\" Khôi nói.",
+      "Chị Ngọc gọi điện về nhà.",
+      "\"Mẹ tìm được túi rồi!\" chị nói.",
+      "Mi hỏi: \"Em con vui chưa mẹ?\"",
+      "\"Vui rồi con,\" mẹ nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và nói đồ vật là của ai trong gia đình, dùng my / your / his / her và 's.",
+    "examples": [
+      {
+        "lemma": "family",
+        "sentence": "Saturday is our family day.",
+        "meaningVi": "Thứ Bảy là ngày của gia đình mình."
+      },
+      {
+        "lemma": "parents",
+        "sentence": "His parents have a lot of work.",
+        "meaningVi": "Bố mẹ cậu bé có nhiều việc."
+      },
+      {
+        "lemma": "father",
+        "sentence": "She is at home with her father.",
+        "meaningVi": "Cô bé ở nhà với bố."
+      },
+      {
+        "lemma": "mother",
+        "sentence": "His mother has his bag.",
+        "meaningVi": "Mẹ cậu bé cầm túi của cậu."
+      },
+      {
+        "lemma": "son",
+        "sentence": "My son is seven.",
+        "meaningVi": "Con trai tôi bảy tuổi."
+      },
+      {
+        "lemma": "daughter",
+        "sentence": "Her daughter is at home.",
+        "meaningVi": "Con gái chị ấy ở nhà."
+      },
+      {
+        "lemma": "brother",
+        "sentence": "Is my brother happy now?",
+        "meaningVi": "Em trai con vui chưa?"
+      },
+      {
+        "lemma": "sister",
+        "sentence": "Mi is his big sister.",
+        "meaningVi": "Mi là chị gái của cậu bé."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mrs Ngoc",
+        "Mr Tam"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Excuse me. Is this the park office?",
+          "meaningVi": "Xin lỗi bác. Đây là văn phòng công viên ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. How can I help you?",
+          "meaningVi": "Đúng rồi. Tôi giúp gì được chị?"
+        },
+        {
+          "speaker": 0,
+          "text": "My son's bag isn't here. It is blue.",
+          "meaningVi": "Túi của con trai tôi không thấy đâu. Túi màu xanh dương."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it a big bag?",
+          "meaningVi": "Túi có to không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't. It is small, and it has a yellow cat on it.",
+          "meaningVi": "Không ạ. Túi nhỏ, có hình một con mèo màu vàng."
+        },
+        {
+          "speaker": 1,
+          "text": "What is his name?",
+          "meaningVi": "Cháu tên là gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "His name is Khoi. He is seven.",
+          "meaningVi": "Cháu tên là Khôi. Cháu bảy tuổi."
+        },
+        {
+          "speaker": 1,
+          "text": "Is this his bag?",
+          "meaningVi": "Đây có phải túi của cháu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is! Thank you very much.",
+          "meaningVi": "Đúng rồi ạ! Cảm ơn bác nhiều."
+        },
+        {
+          "speaker": 1,
+          "text": "You are welcome. Have a nice day!",
+          "meaningVi": "Không có gì. Chúc chị một ngày vui vẻ!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đồ vật của ai: Is this your son's bag? Is this his bag? Trả lời: Yes, it is. / No, it isn't.",
+    "translations": [
+      {
+        "vi": "Con trai tôi bảy tuổi.",
+        "en": "My son is seven.",
+        "distractors": [
+          "daughter",
+          "are",
+          "has"
+        ]
+      },
+      {
+        "vi": "Con gái tôi đang ở nhà với bố cháu.",
+        "en": "My daughter is at home with her father.",
+        "distractors": [
+          "son",
+          "are",
+          "she"
+        ]
+      },
+      {
+        "vi": "Chị gái tôi có một cái túi màu xanh dương.",
+        "en": "My sister has a blue bag.",
+        "distractors": [
+          "have",
+          "brother",
+          "an"
+        ]
+      },
+      {
+        "vi": "Bố mẹ của Khôi có nhiều việc.",
+        "en": "Khoi's parents have a lot of work.",
+        "distractors": [
+          "has",
+          "father",
+          "many"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Ngọc nói chuyện với bác Tâm về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Túi của con trai chị",
+          "Đường đến công viên",
+          "Con gái của chị"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Ngọc tả cái túi của Khôi, và bác Tâm tìm được túi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Túi của Khôi thế nào?",
+        "promptVi": "",
+        "options": [
+          "To, màu đỏ",
+          "Nhỏ, có hình con mèo vàng",
+          "To, có hình con chó"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Ngọc nói \"It is small, and it has a yellow cat on it.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khôi bao nhiêu tuổi?",
+        "promptVi": "",
+        "options": [
+          "Năm tuổi",
+          "Bảy tuổi",
+          "Mười tuổi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Ngọc nói \"He is seven.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The bag isn't Khoi's.",
+        "promptVi": "Cái túi không phải của Khôi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Ngọc nói \"Yes, it is!\" khi bác hỏi \"Is this his bag?\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Túi của Khôi trông thế nào, và ai tìm được nó?",
+    "grammarStep": {
+      "titleVi": "Tính từ sở hữu my / your / his / her",
+      "noticing": [
+        {
+          "sentence": "My son's bag isn't here.",
+          "highlights": [
+            "My",
+            "son's"
+          ]
+        },
+        {
+          "sentence": "\"Is this your son's bag?\" he asks.",
+          "highlights": [
+            "your",
+            "son's"
+          ]
+        },
+        {
+          "sentence": "\"His water bottle and his books,\" she says.",
+          "highlights": [
+            "His",
+            "his"
+          ]
+        },
+        {
+          "sentence": "Her daughter, Mi, is at home with her father.",
+          "highlights": [
+            "Her",
+            "her"
+          ]
+        }
+      ],
+      "questionVi": "Chị Ngọc nói với bác Tâm \"My son's bag\". Bác Tâm hỏi lại chị thế nào?",
+      "options": [
+        "Is this your son's bag?",
+        "Is this my son's bag?",
+        "Is this his son's bag?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Người nói dùng my (của tôi); người nghe hỏi lại dùng your (của chị). Khôi là con trai, nên túi của Khôi là his bag; Mi là con gái, nên chị nói her daughter.",
+      "whenVi": "Dùng my / your / his / her trước danh từ để nói người hay vật là của ai.",
+      "table": [
+        {
+          "subject": "I → my, you → your",
+          "form": "my bag, your son's bag",
+          "negative": "It isn't my bag."
+        },
+        {
+          "subject": "he → his",
+          "form": "his books, his name",
+          "negative": "It isn't his bottle."
+        },
+        {
+          "subject": "she → her",
+          "form": "her daughter, her father",
+          "negative": "It isn't her bag."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Mum, me bag isn't here!",
+          "right": "Mum, my bag isn't here!"
+        },
+        {
+          "wrong": "Is this you bag?",
+          "right": "Is this your bag?"
+        }
+      ],
+      "noteVi": "Tiếng Việt dùng cùng một từ cho \"tôi\" và \"của tôi\", nên người Việt hay nói me bag, you bag. Trước danh từ phải dùng my, your, his, her.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền tính từ sở hữu đúng của từ trong ngoặc.",
+          "text": "Is this ___ bag, Khoi? (you)",
+          "answers": [
+            "your"
+          ],
+          "explanationVi": "Của bạn (you) là your."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu đúng.",
+          "text": "Đây là túi của con trai tôi.",
+          "options": [
+            "This is my son's bag.",
+            "This is my son bag.",
+            "This is bag my son's.",
+            "This is me son's bag."
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Của tôi là my; túi của con trai là son's bag, người sở hữu đứng trước."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mum, me bag isn't here!",
+          "sentence": "Mum, my bag isn't here!",
+          "explanationVi": "Trước danh từ bag phải dùng my, không dùng me."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Túi của cậu bé có hình một con mèo màu vàng.",
+          "sentence": "His bag has a yellow cat on it.",
+          "words": [
+            "cat",
+            "His",
+            "on",
+            "has",
+            "a",
+            "it",
+            "bag",
+            "yellow",
+            "He"
+          ],
+          "explanationVi": "Túi của cậu bé là his bag, từ \"He\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "On Saturday afternoon, Mrs Ngoc and her son, Khoi, are at Thong Nhat Park.",
+        "tipVi": "Mrs /ˈmɪsɪz/ đọc là \"mít-xịt\"; son /sʌn/ đọc giống sun."
+      },
+      {
+        "text": "\"Is this your son's bag?\" he asks.",
+        "tipVi": "Câu hỏi Yes/No lên giọng ở cuối: bag ↗; son's đọc thêm /z/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What colour is your bag?",
+        "questionVi": "Túi của bạn màu gì?",
+        "frame": "My bag is ___."
+      },
+      {
+        "question": "What is in your bag today?",
+        "questionVi": "Hôm nay trong túi bạn có gì?",
+        "frame": "My ___ and my ___ are in my bag."
+      },
+      {
+        "question": "Who is at home with your family today?",
+        "questionVi": "Hôm nay ai ở nhà với gia đình bạn?",
+        "frame": "My ___ is at home with my ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng my / your / his / her",
+      "anyOf": [
+        "my",
+        "his",
+        "her",
+        "your",
+        "'s"
+      ],
+      "outlineVi": [
+        "Nói đó là túi của ai (This is my daughter's bag.).",
+        "Tả cái túi: màu gì, có hình gì (It is red, and it has …).",
+        "Kể trong túi có gì (Her books and her … are in it.)."
+      ],
+      "modelAnswer": "This is my daughter's bag. Her name is Lan, and she is eight. Her bag is red, and it has a white rabbit on it. Her books and her water bottle are in it. My son has a bag, too. His bag is green. It isn't big, but it is very nice."
+    }
+  },
+  "glosses": [
+    {
+      "text": "park",
+      "lemma": "park",
+      "meaningVi": "công viên",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "the park office",
+      "phraseVi": "văn phòng công viên"
+    },
+    {
+      "text": "work",
+      "lemma": "work",
+      "meaningVi": "công việc",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "have a lot of work",
+      "phraseVi": "có nhiều việc"
+    },
+    {
+      "text": "sad",
+      "lemma": "sad",
+      "meaningVi": "buồn",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "Khoi is very sad",
+      "phraseVi": "Khôi rất buồn"
+    },
+    {
+      "text": "bottle",
+      "lemma": "bottle",
+      "meaningVi": "cái chai",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "His water bottle and his books",
+      "phraseVi": "Chai nước và sách của cháu"
+    },
+    {
+      "text": "office",
+      "lemma": "office",
+      "meaningVi": "văn phòng, phòng làm việc",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "at the park office",
+      "phraseVi": "ở văn phòng công viên"
+    },
+    {
+      "text": "calls",
+      "lemma": "call",
+      "meaningVi": "gọi điện",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "Mrs Ngoc calls home",
+      "phraseVi": "Chị Ngọc gọi điện về nhà"
+    }
+  ]
+}
