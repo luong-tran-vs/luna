@@ -128,3 +128,51 @@ func variantsOf(w []string) []string {
 	}
 	return out
 }
+
+// subjectsAfterBlank are the words that, right after the blank, make it the auxiliary of an inverted
+// question: a question tag ("…, ___ they?") or an inverted question ("___ you help me?").
+var subjectsAfterBlank = map[string]bool{
+	"i": true, "you": true, "he": true, "she": true, "it": true, "we": true, "they": true, "there": true,
+}
+
+// ExpandFillAnswers is ExpandAnswers for one fill exercise (added 2026-11-04). When the blank is
+// followed by a subject pronoun, the full negative forms are not added: "didn't they?" is right, but
+// "did not they?" and "cannot you?" are not English (the full form is "did they not?"). Answers the
+// admin wrote stay accepted.
+func ExpandFillAnswers(e Exercise) []string {
+	all := ExpandAnswers(e.Answers)
+	if !blankBeforeSubject(e.Text) {
+		return all
+	}
+	given := map[string]bool{}
+	for _, a := range e.Answers {
+		given[strings.ToLower(normalizeAnswer(a))] = true
+	}
+	out := all[:0:0]
+	for _, a := range all {
+		words := strings.Fields(strings.ToLower(a))
+		last := ""
+		if len(words) > 0 {
+			last = words[len(words)-1]
+		}
+		if !given[strings.ToLower(a)] && (last == "not" || last == "cannot") {
+			continue
+		}
+		out = append(out, a)
+	}
+	return out
+}
+
+// blankBeforeSubject reports whether the word right after the blank is a subject pronoun.
+func blankBeforeSubject(text string) bool {
+	_, after, ok := strings.Cut(text, blank)
+	if !ok {
+		return false
+	}
+	words := strings.Fields(after)
+	if len(words) == 0 {
+		return false
+	}
+	w := strings.ToLower(strings.TrimRight(words[0], "?.,!"))
+	return subjectsAfterBlank[w]
+}

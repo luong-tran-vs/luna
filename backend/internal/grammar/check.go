@@ -30,7 +30,7 @@ func expandFillAnswers(c Content) Content {
 		copy(out, in)
 		for i := range out {
 			if out[i].Kind == KindFill {
-				out[i].Answers = ExpandAnswers(out[i].Answers)
+				out[i].Answers = ExpandFillAnswers(out[i])
 			}
 		}
 		return out
@@ -177,7 +177,7 @@ func compareSolution(e Exercise, sol ai.Solution) (Check, bool) {
 		}
 	case KindFill:
 		ans := foldAnswer(sol.Answer)
-		for _, a := range ExpandAnswers(e.Answers) {
+		for _, a := range ExpandFillAnswers(e) {
 			if foldAnswer(a) == ans && ans != "" {
 				return Check{}, false
 			}

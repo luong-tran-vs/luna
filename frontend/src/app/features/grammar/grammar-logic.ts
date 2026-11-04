@@ -59,7 +59,30 @@ function sameAnswer(a: string, b: string): boolean {
  * apostrophes, commas and contractions ("don't" / "do not") are not counted.
  */
 export function gradeFill(ex: GrammarExercise, typed: string): boolean {
-  return normalizeAnswer(typed) !== '' && (ex.answers ?? []).some((a) => sameAnswer(a, typed));
+  const answers = ex.answers ?? [];
+  if (normalizeAnswer(typed) === '') {
+    return false;
+  }
+  if (blankBeforeSubject(ex.text) && fullNegative(typed)) {
+    // Added 2026-11-04: "…, did not they?" is not English, so a full "not" before the subject counts
+    // only when it is an accepted answer as written ("did they not?" fills "___ they not?").
+    const key = normalizeAnswer(typed).toLowerCase();
+    return answers.some((a) => normalizeAnswer(a).toLowerCase() === key);
+  }
+  return answers.some((a) => sameAnswer(a, typed));
+}
+
+/** Subjects that, right after the blank, make it the auxiliary of a tag or inverted question. */
+const SUBJECT_AFTER_BLANK = /___\s+(i|you|he|she|it|we|they|there)\b/i;
+
+/** Whether the blank comes right before a subject pronoun ("…, ___ they?"). */
+function blankBeforeSubject(text: string | undefined): boolean {
+  return SUBJECT_AFTER_BLANK.test(text ?? '');
+}
+
+/** Whether a typed answer ends in a full negative: "did not", "can not", "cannot". */
+function fullNegative(typed: string): boolean {
+  return /\b(not|cannot)$/i.test(normalizeAnswer(typed).replace(/[.?!]+$/, ''));
 }
 
 /** A sentence for comparing: normalised like a typed answer, without the closing full stop, "?" or "!". */

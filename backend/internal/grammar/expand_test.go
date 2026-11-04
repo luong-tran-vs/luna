@@ -96,3 +96,34 @@ func TestExpandAnswersLeavesUnrelatedAndEmptyAlone(t *testing.T) {
 		t.Errorf("nonsense pair expanded: %q", got)
 	}
 }
+
+func TestExpandFillAnswersQuestionTag(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		text    string
+		answers []string
+		want    []string
+		notWant []string
+	}{
+		{"They went to the party, ___ they?", []string{"didn't"}, []string{"didn't"}, []string{"did not"}},
+		{"You can swim, ___ you?", []string{"can't"}, []string{"can't"}, []string{"can not", "cannot"}},
+		{"We were at home, ___ we?", []string{"weren't"}, []string{"weren't"}, []string{"were not"}},
+		{"There are some eggs, ___ there?", []string{"aren't"}, []string{"aren't"}, []string{"are not"}},
+		{"___ you help me?", []string{"can"}, []string{"can"}, nil},
+		{"She ___ at school.", []string{"isn't"}, []string{"isn't", "is not"}, nil},
+		{"___ they not?", []string{"did not"}, []string{"did not"}, nil},
+	}
+	for _, tt := range tests {
+		got := ExpandFillAnswers(Exercise{Kind: KindFill, Text: tt.text, Answers: tt.answers})
+		for _, w := range tt.want {
+			if !slices.Contains(got, w) {
+				t.Errorf("%q: %v lacks %q", tt.text, got, w)
+			}
+		}
+		for _, w := range tt.notWant {
+			if slices.Contains(got, w) {
+				t.Errorf("%q: %v has %q", tt.text, got, w)
+			}
+		}
+	}
+}

@@ -46,6 +46,19 @@ describe('grammar logic', () => {
     expect(gradeFill(e, '   ')).toBe(false);
   });
 
+  it('does not take a full negative before the subject of a question tag', () => {
+    const tag = ex({ kind: 'fill', text: 'They went to the party, ___ they?', answers: ["didn't"] });
+    expect(gradeFill(tag, 'didn’t')).toBe(true);
+    expect(gradeFill(tag, 'did not')).toBe(false);
+    const can = ex({ kind: 'fill', text: 'You can swim, ___ you?', answers: ["can't"] });
+    expect(gradeFill(can, 'cannot')).toBe(false);
+    expect(gradeFill(can, 'can not')).toBe(false);
+    const written = ex({ kind: 'fill', text: '___ they not?', answers: ['did not'] });
+    expect(gradeFill(written, 'did not')).toBe(true);
+    const plain = ex({ kind: 'fill', text: 'She ___ at school.', answers: ["isn't"] });
+    expect(gradeFill(plain, 'is not')).toBe(true);
+  });
+
   it('grades a fill with curly apostrophes, repeated spaces and case on both sides', () => {
     const e = ex({ kind: 'fill', answers: ['is not', "isn't", 'It’s'] });
     expect(gradeFill(e, 'isn’t')).toBe(true);
