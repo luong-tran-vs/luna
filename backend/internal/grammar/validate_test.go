@@ -49,7 +49,7 @@ func TestValidateReportsEveryKindOfProblem(t *testing.T) {
 		{"too many mistakes", func(c *Content) { c.Mistakes = make([]Mistake, 7) }, "content.mistakes"},
 		{"mistake without note", func(c *Content) { c.Mistakes[0].NoteVi = "" }, "content.mistakes[0].noteVi"},
 		{"too few practice", func(c *Content) { c.Practice = c.Practice[:5] }, "content.practice"},
-		{"too many practice", func(c *Content) { c.Practice = append(c.Practice, c.Practice[:5]...) }, "content.practice"},
+		{"too many practice", func(c *Content) { c.Practice = append(c.Practice, c.Practice[:8]...) }, "content.practice"},
 		{"too few mastery", func(c *Content) { c.Mastery = c.Mastery[:4] }, "content.mastery"},
 		{"unknown kind", func(c *Content) { c.Practice[2].Kind = "essay" }, "content.practice[2].kind"},
 		{"no explanationVi", func(c *Content) { c.Practice[0].ExplanationVi = "" }, "content.practice[0].explanationVi"},
@@ -164,8 +164,8 @@ func TestFilterGeneratedCutsListsAndDropsEmptyItems(t *testing.T) {
 	raw.Examples = append(raw.Examples, ai.GrammarExample{Vi: "no english"})
 	raw.Practice = append(raw.Practice, exercises("q", 8)...)
 	c := FilterGenerated(fromAI(raw))
-	if len(c.Examples) != 12 || len(c.Practice) != 12 {
-		t.Errorf("examples = %d, practice = %d, want 12 and 12", len(c.Examples), len(c.Practice))
+	if len(c.Examples) != 12 || len(c.Practice) != 15 {
+		t.Errorf("examples = %d, practice = %d, want 12 and 15", len(c.Examples), len(c.Practice))
 	}
 	if f := Validate(c); f != nil {
 		t.Errorf("invalid: %v", f)

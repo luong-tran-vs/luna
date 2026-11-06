@@ -128,7 +128,7 @@ func TestAddPicturesFlagsWrongNewExercises(t *testing.T) {
 func TestAddPicturesOnlyWhatIsMissing(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	e.ai.content.Practice = append(exercises("p", 10), pictureExercise("old"))
+	e.ai.content.Practice = append(exercises("p", 13), pictureExercise("old"))
 	if _, _, err := e.svc.Generate(t.Context(), "a1-to-be", true); err != nil {
 		t.Fatal(err)
 	}
@@ -136,7 +136,7 @@ func TestAddPicturesOnlyWhatIsMissing(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	// 11 practice exercises with one picture: one more fits the limit of 12.
+	// 14 practice exercises with one picture: one more fits the limit of 15.
 	if e.ai.picturesReq.Practice != 1 || e.ai.picturesReq.Mastery != 1 || added != 2 || len(l.Content.Practice) != maxPractice {
 		t.Fatalf("request %+v, added %d, practice %d", e.ai.picturesReq, added, len(l.Content.Practice))
 	}

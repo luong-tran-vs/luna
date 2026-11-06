@@ -19,7 +19,7 @@ const (
 	minStructures, maxStructures        = 1, 6
 	minExamples, maxExamples            = 3, 12
 	maxMistakes                         = 6
-	minPractice, maxPractice            = 6, 12
+	minPractice, maxPractice            = 6, 15
 	minMastery, maxMastery              = 5, 10
 
 	minSentenceWords, maxSentenceWords = 3, 14
