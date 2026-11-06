@@ -28,14 +28,26 @@ export function wordForms(word: string): string[] {
   return forms;
 }
 
-/** The pattern of a word or phrase; only the first word of a phrase is inflected ("turned on"). */
+/** Whether a character is a letter or a digit. */
+const isWordChar = (c: string) => new RegExp(`[${L}]`, 'u').test(c);
+
+/**
+ * The pattern of a word or phrase; only the first word of a phrase is inflected ("turned on").
+ * It must not touch a letter on an edge that is itself a letter (fixed 2026-11-06): "'s", "'ve been",
+ * ", is it?" or "-year" start with a mark that always follows a letter, and "n't it?" ends a word
+ * ("isn't"), so that edge is free.
+ */
 function pattern(target: string, inflect: boolean): string {
-  const [first, ...rest] = straight(target.trim()).split(/\s+/);
+  const clean = straight(target.trim());
+  const [first, ...rest] = clean.split(/\s+/);
   const head = inflect ? wordForms(first).map(escape).join('|') : escape(first.toLowerCase());
-  return [`(?:${head})`, ...rest.map(escape)].join('\\s+');
+  const core = [`(?:${head})`, ...rest.map(escape)].join('\\s+');
+  const before = isWordChar(clean[0]) && !/^n't/i.test(clean) ? `(?<![${L}])` : '';
+  const after = isWordChar(clean[clean.length - 1]) ? `(?![${L}])` : '';
+  return `${before}(?:${core})${after}`;
 }
 
-const bounded = (inner: string) => `(?<![${L}])(?:${inner})(?![${L}])`;
+const bounded = (inner: string) => `(?:${inner})`;
 
 /** Whether text uses the lesson word or phrase (or an inflection of it). */
 export function containsWord(text: string, target: string): boolean {
@@ -78,8 +90,8 @@ export function segments(text: string, words: string[], grammar: string[] = []):
   if (!text || (!w.length && !g.length)) {
     return text ? [{ text, kind: 'plain' }] : [];
   }
-  const groups = [w.length ? `(${w.join('|')})` : '(?!)', g.length ? `(${g.join('|')})` : '(?!)'];
-  const re = new RegExp(`(?<![${L}])(?:${groups.join('|')})(?![${L}])`, 'giu');
+  const groups = [w.length ? `(${w.join('|')})` : '((?!))', g.length ? `(${g.join('|')})` : '((?!))'];
+  const re = new RegExp(`(?:${groups.join('|')})`, 'giu');
   const out: Segment[] = [];
   const source = straight(text);
   let at = 0;

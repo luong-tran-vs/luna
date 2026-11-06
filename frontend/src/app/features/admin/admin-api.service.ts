@@ -19,6 +19,10 @@ import {
   GrammarContent,
   GrammarExerciseInput,
   GrammarImportResult,
+  GrammarImageBatch,
+  GrammarImageBatchRequest,
+  GrammarPictureBatch,
+  GrammarPictureBatchRequest,
   GrammarLessonAdmin,
   GrammarLessonSummary,
   GrammarReportGroup,
@@ -35,6 +39,8 @@ import {
   Lesson,
   LessonFilter,
   LessonImages,
+  SceneBatch,
+  SceneBatchRequest,
   LessonInput,
   LessonSummary,
 } from '../../core/models/lesson';
@@ -48,6 +54,8 @@ import {
   WordPlan,
 } from '../../core/models/topic';
 import {
+  BankBatchRequest,
+  BankImageBatch,
   BankMeaningsFilled,
   BankMissing,
   BankPage,
@@ -56,10 +64,18 @@ import {
   BankWordAdded,
   BankWordDetails,
   BankWordInput,
+  ImageEngine,
 } from '../../core/models/word-bank';
 import { Account, AccountInput } from '../../core/models/user';
 
 const BASE = '/admin';
+
+/** A grammar lesson as the admin routes answer it: the lesson, with its example pictures on GET. */
+interface GrammarLessonResponse {
+  lesson: GrammarLessonAdmin;
+  exampleImages?: string[];
+  codexImages?: boolean;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AdminApiService {
@@ -119,7 +135,7 @@ export class AdminApiService {
     return this.http.get<LessonImages>(`${BASE}/lessons/${id}/images`);
   }
 
-  /** F23: turns the word pictures on (drawing the words that have none) or off. */
+  /** F23: saves the description and style of the scene picture, without drawing it. */
   setLessonImages(id: string, input: ImageSettingsInput): Observable<LessonImages> {
     return this.http.put<LessonImages>(`${BASE}/lessons/${id}/images`, input);
   }
@@ -148,6 +164,20 @@ export class AdminApiService {
     return this.http.delete<LessonImages>(
       `${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`,
     );
+  }
+
+  /** How the scene picture batch of the course page is going (added 2026-11-06). */
+  sceneBatch(): Observable<SceneBatch> {
+    return this.http.get<SceneBatch>(`${BASE}/lessons/scene-batch`);
+  }
+
+  /** Draws the scene of every given lesson lacking one, one after another; 409 batch_running. */
+  startSceneBatch(req: SceneBatchRequest): Observable<SceneBatch> {
+    return this.http.post<SceneBatch>(`${BASE}/lessons/scene-batch`, req);
+  }
+
+  stopSceneBatch(): Observable<SceneBatch> {
+    return this.http.post<SceneBatch>(`${BASE}/lessons/scene-batch/stop`, {});
   }
 
   /** Generates the practice again with one AI request (F17); 202 with the lesson. */
@@ -526,10 +556,15 @@ export class AdminApiService {
     });
   }
 
-  /** F24: one AI request that draws the word's picture (paid). */
-  generateBankImage(lemma: string, style = ''): Observable<BankWord> {
+  /** F24: one AI request that draws the word's picture: Gemini (paid) or the Codex CLI of the server. */
+  generateBankImage(
+    lemma: string,
+    style = '',
+    engine: ImageEngine = 'gemini',
+  ): Observable<BankWord> {
     return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/generate`, {
       style,
+      engine,
     });
   }
 
@@ -537,10 +572,77 @@ export class AdminApiService {
     return this.http.delete<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image`);
   }
 
-  private unwrapGrammar(
-    obs: Observable<{ lesson: GrammarLessonAdmin }>,
-  ): Observable<GrammarLessonAdmin> {
-    return obs.pipe(map((r) => r.lesson));
+  /** F24: how the picture batch drawing in the background is going (added 2026-11-04). */
+  bankImageBatch(): Observable<BankImageBatch> {
+    return this.http.get<BankImageBatch>(`${BASE}/words/image-batch`);
+  }
+
+  /** F24: starts drawing the pictures of many words in the background, one after another. */
+  startBankImageBatch(req: BankBatchRequest): Observable<BankImageBatch> {
+    return this.http.post<BankImageBatch>(`${BASE}/words/image-batch`, req);
+  }
+
+  /** F24: stops the picture batch: the words being drawn finish, no new one starts. */
+  stopBankImageBatch(): Observable<BankImageBatch> {
+    return this.http.post<BankImageBatch>(`${BASE}/words/image-batch/stop`, {});
+  }
+
+  /** Removes the picture of one example of a grammar lesson (added 2026-11-06). */
+  deleteGrammarImage(pointId: string, key: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.delete<GrammarLessonResponse>(
+        `${BASE}/grammar-lessons/${pointId}/images/${encodeURIComponent(key)}`,
+      ),
+    );
+  }
+
+  /** How the batch drawing grammar example pictures is going (added 2026-11-06). */
+  grammarImageBatch(): Observable<GrammarImageBatch> {
+    return this.http.get<GrammarImageBatch>(`${BASE}/grammar-image-batch`);
+  }
+
+  /** Draws the pictures of the given lessons' examples in the background; 409 batch_running. */
+  startGrammarImageBatch(req: GrammarImageBatchRequest): Observable<GrammarImageBatch> {
+    return this.http.post<GrammarImageBatch>(`${BASE}/grammar-image-batch`, req);
+  }
+
+  stopGrammarImageBatch(): Observable<GrammarImageBatch> {
+    return this.http.post<GrammarImageBatch>(`${BASE}/grammar-image-batch/stop`, {});
+  }
+
+  /**
+   * One AI request that adds the missing "Nhìn ảnh chọn từ" exercises to a lesson, keeping the rest
+   * of it (added 2026-11-06).
+   */
+  addGrammarPictures(pointId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<GrammarLessonResponse>(`${BASE}/grammar-lessons/${pointId}/pictures`, null),
+    );
+  }
+
+  /** How the batch adding picture exercises to a level's lessons is going. */
+  grammarPictureBatch(): Observable<GrammarPictureBatch> {
+    return this.http.get<GrammarPictureBatch>(`${BASE}/grammar-picture-batch`);
+  }
+
+  /** Adds the missing picture exercises to the given lessons in the background; 409 batch_running. */
+  startGrammarPictureBatch(req: GrammarPictureBatchRequest): Observable<GrammarPictureBatch> {
+    return this.http.post<GrammarPictureBatch>(`${BASE}/grammar-picture-batch`, req);
+  }
+
+  stopGrammarPictureBatch(): Observable<GrammarPictureBatch> {
+    return this.http.post<GrammarPictureBatch>(`${BASE}/grammar-picture-batch/stop`, {});
+  }
+
+  /** The lesson of a grammar answer, with the pictures of its examples beside it (since 2026-11-06). */
+  private unwrapGrammar(obs: Observable<GrammarLessonResponse>): Observable<GrammarLessonAdmin> {
+    return obs.pipe(
+      map((r) => ({
+        ...r.lesson,
+        ...(r.exampleImages ? { exampleImages: r.exampleImages } : {}),
+        ...(r.codexImages !== undefined ? { codexImages: r.codexImages } : {}),
+      })),
+    );
   }
 
   /** Every account with its role (GET /api/admin/users). */

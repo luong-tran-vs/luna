@@ -113,7 +113,7 @@ func TestImageFetcherDownloads(t *testing.T) {
 func TestImportImage(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 	var asked []string
 	e.svc.FetchImage = func(_ context.Context, link string) ([]byte, error) {
 		asked = append(asked, link)
@@ -169,7 +169,7 @@ func TestImportImage(t *testing.T) {
 func TestImportImageEndpoint(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 	e.svc.FetchImage = func(context.Context, string) ([]byte, error) { return testPNG(50, 50), nil }
 	mux := http.NewServeMux()
 	NewHandler(e.svc, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver))

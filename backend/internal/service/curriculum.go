@@ -11,7 +11,7 @@ import (
 // database since 2026-10-23).
 func (c *Container) initCurriculum() {
 	c.curriculum = &curriculum.Service{
-		Topics: c.topic, Lessons: c.lesson, Grammar: c.grammar, Repo: c.store.Curricula(), Now: time.Now,
+		Topics: c.topic, Lessons: c.lesson, Grammar: c.grammar, Scenes: c.lesson, Repo: c.store.Curricula(), Now: time.Now,
 	}
 	if w, ok := c.ai.(ai.CurriculumWriter); ok {
 		c.curriculum.Writer = w

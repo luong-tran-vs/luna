@@ -32,6 +32,25 @@ describe('writing checklist', () => {
     expect(containsAny('anything', [])).toBe(false);
   });
 
+  it('matches grammar words that start or end with a mark', () => {
+    expect(containsAny('This is Lan’s bag.', ["'s"])).toBe(true);
+    expect(containsAny("We've been here for years.", ["'ve been"])).toBe(true);
+    expect(containsAny("It's cold, isn't it?", ["n't it?"])).toBe(true);
+    expect(containsAny('You are new here, are they?', [', are they?'])).toBe(true);
+    expect(containsAny('My flat is bigger than yours.', ['-er than'])).toBe(false);
+    expect(containsAny('a ten-year plan', ['-year'])).toBe(true);
+    expect(containsAny("I'd rather stay.", ["'d rather"])).toBe(true);
+    expect(containsAny("I'd rathers stay.", ["'d rather"])).toBe(false);
+  });
+
+  it('marks grammar words that start with a mark in the model answer', () => {
+    expect(segments("I'd rather stay.", [], ["'d rather"])).toEqual([
+      { text: 'I', kind: 'plain' },
+      { text: "'d rather", kind: 'grammar' },
+      { text: ' stay.', kind: 'plain' },
+    ]);
+  });
+
   it('picks up to 3 distinct lesson words, base forms and single words first', () => {
     expect(pickWords(['songs', 'song', 'turn on', 'Loud', 'loud', 'sound', 'dance'])).toEqual(['song', 'Loud', 'sound']);
     expect(pickWords(['turn on', 'track'])).toEqual(['track', 'turn on']);

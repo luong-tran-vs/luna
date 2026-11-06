@@ -4,7 +4,6 @@
   gap: var(--space-3);
 }
 
-.images-header,
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -16,20 +15,6 @@
   font: var(--text-lg) var(--font-ui);
 }
 
-/* Same shape as the status chip, without a state color. */
-.none-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px var(--space-2);
-  font: var(--text-xs) var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-text-muted);
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-}
-
-/* Label on the left, the shared on/off switch (.switch, styles/screen.css) on the right. */
 .words-title {
   font: var(--text-base) var(--font-ui);
   font-weight: 600;
@@ -61,6 +46,16 @@
   border-radius: var(--radius-sm);
 }
 
+/* The scene picture is a wide banner. */
+.word.scene {
+  grid-template-columns: 128px minmax(0, 1fr);
+}
+
+.word.scene .thumb {
+  width: 128px;
+  aspect-ratio: 16 / 9;
+}
+
 .thumb img {
   display: block;
   width: 100%;
@@ -85,6 +80,17 @@
 
 .lemma {
   font-weight: 600;
+}
+
+/* The picture comes from the word bank (F24): replaced by uploading one for the lesson. */
+.bank-tag {
+  justify-self: start;
+  margin-top: 2px;
+  padding: 1px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-full);
 }
 
 .word-actions,
@@ -131,34 +137,181 @@
   }
 }
 
-.switch-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  width: 100%;
-  min-height: 44px;
-  padding: var(--space-2) var(--space-3);
+/* The scene form: a soft panel set apart from the picture list below it. */
+.scene-form {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-primary-soft) 45%, var(--color-surface));
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.scene-form-head {
+  display: grid;
+  gap: 2px;
+}
+
+.scene-form-title {
   font: var(--text-base) var(--font-ui);
   font-weight: 600;
-  color: var(--color-text);
-  text-align: left;
-  background: transparent;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
+}
+
+/* The optional fields open from these chips. */
+.optional {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-3) 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-full);
   cursor: pointer;
 }
 
-.switch-row:hover:not(:disabled) {
+.chip-toggle[aria-expanded='true'] {
+  background: var(--color-primary-soft);
+  border-style: solid;
+}
+
+.chip-toggle:hover {
   background: var(--color-primary-soft);
 }
 
-.switch-row:focus-visible {
+.chip-toggle:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.switch-row:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
+.chip-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+/* The text fields: label and counter on one line, a roomy textarea with a focus ring. */
+.text-field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.counter {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter.over {
+  font-weight: 700;
+  color: var(--color-bad);
+}
+
+.text-field textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.text-field textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.text-field textarea:hover {
+  border-color: var(--color-text-muted);
+}
+
+.text-field textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+.text-field textarea[aria-invalid='true'] {
+  border-color: var(--color-bad);
+}
+
+.draw-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: lu-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-field textarea {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}
+
+/* The scene is being drawn on the server: a pulsing dot beside the note. */
+.bg-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-surface);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+}
+
+.bg-note .dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  animation: bg-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes bg-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-note .dot {
+    animation: none;
+  }
 }

@@ -14,6 +14,8 @@ type GrammarLessonRequest struct {
 	// CommonMistakes are hand-written mistakes Vietnamese learners make with the point (added
 	// 2026-10-20); the lesson's mistakes start from them.
 	CommonMistakes []GrammarMistake
+	// Pictures asks for picture exercises too: the point can be drawn (added 2026-11-06).
+	Pictures bool
 }
 
 // GrammarExercise is one generated exercise of kind "choice", "fill", "reorder" or "fix"; only the fields
@@ -28,6 +30,8 @@ type GrammarExercise struct {
 	Words         []string `json:"words"`
 	Sentence      string   `json:"sentence"`
 	ExplanationVi string   `json:"explanationVi"`
+	// Picture describes in English the picture of a "picture" exercise (added 2026-11-06).
+	Picture string `json:"picture,omitempty"`
 }
 
 // GrammarStructure is one pattern of the point.
@@ -70,6 +74,31 @@ type GrammarLessonContent struct {
 // GrammarLesson always returns ErrNotConfigured.
 func (Disabled) GrammarLesson(context.Context, GrammarLessonRequest) (GrammarLessonContent, error) {
 	return GrammarLessonContent{}, ErrNotConfigured
+}
+
+// GrammarPicturesRequest asks for the picture exercises of a lesson written without them (added
+// 2026-11-06). Practice and Mastery are how many each part gets.
+type GrammarPicturesRequest struct {
+	Level    string
+	TitleVi  string
+	TitleEn  string
+	Pattern  string
+	HintVi   string
+	Practice int
+	Mastery  int
+	// Existing are the texts of the lesson's exercises, which the new ones must not repeat.
+	Existing []string
+}
+
+// GrammarPictures holds the generated picture exercises of each part.
+type GrammarPictures struct {
+	Practice []GrammarExercise `json:"practice"`
+	Mastery  []GrammarExercise `json:"mastery"`
+}
+
+// GrammarPictures always returns ErrNotConfigured.
+func (Disabled) GrammarPictures(context.Context, GrammarPicturesRequest) (GrammarPictures, error) {
+	return GrammarPictures{}, ErrNotConfigured
 }
 
 // SolveRequest asks for an independent answer to every exercise of a grammar lesson (F21). The

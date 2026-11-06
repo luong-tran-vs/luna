@@ -115,3 +115,17 @@ func (r *Reader) Image(ctx context.Context, id, lemma string) (WordImage, error)
 	}
 	return r.bank.Image(ctx, lemma)
 }
+
+// HasScene says the lesson has its scene picture (added 2026-11-05), served like a word picture
+// under SceneKey.
+func (r *Reader) HasScene(ctx context.Context, id string) (bool, error) {
+	if r.images == nil {
+		return false, nil
+	}
+	keys, err := r.images.Lemmas(ctx, id)
+	if err != nil {
+		return false, fmt.Errorf("lesson: image lemmas: %w", err)
+	}
+	_, scene := pictureKeys(keys)
+	return scene, nil
+}

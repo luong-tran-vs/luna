@@ -45,6 +45,9 @@ type Container struct {
 	ai ai.Provider
 	// imageAI draws the vocabulary pictures (F23).
 	imageAI ai.ImageProvider
+	// codexImageAI draws word pictures with the Codex CLI of this machine; nil when CODEX_IMAGES is
+	// off or codex is not found (added 2026-11-04).
+	codexImageAI ai.ImageProvider
 	// meaningAI fills the missing meanings of the word bank (F24).
 	meaningAI ai.MeaningProvider
 	// glossAI writes the meaning in context of every word of a lesson (added 2026-10-20).

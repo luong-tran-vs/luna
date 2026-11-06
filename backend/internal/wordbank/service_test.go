@@ -163,18 +163,18 @@ func TestImages(t *testing.T) {
 	}
 
 	// Drawn by the AI with the word's meaning and the style.
-	if w, err = e.svc.GenerateImage(t.Context(), "house", " màu nước "); err != nil || !w.HasImage() {
+	if w, err = e.svc.GenerateImage(t.Context(), "house", " màu nước ", ""); err != nil || !w.HasImage() {
 		t.Fatalf("generate = %+v, %v", w, err)
 	}
 	if r := e.draw.reqs[0]; r.Word != "house" || r.MeaningVi != "ngôi nhà; nhà ở" || r.Style != "màu nước" {
 		t.Fatalf("request = %+v", r)
 	}
 	e.draw.err = ai.ErrQuota
-	if _, err := e.svc.GenerateImage(t.Context(), "house", ""); !errors.Is(err, ai.ErrQuota) {
+	if _, err := e.svc.GenerateImage(t.Context(), "house", "", ""); !errors.Is(err, ai.ErrQuota) {
 		t.Fatalf("quota: %v", err)
 	}
 	e.draw.err = errors.New("boom")
-	if _, err := e.svc.GenerateImage(t.Context(), "house", ""); !errors.Is(err, ErrDrawFailed) {
+	if _, err := e.svc.GenerateImage(t.Context(), "house", "", ""); !errors.Is(err, ErrDrawFailed) {
 		t.Fatalf("failed draw: %v", err)
 	}
 }
@@ -370,5 +370,43 @@ func TestIPACheck(t *testing.T) {
 	}
 	if p, _ = e.svc.List(t.Context(), "", IPACheck, "", 1); p.Total != 0 {
 		t.Fatalf("after accepting = %+v", p)
+	}
+}
+
+func TestGenerateImageWithCodex(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
+		t.Fatal(err)
+	}
+	if e.svc.CodexAvailable() {
+		t.Fatal("codex available without a provider")
+	}
+	if _, err := e.svc.GenerateImage(t.Context(), "house", "", EngineCodex); !errors.Is(err, ErrCodexUnavailable) {
+		t.Fatalf("no codex: %v", err)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.GenerateImage(t.Context(), "house", "", "dalle"); !errors.As(err, &verr) || verr.Fields["engine"] == "" {
+		t.Fatalf("unknown engine: %v", err)
+	}
+
+	codex := &fakeImageAI{}
+	e.svc.codexAI = codex
+	if !e.svc.CodexAvailable() {
+		t.Fatal("codex not available")
+	}
+	if w, err := e.svc.GenerateImage(t.Context(), "house", "", EngineCodex); err != nil || !w.HasImage() {
+		t.Fatalf("codex draw = %+v, %v", w, err)
+	}
+	if len(codex.reqs) != 1 || len(e.draw.reqs) != 0 {
+		t.Fatalf("codex got %d requests, gemini %d", len(codex.reqs), len(e.draw.reqs))
+	}
+	codex.err = ai.ErrNotConfigured
+	if _, err := e.svc.GenerateImage(t.Context(), "house", "", EngineCodex); !errors.Is(err, ErrCodexNotLoggedIn) {
+		t.Fatalf("not logged in: %v", err)
+	}
+	codex.err = ai.ErrNoImageTool
+	if _, err := e.svc.GenerateImage(t.Context(), "house", "", EngineCodex); !errors.Is(err, ai.ErrNoImageTool) {
+		t.Fatalf("no image tool: %v", err)
 	}
 }

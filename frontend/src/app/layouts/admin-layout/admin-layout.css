@@ -67,7 +67,13 @@
   scrollbar-width: thin;
 }
 
+/*
+ * position: relative keeps the visually hidden text of the busy dot inside the menu's scroll box.
+ * Without it that absolute span hangs off the sticky sidebar at the link's place in the scrolled
+ * row, past the screen edge, and the whole page scrolls sideways.
+ */
 .item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -228,5 +234,27 @@
     height: auto;
     overflow: visible;
     clip: auto;
+  }
+}
+
+/* The server is drawing word pictures in the background. */
+.busy-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  animation: busy-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes busy-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .busy-dot {
+    animation: none;
   }
 }

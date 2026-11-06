@@ -23,6 +23,7 @@ const (
 	maxNoticing         = 4
 	maxGrammarOptions   = 4
 	maxFormRows         = 5
+	maxColumnTitle      = 24
 	maxStepMistakes     = 3
 	stepExercises       = 4
 	minStepExercises    = 2
@@ -91,8 +92,10 @@ type GrammarStep struct {
 	AnswerIndex   int
 	ExplanationVi string
 	WhenVi        string
-	Table         []FormRow
-	Mistakes      []MistakePair
+	// Columns are the titles of the table's 3 columns; nil shows the default ones (added 2026-11-06).
+	Columns  []string
+	Table    []FormRow
+	Mistakes []MistakePair
 	NoteVi        string
 	Exercises     []grammar.Exercise
 }
@@ -196,6 +199,24 @@ func inTexts(sentence string, texts []string) bool {
 	return slices.ContainsFunc(texts, func(t string) bool { return inContent(sentence, t) })
 }
 
+// cleanColumns keeps the column titles of the rule table when there are exactly 3, the first two
+// set and none longer than maxColumnTitle; the third may be "" to hide that column. Otherwise nil:
+// the table keeps its default titles.
+func cleanColumns(cols []string) []string {
+	if len(cols) != 3 {
+		return nil
+	}
+	out := make([]string, 3)
+	for i, c := range cols {
+		c = collapse(c)
+		if utf8.RuneCountInString(c) > maxColumnTitle || (c == "" && i < 2) {
+			return nil
+		}
+		out[i] = c
+	}
+	return out
+}
+
 func cleanGrammarStep(g *ai.GrammarStep, texts []string) *GrammarStep {
 	if g == nil {
 		return nil
@@ -237,6 +258,7 @@ func cleanGrammarStep(g *ai.GrammarStep, texts []string) *GrammarStep {
 		len(out.Options) > maxGrammarOptions || out.AnswerIndex < 0 || out.AnswerIndex >= len(out.Options) {
 		out.QuestionVi, out.Options, out.AnswerIndex, out.ExplanationVi = "", nil, 0, ""
 	}
+	out.Columns = cleanColumns(g.Columns)
 	for _, r := range g.Table {
 		row := FormRow{Subject: limited(r.Subject, maxOption), Form: limited(r.Form, maxOption), Negative: limited(r.Negative, maxOption)}
 		if row.Subject != "" && row.Form != "" {

@@ -24,10 +24,13 @@ func (c *Container) initLesson() {
 		Notify:  func() { c.worker.Notify() },
 		Now:     time.Now,
 		Log:     c.log,
-		// Word pictures (F23).
-		ImageStore: c.store.WordImages(),
-		ImageAI:    c.imageAI,
-		FetchImage: lesson.NewImageFetcher(),
+		// Word and scene pictures (F23); the AI draws only the scene, with Gemini or Codex (2026-11-06).
+		ImageStore:   c.store.WordImages(),
+		ImageAI:      c.imageAI,
+		CodexImageAI: c.codexImageAI,
+		FetchImage:   lesson.NewImageFetcher(),
+		// The word bank's pictures, shown in the admin list for words without their own (F24).
+		Bank: lessonWordBank{c.wordBank},
 		// Meaning in context of every word, for the reading popup (added 2026-10-20).
 		Glosses: c.store.LessonGlosses(),
 		GlossAI: c.glossAI,

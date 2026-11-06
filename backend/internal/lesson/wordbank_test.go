@@ -73,3 +73,43 @@ func TestVocabularyUsesWordBank(t *testing.T) {
 		t.Fatalf("no image: %v", err)
 	}
 }
+
+func TestAdminImagesShowWordBankPictures(t *testing.T) {
+	t.Parallel()
+	e := newImageEnv(t)
+	e.svc.Bank = fakeBank{}
+	l := e.annotated(t)
+
+	st, err := e.svc.Images(t.Context(), l.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if st.Count != 0 || st.BankCount != 1 {
+		t.Fatalf("count = %d, bank count = %d", st.Count, st.BankCount)
+	}
+	if w := st.Words[1]; w.Lemma != "give up" || w.HasImage || !w.FromBank {
+		t.Fatalf("give up = %+v", w)
+	}
+	if w := st.Words[0]; w.Lemma != "go" || w.FromBank {
+		t.Fatalf("go = %+v", w)
+	}
+	img, err := e.svc.AdminImage(t.Context(), l.ID, "Give up")
+	if err != nil || string(img.Data) != "bank" {
+		t.Fatalf("admin image = %q, %v", img.Data, err)
+	}
+	if _, err := e.svc.AdminImage(t.Context(), l.ID, SceneKey); !errors.Is(err, ErrImageNotFound) {
+		t.Fatalf("scene falls back to the bank: %v", err)
+	}
+
+	// The lesson's own picture wins over the bank's.
+	if err := e.svc.UploadImage(t.Context(), l.ID, "give up", testPNG(40, 30)); err != nil {
+		t.Fatal(err)
+	}
+	st, _ = e.svc.Images(t.Context(), l.ID)
+	if w := st.Words[1]; !w.HasImage || w.FromBank || st.Count != 1 || st.BankCount != 0 {
+		t.Fatalf("after upload: %+v, counts %d/%d", w, st.Count, st.BankCount)
+	}
+	if img, _ := e.svc.AdminImage(t.Context(), l.ID, "give up"); string(img.Data) == "bank" {
+		t.Fatal("admin image is still the bank's")
+	}
+}

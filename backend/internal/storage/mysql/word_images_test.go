@@ -18,11 +18,11 @@ func TestWordImages(t *testing.T) {
 	if s, err := r.Settings(ctx, id); err != nil || s != (lesson.ImageSettings{}) {
 		t.Fatalf("no settings = %+v, %v", s, err)
 	}
-	want := lesson.ImageSettings{Enabled: true, Style: "màu nước", Status: lesson.StatusRunning, UpdatedAt: at}
+	want := lesson.ImageSettings{SceneDescription: "A park", Style: "màu nước", UpdatedAt: at}
 	if err := r.SaveSettings(ctx, id, want); err != nil {
 		t.Fatal(err)
 	}
-	want.Status, want.Error = lesson.StatusFailed, "lỗi"
+	want.Style = "tranh chì"
 	if err := r.SaveSettings(ctx, id, want); err != nil {
 		t.Fatal(err)
 	}
@@ -65,7 +65,7 @@ func TestWordImages(t *testing.T) {
 	if lemmas, _ := r.Lemmas(ctx, id); len(lemmas) != 0 {
 		t.Fatalf("after delete: %v", lemmas)
 	}
-	if s, _ := r.Settings(ctx, id); s.Enabled {
+	if s, _ := r.Settings(ctx, id); s != (lesson.ImageSettings{}) {
 		t.Fatalf("settings after delete: %+v", s)
 	}
 }

@@ -326,3 +326,7 @@ func (f *fakeRepo) update(id string, fn func(*Writing)) (Writing, bool) {
 	}
 	return w, ok
 }
+
+func (f *fakeGrader) GrammarPictures(context.Context, ai.GrammarPicturesRequest) (ai.GrammarPictures, error) {
+	return ai.GrammarPictures{}, ai.ErrNotConfigured
+}

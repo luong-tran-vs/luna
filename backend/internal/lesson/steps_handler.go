@@ -61,6 +61,7 @@ type grammarStepJSON struct {
 	AnswerIndex   int                `json:"answerIndex"`
 	ExplanationVi string             `json:"explanationVi"`
 	WhenVi        string             `json:"whenVi"`
+	Columns       []string           `json:"columns,omitempty"`
 	Table         []formRowJSON      `json:"table"`
 	Mistakes      []mistakePairJSON  `json:"mistakes"`
 	NoteVi        string             `json:"noteVi"`
@@ -112,7 +113,7 @@ func toStepsJSON(s *Steps) *stepsJSON {
 	if g := s.Grammar; g != nil {
 		gj := &grammarStepJSON{
 			TitleVi: g.TitleVi, QuestionVi: g.QuestionVi, Options: nonNil(g.Options), AnswerIndex: g.AnswerIndex,
-			ExplanationVi: g.ExplanationVi, WhenVi: g.WhenVi, NoteVi: g.NoteVi,
+			ExplanationVi: g.ExplanationVi, WhenVi: g.WhenVi, NoteVi: g.NoteVi, Columns: g.Columns,
 			Noticing: make([]noticingJSON, len(g.Noticing)), Table: make([]formRowJSON, len(g.Table)),
 			Mistakes: make([]mistakePairJSON, len(g.Mistakes)), Exercises: make([]stepExerciseJSON, len(g.Exercises)),
 		}

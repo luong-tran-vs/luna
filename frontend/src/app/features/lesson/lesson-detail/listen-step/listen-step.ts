@@ -15,6 +15,7 @@ import { ListenQuestion, PracticeView } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { AudioBar } from '../../../../shared/components/audio-bar/audio-bar';
 import { Icon } from '../../../../shared/components/icon/icon';
+import { SceneImage } from '../../../../shared/components/scene-image/scene-image';
 import { estimateSeconds } from '../../../../shared/utils/fake-waveform';
 import { Listening } from '../../listening/listening';
 import { newSeed, shuffle } from '../practice-logic';
@@ -45,7 +46,7 @@ export function optionOrder(q: ListenQuestion, seed: number): number[] {
  */
 @Component({
   selector: 'lu-listen-step',
-  imports: [AudioBar, Icon, Listening],
+  imports: [AudioBar, Icon, Listening, SceneImage],
   templateUrl: './listen-step.html',
   styleUrls: ['../practice.css', './listen-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,6 +57,8 @@ export class ListenStep {
   readonly lessonId = input.required<string>();
   /** The lesson's practice: dialogue, steps.listeningQuestions, dictation. null while loading or without one. */
   readonly practice = input<PracticeView | null>(null);
+  /** The lesson's scene picture, shown on the first listening (added 2026-11-05); '' when none. */
+  readonly sceneUrl = input('');
   /** study: answering for the lesson being studied; review: a done step looked at again. */
   readonly mode = input<'study' | 'review'>('study');
   /** Dictation sentence saved last time, to start from. */

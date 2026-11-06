@@ -15,16 +15,41 @@ const content: GrammarContent = {
   examples: [{ en: 'I am a student.', vi: 'Tôi là học sinh.' }],
   mistakes: [{ wrong: 'She are a teacher.', right: 'She is a teacher.', noteVi: 'She đi với is.' }],
   practice: [
-    { id: 'p1', kind: 'choice', promptVi: 'Chọn', text: 'She ___ a teacher.', options: ['am', 'is', 'are', 'be'], answerIndex: 1, explanationVi: 'is' },
+    {
+      id: 'p1',
+      kind: 'choice',
+      promptVi: 'Chọn',
+      text: 'She ___ a teacher.',
+      options: ['am', 'is', 'are', 'be'],
+      answerIndex: 1,
+      explanationVi: 'is',
+    },
     { id: 'p2', kind: 'fill', text: 'I ___ happy.', answers: ['am', "'m"], explanationVi: 'am' },
   ],
   mastery: [
-    { id: 'm1', kind: 'reorder', text: 'Tôi là học sinh.', sentence: 'I am a student', words: ['a', 'I', 'student', 'am', 'is'], explanationVi: 'S + am' },
+    {
+      id: 'm1',
+      kind: 'reorder',
+      text: 'Tôi là học sinh.',
+      sentence: 'I am a student',
+      words: ['a', 'I', 'student', 'am', 'is'],
+      explanationVi: 'S + am',
+    },
   ],
 };
 
 const lesson = (over: Partial<GrammarLessonAdmin> = {}): GrammarLessonAdmin => ({
-  pointId: 'a1-to-be', status: 'draft', edited: false, updatedAt: 't', publishedAt: null, content, checks: [], checkedAt: null, verifiedAt: null, reports: [], ...over,
+  pointId: 'a1-to-be',
+  status: 'draft',
+  edited: false,
+  updatedAt: 't',
+  publishedAt: null,
+  content,
+  checks: [],
+  checkedAt: null,
+  verifiedAt: null,
+  reports: [],
+  ...over,
 });
 
 const URL = '/admin/grammar-lessons/a1-to-be';
@@ -33,12 +58,16 @@ describe('GrammarDetail', () => {
   let fixture: ComponentFixture<GrammarDetail>;
   let el: HTMLElement;
   let http: HttpTestingController;
+  // Whether the point can be drawn, which offers the picture exercises (added 2026-11-06).
+  let drawable = false;
+  beforeEach(() => (drawable = false));
 
   const settle = async () => {
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string) =>
     Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label)!;
   const area = () => el.querySelector<HTMLTextAreaElement>('#grammar-json')!;
@@ -48,18 +77,37 @@ describe('GrammarDetail', () => {
     await settle();
   };
   const pointResponse = () =>
-    http.expectOne((r) => r.url === '/admin/grammar').flush({
-      points: [{ id: 'a1-to-be', level: 'A1', titleVi: 'Động từ to be', titleEn: 'to be', pattern: 'S + am/is/are', hintVi: 'Giới thiệu bản thân.', examples: [], lessonCount: 0 }],
-    });
+    http
+      .expectOne((r) => r.url === '/admin/grammar')
+      .flush({
+        points: [
+          {
+            id: 'a1-to-be',
+            level: 'A1',
+            titleVi: 'Động từ to be',
+            titleEn: 'to be',
+            pattern: 'S + am/is/are',
+            hintVi: 'Giới thiệu bản thân.',
+            examples: [],
+            lessonCount: 0,
+            drawable,
+          },
+        ],
+      });
 
-  const setup = async (response: { lesson?: GrammarLessonAdmin; status?: number } = { lesson: lesson() }) => {
+  const setup = async (
+    response: { lesson?: GrammarLessonAdmin; status?: number } = { lesson: lesson() },
+  ) => {
     TestBed.configureTestingModule({
       imports: [GrammarDetail],
       providers: [
         provideRouter([]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ pointId: 'a1-to-be' }) } } },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: convertToParamMap({ pointId: 'a1-to-be' }) } },
+        },
       ],
     });
     http = TestBed.inject(HttpTestingController);
@@ -71,12 +119,19 @@ describe('GrammarDetail', () => {
     if (response.lesson) {
       req.flush({ lesson: response.lesson });
     } else {
-      req.flush({ error: 'not_found', message: 'Không tìm thấy.' }, { status: response.status ?? 404, statusText: 'x' });
+      req.flush(
+        { error: 'not_found', message: 'Không tìm thấy.' },
+        { status: response.status ?? 404, statusText: 'x' },
+      );
     }
     await settle();
   };
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    // The example picture section follows the background batch (added 2026-11-06).
+    http.match((r) => r.url === '/admin/grammar-image-batch');
+    http.verify();
+  });
 
   it('shows the point, its status in words and every part of the content', async () => {
     await setup();
@@ -85,7 +140,15 @@ describe('GrammarDetail', () => {
     expect(text(el.querySelector('.point'))).toContain('Giới thiệu bản thân.');
     expect(text(el.querySelector('.status'))).toBe('Bản nháp');
     const preview = text(el.querySelector('.preview'));
-    for (const part of ['Mục tiêu', 'Giải thích', 'Cấu trúc', 'Ví dụ', 'Lỗi thường gặp', 'Bài luyện tập (2)', 'Bài kiểm tra (1)']) {
+    for (const part of [
+      'Mục tiêu',
+      'Giải thích',
+      'Cấu trúc',
+      'Ví dụ',
+      'Lỗi thường gặp',
+      'Bài luyện tập (2)',
+      'Bài kiểm tra (1)',
+    ]) {
       expect(preview).toContain(part);
     }
     expect(preview).toContain('Bạn có thể giới thiệu bản thân.');
@@ -155,7 +218,14 @@ describe('GrammarDetail', () => {
     el.querySelector('form')!.dispatchEvent(new Event('submit'));
     await settle();
     http.expectOne(URL).flush(
-      { error: 'validation_failed', message: 'Nội dung chưa hợp lệ.', fields: { 'content.practice[2].options': 'cần 4 đáp án', 'content.objective': 'bắt buộc' } },
+      {
+        error: 'validation_failed',
+        message: 'Nội dung chưa hợp lệ.',
+        fields: {
+          'content.practice[2].options': 'cần 4 đáp án',
+          'content.objective': 'bắt buộc',
+        },
+      },
       { status: 400, statusText: 'x' },
     );
     await settle();
@@ -181,6 +251,66 @@ describe('GrammarDetail', () => {
     http.expectOne(`${URL}/unpublish`).flush({ lesson: lesson() });
     await settle();
     expect(text(el.querySelector('.status'))).toBe('Bản nháp');
+  });
+
+  describe('picture exercises (added 2026-11-06)', () => {
+    const picture = (id: string) => ({
+      id,
+      kind: 'picture' as const,
+      promptVi: 'Nhìn ảnh, chọn từ đúng.',
+      text: `The cat ${id} is ___ the sofa.`,
+      options: ['in', 'on', 'under'],
+      answerIndex: 2,
+      picture: 'a cat under a sofa',
+      explanationVi: 'dưới',
+    });
+    const pictureButton = () =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+        text(b).includes('bài nhìn ảnh'),
+      );
+
+    it('adds the missing ones to a lesson of a point that can be drawn', async () => {
+      drawable = true;
+      await setup();
+      expect(text(pictureButton())).toBe('Thêm 4 bài nhìn ảnh');
+      pictureButton()!.click();
+      await settle();
+      expect(text(pictureButton())).toBe('Đang soạn bài nhìn ảnh…');
+      const req = http.expectOne(`${URL}/pictures`);
+      expect(req.request.method).toBe('POST');
+      req.flush({
+        lesson: lesson({
+          content: {
+            ...content,
+            practice: [...content.practice, picture('p3'), picture('p4'), picture('p5')],
+            mastery: [...content.mastery, picture('m2')],
+          },
+        }),
+      });
+      await settle();
+      expect(text(el.querySelector('.banner-note'))).toContain('Đã thêm 4 bài nhìn ảnh');
+      expect(pictureButton()).toBeUndefined();
+    });
+
+    it('says why the server added none', async () => {
+      drawable = true;
+      await setup();
+      pictureButton()!.click();
+      await settle();
+      http
+        .expectOne(`${URL}/pictures`)
+        .flush(
+          { error: 'validation', fields: { pointId: 'Bài đã đủ số bài tập tối đa.' } },
+          { status: 400, statusText: 'x' },
+        );
+      await settle();
+      expect(el.textContent).toContain('Bài đã đủ số bài tập tối đa.');
+    });
+
+    it('offers nothing for a point that cannot be drawn', async () => {
+      await setup();
+      expect(pictureButton()).toBeUndefined();
+    });
   });
 
   it('regenerates a clean draft without asking', async () => {
@@ -212,7 +342,9 @@ describe('GrammarDetail', () => {
     await setup();
     button('Sinh lại bằng AI').click();
     await settle();
-    http.expectOne(`${URL}/generate`).flush({ error: 'ai_quota' }, { status: 429, statusText: 'x' });
+    http
+      .expectOne(`${URL}/generate`)
+      .flush({ error: 'ai_quota' }, { status: 429, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('.form-alert'))).toBe('Đã hết lượt AI, vui lòng thử lại sau.');
   });
@@ -250,12 +382,17 @@ describe('GrammarDetail', () => {
       expect(text(el.querySelector('.check-status'))).toBe('2 câu cần xem');
       expect(text(el.querySelector('.check-strip'))).toContain('2026');
       const flags = Array.from(el.querySelectorAll('.flag')).map((n) => text(n));
-      expect(flags).toEqual(['Cần xem: AI giải ra đáp án khác. AI chọn "are".', 'Cần xem: AI thấy câu mơ hồ. Hai cách ghép.']);
+      expect(flags).toEqual([
+        'Cần xem: AI giải ra đáp án khác. AI chọn "are".',
+        'Cần xem: AI thấy câu mơ hồ. Hai cách ghép.',
+      ]);
     });
 
     it('says a clean check', async () => {
       await setup({ lesson: lesson({ checkedAt: '2026-10-05T08:30:00Z' }) });
-      expect(text(el.querySelector('.check-status'))).toBe('Đã kiểm tra, không có câu nào bị gắn cờ');
+      expect(text(el.querySelector('.check-status'))).toBe(
+        'Đã kiểm tra, không có câu nào bị gắn cờ',
+      );
       expect(el.querySelector('.flag')).toBeNull();
     });
 
@@ -320,7 +457,10 @@ describe('GrammarDetail', () => {
       await settle();
       http
         .expectOne(`${URL}/publish`)
-        .flush({ error: 'grammar_flags_unresolved', message: 'Còn 3 câu bị gắn cờ.', count: 3 }, { status: 409, statusText: 'x' });
+        .flush(
+          { error: 'grammar_flags_unresolved', message: 'Còn 3 câu bị gắn cờ.', count: 3 },
+          { status: 409, statusText: 'x' },
+        );
       await settle();
       expect(text(el.querySelector('.form-alert'))).toBe('Còn 3 câu bị gắn cờ.');
       expect(text(el.querySelector('.status'))).toBe('Bản nháp');
@@ -330,7 +470,9 @@ describe('GrammarDetail', () => {
       await setup({ lesson: lesson() });
       button('Đăng').click();
       await settle();
-      http.expectOne(`${URL}/publish`).flush({ error: 'grammar_flags_unresolved' }, { status: 409, statusText: 'x' });
+      http
+        .expectOne(`${URL}/publish`)
+        .flush({ error: 'grammar_flags_unresolved' }, { status: 409, statusText: 'x' });
       await settle();
       expect(text(el.querySelector('.form-alert'))).toContain('gắn cờ');
     });
@@ -347,7 +489,14 @@ describe('GrammarDetail', () => {
 
     it('shows learner reports and closes them in place', async () => {
       const withReports = lesson({
-        reports: [{ exerciseId: 'p2', count: 3, reasons: { wrong_answer: 2, typo: 1 }, notes: ['Phải là is'] }],
+        reports: [
+          {
+            exerciseId: 'p2',
+            count: 3,
+            reasons: { wrong_answer: 2, typo: 1 },
+            notes: ['Phải là is'],
+          },
+        ],
       });
       await setup({ lesson: withReports });
       const box = text(el.querySelector('.reports'));
@@ -364,15 +513,31 @@ describe('GrammarDetail', () => {
     });
 
     const clickIn = async (root: Element | null, label: string) => {
-      const target = Array.from(root!.querySelectorAll<HTMLElement>('button')).find((b) => text(b) === label)!;
+      const target = Array.from(root!.querySelectorAll<HTMLElement>('button')).find(
+        (b) => text(b) === label,
+      )!;
       target.click();
       await settle();
     };
     const exercise = (id: string) => el.querySelector(`#ex-${id}`)!;
 
     it('labels an exercise the AI did not answer', async () => {
-      await setup({ lesson: lesson({ checkedAt: '2026-10-05T08:30:00Z', checks: [{ exerciseId: 'p2', kind: 'unchecked', noteVi: 'AI không trả lời câu này, hãy tự kiểm tra.', confirmed: false }] }) });
-      expect(text(exercise('p2').querySelector('.flag'))).toBe('Chưa kiểm tra được. AI không trả lời câu này, hãy tự kiểm tra.');
+      await setup({
+        lesson: lesson({
+          checkedAt: '2026-10-05T08:30:00Z',
+          checks: [
+            {
+              exerciseId: 'p2',
+              kind: 'unchecked',
+              noteVi: 'AI không trả lời câu này, hãy tự kiểm tra.',
+              confirmed: false,
+            },
+          ],
+        }),
+      });
+      expect(text(exercise('p2').querySelector('.flag'))).toBe(
+        'Chưa kiểm tra được. AI không trả lời câu này, hãy tự kiểm tra.',
+      );
     });
 
     it('confirms a flag: the line turns into "Đã xác nhận" and keeps the note', async () => {
@@ -386,13 +551,19 @@ describe('GrammarDetail', () => {
       await settle();
       expect(text(exercise('p1').querySelector('.flag'))).toBe('Đã xác nhận. AI chọn "are".');
       expect(text(el.querySelector('.check-status'))).toBe('1 câu cần xem');
-      expect(Array.from(exercise('p1').querySelectorAll('button')).map((b) => text(b))).toEqual(['Sửa câu này', 'Xoá câu này']);
+      expect(Array.from(exercise('p1').querySelectorAll('button')).map((b) => text(b))).toEqual([
+        'Sửa câu này',
+        'Xoá câu này',
+      ]);
     });
 
     it('lists the open flags and jumps to the exercise', async () => {
       await setup({ lesson: flagged() });
       const items = Array.from(el.querySelectorAll('.open-flags li')).map((li) => text(li));
-      expect(items).toEqual(['Luyện tập 1 · AI giải ra đáp án khác', 'Kiểm tra 1 · AI thấy câu mơ hồ']);
+      expect(items).toEqual([
+        'Luyện tập 1 · AI giải ra đáp án khác',
+        'Kiểm tra 1 · AI thấy câu mơ hồ',
+      ]);
       el.querySelector<HTMLButtonElement>('.open-flags button')!.click();
       await settle();
       expect(document.activeElement).toBe(exercise('p1'));
@@ -402,7 +573,10 @@ describe('GrammarDetail', () => {
       await setup();
       const more = exercise('p2').querySelector('details')!;
       expect(text(more.querySelector('summary'))).toBe('Thao tác');
-      expect(Array.from(more.querySelectorAll('button')).map((b) => text(b))).toEqual(['Sửa câu này', 'Xoá câu này']);
+      expect(Array.from(more.querySelectorAll('button')).map((b) => text(b))).toEqual([
+        'Sửa câu này',
+        'Xoá câu này',
+      ]);
     });
 
     it('edits a choice exercise in place and reminds to check again', async () => {
@@ -421,10 +595,21 @@ describe('GrammarDetail', () => {
       const req = http.expectOne(`${URL}/exercises/p1`);
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toEqual({
-        kind: 'choice', promptVi: 'Chọn', text: 'He ___ a teacher.', options: ['am', 'is', 'are', 'be'], answerIndex: 2, explanationVi: 'is',
+        kind: 'choice',
+        promptVi: 'Chọn',
+        text: 'He ___ a teacher.',
+        options: ['am', 'is', 'are', 'be'],
+        answerIndex: 2,
+        explanationVi: 'is',
       });
       const updated = lesson({ checkedAt: '2026-10-05T08:30:00Z', checks: [flagged().checks[1]] });
-      updated.content = { ...content, practice: [{ ...content.practice[0], text: 'He ___ a teacher.', answerIndex: 2 }, content.practice[1]] };
+      updated.content = {
+        ...content,
+        practice: [
+          { ...content.practice[0], text: 'He ___ a teacher.', answerIndex: 2 },
+          content.practice[1],
+        ],
+      };
       req.flush({ lesson: updated });
       await settle();
       expect(exercise('p1').querySelector('form')).toBeNull();
@@ -443,7 +628,12 @@ describe('GrammarDetail', () => {
       await settle();
       await clickIn(exercise('p2'), 'Lưu câu');
       const req = http.expectOne(`${URL}/exercises/p2`);
-      expect(req.request.body).toEqual({ kind: 'fill', text: 'I ___ happy.', answers: ['am', "'m", 'I am'], explanationVi: 'am' });
+      expect(req.request.body).toEqual({
+        kind: 'fill',
+        text: 'I ___ happy.',
+        answers: ['am', "'m", 'I am'],
+        explanationVi: 'am',
+      });
       req.flush({ lesson: lesson() });
       await settle();
     });
@@ -459,7 +649,11 @@ describe('GrammarDetail', () => {
       await clickIn(exercise('m1'), 'Lưu câu');
       const req = http.expectOne(`${URL}/exercises/m1`);
       expect(req.request.body).toEqual({
-        kind: 'reorder', text: 'Tôi là học sinh.', sentence: 'I am a student', words: ['a', 'I', 'student', 'am'], explanationVi: 'S + am',
+        kind: 'reorder',
+        text: 'Tôi là học sinh.',
+        sentence: 'I am a student',
+        words: ['a', 'I', 'student', 'am'],
+        explanationVi: 'S + am',
       });
       req.flush({ lesson: lesson() });
       await settle();
@@ -470,14 +664,22 @@ describe('GrammarDetail', () => {
       await clickIn(exercise('p2'), 'Sửa câu này');
       await clickIn(exercise('p2'), 'Lưu câu');
       http.expectOne(`${URL}/exercises/p2`).flush(
-        { error: 'validation_failed', message: 'Câu chưa hợp lệ.', fields: { 'exercise.answers': 'cần ít nhất một đáp án', 'exercise.text': 'cần có ___' } },
+        {
+          error: 'validation_failed',
+          message: 'Câu chưa hợp lệ.',
+          fields: { 'exercise.answers': 'cần ít nhất một đáp án', 'exercise.text': 'cần có ___' },
+        },
         { status: 400, statusText: 'x' },
       );
       await settle();
       const form = exercise('p2').querySelector('form')!;
       expect(text(form.querySelector('[role="alert"]'))).toBe('Câu chưa hợp lệ.');
-      expect(text(form.querySelector('#edit-answers')!.parentElement!.querySelector('.field-error'))).toBe('cần ít nhất một đáp án');
-      expect(text(form.querySelector('#edit-text')!.parentElement!.querySelector('.field-error'))).toBe('cần có ___');
+      expect(
+        text(form.querySelector('#edit-answers')!.parentElement!.querySelector('.field-error')),
+      ).toBe('cần ít nhất một đáp án');
+      expect(
+        text(form.querySelector('#edit-text')!.parentElement!.querySelector('.field-error')),
+      ).toBe('cần có ___');
     });
 
     it('cancels an edit without calling the server', async () => {
@@ -507,14 +709,22 @@ describe('GrammarDetail', () => {
     it('shows the message of the server when deleting goes under the minimum', async () => {
       await setup();
       await clickIn(exercise('p2'), 'Xoá câu này');
-      el.querySelectorAll('lu-confirm-dialog')[3].querySelector<HTMLButtonElement>('.btn-primary')!.click();
+      el.querySelectorAll('lu-confirm-dialog')[3]
+        .querySelector<HTMLButtonElement>('.btn-primary')!
+        .click();
       await settle();
       http.expectOne(`${URL}/exercises/p2`).flush(
-        { error: 'validation_failed', message: 'Không xoá được.', fields: { 'content.practice': 'cần ít nhất 6 bài' } },
+        {
+          error: 'validation_failed',
+          message: 'Không xoá được.',
+          fields: { 'content.practice': 'cần ít nhất 6 bài' },
+        },
         { status: 400, statusText: 'x' },
       );
       await settle();
-      expect(text(el.querySelector('.form-alert'))).toBe('Không xoá được. content.practice: cần ít nhất 6 bài');
+      expect(text(el.querySelector('.form-alert'))).toBe(
+        'Không xoá được. content.practice: cần ít nhất 6 bài',
+      );
       expect(el.querySelector('#ex-p2')).not.toBeNull();
     });
 
@@ -529,7 +739,9 @@ describe('GrammarDetail', () => {
       await settle();
       const req = http.expectOne(`${URL}/verify`);
       expect(req.request.method).toBe('POST');
-      req.flush({ lesson: lesson({ checkedAt: '2026-10-05T08:30:00Z', verifiedAt: '2026-10-05T09:00:00Z' }) });
+      req.flush({
+        lesson: lesson({ checkedAt: '2026-10-05T08:30:00Z', verifiedAt: '2026-10-05T09:00:00Z' }),
+      });
       await settle();
       expect(text(el.querySelector('.verified-line'))).toContain('Đã xác nhận bởi quản trị');
       expect(button('Đã xác nhận').disabled).toBe(true);
@@ -544,7 +756,9 @@ describe('GrammarDetail', () => {
       expect(text(dialog)).toContain('Xác nhận 2 câu còn cờ là đúng?');
       dialog.querySelector<HTMLButtonElement>('.btn-primary')!.click();
       await settle();
-      http.expectOne(`${URL}/verify`).flush({ lesson: { ...flagged(), verifiedAt: '2026-10-05T09:00:00Z' } });
+      http
+        .expectOne(`${URL}/verify`)
+        .flush({ lesson: { ...flagged(), verifiedAt: '2026-10-05T09:00:00Z' } });
       await settle();
       expect(el.querySelector('.verified-line')).not.toBeNull();
     });
@@ -553,7 +767,12 @@ describe('GrammarDetail', () => {
       await setup({ lesson: lesson({ checkedAt: '2026-10-05T08:30:00Z' }) });
       button('Xác nhận đã kiểm tra xong').click();
       await settle();
-      http.expectOne(`${URL}/verify`).flush({ error: 'grammar_not_checked', message: 'Bài chưa được kiểm tra.' }, { status: 409, statusText: 'x' });
+      http
+        .expectOne(`${URL}/verify`)
+        .flush(
+          { error: 'grammar_not_checked', message: 'Bài chưa được kiểm tra.' },
+          { status: 409, statusText: 'x' },
+        );
       await settle();
       expect(text(el.querySelector('.form-alert'))).toBe('Bài chưa được kiểm tra.');
     });
@@ -562,7 +781,9 @@ describe('GrammarDetail', () => {
       const l = flagged();
       l.checks.forEach((c) => (c.confirmed = true));
       await setup({ lesson: l });
-      expect(text(el.querySelector('.check-status'))).toBe('Đã kiểm tra, các câu bị gắn cờ đã được xác nhận');
+      expect(text(el.querySelector('.check-status'))).toBe(
+        'Đã kiểm tra, các câu bị gắn cờ đã được xác nhận',
+      );
       button('Đăng').click();
       await settle();
       const req = http.expectOne(`${URL}/publish`);
@@ -572,7 +793,11 @@ describe('GrammarDetail', () => {
     });
 
     it('keeps the reports when closing them fails', async () => {
-      await setup({ lesson: lesson({ reports: [{ exerciseId: 'p2', count: 1, reasons: { other: 1 }, notes: [] }] }) });
+      await setup({
+        lesson: lesson({
+          reports: [{ exerciseId: 'p2', count: 1, reasons: { other: 1 }, notes: [] }],
+        }),
+      });
       el.querySelector<HTMLButtonElement>('.reports button')!.click();
       await settle();
       http.expectOne('/admin/grammar-reports/resolve').flush({}, { status: 500, statusText: 'x' });

@@ -16,6 +16,8 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { AdminApiService } from '../admin-api.service';
 import { grammarFailure } from '../grammar-errors';
 import { GrammarImportDialog } from './import-dialog/import-dialog';
+import { GrammarLevelImages } from '../grammar-images/grammar-level-images';
+import { GrammarLevelPictures } from '../grammar-images/grammar-level-pictures';
 
 const GENERATE_FAILED = 'Sinh bài thất bại, vui lòng thử lại.';
 const ACTION_FAILED = 'Không thực hiện được, vui lòng thử lại.';
@@ -23,7 +25,14 @@ const ACTION_FAILED = 'Không thực hiện được, vui lòng thử lại.';
 /** F20: the curriculum by level with the state of each point's grammar lesson and its actions. */
 @Component({
   selector: 'lu-grammar-list',
-  imports: [Loading, ConfirmDialog, RouterLink, GrammarImportDialog],
+  imports: [
+    Loading,
+    ConfirmDialog,
+    RouterLink,
+    GrammarImportDialog,
+    GrammarLevelImages,
+    GrammarLevelPictures,
+  ],
   templateUrl: './grammar-list.html',
   styleUrl: './grammar-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,6 +65,13 @@ export class GrammarList {
   protected readonly published = computed(() => {
     const lessons = this.lessons();
     return (this.points() ?? []).filter((p) => lessons[p.id]?.status === 'published').length;
+  });
+
+  /** The drawable points of the level that have a lesson, whose pictures the batch draws. */
+  protected readonly lessonIds = computed(() => {
+    const lessons = this.lessons();
+    // Only the points that can be drawn get pictures (added 2026-11-06).
+    return (this.points() ?? []).filter((p) => p.drawable && !!lessons[p.id]).map((p) => p.id);
   });
 
   /** F21: open learner reports; a failed load only hides the section. */
@@ -229,7 +245,10 @@ export class GrammarList {
       });
       this.note.set(`Đã xoá bài nháp của “${p.titleVi}”.`);
     } catch (err) {
-      this.rowError.set({ pointId: p.id, message: grammarFailure(err, ACTION_FAILED, false).message });
+      this.rowError.set({
+        pointId: p.id,
+        message: grammarFailure(err, ACTION_FAILED, false).message,
+      });
     } finally {
       this.busy.set(null);
       this.busyAction.set(null);
@@ -255,15 +274,30 @@ export class GrammarList {
   }
 
   private async generate(p: GrammarPoint, force: boolean): Promise<void> {
-    await this.run(p, 'generate', () => this.api.generateGrammarLesson(p.id, force), `Đã sinh bản nháp cho “${p.titleVi}”.`);
+    await this.run(
+      p,
+      'generate',
+      () => this.api.generateGrammarLesson(p.id, force),
+      `Đã sinh bản nháp cho “${p.titleVi}”.`,
+    );
   }
 
   protected publish(p: GrammarPoint): Promise<void> {
-    return this.run(p, 'publish', () => this.api.publishGrammarLesson(p.id), `Đã đăng “${p.titleVi}”.`);
+    return this.run(
+      p,
+      'publish',
+      () => this.api.publishGrammarLesson(p.id),
+      `Đã đăng “${p.titleVi}”.`,
+    );
   }
 
   protected unpublish(p: GrammarPoint): Promise<void> {
-    return this.run(p, 'unpublish', () => this.api.unpublishGrammarLesson(p.id), `Đã gỡ “${p.titleVi}”.`);
+    return this.run(
+      p,
+      'unpublish',
+      () => this.api.unpublishGrammarLesson(p.id),
+      `Đã gỡ “${p.titleVi}”.`,
+    );
   }
 
   private async run(
@@ -284,7 +318,11 @@ export class GrammarList {
       this.lessons.update((all) => ({ ...all, [p.id]: summaryOf(lesson) }));
       this.note.set(done);
     } catch (err) {
-      const failure = grammarFailure(err, action === 'generate' ? GENERATE_FAILED : ACTION_FAILED, action === 'generate');
+      const failure = grammarFailure(
+        err,
+        action === 'generate' ? GENERATE_FAILED : ACTION_FAILED,
+        action === 'generate',
+      );
       const detail = failure.fields.length ? ` ${failure.fields.join('; ')}` : '';
       this.rowError.set({ pointId: p.id, message: failure.message + detail });
     } finally {

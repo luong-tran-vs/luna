@@ -54,6 +54,7 @@ type grammarExerciseJSON struct {
 	Words         []string `json:"words,omitempty"`
 	Sentence      string   `json:"sentence,omitempty"`
 	ExplanationVi string   `json:"explanationVi,omitempty"`
+	Picture       string   `json:"picture,omitempty"`
 }
 
 type grammarStructureJSON struct {
@@ -125,7 +126,7 @@ func grammarExerciseToJSON(e grammar.Exercise) grammarExerciseJSON {
 	return grammarExerciseJSON{
 		ID: e.ID, Kind: string(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options,
 		AnswerIndex: e.AnswerIndex, Answers: e.Answers, Words: e.Words, Sentence: e.Sentence,
-		ExplanationVi: e.ExplanationVi,
+		ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 	}
 }
 
@@ -133,7 +134,7 @@ func (e grammarExerciseJSON) toExercise() grammar.Exercise {
 	return grammar.Exercise{
 		ID: e.ID, Kind: grammar.Kind(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options,
 		AnswerIndex: e.AnswerIndex, Answers: e.Answers, Words: e.Words, Sentence: e.Sentence,
-		ExplanationVi: e.ExplanationVi,
+		ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 	}
 }
 

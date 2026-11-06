@@ -14,19 +14,20 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
+import { serverUrl } from '../../../core/api-url';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { AttemptResult, GrammarDetail, GrammarListItem, STATUS_LABELS } from '../../../core/models/grammar-study';
+import {
+  AttemptResult,
+  GrammarDetail,
+  GrammarListItem,
+  STATUS_LABELS,
+} from '../../../core/models/grammar-study';
 import { GrammarApiService } from '../../../core/services/grammar-api.service';
 import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
 import { SpeakButton } from '../../../shared/directives/speak-button';
-import {
-  guessStructure,
-  patternRows,
-  structureTone,
-  tabLabels,
-} from '../grammar-logic';
+import { guessStructure, patternRows, structureTone, tabLabels } from '../grammar-logic';
 import { ExampleLines, shownExample } from '../example-lines/example-lines';
 import { GrammarQuiz } from '../grammar-quiz/grammar-quiz';
 import { MistakeCheck } from '../mistake-check/mistake-check';
@@ -42,7 +43,8 @@ interface ResumeAction {
 }
 
 /** One card of Lý thuyết: the quick summary, one paragraph of the explanation, or the uses. */
-type TheoryCard = { kind: 'quick' } | { kind: 'explain'; text: string; n: number } | { kind: 'usage' };
+type TheoryCard =
+  { kind: 'quick' } | { kind: 'explain'; text: string; n: number } | { kind: 'usage' };
 
 interface Resume {
   mastered: boolean;
@@ -59,7 +61,17 @@ interface Resume {
  */
 @Component({
   selector: 'lu-grammar-lesson',
-  imports: [NgOptimizedImage, RouterLink, Icon, Loading, ExampleLines, GrammarQuiz, MistakeCheck, Pattern, SpeakButton],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    Icon,
+    Loading,
+    ExampleLines,
+    GrammarQuiz,
+    MistakeCheck,
+    Pattern,
+    SpeakButton,
+  ],
   templateUrl: './grammar-lesson.html',
   styleUrl: './grammar-lesson.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -120,10 +132,13 @@ export class GrammarLesson {
       };
     }
     if (p.practiceAttempts > 0 || p.masteryAttempts > 0) {
-      const practice = p.practiceAttempts > 0 ? `Lần trước luyện tập: ${p.lastPractice}%` : 'Chưa luyện tập';
+      const practice =
+        p.practiceAttempts > 0 ? `Lần trước luyện tập: ${p.lastPractice}%` : 'Chưa luyện tập';
       const left = weak > 0 ? ` · còn ${weak} câu sai` : '';
       const test =
-        p.masteryAttempts > 0 ? `Kiểm tra tốt nhất: ${p.bestMastery}% (cần 80%).` : 'Chưa làm bài kiểm tra.';
+        p.masteryAttempts > 0
+          ? `Kiểm tra tốt nhất: ${p.bestMastery}% (cần 80%).`
+          : 'Chưa làm bài kiểm tra.';
       return {
         mastered: false,
         title: 'Học tiếp từ chỗ dở',
@@ -196,14 +211,22 @@ export class GrammarLesson {
     const short = tabLabels(labels);
     return this.structures().map((s, i) => {
       const own = (content?.examples ?? [])
-        .filter((_, k) => of[k] === i + 1)
-        .map((e) => shownExample(e.en, e.vi, e.marked, s.parts));
+        .map((e, k) => ({ e, k }))
+        .filter(({ k }) => of[k] === i + 1)
+        .map(({ e, k }) => ({
+          ...shownExample(e.en, e.vi, e.marked, s.parts),
+          image: this.imageOf(k),
+        }));
       // "Hay sai": the first common mistake whose right sentence has the form of this structure.
-      const mistake = content?.mistakes.find((m) => guessStructure(m.right, labels) === i + 1) ?? null;
+      const mistake =
+        content?.mistakes.find((m) => guessStructure(m.right, labels) === i + 1) ?? null;
       return {
         ...s,
         short: short[i],
-        examples: own.length > 0 ? own : [shownExample(s.example, '', undefined, s.parts)],
+        examples:
+          own.length > 0
+            ? own
+            : [{ ...shownExample(s.example, '', undefined, s.parts), image: '' }],
         mistake,
       };
     });
@@ -212,12 +235,24 @@ export class GrammarLesson {
    * Cấu trúc & ví dụ shows the tabs one at a time, then the common mistakes on their own screen
    * (`tab` one past the last structure).
    */
-  protected readonly hasMistakes = computed(() => (this.detail()?.content.mistakes.length ?? 0) > 0);
-  protected readonly onMistakes = computed(() => this.hasMistakes() && this.tab() >= this.tabs().length);
+  protected readonly hasMistakes = computed(
+    () => (this.detail()?.content.mistakes.length ?? 0) > 0,
+  );
+  protected readonly onMistakes = computed(
+    () => this.hasMistakes() && this.tab() >= this.tabs().length,
+  );
+  /** The picture of the k-th example of the content (added 2026-11-06), '' for none. */
+  private imageOf(k: number): string {
+    const u = this.detail()?.exampleImages?.[k];
+    return u ? serverUrl(u) : '';
+  }
+
   /** The examples that show no structure, listed under the tabs. */
   protected readonly otherExamples = computed(() => {
     const of = this.exampleStructures();
-    return (this.detail()?.content.examples ?? []).filter((_, k) => of[k] === 0).map((e) => shownExample(e.en, e.vi));
+    return (this.detail()?.content.examples ?? [])
+      .map((e, k) => ({ ...shownExample(e.en, e.vi), image: this.imageOf(k), k }))
+      .filter(({ k }) => of[k] === 0);
   });
   /** "Ví dụ khác" next to examples shown in the tabs, plain "Ví dụ" when all of them are below. */
   protected readonly otherTitle = computed(() =>
@@ -236,11 +271,16 @@ export class GrammarLesson {
     if (!s && !ex) {
       return null;
     }
-    return { rows: s?.rows ?? [], ...shownExample(ex?.en ?? s?.example ?? '', ex?.vi ?? '', undefined, s?.parts) };
+    return {
+      rows: s?.rows ?? [],
+      ...shownExample(ex?.en ?? s?.example ?? '', ex?.vi ?? '', undefined, s?.parts),
+    };
   });
   protected readonly lastCard = computed(() => this.card() >= this.theoryCards().length - 1);
   /** On the last screen of Cấu trúc & ví dụ: the mistakes, or the last tab when there are none. */
-  protected readonly lastTab = computed(() => this.tab() >= this.tabs().length - (this.hasMistakes() ? 0 : 1));
+  protected readonly lastTab = computed(
+    () => this.tab() >= this.tabs().length - (this.hasMistakes() ? 0 : 1),
+  );
   /** On the mistakes screen, a mistake not answered yet, or answered but with others after it. */
   private readonly mistakeLeft = computed(() => {
     const check = this.mistakeCheck();
@@ -269,7 +309,9 @@ export class GrammarLesson {
     return this.step() < 2 && next ? `Sang ${next.label}` : '';
   });
   /** The bar waits for a sentence to be picked on the mistakes screen. */
-  protected readonly barDisabled = computed(() => this.mistakeLeft() && !this.mistakeCheck()?.answered());
+  protected readonly barDisabled = computed(
+    () => this.mistakeLeft() && !this.mistakeCheck()?.answered(),
+  );
   protected readonly testContinue = computed(() => {
     const n = this.nextPoint();
     return n ? `Học tiếp: ${n.titleVi}` : 'Về danh sách ngữ pháp';
@@ -315,7 +357,8 @@ export class GrammarLesson {
           afterNextRender(() => this.practiceQuiz()?.startWeak(), { injector: this.injector });
         }
       },
-      error: (err: unknown) => this.error.set(err instanceof ApiError && err.status === 404 ? 'notFound' : 'failed'),
+      error: (err: unknown) =>
+        this.error.set(err instanceof ApiError && err.status === 404 ? 'notFound' : 'failed'),
     });
   }
 
@@ -437,7 +480,10 @@ export class GrammarLesson {
     }
     this.api.points(d.point.level).subscribe({
       next: (list) => {
-        const n = list.next && list.next !== d.point.id ? list.points.find((p) => p.id === list.next) : undefined;
+        const n =
+          list.next && list.next !== d.point.id
+            ? list.points.find((p) => p.id === list.next)
+            : undefined;
         this.nextPoint.set(n ?? null);
       },
       // Without it the button leads back to the list.

@@ -109,7 +109,12 @@
   width: 100%;
   min-height: 320px;
   padding: var(--space-3);
-  font: 13px / 20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font:
+    13px / 20px ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
   color: var(--color-text);
   background: var(--color-bg);
   border: 1px solid var(--color-text-muted);
@@ -226,7 +231,10 @@
 }
 
 .raw {
-  font: var(--text-xs) ui-monospace, Consolas, monospace;
+  font:
+    var(--text-xs) ui-monospace,
+    Consolas,
+    monospace;
   color: var(--color-text-muted);
 }
 
@@ -242,4 +250,24 @@
 .example {
   display: grid;
   gap: var(--space-1);
+}
+
+/* A picture exercise (added 2026-11-06): its picture beside what it shows. */
+.picture-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.picture-thumb {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 96px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
 }

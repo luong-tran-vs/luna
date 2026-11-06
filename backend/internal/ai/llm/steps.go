@@ -55,6 +55,7 @@ var stepsSchema = map[string]any{
 			"answerIndex":   map[string]any{"type": "INTEGER"},
 			"explanationVi": map[string]any{"type": "STRING"},
 			"whenVi":        map[string]any{"type": "STRING"},
+			"columns":       stringArray,
 			"table": map[string]any{
 				"type": "ARRAY",
 				"items": map[string]any{
@@ -157,6 +158,12 @@ sentences (for example "Em gái người viết thích gì?"); its answer is in 
   ("doesn't like"); write "—" in negative when it does not apply. For a point whose form does not
   change with the subject (articles, prepositions, comparisons, linking words…), subject is the case
   instead (for example "+ vowel sound", "on + day", "short adjective") and form an example of it.
+- columns: the 3 Vietnamese titles of the table's columns (subject, form, negative), at most 24
+  characters each, saying what each column really holds. Use ["Chủ ngữ", "Khẳng định", "Phủ định"]
+  when the rows are a subject, an affirmative and a negative. Otherwise name them by their content
+  (for example ["Cấu trúc", "Ví dụ", "= câu thường"] or ["Cách biến đổi", "Ví dụ", "Không nói"]); every
+  row's third column then holds that kind of thing, never a mix of notes and examples. Leave the third
+  title "" (and the third column of every row "") when only two columns are needed.
 - mistakes: 2 mistakes Vietnamese learners make with it, with the correction.
 - noteVi: one Vietnamese sentence on why Vietnamese learners make these mistakes.
 - exercises: exactly 4 exercises on the point at CEFR %[2]s, one of each kind, in this order: fill

@@ -1,6 +1,7 @@
 /** Types for the admin lesson API (specs/003-lesson-admin/contracts/admin-lessons-api.md). */
 
 import { AdminPractice, PracticeStatus } from './practice';
+import { ImageEngine } from './word-bank';
 
 export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export const LEVELS: readonly Level[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
@@ -149,30 +150,36 @@ export interface LessonInput {
   grammarPointId?: string;
   /** Add the new lesson at the end of its topic roadmap in the same request (F7). */
   appendToRoadmap?: boolean;
-  /** F23: draw a picture for each vocabulary word of the new lesson, in this style. */
-  images?: ImageSettingsInput;
   /** F18: the topic words a generated draft was asked to use; they become the lesson's whole vocabulary. */
   targetWords?: string[];
   /** Save the new lesson hidden from learners until it is published. */
   draft?: boolean;
 }
 
-/** F23: whether the vocabulary words of a lesson get an AI-drawn picture, and in which style. */
+/**
+ * F23: how the AI draws the lesson's scene picture. Since 2026-11-06 the AI draws only the scene
+ * of a lesson; word pictures are drawn in the word bank.
+ */
 export interface ImageSettingsInput {
-  enabled: boolean;
-  /** How the pictures should look; '' uses the server's default style. */
+  /** What the scene picture shows, in English; '' lets the AI choose from the story. */
+  sceneDescription: string;
+  /** How the picture should look; '' uses the server's default style. */
   style: string;
 }
 
+
 /** F23: the picture settings of a lesson (GET/PUT /api/admin/lessons/{id}/images). */
 export interface LessonImages extends ImageSettingsInput {
-  /** '' (off), 'running', 'done' or 'failed'. */
-  status: '' | 'running' | 'done' | 'failed';
-  error: string;
-  /** Words that have a picture. */
+  /** The server can draw with the Codex CLI; the engine choice is shown only then. */
+  codexImages?: boolean;
+  /** Words that have a picture of their own. */
   count: number;
+  /** Words without their own picture that show the word bank's (added 2026-11-05). */
+  bankCount?: number;
   /** The lesson's vocabulary words; empty until the annotation is done. */
   words: ImageWord[];
+  /** Admin URL of the scene picture; '' when it has none (added 2026-11-05). */
+  sceneImageUrl: string;
 }
 
 /** F23: one vocabulary word of a lesson as the admin picture list shows it. */
@@ -181,6 +188,8 @@ export interface ImageWord {
   meaningVi: string;
   /** Admin URL of the word's picture; '' when it has none. */
   imageUrl: string;
+  /** The picture shown is the word bank's: the word has none of its own. */
+  fromBank?: boolean;
 }
 
 export interface AnnotationInput {
@@ -218,4 +227,48 @@ export interface FixSuggestion {
   en?: string;
   /** What the AI changed and why (suggestions only). */
   noteVi?: string;
+}
+
+/** A lesson of a scene picture batch; message says why it got no picture. */
+export interface SceneBatchLesson {
+  id: string;
+  title: string;
+  message?: string;
+}
+
+/**
+ * The scene picture batch of the course page (GET /api/admin/lessons/scene-batch, added
+ * 2026-11-06): the lessons of a topic without a scene picture, drawn one after another.
+ */
+export interface SceneBatch {
+  running: boolean;
+  /** The admin asked to stop: the lesson being drawn finishes, no new one starts. */
+  stopping: boolean;
+  stopped: boolean;
+  engine: ImageEngine | '';
+  /** Which topic the batch is for, e.g. "A1-3", and its name. */
+  key: string;
+  label: string;
+  total: number;
+  done: number;
+  drawing: SceneBatchLesson | null;
+  saved: SceneBatchLesson[];
+  failures: SceneBatchLesson[];
+  /** Lessons not drawn at all (not annotated yet). */
+  skipped: SceneBatchLesson[];
+  /** Why the batch ended early by itself (no quota, AI not set up…). */
+  stopMessage?: string;
+  /** The server can draw with the Codex CLI. */
+  codexImages: boolean;
+  startedAt?: string;
+  finishedAt?: string;
+}
+
+export interface SceneBatchRequest {
+  lessonIds: string[];
+  /** Draw the lessons that have a scene too, replacing it (the lesson page). */
+  replace?: boolean;
+  engine: ImageEngine;
+  key: string;
+  label: string;
 }

@@ -82,6 +82,8 @@ describe('LessonDetail', () => {
   // F23: the picture section loads its own settings; tests of it live in lesson-images.spec.ts.
   afterEach(() => {
     http.match((r) => r.url.endsWith('/images'));
+    // The picture section also follows the scene batch (added 2026-11-06).
+    http.match((r) => r.url.endsWith('/scene-batch'));
     http.verify();
   });
 

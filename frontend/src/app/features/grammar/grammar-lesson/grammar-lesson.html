@@ -1,7 +1,9 @@
 <section class="screen grammar" [class.has-bar]="detail()">
   @if (error() === 'notFound') {
     <nav class="screen-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/grammar" aria-label="Quay lại danh sách ngữ pháp"><lu-icon name="arrow-left" /></a>
+      <a class="round-btn" routerLink="/grammar" aria-label="Quay lại danh sách ngữ pháp"
+        ><lu-icon name="arrow-left"
+      /></a>
       <span class="back-label">Ngữ pháp</span>
     </nav>
     <div class="soft-card empty">
@@ -11,7 +13,9 @@
     </div>
   } @else if (error() === 'failed') {
     <nav class="screen-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/grammar" aria-label="Quay lại danh sách ngữ pháp"><lu-icon name="arrow-left" /></a>
+      <a class="round-btn" routerLink="/grammar" aria-label="Quay lại danh sách ngữ pháp"
+        ><lu-icon name="arrow-left"
+      /></a>
       <span class="back-label">Ngữ pháp</span>
     </nav>
     <div class="form-alert" role="alert">
@@ -24,7 +28,9 @@
     <!-- Like a lesson: close, the four steps, then the point on one line with "i" for the overview. -->
     <div class="lesson-head">
       <header class="top-bar">
-        <a class="round-btn" routerLink="/grammar" aria-label="Đóng, về danh sách ngữ pháp"><lu-icon name="x" /></a>
+        <a class="round-btn" routerLink="/grammar" aria-label="Đóng, về danh sách ngữ pháp"
+          ><lu-icon name="x"
+        /></a>
         <div
           class="progress"
           role="progressbar"
@@ -32,7 +38,9 @@
           aria-valuemin="1"
           [attr.aria-valuemax]="steps.length"
           [attr.aria-valuenow]="step() + 1"
-          [attr.aria-valuetext]="'Bước ' + (step() + 1) + '/' + steps.length + ': ' + steps[step()].label"
+          [attr.aria-valuetext]="
+            'Bước ' + (step() + 1) + '/' + steps.length + ': ' + steps[step()].label
+          "
         >
           @for (s of steps; track s.key; let i = $index) {
             <span class="segment" [class.on]="i <= step()"></span>
@@ -50,12 +58,18 @@
           [attr.aria-expanded]="overview()"
           (click)="toggleOverview()"
         >
-          <span aria-hidden="true">i</span><span class="visually-hidden">Tổng quan bài ngữ pháp</span>
+          <span aria-hidden="true">i</span
+          ><span class="visually-hidden">Tổng quan bài ngữ pháp</span>
         </button>
       </div>
     </div>
 
-    <section id="grammar-overview" class="soft-card overview" aria-labelledby="overview-title" [hidden]="!overview()">
+    <section
+      id="grammar-overview"
+      class="soft-card overview"
+      aria-labelledby="overview-title"
+      [hidden]="!overview()"
+    >
       <p class="eyebrow">Ngữ pháp · {{ d.point.level }}</p>
       <div>
         <h2 class="overview-title" id="overview-title">{{ d.point.titleVi }}</h2>
@@ -95,7 +109,11 @@
 
     <div class="panel" id="gstep-theory" [hidden]="stepKey() !== 'theory'">
       @if (resume(); as r) {
-        <section class="soft-card resume" [class.is-mastered]="r.mastered" aria-labelledby="resume-title">
+        <section
+          class="soft-card resume"
+          [class.is-mastered]="r.mastered"
+          aria-labelledby="resume-title"
+        >
           <h2 class="resume-title" id="resume-title">
             @if (r.mastered) {
               <lu-icon name="check" />
@@ -105,7 +123,9 @@
           <p>{{ r.text }}</p>
           <div class="resume-actions">
             @for (a of r.actions; track a.label; let first = $first) {
-              <button type="button" [class]="first ? 'btn-primary' : 'btn'" (click)="resumeWith(a)">{{ a.label }}</button>
+              <button type="button" [class]="first ? 'btn-primary' : 'btn'" (click)="resumeWith(a)">
+                {{ a.label }}
+              </button>
             }
           </div>
         </section>
@@ -123,7 +143,11 @@
 
       <!-- One card at a time: "Nhớ nhanh", each paragraph of the explanation, then the uses. -->
       @if (theoryCards()[card()]; as tc) {
-        <section class="soft-card theory-card" [class.quick]="tc.kind === 'quick'" aria-labelledby="g-card">
+        <section
+          class="soft-card theory-card"
+          [class.quick]="tc.kind === 'quick'"
+          aria-labelledby="g-card"
+        >
           @switch (tc.kind) {
             @case ('quick') {
               @let q = quick()!;
@@ -135,14 +159,22 @@
                 <div class="example">
                   <lu-example-lines class="example-text" [lines]="q.lines" />
                   @if (canSpeak) {
-                    <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + q.en" [luSpeak]="q.en" (click)="listen(q.en)">
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      [attr.aria-label]="'Nghe câu: ' + q.en"
+                      [luSpeak]="q.en"
+                      (click)="listen(q.en)"
+                    >
                       <lu-icon name="volume" />
                     </button>
                   }
                 </div>
               }
               @if (theoryCards().length > 1) {
-                <button type="button" class="skip" (click)="goTo(1)">Đã quen? Bỏ qua, sang Cấu trúc &amp; ví dụ</button>
+                <button type="button" class="skip" (click)="goTo(1)">
+                  Đã quen? Bỏ qua, sang Cấu trúc &amp; ví dụ
+                </button>
               }
             }
             @case ('explain') {
@@ -155,7 +187,9 @@
               <h3 class="section-title" id="g-card" #cardTitle tabindex="-1">Khi nào dùng</h3>
               <ol class="usage">
                 @for (u of c.usage; track $index; let i = $index) {
-                  <li><span class="usage-num" aria-hidden="true">{{ i + 1 }}</span> {{ u }}</li>
+                  <li>
+                    <span class="usage-num" aria-hidden="true">{{ i + 1 }}</span> {{ u }}
+                  </li>
                 }
               </ol>
             }
@@ -201,17 +235,37 @@
           }
         </div>
         @let t = tabs()[tab()];
-        <section class="soft-card tab-panel" id="gtab-panel" role="tabpanel" [attr.aria-labelledby]="'gtab-' + tab()">
+        <section
+          class="soft-card tab-panel"
+          id="gtab-panel"
+          role="tabpanel"
+          [attr.aria-labelledby]="'gtab-' + tab()"
+        >
           @if (t.short !== t.label) {
             <h3 class="tab-title">{{ t.label }}</h3>
           }
           <lu-pattern [rows]="t.rows" />
           <ul class="examples">
             @for (e of t.examples; track $index) {
-              <li class="example">
+              <li class="example" [class.has-img]="!!e.image">
+                @if (e.image) {
+                  <img
+                    class="example-img"
+                    [src]="e.image"
+                    crossorigin="use-credentials"
+                    alt=""
+                    loading="lazy"
+                  />
+                }
                 <lu-example-lines class="example-text" [lines]="e.lines" />
                 @if (canSpeak) {
-                  <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" [luSpeak]="e.en" (click)="listen(e.en)">
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    [attr.aria-label]="'Nghe câu: ' + e.en"
+                    [luSpeak]="e.en"
+                    (click)="listen(e.en)"
+                  >
                     <lu-icon name="volume" />
                   </button>
                 }
@@ -222,7 +276,9 @@
         @if (t.mistake; as m) {
           <p class="tip">
             <lu-icon name="alert" />
-            <span>Hay sai: <s lang="en">{{ m.wrong }}</s> → <span lang="en">{{ m.right }}</span></span>
+            <span
+              >Hay sai: <s lang="en">{{ m.wrong }}</s> → <span lang="en">{{ m.right }}</span></span
+            >
           </p>
         }
 
@@ -231,10 +287,25 @@
             <h3 class="section-title" id="g-other-examples">{{ otherTitle() }}</h3>
             <ul class="examples">
               @for (e of otherExamples(); track $index) {
-                <li class="example">
+                <li class="example" [class.has-img]="!!e.image">
+                  @if (e.image) {
+                    <img
+                      class="example-img"
+                      [src]="e.image"
+                      crossorigin="use-credentials"
+                      alt=""
+                      loading="lazy"
+                    />
+                  }
                   <lu-example-lines class="example-text" [lines]="e.lines" />
                   @if (canSpeak) {
-                    <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" [luSpeak]="e.en" (click)="listen(e.en)">
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      [attr.aria-label]="'Nghe câu: ' + e.en"
+                      [luSpeak]="e.en"
+                      (click)="listen(e.en)"
+                    >
                       <lu-icon name="volume" />
                     </button>
                   }

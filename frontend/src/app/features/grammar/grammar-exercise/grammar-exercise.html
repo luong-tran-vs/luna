@@ -4,7 +4,11 @@
     <p class="prompt">{{ e.promptVi }}</p>
   }
 
-  @switch (e.kind) {
+  @if (e.kind === 'picture' && pictureSrc()) {
+    <img class="picture" [src]="pictureSrc()" crossorigin="use-credentials" alt="Ảnh của bài tập" />
+  }
+
+  @switch (e.kind === 'picture' ? 'choice' : e.kind) {
     @case ('choice') {
       <p class="stem" lang="en">{{ e.text }}</p>
       <ul class="options">
@@ -16,7 +20,9 @@
               lang="en"
               [class.is-chosen]="chosen() === o.index"
               [class.is-right]="isDone() && reveal() && e.answerIndex === o.index"
-              [class.is-wrong]="isDone() && reveal() && chosen() === o.index && e.answerIndex !== o.index"
+              [class.is-wrong]="
+                isDone() && reveal() && chosen() === o.index && e.answerIndex !== o.index
+              "
               [disabled]="isDone()"
               (click)="choose(o.index)"
             >
@@ -35,7 +41,8 @@
     }
     @case ('fill') {
       <p class="stem" lang="en">
-        {{ blank()[0] }}<input
+        {{ blank()[0]
+        }}<input
           type="text"
           class="blank"
           lang="en"
@@ -49,7 +56,9 @@
       </p>
       @if (inlineCheck()) {
         <div class="actions">
-          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">
+            Kiểm tra
+          </button>
         </div>
       }
     }
@@ -58,7 +67,12 @@
       <div class="built">
         <div class="built-head">
           <h4 class="bank-title" [id]="'built-' + e.id">Câu của bạn</h4>
-          <button type="button" class="btn" [disabled]="isDone() || picked().length === 0" (click)="clear()">
+          <button
+            type="button"
+            class="btn"
+            [disabled]="isDone() || picked().length === 0"
+            (click)="clear()"
+          >
             <lu-icon name="review" /> Làm lại
           </button>
         </div>
@@ -98,7 +112,9 @@
       </ul>
       @if (inlineCheck()) {
         <div class="actions">
-          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">
+            Kiểm tra
+          </button>
         </div>
       }
     }
@@ -121,13 +137,20 @@
       ></textarea>
       @if (inlineCheck()) {
         <div class="actions">
-          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">
+            Kiểm tra
+          </button>
         </div>
       }
     }
   }
 
-  <div class="feedback" role="status" [class.ok]="result() === true && reveal()" [class.bad]="result() === false && reveal()">
+  <div
+    class="feedback"
+    role="status"
+    [class.ok]="result() === true && reveal()"
+    [class.bad]="result() === false && reveal()"
+  >
     @if (result() !== null) {
       @if (!reveal()) {
         <p class="verdict">Đã ghi nhận câu trả lời.</p>
@@ -137,7 +160,9 @@
       } @else {
         <p class="verdict"><lu-icon name="x" /> Sai</p>
         @if (e.kind !== 'choice') {
-          <p>Đáp án đúng: <strong lang="en">{{ correctText() }}</strong></p>
+          <p>
+            Đáp án đúng: <strong lang="en">{{ correctText() }}</strong>
+          </p>
         }
         <p>{{ e.explanationVi }}</p>
       }

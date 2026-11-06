@@ -10,11 +10,24 @@ import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.ser
 import { GrammarLesson } from './grammar-lesson';
 
 const exercise = (id: string) => ({
-  id, kind: 'choice' as const, text: 'x', options: ['a', 'b', 'c', 'd'], answerIndex: 0, explanationVi: 'vì',
+  id,
+  kind: 'choice' as const,
+  text: 'x',
+  options: ['a', 'b', 'c', 'd'],
+  answerIndex: 0,
+  explanationVi: 'vì',
 });
 
 const detail: GrammarDetail = {
-  point: { id: 'a1-to-be', level: 'A1', titleVi: 'Động từ to be', titleEn: 'The verb to be', pattern: 'S + be', hintVi: '', examples: [] },
+  point: {
+    id: 'a1-to-be',
+    level: 'A1',
+    titleVi: 'Động từ to be',
+    titleEn: 'The verb to be',
+    pattern: 'S + be',
+    hintVi: '',
+    examples: [],
+  },
   content: {
     objective: 'Bạn có thể giới thiệu bản thân.',
     explanation: ['Đoạn một.', 'Đoạn hai.'],
@@ -25,12 +38,19 @@ const detail: GrammarDetail = {
       { en: 'She is a teacher.', vi: 'Cô ấy là giáo viên.' },
       { en: 'They are happy.', vi: 'Họ vui.' },
     ],
-    mistakes: [{ wrong: 'She are a teacher.', right: 'She is a teacher.', noteVi: 'She đi với is.' }],
+    mistakes: [
+      { wrong: 'She are a teacher.', right: 'She is a teacher.', noteVi: 'She đi với is.' },
+    ],
     practice: ['p1', 'p2'].map(exercise),
     mastery: ['m1', 'm2'].map(exercise),
   },
   progress: {
-    status: 'learning', practiceAttempts: 1, lastPractice: 50, masteryAttempts: 0, bestMastery: 0, mastered: false,
+    status: 'learning',
+    practiceAttempts: 1,
+    lastPractice: 50,
+    masteryAttempts: 0,
+    bestMastery: 0,
+    mastered: false,
     weak: ['p2'],
   },
   lessonCount: 3,
@@ -48,20 +68,29 @@ describe('GrammarLesson', () => {
     await fixture.whenStable();
   };
   const button = (label: string) =>
-    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!;
-  const shown = () => Array.from(el.querySelectorAll<HTMLElement>('.panel')).filter((p) => !p.hidden).map((p) => p.id);
+    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+      text(b).startsWith(label),
+    )!;
+  const shown = () =>
+    Array.from(el.querySelectorAll<HTMLElement>('.panel'))
+      .filter((p) => !p.hidden)
+      .map((p) => p.id);
   const progress = () => el.querySelector('[role="progressbar"]')!.getAttribute('aria-valuenow');
   /** Opens a step from the "i" overview. */
   const openStep = async (label: string) => {
     el.querySelector<HTMLButtonElement>('.info-btn')!.click();
     await settle();
-    Array.from(el.querySelectorAll<HTMLButtonElement>('.info-step')).find((b) => text(b).includes(label))!.click();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('.info-step'))
+      .find((b) => text(b).includes(label))!
+      .click();
     await settle();
   };
   /** Clicks a button of one step, found by the start of its text. */
   const clickIn = async (step: string, label: string) => {
     const panel = el.querySelector<HTMLElement>(`#gstep-${step}`)!;
-    Array.from(panel.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!.click();
+    Array.from(panel.querySelectorAll<HTMLButtonElement>('button'))
+      .find((b) => text(b).startsWith(label))!
+      .click();
     await settle();
   };
 
@@ -91,9 +120,14 @@ describe('GrammarLesson', () => {
     await fixture.whenStable();
   };
   /** Opens the point with other progress than the default one. */
-  const openWith = async (progress: Partial<GrammarDetail['progress']>, query: Record<string, string> = {}) => {
+  const openWith = async (
+    progress: Partial<GrammarDetail['progress']>,
+    query: Record<string, string> = {},
+  ) => {
     await setup(true, query);
-    http.expectOne('/grammar/a1-to-be').flush({ ...detail, progress: { ...detail.progress, ...progress } });
+    http
+      .expectOne('/grammar/a1-to-be')
+      .flush({ ...detail, progress: { ...detail.progress, ...progress } });
     await settle();
   };
   const resume = () => el.querySelector<HTMLElement>('.resume');
@@ -108,7 +142,9 @@ describe('GrammarLesson', () => {
     it('offers to redo the wrong answers or take the test, and starts the redo at once', async () => {
       await openWith({});
       expect(text(resume()?.querySelector('.resume-title'))).toBe('Học tiếp từ chỗ dở');
-      expect(text(resume())).toContain('Lần trước luyện tập: 50% · còn 1 câu sai. Chưa làm bài kiểm tra.');
+      expect(text(resume())).toContain(
+        'Lần trước luyện tập: 50% · còn 1 câu sai. Chưa làm bài kiểm tra.',
+      );
       const buttons = Array.from(resume()!.querySelectorAll('button')).map((b) => text(b));
       expect(buttons).toEqual(['Luyện lại 1 câu sai', 'Làm kiểm tra']);
 
@@ -172,7 +208,10 @@ describe('GrammarLesson', () => {
       const card = () => text(theory.querySelector('.theory-card'));
       expect(text(theory)).toContain('Bạn có thể giới thiệu bản thân.');
       expect(card()).toContain('Nhớ nhanh');
-      expect(Array.from(theory.querySelectorAll('.piece')).map((p) => text(p))).toEqual(['S', 'am/is/are']);
+      expect(Array.from(theory.querySelectorAll('.piece')).map((p) => text(p))).toEqual([
+        'S',
+        'am/is/are',
+      ]);
       expect(card()).toContain('I am a student.Tôi là học sinh.');
       expect(card()).not.toContain('Đoạn một.');
       expect(theory.querySelectorAll('.dot').length).toBe(4);
@@ -206,7 +245,10 @@ describe('GrammarLesson', () => {
       expect(text(tab)).toBe('Khẳng định');
       expect(tab.classList).toContain('is-positive');
       const panel = structure.querySelector('#gtab-panel')!;
-      expect(Array.from(panel.querySelectorAll('.piece')).map((p) => text(p))).toEqual(['S', 'am/is/are']);
+      expect(Array.from(panel.querySelectorAll('.piece')).map((p) => text(p))).toEqual([
+        'S',
+        'am/is/are',
+      ]);
       expect(text(panel)).toContain('I am a student.');
       // Not marked: the words the pattern names are coloured from it.
       expect(Array.from(panel.querySelectorAll('.hl')).map((h) => text(h))).toContain('am');
@@ -214,7 +256,9 @@ describe('GrammarLesson', () => {
       expect(text(panel)).toContain('They are happy.Họ vui.');
       expect(structure.querySelector('#g-other-examples')).toBeNull();
       // The mistake whose right sentence has this form is told under the tab; the quiz waits.
-      expect(text(structure.querySelector('.tip'))).toBe('Hay sai: She are a teacher. → She is a teacher.');
+      expect(text(structure.querySelector('.tip'))).toBe(
+        'Hay sai: She are a teacher. → She is a teacher.',
+      );
       expect(structure.querySelector<HTMLElement>('lu-mistake-check')!.hidden).toBe(true);
     });
 
@@ -249,7 +293,9 @@ describe('GrammarLesson', () => {
       expect(el.querySelector('#gtab-panel')).toBeNull();
       expect(text(check.querySelector('.count'))).toBe('1 / 1');
       expect(button('Câu tiếp').disabled).toBe(true);
-      Array.from(check.querySelectorAll<HTMLButtonElement>('.choice')).find((b) => text(b) === 'She is a teacher.')!.click();
+      Array.from(check.querySelectorAll<HTMLButtonElement>('.choice'))
+        .find((b) => text(b) === 'She is a teacher.')!
+        .click();
       await settle();
       // Back goes to the last tab; forward comes back to the mistake as it was left.
       el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Cấu trúc trước"]')!.click();
@@ -278,7 +324,9 @@ describe('GrammarLesson', () => {
       expect(text(overview)).toContain('Có 3 bài học theo chủ đề');
       expect(overview.querySelector('[aria-current="step"]')?.textContent).toContain('Lý thuyết');
 
-      Array.from(overview.querySelectorAll<HTMLButtonElement>('.info-step')).find((b) => text(b).includes('Kiểm tra'))!.click();
+      Array.from(overview.querySelectorAll<HTMLButtonElement>('.info-step'))
+        .find((b) => text(b).includes('Kiểm tra'))!
+        .click();
       await settle();
       expect(shown()).toEqual(['gstep-test']);
       expect(progress()).toBe('4');
@@ -295,17 +343,43 @@ describe('GrammarLesson', () => {
       const req = http.expectOne('/grammar/a1-to-be/attempts');
       expect(req.request.body).toEqual({ kind: 'mastery', correct: 2, total: 2, wrong: [] });
       req.flush({
-        progress: { ...detail.progress, status: 'mastered', mastered: true, bestMastery: 100, weak: [] },
+        progress: {
+          ...detail.progress,
+          status: 'mastered',
+          mastered: true,
+          bestMastery: 100,
+          weak: [],
+        },
         passed: true,
       });
       await settle();
-      http.expectOne((r) => r.url === '/grammar' && r.params.get('level') === 'A1').flush({
-        next: 'a1-articles',
-        points: [
-          { id: 'a1-to-be', level: 'A1', titleVi: 'Động từ to be', titleEn: '', hintVi: '', available: true, status: 'mastered', bestMastery: 100 },
-          { id: 'a1-articles', level: 'A1', titleVi: 'Mạo từ', titleEn: '', hintVi: '', available: true, status: 'new', bestMastery: 0 },
-        ],
-      });
+      http
+        .expectOne((r) => r.url === '/grammar' && r.params.get('level') === 'A1')
+        .flush({
+          next: 'a1-articles',
+          points: [
+            {
+              id: 'a1-to-be',
+              level: 'A1',
+              titleVi: 'Động từ to be',
+              titleEn: '',
+              hintVi: '',
+              available: true,
+              status: 'mastered',
+              bestMastery: 100,
+            },
+            {
+              id: 'a1-articles',
+              level: 'A1',
+              titleVi: 'Mạo từ',
+              titleEn: '',
+              hintVi: '',
+              available: true,
+              status: 'new',
+              bestMastery: 0,
+            },
+          ],
+        });
       await settle();
       expect(text(el.querySelector('#gstep-test .verdict'))).toContain('Đã nắm vững');
       expect(text(el.querySelector('.status'))).toBe('Đã nắm vững · Điểm kiểm tra tốt nhất: 100%');
@@ -321,7 +395,9 @@ describe('GrammarLesson', () => {
       await clickIn('test', 'Câu tiếp theo');
       await clickIn('test', 'b');
       await clickIn('test', 'Xem kết quả');
-      http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: detail.progress, passed: false });
+      http
+        .expectOne('/grammar/a1-to-be/attempts')
+        .flush({ progress: detail.progress, passed: false });
       await settle();
       http.expectNone('/grammar');
       await clickIn('test', 'Về danh sách ngữ pháp');
@@ -334,7 +410,9 @@ describe('GrammarLesson', () => {
       await clickIn('practice', 'Câu tiếp theo');
       await clickIn('practice', 'a');
       await clickIn('practice', 'Xem kết quả');
-      http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: detail.progress, passed: false });
+      http
+        .expectOne('/grammar/a1-to-be/attempts')
+        .flush({ progress: detail.progress, passed: false });
       await settle();
       await clickIn('practice', 'Sang Kiểm tra');
       expect(shown()).toEqual(['gstep-test']);
@@ -352,17 +430,30 @@ describe('GrammarLesson', () => {
           { label: 'Rút gọn', pattern: "I'm", example: "I'm fine." },
         ],
         examples: [
-          { en: 'She is a teacher.', vi: 'Cô ấy là giáo viên.', structure: 1, marked: '{1:She} {2:is} a teacher.' },
+          {
+            en: 'She is a teacher.',
+            vi: 'Cô ấy là giáo viên.',
+            structure: 1,
+            marked: '{1:She} {2:is} a teacher.',
+          },
           { en: 'They are happy.', vi: 'Họ vui.', structure: 1 },
           { en: 'Is she here? – Yes, she is.', vi: 'Cô ấy ở đây không? – Có.', structure: 1 },
-          { en: 'He is not here.', vi: 'Anh ấy không ở đây.', structure: 2, marked: '{1:He} {2:is} {3:not} here.' },
+          {
+            en: 'He is not here.',
+            vi: 'Anh ấy không ở đây.',
+            structure: 2,
+            marked: '{1:He} {2:is} {3:not} here.',
+          },
           { en: 'Hello!', vi: 'Xin chào!' },
         ],
       },
     };
     const panel = () => el.querySelector<HTMLElement>('#gtab-panel')!;
     const tabs = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
-    const marks = () => Array.from(panel().querySelectorAll('.hl')).map((h) => `${text(h)}:${h.className.split(' ').pop()}`);
+    const marks = () =>
+      Array.from(panel().querySelectorAll('.hl')).map(
+        (h) => `${text(h)}:${h.className.split(' ').pop()}`,
+      );
 
     beforeEach(async () => {
       await setup();
@@ -425,7 +516,9 @@ describe('GrammarLesson', () => {
 
   it('says the point is coming soon when it has no published lesson', async () => {
     await setup();
-    http.expectOne('/grammar/a1-to-be').flush({ error: 'not_found' }, { status: 404, statusText: 'x' });
+    http
+      .expectOne('/grammar/a1-to-be')
+      .flush({ error: 'not_found' }, { status: 404, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('h1'))).toBe('Điểm này sắp có');
     expect(el.querySelector('.empty a')?.getAttribute('href')).toBe('/grammar');
@@ -437,7 +530,9 @@ describe('GrammarLesson', () => {
     http.expectOne('/grammar/a1-to-be').flush({}, { status: 500, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được bài ngữ pháp');
-    Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Thử lại')!.click();
+    Array.from(el.querySelectorAll('button'))
+      .find((b) => text(b) === 'Thử lại')!
+      .click();
     http.expectOne('/grammar/a1-to-be').flush(detail);
     await settle();
     expect(text(el.querySelector('h1'))).toBe('Động từ to be');
@@ -448,5 +543,20 @@ describe('GrammarLesson', () => {
     http.expectOne('/grammar/a1-to-be').flush(detail);
     await settle();
     expect(el.querySelectorAll('.icon-btn').length).toBe(0);
+  });
+
+  it('shows the picture of an example beside it in Cấu trúc & ví dụ (added 2026-11-06)', async () => {
+    await setup(true, { step: 'structure' });
+    http.expectOne('/grammar/a1-to-be').flush({
+      ...detail,
+      exampleImages: ['/api/grammar/a1-to-be/images/k1', '', ''],
+    });
+    await settle();
+    const step = el.querySelector('#gstep-structure')!;
+    const imgs = Array.from(step.querySelectorAll<HTMLImageElement>('.example-img'));
+    expect(imgs.length).toBe(1);
+    expect(imgs[0].getAttribute('src')).toContain('/api/grammar/a1-to-be/images/k1');
+    expect(imgs[0].closest('.example')!.textContent).toContain('I am a student.');
+    expect(imgs[0].closest('.example')!.classList.contains('has-img')).toBe(true);
   });
 });

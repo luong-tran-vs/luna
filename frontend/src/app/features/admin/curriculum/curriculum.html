@@ -181,7 +181,93 @@
                 >
               </button>
             }
+            @if (v.sceneMissing.length > 0) {
+              <button
+                type="button"
+                class="btn btn-sm scene-btn"
+                [disabled]="sceneBusy() || scenesRunning()"
+                [attr.title]="
+                  scenesRunning()
+                    ? 'Đang có một lượt tạo ảnh cảnh chạy, chờ xong hoặc bấm Dừng.'
+                    : null
+                "
+                (click)="openScenes(v, $event)"
+              >
+                Tạo ảnh cảnh ({{ v.sceneMissing.length }})<span class="visually-hidden">
+                  cho chủ đề {{ t.name }}</span
+                >
+              </button>
+            }
           </div>
+
+          @if (sceneBatchOf(t); as sb) {
+            <div class="scene-batch" [class.bad]="!sb.running && !!sb.stopMessage" role="status">
+              @if (sb.running) {
+                <div class="scene-batch-line">
+                  <span class="dot" aria-hidden="true"></span>
+                  <span class="scene-batch-text">
+                    {{ sb.stopping ? 'Đang dừng tạo ảnh cảnh' : 'Máy chủ đang tạo ảnh cảnh ngầm' }}
+                    bằng {{ sceneEngine(sb) }}: xong
+                    <strong>{{ sb.done }}/{{ sb.total }}</strong> bài
+                    @if (sb.drawing; as d) {
+                      · đang vẽ “{{ d.title }}”
+                    }
+                    @if (sb.failures.length) {
+                      · {{ sb.failures.length }} lỗi
+                    }
+                  </span>
+                  <button
+                    type="button"
+                    class="btn btn-sm"
+                    [disabled]="sb.stopping || sceneBusy()"
+                    (click)="stopScenes()"
+                  >
+                    {{ sb.stopping ? 'Đang dừng…' : 'Dừng' }}
+                  </button>
+                </div>
+                <progress
+                  class="scene-progress"
+                  [max]="sb.total"
+                  [value]="sb.done"
+                  aria-label="Tiến độ tạo ảnh cảnh"
+                ></progress>
+                <p class="scene-batch-note">
+                  Chạy ngầm trên máy chủ: có thể đóng trang hay làm việc khác, bài nào vẽ xong là
+                  lưu ngay.
+                </p>
+              } @else {
+                <div class="scene-batch-line">
+                  <span class="scene-batch-text">
+                    {{
+                      sb.stopMessage
+                        ? 'Tạo ảnh cảnh dừng sớm: ' + sb.stopMessage
+                        : sb.stopped
+                          ? 'Đã dừng tạo ảnh cảnh.'
+                          : 'Đã tạo ảnh cảnh xong.'
+                    }}
+                    {{ sb.saved.length }}/{{ sb.total }} bài có ảnh mới bằng {{ sceneEngine(sb) }}
+                    @if (sb.failures.length) {
+                      · {{ sb.failures.length }} lỗi
+                    }
+                    @if (sb.skipped.length) {
+                      · bỏ qua {{ sb.skipped.length }} bài chưa chú thích
+                    }
+                  </span>
+                  <button type="button" class="btn btn-sm" (click)="hideScenes()">Ẩn</button>
+                </div>
+                @if (sb.failures.length) {
+                  <ul class="scene-failures">
+                    @for (f of sb.failures; track f.id) {
+                      <li>
+                        <a [routerLink]="['/admin/lessons', f.id]">{{ f.title }}</a
+                        >: {{ f.message }}
+                      </li>
+                    }
+                  </ul>
+                }
+              }
+            </div>
+          }
 
           <p class="topic-status" role="status">
             @if (generatingTopic(t)) {
@@ -255,6 +341,7 @@
                       (generate)="generateOne(t, s)"
                       (importLesson)="askImport(t, s)"
                       (publish)="publish(t, $event)"
+                      (unpublish)="unpublish(t, $event)"
                       (recheck)="recheck(t, s, $event)"
                       (remove)="askRemove(t, s.lesson!, s.lesson!.title || s.title)"
                     />
@@ -278,6 +365,7 @@
                       (generate)="generateOne(t, s)"
                       (importLesson)="askImport(t, s)"
                       (publish)="publish(t, $event)"
+                      (unpublish)="unpublish(t, $event)"
                       (recheck)="recheck(t, s, $event)"
                       (remove)="askRemove(t, s.lesson!, s.lesson!.title || s.title)"
                     />
@@ -293,6 +381,8 @@
                   <li>
                     <lu-lesson-row
                       [other]="l"
+                      [publishing]="publishing() === l.id"
+                      (unpublish)="unpublish(t, $event)"
                       [busy]="busy()"
                       (remove)="askRemove(t, l, l.title)"
                     />
@@ -332,4 +422,21 @@
   [published]="removal()?.lesson?.draft === false"
   (confirmed)="remove($event)"
   (cancelled)="cancelRemove()"
+/>
+
+<lu-engine-dialog
+  [open]="sceneTopic() !== null"
+  [heading]="'Tạo ảnh cảnh cho chủ đề “' + (sceneTopic()?.topic?.name ?? '') + '”'"
+  [message]="
+    (sceneTopic()?.sceneMissing?.length ?? 0) + ' bài chưa có ảnh cảnh, vẽ lần lượt từng bài.'
+  "
+  [note]="
+    sceneTopic()?.sceneSkipped?.length
+      ? sceneTopic()!.sceneSkipped.length + ' bài chưa chú thích xong sẽ bị bỏ qua.'
+      : ''
+  "
+  [confirmLabel]="'Tạo ' + (sceneTopic()?.sceneMissing?.length ?? 0) + ' ảnh cảnh'"
+  [codexAvailable]="codexImages()"
+  (confirmed)="startScenes($event)"
+  (cancelled)="cancelScenes()"
 />

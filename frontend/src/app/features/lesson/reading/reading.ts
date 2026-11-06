@@ -31,6 +31,7 @@ import { ReadingApiService } from '../reading-api.service';
 import { ComprehensionQuiz } from './comprehension-quiz/comprehension-quiz';
 import { SentenceTranslation } from './sentence-translation/sentence-translation';
 import { Loading } from '../../../shared/components/loading/loading';
+import { SceneImage } from '../../../shared/components/scene-image/scene-image';
 
 interface Selected {
   sentence: number;
@@ -101,6 +102,7 @@ export function chunkParagraph(sentences: readonly number[]): number[][] {
     ComprehensionQuiz,
     Icon,
     RouterLink,
+    SceneImage,
     SentenceTranslation,
     WordPopup,
   ],

@@ -15,9 +15,6 @@ import (
 // maxImageResponse bounds an image response: a base64 PNG of 1024×1024 is about 2 MB.
 const maxImageResponse = 16 << 20
 
-// defaultImageStyle is used when the admin gave no style (F23).
-const defaultImageStyle = "a simple, friendly flat illustration with soft colors on a plain light background"
-
 var _ ai.ImageProvider = (*Client)(nil)
 
 type imagePart struct {
@@ -43,10 +40,10 @@ func (c *Client) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Ima
 		return ai.Image{}, ai.ErrNotConfigured
 	}
 	body, err := json.Marshal(request{
-		Contents: []content{{Role: "user", Parts: []part{{Text: imagePrompt(req)}}}},
+		Contents: []content{{Role: "user", Parts: []part{{Text: ai.ImagePrompt(req)}}}},
 		GenerationConfig: map[string]any{
 			"responseModalities": []string{"IMAGE"},
-			"imageConfig":        map[string]any{"aspectRatio": "4:3"},
+			"imageConfig":        map[string]any{"aspectRatio": ai.ImageAspect(req)},
 		},
 	})
 	if err != nil {
@@ -73,26 +70,4 @@ func (c *Client) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Ima
 		}
 	}
 	return ai.Image{}, errors.New("gemini: no image in response")
-}
-
-// imagePrompt describes one picture: the word in its sense, in the admin's style, with no text
-// drawn, since a learner must recognise the thing, not read its name.
-func imagePrompt(req ai.ImageRequest) string {
-	style := strings.TrimSpace(req.Style)
-	if style == "" {
-		style = defaultImageStyle
-	}
-	var b strings.Builder
-	fmt.Fprintf(&b, "Draw one picture that helps a Vietnamese learner of English remember the English word %q", req.Word)
-	if req.MeaningVi != "" {
-		fmt.Fprintf(&b, " (Vietnamese meaning: %q)", req.MeaningVi)
-	}
-	b.WriteString(".\n")
-	if req.Sentence != "" {
-		fmt.Fprintf(&b, "The word is used like this: %q. Show this sense of the word.\n", req.Sentence)
-	}
-	fmt.Fprintf(&b, "Style: %s.\n", style)
-	b.WriteString("Show the meaning clearly with one main subject. Do not draw any letters, words, captions or watermarks. " +
-		"Keep it suitable for learners of every age.")
-	return b.String()
 }

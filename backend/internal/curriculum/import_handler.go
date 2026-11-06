@@ -47,6 +47,8 @@ type importJSON struct {
 	Annotate    ai.LessonExtras `json:"annotate"`
 	Practice    ai.Practice     `json:"practice"`
 	Glosses     []ai.Gloss      `json:"glosses"`
+	// Scene describes the lesson's scene picture in English (added 2026-11-05); optional.
+	Scene string `json:"scene"`
 }
 
 type importPartJSON struct {
@@ -106,7 +108,9 @@ func (h *Handler) importSlot(w http.ResponseWriter, r *http.Request) {
 	dryRun, replace := r.URL.Query().Get("dryRun") == "true", r.URL.Query().Get("replace") == "true"
 	res, err := h.svc.ImportSlot(r.Context(), r.PathValue("key"), SlotImport{
 		Content: in.Content, TargetWords: in.TargetWords,
-		ImportContent: lesson.ImportContent{Annotate: in.Annotate, Practice: in.Practice, Glosses: in.Glosses},
+		ImportContent: lesson.ImportContent{
+			Annotate: in.Annotate, Practice: in.Practice, Glosses: in.Glosses, Scene: in.Scene,
+		},
 	}, replace, dryRun)
 	var verr *lesson.ValidationError
 	if errors.As(err, &verr) {

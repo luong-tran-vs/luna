@@ -26,6 +26,8 @@ export interface ReadingLesson {
   turns?: TextTurn[] | null;
   /** The Vietnamese translation of each sentence, by index; empty when the lesson has none yet. */
   sentenceTranslations?: string[];
+  /** The scene picture of the lesson, shown at its top and in Reading and Listening; '' when none. */
+  sceneImageUrl?: string;
 }
 
 /** One line of a dialogue lesson. */

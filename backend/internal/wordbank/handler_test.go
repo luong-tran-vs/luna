@@ -189,3 +189,38 @@ func TestIPASuggestionsAPI(t *testing.T) {
 		t.Fatalf("accept = %d %s", rec.Code, rec.Body)
 	}
 }
+
+func TestImageBatchAPI(t *testing.T) {
+	t.Parallel()
+	mux, e := newAPI(t)
+	if rec := do(mux, http.MethodGet, "/api/admin/words/image-batch", ""); rec.Code != http.StatusOK ||
+		!strings.Contains(rec.Body.String(), `"running":false`) || !strings.Contains(rec.Body.String(), `"total":0`) {
+		t.Fatalf("no batch = %d %s", rec.Code, rec.Body)
+	}
+	if rec := do(mux, http.MethodPost, "/api/admin/words/image-batch", `{}`); rec.Code != http.StatusBadRequest ||
+		!strings.Contains(rec.Body.String(), "Không có từ nào cần sinh ảnh") {
+		t.Fatalf("empty bank = %d %s", rec.Code, rec.Body)
+	}
+	addWords(t, e, "house", "apple")
+	e.draw.err = ai.ErrQuota
+	if rec := do(mux, http.MethodPost, "/api/admin/words/image-batch", `{"lemmas":["house","apple"],"engine":"gemini"}`); rec.Code != http.StatusAccepted ||
+		!strings.Contains(rec.Body.String(), `"total":2`) {
+		t.Fatalf("start = %d %s", rec.Code, rec.Body)
+	}
+	waitBatch(t, e.svc)
+	rec := do(mux, http.MethodGet, "/api/admin/words/image-batch", "")
+	var got batchJSON
+	if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
+		t.Fatal(err)
+	}
+	if got.Running || got.Done != 1 || got.StopMessage != "Đã hết lượt AI, vui lòng thử lại sau." ||
+		len(got.Failures) != 1 || got.Failures[0].Lemma != "house" || got.FinishedAt == nil {
+		t.Fatalf("finished = %s", rec.Body)
+	}
+	if rec := do(mux, http.MethodPost, "/api/admin/words/image-batch/stop", ""); rec.Code != http.StatusOK {
+		t.Fatalf("stop = %d %s", rec.Code, rec.Body)
+	}
+	if rec := do(mux, http.MethodGet, "/api/admin/words/image-batch", ""); rec.Code != http.StatusOK || strings.Contains(rec.Body.String(), "stopping\":true") {
+		t.Fatalf("stop after the end = %s", rec.Body)
+	}
+}

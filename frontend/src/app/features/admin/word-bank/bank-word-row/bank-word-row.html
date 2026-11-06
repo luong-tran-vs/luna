@@ -3,12 +3,20 @@
   @if (w.imageUrl) {
     <img [src]="imageSrc()" crossorigin="use-credentials" [alt]="'Ảnh của ' + w.lemma" />
   } @else {
-    <span class="thumb-empty">Chưa có ảnh</span>
+    <span class="thumb-empty">{{ drawing() ? 'Đang sinh…' : 'Chưa có ảnh' }}</span>
   }
 </div>
 
 <div class="word-text">
-  <span class="lemma" lang="en">{{ w.lemma }}</span>
+  <label class="pick">
+    <input
+      type="checkbox"
+      [checked]="selected()"
+      (change)="selectedChange.emit($any($event.target).checked)"
+    />
+    <span class="lemma" lang="en">{{ w.lemma }}</span>
+    <span class="visually-hidden"> (chọn để sinh ảnh hàng loạt)</span>
+  </label>
   @if (w.ipa) {
     <span class="ipa">{{ w.ipa }}</span>
   } @else {
@@ -82,8 +90,16 @@
     >
       Dán link ảnh<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
     </button>
-    <button type="button" class="btn" [disabled]="busy() !== null" [attr.aria-busy]="busy() === 'draw'" (click)="draw()">
-      {{ busy() === 'draw' ? 'Đang sinh ảnh…' : 'Sinh ảnh AI' }}<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
+    <button type="button" class="btn" [disabled]="busy() !== null || drawing()" [attr.aria-busy]="busy() === 'draw'" (click)="draw()">
+      {{
+        busy() === 'draw'
+          ? engine() === 'codex'
+            ? 'Codex đang vẽ… (khoảng 1 phút)'
+            : 'Đang sinh ảnh…'
+          : engine() === 'codex'
+            ? 'Sinh ảnh Codex'
+            : 'Sinh ảnh AI'
+      }}<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
     </button>
     @if (w.imageUrl) {
       <button type="button" class="btn" [disabled]="busy() !== null" (click)="removeImage()">

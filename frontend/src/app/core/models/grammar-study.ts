@@ -4,7 +4,7 @@ import { Level } from './lesson';
 
 export type GrammarStatus = 'new' | 'learning' | 'mastered';
 /** "fix" (added 2026-10-20): `text` has one mistake, `sentence` is the correction, `answers` other accepted ones. */
-export type ExerciseKind = 'choice' | 'fill' | 'reorder' | 'fix';
+export type ExerciseKind = 'choice' | 'fill' | 'reorder' | 'fix' | 'picture';
 export type AttemptKind = 'practice' | 'mastery';
 
 /** Score (in percent) a mastery test needs for a point to count as mastered. */
@@ -47,6 +47,8 @@ export interface GrammarExercise {
   answers?: string[];
   sentence?: string;
   words?: string[];
+  /** The picture of a picture exercise (added 2026-11-06): the learner picks the option it shows. */
+  imageUrl?: string;
   explanationVi: string;
 }
 
@@ -107,6 +109,8 @@ export interface GrammarDetail {
   point: GrammarPointInfo;
   content: GrammarContent;
   progress: GrammarProgress;
+  /** The picture of each example of the content, in order; '' for one without (added 2026-11-06). */
+  exampleImages?: string[];
   /** Topic lessons that use this point. */
   lessonCount: number;
 }

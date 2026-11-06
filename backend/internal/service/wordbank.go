@@ -14,14 +14,16 @@ import (
 // initWordBank builds the shared word bank (F24), which the reader and the reviews read from.
 func (c *Container) initWordBank() {
 	c.wordBank = wordbank.NewService(wordbank.Deps{
-		Repo:       c.store.WordBank(),
-		Dict:       c.dict,
-		Topics:     topicWords{c.topic},
-		ImageAI:    c.imageAI,
-		MeaningAI:  c.meaningAI,
-		FetchImage: lesson.NewImageFetcher(),
-		Now:        time.Now,
-		Log:        c.log,
+		Repo:             c.store.WordBank(),
+		Dict:             c.dict,
+		Topics:           topicWords{c.topic},
+		ImageAI:          c.imageAI,
+		CodexImageAI:     c.codexImageAI,
+		CodexConcurrency: c.cfg.CodexImageConcurrency,
+		MeaningAI:        c.meaningAI,
+		FetchImage:       lesson.NewImageFetcher(),
+		Now:              time.Now,
+		Log:              c.log,
 	})
 }
 

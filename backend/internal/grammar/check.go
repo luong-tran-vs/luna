@@ -119,8 +119,13 @@ func (s *Service) runCheck(ctx context.Context, p Point, l Lesson) (Lesson, erro
 func (s *Service) solve(ctx context.Context, p Point, exercises []Exercise) (map[string]ai.Solution, error) {
 	req := ai.SolveRequest{Level: p.Level, TitleEn: p.TitleEn, Pattern: p.Pattern}
 	for _, e := range exercises {
+		kind, text := string(e.Kind), e.Text
+		// A picture exercise is solved as a choice, told what the picture shows (added 2026-11-06).
+		if e.Kind == KindPicture {
+			kind, text = string(KindChoice), "(The picture shows: "+e.Picture+") "+e.Text
+		}
 		req.Exercises = append(req.Exercises, ai.SolveExercise{
-			ID: e.ID, Kind: string(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options, Words: e.Words,
+			ID: e.ID, Kind: kind, PromptVi: e.PromptVi, Text: text, Options: e.Options, Words: e.Words,
 		})
 	}
 	solutions, err := s.ai.SolveGrammarExercises(ctx, req)
@@ -167,7 +172,7 @@ func compareSolution(e Exercise, sol ai.Solution) (Check, bool) {
 		return Check{ExerciseID: e.ID, Kind: CheckMismatch, NoteVi: note}, true
 	}
 	switch e.Kind {
-	case KindChoice:
+	case KindChoice, KindPicture:
 		if sol.ChoiceIndex == nil || *sol.ChoiceIndex != e.AnswerIndex {
 			got := "không chọn được đáp án nào"
 			if sol.ChoiceIndex != nil && *sol.ChoiceIndex >= 0 && *sol.ChoiceIndex < len(e.Options) {

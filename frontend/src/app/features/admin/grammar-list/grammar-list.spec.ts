@@ -117,7 +117,12 @@ describe('GrammarList', () => {
     await settle();
   };
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    // The example picture section follows the background batch (added 2026-11-06).
+    http.match((r) => r.url === '/admin/grammar-image-batch');
+    http.match((r) => r.url === '/admin/grammar-picture-batch');
+    http.verify();
+  });
 
   it('shows the state of each point in words, with the published count', async () => {
     await setup();

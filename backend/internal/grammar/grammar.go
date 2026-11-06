@@ -29,6 +29,10 @@ type Point struct {
 	// HintVi says in one line when the point is used.
 	HintVi   string   `json:"hintVi"`
 	Examples []string `json:"examples"`
+	// Drawable says the point can be shown in pictures (added 2026-11-06): its examples get pictures
+	// and its lessons picture exercises. Abstract points (tenses of time, conditionals, word order)
+	// are left without, as a picture would not help.
+	Drawable bool `json:"drawable,omitempty"`
 }
 
 // Syllabus is the full list of points, in teaching order within each level.

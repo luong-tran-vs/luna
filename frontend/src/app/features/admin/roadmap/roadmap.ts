@@ -18,7 +18,6 @@ import {
   AI_LICENSE,
   AI_SOURCE,
   DEFAULT_COUNT,
-  DEFAULT_IMAGE_STYLE,
   DEFAULT_TARGET_WORDS,
   DEFAULT_WORDS,
   GenerateInput,
@@ -167,8 +166,6 @@ export class Roadmap implements CanLeave {
     kind: 'reading',
     idea: '',
     perLesson: DEFAULT_TARGET_WORDS.A1,
-    images: false,
-    imageStyle: DEFAULT_IMAGE_STYLE,
   });
   /** F18: the selected topic's vocabulary, loaded each time the dialog opens (coverage changes). */
   protected readonly topicWords = signal<TopicWord[]>([]);
@@ -633,9 +630,9 @@ export class Roadmap implements CanLeave {
     if (!id || this.generating()) {
       return;
     }
-    const { perLesson, targetWords, images, imageStyle, level, ...rest } = request;
+    const { perLesson, targetWords, level, ...rest } = request;
     const input: GenerateInput = { ...rest, level, targetWords };
-    this.options.set({ ...rest, perLesson, images, imageStyle });
+    this.options.set({ ...rest, perLesson });
     this.optionsLevel = level;
     this.generating.set(true);
     this.generateError.set(null);
@@ -657,7 +654,6 @@ export class Roadmap implements CanLeave {
           // With 'auto' the server tells the point it picked; never save 'auto' itself.
           grammarPointId: d.grammarPointId ?? (input.grammarPointId === GRAMMAR_AUTO ? '' : (input.grammarPointId ?? '')),
           targetLength: input.words,
-          images: images ? { enabled: true, style: imageStyle } : null,
           saving: false,
           error: null,
           fields: {},
@@ -735,7 +731,6 @@ export class Roadmap implements CanLeave {
           draft: true,
           grammarPointId: draft.grammarPointId ?? '',
           ...(draft.targetWords.length > 0 ? { targetWords: draft.targetWords } : {}),
-          ...(draft.images ? { images: draft.images } : {}),
         }),
       );
       this.discardDraft(key);

@@ -30,8 +30,6 @@ type Input struct {
 	KeepGrammarPoint bool
 	// AppendToRoadmap adds a new lesson at the end of its topic roadmap (F7); Update ignores it.
 	AppendToRoadmap bool
-	// Images are the word pictures of a new lesson (F23); nil leaves them off. Update ignores it.
-	Images *ImageInput
 	// TargetWords are the topic words a generated draft was asked to use (F18); at most
 	// maxTargetWords. Update ignores it.
 	TargetWords []string
@@ -52,7 +50,6 @@ func ValidateInput(in Input) (Input, []string, error) {
 		GrammarPointID:   strings.TrimSpace(in.GrammarPointID),
 		KeepGrammarPoint: in.KeepGrammarPoint,
 		AppendToRoadmap:  in.AppendToRoadmap,
-		Images:           in.Images,
 		TargetWords:      cleanWordList(in.TargetWords),
 		Draft:            in.Draft,
 	}

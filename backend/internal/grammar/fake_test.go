@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sort"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -99,6 +100,29 @@ type fakeAI struct {
 	solve      func(ai.SolveRequest) ([]ai.Solution, error)
 	solveCalls int
 	solveReq   ai.SolveRequest
+
+	// pictures answers GrammarPictures; nil writes the asked number of picture exercises.
+	pictures      func(ai.GrammarPicturesRequest) (ai.GrammarPictures, error)
+	picturesCalls int
+	picturesReq   ai.GrammarPicturesRequest
+}
+
+func (f *fakeAI) GrammarPictures(_ context.Context, req ai.GrammarPicturesRequest) (ai.GrammarPictures, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.picturesCalls++
+	f.picturesReq = req
+	if f.pictures != nil {
+		return f.pictures(req)
+	}
+	var out ai.GrammarPictures
+	for i := range req.Practice {
+		out.Practice = append(out.Practice, pictureExercise(fmt.Sprintf("new-p%d", i)))
+	}
+	for i := range req.Mastery {
+		out.Mastery = append(out.Mastery, pictureExercise(fmt.Sprintf("new-m%d", i)))
+	}
+	return out, nil
 }
 
 func (f *fakeAI) GrammarLesson(_ context.Context, req ai.GrammarLessonRequest) (ai.GrammarLessonContent, error) {
@@ -224,6 +248,11 @@ func solveLikeFixtures(req ai.SolveRequest) []ai.Solution {
 		s := ai.Solution{ExerciseID: e.ID}
 		switch e.Kind {
 		case "choice":
+			if strings.HasPrefix(e.Text, "(The picture shows") {
+				two := 2 // pictureExercise is keyed "under"
+				s.ChoiceIndex = &two
+				break
+			}
 			one := 1
 			s.ChoiceIndex = &one
 		case "fill":

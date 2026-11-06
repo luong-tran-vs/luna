@@ -94,6 +94,15 @@
         }
       </select>
     </div>
+    @if (codexImages()) {
+      <div class="field">
+        <label for="bank-engine">Sinh ảnh bằng</label>
+        <select id="bank-engine" [value]="imageEngine()" (change)="setEngine($any($event.target).value)">
+          <option value="gemini" [selected]="imageEngine() === 'gemini'">Gemini</option>
+          <option value="codex" [selected]="imageEngine() === 'codex'">Codex CLI (ChatGPT)</option>
+        </select>
+      </div>
+    }
   </div>
 
   <!-- The colors of the counts next to each topic; a chip also sets the "Lọc" filter. -->
@@ -111,6 +120,85 @@
     }
     <span class="muted legend-note">Số bên cạnh tên chủ đề là số từ còn thiếu.</span>
   </div>
+
+  <section class="card batch-bar" aria-labelledby="bank-batch-heading">
+    <h2 class="section-title" id="bank-batch-heading">Sinh ảnh hàng loạt</h2>
+    @let b = batch();
+    @if (b && b.running) {
+      <p role="status">
+        Đang sinh ảnh cho <strong>{{ scope(b) }}</strong> bằng {{ batchEngine(b) }}: đã xử lý {{ b.done }}/{{ b.total }} từ,
+        <strong>còn {{ b.total - b.done }} từ</strong> · có ảnh {{ b.saved.length }} · lỗi {{ b.failures.length }}
+      </p>
+      <progress class="batch-progress" [max]="b.total" [value]="b.done" aria-label="Tiến độ sinh ảnh"></progress>
+      @if (b.drawing.length) {
+        <p class="muted">Đang vẽ: <span lang="en">{{ b.drawing.join(', ') }}</span></p>
+      }
+      <p class="muted">Máy chủ chạy ngầm, bạn có thể rời trang rồi quay lại xem.</p>
+      <div class="actions">
+        <button type="button" class="btn" [disabled]="b.stopping || batchBusy()" (click)="stopBatch()">
+          {{ b.stopping ? 'Đang dừng… (chờ từ đang vẽ xong)' : 'Dừng' }}
+        </button>
+      </div>
+    } @else {
+      @if (b && batchShown()) {
+        @if (b.stopMessage) {
+          <p class="field-error" role="alert">Lượt sinh ảnh dừng sớm: {{ b.stopMessage }}</p>
+        }
+        <p role="status">
+          {{ b.stopped ? 'Đã dừng lượt sinh ảnh' : 'Lượt sinh ảnh đã xong' }} cho <strong>{{ scope(b) }}</strong>: sinh
+          được {{ b.saved.length }}/{{
+            b.total
+          }}
+          ảnh bằng {{ batchEngine(b) }}{{ b.failures.length ? ', ' + b.failures.length + ' từ lỗi' : '' }}.
+        </p>
+        @if (b.failures.length) {
+          <details class="batch-failures">
+            <summary>Xem các từ không sinh được ảnh</summary>
+            <ul>
+              @for (f of b.failures; track f.lemma) {
+                <li><span lang="en">{{ f.lemma }}</span>: {{ f.message }}</li>
+              }
+            </ul>
+          </details>
+        }
+        <div class="actions">
+          <button type="button" class="btn" (click)="hideBatch()">Ẩn kết quả</button>
+        </div>
+      }
+      <p class="muted">
+        Tích chọn từ ở danh sách bên dưới, hoặc sinh cho mọi từ thiếu ảnh theo bộ lọc. Máy chủ sinh lần lượt từng từ bằng
+        {{ engineName() }} ở chế độ chạy ngầm (tối đa {{ maxBatch }} từ mỗi lượt), ảnh của từ nào xong thì lưu ngay.
+      </p>
+      <div class="actions">
+        <label class="pick-all">
+          <input
+            type="checkbox"
+            [checked]="allSelected()"
+            [disabled]="!words()?.length"
+            (change)="selectAll($any($event.target).checked)"
+          />
+          Chọn tất cả từ đang hiện
+        </label>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="selectedCount() === 0 || batchBusy()"
+          (click)="startBatch(true)"
+        >
+          Sinh ảnh cho {{ selectedCount() }} từ đã chọn
+        </button>
+        <button type="button" class="btn" [disabled]="batchBusy()" (click)="confirmingAll.set(true)">
+          Sinh ảnh mọi từ thiếu ảnh{{ topicName() ? ' của "' + topicName() + '"' : '' }}
+        </button>
+        @if (selectedCount()) {
+          <button type="button" class="btn" (click)="clearSelection()">Bỏ chọn</button>
+        }
+      </div>
+    }
+    @if (batchError(); as message) {
+      <p class="field-error" role="alert">{{ message }}</p>
+    }
+  </section>
 
   @if (canFill() && total() > 0) {
     <div class="card fill-bar">
@@ -175,7 +263,15 @@
       <ul class="words" aria-label="Danh sách từ">
         @for (w of ws; track w.lemma) {
           <li>
-            <lu-bank-word-row [word]="w" (changed)="replace($event)" (removeRequested)="deleting.set($event)" />
+            <lu-bank-word-row
+              [word]="w"
+              [engine]="rowEngine()"
+              [selected]="selected().has(w.lemma)"
+              [drawing]="drawingNow().has(w.lemma)"
+              (selectedChange)="select(w.lemma, $event)"
+              (changed)="replace($event)"
+              (removeRequested)="deleting.set($event)"
+            />
           </li>
         }
       </ul>
@@ -200,4 +296,13 @@
   [danger]="true"
   (confirmed)="confirmDelete()"
   (cancelled)="deleting.set(null)"
+/>
+
+<lu-confirm-dialog
+  [open]="confirmingAll()"
+  title="Sinh ảnh mọi từ thiếu ảnh?"
+  [message]="confirmAllMessage()"
+  confirmLabel="Bắt đầu"
+  (confirmed)="startBatch(false)"
+  (cancelled)="confirmingAll.set(false)"
 />

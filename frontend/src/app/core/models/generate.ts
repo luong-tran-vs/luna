@@ -75,8 +75,14 @@ export const DEFAULT_TARGET_WORDS: Record<Level, number> = {
 /** F18: at most this many target words per lesson. */
 export const MAX_TARGET_WORDS = 15;
 
-/** F23: longest description of the vocabulary pictures (backend MaxImageStyle). */
+/** F23: longest description of the style of a picture (backend MaxImageStyle). */
 export const MAX_IMAGE_STYLE = 500;
+
+/** The key of a lesson's scene picture among its pictures (backend SceneKey, added 2026-11-05). */
+export const SCENE_KEY = '_scene';
+
+/** Longest description of the scene picture (backend MaxSceneDescription). */
+export const MAX_SCENE_DESCRIPTION = 600;
 
 /** F23: largest picture an admin may upload for a word (backend MaxUploadBytes); the server scales it down. */
 export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
@@ -84,9 +90,13 @@ export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
 /** F23: picture types the server can read. */
 export const UPLOAD_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
 
-/** F23: style offered for the vocabulary pictures; the admin can change it. */
-export const DEFAULT_IMAGE_STYLE =
-  'Simple, friendly flat illustration with soft colors on a plain light background, no text.';
+/**
+ * F23: what an empty style field means, shown as its placeholder. The style is left empty by
+ * default so the server's detailed default style is used (changed 2026-11-05: a short style offered
+ * here used to replace it).
+ */
+export const IMAGE_STYLE_PLACEHOLDER =
+  'Để trống: tranh semi-flat gọn gàng, màu pastel dịu (tím oải hương, đào, bạc hà, kem), đổ bóng mềm, nhân vật tròn trịa.';
 
 /** Source and license of lessons saved from AI drafts. */
 export const AI_SOURCE = 'AI sinh';

@@ -27,6 +27,21 @@
           ><span class="visually-hidden">Nguồn: </span>{{ sourceText() }}</span
         >
       }
+      @if (lesson(); as l) {
+        @if (l.hasScene) {
+          <span class="scene-tag has">
+            <img
+              class="scene-thumb"
+              [src]="sceneSrc()"
+              crossorigin="use-credentials"
+              alt=""
+              loading="lazy"
+            />Có ảnh cảnh
+          </span>
+        } @else {
+          <span class="scene-tag">Chưa có ảnh cảnh</span>
+        }
+      }
     }
     @if (state() === 'draft' && slot() && !canPublish()) {
       <span class="hint" [id]="id() + '-hint'">{{ publishHint() }}</span>
@@ -117,6 +132,20 @@
         <a class="act" [routerLink]="['/admin/lessons', lesson()!.id]"
           >Xem<span class="visually-hidden"> bài {{ title() }}</span></a
         >
+        <button
+          type="button"
+          class="act"
+          [disabled]="publishing()"
+          title="Đưa bài về nháp: người học không thấy nữa, bài vẫn giữ ô trong giáo trình"
+          (click)="unpublish.emit(lesson()!.id)"
+        >
+          @if (publishing()) {
+            Đang ẩn…
+          } @else {
+            Ẩn bài
+          }
+          <span class="visually-hidden"> {{ title() }}</span>
+        </button>
         <button type="button" class="act act-danger" [disabled]="busy()" (click)="remove.emit()">
           Gỡ<span class="visually-hidden"> bài {{ title() }}</span>
         </button>

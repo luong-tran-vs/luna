@@ -52,6 +52,7 @@ class ReadingStub {
 class ListenStub {
   readonly lessonId = input('');
   readonly practice = input<unknown>(null);
+  readonly sceneUrl = input('');
   readonly mode = input<string | null>(null);
   readonly startSentence = input<number | null>(null);
   readonly number = input(0);

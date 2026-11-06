@@ -13,7 +13,7 @@ import (
 var grammarExerciseSchema = map[string]any{
 	"type": "OBJECT",
 	"properties": map[string]any{
-		"kind":          map[string]any{"type": "STRING", "enum": []string{"choice", "fill", "reorder", "fix"}},
+		"kind":          map[string]any{"type": "STRING", "enum": []string{"choice", "fill", "reorder", "fix", "picture"}},
 		"promptVi":      map[string]any{"type": "STRING"},
 		"text":          map[string]any{"type": "STRING"},
 		"options":       stringArray,
@@ -22,6 +22,7 @@ var grammarExerciseSchema = map[string]any{
 		"words":         stringArray,
 		"sentence":      map[string]any{"type": "STRING"},
 		"explanationVi": map[string]any{"type": "STRING"},
+		"picture":       map[string]any{"type": "STRING"},
 	},
 	"required": []string{"kind", "promptVi", "text", "explanationVi"},
 }
@@ -162,6 +163,74 @@ Course examples:
 		b.WriteString("\nCommon mistakes of Vietnamese learners with this point (wrong → right: why, in Vietnamese):\n")
 		for _, m := range req.CommonMistakes {
 			fmt.Fprintf(&b, "- %s → %s: %s\n", m.Wrong, m.Right, m.NoteVi)
+		}
+	}
+	if req.Pictures {
+		b.WriteString(pictureExercisesPrompt)
+	}
+	return b.String()
+}
+
+// pictureExercisesPrompt asks a lesson of a point that can be drawn for picture exercises too
+// (added 2026-11-06): the learner looks at a picture and picks the word that completes a sentence.
+const pictureExercisesPrompt = `
+This point can be shown in pictures, so the exercises also use a fifth kind, picture. This replaces the mix above:
+practice has 3 picture exercises and at least 1 of each of the four other kinds; mastery has 1 picture exercise and at
+least 1 of each of the four other kinds.
+` + pictureKindPrompt
+
+// pictureKindPrompt says how to write a picture exercise.
+const pictureKindPrompt = `- picture: the learner looks at a picture and picks the word or short phrase that completes a sentence about it.
+  picture is an English description of the one picture to draw (8 to 30 words), concrete and easy to draw, that shows
+  the answer unmistakably (for example "a small orange cat sleeping under a blue sofa in a living room");
+  text is an English sentence about the picture with exactly one blank written "___" (for example "The cat is ___ the sofa.");
+  options has 2 to 4 different English options; answerIndex (0 based) is the one the picture shows.
+  Without the picture, more than one option would make a correct sentence: only the picture tells which one is right.
+  promptVi asks the learner to look at the picture and choose, for example "Nhìn ảnh, chọn từ đúng.".
+  Leave answers, words and sentence out of a picture exercise.
+`
+
+var grammarPicturesSchema = map[string]any{
+	"type": "OBJECT",
+	"properties": map[string]any{
+		"practice": map[string]any{"type": "ARRAY", "items": grammarExerciseSchema},
+		"mastery":  map[string]any{"type": "ARRAY", "items": grammarExerciseSchema},
+	},
+	"required": []string{"practice", "mastery"},
+}
+
+// GrammarPictures writes only the picture exercises of a lesson written without them, in one request
+// (added 2026-11-06), so the lesson gets them without being written again.
+func (c *Client) GrammarPictures(ctx context.Context, req ai.GrammarPicturesRequest) (ai.GrammarPictures, error) {
+	text, err := c.generate(ctx, "grammar_pictures", grammarPicturesPrompt(req), grammarPicturesSchema, 0.5,
+		slog.String("level", req.Level), slog.String("point", req.TitleEn))
+	if err != nil {
+		return ai.GrammarPictures{}, err
+	}
+	var out ai.GrammarPictures
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return ai.GrammarPictures{}, fmt.Errorf("llm: decode grammar pictures: %w", err)
+	}
+	return out, nil
+}
+
+func grammarPicturesPrompt(req ai.GrammarPicturesRequest) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, `You add exercises to a grammar lesson for Vietnamese learners of English at CEFR level %[1]s.
+The grammar point of the lesson, and only this point: %[2]s (%[3]s). Pattern: %[4]s. When it is used: %[5]s.
+Every English sentence you write must use only vocabulary and grammar suitable for CEFR %[1]s, apart from the point itself.
+Write only exercises of kind picture: exactly %[6]d for practice and exactly %[7]d for the mastery check, each with kind
+"picture", promptVi, text, picture, options, answerIndex and explanationVi, a Vietnamese explanation of why the answer is
+right. Each one tests the point itself, with a sentence, situation and answer different from the others.
+Return a JSON object with the two lists, practice and mastery.
+
+`, req.Level, req.TitleEn, req.TitleVi, req.Pattern, req.HintVi, req.Practice, req.Mastery)
+	b.WriteString(pictureKindPrompt)
+	b.WriteString("Plain text only, no markdown.\n")
+	if len(req.Existing) > 0 {
+		b.WriteString("\nThe lesson already has these exercises; do not repeat their sentences:\n")
+		for _, t := range req.Existing {
+			fmt.Fprintf(&b, "- %s\n", t)
 		}
 	}
 	return b.String()

@@ -96,6 +96,10 @@ var (
 	ErrImagesUnavailable = errors.New("wordbank: image generation is not available")
 	// ErrDrawFailed means the AI did not give a usable picture.
 	ErrDrawFailed = errors.New("wordbank: drawing the picture failed")
+	// ErrCodexUnavailable means the admin chose Codex but this server does not run it (added 2026-11-04).
+	ErrCodexUnavailable = errors.New("wordbank: codex images not enabled on this server")
+	// ErrCodexNotLoggedIn means codex runs but is not logged in to ChatGPT.
+	ErrCodexNotLoggedIn = errors.New("wordbank: codex not logged in")
 	// ErrMeaningsFailed means the AI gave no usable meaning or IPA.
 	ErrMeaningsFailed = errors.New("wordbank: filling the meanings failed")
 )

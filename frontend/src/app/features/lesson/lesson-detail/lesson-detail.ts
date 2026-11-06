@@ -55,6 +55,7 @@ import { VocabResult, VocabStep } from './vocab-step/vocab-step';
 import { Loading } from '../../../shared/components/loading/loading';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { ListeningApiService } from '../listening-api.service';
+import { SceneImage } from '../../../shared/components/scene-image/scene-image';
 
 type Tab = 'lesson' | 'reading';
 
@@ -148,6 +149,7 @@ function isStudyStep(key: StepKey | null): key is Step {
     Icon,
     ListenStep,
     PracticeList,
+    SceneImage,
     PracticeSummary,
     ReadingText,
     Reading,

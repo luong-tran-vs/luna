@@ -22,7 +22,6 @@ import {
   LessonKind,
   MAX_COUNT,
   MAX_IDEA,
-  MAX_IMAGE_STYLE,
   MAX_TARGET_WORDS,
   MAX_WORDS,
   MIN_COUNT,
@@ -49,17 +48,12 @@ export interface GenerateOptions {
   idea: string;
   /** F18: target words per lesson (used only when the topic has words). */
   perLesson: number;
-  /** F23: draw a picture for each vocabulary word of the saved lessons. */
-  images: boolean;
-  /** F23: how the pictures should look. */
-  imageStyle: string;
 }
 
 /**
- * What the dialog emits: the request body plus what the page keeps beside it: the words per lesson
- * and the picture settings given to each lesson saved from the drafts (F23).
+ * What the dialog emits: the request body plus what the page keeps beside it, the words per lesson.
  */
-export type GenerateRequest = GenerateInput & { perLesson: number; images: boolean; imageStyle: string };
+export type GenerateRequest = GenerateInput & { perLesson: number };
 
 type GrammarState = 'idle' | 'loading' | 'error';
 
@@ -115,7 +109,6 @@ export class GenerateDialog {
   protected readonly minWords = MIN_WORDS;
   protected readonly maxWords = MAX_WORDS;
   protected readonly maxTarget = MAX_TARGET_WORDS;
-  protected readonly maxImageStyle = MAX_IMAGE_STYLE;
 
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -145,16 +138,12 @@ export class GenerateDialog {
     idea: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_IDEA)] }),
     // 'auto' (added 2026-10-20): the AI builds each lesson around the course point that fits it.
     grammarPointId: new FormControl(GRAMMAR_AUTO, { nonNullable: true }),
-    images: new FormControl(false, { nonNullable: true }),
-    imageStyle: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_IMAGE_STYLE)] }),
   });
 
   private readonly value = toSignal(this.form.valueChanges, { initialValue: this.form.value });
   private readonly status = toSignal(this.form.statusChanges, { initialValue: this.form.status });
 
   protected readonly ideaLength = computed(() => (this.value().idea ?? '').length);
-  protected readonly imageStyleLength = computed(() => (this.value().imageStyle ?? '').length);
-  protected readonly imagesOn = computed(() => !!this.value().images);
   protected readonly range = computed(() => {
     const words = Number(this.value().words);
     return Number.isInteger(words) && words >= MIN_WORDS && words <= MAX_WORDS ? wordRange(words) : null;
@@ -214,9 +203,6 @@ export class GenerateDialog {
     }
     if (c.idea.invalid) {
       out['idea'] = `Ý chính tối đa ${MAX_IDEA} ký tự`;
-    }
-    if (c.images.value && c.imageStyle.invalid) {
-      out['imageStyle'] = `Mô tả ảnh tối đa ${MAX_IMAGE_STYLE} ký tự`;
     }
     return out;
   });
@@ -432,8 +418,7 @@ export class GenerateDialog {
       c.count.invalid ||
       c.words.invalid ||
       c.idea.invalid ||
-      (this.hasWords() && c.perLesson.invalid) ||
-      (c.images.value && c.imageStyle.invalid);
+      (this.hasWords() && c.perLesson.invalid);
     if (invalid || this.busy() || this.planState() === 'loading') {
       return;
     }
@@ -451,16 +436,9 @@ export class GenerateDialog {
       targetWords,
       grammarPointId: this.grammarState() === 'idle' ? v.grammarPointId : GRAMMAR_AUTO,
       perLesson,
-      images: v.images,
-      imageStyle: v.imageStyle.trim(),
     });
   }
 
-  /** F23: the "Sinh ảnh cho từ vựng" switch. */
-  protected toggleImages(): void {
-    const c = this.form.controls.images;
-    c.setValue(!c.value);
-  }
 
   /** Escape: the parent decides; never while generating. */
   protected onCancel(event: Event): void {

@@ -36,6 +36,11 @@ const (
 	// KindFix asks the learner to correct a sentence (added 2026-10-20): Text has exactly one mistake of
 	// the point, Sentence is the corrected sentence and Answers lists other accepted corrections.
 	KindFix Kind = "fix"
+	// KindPicture asks the learner to look at a picture and pick the word that completes Text, a
+	// sentence with one blank "___" (added 2026-11-06): Options has 2 to 4 entries, AnswerIndex is the
+	// one the picture shows, and Picture describes the picture in English for the AI that draws it.
+	// Only drawable points have it; a learner sees it once its picture is drawn.
+	KindPicture Kind = "picture"
 )
 
 // Exercise is one question. Only the fields of its Kind are used.
@@ -55,6 +60,8 @@ type Exercise struct {
 	Words         []string
 	Sentence      string
 	ExplanationVi string
+	// Picture is what the picture of a KindPicture exercise shows, in English; never sent to learners.
+	Picture string
 }
 
 // Structure is one pattern of the point, e.g. the affirmative form.

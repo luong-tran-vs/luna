@@ -53,6 +53,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/grammar/{pointId}", learner(h.get))
 	mux.Handle("POST /api/grammar/{pointId}/attempts", learner(h.attempt))
 	mux.Handle("POST /api/grammar/{pointId}/reports", learner(h.report))
+	h.registerImages(mux, admin, learner)
+	h.registerPictures(mux, admin)
 }
 
 // --- JSON shapes ---
@@ -69,6 +71,10 @@ type exerciseJSON struct {
 	Words         []string `json:"words,omitempty"`
 	Sentence      string   `json:"sentence,omitempty"`
 	ExplanationVi string   `json:"explanationVi,omitempty"`
+	// Picture describes the picture of a picture exercise (admin only); ImageURL is its picture,
+	// "" until drawn (added 2026-11-06).
+	Picture  string `json:"picture,omitempty"`
+	ImageURL string `json:"imageUrl,omitempty"`
 }
 
 type structureJSON struct {
@@ -129,9 +135,9 @@ func toExercisesJSON(in []Exercise) []exerciseJSON {
 	for i, e := range in {
 		out[i] = exerciseJSON{
 			ID: e.ID, Kind: string(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options,
-			Answers: e.Answers, Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi,
+			Answers: e.Answers, Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 		}
-		if e.Kind == KindChoice {
+		if e.Kind == KindChoice || e.Kind == KindPicture {
 			idx := e.AnswerIndex
 			out[i].AnswerIndex = &idx
 		}
@@ -251,7 +257,24 @@ func (h *Handler) writeLesson(w http.ResponseWriter, r *http.Request, status int
 		h.writeError(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, status, map[string]lessonJSON{"lesson": toLessonJSON(l, reports)})
+	images, err := h.exampleImageURLs(r, l.PointID, l.Content, true)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	lessonOut := toLessonJSON(l, reports)
+	pictures, err := h.svc.PictureImageKeys(r.Context(), l.PointID, l.Content)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	setPictureURLs(&lessonOut.Content, l.PointID, pictures, true)
+	httpx.WriteJSON(w, status, map[string]any{
+		"lesson": lessonOut,
+		// The picture of each example, in order ("" for none), and whether Codex can draw (added 2026-11-06).
+		"exampleImages": images,
+		"codexImages":   h.svc.CodexAvailable(),
+	})
 }
 
 // --- admin handlers ---
@@ -476,12 +499,19 @@ func (h *Handler) get(w http.ResponseWriter, r *http.Request) {
 		h.writeError(w, r, err)
 		return
 	}
+	images, err := h.exampleImageURLs(r, d.Point.ID, d.Content, false)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{
+		// The picture of each example of the content, in order ("" for none; added 2026-11-06).
+		"exampleImages": images,
 		"point": detailPointJSON{
 			ID: d.Point.ID, Level: d.Point.Level, TitleVi: d.Point.TitleVi, TitleEn: d.Point.TitleEn,
 			Pattern: d.Point.Pattern, HintVi: d.Point.HintVi, Examples: orEmpty(d.Point.Examples),
 		},
-		"content":     toContentJSON(d.Content),
+		"content":     learnerContentJSON(d),
 		"progress":    toProgressJSON(d.Progress),
 		"lessonCount": d.LessonCount,
 	})
@@ -569,11 +599,11 @@ func (h *Handler) report(w http.ResponseWriter, r *http.Request) {
 func (e exerciseJSON) toExercise() Exercise {
 	out := Exercise{
 		ID: e.ID, Kind: Kind(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options, Answers: e.Answers,
-		Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi,
+		Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 	}
 	if e.AnswerIndex != nil {
 		out.AnswerIndex = *e.AnswerIndex
-	} else if e.Kind == string(KindChoice) {
+	} else if e.Kind == string(KindChoice) || e.Kind == string(KindPicture) {
 		out.AnswerIndex = -1
 	}
 	return out

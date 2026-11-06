@@ -228,6 +228,14 @@ func EnsureImageIndexes(ctx context.Context, db *mongo.Database) error {
 	if err != nil {
 		return fmt.Errorf("word_images index: %w", err)
 	}
+	// One picture per example of a grammar lesson (added 2026-11-06).
+	_, err = db.Collection("grammar_images").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "pointId", Value: 1}, {Key: "key", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("grammar_images index: %w", err)
+	}
 	return nil
 }
 

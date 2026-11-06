@@ -151,10 +151,10 @@ func newImageEnv(t *testing.T) *imageEnv {
 	return e
 }
 
-// annotated creates a lesson with pictures as given, annotated with two words.
-func (e *imageEnv) annotated(t *testing.T, images *ImageInput) Lesson {
+// annotated creates a lesson annotated with two words.
+func (e *imageEnv) annotated(t *testing.T) Lesson {
 	t.Helper()
-	l := e.create(t, func(in *Input) { in.Images = images })
+	l := e.create(t)
 	e.ai.result = []ai.Annotation{
 		{Text: "went", Lemma: "go", MeaningVi: "đi", SentenceIndex: 0},
 		{Text: "gave up", Lemma: "give up", MeaningVi: "bỏ", SentenceIndex: 1},
@@ -174,170 +174,53 @@ func (e *imageEnv) jobTypes() []job.Type {
 	return out
 }
 
-func TestImagesDrawnAfterAnnotation(t *testing.T) {
+// Since 2026-11-06 nothing is drawn in the background: no picture job is queued, and one queued
+// earlier finishes without drawing.
+func TestNoPictureJobs(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, &ImageInput{Enabled: true, Style: "  tranh màu nước  "})
-
-	set, _ := e.store.Settings(t.Context(), l.ID)
-	if !set.Enabled || set.Style != "tranh màu nước" || set.Status != StatusRunning {
-		t.Fatalf("settings = %+v", set)
-	}
-	if got := e.jobTypes(); !slices.Equal(got, []job.Type{job.TypeAnnotate, job.TypePractice, job.TypeImages}) {
-		t.Fatalf("jobs = %v", got)
-	}
-
-	if err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages)); err != nil {
-		t.Fatal(err)
-	}
-	if got := e.draw.words(); !slices.Equal(got, []string{"go", "give up"}) {
-		t.Fatalf("drawn = %v", got)
-	}
-	first := e.draw.requests[0]
-	if first.MeaningVi != "đi" || first.Sentence != "We went to the park." || first.Style != "tranh màu nước" {
-		t.Fatalf("request = %+v", first)
-	}
-	img, err := e.store.Get(t.Context(), l.ID, "go")
-	if err != nil || img.MIME != "image/jpeg" {
-		t.Fatalf("image = %+v, %v", img.MIME, err)
-	}
-	cfg, err := jpeg.DecodeConfig(bytes.NewReader(img.Data))
-	if err != nil || cfg.Width != imageSide || cfg.Height != 288 {
-		t.Fatalf("stored picture %dx%d, %v", cfg.Width, cfg.Height, err)
-	}
-	if set, _ := e.store.Settings(t.Context(), l.ID); set.Status != StatusDone {
-		t.Fatalf("status = %s", set.Status)
-	}
-
-	// A second run has nothing left to draw.
-	if err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages)); err != nil {
-		t.Fatal(err)
-	}
-	if n := len(e.draw.words()); n != 2 {
-		t.Fatalf("drawn again: %d requests", n)
-	}
-}
-
-func TestImagesOffByDefault(t *testing.T) {
-	t.Parallel()
-	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 	if got := e.jobTypes(); slices.Contains(got, job.TypeImages) {
 		t.Fatalf("jobs = %v", got)
 	}
 	if set, _ := e.store.Settings(t.Context(), l.ID); set != (ImageSettings{}) {
 		t.Fatalf("settings = %+v", set)
 	}
-}
-
-func TestImagesPartialFailureRetriesOnlyMissing(t *testing.T) {
-	t.Parallel()
-	e := newImageEnv(t)
-	l := e.annotated(t, &ImageInput{Enabled: true})
-	e.draw.fail["give up"] = true
-
-	err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages))
-	if err == nil || job.IsPermanent(err) {
-		t.Fatalf("err = %v, want a retryable error", err)
-	}
-	if lemmas, _ := e.store.Lemmas(t.Context(), l.ID); !slices.Equal(lemmas, []string{"go"}) {
-		t.Fatalf("lemmas = %v", lemmas)
-	}
-
-	e.draw.fail["give up"] = false
 	if err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages)); err != nil {
 		t.Fatal(err)
 	}
-	if got := e.draw.words(); !slices.Equal(got, []string{"go", "give up", "give up"}) {
-		t.Fatalf("drawn = %v", got)
-	}
-}
-
-func TestImagesErrors(t *testing.T) {
-	t.Parallel()
-	for name, tc := range map[string]struct {
-		err       error
-		permanent bool
-	}{
-		"not configured": {ai.ErrNotConfigured, true},
-		"invalid key":    {ai.ErrInvalidKey, true},
-		"quota":          {ai.ErrQuota, false},
-	} {
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-			e := newImageEnv(t)
-			l := e.annotated(t, &ImageInput{Enabled: true})
-			e.draw.failErr = tc.err
-			err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages))
-			if !errors.Is(err, tc.err) || job.IsPermanent(err) != tc.permanent {
-				t.Fatalf("err = %v, permanent = %v", err, job.IsPermanent(err))
-			}
-			if tc.err == ai.ErrQuota && len(e.draw.words()) != 1 {
-				t.Fatalf("kept drawing after the quota ran out: %v", e.draw.words())
-			}
-		})
-	}
-}
-
-func TestImagesJobFailed(t *testing.T) {
-	t.Parallel()
-	e := newImageEnv(t)
-	l := e.annotated(t, &ImageInput{Enabled: true})
-	e.svc.JobFailed(t.Context(), jobFor(l, job.TypeImages), errors.New("boom"))
-	set, _ := e.store.Settings(t.Context(), l.ID)
-	if set.Status != StatusFailed || set.Error != "Không sinh được ảnh cho một số từ" || !set.Enabled {
-		t.Fatalf("settings = %+v", set)
-	}
-	// The annotation is untouched.
-	if got, _ := e.lessons.Get(t.Context(), l.ID); got.AnnotationStatus != StatusDone {
-		t.Fatalf("annotation status = %s", got.AnnotationStatus)
+	if len(e.draw.requests) != 0 {
+		t.Fatalf("drawn: %+v", e.draw.requests)
 	}
 }
 
 func TestSetImages(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 
-	st, err := e.svc.SetImages(t.Context(), l.ID, ImageInput{Enabled: true, Style: "ảnh chụp"})
-	if err != nil || !st.Enabled || st.Status != StatusRunning || st.Count != 0 {
+	st, err := e.svc.SetImages(t.Context(), l.ID, ImageInput{SceneDescription: "  A park  ", Style: " ảnh chụp "})
+	if err != nil || st.Style != "ảnh chụp" || st.SceneDescription != "A park" || st.Count != 0 {
 		t.Fatalf("state = %+v, %v", st, err)
 	}
-	if got := e.jobTypes(); got[len(got)-1] != job.TypeImages {
-		t.Fatalf("jobs = %v", got)
-	}
-
-	st, err = e.svc.SetImages(t.Context(), l.ID, ImageInput{Enabled: false})
-	if err != nil || st.Enabled || st.Status != StatusNone {
-		t.Fatalf("off: %+v, %v", st, err)
+	if len(e.draw.requests) != 0 || slices.Contains(e.jobTypes(), job.TypeImages) {
+		t.Fatalf("saving drew: %+v, jobs %v", e.draw.requests, e.jobTypes())
 	}
 
 	var verr *ValidationError
-	if _, err := e.svc.SetImages(t.Context(), l.ID, ImageInput{Enabled: true, Style: strings.Repeat("x", MaxImageStyle+1)}); !errors.As(err, &verr) {
+	if _, err := e.svc.SetImages(t.Context(), l.ID, ImageInput{Style: strings.Repeat("x", MaxImageStyle+1)}); !errors.As(err, &verr) {
 		t.Fatalf("long style: %v", err)
 	}
-	if _, err := e.svc.SetImages(t.Context(), "nope", ImageInput{Enabled: true}); !errors.Is(err, ErrNotFound) {
+	if _, err := e.svc.SetImages(t.Context(), "nope", ImageInput{}); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("unknown lesson: %v", err)
-	}
-}
-
-func TestCreateWithImagesWithoutStore(t *testing.T) {
-	t.Parallel()
-	e := newEnv(t)
-	_, err := e.svc.Create(t.Context(), Input{
-		Title: "Park", Content: sampleContent, TopicID: "topic-b1", Level: "B1", Source: "Tự viết", License: "CC BY",
-		Images: &ImageInput{Enabled: true},
-	})
-	if !errors.Is(err, ErrImagesUnavailable) {
-		t.Fatalf("err = %v", err)
 	}
 }
 
 func TestDeleteRemovesImages(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, &ImageInput{Enabled: true})
-	if err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages)); err != nil {
+	l := e.annotated(t)
+	if err := e.svc.UploadImage(t.Context(), l.ID, "go", testPNG(40, 30)); err != nil {
 		t.Fatal(err)
 	}
 	if err := e.svc.Delete(t.Context(), l.ID); err != nil {
@@ -389,7 +272,7 @@ func TestVocabularyImagesEndpoints(t *testing.T) {
 func TestUploadImageResizesAndReplaces(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 
 	// A large PNG is scaled down to imageSide and stored as JPEG.
 	if err := e.svc.UploadImage(t.Context(), l.ID, "  Give Up ", testPNG(2000, 1000)); err != nil {
@@ -418,17 +301,6 @@ func TestUploadImageResizesAndReplaces(t *testing.T) {
 		t.Fatalf("state = %+v, %v", st, err)
 	}
 
-	// Pictures on: the AI only draws the word without one.
-	if _, err := e.svc.SetImages(t.Context(), l.ID, ImageInput{Enabled: true}); err != nil {
-		t.Fatal(err)
-	}
-	if err := e.svc.ProcessImages(t.Context(), jobFor(l, job.TypeImages)); err != nil {
-		t.Fatal(err)
-	}
-	if got := e.draw.words(); !slices.Equal(got, []string{"go"}) {
-		t.Fatalf("drawn = %v", got)
-	}
-
 	if err := e.svc.DeleteImage(t.Context(), l.ID, "give up"); err != nil {
 		t.Fatal(err)
 	}
@@ -440,7 +312,7 @@ func TestUploadImageResizesAndReplaces(t *testing.T) {
 func TestUploadImageRefusals(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 	var verr *ValidationError
 	if err := e.svc.UploadImage(t.Context(), l.ID, "go", []byte("not a picture")); !errors.As(err, &verr) || verr.Fields["image"] == "" {
 		t.Fatalf("garbage: %v", err)
@@ -464,7 +336,7 @@ func TestUploadImageRefusals(t *testing.T) {
 func TestUploadImageEndpoint(t *testing.T) {
 	t.Parallel()
 	e := newImageEnv(t)
-	l := e.annotated(t, nil)
+	l := e.annotated(t)
 	mux := http.NewServeMux()
 	NewHandler(e.svc, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver))
 

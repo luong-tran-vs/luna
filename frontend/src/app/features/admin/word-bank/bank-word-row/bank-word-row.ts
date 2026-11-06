@@ -4,7 +4,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 
 import { serverUrl } from '../../../../core/api-url';
 import { MAX_UPLOAD_BYTES, UPLOAD_TYPES } from '../../../../core/models/generate';
-import { BankWord, MAX_BANK_IPA, MAX_BANK_MEANING } from '../../../../core/models/word-bank';
+import { BankWord, ImageEngine, MAX_BANK_IPA, MAX_BANK_MEANING } from '../../../../core/models/word-bank';
 import { AdminApiService } from '../../admin-api.service';
 import { bankMessage } from '../bank-message';
 
@@ -28,6 +28,13 @@ export class BankWordRow {
   private readonly api = inject(AdminApiService);
 
   readonly word = input.required<BankWord>();
+  /** What "Sinh ảnh" draws with; the page chooses it (Codex only where the server offers it). */
+  readonly engine = input<ImageEngine>('gemini');
+  /** The word is ticked for a picture batch. */
+  readonly selected = input(false);
+  readonly selectedChange = output<boolean>();
+  /** The picture batch is drawing this word now. */
+  readonly drawing = input(false);
   /** The word as saved by the server. */
   readonly changed = output<BankWord>();
   /** The admin asked to delete the word; the parent confirms. */
@@ -129,7 +136,9 @@ export class BankWordRow {
 
   protected async draw(): Promise<void> {
     if (this.busy() === null) {
-      await this.run('draw', 'Đã sinh ảnh bằng AI.', () => this.api.generateBankImage(this.word().lemma));
+      const engine = this.engine();
+      const done = engine === 'codex' ? 'Đã sinh ảnh bằng Codex CLI.' : 'Đã sinh ảnh bằng AI.';
+      await this.run('draw', done, () => this.api.generateBankImage(this.word().lemma, '', engine));
     }
   }
 

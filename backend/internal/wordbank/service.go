@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
@@ -33,6 +34,11 @@ type Deps struct {
 	Topics TopicWords
 	// ImageAI draws a picture on request; nil (or ai.DisabledImages) turns drawing off.
 	ImageAI ai.ImageProvider
+	// CodexImageAI draws with the Codex CLI when the admin chooses it; nil when this server does not
+	// run Codex (added 2026-11-04).
+	CodexImageAI ai.ImageProvider
+	// CodexConcurrency is how many pictures Codex may draw at once in a batch (CODEX_IMAGE_CONCURRENCY).
+	CodexConcurrency int
 	// MeaningAI fills the missing meanings of a topic on request; nil turns it off.
 	MeaningAI ai.MeaningProvider
 	// FetchImage downloads the picture behind a link.
@@ -44,20 +50,26 @@ type Deps struct {
 // Service manages the word bank (F24). Every method is for admins except Words and Image, which
 // the lessons use.
 type Service struct {
-	repo      Repository
-	dict      dictionary.Resolver
-	topics    TopicWords
-	imageAI   ai.ImageProvider
-	meaningAI ai.MeaningProvider
-	fetch     lesson.ImageFetcher
-	now       func() time.Time
-	log       *slog.Logger
+	repo             Repository
+	dict             dictionary.Resolver
+	topics           TopicWords
+	imageAI          ai.ImageProvider
+	codexAI          ai.ImageProvider
+	codexConcurrency int
+	meaningAI        ai.MeaningProvider
+	fetch            lesson.ImageFetcher
+	now              func() time.Time
+	log              *slog.Logger
+
+	// batchMu guards batch, the picture batch running or last run (added 2026-11-04).
+	batchMu sync.Mutex
+	batch   *batchRun
 }
 
 // NewService returns a Service.
 func NewService(d Deps) *Service {
 	return &Service{
-		repo: d.Repo, dict: d.Dict, topics: d.Topics, imageAI: d.ImageAI, meaningAI: d.MeaningAI, fetch: d.FetchImage, now: d.Now, log: d.Log,
+		repo: d.Repo, dict: d.Dict, topics: d.Topics, imageAI: d.ImageAI, codexAI: d.CodexImageAI, codexConcurrency: d.CodexConcurrency, meaningAI: d.MeaningAI, fetch: d.FetchImage, now: d.Now, log: d.Log,
 	}
 }
 
@@ -520,23 +532,73 @@ func (s *Service) ImportImage(ctx context.Context, lemma, rawURL string) (Word, 
 	return s.saveImage(ctx, lemma, small)
 }
 
-// GenerateImage draws a picture of the word with the AI (one paid request) and stores it,
-// replacing the word's picture. style, if given, describes how it should look.
-func (s *Service) GenerateImage(ctx context.Context, lemma, style string) (Word, error) {
+// Engine is what draws a picture: Gemini (the default) or the Codex CLI of the server (added 2026-11-04).
+type Engine string
+
+const (
+	// EngineGemini draws with GEMINI_IMAGE_MODEL.
+	EngineGemini Engine = "gemini"
+	// EngineCodex draws with the Codex CLI (CODEX_IMAGES=true).
+	EngineCodex Engine = "codex"
+)
+
+// CodexAvailable tells whether this server can draw with the Codex CLI.
+func (s *Service) CodexAvailable() bool { return s.codexAI != nil }
+
+// GenerateImage draws a picture of the word with the AI (one request) and stores it, replacing
+// the word's picture. style, if given, describes how it should look; engine picks the AI (empty
+// for Gemini).
+func (s *Service) GenerateImage(ctx context.Context, lemma, style string, engine Engine) (Word, error) {
+	style, err := checkStyle(style)
+	if err != nil {
+		return Word{}, err
+	}
+	drawer, _, err := s.imageDrawer(engine)
+	if err != nil {
+		return Word{}, err
+	}
+	return s.draw(ctx, drawer, engine, lemma, style)
+}
+
+// checkStyle trims the admin's picture style and checks its length.
+func checkStyle(style string) (string, error) {
 	style = strings.TrimSpace(style)
 	if utf8.RuneCountInString(style) > lesson.MaxImageStyle {
-		return Word{}, &ValidationError{Fields: map[string]string{"style": fmt.Sprintf("Mô tả ảnh tối đa %d ký tự", lesson.MaxImageStyle)}}
+		return "", &ValidationError{Fields: map[string]string{"style": fmt.Sprintf("Mô tả ảnh tối đa %d ký tự", lesson.MaxImageStyle)}}
 	}
-	if s.imageAI == nil {
-		return Word{}, ErrImagesUnavailable
+	return style, nil
+}
+
+// imageDrawer is the AI that engine names, and how many pictures it may draw at once.
+func (s *Service) imageDrawer(engine Engine) (ai.ImageProvider, int, error) {
+	switch engine {
+	case "", EngineGemini:
+		if s.imageAI == nil {
+			return nil, 0, ErrImagesUnavailable
+		}
+		return s.imageAI, 1, nil
+	case EngineCodex:
+		if s.codexAI == nil {
+			return nil, 0, ErrCodexUnavailable
+		}
+		return s.codexAI, max(1, s.codexConcurrency), nil
+	default:
+		return nil, 0, &ValidationError{Fields: map[string]string{"engine": "Cách sinh ảnh không hợp lệ"}}
 	}
+}
+
+// draw asks drawer for a picture of the word and stores it.
+func (s *Service) draw(ctx context.Context, drawer ai.ImageProvider, engine Engine, lemma, style string) (Word, error) {
 	w, err := s.repo.Get(ctx, Normalize(lemma))
 	if err != nil {
 		return Word{}, err
 	}
-	img, err := s.imageAI.GenerateImage(ctx, ai.ImageRequest{Word: w.Lemma, MeaningVi: w.MeaningVi, Style: style})
+	img, err := drawer.GenerateImage(ctx, ai.ImageRequest{Word: w.Lemma, MeaningVi: w.MeaningVi, Style: style})
+	if engine == EngineCodex && errors.Is(err, ai.ErrNotConfigured) {
+		return Word{}, fmt.Errorf("%w: %w", ErrCodexNotLoggedIn, err)
+	}
 	switch {
-	case errors.Is(err, ai.ErrNotConfigured), errors.Is(err, ai.ErrInvalidKey), errors.Is(err, ai.ErrQuota):
+	case errors.Is(err, ai.ErrNotConfigured), errors.Is(err, ai.ErrInvalidKey), errors.Is(err, ai.ErrQuota), errors.Is(err, ai.ErrNoImageTool):
 		return Word{}, err
 	case err != nil:
 		return Word{}, fmt.Errorf("%w: %w", ErrDrawFailed, err)

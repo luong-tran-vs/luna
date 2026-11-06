@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"slices"
+	"sync"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/ai"
@@ -53,6 +54,14 @@ type Service struct {
 	now       func() time.Time
 	// course orders a level's points as its fixed course teaches them; nil keeps the syllabus order.
 	course CourseOrder
+	// images keeps and draws the pictures of the examples (images.go); imgMu guards imgRun, the
+	// running or last picture batch (images_batch.go).
+	images ImageDeps
+	imgMu  sync.Mutex
+	imgRun *imageRun
+	// picMu guards picRun, the running or last batch adding picture exercises (pictures.go).
+	picMu  sync.Mutex
+	picRun *pictureRun
 }
 
 // NewService returns a Service over the embedded syllabus.
@@ -126,6 +135,7 @@ func (s *Service) Generate(ctx context.Context, pointID string, force bool) (l L
 	defer cancel()
 	req := ai.GrammarLessonRequest{
 		Level: p.Level, TitleVi: p.TitleVi, TitleEn: p.TitleEn, Pattern: p.Pattern, HintVi: p.HintVi, Examples: p.Examples,
+		Pictures: p.Drawable,
 	}
 	for _, m := range MistakesOf(pointID) {
 		req.CommonMistakes = append(req.CommonMistakes, ai.GrammarMistake{Wrong: m.Wrong, Right: m.Right, NoteVi: m.NoteVi})
@@ -248,7 +258,7 @@ func exercisesFromAI(in []ai.GrammarExercise) []Exercise {
 	for i, e := range in {
 		out[i] = Exercise{
 			Kind: Kind(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options, AnswerIndex: e.AnswerIndex,
-			Answers: e.Answers, Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi,
+			Answers: e.Answers, Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 		}
 	}
 	return out
@@ -346,7 +356,9 @@ func (s *Service) MasteredCount(ctx context.Context, userID string, since *time.
 
 // Detail is the study page of a published point.
 type Detail struct {
-	Point       Point
+	Point Point
+	// Pictures gives the picture key of each picture exercise of Content, by exercise id.
+	Pictures    map[string]string
 	Content     Content
 	Progress    Progress
 	LessonCount int
@@ -397,7 +409,11 @@ func (s *Service) Get(ctx context.Context, userID, pointID string) (Detail, erro
 	if err != nil {
 		return Detail{}, fmt.Errorf("grammar: count lessons: %w", err)
 	}
-	return Detail{Point: p, Content: expandFillAnswers(l.Content), Progress: rec, LessonCount: counts[pointID]}, nil
+	content, pictures, err := s.learnerContent(ctx, pointID, l.Content)
+	if err != nil {
+		return Detail{}, err
+	}
+	return Detail{Point: p, Content: expandFillAnswers(content), Pictures: pictures, Progress: rec, LessonCount: counts[pointID]}, nil
 }
 
 // Attempt kinds.
@@ -422,7 +438,11 @@ func (s *Service) RecordAttempt(ctx context.Context, userID, pointID string, a A
 	if err != nil {
 		return Progress{}, false, err
 	}
-	if fields := checkAttempt(l.Content, a); fields != nil {
+	content, _, err := s.learnerContent(ctx, pointID, l.Content)
+	if err != nil {
+		return Progress{}, false, err
+	}
+	if fields := checkAttempt(content, a); fields != nil {
 		return Progress{}, false, &ValidationError{Fields: fields}
 	}
 	rec, err = s.progressOf(ctx, userID, pointID)
@@ -512,6 +532,6 @@ func sameExercises(a, b []Exercise) bool {
 	return slices.EqualFunc(a, b, func(x, y Exercise) bool {
 		return x.ID == y.ID && x.Kind == y.Kind && x.PromptVi == y.PromptVi && x.Text == y.Text &&
 			slices.Equal(x.Options, y.Options) && x.AnswerIndex == y.AnswerIndex && slices.Equal(x.Answers, y.Answers) &&
-			slices.Equal(x.Words, y.Words) && x.Sentence == y.Sentence && x.ExplanationVi == y.ExplanationVi
+			slices.Equal(x.Words, y.Words) && x.Sentence == y.Sentence && x.ExplanationVi == y.ExplanationVi && x.Picture == y.Picture
 	})
 }

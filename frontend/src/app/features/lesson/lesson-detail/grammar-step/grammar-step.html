@@ -96,20 +96,27 @@
             <p>{{ c.whenVi }}</p>
           }
           @if (c.table.length) {
+            @let cols = columns();
             <table class="rule-table">
               <thead>
                 <tr>
-                  <th scope="col">Chủ ngữ</th>
-                  <th scope="col">Khẳng định</th>
-                  <th scope="col">Phủ định</th>
+                  <th scope="col">{{ cols[0] }}</th>
+                  <th scope="col">{{ cols[1] }}</th>
+                  @if (cols[2]) {
+                    <th scope="col">{{ cols[2] }}</th>
+                  }
                 </tr>
               </thead>
               <tbody lang="en">
                 @for (r of c.table; track $index) {
                   <tr>
-                    <td>{{ r.subject }}</td>
-                    <td class="form">{{ r.form }}</td>
-                    <td>{{ r.negative }}</td>
+                    <td class="name">{{ r.subject }}</td>
+                    <td class="form" [attr.data-label]="cols[1]">{{ r.form }}</td>
+                    @if (cols[2] && r.negative) {
+                      <td [attr.data-label]="cols[2]">{{ r.negative }}</td>
+                    } @else if (cols[2]) {
+                      <td class="empty"></td>
+                    }
                   </tr>
                 }
               </tbody>

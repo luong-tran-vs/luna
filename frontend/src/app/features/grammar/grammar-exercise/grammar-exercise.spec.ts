@@ -4,18 +4,35 @@ import { GrammarExercise } from '../../../core/models/grammar-study';
 import { GrammarExerciseView } from './grammar-exercise';
 
 const choice: GrammarExercise = {
-  id: 'p1', kind: 'choice', promptVi: 'Chọn đáp án đúng', text: 'She ___ a teacher.',
-  options: ['am', 'is', 'are', 'be'], answerIndex: 1, explanationVi: 'She đi với is.',
+  id: 'p1',
+  kind: 'choice',
+  promptVi: 'Chọn đáp án đúng',
+  text: 'She ___ a teacher.',
+  options: ['am', 'is', 'are', 'be'],
+  answerIndex: 1,
+  explanationVi: 'She đi với is.',
 };
 const fill: GrammarExercise = {
-  id: 'p2', kind: 'fill', text: 'They ___ happy.', answers: ['are'], explanationVi: 'They đi với are.',
+  id: 'p2',
+  kind: 'fill',
+  text: 'They ___ happy.',
+  answers: ['are'],
+  explanationVi: 'They đi với are.',
 };
 const reorder: GrammarExercise = {
-  id: 'p3', kind: 'reorder', text: 'Cô ấy là giáo viên.', sentence: 'She is a teacher',
-  words: ['She', 'is', 'a', 'teacher', 'are'], explanationVi: 'Chủ ngữ rồi động từ.',
+  id: 'p3',
+  kind: 'reorder',
+  text: 'Cô ấy là giáo viên.',
+  sentence: 'She is a teacher',
+  words: ['She', 'is', 'a', 'teacher', 'are'],
+  explanationVi: 'Chủ ngữ rồi động từ.',
 };
 const fix: GrammarExercise = {
-  id: 'p4', kind: 'fix', promptVi: 'Tìm và sửa lỗi', text: 'He like music.', sentence: 'He likes music.',
+  id: 'p4',
+  kind: 'fix',
+  promptVi: 'Tìm và sửa lỗi',
+  text: 'He like music.',
+  sentence: 'He likes music.',
   explanationVi: 'He đi với likes.',
 };
 
@@ -90,7 +107,10 @@ describe('GrammarExerciseView', () => {
 
   it('builds a reorder from tiles, can undo, and grades on Kiểm tra', async () => {
     await setup(reorder);
-    const tile = (w: string) => Array.from(el.querySelectorAll<HTMLButtonElement>('ul.tiles:not(.answer-area) .tile')).find((b) => text(b) === w)!;
+    const tile = (w: string) =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('ul.tiles:not(.answer-area) .tile')).find(
+        (b) => text(b) === w,
+      )!;
     expect(el.querySelectorAll('ul.tiles:not(.answer-area) .tile').length).toBe(5);
     for (const w of ['is', 'She']) {
       tile(w).click();
@@ -112,7 +132,10 @@ describe('GrammarExerciseView', () => {
 
   it('grades a wrong reorder and shows the sentence', async () => {
     await setup(reorder);
-    const tile = (w: string) => Array.from(el.querySelectorAll<HTMLButtonElement>('ul.tiles:not(.answer-area) .tile')).find((b) => text(b) === w)!;
+    const tile = (w: string) =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('ul.tiles:not(.answer-area) .tile')).find(
+        (b) => text(b) === w,
+      )!;
     for (const w of ['is', 'She']) {
       tile(w).click();
       await fixture.whenStable();
@@ -206,5 +229,25 @@ describe('GrammarExerciseView', () => {
     await fixture.whenStable();
     expect(answers).toEqual([false]);
     expect(feedback()).toContain('Đáp án đúng: He likes music.');
+  });
+
+  it('shows the picture of a picture exercise and grades the option it shows (added 2026-11-06)', async () => {
+    await setup({
+      id: 'p8',
+      kind: 'picture',
+      promptVi: 'Nhìn ảnh, chọn từ đúng.',
+      text: 'The cat is ___ the sofa.',
+      options: ['in', 'on', 'under'],
+      answerIndex: 2,
+      imageUrl: '/api/grammar/a1-prepositions-place/images/k1',
+      explanationVi: 'Con mèo ở dưới ghế.',
+    });
+    const img = el.querySelector<HTMLImageElement>('img.picture')!;
+    expect(img.getAttribute('src')).toContain('/api/grammar/a1-prepositions-place/images/k1');
+    expect(text(el.querySelector('.stem'))).toBe('The cat is ___ the sofa.');
+    byText('under').click();
+    await fixture.whenStable();
+    expect(feedback()).toContain('Con mèo ở dưới ghế.');
+    expect(el.querySelector('.option.is-right')!.textContent).toContain('under');
   });
 });

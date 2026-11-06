@@ -11,6 +11,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
+import { serverUrl } from '../../../core/api-url';
 import { GrammarExercise } from '../../../core/models/grammar-study';
 import { Icon } from '../../../shared/components/icon/icon';
 import { newSeed } from '../../lesson/lesson-detail/practice-logic';
@@ -73,13 +74,20 @@ export class GrammarExerciseView {
   private readonly typedValue = toSignal(this.typed.valueChanges, { initialValue: '' });
 
   /** The options in a random order; each keeps its stored index, which grading uses. */
-  protected readonly options = computed(() => shuffleOptions(this.exercise().options ?? [], this.seed()));
+  protected readonly options = computed(() =>
+    shuffleOptions(this.exercise().options ?? [], this.seed()),
+  );
   protected readonly blank = computed(() => splitBlank(this.exercise().text ?? ''));
   protected readonly tiles = computed(() => shuffleWords(this.exercise().words ?? [], this.seed()));
   protected readonly built = computed(() => this.picked().map((i) => this.tiles()[i]));
   protected readonly isDone = computed(() => this.result() !== null);
   /** The right answer as text, shown after a wrong one. */
   protected readonly correctText = computed(() => correctAnswerText(this.exercise()));
+  /** The picture of a picture exercise (added 2026-11-06). */
+  protected readonly pictureSrc = computed(() => {
+    const u = this.exercise().imageUrl;
+    return u ? serverUrl(u) : '';
+  });
   /** A fill, reorder or fix has an answer to check (a choice is checked when tapped); a fix must be changed. */
   readonly canCheck = computed(() => {
     if (this.isDone()) {
@@ -90,7 +98,10 @@ export class GrammarExerciseView {
       case 'fill':
         return this.typedValue().trim() !== '';
       case 'fix':
-        return this.typedValue().trim() !== '' && this.typedValue().trim() !== (this.exercise().text ?? '').trim();
+        return (
+          this.typedValue().trim() !== '' &&
+          this.typedValue().trim() !== (this.exercise().text ?? '').trim()
+        );
       case 'reorder':
         return this.picked().length > 0;
       default:

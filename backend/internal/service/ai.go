@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/ai/codexcli"
 	"github.com/luongtran/luna/backend/internal/ai/llm"
 	"github.com/luongtran/luna/backend/internal/aimodel"
 	"github.com/luongtran/luna/backend/internal/aiusage"
@@ -19,6 +20,7 @@ const aiTimeout = 5 * time.Minute
 // initAI picks the annotation provider from configuration (constitution III).
 func (c *Container) initAI() {
 	c.aiUsage = aiusage.NewService(c.store.AIUsage(), time.Now, c.log)
+	c.initCodexImages()
 	if c.cfg.AIProvider != "gemini" || c.cfg.GeminiAPIKey == "" {
 		c.log.Info("ai provider disabled: annotations will fail until configured", slog.String("provider", c.cfg.AIProvider))
 		c.ai = ai.Disabled{}
@@ -89,4 +91,24 @@ func (c *Container) queueMissingPractice(ctx context.Context) {
 	if n > 0 {
 		c.log.InfoContext(ctx, "queued six-step practice for older lessons", slog.Int("count", n))
 	}
+}
+
+// codexImageTimeout bounds one picture drawn by Codex: it takes about a minute.
+const codexImageTimeout = 4 * time.Minute
+
+// initCodexImages turns on drawing with the Codex CLI when CODEX_IMAGES=true and codex is found
+// (added 2026-11-04). It does not need GEMINI_API_KEY: Codex uses its own ChatGPT login.
+func (c *Container) initCodexImages() {
+	if !c.cfg.CodexImages {
+		return
+	}
+	if err := codexcli.Available(c.cfg.CodexBin); err != nil {
+		c.log.Warn("codex images disabled: codex program not found", slog.String("bin", c.cfg.CodexBin), slog.Any("error", err))
+		return
+	}
+	c.codexImageAI = codexcli.New(codexcli.Options{
+		Bin: c.cfg.CodexBin, Dir: c.cfg.CodexImageDir, Model: c.cfg.CodexImageModel, Concurrency: c.cfg.CodexImageConcurrency,
+		Timeout: codexImageTimeout, Usage: c.aiUsage, Log: c.log,
+	})
+	c.log.Info("codex images enabled", slog.String("bin", c.cfg.CodexBin), slog.String("dir", c.cfg.CodexImageDir), slog.Int("concurrency", c.cfg.CodexImageConcurrency))
 }

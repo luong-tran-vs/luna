@@ -13,6 +13,8 @@ func (c *Container) initGrammar() {
 	c.grammar = grammar.NewService(c.store.GrammarLessons(), c.store.GrammarProgress(), c.store.GrammarReports(), c.ai,
 		grammarLessonCounter{c.lessons}, c.studyDays, time.Now)
 	c.grammar.SetCourse(c.grammarCourse)
+	// Pictures of the examples, drawn with Gemini or the Codex CLI (added 2026-11-06).
+	c.grammar.WithImages(grammar.ImageDeps{Store: c.store.GrammarImages(), Gemini: c.imageAI, Codex: c.codexImageAI})
 }
 
 // grammarCourse adapts the approved course of a level to the grammar list (A1 since 2026-10-22,

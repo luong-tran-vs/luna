@@ -45,6 +45,7 @@
     </p>
 
     @if (phase() === 'gist') {
+      <lu-scene-image class="listen-scene" [url]="sceneUrl()" />
       <p class="people">
         <span class="avatar" aria-hidden="true">{{ initial(0) }}</span>
         <span class="people-text"

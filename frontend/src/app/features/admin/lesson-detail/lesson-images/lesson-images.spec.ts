@@ -4,8 +4,28 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { serverUrl } from '../../../../core/api-url';
 import { errorInterceptor } from '../../../../core/interceptors/error-interceptor';
-import { DEFAULT_IMAGE_STYLE } from '../../../../core/models/generate';
+import { IMAGE_STYLE_PLACEHOLDER } from '../../../../core/models/generate';
+import { SceneBatch } from '../../../../core/models/lesson';
+import { SceneBatchService } from '../../curriculum/scene-batch.service';
 import { LessonImages } from './lesson-images';
+
+/** A scene picture batch; by default none ran since the server started. */
+const sceneBatch = (extra: Partial<SceneBatch> = {}): SceneBatch => ({
+  running: false,
+  stopping: false,
+  stopped: false,
+  engine: '',
+  key: '',
+  label: '',
+  total: 0,
+  done: 0,
+  drawing: null,
+  saved: [],
+  failures: [],
+  skipped: [],
+  codexImages: false,
+  ...extra,
+});
 
 describe('LessonImages', () => {
   let fixture: ComponentFixture<LessonImages>;
@@ -19,10 +39,9 @@ describe('LessonImages', () => {
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };
-  const toggle = () => el.querySelector<HTMLButtonElement>('button[role="switch"]')!;
   const submit = () => el.querySelector<HTMLButtonElement>('button[type="submit"]')!;
 
-  const open = async (state: object) => {
+  const open = async (state: object, batch: SceneBatch = sceneBatch()) => {
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptors([errorInterceptor])),
@@ -32,9 +51,11 @@ describe('LessonImages', () => {
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(LessonImages);
     fixture.componentRef.setInput('lessonId', 'l1');
+    fixture.componentRef.setInput('lessonTitle', 'Park');
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     http.expectOne(url).flush({ words: [], ...state });
+    http.expectOne('/admin/lessons/scene-batch').flush(batch);
     await settle();
   };
 
@@ -45,8 +66,8 @@ describe('LessonImages', () => {
       { lemma: 'coffee', meaningVi: 'cà phê', imageUrl: '' },
       { lemma: 'give up', meaningVi: 'từ bỏ', imageUrl: '/api/admin/lessons/l1/images/give%20up' },
     ];
-    const base = { enabled: false, style: '', status: '', error: '', count: 1, words };
-    const rows = () => Array.from(el.querySelectorAll('.word'));
+    const base = { style: '', sceneDescription: '', count: 1, words };
+    const rows = () => Array.from(el.querySelectorAll('.word:not(.scene)'));
     const choose = async (row: Element, file: File) => {
       const input = row.querySelector<HTMLInputElement>('input[type="file"]')!;
       Object.defineProperty(input, 'files', { value: [file], configurable: true });
@@ -76,7 +97,7 @@ describe('LessonImages', () => {
     it('says when the lesson has no words yet', async () => {
       await open({ ...base, words: [], count: 0 });
       expect(el.textContent).toContain('Bài chưa chú thích xong');
-      expect(el.querySelector('.word')).toBeNull();
+      expect(el.querySelector('.word:not(.scene)')).toBeNull();
     });
 
     it('sends the chosen file as the body and shows the new picture', async () => {
@@ -96,7 +117,6 @@ describe('LessonImages', () => {
       await settle();
       expect(rows()[0].querySelector('img')).not.toBeNull();
       expect(text('.word [role="status"]')).toBe('Đã tải ảnh lên.');
-      expect(text('.count')).toBe('2 từ đã có ảnh');
     });
 
     it('refuses other file types and files over 5 MB before sending', async () => {
@@ -174,16 +194,14 @@ describe('LessonImages', () => {
         );
 
         await submitLink(rows()[0], 'https://example.com/page');
-        http
-          .expectOne('/admin/lessons/l1/images/coffee/import')
-          .flush(
-            {
-              fields: {
-                url: 'Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh.',
-              },
+        http.expectOne('/admin/lessons/l1/images/coffee/import').flush(
+          {
+            fields: {
+              url: 'Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh.',
             },
-            { status: 400, statusText: 'Bad Request' },
-          );
+          },
+          { status: 400, statusText: 'Bad Request' },
+        );
         await settle();
         expect(text('.word [role="alert"]')).toBe(
           'Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh.',
@@ -202,65 +220,240 @@ describe('LessonImages', () => {
       req.flush({ ...base, count: 0, words: [words[0], { ...words[1], imageUrl: '' }] });
       await settle();
       expect(rows()[1].querySelector('img')).toBeNull();
-      expect(text('.word [role="status"]')).toBe('Đã xoá ảnh.');
+      expect(text('.word:not(.scene) [role="status"]')).toBe('Đã xoá ảnh.');
     });
   });
 
-  it('shows pictures off, with the default style offered when turned on', async () => {
-    await open({ enabled: false, style: '', status: '', error: '', count: 0 });
-    expect(text('.none-chip')).toBe('Ảnh: Tắt');
-    expect(text('.count')).toBe('0 từ đã có ảnh');
-    expect(toggle().getAttribute('aria-checked')).toBe('false');
-    expect(el.querySelector('#images-style')).toBeNull();
-    toggle().click();
-    await fixture.whenStable();
-    expect(el.querySelector<HTMLTextAreaElement>('#images-style')!.value).toBe(DEFAULT_IMAGE_STYLE);
-    expect(text('button[type="submit"]')).toBe('Lưu và sinh ảnh còn thiếu');
-  });
+  describe('the scene picture, drawn on request with the chosen engine (2026-11-06)', () => {
+    const sceneRow = () => el.querySelector('.word.scene')!;
+    const area = (id: string) => el.querySelector<HTMLTextAreaElement>(`#${id}`)!;
+    const save = () =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('form button[type="button"]')).find((b) =>
+        b.textContent?.includes('Chỉ lưu mô tả'),
+      )!;
+    const radio = (value: string) =>
+      el.querySelector<HTMLInputElement>(`input[name="images-engine"][value="${value}"]`)!;
+    const openField = async (label: string) => {
+      Array.from(el.querySelectorAll<HTMLButtonElement>('.chip-toggle'))
+        .find((b) => b.textContent?.replace(/\s+/g, ' ').trim() === label)!
+        .click();
+      await fixture.whenStable();
+    };
+    const base = {
+      sceneDescription: 'A family at home',
+      style: '',
+      count: 0,
+      sceneImageUrl: '/api/admin/lessons/l1/images/_scene',
+    };
 
-  it('shows a failed drawing with its reason, and saving retries it', async () => {
-    await open({
-      enabled: true,
-      style: 'watercolor',
-      status: 'failed',
-      error: 'AI hết hạn mức, thử lại sau',
-      count: 3,
-    });
-    expect(text('lu-status-chip')).toContain('Ảnh: Lỗi');
-    expect(el.textContent).toContain('Lý do: AI hết hạn mức, thử lại sau');
-    expect(el.querySelector<HTMLTextAreaElement>('#images-style')!.value).toBe('watercolor');
+    beforeEach(() => localStorage.removeItem('luna.admin.imageEngine'));
+    afterEach(() => localStorage.removeItem('luna.admin.imageEngine'));
 
-    submit().click();
-    await fixture.whenStable();
-    const req = http.expectOne(url);
-    expect(req.request.method).toBe('PUT');
-    expect(req.request.body).toEqual({ enabled: true, style: 'watercolor' });
-    req.flush({
-      enabled: true,
-      style: 'watercolor',
-      status: 'running',
-      error: '',
-      count: 3,
-      words: [],
-    });
-    await settle();
-    expect(text('lu-status-chip')).toContain('Ảnh: Đang chạy');
-    expect(text('[role="status"]')).toBe('Đã lưu. Ảnh của các từ còn thiếu đang được sinh.');
-  });
-
-  it('turns pictures off and shows server errors', async () => {
-    await open({ enabled: true, style: 'x', status: 'done', error: '', count: 5 });
-    toggle().click();
-    await fixture.whenStable();
-    submit().click();
-    await fixture.whenStable();
-    http
-      .expectOne(url)
-      .flush(
-        { message: 'Máy chủ chưa hỗ trợ ảnh từ vựng' },
-        { status: 503, statusText: 'Unavailable' },
+    it('shows the scene picture, its description and the default style placeholder', async () => {
+      await open(base);
+      expect(sceneRow().textContent).toContain('Ảnh cảnh của bài');
+      const src = sceneRow().querySelector('img')!.getAttribute('src')!;
+      expect(src.startsWith(serverUrl('/api/admin/lessons/l1/images/_scene?v='))).toBe(true);
+      expect(sceneRow().querySelector('.remove-btn')!.getAttribute('aria-label')).toBe(
+        'Xoá ảnh cảnh',
       );
-    await settle();
-    expect(text('[role="alert"]')).toBe('Máy chủ chưa hỗ trợ ảnh từ vựng');
+      expect(area('images-scene').value).toBe('A family at home');
+      // The style is empty: its field stays closed until asked for.
+      expect(el.querySelector('#images-style')).toBeNull();
+      await openField('+ Phong cách ảnh');
+      expect(area('images-style').placeholder).toBe(IMAGE_STYLE_PLACEHOLDER);
+      expect(text('button[type="submit"]')).toBe('Tạo lại ảnh cảnh');
+      // No switches any more; Codex is listed but cannot be chosen when the server has none.
+      expect(el.querySelector('button[role="switch"]')).toBeNull();
+      const codex = radio('codex');
+      expect(codex.disabled).toBe(true);
+      expect(codex.closest('label')!.textContent).toContain('Máy chủ chưa bật');
+      expect(radio('gemini').checked).toBe(true);
+    });
+
+    const batchUrl = '/admin/lessons/scene-batch';
+    const running = (engine: 'gemini' | 'codex' = 'gemini') =>
+      sceneBatch({
+        running: true,
+        engine,
+        key: 'lesson:l1',
+        label: 'bài “Park”',
+        total: 1,
+        drawing: { id: 'l1', title: 'Park' },
+      });
+    /** Saves the form (PUT) then starts the background batch of this lesson (POST). */
+    const expectStart = (saved: object) => {
+      const put = http.expectOne((r) => r.url === url && r.method === 'PUT');
+      put.flush({ ...base, words: [], ...saved });
+      return put;
+    };
+
+    it('saves the form, then has the server draw the scene in the background', async () => {
+      await open({ ...base, sceneDescription: '', sceneImageUrl: '' });
+      expect(text('button[type="submit"]')).toBe('Tạo ảnh cảnh');
+      expect(el.querySelector('#images-scene')).toBeNull();
+      await openField('+ Mô tả cảnh');
+      area('images-scene').value = '  Two friends in a park  ';
+      area('images-scene').dispatchEvent(new Event('input'));
+      submit().click();
+      await fixture.whenStable();
+      const put = expectStart({ sceneDescription: 'Two friends in a park', sceneImageUrl: '' });
+      expect(put.request.body).toEqual({ sceneDescription: 'Two friends in a park', style: '' });
+      await settle();
+      const req = http.expectOne((r) => r.url === batchUrl && r.method === 'POST');
+      expect(req.request.body).toEqual({
+        lessonIds: ['l1'],
+        replace: true,
+        engine: 'gemini',
+        key: 'lesson:l1',
+        label: 'bài “Park”',
+      });
+      req.flush(running());
+      await settle();
+      expect(text('button[type="submit"]')).toBe('Gemini đang vẽ ngầm…');
+      expect(text('.bg-note')).toContain('Máy chủ đang tạo ảnh cảnh ngầm');
+
+      // The batch ends (the next status read): the new picture is read again.
+      TestBed.inject(SceneBatchService).set(
+        sceneBatch({
+          ...running(),
+          running: false,
+          drawing: null,
+          done: 1,
+          saved: [{ id: 'l1', title: 'Park' }],
+        }),
+      );
+      await settle();
+      http.expectOne(url).flush({ ...base, words: [] });
+      await settle();
+      expect(sceneRow().querySelector('img')).not.toBeNull();
+      expect(text('p[role="status"]')).toBe('Đã tạo ảnh cảnh bằng Gemini.');
+      expect(text('button[type="submit"]')).toBe('Tạo lại ảnh cảnh');
+    });
+
+    it('offers Codex when the server runs it, and remembers the choice', async () => {
+      await open({ ...base, codexImages: true });
+      radio('codex').click();
+      await fixture.whenStable();
+      expect(radio('codex').checked).toBe(true);
+      expect(el.querySelector('.engine.selected')!.textContent).toContain('tài khoản ChatGPT');
+      expect(localStorage.getItem('luna.admin.imageEngine')).toBe('codex');
+      submit().click();
+      await fixture.whenStable();
+      expectStart({ codexImages: true });
+      await settle();
+      const req = http.expectOne((r) => r.url === batchUrl && r.method === 'POST');
+      expect(req.request.body.engine).toBe('codex');
+      req.flush(running('codex'));
+      await settle();
+      expect(text('button[type="submit"]')).toBe('Codex đang vẽ ngầm… (khoảng 1 phút)');
+    });
+
+    it('draws with Gemini when Codex was chosen but this server has none', async () => {
+      localStorage.setItem('luna.admin.imageEngine', 'codex');
+      await open(base);
+      expect(radio('gemini').checked).toBe(true);
+    });
+
+    it('shows why the drawing failed once the batch ends', async () => {
+      await open(base, running());
+      expect(text('button[type="submit"]')).toBe('Gemini đang vẽ ngầm…');
+      TestBed.inject(SceneBatchService).set(
+        sceneBatch({
+          ...running(),
+          running: false,
+          drawing: null,
+          done: 1,
+          failures: [{ id: 'l1', title: 'Park', message: 'Đã hết lượt AI, vui lòng thử lại sau.' }],
+          stopMessage: 'Đã hết lượt AI, vui lòng thử lại sau.',
+        }),
+      );
+      await settle();
+      http.expectOne(url).flush({ ...base, words: [] });
+      await settle();
+      expect(text('.form-alert')).toBe('Đã hết lượt AI, vui lòng thử lại sau.');
+    });
+
+    it('waits while another scene batch runs', async () => {
+      await open(
+        base,
+        sceneBatch({ running: true, key: 'A1-3', label: 'chủ đề “Gia đình”', total: 8, done: 2 }),
+      );
+      expect(submit().disabled).toBe(true);
+      expect(el.textContent).toContain(
+        'Máy chủ đang tạo ảnh cảnh ngầm cho chủ đề “Gia đình” (xong 2/8)',
+      );
+    });
+
+    it('shows why the drawing could not start', async () => {
+      await open(base);
+      submit().click();
+      await fixture.whenStable();
+      expectStart({});
+      await settle();
+      http
+        .expectOne((r) => r.url === batchUrl && r.method === 'POST')
+        .flush(
+          { message: 'Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng.' },
+          { status: 409, statusText: 'Conflict' },
+        );
+      await settle();
+      expect(text('.form-alert')).toBe(
+        'Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng.',
+      );
+    });
+
+    it('saves the description and style without drawing', async () => {
+      await open(base);
+      await openField('+ Phong cách ảnh');
+      area('images-style').value = ' watercolor ';
+      area('images-style').dispatchEvent(new Event('input'));
+      save().click();
+      await fixture.whenStable();
+      const req = http.expectOne(url);
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual({
+        sceneDescription: 'A family at home',
+        style: 'watercolor',
+      });
+      req.flush({ ...base, style: 'watercolor', words: [] });
+      await settle();
+      expect(text('p[role="status"]')).toBe('Đã lưu mô tả ảnh cảnh.');
+      expect(area('images-style').value).toBe('watercolor');
+    });
+
+    it('refuses a description that is too long', async () => {
+      await open(base);
+      area('images-scene').value = 'x'.repeat(601);
+      area('images-scene').dispatchEvent(new Event('input'));
+      submit().click();
+      await fixture.whenStable();
+      expect(text('.form-alert')).toBe('Mô tả cảnh tối đa 600 ký tự');
+    });
+  });
+
+  it('shows the word bank picture of a word without its own, and offers no AI drawing of words', async () => {
+    await open({
+      style: '',
+      sceneDescription: '',
+      count: 0,
+      bankCount: 1,
+      words: [
+        {
+          lemma: 'family',
+          meaningVi: 'gia đình',
+          imageUrl: '/api/admin/lessons/l1/images/family',
+          fromBank: true,
+        },
+      ],
+    });
+    expect(el.querySelector('.count')).toBeNull();
+    const row = el.querySelector('.word:not(.scene)')!;
+    expect(row.querySelector('img')).not.toBeNull();
+    expect(row.querySelector('.bank-tag')!.textContent).toContain('Ảnh từ Kho từ vựng');
+    expect(row.querySelector('.remove-btn')).toBeNull();
+    expect(row.querySelector('.upload-btn')!.textContent).toContain('Đổi ảnh');
+    expect(row.textContent).not.toContain('Vẽ lại');
+    expect(el.textContent).toContain('chỉ sinh trong Kho từ vựng');
   });
 });

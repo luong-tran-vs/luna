@@ -43,39 +43,51 @@ func wordImagesSchema() []string {
 	}
 }
 
+// sceneImageSchema adds the scene picture settings of a lesson (added 2026-11-05). TEXT cannot have
+// a default, so the description is NULL until set.
+func sceneImageSchema() []string {
+	return []string{
+		`ALTER TABLE lesson_image_settings ADD COLUMN scene TINYINT(1) NOT NULL DEFAULT 0`,
+		`ALTER TABLE lesson_image_settings ADD COLUMN scene_description TEXT NULL`,
+	}
+}
+
 // Settings returns the zero settings for a lesson without any (or a malformed id).
 func (r *WordImages) Settings(ctx context.Context, lessonID string) (lesson.ImageSettings, error) {
 	if !lessonValidID(lessonID) {
 		return lesson.ImageSettings{}, nil
 	}
 	var (
-		s       lesson.ImageSettings
-		status  string
-		updated sql.NullTime
+		s         lesson.ImageSettings
+		updated   sql.NullTime
+		sceneDesc sql.NullString
 	)
 	err := r.db.QueryRowContext(ctx,
-		`SELECT enabled, style, status, error, updated_at FROM lesson_image_settings WHERE lesson_id = ?`, lessonID).
-		Scan(&s.Enabled, &s.Style, &status, &s.Error, &updated)
+		`SELECT scene_description, style, updated_at FROM lesson_image_settings WHERE lesson_id = ?`,
+		lessonID).Scan(&sceneDesc, &s.Style, &updated)
 	if errors.Is(err, sql.ErrNoRows) {
 		return lesson.ImageSettings{}, nil
 	}
 	if err != nil {
 		return lesson.ImageSettings{}, fmt.Errorf("mysql find image settings: %w", err)
 	}
-	s.Status, s.UpdatedAt = lesson.Status(status), timeOf(updated)
+	s.UpdatedAt, s.SceneDescription = timeOf(updated), sceneDesc.String
 	return s, nil
 }
 
-// SaveSettings replaces the settings of a lesson.
+// SaveSettings replaces the settings of a lesson. The enabled, scene, status and error columns
+// belonged to the background drawing, removed 2026-11-06; they are kept empty.
 func (r *WordImages) SaveSettings(ctx context.Context, lessonID string, s lesson.ImageSettings) error {
 	if !lessonValidID(lessonID) {
 		return lesson.ErrNotFound
 	}
-	_, err := r.db.ExecContext(ctx, `INSERT INTO lesson_image_settings (lesson_id, enabled, style, status, error, updated_at)
-		VALUES (?,?,?,?,?,?)
-		ON DUPLICATE KEY UPDATE enabled = VALUES(enabled), style = VALUES(style), status = VALUES(status),
-			error = VALUES(error), updated_at = VALUES(updated_at)`,
-		lessonID, s.Enabled, s.Style, string(s.Status), s.Error, nullTime(s.UpdatedAt))
+	_, err := r.db.ExecContext(ctx, `INSERT INTO lesson_image_settings
+		(lesson_id, enabled, scene, scene_description, style, status, error, updated_at)
+		VALUES (?,0,0,?,?,'','',?)
+		ON DUPLICATE KEY UPDATE enabled = 0, scene = 0,
+			scene_description = VALUES(scene_description), style = VALUES(style), status = '',
+			error = '', updated_at = VALUES(updated_at)`,
+		lessonID, s.SceneDescription, s.Style, nullTime(s.UpdatedAt))
 	if err != nil {
 		return fmt.Errorf("mysql save image settings: %w", err)
 	}

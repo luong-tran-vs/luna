@@ -129,6 +129,8 @@ type Provider interface {
 	SuggestWords(ctx context.Context, req SuggestWordsRequest) ([]string, error)
 	// GrammarLesson writes the whole grammar lesson of one syllabus point in one request (F20).
 	GrammarLesson(ctx context.Context, req GrammarLessonRequest) (GrammarLessonContent, error)
+	// GrammarPictures writes only the picture exercises of a lesson written without them.
+	GrammarPictures(ctx context.Context, req GrammarPicturesRequest) (GrammarPictures, error)
 	// SolveGrammarExercises answers grammar exercises without seeing their keys, so the service can
 	// compare the answers with the stored ones (F21).
 	SolveGrammarExercises(ctx context.Context, req SolveRequest) ([]Solution, error)

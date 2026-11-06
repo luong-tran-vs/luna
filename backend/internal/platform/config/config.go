@@ -42,6 +42,18 @@ type Config struct {
 	// (added 2026-10-26); empty for none.
 	OpenAIAPIKey string
 
+	// CodexImages lets the admin draw word pictures with the Codex CLI of this machine (added
+	// 2026-11-04); off by default, as the other server has no Codex.
+	CodexImages bool
+	// CodexBin is the codex program (default "codex" from PATH).
+	CodexBin string
+	// CodexImageDir is where Codex saves the pictures it draws (default "./image"); they are kept.
+	CodexImageDir string
+	// CodexImageModel, if set, is passed to codex as -m.
+	CodexImageModel string
+	// CodexImageConcurrency is how many pictures Codex may draw at once (default 2).
+	CodexImageConcurrency int
+
 	DictionaryPath string
 }
 
@@ -69,10 +81,13 @@ func Load(getenv func(string) string) (Config, error) {
 		GeminiImageModel:    valueOr(getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image"),
 		DictionaryPath:      valueOr(getenv("DICTIONARY_PATH"), "./language-dictionary/data/english-dictionary.db"),
 		CORSOrigins:         splitList(getenv("CORS_ORIGINS")),
+		CodexBin:            valueOr(getenv("CODEX_BIN"), "codex"),
+		CodexImageDir:       valueOr(getenv("CODEX_IMAGE_DIR"), "./image"),
+		CodexImageModel:     strings.TrimSpace(getenv("CODEX_IMAGE_MODEL")),
 	}
 	// An empty number is skipped, so removing a key does not hide the ones after it.
 	for i := 1; i <= maxGeminiBackupKeys; i++ {
-		if key := strings.TrimSpace(getenv("GEMINI_API_KEY"+strconv.Itoa(i))); key != "" {
+		if key := strings.TrimSpace(getenv("GEMINI_API_KEY" + strconv.Itoa(i))); key != "" {
 			cfg.GeminiBackupKeys = append(cfg.GeminiBackupKeys, key)
 		}
 	}
@@ -100,6 +115,18 @@ func Load(getenv func(string) string) (Config, error) {
 	case "false":
 	default:
 		errs = append(errs, errors.New("config: COOKIE_SECURE must be true or false"))
+	}
+	switch strings.ToLower(valueOr(getenv("CODEX_IMAGES"), "false")) {
+	case "true":
+		cfg.CodexImages = true
+	case "false":
+	default:
+		errs = append(errs, errors.New("config: CODEX_IMAGES must be true or false"))
+	}
+	if n, err := strconv.Atoi(valueOr(getenv("CODEX_IMAGE_CONCURRENCY"), "2")); err == nil && n >= 1 && n <= 8 {
+		cfg.CodexImageConcurrency = n
+	} else {
+		errs = append(errs, errors.New("config: CODEX_IMAGE_CONCURRENCY must be a number from 1 to 8"))
 	}
 	if cfg.AIProvider != "gemini" && cfg.AIProvider != "none" {
 		errs = append(errs, errors.New("config: AI_PROVIDER must be gemini or none"))

@@ -1,0 +1,108 @@
+<section class="card pictures" aria-labelledby="pv-example-images" [attr.aria-busy]="drawingNow()">
+  <div class="head">
+    <h3 class="part-title" id="pv-example-images">Ảnh ví dụ</h3>
+    @if (drawable()) {
+      <span class="muted">{{ rows().length - missing() }}/{{ rows().length }} ảnh đã có</span>
+    }
+  </div>
+  @if (!drawable()) {
+    <p class="field-hint">
+      Điểm ngữ pháp này khó minh hoạ bằng ảnh nên không tạo ảnh ví dụ. Ảnh chỉ dùng cho các điểm vẽ
+      được, như giới từ chỉ vị trí, sở hữu, hiện tại tiếp diễn, so sánh.
+    </p>
+  } @else {
+    <p class="field-hint">
+      Mỗi câu ví dụ có một ảnh minh hoạ tình huống của câu, hiện cạnh câu ở bước “Cấu trúc &amp; ví
+      dụ”. Bài “Nhìn ảnh chọn từ” cần ảnh mới hiện cho người học. Sửa câu hay mô tả thì ảnh cũ không
+      còn khớp, cần tạo lại.
+    </p>
+  }
+
+  @if (drawable() && rows().length > 0) {
+    <lu-engine-picker
+      name="grammar-images-engine"
+      [value]="engine()"
+      [codexAvailable]="codex()"
+      [disabled]="locked()"
+      (changed)="setEngine($event)"
+    />
+
+    <div class="actions">
+      @if (drawingNow()) {
+        <p class="bg-note" role="status">
+          <span class="dot" aria-hidden="true"></span>
+          <span>
+            Máy chủ đang tạo ảnh ngầm: xong
+            <strong>{{ batch()?.done }}/{{ batch()?.total }}</strong> ảnh. Có thể rời trang, ảnh tự
+            hiện khi vẽ xong.
+          </span>
+        </p>
+        <button type="button" class="btn" [disabled]="!!batch()?.stopping" (click)="stop()">
+          {{ batch()?.stopping ? 'Đang dừng…' : 'Dừng' }}
+        </button>
+      } @else if (missing() > 0) {
+        <button type="button" class="btn-primary" [disabled]="locked()" (click)="drawMissing()">
+          {{ busy() === 'all' ? 'Đang gửi…' : 'Tạo ' + missing() + ' ảnh còn thiếu' }}
+        </button>
+      }
+    </div>
+    @if (otherBatch(); as o) {
+      <p class="field-hint">
+        Máy chủ đang tạo ảnh ví dụ ngầm cho {{ o.label }} (xong {{ o.done }}/{{ o.total }}). Chờ
+        lượt đó xong hoặc bấm Dừng.
+      </p>
+    }
+    @if (!drawingNow()) {
+      <p class="muted" role="status">{{ note() }}</p>
+    }
+    @if (error(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    <ul class="rows">
+      @for (r of rows(); track r.index) {
+        <li class="row" [class.drawing]="drawingEn() === r.en">
+          <div class="thumb">
+            @if (r.image) {
+              <img [src]="thumb(r)" crossorigin="use-credentials" [alt]="'Ảnh của câu: ' + r.en" />
+            } @else if (drawingEn() === r.en) {
+              <span class="thumb-empty"
+                ><span class="spinner" aria-hidden="true"></span>Đang vẽ</span
+              >
+            } @else {
+              <span class="thumb-empty">Chưa có ảnh</span>
+            }
+          </div>
+          <div class="text">
+            @if (r.exercise) {
+              <span class="ex-tag">Bài tập {{ r.exercise }} · nhìn ảnh chọn từ</span>
+            }
+            <span lang="en">{{ r.en }}</span>
+            <span class="muted" [attr.lang]="r.exercise ? 'en' : null">{{
+              r.exercise ? 'Ảnh: ' + r.vi : r.vi
+            }}</span>
+          </div>
+          @if (r.image) {
+            <div class="row-actions">
+              <button type="button" class="btn" [disabled]="locked()" (click)="redraw(r)">
+                {{ busy() === 'row-' + r.index ? 'Đang gửi…' : 'Vẽ lại'
+                }}<span class="visually-hidden"> ảnh của câu {{ r.en }}</span>
+              </button>
+              <button
+                type="button"
+                class="btn"
+                [disabled]="locked()"
+                [attr.aria-label]="'Xoá ảnh của câu ' + r.en"
+                (click)="remove(r)"
+              >
+                Xoá
+              </button>
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  } @else if (drawable()) {
+    <p class="muted">Bài chưa có câu ví dụ.</p>
+  }
+</section>

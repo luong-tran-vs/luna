@@ -476,3 +476,32 @@
 .tip s {
   color: var(--color-text-muted);
 }
+
+/* An example with its picture (added 2026-11-06): the picture on the left, the text beside it;
+   above the text on a narrow phone. */
+.example.has-img {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.example-img {
+  display: block;
+  width: 112px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 380px) {
+  .example.has-img {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .example.has-img .example-img {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 240px;
+  }
+}

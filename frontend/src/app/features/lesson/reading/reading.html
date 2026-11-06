@@ -40,6 +40,11 @@
       </div>
     }
 
+    <!-- The scene of the story (added 2026-11-05), while reading only: not on the questions. -->
+    @if (phase() === 'read') {
+      <lu-scene-image class="reading-scene" [url]="l.sceneImageUrl" />
+    }
+
     <!-- A question to keep in mind while reading (six-step lesson, 2026-10-22). -->
     @if (phase() === 'read' && guideVi()) {
       <p class="guide">Đọc để trả lời: <b>{{ guideVi() }}</b></p>

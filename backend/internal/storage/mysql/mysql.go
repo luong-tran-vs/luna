@@ -231,6 +231,9 @@ func (s *Store) GrammarProgress() grammar.ProgressRepository { return NewGrammar
 
 func (s *Store) GrammarReports() grammar.ReportRepository { return NewGrammarReports(s.db) }
 
+// GrammarImages keeps the pictures of the grammar examples (added 2026-11-06).
+func (s *Store) GrammarImages() grammar.ImageRepository { return NewGrammarImages(s.db) }
+
 // Curricula keeps the course of each level (added 2026-10-23).
 func (s *Store) Curricula() curriculum.Repository { return NewCurricula(s.db) }
 

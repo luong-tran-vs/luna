@@ -108,6 +108,11 @@ export interface GrammarStepContent {
   answerIndex: number;
   explanationVi: string;
   whenVi: string;
+  /**
+   * The titles of the table's 3 columns (added 2026-11-06); absent shows "Chủ ngữ | Khẳng định |
+   * Phủ định", and "" for the third hides that column.
+   */
+  columns?: string[];
   table: { subject: string; form: string; negative: string }[];
   mistakes: { wrong: string; right: string }[];
   noteVi: string;

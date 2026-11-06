@@ -14,6 +14,8 @@ export interface CurriculumLesson {
   title: string;
   draft: boolean;
   annotationStatus: JobStatus;
+  /** The lesson has its scene picture (added 2026-11-06). */
+  hasScene?: boolean;
   /** Where the lesson comes from, as saved ("AI sinh", "Nhập"…); added 2026-10-26. */
   source?: string;
 }

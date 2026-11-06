@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
+import { serverUrl } from '../../../core/api-url';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { GrammarPoint } from '../../../core/models/grammar';
 import {
@@ -21,16 +22,23 @@ import {
   GrammarLessonAdmin,
   grammarStatusText,
   reasonsText,
+  PICTURE_MASTERY,
+  PICTURE_PRACTICE,
 } from '../../../core/models/grammar-admin';
 import { LEVELS } from '../../../core/models/lesson';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { Loading } from '../../../shared/components/loading/loading';
 import { AdminApiService } from '../admin-api.service';
+import { GrammarExampleImages } from '../grammar-images/grammar-example-images';
 import { grammarFailure } from '../grammar-errors';
 import { patternRows } from '../../grammar/grammar-logic';
 import { Pattern } from '../../grammar/pattern/pattern';
 import { ExampleLines, shownExample } from '../../grammar/example-lines/example-lines';
-import { GrammarSection, GrammarSectionEditor, SECTION_LABELS } from '../grammar-section-editor/grammar-section-editor';
+import {
+  GrammarSection,
+  GrammarSectionEditor,
+  SECTION_LABELS,
+} from '../grammar-section-editor/grammar-section-editor';
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error';
 type Action =
@@ -43,10 +51,20 @@ type Action =
   | 'verify'
   | 'exercise'
   | 'delete'
-  | 'section';
+  | 'section'
+  | 'pictures';
 
 /** Fields of the exercise form that the server can complain about. */
-const EXERCISE_FIELDS = ['promptVi', 'text', 'options', 'answerIndex', 'answers', 'words', 'sentence', 'explanationVi'];
+const EXERCISE_FIELDS = [
+  'promptVi',
+  'text',
+  'options',
+  'answerIndex',
+  'answers',
+  'words',
+  'sentence',
+  'explanationVi',
+];
 
 /** "a1-to-be" belongs to level A1; null for an id that does not start with a level. */
 function levelOf(pointId: string): string | null {
@@ -75,6 +93,7 @@ export function formatContent(content: GrammarContent): string {
     Pattern,
     ReactiveFormsModule,
     RouterLink,
+    GrammarExampleImages,
   ],
   templateUrl: './grammar-detail.html',
   styleUrl: './grammar-detail.css',
@@ -108,7 +127,6 @@ export class GrammarDetail {
   protected readonly sectionError = signal<string | null>(null);
   protected readonly sectionFields = signal<string[]>([]);
 
-
   protected readonly busy = signal<Action | null>(null);
   protected readonly actionError = signal<string | null>(null);
   protected readonly note = signal('');
@@ -127,6 +145,22 @@ export class GrammarDetail {
     return l ? openChecks(l) : [];
   });
   protected readonly flagCount = computed(() => this.openFlags().length);
+  /**
+   * How many "Nhìn ảnh chọn từ" exercises the lesson still lacks (added 2026-11-06); 0 for a point
+   * that cannot be drawn. "Thêm bài nhìn ảnh" asks the AI for them without writing the lesson again.
+   */
+  protected readonly missingPictures = computed(() => {
+    const l = this.lesson();
+    if (!l || !this.point()?.drawable) {
+      return 0;
+    }
+    const count = (list: readonly GrammarExercise[]) =>
+      list.filter((e) => e.kind === 'picture').length;
+    return (
+      Math.max(0, PICTURE_PRACTICE - count(l.content.practice)) +
+      Math.max(0, PICTURE_MASTERY - count(l.content.mastery))
+    );
+  });
   protected readonly confirmingVerify = signal(false);
   protected readonly deleting = signal<string | null>(null);
 
@@ -147,13 +181,18 @@ export class GrammarDetail {
     sentence: new FormControl('', { nonNullable: true }),
     wordsText: new FormControl('', { nonNullable: true }),
     explanationVi: new FormControl('', { nonNullable: true }),
+    picture: new FormControl('', { nonNullable: true }),
   });
-  private readonly checkById = computed(() => new Map((this.lesson()?.checks ?? []).map((c) => [c.exerciseId, c])));
-  private readonly reportById = computed(() => new Map((this.lesson()?.reports ?? []).map((r) => [r.exerciseId, r])));
+  private readonly checkById = computed(
+    () => new Map((this.lesson()?.checks ?? []).map((c) => [c.exerciseId, c])),
+  );
+  private readonly reportById = computed(
+    () => new Map((this.lesson()?.reports ?? []).map((r) => [r.exerciseId, r])),
+  );
 
   protected readonly json = new FormControl('', { nonNullable: true });
   protected readonly form = new FormGroup({ json: this.json });
-  protected readonly jsonError =signal<string | null>(null);
+  protected readonly jsonError = signal<string | null>(null);
   protected readonly serverFields = signal<string[]>([]);
   protected readonly saveError = signal<string | null>(null);
 
@@ -169,7 +208,8 @@ export class GrammarDetail {
         this.setLesson(lesson);
         this.state.set('ready');
       },
-      error: (err: unknown) => this.state.set(err instanceof ApiError && err.status === 404 ? 'empty' : 'error'),
+      error: (err: unknown) =>
+        this.state.set(err instanceof ApiError && err.status === 404 ? 'empty' : 'error'),
     });
   }
 
@@ -181,6 +221,25 @@ export class GrammarDetail {
     }
     this.api.grammarPoints(level).subscribe({
       next: (points) => this.point.set(points.find((p) => p.id === this.pointId) ?? null),
+      error: () => undefined,
+    });
+  }
+
+  /**
+   * Takes only the example pictures of a lesson the server answered (after a picture was drawn or
+   * removed), so content being edited is left as typed.
+   */
+  protected takeImages(lesson: GrammarLessonAdmin): void {
+    this.lesson.update((l) =>
+      l ? { ...l, exampleImages: lesson.exampleImages ?? [], codexImages: lesson.codexImages } : l,
+    );
+  }
+
+  /** The lesson's picture batch ended: its new pictures are read. */
+  protected reloadImages(): void {
+    this.api.grammarLesson(this.pointId).subscribe({
+      next: (lesson) => this.takeImages(lesson),
+      // The pictures show again on the next visit.
       error: () => undefined,
     });
   }
@@ -245,16 +304,47 @@ export class GrammarDetail {
   protected confirmMessage(): string {
     const lesson = this.lesson();
     const what =
-      lesson?.status === 'published' ? 'đã đăng' : lesson?.edited ? 'đã sửa tay' : 'có thay đổi chưa lưu';
+      lesson?.status === 'published'
+        ? 'đã đăng'
+        : lesson?.edited
+          ? 'đã sửa tay'
+          : 'có thay đổi chưa lưu';
     return `Bài ngữ pháp này ${what}. Sinh lại sẽ thay toàn bộ nội dung bằng một bản nháp mới.`;
   }
 
   protected generate(force: boolean): Promise<void> {
-    return this.run('generate', () => this.api.generateGrammarLesson(this.pointId, force), 'Đã sinh bản nháp mới.');
+    return this.run(
+      'generate',
+      () => this.api.generateGrammarLesson(this.pointId, force),
+      'Đã sinh bản nháp mới.',
+    );
   }
 
   protected check(): Promise<void> {
-    return this.run('check', () => this.api.checkGrammarLesson(this.pointId), 'Đã kiểm tra bằng AI.');
+    return this.run(
+      'check',
+      () => this.api.checkGrammarLesson(this.pointId),
+      'Đã kiểm tra bằng AI.',
+    );
+  }
+
+  /** Adds the missing picture exercises; the rest of the lesson stays. */
+  protected async addPictures(): Promise<void> {
+    const before = this.pictureCount();
+    await this.run('pictures', () => this.api.addGrammarPictures(this.pointId), '');
+    const added = this.pictureCount() - before;
+    if (added > 0) {
+      this.note.set(
+        `Đã thêm ${added} bài nhìn ảnh. Bấm “Tạo ảnh còn thiếu” ở mục Ảnh ví dụ để người học thấy các bài này.`,
+      );
+    }
+  }
+
+  private pictureCount(): number {
+    const l = this.lesson();
+    return l
+      ? [...l.content.practice, ...l.content.mastery].filter((e) => e.kind === 'picture').length
+      : 0;
   }
 
   /** With flagged exercises left, ask first; the confirmation sends acknowledgeFlags. */
@@ -279,7 +369,11 @@ export class GrammarDetail {
   }
 
   protected confirmFlag(exerciseId: string): Promise<void> {
-    return this.run('confirm', () => this.api.confirmGrammarCheck(this.pointId, exerciseId), 'Đã xác nhận câu này đúng.');
+    return this.run(
+      'confirm',
+      () => this.api.confirmGrammarCheck(this.pointId, exerciseId),
+      'Đã xác nhận câu này đúng.',
+    );
   }
 
   /** Asks first when flags are left; confirming says they are all right. */
@@ -304,7 +398,11 @@ export class GrammarDetail {
   }
 
   protected verify(): Promise<void> {
-    return this.run('verify', () => this.api.verifyGrammarLesson(this.pointId), 'Đã xác nhận bài đã kiểm tra xong.');
+    return this.run(
+      'verify',
+      () => this.api.verifyGrammarLesson(this.pointId),
+      'Đã xác nhận bài đã kiểm tra xong.',
+    );
   }
 
   /** "Luyện tập 2" / "Kiểm tra 1": where an exercise sits, for the list of flags. */
@@ -329,6 +427,11 @@ export class GrammarDetail {
     target?.focus();
   }
 
+  /** The picture of a picture exercise, asked for again when redrawn. */
+  protected pictureSrc(ex: GrammarExercise): string {
+    return serverUrl(ex.imageUrl ?? '');
+  }
+
   protected startEdit(ex: GrammarExercise): void {
     if (this.busy()) {
       return;
@@ -346,6 +449,7 @@ export class GrammarDetail {
       sentence: ex.sentence ?? '',
       wordsText: (ex.words ?? []).join(' '),
       explanationVi: ex.explanationVi ?? '',
+      picture: ex.picture ?? '',
     });
     this.editKind.set(ex.kind);
     this.editError.set(null);
@@ -363,6 +467,7 @@ export class GrammarDetail {
     const kind = this.editKind();
     switch (kind) {
       case 'fill':
+      case 'picture':
         return 'Câu có chỗ trống (dùng ___)';
       case 'reorder':
         return 'Nghĩa tiếng Việt của câu';
@@ -380,10 +485,32 @@ export class GrammarDetail {
   private exerciseInput(): GrammarExerciseInput {
     const v = this.editForm.getRawValue();
     const kind = this.editKind();
-    const base = { kind, promptVi: v.promptVi.trim() || undefined, text: v.text.trim(), explanationVi: v.explanationVi.trim() };
-    const lines = (text: string) => text.split(/\r?\n/).map((x) => x.trim()).filter(Boolean);
+    const base = {
+      kind,
+      promptVi: v.promptVi.trim() || undefined,
+      text: v.text.trim(),
+      explanationVi: v.explanationVi.trim(),
+    };
+    const lines = (text: string) =>
+      text
+        .split(/\r?\n/)
+        .map((x) => x.trim())
+        .filter(Boolean);
     if (kind === 'choice') {
-      return { ...base, options: [v.o0, v.o1, v.o2, v.o3].map((o) => o.trim()), answerIndex: Number(v.answerIndex) };
+      return {
+        ...base,
+        options: [v.o0, v.o1, v.o2, v.o3].map((o) => o.trim()),
+        answerIndex: Number(v.answerIndex),
+      };
+    }
+    if (kind === 'picture') {
+      // The options left empty are dropped, the right one keeps its place among the others.
+      const all = [v.o0, v.o1, v.o2, v.o3].map((o) => o.trim());
+      const options = all.filter(Boolean);
+      const chosen = all[Number(v.answerIndex)]
+        ? all.slice(0, Number(v.answerIndex)).filter(Boolean).length
+        : -1;
+      return { ...base, options, answerIndex: chosen, picture: v.picture.trim() };
     }
     if (kind === 'fill') {
       return { ...base, answers: lines(v.answersText) };
@@ -391,7 +518,11 @@ export class GrammarDetail {
     if (kind === 'fix') {
       return { ...base, sentence: v.sentence.trim(), answers: lines(v.answersText) };
     }
-    return { ...base, sentence: v.sentence.trim(), words: v.wordsText.split(/\s+/).filter(Boolean) };
+    return {
+      ...base,
+      sentence: v.sentence.trim(),
+      words: v.wordsText.split(/\s+/).filter(Boolean),
+    };
   }
 
   protected async saveEdit(): Promise<void> {
@@ -415,7 +546,9 @@ export class GrammarDetail {
   protected deleteMessage(): string {
     const id = this.deleting();
     const content = this.lesson()?.content;
-    const section = content?.practice.some((e) => e.id === id) ? content.practice : (content?.mastery ?? []);
+    const section = content?.practice.some((e) => e.id === id)
+      ? content.practice
+      : (content?.mastery ?? []);
     const name = content?.practice.some((e) => e.id === id) ? 'Bài luyện tập' : 'Bài kiểm tra';
     return `${name} còn ${Math.max(section.length - 1, 0)} câu sau khi xoá. Mỗi phần có số câu tối thiểu; nếu xuống dưới ngưỡng, máy chủ sẽ từ chối.`;
   }
@@ -424,7 +557,11 @@ export class GrammarDetail {
     const id = this.deleting();
     this.deleting.set(null);
     if (id) {
-      void this.run('delete', () => this.api.deleteGrammarExercise(this.pointId, id), 'Đã xoá câu. Nên bấm Kiểm tra bằng AI lại.');
+      void this.run(
+        'delete',
+        () => this.api.deleteGrammarExercise(this.pointId, id),
+        'Đã xoá câu. Nên bấm Kiểm tra bằng AI lại.',
+      );
     }
   }
 
@@ -446,7 +583,9 @@ export class GrammarDetail {
     this.note.set('');
     try {
       await firstValueFrom(this.api.resolveGrammarReport(this.pointId, exerciseId));
-      this.lesson.update((l) => (l ? { ...l, reports: (l.reports ?? []).filter((r) => r.exerciseId !== exerciseId) } : l));
+      this.lesson.update((l) =>
+        l ? { ...l, reports: (l.reports ?? []).filter((r) => r.exerciseId !== exerciseId) } : l,
+      );
       this.note.set('Đã đánh dấu báo lỗi là đã xử lý.');
     } catch (err) {
       this.actionError.set(grammarFailure(err, 'Không đánh dấu được, vui lòng thử lại.').message);
@@ -456,7 +595,11 @@ export class GrammarDetail {
   }
 
   protected unpublish(): Promise<void> {
-    return this.run('unpublish', () => this.api.unpublishGrammarLesson(this.pointId), 'Đã gỡ bài, người học không còn thấy.');
+    return this.run(
+      'unpublish',
+      () => this.api.unpublishGrammarLesson(this.pointId),
+      'Đã gỡ bài, người học không còn thấy.',
+    );
   }
 
   protected async save(): Promise<void> {
@@ -469,7 +612,11 @@ export class GrammarDetail {
     if (!content) {
       return;
     }
-    await this.run('save', () => this.api.saveGrammarLesson(this.pointId, content), 'Đã lưu nội dung.');
+    await this.run(
+      'save',
+      () => this.api.saveGrammarLesson(this.pointId, content),
+      'Đã lưu nội dung.',
+    );
   }
 
   protected startSection(section: GrammarSection): void {
@@ -495,7 +642,11 @@ export class GrammarDetail {
     );
   }
 
-  private async run(action: Action, call: () => ReturnType<AdminApiService['grammarLesson']>, done: string): Promise<void> {
+  private async run(
+    action: Action,
+    call: () => ReturnType<AdminApiService['grammarLesson']>,
+    done: string,
+  ): Promise<void> {
     this.busy.set(action);
     this.actionError.set(null);
     this.saveError.set(null);
@@ -521,9 +672,19 @@ export class GrammarDetail {
           ? 'Sinh bài thất bại, vui lòng thử lại.'
           : action === 'check'
             ? 'Kiểm tra thất bại, vui lòng thử lại.'
-            : 'Không thực hiện được, vui lòng thử lại.';
-      const failure = grammarFailure(err, fallback, action === 'generate' || action === 'check');
-      if (action === 'exercise') {
+            : action === 'pictures'
+              ? 'Thêm bài nhìn ảnh thất bại, vui lòng thử lại.'
+              : 'Không thực hiện được, vui lòng thử lại.';
+      const failure = grammarFailure(
+        err,
+        fallback,
+        action === 'generate' || action === 'check' || action === 'pictures',
+      );
+      if (action === 'pictures') {
+        // The server says why in its field message ("Bài đã có đủ bài nhìn ảnh").
+        const reason = failure.fields.map((f) => f.slice(f.indexOf(': ') + 2)).join(' ');
+        this.actionError.set(reason || failure.message);
+      } else if (action === 'exercise') {
         this.editError.set(failure.message);
         this.editFields.set(this.groupFields(failure.fields));
       } else if (action === 'delete') {

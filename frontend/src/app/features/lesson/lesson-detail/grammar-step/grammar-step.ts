@@ -65,6 +65,9 @@ export function markHighlights(sentence: string, highlights: readonly string[]):
 
 type Phase = 'notice' | 'rule' | 'practice';
 
+/** The rule table's column titles when the lesson gives none. */
+const DEFAULT_COLUMNS: readonly string[] = ['Chủ ngữ', 'Khẳng định', 'Phủ định'];
+
 /**
  * The Grammar step of the six-step lesson (2026-10-22, design section 4): notice the pattern in the
  * lesson's sentences and answer why (Nhận ra), the rule in one card (Quy tắc), then the exercises one
@@ -120,6 +123,11 @@ export class GrammarStep {
       parts: markHighlights(n.sentence, n.highlights ?? []),
     })),
   );
+  /** The titles of the rule table's columns: the lesson's own (added 2026-11-06) or the default ones. */
+  protected readonly columns = computed(() => {
+    const cols = this.content()?.columns;
+    return cols?.length === 3 && cols[0] && cols[1] ? cols : DEFAULT_COLUMNS;
+  });
   protected readonly hasQuestion = computed(() => {
     const c = this.content();
     return !!c && c.questionVi.trim() !== '' && (c.options ?? []).length > 0;

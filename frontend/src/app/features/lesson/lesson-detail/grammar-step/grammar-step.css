@@ -180,6 +180,60 @@ ul {
   color: var(--color-primary-ink);
 }
 
+/*
+ * On a phone (added 2026-11-06) each row is a small card: the first column is its name, the others
+ * a grey label (the column title) and the text, so long sentences are not squeezed into 3 columns.
+ */
+@media (max-width: 600px) {
+  .rule-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .rule-table,
+  .rule-table tbody,
+  .rule-table tr,
+  .rule-table td {
+    display: block;
+  }
+
+  .rule-table tr {
+    margin-bottom: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+  }
+
+  .rule-table td {
+    padding: 2px 0;
+    border-bottom: none;
+  }
+
+  .rule-table td.name {
+    font-weight: 700;
+    color: var(--color-accent-ink);
+  }
+
+  .rule-table td.empty {
+    display: none;
+  }
+
+  .rule-table td[data-label] {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: var(--space-2);
+  }
+
+  .rule-table td[data-label]::before {
+    content: attr(data-label);
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+}
+
 .mistakes li {
   display: flex;
   flex-wrap: wrap;

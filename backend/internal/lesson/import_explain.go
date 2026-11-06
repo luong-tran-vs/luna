@@ -31,6 +31,7 @@ var importRules = map[string]string{
 	"practice.speakQuestions":        "Tối đa 3 câu, mỗi câu cần question.",
 	"practice.writingHelp":           "Cần grammarLabelVi kèm anyOf, hoặc outlineVi, hoặc modelAnswer.",
 	"glosses":                        "sentenceIndex hợp lệ, text có trong câu đó, meaningVi tối đa 80 ký tự, mỗi lemma một lần trong một câu.",
+	"scene":                          "Tiếng Anh, tối đa 600 ký tự.",
 }
 
 // explainImport adds to each part that lost something its rule and, for the parts that most often

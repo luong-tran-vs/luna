@@ -168,6 +168,30 @@ describe('GrammarStep', () => {
     expect(backs).toBe(1);
   });
 
+  const heads = () => Array.from(el.querySelectorAll('.rule-table th')).map((th) => text(th));
+
+  it('titles the rule table with the default columns when the lesson gives none', async () => {
+    await render({ content });
+    await click(main());
+    expect(heads()).toEqual(['Chủ ngữ', 'Khẳng định', 'Phủ định']);
+  });
+
+  it('titles the rule table with the lesson’s own columns', async () => {
+    await render({ content: { ...content, columns: ['Cấu trúc', 'Ví dụ', '= câu thường'] } });
+    await click(main());
+    expect(heads()).toEqual(['Cấu trúc', 'Ví dụ', '= câu thường']);
+    const cells = el.querySelectorAll('.rule-table tbody tr')[0].querySelectorAll('td');
+    expect(cells[1].getAttribute('data-label')).toBe('Ví dụ');
+    expect(cells[2].getAttribute('data-label')).toBe('= câu thường');
+  });
+
+  it('hides the third column when its title is empty', async () => {
+    await render({ content: { ...content, columns: ['Cấu trúc', 'Ví dụ', ''] } });
+    await click(main());
+    expect(el.querySelectorAll('.rule-table th').length).toBe(2);
+    expect(el.querySelectorAll('.rule-table tbody tr')[0].querySelectorAll('td').length).toBe(2);
+  });
+
   it('hides ← on the first screen when there is no step before', async () => {
     await render({ content });
     expect(backBtn()).toBeNull();

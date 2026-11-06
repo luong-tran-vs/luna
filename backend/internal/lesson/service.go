@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
@@ -29,12 +30,18 @@ type Deps struct {
 	Log    *slog.Logger
 	// GenerateTimeout bounds the AI call of a generation batch; 0 means 60 seconds.
 	GenerateTimeout time.Duration
-	// ImageStore keeps the word pictures (F23); nil turns them off.
+	// ImageStore keeps the word and scene pictures (F23); nil turns them off.
 	ImageStore ImageRepository
-	// ImageAI draws the word pictures; nil fails every drawing.
+	// ImageAI draws the scene pictures with Gemini; nil fails every such drawing.
 	ImageAI ai.ImageProvider
+	// CodexImageAI draws the scene pictures with the Codex CLI when the admin chooses it; nil when
+	// this server does not run Codex (added 2026-11-06).
+	CodexImageAI ai.ImageProvider
 	// FetchImage downloads a picture from a link an admin pasted (NewImageFetcher); nil turns links off.
 	FetchImage ImageFetcher
+	// Bank is the shared word bank (F24): the admin picture list shows its picture for a word without
+	// one of its own, as the learner sees it; nil shows only the lesson's own pictures.
+	Bank WordBank
 	// Glosses keeps the meaning in context of every word of each lesson, GlossAI writes it; either
 	// nil turns glosses off (added 2026-10-20).
 	Glosses GlossRepository
@@ -44,6 +51,10 @@ type Deps struct {
 // Service implements lesson management and the background work on lessons.
 type Service struct {
 	Deps
+
+	// sceneMu guards sceneRun, the running or last scene picture batch (scene_batch.go).
+	sceneMu  sync.Mutex
+	sceneRun *sceneRun
 }
 
 // NewService returns a Service. Notify defaults to a no-op.
@@ -67,15 +78,6 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
 		return Lesson{}, err
 	}
-	var images ImageInput
-	if in.Images != nil && in.Images.Enabled {
-		if s.ImageStore == nil {
-			return Lesson{}, ErrImagesUnavailable
-		}
-		if images, err = validateImageInput(*in.Images); err != nil {
-			return Lesson{}, err
-		}
-	}
 	now := s.Now()
 	l, err := s.Lessons.Create(ctx, Lesson{
 		Title: in.Title, Content: in.Content, Level: in.Level, TopicID: topic.ID,
@@ -92,12 +94,6 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	}
 	if in.AppendToRoadmap {
 		if err := s.appendToRoadmap(ctx, l); err != nil {
-			return Lesson{}, err
-		}
-	}
-	// Saved before the annotation is queued: the drawing starts once the words are known (F23).
-	if images.Enabled {
-		if err := s.applyImages(ctx, l, images); err != nil {
 			return Lesson{}, err
 		}
 	}
@@ -377,10 +373,6 @@ func (s *Service) UpdateAnnotations(ctx context.Context, id string, items []Anno
 		return Lesson{}, fmt.Errorf("lesson: save annotations: %w", err)
 	}
 	s.keepReview(ctx, l, AreaAnnotation, annotationKeys(l.Annotations), annotationKeys(out))
-	// New words get their picture too (F23).
-	if err := s.queueImages(ctx, id, l.Revision); err != nil {
-		return Lesson{}, err
-	}
 	return s.Lessons.Get(ctx, id)
 }
 
@@ -438,24 +430,17 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypePractice); err != nil {
 		return err
 	}
-	if err := s.queueGlosses(ctx, l.ID, l.Revision); err != nil {
-		return err
-	}
-	return s.queueImages(ctx, l.ID, l.Revision)
+	return s.queueGlosses(ctx, l.ID, l.Revision)
 }
 
 // JobFailed records a job that gave up on the lesson, with a short Vietnamese reason.
 func (s *Service) JobFailed(ctx context.Context, j job.Job, err error) {
-	if j.Type == job.TypeImages {
-		s.imagesFailed(ctx, j, err)
-		return
-	}
 	if j.Type == job.TypeGlosses {
 		s.glossesFailed(ctx, j, err)
 		return
 	}
 	if j.Type != job.TypeAnnotate && j.Type != job.TypePractice {
-		// Jobs of removed kinds (audio before Kokoro was dropped) have nothing to record.
+		// Jobs of removed kinds (audio before Kokoro was dropped, pictures drawn in the background before 2026-11-06) have nothing to record.
 		s.Log.WarnContext(ctx, "job of an unknown kind failed", slog.String("type", string(j.Type)), slog.Any("error", err))
 		return
 	}
@@ -481,8 +466,6 @@ func failureMessage(t job.Type, err error) string {
 		return "Bài chưa có chú thích"
 	case t == job.TypePractice:
 		return "Không tạo được phần luyện tập"
-	case t == job.TypeImages:
-		return "Không sinh được ảnh cho một số từ"
 	default:
 		return "Không chú thích được bài"
 	}

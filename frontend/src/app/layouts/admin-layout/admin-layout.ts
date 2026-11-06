@@ -7,6 +7,11 @@ import { AuthService } from '../../core/services/auth.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { ConnectionStatusBar } from '../../shared/components/connection-status/connection-status';
 import { Icon, IconName } from '../../shared/components/icon/icon';
+import { ImageBatchBanner } from '../../features/admin/word-bank/image-batch-banner';
+import { SceneBatchBanner } from '../../features/admin/curriculum/scene-batch-banner';
+import { GrammarImageBatchBanner } from '../../features/admin/grammar-images/grammar-image-batch-banner';
+import { GrammarPictureBatchBanner } from '../../features/admin/grammar-images/grammar-picture-batch-banner';
+import { ImageBatchService } from '../../features/admin/word-bank/image-batch.service';
 
 interface AdminLink {
   path: string;
@@ -18,16 +23,66 @@ interface AdminLink {
 
 const ADMIN_LINKS: readonly AdminLink[] = [
   { path: '/admin', label: 'Trang chủ', icon: 'home', matches: (p) => p === '/admin' },
-  { path: '/admin/lessons', label: 'Bài học', icon: 'book', matches: (p) => p.startsWith('/admin/lessons') },
-  { path: '/admin/topics', label: 'Chủ đề', icon: 'layers', matches: (p) => p.startsWith('/admin/topics') },
-  { path: '/admin/curriculum', label: 'Giáo trình', icon: 'table', matches: (p) => p.startsWith('/admin/curriculum') },
-  { path: '/admin/words', label: 'Từ vựng', icon: 'notebook', matches: (p) => p.startsWith('/admin/words') },
-  { path: '/admin/grammar', label: 'Ngữ pháp', icon: 'grammar', matches: (p) => p.startsWith('/admin/grammar') },
-  { path: '/admin/roadmap', label: 'Lộ trình', icon: 'route', matches: (p) => p.startsWith('/admin/roadmap') },
-  { path: '/admin/accounts', label: 'Tài khoản', icon: 'user', matches: (p) => p.startsWith('/admin/accounts') },
-  { path: '/admin/ai-usage', label: 'Sử dụng AI', icon: 'chart', matches: (p) => p.startsWith('/admin/ai-usage') },
-  { path: '/admin/ai-model', label: 'Model AI', icon: 'sparkles', matches: (p) => p.startsWith('/admin/ai-model') },
-  { path: '/admin/appearance', label: 'Giao diện', icon: 'palette', matches: (p) => p.startsWith('/admin/appearance') },
+  {
+    path: '/admin/lessons',
+    label: 'Bài học',
+    icon: 'book',
+    matches: (p) => p.startsWith('/admin/lessons'),
+  },
+  {
+    path: '/admin/topics',
+    label: 'Chủ đề',
+    icon: 'layers',
+    matches: (p) => p.startsWith('/admin/topics'),
+  },
+  {
+    path: '/admin/curriculum',
+    label: 'Giáo trình',
+    icon: 'table',
+    matches: (p) => p.startsWith('/admin/curriculum'),
+  },
+  {
+    path: '/admin/words',
+    label: 'Từ vựng',
+    icon: 'notebook',
+    matches: (p) => p.startsWith('/admin/words'),
+  },
+  {
+    path: '/admin/grammar',
+    label: 'Ngữ pháp',
+    icon: 'grammar',
+    matches: (p) => p.startsWith('/admin/grammar'),
+  },
+  {
+    path: '/admin/roadmap',
+    label: 'Lộ trình',
+    icon: 'route',
+    matches: (p) => p.startsWith('/admin/roadmap'),
+  },
+  {
+    path: '/admin/accounts',
+    label: 'Tài khoản',
+    icon: 'user',
+    matches: (p) => p.startsWith('/admin/accounts'),
+  },
+  {
+    path: '/admin/ai-usage',
+    label: 'Sử dụng AI',
+    icon: 'chart',
+    matches: (p) => p.startsWith('/admin/ai-usage'),
+  },
+  {
+    path: '/admin/ai-model',
+    label: 'Model AI',
+    icon: 'sparkles',
+    matches: (p) => p.startsWith('/admin/ai-model'),
+  },
+  {
+    path: '/admin/appearance',
+    label: 'Giao diện',
+    icon: 'palette',
+    matches: (p) => p.startsWith('/admin/appearance'),
+  },
 ];
 
 /**
@@ -37,7 +92,16 @@ const ADMIN_LINKS: readonly AdminLink[] = [
  */
 @Component({
   selector: 'lu-admin-layout',
-  imports: [RouterOutlet, RouterLink, ConnectionStatusBar, Icon],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    ConnectionStatusBar,
+    Icon,
+    ImageBatchBanner,
+    SceneBatchBanner,
+    GrammarImageBatchBanner,
+    GrammarPictureBatchBanner,
+  ],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,6 +110,8 @@ export class AdminLayout {
   private readonly router = inject(Router);
   private readonly theme = inject(ThemeService);
   protected readonly auth = inject(AuthService);
+  /** The server is drawing word pictures in the background: the "Từ vựng" item shows a dot. */
+  protected readonly batchRunning = inject(ImageBatchService).running;
 
   protected readonly links = ADMIN_LINKS;
   protected readonly path = toSignal(

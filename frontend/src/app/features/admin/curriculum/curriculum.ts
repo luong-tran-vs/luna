@@ -3,9 +3,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  effect,
   inject,
   Injector,
   signal,
+  untracked,
   WritableSignal,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -21,7 +24,8 @@ import {
   LessonChecks,
 } from '../../../core/models/curriculum';
 import { DEFAULT_TARGET_WORDS } from '../../../core/models/generate';
-import { Level, LEVELS } from '../../../core/models/lesson';
+import { Level, LEVELS, SceneBatch } from '../../../core/models/lesson';
+import { engineLabel, ImageEngine } from '../../../core/models/word-bank';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { SlotImportDialog } from './import-dialog/import-dialog';
 import { RemoveDialog } from './remove-dialog/remove-dialog';
@@ -31,6 +35,8 @@ import { ProgressBar } from '../../../shared/components/progress-bar/progress-ba
 import { AdminApiService } from '../admin-api.service';
 import { CurriculumDraft } from './curriculum-draft/curriculum-draft';
 import { LessonRow, lessonState, RowState } from './lesson-row/lesson-row';
+import { sceneBatchKey, SceneBatchService } from './scene-batch.service';
+import { EngineDialog } from '../../../shared/components/engine-dialog/engine-dialog';
 
 const LOAD_FAILED = 'Không tải được giáo trình, vui lòng thử lại.';
 const APPLY_FAILED = 'Không áp dụng được giáo trình, vui lòng thử lại.';
@@ -78,6 +84,9 @@ interface TopicView {
   filled: number;
   hasDraft: boolean;
   missingGrammar: CurriculumGrammar[];
+  /** Lessons without a scene picture: annotated ones the batch draws, the others it skips. */
+  sceneMissing: CurriculumLesson[];
+  sceneSkipped: CurriculumLesson[];
 }
 
 /**
@@ -100,6 +109,7 @@ interface TopicView {
     Loading,
     ProgressBar,
     LessonRow,
+    EngineDialog,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.css',
@@ -107,6 +117,7 @@ interface TopicView {
 })
 export class Curriculum {
   private readonly api = inject(AdminApiService);
+  private readonly scenes = inject(SceneBatchService);
   private readonly injector = inject(Injector);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute, { optional: true });
@@ -183,6 +194,7 @@ export class Curriculum {
         filled: t.slots.length - empty,
         hasDraft: hasDraft(t),
         missingGrammar: t.grammar.filter((g) => !g.published),
+        ...scenesOf(t),
       };
     });
   });
@@ -209,6 +221,95 @@ export class Curriculum {
       // Only suggestions: the draft can be edited without them.
       error: () => undefined,
     });
+    // A scene batch started earlier (or in another tab) may still be running.
+    inject(DestroyRef).onDestroy(this.scenes.watch());
+    // When a batch ends, the board is read again so the lessons show their new scene.
+    let wasRunning = false;
+    effect(() => {
+      const running = this.scenes.running();
+      if (wasRunning && !running) {
+        untracked(() => this.load());
+      }
+      wasRunning = running;
+    });
+  }
+
+  /** The topic whose "Tạo ảnh cảnh" dialog is open. */
+  protected readonly sceneTopic = signal<TopicView | null>(null);
+  protected readonly sceneBusy = signal(false);
+  protected readonly codexImages = computed(() => this.scenes.status()?.codexImages ?? false);
+  protected readonly scenesRunning = this.scenes.running;
+
+  /** The scene batch of topic t: running, or finished and not hidden yet. */
+  protected sceneBatchOf(t: CurriculumTopic): SceneBatch | null {
+    const b = this.scenes.status();
+    if (!b || b.key !== sceneBatchKey(this.level(), t.number)) {
+      return null;
+    }
+    return b.running ? b : this.scenes.result();
+  }
+
+  protected sceneEngine(b: SceneBatch): string {
+    return engineLabel(b.engine === 'codex' ? 'codex' : 'gemini');
+  }
+
+  protected openScenes(v: TopicView, event: Event): void {
+    this.opener = event.currentTarget as HTMLElement;
+    this.notice.set(null);
+    this.sceneTopic.set(v);
+  }
+
+  protected cancelScenes(): void {
+    this.sceneTopic.set(null);
+    this.opener?.focus();
+  }
+
+  /** Starts drawing the scenes of the topic's lessons that have none, one after another. */
+  protected async startScenes(engine: ImageEngine): Promise<void> {
+    const v = this.sceneTopic();
+    this.sceneTopic.set(null);
+    if (!v || this.sceneBusy()) {
+      return;
+    }
+    this.sceneBusy.set(true);
+    try {
+      const b = await firstValueFrom(
+        this.api.startSceneBatch({
+          lessonIds: [...v.sceneMissing, ...v.sceneSkipped].map((l) => l.id),
+          engine,
+          key: sceneBatchKey(this.level(), v.topic.number),
+          label: `chủ đề “${v.topic.name}”`,
+        }),
+      );
+      this.scenes.set(b);
+    } catch (err) {
+      this.notice.set({
+        topic: v.topic.number,
+        kind: 'error',
+        text: messageOf(err) ?? 'Không bắt đầu tạo ảnh cảnh được, vui lòng thử lại.',
+      });
+    } finally {
+      this.sceneBusy.set(false);
+      this.opener?.focus();
+    }
+  }
+
+  protected async stopScenes(): Promise<void> {
+    if (this.sceneBusy()) {
+      return;
+    }
+    this.sceneBusy.set(true);
+    try {
+      this.scenes.set(await firstValueFrom(this.api.stopSceneBatch()));
+    } catch {
+      // The next status poll shows where it is.
+    } finally {
+      this.sceneBusy.set(false);
+    }
+  }
+
+  protected hideScenes(): void {
+    this.scenes.hideResult();
   }
 
   /** Shows another level and keeps it in the address, so a reload stays on it. */
@@ -371,6 +472,29 @@ export class Curriculum {
       this.notice.set({ topic: t.number, kind: 'ok', text: 'Đã đăng bài.' });
     } catch (err) {
       this.notice.set({ topic: t.number, kind: 'error', text: messageOf(err) ?? PUBLISH_FAILED });
+    } finally {
+      this.publishing.set(null);
+    }
+  }
+
+  /** Ẩn bài: a published lesson goes back to a draft, hidden from learners, and keeps its slot. */
+  protected async unpublish(t: CurriculumTopic, lessonId: string): Promise<void> {
+    this.publishing.set(lessonId);
+    this.notice.set(null);
+    try {
+      await firstValueFrom(this.api.setPublished(lessonId, false));
+      this.show(await firstValueFrom(this.api.curriculum(this.level())));
+      this.notice.set({
+        topic: t.number,
+        kind: 'ok',
+        text: 'Đã ẩn bài: bài về nháp, người học không thấy nữa.',
+      });
+    } catch (err) {
+      this.notice.set({
+        topic: t.number,
+        kind: 'error',
+        text: messageOf(err) ?? 'Không ẩn được bài, vui lòng thử lại.',
+      });
     } finally {
       this.publishing.set(null);
     }
@@ -578,4 +702,19 @@ function messageOf(err: unknown): string | null {
     return typeof message === 'string' && message ? message : null;
   }
   return null;
+}
+
+/** The lessons of a topic without a scene picture, split by whether they are annotated. */
+function scenesOf(t: CurriculumTopic): {
+  sceneMissing: CurriculumLesson[];
+  sceneSkipped: CurriculumLesson[];
+} {
+  const lessons = [
+    ...t.slots.map((s) => s.lesson).filter((l): l is CurriculumLesson => l !== null),
+    ...t.others,
+  ].filter((l) => !l.hasScene);
+  return {
+    sceneMissing: lessons.filter((l) => l.annotationStatus === 'done'),
+    sceneSkipped: lessons.filter((l) => l.annotationStatus !== 'done'),
+  };
 }

@@ -1,6 +1,7 @@
 /** Admin side of the grammar lessons (F20): one lesson per point of the curriculum. */
+import { ImageEngine } from './word-bank';
 
-export type GrammarExerciseKind = 'choice' | 'fill' | 'reorder' | 'fix';
+export type GrammarExerciseKind = 'choice' | 'fill' | 'reorder' | 'fix' | 'picture';
 export type GrammarLessonStatus = 'draft' | 'published';
 
 export interface GrammarExercise {
@@ -13,6 +14,9 @@ export interface GrammarExercise {
   answers?: string[];
   sentence?: string;
   words?: string[];
+  /** A picture exercise (added 2026-11-06): what its picture shows, in English, and the picture once drawn. */
+  picture?: string;
+  imageUrl?: string;
   explanationVi: string;
 }
 
@@ -93,11 +97,18 @@ export interface GrammarReportGroup extends ExerciseReports {
   latestAt: string;
 }
 
-export interface GrammarLessonAdmin extends Omit<GrammarLessonSummary, 'flags' | 'checked' | 'verified'> {
+export interface GrammarLessonAdmin extends Omit<
+  GrammarLessonSummary,
+  'flags' | 'checked' | 'verified'
+> {
   content: GrammarContent;
   checks: GrammarCheck[];
   checkedAt: string | null;
   verifiedAt: string | null;
+  /** The picture of each example of the content, in order; '' for none (added 2026-11-06). */
+  exampleImages?: string[];
+  /** The server can draw with the Codex CLI. */
+  codexImages?: boolean;
   /** Only on GET of one lesson; other responses leave it out. */
   reports?: ExerciseReports[];
 }
@@ -183,4 +194,88 @@ export const EXERCISE_KIND_LABELS: Record<GrammarExerciseKind, string> = {
   fill: 'Điền từ',
   reorder: 'Sắp xếp câu',
   fix: 'Tìm và sửa lỗi',
+  picture: 'Nhìn ảnh chọn từ',
 };
+
+/** An example of a grammar picture batch; message says why it got no picture. */
+export interface GrammarImageBatchItem {
+  pointId: string;
+  key: string;
+  en: string;
+  message?: string;
+}
+
+/**
+ * The batch drawing the pictures of grammar examples in the background (GET
+ * /api/admin/grammar-image-batch, added 2026-11-06): of one lesson, or of every lesson of a level.
+ */
+export interface GrammarImageBatch {
+  running: boolean;
+  stopping: boolean;
+  stopped: boolean;
+  engine: ImageEngine | '';
+  /** What the batch is for: "point:<id>" or "level:A1", and its name. */
+  key: string;
+  label: string;
+  /** Pictures to draw, and the lessons they come from. */
+  total: number;
+  points: number;
+  done: number;
+  drawing: GrammarImageBatchItem | null;
+  saved: GrammarImageBatchItem[];
+  failures: GrammarImageBatchItem[];
+  stopMessage?: string;
+  codexImages: boolean;
+  startedAt?: string;
+  finishedAt?: string;
+}
+
+export interface GrammarImageBatchRequest {
+  pointIds: string[];
+  /** Only these examples (one lesson): "Vẽ lại" of one example. */
+  keys?: string[];
+  /** Draw the examples that have a picture too, replacing it. */
+  replace?: boolean;
+  engine: ImageEngine;
+  key: string;
+  label: string;
+}
+
+/** A lesson of a picture exercise batch: how many it got, or why it got none (message). */
+export interface GrammarPictureBatchItem {
+  pointId: string;
+  title: string;
+  added: number;
+  message?: string;
+}
+
+/**
+ * The batch adding "Nhìn ảnh chọn từ" exercises to the lessons of a level in the background (GET
+ * /api/admin/grammar-picture-batch, added 2026-11-06). total and done count lessons.
+ */
+export interface GrammarPictureBatch {
+  running: boolean;
+  stopping: boolean;
+  stopped: boolean;
+  /** What the batch is for ("level:A1") and its name. */
+  key: string;
+  label: string;
+  total: number;
+  done: number;
+  current: GrammarPictureBatchItem | null;
+  saved: GrammarPictureBatchItem[];
+  failures: GrammarPictureBatchItem[];
+  stopMessage?: string;
+  startedAt?: string;
+  finishedAt?: string;
+}
+
+export interface GrammarPictureBatchRequest {
+  pointIds: string[];
+  key: string;
+  label: string;
+}
+
+/** How many picture exercises a lesson of a point that can be drawn has in practice and mastery. */
+export const PICTURE_PRACTICE = 3;
+export const PICTURE_MASTERY = 1;

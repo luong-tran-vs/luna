@@ -96,6 +96,8 @@ type Store interface {
 	GrammarLessons() grammar.LessonRepository
 	GrammarProgress() grammar.ProgressRepository
 	GrammarReports() grammar.ReportRepository
+	// GrammarImages keeps the pictures of the grammar examples (added 2026-11-06).
+	GrammarImages() grammar.ImageRepository
 
 	// Curricula keeps the course of each level, approved and draft (added 2026-10-23).
 	Curricula() curriculum.Repository

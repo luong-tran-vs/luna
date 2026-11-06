@@ -16,10 +16,8 @@ import (
 // imageSettingsDoc is one lesson's picture settings in "lesson_image_settings", keyed by lesson id.
 type imageSettingsDoc struct {
 	LessonID  bson.ObjectID `bson:"_id"`
-	Enabled   bool          `bson:"enabled"`
+	SceneDesc string        `bson:"sceneDescription"`
 	Style     string        `bson:"style"`
-	Status    string        `bson:"status"`
-	Error     string        `bson:"error"`
 	UpdatedAt time.Time     `bson:"updatedAt"`
 }
 
@@ -35,7 +33,7 @@ type wordImageDoc struct {
 
 func (d imageSettingsDoc) toSettings() lesson.ImageSettings {
 	return lesson.ImageSettings{
-		Enabled: d.Enabled, Style: d.Style, Status: lesson.Status(d.Status), Error: d.Error, UpdatedAt: d.UpdatedAt,
+		SceneDescription: d.SceneDesc, Style: d.Style, UpdatedAt: d.UpdatedAt,
 	}
 }
 
@@ -77,7 +75,7 @@ func (r *WordImages) SaveSettings(ctx context.Context, lessonID string, s lesson
 		return lesson.ErrNotFound
 	}
 	d := imageSettingsDoc{
-		LessonID: lid, Enabled: s.Enabled, Style: s.Style, Status: string(s.Status), Error: s.Error,
+		LessonID: lid, SceneDesc: s.SceneDescription, Style: s.Style,
 		UpdatedAt: s.UpdatedAt.UTC(),
 	}
 	_, err = r.settings.ReplaceOne(ctx, bson.D{{Key: "_id", Value: lid}}, d, options.Replace().SetUpsert(true))

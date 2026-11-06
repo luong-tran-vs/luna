@@ -50,7 +50,10 @@ type GrammarStep struct {
 	AnswerIndex   int               `json:"answerIndex"`
 	ExplanationVi string            `json:"explanationVi"`
 	WhenVi        string            `json:"whenVi"`
-	Table         []FormRow         `json:"table"`
+	// Columns (added 2026-11-06) are the 3 titles of the table's columns, shown instead of
+	// "Chủ ngữ | Khẳng định | Phủ định"; "" for the third hides it.
+	Columns []string  `json:"columns,omitempty"`
+	Table   []FormRow `json:"table"`
 	Mistakes      []MistakePair     `json:"mistakes"`
 	NoteVi        string            `json:"noteVi"`
 	Exercises     []GrammarExercise `json:"exercises"`

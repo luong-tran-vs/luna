@@ -20,9 +20,18 @@
         @for (link of links; track link.path) {
           @let active = link.matches(path());
           <li>
-            <a class="item" [class.active]="active" [routerLink]="link.path" [attr.aria-current]="active ? 'page' : null">
+            <a
+              class="item"
+              [class.active]="active"
+              [routerLink]="link.path"
+              [attr.aria-current]="active ? 'page' : null"
+            >
               <lu-icon [name]="link.icon" />
               <span class="item-label">{{ link.label }}</span>
+              @if (link.path === '/admin/words' && batchRunning()) {
+                <span class="busy-dot" title="Đang sinh ảnh ngầm" aria-hidden="true"></span>
+                <span class="visually-hidden"> (đang sinh ảnh ngầm)</span>
+              }
             </a>
           </li>
         }
@@ -49,6 +58,10 @@
     </div>
   </aside>
   <main class="content">
+    <lu-image-batch-banner />
+    <lu-scene-batch-banner />
+    <lu-grammar-image-batch-banner />
+    <lu-grammar-picture-batch-banner />
     <router-outlet />
   </main>
 </div>

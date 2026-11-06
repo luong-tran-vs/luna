@@ -62,6 +62,8 @@ type lessonJSON struct {
 	Draft            bool   `json:"draft"`
 	AnnotationStatus string `json:"annotationStatus"`
 	Source           string `json:"source"`
+	// HasScene says the lesson has its scene picture (added 2026-11-06).
+	HasScene bool `json:"hasScene"`
 }
 
 type checkJSON struct {
@@ -166,9 +168,13 @@ func toBoardJSON(b Board) boardJSON {
 		}
 		for j, s := range t.Slots {
 			tj.Slots[j] = toSlotJSON(s)
+			if tj.Slots[j].Lesson != nil {
+				tj.Slots[j].Lesson.HasScene = b.Scenes[tj.Slots[j].Lesson.ID]
+			}
 		}
 		for j, l := range t.Others {
 			tj.Others[j] = refJSON(l)
+			tj.Others[j].HasScene = b.Scenes[l.ID]
 		}
 		out.Topics[i] = tj
 	}

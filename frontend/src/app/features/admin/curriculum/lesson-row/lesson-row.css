@@ -231,3 +231,30 @@ li[data-result='bad'] .mark {
   color: var(--color-accent-ink);
   border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line));
 }
+
+/* Whether the lesson has its scene picture (added 2026-11-06): a small thumbnail, or a dashed tag. */
+.scene-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-2) 0 var(--space-1);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-full);
+}
+
+.scene-tag.has {
+  color: var(--color-text);
+  border-style: solid;
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.scene-thumb {
+  width: 32px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 3px;
+}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
@@ -12,20 +12,27 @@ import {
 } from 'rxjs';
 
 import {
+  BankImageBatch,
   BankMissing,
   BankTopic,
   BankTopicMissing,
   BankWord,
   BankWordAdded,
+  engineLabel,
+  ImageEngine,
+  MAX_BANK_BATCH,
   MAX_BANK_IPA,
   MAX_BANK_LEMMA,
   MAX_BANK_MEANING,
+  storedImageEngine,
+  storeImageEngine,
 } from '../../../core/models/word-bank';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { SearchOption, SearchSelect } from '../../../shared/components/search-select/search-select';
 import { AdminApiService } from '../admin-api.service';
 import { bankMessage } from './bank-message';
 import { BankWordRow } from './bank-word-row/bank-word-row';
+import { batchScope, ImageBatchService } from './image-batch.service';
 
 /** Wait after the last keystroke before searching. */
 const SEARCH_DELAY_MS = 300;
@@ -72,6 +79,7 @@ export const MISSING_KINDS: readonly { value: Exclude<BankMissing, '' | 'ipaChec
 })
 export class WordBank {
   private readonly api = inject(AdminApiService);
+  private readonly batches = inject(ImageBatchService);
 
   protected readonly missingOptions = MISSING_OPTIONS;
   protected readonly search = signal('');
@@ -103,7 +111,37 @@ export class WordBank {
   protected readonly words = signal<BankWord[] | null>(null);
   protected readonly total = signal(0);
   protected readonly hasMore = signal(false);
+  /** The server can draw with the Codex CLI; the engine choice is shown only then. */
+  protected readonly codexImages = signal(false);
+  /** What "Sinh ảnh" draws with, remembered on this browser (added 2026-11-04). */
+  protected readonly imageEngine = signal<ImageEngine>(storedImageEngine());
+  protected readonly rowEngine = computed<ImageEngine>(() => (this.codexImages() ? this.imageEngine() : 'gemini'));
   private page = 1;
+
+  /** The words ticked for a picture batch, kept across filters and pages. */
+  protected readonly selected = signal<ReadonlySet<string>>(new Set());
+  protected readonly selectedCount = computed(() => this.selected().size);
+  protected readonly allSelected = computed(() => {
+    const ws = this.words() ?? [];
+    return ws.length > 0 && ws.every((w) => this.selected().has(w.lemma));
+  });
+  protected readonly maxBatch = MAX_BANK_BATCH;
+  /** The picture batch drawing in the background, or the last one; null until known. */
+  protected readonly batch = this.batches.status;
+  protected readonly batchBusy = signal(false);
+  protected readonly batchError = signal<string | null>(null);
+  protected readonly batchShown = computed(() => this.batches.running() || this.batches.result() !== null);
+  protected readonly drawingNow = computed(() => new Set(this.batch()?.running ? this.batch()!.drawing : []));
+  protected readonly engineName = computed(() => engineLabel(this.rowEngine()));
+  /** Asking before drawing every missing picture: the count is not known on the page. */
+  protected readonly confirmingAll = signal(false);
+  protected readonly confirmAllMessage = computed(
+    () =>
+      `Máy chủ sẽ sinh lần lượt ảnh cho mọi từ thiếu ảnh${this.topicName() ? ` của chủ đề "${this.topicName()}"` : ''}` +
+      `${this.search().trim() ? ` khớp "${this.search().trim()}"` : ''}, tối đa ${MAX_BANK_BATCH} từ, bằng ${this.engineName()}.` +
+      (this.rowEngine() === 'gemini' ? ' Gemini tính phí theo từng ảnh.' : ' Mỗi ảnh Codex mất khoảng 1 phút.'),
+  );
+
   protected readonly loadError = signal<string | null>(null);
   protected readonly loadingMore = signal(false);
 
@@ -168,6 +206,18 @@ export class WordBank {
         error: () => this.topics.set([]),
       });
     this.loadMissing();
+    // A batch started earlier (or in another tab) may still be running.
+    inject(DestroyRef).onDestroy(this.batches.watch());
+    let wasRunning = false;
+    effect(() => {
+      const b = this.batch();
+      untracked(() => {
+        if (b) {
+          this.showBatch(b, wasRunning);
+        }
+        wasRunning = b?.running ?? false;
+      });
+    });
 
     const query = computed(() => ({
       q: this.search().trim(),
@@ -201,7 +251,14 @@ export class WordBank {
         this.words.set(p.words);
         this.total.set(p.total);
         this.hasMore.set(p.hasMore);
+        this.codexImages.set(p.codexImages ?? false);
       });
+  }
+
+  protected setEngine(value: string): void {
+    const engine: ImageEngine = value === 'codex' ? 'codex' : 'gemini';
+    this.imageEngine.set(engine);
+    storeImageEngine(engine);
   }
 
   protected reload(): void {
@@ -360,6 +417,107 @@ export class WordBank {
     }
   }
 
+  protected select(lemma: string, on: boolean): void {
+    this.selected.update((s) => {
+      const next = new Set(s);
+      if (on) {
+        next.add(lemma);
+      } else {
+        next.delete(lemma);
+      }
+      return next;
+    });
+  }
+
+  /** Ticks, or unticks, every word the list shows. */
+  protected selectAll(on: boolean): void {
+    const shown = (this.words() ?? []).map((w) => w.lemma);
+    this.selected.update((s) => {
+      const next = new Set(s);
+      shown.forEach((l) => (on ? next.add(l) : next.delete(l)));
+      return next;
+    });
+  }
+
+  protected clearSelection(): void {
+    this.selected.set(new Set());
+  }
+
+  /**
+   * Starts a picture batch on the server: the ticked words, or every word lacking a picture that
+   * matches the search and topic filter. It runs in the background; the page follows it.
+   */
+  protected async startBatch(ticked: boolean): Promise<void> {
+    this.confirmingAll.set(false);
+    if (this.batchBusy()) {
+      return;
+    }
+    if (ticked && this.selectedCount() > MAX_BANK_BATCH) {
+      this.batchError.set(`Mỗi lượt sinh tối đa ${MAX_BANK_BATCH} ảnh. Bỏ bớt từ đã chọn.`);
+      return;
+    }
+    this.batchBusy.set(true);
+    this.batchError.set(null);
+    try {
+      const req = ticked
+        ? { lemmas: [...this.selected()], topicId: this.topicFilter(), engine: this.rowEngine() }
+        : { q: this.search().trim(), topicId: this.topicFilter(), engine: this.rowEngine() };
+      const b = await firstValueFrom(this.api.startBankImageBatch(req));
+      if (ticked) {
+        this.clearSelection();
+      }
+      this.batches.set(b);
+    } catch (err) {
+      this.batchError.set(bankMessage(err) ?? 'Không bắt đầu được, vui lòng thử lại.');
+    } finally {
+      this.batchBusy.set(false);
+    }
+  }
+
+  protected async stopBatch(): Promise<void> {
+    if (this.batchBusy()) {
+      return;
+    }
+    this.batchBusy.set(true);
+    try {
+      this.batches.set(await firstValueFrom(this.api.stopBankImageBatch()));
+    } catch (err) {
+      this.batchError.set(bankMessage(err) ?? 'Không dừng được, vui lòng thử lại.');
+    } finally {
+      this.batchBusy.set(false);
+    }
+  }
+
+  protected hideBatch(): void {
+    this.batches.hideResult();
+  }
+
+  protected scope(b: BankImageBatch): string {
+    return batchScope(b);
+  }
+
+  protected batchEngine(b: BankImageBatch): string {
+    return engineLabel(b.engine === 'codex' ? 'codex' : 'gemini');
+  }
+
+  /** Puts the pictures the batch drew so far on their rows; counts what is missing again once it ends. */
+  private showBatch(b: BankImageBatch, wasRunning: boolean): void {
+    if (b.saved.length) {
+      const saved = new Map(b.saved.map((w) => [w.lemma, w]));
+      this.words.update(
+        (ws) =>
+          ws?.map((x) => {
+            const s = saved.get(x.lemma);
+            // Only the picture: the saved word carries no topics.
+            return s && s.imageUrl !== x.imageUrl ? { ...x, imageUrl: s.imageUrl, updatedAt: s.updatedAt } : x;
+          }) ?? null,
+      );
+    }
+    if (!b.running && wasRunning) {
+      this.loadMissing();
+    }
+  }
+
   protected replace(w: BankWord): void {
     this.words.update((ws) => ws?.map((x) => (x.lemma === w.lemma ? w : x)) ?? null);
     this.loadMissing();
@@ -382,3 +540,4 @@ export class WordBank {
     }
   }
 }
+

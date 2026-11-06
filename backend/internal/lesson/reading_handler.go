@@ -67,6 +67,9 @@ type readingJSON struct {
 	SentenceTranslations []string `json:"sentenceTranslations"`
 	// AskQuota is the learner's quota of "Hỏi AI" in this lesson (F9).
 	AskQuota askQuotaJSON `json:"askQuota"`
+	// SceneImageURL is the lesson's scene picture, shown at the top of the lesson and of its Reading
+	// and Listening steps; "" when it has none (added 2026-11-05).
+	SceneImageURL string `json:"sceneImageUrl"`
 }
 
 type textTurnJSON struct {
@@ -130,6 +133,14 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	out.AskQuota = toAskQuotaJSON(quota)
+	scene, err := h.reader.HasScene(r.Context(), v.ID)
+	if err != nil {
+		h.writeError(w, r, err, "not_found")
+		return
+	}
+	if scene {
+		out.SceneImageURL = imageURL(v.ID, SceneKey)
+	}
 	for i, s := range v.Sentences {
 		out.Sentences[i] = sentenceJSON(s)
 	}

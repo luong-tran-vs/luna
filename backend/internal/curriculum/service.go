@@ -77,6 +77,11 @@ type Lessons interface {
 	Delete(ctx context.Context, id string) error
 }
 
+// Scenes tells which lessons have their scene picture (added 2026-11-06).
+type Scenes interface {
+	HasScenes(ctx context.Context, ids []string) (map[string]bool, error)
+}
+
 // GrammarLessons tells which grammar points have a published lesson.
 type GrammarLessons interface {
 	AdminList(ctx context.Context) ([]grammar.LessonSummary, error)
@@ -87,7 +92,9 @@ type Service struct {
 	Topics  Topics
 	Lessons Lessons
 	Grammar GrammarLessons
-	Repo    Repository
+	// Scenes marks the lessons that have their scene picture; nil marks none.
+	Scenes Scenes
+	Repo   Repository
 	// Writer drafts courses; nil when the AI cannot.
 	Writer ai.CurriculumWriter
 	Now    func() time.Time
@@ -208,6 +215,8 @@ type Board struct {
 	Applied bool
 	// Main and Extra count the slots, Published and Drafts the slots filled.
 	Main, Extra, Published, Drafts int
+	// Scenes holds the ids of the shown lessons that have their scene picture.
+	Scenes map[string]bool
 }
 
 func (s *Service) published(ctx context.Context) (map[string]bool, error) {
@@ -365,6 +374,13 @@ func (s *Service) board(ctx context.Context, level string, c Course, withChecks 
 			tv.Slots = append(tv.Slots, sv)
 		}
 		b.Topics = append(b.Topics, tv)
+	}
+	// Only the page of a level shows them; the summary of every level does without (one read a lesson).
+	if !withChecks {
+		return b, nil
+	}
+	if err := s.markScenes(ctx, &b); err != nil {
+		return Board{}, err
 	}
 	return b, nil
 }
@@ -773,4 +789,29 @@ func (s *Service) Summary(ctx context.Context) ([]LevelSummary, error) {
 		out = append(out, sum)
 	}
 	return out, nil
+}
+
+// markScenes fills b.Scenes with the lessons of the board that have their scene picture.
+func (s *Service) markScenes(ctx context.Context, b *Board) error {
+	b.Scenes = map[string]bool{}
+	if s.Scenes == nil {
+		return nil
+	}
+	var ids []string
+	for _, t := range b.Topics {
+		for _, sl := range t.Slots {
+			if sl.Lesson != nil {
+				ids = append(ids, sl.Lesson.ID)
+			}
+		}
+		for _, l := range t.Others {
+			ids = append(ids, l.ID)
+		}
+	}
+	scenes, err := s.Scenes.HasScenes(ctx, ids)
+	if err != nil {
+		return fmt.Errorf("curriculum: scenes: %w", err)
+	}
+	b.Scenes = scenes
+	return nil
 }

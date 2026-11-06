@@ -26,6 +26,7 @@ type grammarExerciseDoc struct {
 	Words         []string `bson:"words,omitempty"`
 	Sentence      string   `bson:"sentence,omitempty"`
 	ExplanationVi string   `bson:"explanationVi,omitempty"`
+	Picture       string   `bson:"picture,omitempty"`
 }
 
 type grammarStructureDoc struct {
@@ -122,7 +123,7 @@ func fromGrammarExercises(in []grammar.Exercise) []grammarExerciseDoc {
 		out[i] = grammarExerciseDoc{
 			ID: e.ID, Kind: string(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options,
 			AnswerIndex: e.AnswerIndex, Answers: e.Answers, Words: e.Words, Sentence: e.Sentence,
-			ExplanationVi: e.ExplanationVi,
+			ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 		}
 	}
 	return out
@@ -132,7 +133,7 @@ func (d grammarExerciseDoc) toExercise() grammar.Exercise {
 	return grammar.Exercise{
 		ID: d.ID, Kind: grammar.Kind(d.Kind), PromptVi: d.PromptVi, Text: d.Text, Options: d.Options,
 		AnswerIndex: d.AnswerIndex, Answers: d.Answers, Words: d.Words, Sentence: d.Sentence,
-		ExplanationVi: d.ExplanationVi,
+		ExplanationVi: d.ExplanationVi, Picture: d.Picture,
 	}
 }
 

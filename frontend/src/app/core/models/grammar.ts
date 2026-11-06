@@ -7,6 +7,8 @@ export interface GrammarPoint {
   pattern: string;
   hintVi: string;
   examples: string[];
+  /** The point can be shown in pictures: its examples and exercises get pictures (added 2026-11-06). */
+  drawable?: boolean;
   /** Lessons (of the asked topic, or of all topics) that already use this point. */
   lessonCount: number;
 }

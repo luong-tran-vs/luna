@@ -93,6 +93,7 @@
       <div class="panel" id="panel-lesson" [hidden]="shownTab() !== 'lesson'">
         @if (overview()) {
           <section class="soft-card overview" id="lesson-overview" aria-labelledby="overview-heading">
+            <lu-scene-image class="overview-scene" [url]="l.sceneImageUrl" />
             <p class="eyebrow">
               @if (practice()?.lessonNumber; as n) {
                 Bài {{ n }} ·
@@ -398,6 +399,7 @@
                 <lu-listen-step
                   [lessonId]="id()"
                   [practice]="practice()"
+                  [sceneUrl]="l.sceneImageUrl ?? ''"
                   mode="review"
                   [number]="step()"
                   [canBack]="canBack()"
@@ -409,6 +411,7 @@
                 <lu-listen-step
                   [lessonId]="id()"
                   [practice]="practice()"
+                  [sceneUrl]="l.sceneImageUrl ?? ''"
                   [startSentence]="study()?.sentenceIndex ?? null"
                   mode="study"
                   [number]="step()"

@@ -42,6 +42,10 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("PUT /api/admin/lessons/{id}/images/{lemma}", admin(h.uploadImage))
 	mux.Handle("DELETE /api/admin/lessons/{id}/images/{lemma}", admin(h.deleteImage))
 	mux.Handle("POST /api/admin/lessons/{id}/images/{lemma}/import", admin(h.importImage))
+	mux.Handle("POST /api/admin/lessons/{id}/images/scene/generate", admin(h.generateScene))
+	mux.Handle("GET /api/admin/lessons/scene-batch", admin(h.sceneBatch))
+	mux.Handle("POST /api/admin/lessons/scene-batch", admin(h.startSceneBatch))
+	mux.Handle("POST /api/admin/lessons/scene-batch/stop", admin(h.stopSceneBatch))
 	mux.Handle("POST /api/admin/lessons/{id}/check", admin(h.check))
 	mux.Handle("POST /api/admin/lessons/{id}/check/confirm", admin(h.confirmFlag))
 	mux.Handle("POST /api/admin/lessons/{id}/check/verify", admin(h.verify))
@@ -60,6 +64,8 @@ type grammarPointJSON struct {
 	HintVi      string   `json:"hintVi"`
 	Examples    []string `json:"examples"`
 	LessonCount int      `json:"lessonCount"`
+	// Drawable says the point can be shown in pictures (added 2026-11-06).
+	Drawable bool `json:"drawable"`
 }
 
 func (h *Handler) grammarPoints(w http.ResponseWriter, r *http.Request) {
@@ -77,7 +83,7 @@ func (h *Handler) grammarPoints(w http.ResponseWriter, r *http.Request) {
 		}
 		out[i] = grammarPointJSON{
 			ID: p.ID, Level: p.Level, TitleVi: p.TitleVi, TitleEn: p.TitleEn, Pattern: p.Pattern,
-			HintVi: p.HintVi, Examples: ex, LessonCount: p.LessonCount,
+			HintVi: p.HintVi, Examples: ex, LessonCount: p.LessonCount, Drawable: p.Drawable,
 		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string][]grammarPointJSON{"points": out})
@@ -217,17 +223,10 @@ type inputJSON struct {
 	License         string  `json:"license"`
 	GrammarPointID  *string `json:"grammarPointId"`
 	AppendToRoadmap bool    `json:"appendToRoadmap"`
-	// Images turns on the word pictures of a new lesson (F23); omitted leaves them off.
-	Images *imageInputJSON `json:"images"`
 	// TargetWords are the topic words of a generated draft (F18); omitted means none.
 	TargetWords []string `json:"targetWords"`
 	// Draft saves a new lesson hidden from learners until it is published.
 	Draft bool `json:"draft"`
-}
-
-type imageInputJSON struct {
-	Enabled bool   `json:"enabled"`
-	Style   string `json:"style"`
 }
 
 func (in inputJSON) toInput() Input {
@@ -238,10 +237,6 @@ func (in inputJSON) toInput() Input {
 	}
 	if in.GrammarPointID != nil {
 		out.GrammarPointID = *in.GrammarPointID
-	}
-	if in.Images != nil {
-		images := ImageInput(*in.Images)
-		out.Images = &images
 	}
 	return out
 }

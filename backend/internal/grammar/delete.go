@@ -24,5 +24,11 @@ func (s *Service) Delete(ctx context.Context, pointID string) error {
 	if err := s.lessons.Delete(ctx, pointID); err != nil {
 		return fmt.Errorf("grammar: delete lesson: %w", err)
 	}
+	// The pictures of its examples go with the lesson (added 2026-11-06).
+	if s.images.Store != nil {
+		if err := s.images.Store.DeleteForPoint(ctx, pointID); err != nil {
+			return fmt.Errorf("grammar: delete example images: %w", err)
+		}
+	}
 	return nil
 }

@@ -152,7 +152,11 @@ func normalizeExercises(in []Exercise, idPrefix string) []Exercise {
 		e.Options = trimAll(e.Options)
 		e.Answers = trimAll(e.Answers)
 		e.Words = trimAll(e.Words)
+		e.Picture = strings.TrimSpace(e.Picture)
 		// Only the fields of the kind are kept, so a stale field never reaches the learner.
+		if e.Kind != KindPicture {
+			e.Picture = ""
+		}
 		switch e.Kind {
 		case KindChoice:
 			e.Answers, e.Words, e.Sentence = nil, nil, ""
@@ -163,6 +167,8 @@ func normalizeExercises(in []Exercise, idPrefix string) []Exercise {
 			e.Options, e.AnswerIndex = nil, 0
 		case KindFix:
 			e.Options, e.AnswerIndex, e.Words = nil, 0, nil
+		case KindPicture:
+			e.Answers, e.Words, e.Sentence = nil, nil, ""
 		}
 		out[i] = e
 	}
@@ -265,6 +271,8 @@ func exerciseProblems(e Exercise) map[string]string {
 		checkReorder(f, e)
 	case KindFix:
 		checkFix(f, e)
+	case KindPicture:
+		checkPicture(f, e)
 	default:
 		f.add("kind", "Loại bài tập không hợp lệ")
 	}
@@ -481,4 +489,35 @@ func ExplainAIExercises(in []ai.GrammarExercise) []string {
 		}
 	}
 	return out
+}
+
+// minPictureOptions and maxPictureOptions bound the options of a picture exercise.
+const (
+	minPictureOptions = 2
+	maxPictureOptions = 4
+)
+
+// checkPicture checks a picture exercise: a sentence with one blank, 2 to 4 different options with
+// the right one among them, and the description of the picture to draw.
+func checkPicture(f fieldErrors, e Exercise) {
+	if strings.Count(e.Text, blank) != 1 {
+		f.add("text", "Câu phải có đúng một chỗ trống ___")
+	}
+	if len(e.Options) < minPictureOptions || len(e.Options) > maxPictureOptions {
+		f.add("options", fmt.Sprintf("Cần từ %d đến %d đáp án", minPictureOptions, maxPictureOptions))
+	} else {
+		seen := map[string]bool{}
+		for _, o := range e.Options {
+			f.text("options", o, maxText, true)
+			key := strings.ToLower(o)
+			if seen[key] {
+				f.add("options", "Các đáp án phải khác nhau")
+			}
+			seen[key] = true
+		}
+		if e.AnswerIndex < 0 || e.AnswerIndex >= len(e.Options) {
+			f.add("answerIndex", fmt.Sprintf("Đáp án đúng phải từ 0 đến %d", len(e.Options)-1))
+		}
+	}
+	f.text("picture", e.Picture, maxText, true)
 }

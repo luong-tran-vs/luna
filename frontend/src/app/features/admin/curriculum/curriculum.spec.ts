@@ -11,7 +11,9 @@ import {
   CurriculumTopic,
   LessonChecks,
 } from '../../../core/models/curriculum';
+import { SceneBatch } from '../../../core/models/lesson';
 import { Curriculum } from './curriculum';
+import { SceneBatchService } from './scene-batch.service';
 
 const toBe = { id: 'a1-to-be', titleVi: 'to be', published: false };
 const pronouns = { id: 'a1-pronouns', titleVi: 'đại từ chủ ngữ', published: true };
@@ -104,6 +106,24 @@ const board = (applied = true): CurriculumBoard => ({
   ],
 });
 
+/** A scene picture batch; by default none ran since the server started. */
+const sceneBatch = (extra: Partial<SceneBatch> = {}): SceneBatch => ({
+  running: false,
+  stopping: false,
+  stopped: false,
+  engine: '',
+  key: '',
+  label: '',
+  total: 0,
+  done: 0,
+  drawing: null,
+  saved: [],
+  failures: [],
+  skipped: [],
+  codexImages: false,
+  ...extra,
+});
+
 describe('Curriculum', () => {
   let fixture: ComponentFixture<Curriculum>;
   let el: HTMLElement;
@@ -151,6 +171,8 @@ describe('Curriculum', () => {
     await fixture.whenStable();
     // The catalogue's names, suggested in a draft.
     http.expectOne('/admin/topics').flush({ topics: [{ id: 't1', name: 'Gia đình' }] });
+    // No scene batch ran yet.
+    http.expectOne('/admin/lessons/scene-batch').flush(sceneBatch());
   };
   const expectBoard = () =>
     http.expectOne((r) => r.url === '/admin/curriculum' && r.method === 'GET');
@@ -310,11 +332,12 @@ describe('Curriculum', () => {
       expect(panel.hidden).toBe(true);
     });
 
-    it('shows a published lesson with view and remove only', () => {
+    it('shows a published lesson with view, hide and remove, and whether it has its scene', () => {
       const r = slotRow('a1-01-3');
       expect(r.dataset['state']).toBe('published');
       expect(text(r.querySelector('.pill'))).toBe('Đã đăng');
-      expect(actions(r)).toEqual(['Xem', 'Gỡ']);
+      expect(actions(r)).toEqual(['Xem', 'Ẩn bài', 'Gỡ']);
+      expect(text(r.querySelector('.scene-tag'))).toBe('Chưa có ảnh cảnh');
       expect(r.querySelector('.actions a')?.getAttribute('href')).toBe('/admin/lessons/p1');
     });
 
@@ -937,5 +960,172 @@ describe('Curriculum', () => {
     http.expectOne('/admin/curriculum?level=A1').flush(board());
     await settle();
     expect(el.querySelectorAll('.topic').length).toBe(2);
+  });
+
+  describe('the published lessons (added 2026-11-06)', () => {
+    it('hides a published lesson: it goes back to a draft, and the board is read again', async () => {
+      await setup();
+      button(slotRow('a1-01-3'), 'Ẩn bài').click();
+      await settle();
+      const req = http.expectOne('/admin/lessons/p1/published');
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual({ published: false });
+      req.flush({ lesson: { id: 'p1' } });
+      await settle();
+      const b = board();
+      b.topics[0].slots[2].lesson = lesson('p1', true);
+      expectBoard().flush(b);
+      await settle();
+      expect(text(slotRow('a1-01-3').querySelector('.pill'))).toBe('Nháp');
+      expect(statusOf(1)).toBe('Đã ẩn bài: bài về nháp, người học không thấy nữa.');
+    });
+
+    it('shows a small picture for a lesson with its scene', async () => {
+      const b = board();
+      b.topics[0].slots[2].lesson = { ...lesson('p1', false), hasScene: true };
+      await setup(b);
+      const tag = slotRow('a1-01-3').querySelector('.scene-tag')!;
+      expect(text(tag)).toBe('Có ảnh cảnh');
+      expect(tag.querySelector('img')!.getAttribute('src')).toContain(
+        '/api/admin/lessons/p1/images/_scene',
+      );
+    });
+  });
+  describe('scene pictures of a topic (added 2026-11-06)', () => {
+    const sceneButton = (n: number) =>
+      topicCard(n).querySelector<HTMLButtonElement>('.topic-head .scene-btn');
+    const sceneDialog = () => el.querySelector('lu-engine-dialog [role="dialog"]');
+    const expectStart = () =>
+      http.expectOne((r) => r.url === '/admin/lessons/scene-batch' && r.method === 'POST');
+
+    beforeEach(() => localStorage.removeItem('luna.admin.imageEngine'));
+    afterEach(() => localStorage.removeItem('luna.admin.imageEngine'));
+
+    it('offers to draw the annotated lessons lacking a scene, one topic at a time', async () => {
+      const b = board();
+      // The published lesson already has its scene: only the other annotated lesson is left.
+      b.topics[0].slots[2].lesson = { ...lesson('p1', false), hasScene: true };
+      await setup(b);
+      expect(text(sceneButton(1))).toBe('Tạo ảnh cảnh (1) cho chủ đề Chủ đề 1');
+      // Topic 2 has no lesson yet.
+      expect(sceneButton(2)).toBeNull();
+    });
+
+    it('asks only for the engine, then starts the batch with the lessons of the topic', async () => {
+      await setup();
+      sceneButton(1)!.click();
+      await settle();
+      const d = sceneDialog()!;
+      expect(text(d.querySelector('.title'))).toBe('Tạo ảnh cảnh cho chủ đề “Chủ đề 1”');
+      expect(text(d.querySelector('.message'))).toBe(
+        '2 bài chưa có ảnh cảnh, vẽ lần lượt từng bài.',
+      );
+      expect(text(d.querySelector('.hint'))).toBe('1 bài chưa chú thích xong sẽ bị bỏ qua.');
+      // No description fields: the lessons keep their own.
+      expect(d.querySelector('textarea')).toBeNull();
+      const gemini = d.querySelector<HTMLInputElement>('input[value="gemini"]')!;
+      expect(gemini.checked).toBe(true);
+      expect(d.querySelector<HTMLInputElement>('input[value="codex"]')!.disabled).toBe(true);
+
+      button(d, 'Tạo 2 ảnh cảnh').click();
+      await settle();
+      const req = expectStart();
+      expect(req.request.body).toEqual({
+        lessonIds: ['p1', 'o1', 'd1'],
+        engine: 'gemini',
+        key: 'A1-1',
+        label: 'chủ đề “Chủ đề 1”',
+      });
+      req.flush(
+        sceneBatch({
+          running: true,
+          engine: 'gemini',
+          key: 'A1-1',
+          label: 'chủ đề “Chủ đề 1”',
+          total: 2,
+          drawing: { id: 'p1', title: 'Bài p1' },
+        }),
+      );
+      await settle();
+      expect(sceneDialog()).toBeNull();
+      const status = topicCard(1).querySelector('.scene-batch')!;
+      expect(text(status)).toContain(
+        'Máy chủ đang tạo ảnh cảnh ngầm bằng Gemini: xong 0/2 bài · đang vẽ “Bài p1”',
+      );
+      expect(text(status)).toContain('Chạy ngầm trên máy chủ: có thể đóng trang hay làm việc khác');
+      expect(sceneButton(1)!.disabled).toBe(true);
+
+      // Stopping ends the batch here: its result shows and the board is read again.
+      button(status, 'Dừng').click();
+      await settle();
+      http
+        .expectOne((r) => r.url === '/admin/lessons/scene-batch/stop')
+        .flush(
+          sceneBatch({
+            stopped: true,
+            engine: 'gemini',
+            key: 'A1-1',
+            label: 'chủ đề “Chủ đề 1”',
+            total: 2,
+            done: 1,
+            saved: [{ id: 'p1', title: 'Bài p1' }],
+            skipped: [{ id: 'd1', title: 'Bài d1', message: 'Bài chưa chú thích xong' }],
+            startedAt: '2026-11-06T02:00:00Z',
+          }),
+        );
+      await settle();
+      expectBoard().flush(board());
+      await settle();
+      expect(text(topicCard(1).querySelector('.scene-batch'))).toContain(
+        'Đã dừng tạo ảnh cảnh. 1/2 bài có ảnh mới bằng Gemini · bỏ qua 1 bài chưa chú thích',
+      );
+      button(topicCard(1), 'Ẩn').click();
+      await settle();
+      expect(topicCard(1).querySelector('.scene-batch')).toBeNull();
+    });
+
+    it('draws with Codex when the server runs it', async () => {
+      await configure();
+      expectBoard().flush(board());
+      await settle();
+      // The status read at the start says the server has Codex.
+      TestBed.inject(SceneBatchService).set(sceneBatch({ codexImages: true }));
+      await settle();
+      sceneButton(1)!.click();
+      await settle();
+      const codex = sceneDialog()!.querySelector<HTMLInputElement>('input[value="codex"]')!;
+      codex.click();
+      await settle();
+      button(sceneDialog()!, 'Tạo 2 ảnh cảnh').click();
+      await settle();
+      const req = expectStart();
+      expect(req.request.body.engine).toBe('codex');
+      req.flush(
+        sceneBatch({
+          running: true,
+          engine: 'codex',
+          key: 'A1-1',
+          label: 'chủ đề “Chủ đề 1”',
+          total: 2,
+          codexImages: true,
+        }),
+      );
+      await settle();
+      expect(text(topicCard(1).querySelector('.scene-batch'))).toContain('bằng Codex CLI');
+    });
+
+    it('shows why the batch could not start', async () => {
+      await setup();
+      sceneButton(1)!.click();
+      await settle();
+      button(sceneDialog()!, 'Tạo 2 ảnh cảnh').click();
+      await settle();
+      expectStart().flush(
+        { message: 'Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng.' },
+        { status: 409, statusText: 'Conflict' },
+      );
+      await settle();
+      expect(alertOf(1)).toBe('Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng.');
+    });
   });
 });

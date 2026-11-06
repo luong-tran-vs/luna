@@ -144,6 +144,40 @@ func TestCleanStepsGrammar(t *testing.T) {
 	}
 }
 
+func TestCleanColumns(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name string
+		in   []string
+		want []string
+	}{
+		{"three titles", []string{" Cấu trúc ", "Ví dụ", "= câu  thường"}, []string{"Cấu trúc", "Ví dụ", "= câu thường"}},
+		{"third hidden", []string{"Cấu trúc", "Ví dụ", ""}, []string{"Cấu trúc", "Ví dụ", ""}},
+		{"none", nil, nil},
+		{"two only", []string{"Cấu trúc", "Ví dụ"}, nil},
+		{"second empty", []string{"Cấu trúc", " ", "Ghi chú"}, nil},
+		{"too long", []string{"Cấu trúc", "Ví dụ", "Một tiêu đề cột dài quá mức cho phép"}, nil},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := cleanColumns(tt.in); !slices.Equal(got, tt.want) {
+				t.Errorf("cleanColumns(%q) = %q, want %q", tt.in, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestCleanStepsGrammarColumns(t *testing.T) {
+	t.Parallel()
+	step := okGrammarStep()
+	step.Columns = []string{"Cấu trúc", "Ví dụ", "= câu thường"}
+	g := CleanSteps(ai.Practice{GrammarStep: step}, stepsLesson(), stepsDialogue()).Grammar
+	if g == nil || !slices.Equal(g.Columns, step.Columns) {
+		t.Fatalf("columns = %+v", g)
+	}
+}
+
 func TestCleanStepsGrammarDropped(t *testing.T) {
 	t.Parallel()
 	tests := []struct {

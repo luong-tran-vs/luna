@@ -610,3 +610,7 @@ func (f *fakeAI) SuggestFix(_ context.Context, req ai.FixRequest) (ai.FixResult,
 	f.fixReq = req
 	return f.fix, f.fixErr
 }
+
+func (f *fakeAI) GrammarPictures(context.Context, ai.GrammarPicturesRequest) (ai.GrammarPictures, error) {
+	return ai.GrammarPictures{}, ai.ErrNotConfigured
+}

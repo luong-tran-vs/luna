@@ -64,6 +64,8 @@ func migrations() []migration {
 		{ID: "037_ai_settings", Stmts: aiSettingsSchema()},
 		{ID: "038_ai_settings_by_op", Stmts: aiSettingsByOpSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "039_grammar_imported", Stmts: grammarImportedSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "040_lesson_scene_image", Stmts: sceneImageSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "041_grammar_images", Stmts: grammarImagesSchema()},
 	}
 }
 

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { serverUrl } from '../../../../core/api-url';
+
 import {
   CheckItem,
   CurriculumLesson,
@@ -66,6 +68,8 @@ export class LessonRow {
   /** Opens the import of a lesson written outside the app into the empty slot (FR-030). */
   readonly importLesson = output<void>();
   readonly publish = output<string>();
+  /** Takes a published lesson back to a draft, hidden from learners (added 2026-11-06). */
+  readonly unpublish = output<string>();
   readonly recheck = output<string>();
   readonly remove = output<void>();
 
@@ -91,6 +95,10 @@ export class LessonRow {
     const source = this.lesson()?.source;
     return source === IMPORT_SOURCE || source === 'AI sinh' ? source : '';
   });
+  /** The admin URL of the lesson's scene picture (added 2026-11-06). */
+  protected readonly sceneSrc = computed(() =>
+    serverUrl(`/api/admin/lessons/${encodeURIComponent(this.lesson()?.id ?? '')}/images/_scene`),
+  );
   protected readonly idea = computed(() => this.slot()?.idea ?? '');
   protected readonly checks = computed(() => this.slot()?.checks ?? null);
   protected readonly counts = computed(() => {

@@ -1,4 +1,9 @@
-import { AttemptBody, AttemptKind, GrammarExercise, MASTERY_PERCENT } from '../../core/models/grammar-study';
+import {
+  AttemptBody,
+  AttemptKind,
+  GrammarExercise,
+  MASTERY_PERCENT,
+} from '../../core/models/grammar-study';
 import { normalizeAnswer } from '../../shared/utils/answer-match';
 import { shuffle } from '../lesson/lesson-detail/practice-logic';
 
@@ -97,13 +102,19 @@ function foldSentence(text: string): string {
  */
 export function gradeFix(ex: GrammarExercise, typed: string): boolean {
   const t = foldSentence(typed);
-  return t !== '' && [ex.sentence ?? '', ...(ex.answers ?? [])].some((s) => s !== '' && sameAnswer(foldSentence(s), t));
+  return (
+    t !== '' &&
+    [ex.sentence ?? '', ...(ex.answers ?? [])].some(
+      (s) => s !== '' && sameAnswer(foldSentence(s), t),
+    )
+  );
 }
 
 /** The right answer of an exercise as text (the first accepted answer of a fill). */
 export function correctAnswerText(ex: GrammarExercise): string {
   switch (ex.kind) {
     case 'choice':
+    case 'picture':
       return ex.options?.[ex.answerIndex ?? -1] ?? '';
     case 'fill':
       return ex.answers?.[0] ?? '';
@@ -125,7 +136,9 @@ function wordKey(word: string): string {
 export function gradeReorder(ex: GrammarExercise, built: readonly string[]): boolean {
   return [ex.sentence ?? '', ...(ex.answers ?? [])].some((s) => {
     const target = normalizeAnswer(s).split(' ').map(wordKey);
-    return s !== '' && built.length === target.length && built.every((w, i) => wordKey(w) === target[i]);
+    return (
+      s !== '' && built.length === target.length && built.every((w, i) => wordKey(w) === target[i])
+    );
   });
 }
 
@@ -430,7 +443,11 @@ export interface SentencePart {
  * piece of `parts`), " ", is (the second), " reading". Without marks, or with marks the sentence does
  * not match, the whole sentence is one plain run.
  */
-export function sentenceParts(en: string, marked: string | undefined, parts: readonly PatternPart[]): SentencePart[] {
+export function sentenceParts(
+  en: string,
+  marked: string | undefined,
+  parts: readonly PatternPart[],
+): SentencePart[] {
   if (!marked) {
     return [{ text: en, tone: null }];
   }

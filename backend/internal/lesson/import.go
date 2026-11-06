@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"strings"
+	"unicode/utf8"
 
 	"github.com/luongtran/luna/backend/internal/ai"
 )
@@ -26,6 +28,9 @@ type ImportContent struct {
 	Practice ai.Practice
 	// Glosses may be empty: the reading popup then falls back to the dictionary.
 	Glosses []ai.Gloss
+	// Scene describes in English what the lesson's scene picture shows (added 2026-11-05); "" keeps
+	// the description the lesson has. It is only a description: the AI draws when an admin asks.
+	Scene string
 }
 
 // ImportPart tells how much of one part of an import the checks kept and, when some was dropped,
@@ -59,6 +64,9 @@ func (s *Service) Import(ctx context.Context, in Input, c ImportContent, dryRun 
 	}
 	l.PracticeStatus = StatusNone // done once fillImport saves the practice
 	saved, err := s.saveImport(ctx, l, glosses, in.AppendToRoadmap)
+	if err == nil && strings.TrimSpace(c.Scene) != "" {
+		err = s.SetSceneDescription(ctx, saved.ID, c.Scene)
+	}
 	return saved, rep, err
 }
 
@@ -103,6 +111,11 @@ func (s *Service) Reimport(ctx context.Context, id string, in Input, c ImportCon
 	}
 	if err := s.fillImport(ctx, next, anns, extras, p, glosses); err != nil {
 		return Lesson{}, rep, err
+	}
+	if strings.TrimSpace(c.Scene) != "" {
+		if err := s.SetSceneDescription(ctx, id, c.Scene); err != nil {
+			return Lesson{}, rep, err
+		}
 	}
 	saved, err := s.Lessons.Get(ctx, id)
 	return saved, rep, err
@@ -173,6 +186,13 @@ func (s *Service) buildImport(ctx context.Context, in Input, c ImportContent) (L
 
 	glosses := CleanGlosses(c.Glosses, sentences)
 	rep.Parts = append(rep.Parts, ImportPart{Key: "glosses", LabelVi: "Nghĩa trong bài (popup)", Given: len(c.Glosses), Kept: len(glosses)})
+
+	scene := strings.TrimSpace(c.Scene)
+	sceneOK := utf8.RuneCountInString(scene) <= MaxSceneDescription
+	if !sceneOK {
+		fields["scene"] = fmt.Sprintf("Mô tả ảnh cảnh tối đa %d ký tự", MaxSceneDescription)
+	}
+	rep.Parts = append(rep.Parts, ImportPart{Key: "scene", LabelVi: "Mô tả ảnh cảnh", Given: one(scene != ""), Kept: one(scene != "" && sceneOK)})
 
 	explainImport(rep.Parts, c, sentences, l.Content, focus, only)
 	if len(fields) > 0 {
