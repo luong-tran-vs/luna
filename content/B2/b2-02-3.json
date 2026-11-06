@@ -442,21 +442,31 @@
       "answerIndex": 0,
       "explanationVi": "Suy đoán chắc chắn về quá khứ: must have + V3. Should have là \"lẽ ra nên\", can't have là \"chắc chắn không\".",
       "whenVi": "Dùng khi đoán nguyên nhân của một việc đã xảy ra (must / might / can't have) hoặc khi nhận xét điều lẽ ra nên làm (should / ought to / could have).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Nghĩa"
+      ],
       "table": [
         {
-          "subject": "must / might / can't have + V3",
-          "form": "Suy đoán: must have (chắc chắn), might have (có thể), can't have (chắc chắn không)",
-          "negative": "They can't have expected the centres to close."
+          "subject": "must have + V3",
+          "form": "The ones that closed must have had very little savings.",
+          "negative": "chắc hẳn đã"
+        },
+        {
+          "subject": "might / can't have + V3",
+          "form": "They can't have expected the centres to close for so long.",
+          "negative": "có thể đã / chắc chắn đã không"
         },
         {
           "subject": "should / ought to have + V3",
-          "form": "Lẽ ra nên làm mà đã không làm: They should have started earlier.",
-          "negative": "shouldn't have + V3: lẽ ra không nên làm"
+          "form": "They should have started delivery services much earlier.",
+          "negative": "lẽ ra nên mà không làm; shouldn't have = lẽ ra không nên"
         },
         {
           "subject": "could have + V3",
-          "form": "Có khả năng mà không dùng: they could have used social media",
-          "negative": "couldn't have + V3: không thể nào đã …"
+          "form": "They could have used social media.",
+          "negative": "có thể làm mà đã không làm; couldn't have = không thể nào đã"
         }
       ],
       "mistakes": [
@@ -476,9 +486,10 @@
           "promptVi": "Điền một modal vào chỗ trống.",
           "text": "The managers ___ have had a plan for a crisis, but they didn't.",
           "answers": [
-            "should"
+            "should",
+            "could"
           ],
-          "explanationVi": "Lẽ ra nên làm mà không làm: should have + V3."
+          "explanationVi": "Lẽ ra nên làm (should) hoặc lẽ ra đã có thể làm (could) mà không làm: should / could have + V3."
         },
         {
           "kind": "choice",

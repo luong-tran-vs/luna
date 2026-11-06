@@ -354,7 +354,7 @@
         "prompt": "Khánh và Yến nói về điều gì?",
         "promptVi": "",
         "options": [
-          "Triển lãm ảnh về sông Mê Kông",
+          "Những bức ảnh ở một triển lãm",
           "Một bữa sáng",
           "Dự án khách sạn"
         ],
@@ -437,21 +437,26 @@
       "answerIndex": 0,
       "explanationVi": "Neither đã mang nghĩa phủ định, động từ chia số ít (has).",
       "whenVi": "Dùng khi cân nhắc giữa hai lựa chọn hoặc nhận xét về từng thứ trong một nhóm.",
+      "columns": [
+        "Từ",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
           "subject": "each / every + số ít",
           "form": "Each piece is made from wood. / Every photo shows daily life.",
-          "negative": "Every time we go there, …"
+          "negative": "Động từ số ít; every time = mỗi lần"
         },
         {
           "subject": "either / neither / both of + us / them",
           "form": "Either of them would give us ideas. / Neither of us has much time.",
-          "negative": "both of us + động từ số nhiều"
+          "negative": "neither of + động từ số ít; both of us + số nhiều"
         },
         {
           "subject": "either … or …",
           "form": "We can either have brunch first or go straight there.",
-          "negative": "Hai lựa chọn, chọn một."
+          "negative": "Hai lựa chọn, chọn một"
         }
       ],
       "mistakes": [
@@ -468,7 +473,7 @@
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền một từ vào chỗ trống.",
+          "promptVi": "Điền một từ vào chỗ trống: \"Bức ảnh nào cũng cho thấy cuộc sống hằng ngày trên sông Mê Kông.\"",
           "text": "___ photo shows daily life on the Mekong River.",
           "answers": [
             "Every",
@@ -492,9 +497,12 @@
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "Every photos show daily life on the river.",
+          "text": "Every photo show daily life on the river.",
           "sentence": "Every photo shows daily life on the river.",
-          "explanationVi": "Every + danh từ số ít + động từ số ít."
+          "explanationVi": "Every + danh từ số ít đi với động từ số ít: shows.",
+          "answers": [
+            "Every photo showed daily life on the river."
+          ]
         },
         {
           "kind": "reorder",
@@ -544,16 +552,11 @@
     "writingHelp": {
       "grammarLabelVi": "Có ít nhất 1 câu với each / every / both / either / neither",
       "anyOf": [
-        "each",
-        "Each",
-        "every",
-        "Every",
         "both",
-        "Both",
+        "each",
+        "every",
         "either",
-        "Either",
-        "neither",
-        "Neither"
+        "neither"
       ],
       "outlineVi": [
         "Hai hoạt động là gì (Either … or …).",

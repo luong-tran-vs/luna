@@ -482,21 +482,26 @@
       "answerIndex": 0,
       "explanationVi": "use too much → danh từ overuse; vật bị dùng đi sau of, người dùng đi sau by.",
       "whenVi": "Dùng khi viết kết luận, tóm tắt, tiêu đề hay trang trình chiếu của một nghiên cứu: danh hoá giúp câu ngắn, khách quan và tập trung vào sự việc thay vì con người.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không nói"
+      ],
       "table": [
         {
           "subject": "Trạng từ → tính từ",
           "form": "grow rapidly → the rapid growth of …",
-          "negative": "Không nói: the rapidly growth."
+          "negative": "the rapidly growth of …"
         },
         {
           "subject": "lack + of",
           "form": "don't diagnose carefully → the lack of careful diagnosis",
-          "negative": "Không nói: the lack in diagnosis."
+          "negative": "the lack in careful diagnosis"
         },
         {
-          "subject": "Người làm → by",
+          "subject": "Đối tượng + of, người làm + by",
           "form": "patients overuse antibiotics → the overuse of antibiotics by patients",
-          "negative": "Đối tượng đi sau of, người làm đi sau by."
+          "negative": "the overuse of patients of antibiotics"
         }
       ],
       "mistakes": [
@@ -537,8 +542,11 @@
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "The reduce of antibiotic sales must become a priority.",
-          "sentence": "The reduction of antibiotic sales must become a priority.",
-          "explanationVi": "Sau The cần danh từ reduction."
+          "sentence": "The reduction in antibiotic sales must become a priority.",
+          "explanationVi": "Sau The cần danh từ reduction: the reduction in sales (in + con số giảm đi).",
+          "answers": [
+            "The reduction of antibiotic sales must become a priority."
+          ]
         },
         {
           "kind": "reorder",
@@ -596,7 +604,6 @@
         "introduction of",
         "overuse of",
         "increase in",
-        "use of",
         "sale of"
       ],
       "outlineVi": [

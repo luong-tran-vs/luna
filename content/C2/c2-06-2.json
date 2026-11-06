@@ -1,0 +1,625 @@
+{
+  "content": "In a quiet office above the imaging department of a large hospital in Hanoi, Dr Hoang Yen, a senior radiologist with thirty years of experience, is studying two chest scans on her screen. Beside her sits Quan, the IT specialist who installed the hospital's new diagnostic software six months ago.\n\n\"Strange as it may seem, I've started to trust this thing,\" she admits. \"Last week the algorithm marked a tiny anomaly in a lung that I had looked at twice and missed.\"\n\"That's exactly what it was trained to do,\" Quan says. \"It has learned from hundreds of thousands of images, and it never gets tired at three in the morning.\"\n\"Much as I appreciate its patience, I wouldn't let it sign a report on its own,\" Yen replies. \"Admittedly, it finds small shadows faster than I do, but it also produces far too many false positives. Yesterday it flagged a harmless old scar as a possible tumour, and we almost sent a frightened patient for an unnecessary biopsy.\"\n\"So do you want us to switch it off?\"\n\"Not at all. A second pair of eyes is valuable, even an artificial one. But a diagnosis is more than a pattern on an image.\"\nShe taps the screen. \"This man used to smoke, he has lost weight, and his daughter told me he has been coughing for months. The software sees none of that; it only sees pixels.\"\n\"We could connect it to the full clinical record,\" Quan suggests.\n\"You could, and it might help. Be that as it may, someone still has to talk to the patient, ask the right questions and decide what really matters. That is where intuition comes in, and thirty years of intuition cannot simply be downloaded.\"\n\"But isn't intuition just another kind of pattern recognition?\"\n\"Perhaps. Much as engineers like to compare the two, I can explain my reasoning to a colleague, and your algorithm often can't.\"\n\"Then who is responsible when there is a misdiagnosis?\"\n\"The doctor, always. Hard as that may be for software companies to accept, the machine is a tool, and the human judgement behind it remains indispensable.\"\n\nQuan nods and writes a note for the next update: show doctors why an image was flagged, not only where.",
+  "targetWords": [
+    "radiologist",
+    "scan",
+    "algorithm",
+    "anomaly",
+    "false positive",
+    "diagnosis",
+    "clinical",
+    "intuition",
+    "misdiagnosis",
+    "indispensable"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "radiologist",
+        "lemma": "radiologist",
+        "meaningVi": "bác sĩ chẩn đoán hình ảnh, bác sĩ X-quang",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "scans",
+        "lemma": "scan",
+        "meaningVi": "ảnh chụp (X-quang, CT, MRI…), phim chụp",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "algorithm",
+        "lemma": "algorithm",
+        "meaningVi": "thuật toán",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "anomaly",
+        "lemma": "anomaly",
+        "meaningVi": "điểm bất thường, sự khác thường",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "false positives",
+        "lemma": "false positive",
+        "meaningVi": "kết quả dương tính giả (báo có bệnh nhưng thực ra không)",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "diagnosis",
+        "lemma": "diagnosis",
+        "meaningVi": "sự chẩn đoán",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "clinical",
+        "lemma": "clinical",
+        "meaningVi": "thuộc lâm sàng, liên quan đến khám chữa bệnh",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "intuition",
+        "lemma": "intuition",
+        "meaningVi": "trực giác",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "misdiagnosis",
+        "lemma": "misdiagnosis",
+        "meaningVi": "chẩn đoán sai",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "indispensable",
+        "lemma": "indispensable",
+        "meaningVi": "không thể thiếu",
+        "pos": "adjective",
+        "sentenceIndex": 25
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the conversation mainly about?",
+        "promptVi": "Cuộc trò chuyện chủ yếu nói về điều gì?",
+        "options": [
+          "The strengths and limits of AI software in reading medical images",
+          "How to install new software in a hospital",
+          "A patient who refuses to have a biopsy",
+          "Why the hospital should replace its radiologists"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Yến và Quân bàn về điểm mạnh (phát hiện điểm bất thường) và hạn chế (dương tính giả, không thấy bối cảnh bệnh nhân) của phần mềm AI."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did the software do last week?",
+        "promptVi": "Tuần trước phần mềm đã làm gì?",
+        "options": [
+          "It found a tiny anomaly that Yen had missed.",
+          "It signed a report on its own.",
+          "It stopped working at three in the morning.",
+          "It sent a patient for a biopsy."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Yến kể \"the algorithm marked a tiny anomaly in a lung that I had looked at twice and missed\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Yen, what can she do that the algorithm often cannot?",
+        "promptVi": "Theo Yến, bà làm được điều gì mà thuật toán thường không làm được?",
+        "options": [
+          "Read images faster",
+          "Work all night without getting tired",
+          "Explain her reasoning to a colleague",
+          "Find small shadows"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà nói \"I can explain my reasoning to a colleague, and your algorithm often can't.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Yen wants the hospital to stop using the software.",
+        "promptVi": "Yến muốn bệnh viện ngừng dùng phần mềm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai. Khi Quân hỏi có nên tắt nó đi không, bà đáp \"Not at all\" và gọi nó là \"a second pair of eyes\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"biopsy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Yesterday it flagged a harmless old scar as a possible tumour, and we almost sent a frightened patient for an unnecessary biopsy.\"",
+        "options": [
+          "sinh thiết (lấy mẫu mô để xét nghiệm)",
+          "phẫu thuật cắt bỏ khối u",
+          "chụp X-quang lại",
+          "tiêm vắc-xin"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Biopsy = sinh thiết, lấy một mẩu mô nhỏ trong cơ thể để xét nghiệm. Vì phần mềm báo nhầm, bệnh nhân suýt phải đi sinh thiết không cần thiết."
+      }
+    ],
+    "grammarNote": {
+      "title": "Nhượng bộ có nhấn mạnh: Strange as it may seem, Much as, admittedly, be that as it may",
+      "bodyVi": "(1) Tính từ / trạng từ + as + chủ ngữ + động từ = dù… đến đâu: Strange as it may seem, I've started to trust this thing; Hard as that may be for software companies to accept, … Tính từ đứng đầu, không có mạo từ. (2) Much as + mệnh đề = dù rất…: Much as I appreciate its patience, I wouldn't let it sign a report. Vế sau không thêm but. (3) Admittedly, …, but … = phải thừa nhận là…, nhưng…: Admittedly, it finds small shadows faster than I do, but… (4) Be that as it may (dù vậy đi nữa) mở đầu câu mới, phản bác ý vừa được thừa nhận: You could, and it might help. Be that as it may, someone still has to talk to the patient.",
+      "examples": [
+        "\"Strange as it may seem, I've started to trust this thing,\" she admits.",
+        "\"Much as I appreciate its patience, I wouldn't let it sign a report on its own,\" Yen replies.",
+        "\"Admittedly, it finds small shadows faster than I do, but it also produces far too many false positives.",
+        "Be that as it may, someone still has to talk to the patient, ask the right questions and decide what really matters."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph about whether you would trust an AI system with your health. Use at least two concession structures (Strange as it may seem…, Much as…, admittedly… but, be that as it may).",
+    "sentenceTranslations": [
+      "Trong một văn phòng yên tĩnh phía trên khoa chẩn đoán hình ảnh của một bệnh viện lớn ở Hà Nội, bác sĩ Hoàng Yến, một bác sĩ X-quang lâu năm với ba mươi năm kinh nghiệm, đang xem kỹ hai phim chụp ngực trên màn hình.",
+      "Ngồi cạnh bà là Quân, chuyên viên công nghệ thông tin đã cài đặt phần mềm chẩn đoán mới của bệnh viện sáu tháng trước.",
+      "Bà thừa nhận: \"Nghe có vẻ lạ, nhưng tôi bắt đầu tin cái máy này rồi đấy.",
+      "Tuần trước, thuật toán đánh dấu một điểm bất thường rất nhỏ trong một lá phổi mà tôi đã xem hai lần vẫn bỏ sót.\"",
+      "Quân nói: \"Nó được huấn luyện để làm đúng việc đó mà.",
+      "Nó đã học từ hàng trăm nghìn hình ảnh, và chẳng bao giờ mệt lúc ba giờ sáng.\"",
+      "Yến đáp: \"Dù rất quý sự kiên nhẫn của nó, tôi sẽ không để nó tự ký một bản kết quả.",
+      "Phải thừa nhận là nó phát hiện những bóng mờ nhỏ nhanh hơn tôi, nhưng nó cũng cho ra quá nhiều kết quả dương tính giả.",
+      "Hôm qua nó đánh dấu một vết sẹo cũ vô hại là có thể có khối u, và suýt nữa chúng tôi đã gửi một bệnh nhân đang hoảng sợ đi sinh thiết không cần thiết.\"",
+      "\"Vậy bác sĩ muốn chúng tôi tắt nó đi à?\"",
+      "\"Hoàn toàn không.",
+      "Có thêm một đôi mắt thứ hai là điều quý giá, dù đó là mắt nhân tạo.",
+      "Nhưng chẩn đoán không chỉ là một hình mẫu trên tấm ảnh.\"",
+      "Bà gõ nhẹ lên màn hình.",
+      "\"Ông này từng hút thuốc, ông bị sụt cân, và con gái ông kể với tôi rằng ông ho suốt mấy tháng nay.",
+      "Phần mềm chẳng thấy được điều gì trong số đó; nó chỉ thấy các điểm ảnh.\"",
+      "Quân gợi ý: \"Chúng tôi có thể kết nối nó với toàn bộ hồ sơ bệnh án.\"",
+      "\"Các anh làm được, và có thể việc đó có ích.",
+      "Dù vậy đi nữa, vẫn phải có người nói chuyện với bệnh nhân, hỏi đúng câu hỏi và quyết định điều gì thực sự quan trọng.",
+      "Đó là lúc trực giác lên tiếng, mà trực giác của ba mươi năm thì đâu thể cứ thế tải về.\"",
+      "\"Nhưng chẳng phải trực giác cũng chỉ là một kiểu nhận dạng hình mẫu sao?\"",
+      "\"Có lẽ vậy.",
+      "Dù các kỹ sư rất thích so sánh hai thứ đó, tôi có thể giải thích lập luận của mình cho đồng nghiệp, còn thuật toán của anh thì thường không làm được.\"",
+      "\"Vậy ai chịu trách nhiệm khi có chẩn đoán sai?\"",
+      "\"Bác sĩ, lúc nào cũng vậy.",
+      "Dù các công ty phần mềm khó mà chấp nhận điều đó, cỗ máy chỉ là công cụ, và sự phán đoán của con người đứng sau nó vẫn là thứ không thể thiếu.\"",
+      "Quân gật đầu và ghi chú cho bản cập nhật tới: cho bác sĩ thấy vì sao một hình ảnh bị đánh dấu, chứ không chỉ đánh dấu ở đâu."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về AI trong chẩn đoán y khoa, thừa nhận ưu điểm rồi phản bác bằng Strange as it may seem, Much as…, admittedly… but và be that as it may.",
+    "examples": [
+      {
+        "lemma": "radiologist",
+        "sentence": "The radiologist checked the X-ray and found nothing serious.",
+        "meaningVi": "Bác sĩ chẩn đoán hình ảnh xem phim X-quang và không thấy gì nghiêm trọng."
+      },
+      {
+        "lemma": "scan",
+        "sentence": "The doctor ordered a brain scan after the accident.",
+        "meaningVi": "Bác sĩ chỉ định chụp não sau vụ tai nạn."
+      },
+      {
+        "lemma": "algorithm",
+        "sentence": "The algorithm sorts the images by level of risk.",
+        "meaningVi": "Thuật toán sắp xếp các hình ảnh theo mức độ rủi ro."
+      },
+      {
+        "lemma": "anomaly",
+        "sentence": "Any anomaly in the heartbeat is reported to the nurse at once.",
+        "meaningVi": "Bất kỳ sự bất thường nào trong nhịp tim đều được báo ngay cho y tá."
+      },
+      {
+        "lemma": "false positive",
+        "sentence": "A false positive can cause a lot of unnecessary worry.",
+        "meaningVi": "Một kết quả dương tính giả có thể gây ra rất nhiều lo lắng không cần thiết."
+      },
+      {
+        "lemma": "diagnosis",
+        "sentence": "An early diagnosis gives the patient a much better chance.",
+        "meaningVi": "Chẩn đoán sớm cho bệnh nhân cơ hội tốt hơn nhiều."
+      },
+      {
+        "lemma": "clinical",
+        "sentence": "She has ten years of clinical experience in children's hospitals.",
+        "meaningVi": "Cô ấy có mười năm kinh nghiệm lâm sàng ở các bệnh viện nhi."
+      },
+      {
+        "lemma": "intuition",
+        "sentence": "His intuition told him that something was wrong.",
+        "meaningVi": "Trực giác mách bảo anh ấy rằng có điều gì đó không ổn."
+      },
+      {
+        "lemma": "misdiagnosis",
+        "sentence": "The misdiagnosis delayed her treatment by three months.",
+        "meaningVi": "Việc chẩn đoán sai đã làm chậm quá trình điều trị của cô ba tháng."
+      },
+      {
+        "lemma": "indispensable",
+        "sentence": "Good nurses are indispensable in any hospital.",
+        "meaningVi": "Y tá giỏi là không thể thiếu ở bất kỳ bệnh viện nào."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Director Lam",
+        "Quan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Quan, the board wants to know if the AI software is worth the money. What do you think?",
+          "meaningVi": "Quân này, hội đồng muốn biết phần mềm AI có đáng đồng tiền không. Cậu nghĩ sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "Admittedly, it was expensive, but it has already found several cancers early.",
+          "meaningVi": "Phải thừa nhận là nó đắt, nhưng nó đã phát hiện sớm vài ca ung thư rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "And the complaints about false alarms?",
+          "meaningVi": "Còn những phàn nàn về báo động nhầm thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "They are real. Much as I like the system, it still needs a doctor to check every result.",
+          "meaningVi": "Chuyện đó có thật. Dù tôi rất thích hệ thống này, nó vẫn cần bác sĩ kiểm tra từng kết quả."
+        },
+        {
+          "speaker": 0,
+          "text": "Could we use it to reduce the number of radiologists?",
+          "meaningVi": "Ta có thể dùng nó để giảm số bác sĩ chẩn đoán hình ảnh không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Strange as it may sound, it has made them busier, not less busy.",
+          "meaningVi": "Nghe thì lạ, nhưng nó khiến họ bận hơn chứ không rảnh hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Why is that?",
+          "meaningVi": "Sao lại thế?"
+        },
+        {
+          "speaker": 1,
+          "text": "Every case it marks has to be reviewed. Be that as it may, patients get faster answers.",
+          "meaningVi": "Ca nào nó đánh dấu cũng phải được xem lại. Dù vậy đi nữa, bệnh nhân nhận kết quả nhanh hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Then I will tell the board to keep it for another year.",
+          "meaningVi": "Vậy tôi sẽ đề nghị hội đồng giữ nó thêm một năm nữa."
+        }
+      ]
+    },
+    "grammarTipVi": "Much as + mệnh đề, + mệnh đề chính (không thêm but). Tính từ + as + chủ ngữ + may seem / may sound: Strange as it may sound… Admittedly, …, but… Be that as it may đứng đầu câu mới, sau một ý vừa được thừa nhận.",
+    "translations": [
+      {
+        "vi": "Dù có vẻ lạ, thuật toán đã tìm ra một điểm bất thường nhỏ.",
+        "en": "Strange as it may seem, the algorithm found a small anomaly.",
+        "distractors": [
+          "seems",
+          "find",
+          "much"
+        ],
+        "accepted": [
+          "The algorithm found a small anomaly, strange as it may seem.",
+          "Strange as it seems, the algorithm found a small anomaly.",
+          "The algorithm found a small anomaly, strange as it seems."
+        ]
+      },
+      {
+        "vi": "Phải thừa nhận là nó nhanh hơn, nhưng nó tạo ra quá nhiều dương tính giả.",
+        "en": "Admittedly, it is faster, but it produces too many false positives.",
+        "distractors": [
+          "produce",
+          "much",
+          "admitted"
+        ],
+        "accepted": [
+          "It is faster, admittedly, but it produces too many false positives."
+        ]
+      },
+      {
+        "vi": "Dù vậy đi nữa, trực giác của bác sĩ vẫn không thể thiếu.",
+        "en": "Be that as it may, a doctor's intuition remains indispensable.",
+        "distractors": [
+          "remain",
+          "dispensable",
+          "been"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Ai chịu trách nhiệm khi có chẩn đoán sai?",
+        "en": "Who is responsible when there is a misdiagnosis?",
+        "distractors": [
+          "responsibility",
+          "are",
+          "misdiagnose"
+        ],
+        "accepted": [
+          "When there is a misdiagnosis, who is responsible?"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Giám đốc Lâm và Quân nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Có nên tiếp tục dùng phần mềm AI hay không",
+          "Tuyển thêm bác sĩ cho bệnh viện",
+          "Sửa một máy chụp bị hỏng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Giám đốc hỏi phần mềm \"is worth the money\", cuối cùng quyết định giữ nó thêm một năm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quân nói phần mềm đã làm được gì?",
+        "promptVi": "",
+        "options": [
+          "Phát hiện sớm vài ca ung thư",
+          "Giảm một nửa chi phí",
+          "Thay thế các bác sĩ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quân nói \"it has already found several cancers early.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phần mềm ảnh hưởng thế nào tới các bác sĩ chẩn đoán hình ảnh?",
+        "promptVi": "",
+        "options": [
+          "Khiến họ bận hơn",
+          "Khiến họ rảnh hơn",
+          "Khiến họ phải nghỉ việc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quân nói \"it has made them busier, not less busy.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan says the system can work without a doctor checking the results.",
+        "promptVi": "Quân nói hệ thống có thể hoạt động mà không cần bác sĩ kiểm tra kết quả.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, Quân nói \"it still needs a doctor to check every result.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Bác sĩ Yến thừa nhận phần mềm giỏi ở điểm nào, và vì sao bà vẫn cho rằng bác sĩ là không thể thiếu?",
+    "grammarStep": {
+      "titleVi": "Nhượng bộ có nhấn mạnh",
+      "noticing": [
+        {
+          "sentence": "\"Strange as it may seem, I've started to trust this thing,\" she admits.",
+          "highlights": [
+            "Strange as it may seem"
+          ]
+        },
+        {
+          "sentence": "\"Much as I appreciate its patience, I wouldn't let it sign a report on its own,\" Yen replies.",
+          "highlights": [
+            "Much as I appreciate its patience"
+          ]
+        },
+        {
+          "sentence": "\"Admittedly, it finds small shadows faster than I do, but it also produces far too many false positives.",
+          "highlights": [
+            "Admittedly",
+            "but"
+          ]
+        },
+        {
+          "sentence": "Be that as it may, someone still has to talk to the patient, ask the right questions and decide what really matters.",
+          "highlights": [
+            "Be that as it may"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"Dù rất quý sự kiên nhẫn của nó, tôi sẽ không để nó tự ký kết quả.\" Câu nào đúng?",
+      "options": [
+        "Much as I appreciate its patience, I wouldn't let it sign a report.",
+        "Much as I appreciate its patience, but I wouldn't let it sign a report.",
+        "As much I appreciate its patience, I wouldn't let it sign a report."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Much as + mệnh đề, rồi mệnh đề chính ngay sau dấu phẩy, không thêm but. Trật tự là Much as, không phải As much.",
+      "whenVi": "Dùng khi tranh luận lịch sự hoặc viết bài nghị luận: bạn thừa nhận một ý của người khác (hoặc một điều bất ngờ) trước, rồi mới đưa ra quan điểm chính của mình.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
+      "table": [
+        {
+          "subject": "Tính từ + as + S + V",
+          "form": "Strange as it may seem, I trust it.",
+          "negative": "It may seem strange, but I trust it."
+        },
+        {
+          "subject": "Much as + mệnh đề",
+          "form": "Much as I like it, I check every result.",
+          "negative": "Although I like it, I check every result."
+        },
+        {
+          "subject": "Admittedly, …, but …",
+          "form": "Admittedly, it is fast, but it makes mistakes.",
+          "negative": "It's true that it is fast, but it makes mistakes."
+        },
+        {
+          "subject": "Be that as it may, …",
+          "form": "It might help. Be that as it may, a doctor must decide.",
+          "negative": "It might help. Even so, a doctor must decide."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Much as I like the program, but I don't trust it.",
+          "right": "Much as I like the program, I don't trust it."
+        },
+        {
+          "wrong": "As strange as may it seem, I trust it.",
+          "right": "Strange as it may seem, I trust it."
+        },
+        {
+          "wrong": "A strange as it may seem, I trust it.",
+          "right": "Strange as it may seem, I trust it."
+        }
+      ],
+      "noteVi": "Trong cấu trúc tính từ + as, tính từ đứng đầu không có mạo từ và chủ ngữ đứng trước động từ: Hard as that may be, … Be that as it may là một cụm cố định, không đổi hình thức.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "___ as I admire the software, I still check every scan myself.",
+          "answers": [
+            "Much"
+          ],
+          "explanationVi": "Much as + mệnh đề = dù rất…; vế sau không có but."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ it may seem, the patient had no symptoms at all.",
+          "options": [
+            "Strange as",
+            "As strange",
+            "A strange as",
+            "Strangely as"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Tính từ đứng đầu, không có mạo từ, rồi as + chủ ngữ + động từ: Strange as it may seem."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Much as I like the program, but I don't trust it.",
+          "sentence": "Much as I like the program, I don't trust it.",
+          "explanationVi": "Much as đã mang nghĩa \"dù\", nên bỏ but ở vế sau."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Dù mệt đến đâu, bà ấy vẫn kiểm tra từng phim chụp.",
+          "sentence": "Tired as she was, she checked every scan.",
+          "words": [
+            "Tired",
+            "as",
+            "she",
+            "was,",
+            "she",
+            "checked",
+            "every",
+            "scan.",
+            "although"
+          ],
+          "explanationVi": "Tính từ đứng đầu + as + chủ ngữ + động từ: Tired as she was; từ \"although\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Strange as it may seem, I've started to trust this thing,\" she admits.",
+        "tipVi": "Ngắt hơi sau seem; nhấn vào Strange và trust."
+      },
+      {
+        "text": "\"Then who is responsible when there is a misdiagnosis?\"",
+        "tipVi": "Câu hỏi Wh-: xuống giọng ở cuối; misdiagnosis /ˌmɪsdaɪəɡˈnəʊsɪs/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Would you trust an AI system to read your medical scans?",
+        "questionVi": "Bạn có tin để một hệ thống AI đọc phim chụp của mình không?",
+        "frame": "Much as I ___, I would still want ___."
+      },
+      {
+        "question": "What can a human doctor do that a computer cannot?",
+        "questionVi": "Bác sĩ con người làm được gì mà máy tính không làm được?",
+        "frame": "Admittedly, computers ___, but a doctor ___."
+      },
+      {
+        "question": "Has technology ever surprised you in a good way?",
+        "questionVi": "Công nghệ đã bao giờ khiến bạn bất ngờ theo hướng tích cực chưa?",
+        "frame": "Strange as it may seem, ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc nhượng bộ (Much as… / Admittedly…, but / Be that as it may / Strange as it may seem… / For all its… / Try as I might)",
+      "anyOf": [
+        "much as",
+        "admittedly",
+        "be that as it may",
+        "as it may seem",
+        "as it may sound",
+        "for all its",
+        "for all their",
+        "try as i might"
+      ],
+      "outlineVi": [
+        "Nêu điều bất ngờ hoặc ưu điểm của AI trong y tế (Strange as it may seem…, Admittedly…).",
+        "Phản bác bằng hạn chế của nó (but…, Be that as it may…).",
+        "Kết luận vai trò của bác sĩ (Much as…, doctors remain…)."
+      ],
+      "modelAnswer": "Strange as it may seem, I would let a computer look at my scans first. Admittedly, these systems make mistakes, but so do tired doctors at the end of a long night. Much as I trust technology, I would never accept a diagnosis without talking to a real doctor. A machine can find an anomaly. Be that as it may, only a person can explain what it means for my life."
+    }
+  },
+  "glosses": [
+    {
+      "text": "flagged",
+      "lemma": "flag",
+      "meaningVi": "đánh dấu (để chú ý, cảnh báo)",
+      "pos": "verb",
+      "phrase": "it flagged a harmless old scar",
+      "phraseVi": "nó đánh dấu một vết sẹo cũ vô hại",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "biopsy",
+      "lemma": "biopsy",
+      "meaningVi": "sinh thiết",
+      "pos": "noun",
+      "phrase": "an unnecessary biopsy",
+      "phraseVi": "một lần sinh thiết không cần thiết",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "tumour",
+      "lemma": "tumour",
+      "meaningVi": "khối u",
+      "pos": "noun",
+      "phrase": "a possible tumour",
+      "phraseVi": "có thể là khối u",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "pixels",
+      "lemma": "pixel",
+      "meaningVi": "điểm ảnh",
+      "pos": "noun",
+      "phrase": "it only sees pixels",
+      "phraseVi": "nó chỉ thấy các điểm ảnh",
+      "sentenceIndex": 15
+    },
+    {
+      "text": "pattern recognition",
+      "lemma": "pattern recognition",
+      "meaningVi": "nhận dạng hình mẫu, nhận dạng quy luật",
+      "pos": "noun",
+      "phrase": "another kind of pattern recognition",
+      "phraseVi": "một kiểu nhận dạng hình mẫu khác",
+      "sentenceIndex": 20
+    }
+  ]
+}

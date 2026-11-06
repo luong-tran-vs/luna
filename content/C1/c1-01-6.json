@@ -459,26 +459,31 @@
       "answerIndex": 0,
       "explanationVi": "Điều trái với quá khứ: Had + chủ ngữ + not + V3 (helped). Mệnh đề chính có thể nói về hiện tại: would still be … today.",
       "whenVi": "Dùng trong báo cáo, thư trang trọng và tranh luận chính sách để đưa ra giả định về quá khứ, hiện tại hoặc tương lai mà không cần \"if\".",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu với if"
+      ],
       "table": [
         {
           "subject": "Had + S + (not) + V3",
           "form": "Had experts not helped us, the site would still be in ruins.",
-          "negative": "Had they not stored old wood, …"
+          "negative": "If experts hadn't helped us, …"
         },
         {
           "subject": "But for + danh từ",
           "form": "But for their support, the restoration would have taken longer.",
-          "negative": "(tự nó đã mang nghĩa \"nếu không có\")"
+          "negative": "If it hadn't been for their support, …"
         },
         {
           "subject": "Should + S + V",
           "form": "Should a storm hit the city, the pavilions could collapse.",
-          "negative": "Should the funds not arrive, …"
+          "negative": "If a storm hits the city, …"
         },
         {
           "subject": "Were + S + to be + V3",
           "form": "Were visitor numbers to be limited, income would fall.",
-          "negative": "Were the rules not to be followed, …"
+          "negative": "If visitor numbers were limited, …"
         }
       ],
       "mistakes": [
@@ -520,7 +525,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "Were the funds be managed from Paris, craftsmen would be ignored.",
           "sentence": "Were the funds to be managed from Paris, craftsmen would be ignored.",
-          "explanationVi": "Bị động: Were + chủ ngữ + to be + V3; thiếu \"to\"."
+          "explanationVi": "Bị động: Were + chủ ngữ + to be + V3; thiếu \"to\".",
+          "answers": [
+            "Were the funds managed from Paris, craftsmen would be ignored."
+          ]
         },
         {
           "kind": "reorder",
@@ -539,7 +547,10 @@
             "failed.",
             "will"
           ],
-          "explanationVi": "But for + danh từ, rồi would have + V3; từ \"will\" bị thừa."
+          "explanationVi": "But for + danh từ, rồi would have + V3; từ \"will\" bị thừa.",
+          "answers": [
+            "The work would have failed but for their support."
+          ]
         }
       ]
     },
@@ -571,12 +582,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu điều kiện đảo ngữ (Had… / But for… / Should… / Were… to)",
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện đảo ngữ (But for… / Had we/they… + V3 / Had it not been… / Were it not for… / Were we to… / Should you…)",
       "anyOf": [
-        "Had ",
-        "But for",
-        "Should ",
-        "Were "
+        "but for",
+        "had it not",
+        "were it not",
+        "had we",
+        "had they",
+        "had i",
+        "were we to",
+        "should you"
       ],
       "outlineVi": [
         "Giới thiệu di tích và giá trị của nó.",

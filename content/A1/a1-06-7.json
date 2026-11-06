@@ -1,5 +1,5 @@
 {
-  "content": "Hoa sees her doctor every month. Today, she calls the small hospital near her home and talks to Mrs Lien.\n\n\"Hello, what time is the doctor there on Friday?\" asks Hoa.\n\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.\n\"He is here for four hours, from eight to twelve.\"\n\"Is he free at half past eight?\"\n\"No, he isn't, but he is free at a quarter to ten.\"\n\"That's OK. How long is the visit?\"\n\"It's about twenty minutes.\"\n\"And when is my visit after that?\"\n\"It's on the first Friday in December, at nine.\"\n\"Wait a second, please,\" says Hoa.\nShe looks for a pen.\n\"Where is the doctor's room?\"\n\"It's on the first floor, near the door.\"\n\"Thank you, see you on Friday!\"",
+  "content": "Hoa sees her doctor every month. Today, she calls the small hospital near her home and talks to Mrs Lien.\n\n\"Hello, what time is the doctor there on Friday?\" asks Hoa.\n\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.\n\"He is here for four hours, from eight to twelve.\"\n\"Is he free at half past eight?\"\n\"No, he isn't, but he is free at a quarter to ten.\"\n\"That's OK. How long is the visit?\"\n\"It's about twenty minutes.\"\n\"And when is my visit after that?\"\n\"It's on the first Friday in December, at nine.\"\n\"Wait a second, please,\" says Hoa.\nShe looks for a pen.\n\"Where is the doctor's room?\"\n\"It's on the ground floor, near the door.\"\n\"Thank you, see you on Friday!\"",
   "targetWords": [
     "time",
     "o'clock",
@@ -107,7 +107,7 @@
           "At a quarter to ten today"
         ],
         "answerIndex": 0,
-        "explanationVi": "Bà Lien nói \"It's on Saturday morning, at nine\"."
+        "explanationVi": "Bà Lien nói \"It's on the first Friday in December, at nine\"."
       },
       {
         "kind": "tfn",
@@ -158,7 +158,7 @@
       "\"Làm ơn chờ một chút,\" Hoa nói.",
       "Cô ấy tìm một cây bút.",
       "\"Phòng của bác sĩ ở đâu ạ?\"",
-      "\"Ở tầng một, gần cửa.\"",
+      "\"Ở tầng trệt, gần cửa.\"",
       "\"Cảm ơn bà, hẹn gặp vào thứ Sáu!\""
     ]
   },
@@ -182,8 +182,8 @@
       },
       {
         "lemma": "minute",
-        "sentence": "The doctor is here in one minute.",
-        "meaningVi": "Một phút nữa bác sĩ đến."
+        "sentence": "Please wait one minute.",
+        "meaningVi": "Làm ơn chờ một phút."
       },
       {
         "lemma": "second",
@@ -239,13 +239,13 @@
         },
         {
           "speaker": 0,
-          "text": "Thank you. When is the hospital closed today?",
-          "meaningVi": "Cảm ơn bà. Hôm nay bệnh viện đóng cửa lúc nào ạ?"
+          "text": "Thank you. Is the hospital open in the evening today?",
+          "meaningVi": "Cảm ơn bà. Tối nay bệnh viện có mở cửa không ạ?"
         },
         {
           "speaker": 1,
-          "text": "Today is Friday, so it's closed at five in the afternoon.",
-          "meaningVi": "Hôm nay thứ Sáu, nên đóng cửa lúc năm giờ chiều."
+          "text": "No, it isn't. Today is Friday, so it's only open until five.",
+          "meaningVi": "Không ạ. Hôm nay thứ Sáu, nên chỉ mở cửa đến năm giờ."
         },
         {
           "speaker": 0,
@@ -270,7 +270,9 @@
           "are"
         ],
         "accepted": [
-          "The doctor is here in the morning at eight o'clock."
+          "The doctor is here in the morning at eight o'clock.",
+          "The doctor is here at eight in the morning.",
+          "The doctor is here in the morning at eight."
         ]
       },
       {
@@ -335,7 +337,7 @@
       },
       {
         "kind": "detail",
-        "prompt": "Hôm nay bệnh viện đóng cửa lúc mấy giờ?",
+        "prompt": "Hôm nay bệnh viện mở cửa đến mấy giờ?",
         "promptVi": "",
         "options": [
           "Mười giờ",
@@ -343,7 +345,7 @@
           "Mười hai giờ"
         ],
         "answerIndex": 1,
-        "explanationVi": "Bà Lien nói \"it's closed at five in the afternoon.\"",
+        "explanationVi": "Bà Lien nói \"Today is Friday, so it's only open until five.\"",
         "turnIndex": 6
       },
       {
@@ -376,7 +378,8 @@
         {
           "sentence": "\"It's on the first Friday in December, at nine.\"",
           "highlights": [
-            "on Friday",
+            "on the first Friday",
+            "in December",
             "at nine"
           ]
         }
@@ -393,18 +396,18 @@
       "table": [
         {
           "subject": "at + giờ",
-          "form": "at eight o'clock, at half past eight",
-          "negative": "at a quarter to ten"
+          "form": "My visit is at a quarter to ten.",
+          "negative": "My visit isn't at half past eight."
         },
         {
           "subject": "on + thứ / ngày",
-          "form": "on Friday, on Saturday",
-          "negative": "on Saturday morning"
+          "form": "My visit is on Friday.",
+          "negative": "The hospital isn't open on Saturday."
         },
         {
           "subject": "in + tháng / buổi",
-          "form": "in December",
-          "negative": "in the morning, in the afternoon"
+          "form": "My next visit is in December.",
+          "negative": "My next visit isn't in November."
         }
       ],
       "mistakes": [
@@ -472,11 +475,11 @@
     "readAloud": [
       {
         "text": "\"Doctor Minh is here at eight o'clock in the morning,\" says Mrs Lien.",
-        "tipVi": "Nối \"here at\" thành /hɪr æt/; o'clock /əˈklɑk/ nhấn âm sau."
+        "tipVi": "Nối \"here at\" thành /hɪər ət/; o'clock /əˈklɒk/ nhấn âm sau."
       },
       {
         "text": "\"It's on the first Friday in December, at nine.\"",
-        "tipVi": "First /fɜrst/ nhớ đọc âm /st/ ở cuối; December nhấn âm giữa /dɪˈsɛmbər/."
+        "tipVi": "First /fɜːst/ nhớ đọc âm /st/ ở cuối; December nhấn âm giữa /dɪˈsembə/."
       }
     ],
     "speakQuestions": [
@@ -563,8 +566,8 @@
       "meaningVi": "tầng (nhà)",
       "sentenceIndex": 15,
       "pos": "noun",
-      "phrase": "on the first floor",
-      "phraseVi": "ở tầng một"
+      "phrase": "on the ground floor",
+      "phraseVi": "ở tầng trệt"
     }
   ]
 }

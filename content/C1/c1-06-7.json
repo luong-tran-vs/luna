@@ -239,8 +239,8 @@
       "turns": [
         {
           "speaker": 0,
-          "text": "This place is so busy. Is it always like this?",
-          "meaningVi": "Quán này đông quá. Lúc nào cũng thế à?"
+          "text": "This bún chả place is so busy. Is it always like this?",
+          "meaningVi": "Quán bún chả này đông quá. Lúc nào cũng thế à?"
         },
         {
           "speaker": 1,
@@ -352,12 +352,12 @@
         "prompt": "Sofia và Bảo đang ở đâu?",
         "promptVi": "",
         "options": [
-          "Ở quán phở gần hồ",
+          "Ở quán bún chả",
           "Ở văn phòng",
           "Ở nhà bà của Bảo"
         ],
         "answerIndex": 0,
-        "explanationVi": "Đây là bữa trưa thứ Sáu ở quán phở mà Bảo đã gợi ý.",
+        "explanationVi": "Sofia nói \"This bún chả place is so busy.\"",
         "turnIndex": -1
       },
       {
@@ -388,8 +388,8 @@
       },
       {
         "kind": "tfn",
-        "prompt": "Bao pays for lunch on Friday.",
-        "promptVi": "Thứ Sáu Bảo trả tiền bữa trưa.",
+        "prompt": "Bao pays for lunch today.",
+        "promptVi": "Hôm nay Bảo trả tiền bữa trưa.",
         "options": [],
         "answerIndex": 1,
         "explanationVi": "Sai, Sofia nói \"Then I'm paying today, as I promised to.\"",
@@ -440,8 +440,13 @@
         "I wouldn't it."
       ],
       "answerIndex": 0,
-      "explanationVi": "Chỉ giữ trợ động từ wouldn't, bỏ \"try that here\". \"I wouldn't try\" nghe chưa trọn ý, \"I wouldn't it\" sai.",
+      "explanationVi": "Chỉ giữ trợ động từ wouldn't, bỏ \"try that here\": I wouldn't là cách rút gọn tự nhiên nhất; \"I wouldn't try\" không sai nhưng kém tự nhiên; \"I wouldn't it\" sai.",
       "whenVi": "Dùng trong trò chuyện thân mật, khi câu hỏi đã rõ, để trả lời nhanh và tự nhiên như người bản ngữ.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
           "subject": "Not + từ khác",
@@ -461,7 +466,7 @@
         {
           "subject": "to cuối câu",
           "form": "I'd love to. / as I promised to",
-          "negative": "I'd rather not."
+          "negative": "Từ chối: I'd rather not."
         }
       ],
       "mistakes": [
@@ -482,7 +487,7 @@
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền một từ vào chỗ trống.",
+          "promptVi": "Điền một từ vào chỗ trống. Bảo nghĩ là không cần.",
           "text": "Do I have to answer honestly? – I suppose ___.",
           "answers": [
             "not"
@@ -497,7 +502,7 @@
             "to",
             "it",
             "so",
-            "that"
+            "for"
           ],
           "answerIndex": 0,
           "explanationVi": "Giữ to, bỏ \"come to the team dinner\"."
@@ -556,18 +561,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu trả lời rút gọn (Not yet, I suppose so / not, I wouldn't, I'd love to …)",
+      "grammarLabelVi": "Có ít nhất 1 câu trả lời rút gọn (Not yet, Not really, I suppose so / not, I'm afraid not, I'd love to …)",
       "anyOf": [
-        "Not yet",
         "not yet",
-        "Not really",
+        "not really",
         "suppose so",
         "suppose not",
-        "wouldn't",
-        "love to",
-        "one",
-        "so",
-        "not"
+        "afraid not",
+        "think so",
+        "hope not",
+        "love to"
       ],
       "outlineVi": [
         "Đồng nghiệp hỏi về một lời chào (Not yet / Not really).",

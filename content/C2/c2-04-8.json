@@ -1,0 +1,610 @@
+{
+  "content": "The quarterly strategy session at Red River Capital, a mid-sized Hanoi investment bank with a growing interest in clean energy, begins with an uncomfortable slide. It compares the actual and expected returns of the bank's green infrastructure venture capital portfolio over the past three years. Two of the seven companies in it, a rooftop solar installer in Binh Duong and a battery storage developer in Hai Phong, have performed far below the long-term clean technology yield models used when the deals were signed.\n\nManaging director Nghiem Thu Trang does not hide her disappointment. \"What went wrong with the companies we once called the most promising renewable energy businesses in the north?\" she asks. Senior analyst Kieu Van Toan has an answer, though not a simple one. The solar installer, he explains, relied on a feed-in tariff scheme that ended earlier than expected, while the battery developer underestimated the cost of the imported cells it needed. Neither risk was given enough weight in the due diligence reports the bank prepared before investing.\n\nThe mood improves with the next item: a proposed green bond issue for a wind farm on the coast of Quang Tri. The bond, worth an estimated 120 million dollars over ten years, would pay for turbines, a substation and a new access road. Several regional pension funds have shown interest, attracted by a fixed annual coupon of around six percent and the growing demand for investments with a measurable environmental impact. The project could also generate carbon credits, which the developer plans to sell to manufacturers in Japan and Korea.\n\nThen comes the hardest question of the afternoon. Should the bank divest from its remaining stake in a coal-fired power plant in the Mekong Delta, a holding that still produces steady profits? Toan argues that the plant's return on investment will fall sharply once stricter emission rules arrive. Trang is not so sure. Selling now, at a low price, would hurt this year's results, and some of the bank's older clients still prefer safe, familiar assets to experimental ones.\n\nBy six o'clock, a compromise is on the table: a gradual exit from coal over three years, combined with a larger share of the portfolio for wind and solar projects backed by long-term government contracts. Nobody calls it a perfect solution, but it is one the whole team can defend.",
+  "targetWords": [
+    "infrastructure",
+    "venture capital",
+    "portfolio",
+    "yield",
+    "renewable",
+    "due diligence",
+    "green bond",
+    "carbon credit",
+    "divest",
+    "return on investment"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "infrastructure",
+        "lemma": "infrastructure",
+        "meaningVi": "cơ sở hạ tầng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "venture capital",
+        "lemma": "venture capital",
+        "meaningVi": "vốn đầu tư mạo hiểm",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "portfolio",
+        "lemma": "portfolio",
+        "meaningVi": "danh mục đầu tư",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "yield",
+        "lemma": "yield",
+        "meaningVi": "lợi suất, mức sinh lời",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "renewable",
+        "lemma": "renewable",
+        "meaningVi": "tái tạo (năng lượng)",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "due diligence",
+        "lemma": "due diligence",
+        "meaningVi": "thẩm định (trước khi đầu tư, mua bán)",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "green bond",
+        "lemma": "green bond",
+        "meaningVi": "trái phiếu xanh (huy động vốn cho dự án môi trường)",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "carbon credits",
+        "lemma": "carbon credit",
+        "meaningVi": "tín chỉ các-bon",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "divest",
+        "lemma": "divest",
+        "meaningVi": "thoái vốn, bán bớt khoản đầu tư",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "return on investment",
+        "lemma": "return on investment",
+        "meaningVi": "lợi tức đầu tư (ROI)",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "A bank reviewing its clean-energy investments and deciding what to do next",
+          "The opening of a wind farm in Quang Tri",
+          "A battery factory moving to Hai Phong",
+          "How to install solar panels on a roof"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Buổi họp xem lại các khoản đầu tư năng lượng sạch, trái phiếu xanh và khoản đầu tư vào điện than."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did the solar installer perform badly?",
+        "promptVi": "Vì sao đơn vị lắp điện mặt trời hoạt động kém?",
+        "options": [
+          "Its roofs were damaged in a storm",
+          "A feed-in tariff scheme it relied on ended early",
+          "It could not find enough workers",
+          "Its panels were too expensive to import"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"relied on a feed-in tariff scheme that ended earlier than expected\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the wind farm developer plan to do with the carbon credits?",
+        "promptVi": "Chủ đầu tư điện gió định làm gì với tín chỉ các-bon?",
+        "options": [
+          "Give them to the government",
+          "Keep them for future projects",
+          "Sell them to manufacturers in Japan and Korea",
+          "Exchange them for coal"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"which the developer plans to sell to manufacturers in Japan and Korea.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Trang immediately agrees to sell the stake in the coal plant.",
+        "promptVi": "Trang đồng ý ngay việc bán cổ phần trong nhà máy điện than.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Trang is not so sure\"; cuối cùng họ chọn rút dần trong ba năm."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"coupon\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Several regional pension funds have shown interest, attracted by a fixed annual coupon of around six percent and the growing demand for investments with a measurable environmental impact.",
+        "options": [
+          "lãi suất trả định kỳ của trái phiếu",
+          "phiếu giảm giá khi mua hàng",
+          "hợp đồng thuê đất",
+          "phí môi giới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trong tài chính, coupon là tiền lãi cố định trái phiếu trả cho người nắm giữ mỗi năm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm danh từ phức",
+      "bodyVi": "Văn tài chính hay xếp nhiều danh từ trước một danh từ trung tâm: the bank's green infrastructure venture capital portfolio = danh mục (portfolio) vốn đầu tư mạo hiểm (venture capital) vào hạ tầng (infrastructure) xanh của ngân hàng; the long-term clean technology yield models = các mô hình (models) lợi suất (yield) công nghệ sạch dài hạn. Đọc từ danh từ cuối ngược lên. Bổ ngữ đứng sau: cụm giới từ (a fixed annual coupon of around six percent; investments with a measurable environmental impact), phân từ (the yield models used when the deals were signed; projects backed by long-term government contracts), mệnh đề bỏ that (the due diligence reports the bank prepared). Đồng vị ngữ: a coal-fired power plant…, a holding that still produces steady profits. Đổi sang mệnh đề để hiểu: a proposed green bond issue for a wind farm = someone has proposed that the bank issue a green bond to pay for a wind farm.",
+      "examples": [
+        "It compares the actual and expected returns of the bank's green infrastructure venture capital portfolio over the past three years.",
+        "Two of the seven companies in it, a rooftop solar installer in Binh Duong and a battery storage developer in Hai Phong, have performed far below the long-term clean technology yield models used when the deals were signed.",
+        "Several regional pension funds have shown interest, attracted by a fixed annual coupon of around six percent and the growing demand for investments with a measurable environmental impact.",
+        "Should the bank divest from its remaining stake in a coal-fired power plant in the Mekong Delta, a holding that still produces steady profits?"
+      ]
+    },
+    "writingPrompt": "Write a short note to an investment committee recommending one clean-energy project and one investment to sell. Use at least three complex noun phrases (a noun stack like the regional solar power portfolio, a phrase with of/with/for, a noun + participle such as projects backed by…).",
+    "sentenceTranslations": [
+      "Buổi họp chiến lược hằng quý ở Red River Capital, một ngân hàng đầu tư cỡ vừa ở Hà Nội ngày càng quan tâm đến năng lượng sạch, mở đầu bằng một trang trình chiếu khó chịu.",
+      "Trang đó so sánh lợi nhuận thực tế và lợi nhuận kỳ vọng của danh mục đầu tư mạo hiểm vào hạ tầng xanh của ngân hàng trong ba năm qua.",
+      "Hai trong bảy công ty của danh mục, một đơn vị lắp đặt điện mặt trời áp mái ở Bình Dương và một công ty phát triển hệ thống lưu trữ pin ở Hải Phòng, đã hoạt động kém xa các mô hình lợi suất công nghệ sạch dài hạn được dùng khi ký các thương vụ.",
+      "Giám đốc điều hành Nghiêm Thu Trang không giấu được sự thất vọng.",
+      "Bà hỏi: \"Chuyện gì đã xảy ra với những công ty mà ta từng gọi là doanh nghiệp năng lượng tái tạo triển vọng nhất miền Bắc?\"",
+      "Chuyên viên phân tích cấp cao Kiều Văn Toàn có câu trả lời, dù không đơn giản.",
+      "Anh giải thích rằng đơn vị điện mặt trời dựa vào một cơ chế giá mua điện ưu đãi đã kết thúc sớm hơn dự kiến, còn công ty pin thì đánh giá thấp chi phí các tế bào pin nhập khẩu mà họ cần.",
+      "Cả hai rủi ro đó đều không được coi trọng đúng mức trong các báo cáo thẩm định mà ngân hàng lập trước khi đầu tư.",
+      "Không khí khá hơn với mục tiếp theo: một đợt phát hành trái phiếu xanh được đề xuất cho một trang trại điện gió ven biển Quảng Trị.",
+      "Trái phiếu này, ước tính trị giá 120 triệu đô la trong mười năm, sẽ chi trả cho tua-bin, một trạm biến áp và một con đường dẫn vào mới.",
+      "Một số quỹ hưu trí trong khu vực đã tỏ ra quan tâm, bị thu hút bởi mức lãi coupon cố định khoảng sáu phần trăm mỗi năm và nhu cầu ngày càng lớn đối với các khoản đầu tư có tác động môi trường đo lường được.",
+      "Dự án còn có thể tạo ra tín chỉ các-bon, mà chủ đầu tư dự định bán cho các nhà sản xuất ở Nhật Bản và Hàn Quốc.",
+      "Rồi đến câu hỏi khó nhất của buổi chiều.",
+      "Ngân hàng có nên thoái vốn khỏi phần cổ phần còn lại trong một nhà máy nhiệt điện than ở đồng bằng sông Cửu Long, một khoản nắm giữ vẫn đem lại lợi nhuận đều đặn?",
+      "Toàn cho rằng lợi tức đầu tư của nhà máy sẽ giảm mạnh một khi các quy định khí thải chặt chẽ hơn được áp dụng.",
+      "Trang thì không chắc như vậy.",
+      "Bán bây giờ với giá thấp sẽ làm xấu kết quả năm nay, và một số khách hàng lâu năm của ngân hàng vẫn thích tài sản an toàn, quen thuộc hơn là những thứ mang tính thử nghiệm.",
+      "Đến sáu giờ, một phương án dung hoà được đưa ra: rút dần khỏi than trong ba năm, kết hợp với việc dành phần lớn hơn của danh mục cho các dự án điện gió và điện mặt trời có hợp đồng dài hạn với nhà nước bảo đảm.",
+      "Không ai gọi đó là giải pháp hoàn hảo, nhưng đó là giải pháp mà cả nhóm có thể bảo vệ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đánh giá các khoản đầu tư năng lượng tái tạo và trình bày đề xuất bằng cụm danh từ phức (the green infrastructure venture capital portfolio…).",
+    "examples": [
+      {
+        "lemma": "infrastructure",
+        "sentence": "The province needs better infrastructure before tourists arrive.",
+        "meaningVi": "Tỉnh cần cơ sở hạ tầng tốt hơn trước khi du khách đến."
+      },
+      {
+        "lemma": "venture capital",
+        "sentence": "The app was built with venture capital from Singapore.",
+        "meaningVi": "Ứng dụng được xây dựng bằng vốn đầu tư mạo hiểm từ Singapore."
+      },
+      {
+        "lemma": "portfolio",
+        "sentence": "Her portfolio includes shares in three energy companies.",
+        "meaningVi": "Danh mục đầu tư của cô gồm cổ phiếu của ba công ty năng lượng."
+      },
+      {
+        "lemma": "yield",
+        "sentence": "Government bonds offer a lower yield but less risk.",
+        "meaningVi": "Trái phiếu chính phủ có lợi suất thấp hơn nhưng ít rủi ro hơn."
+      },
+      {
+        "lemma": "renewable",
+        "sentence": "Vietnam wants more electricity from renewable sources.",
+        "meaningVi": "Việt Nam muốn có thêm điện từ các nguồn tái tạo."
+      },
+      {
+        "lemma": "due diligence",
+        "sentence": "The buyers carried out due diligence for three months.",
+        "meaningVi": "Bên mua đã tiến hành thẩm định trong ba tháng."
+      },
+      {
+        "lemma": "green bond",
+        "sentence": "The city sold its first green bond to build electric bus lines.",
+        "meaningVi": "Thành phố phát hành trái phiếu xanh đầu tiên để xây các tuyến xe buýt điện."
+      },
+      {
+        "lemma": "carbon credit",
+        "sentence": "Each carbon credit represents one tonne of carbon dioxide.",
+        "meaningVi": "Mỗi tín chỉ các-bon tương ứng với một tấn khí CO2."
+      },
+      {
+        "lemma": "divest",
+        "sentence": "The university decided to divest from oil companies.",
+        "meaningVi": "Trường đại học quyết định thoái vốn khỏi các công ty dầu mỏ."
+      },
+      {
+        "lemma": "return on investment",
+        "sentence": "The new machines gave a good return on investment.",
+        "meaningVi": "Máy móc mới đem lại lợi tức đầu tư tốt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Toan",
+        "Ms Quynh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Ms Quynh, thank you for meeting us. Has your fund read the summary of the Quang Tri wind bond?",
+          "meaningVi": "Chị Quỳnh, cảm ơn chị đã gặp chúng tôi. Quỹ của chị đã đọc bản tóm tắt về trái phiếu điện gió Quảng Trị chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "We have. The fixed six percent coupon is attractive, but our board has questions.",
+          "meaningVi": "Chúng tôi đọc rồi. Lãi coupon cố định sáu phần trăm khá hấp dẫn, nhưng hội đồng của chúng tôi có vài câu hỏi."
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. What worries them most?",
+          "meaningVi": "Tất nhiên. Điều gì khiến họ lo nhất?"
+        },
+        {
+          "speaker": 1,
+          "text": "The wind speed data used in your energy output forecasts comes from only one year of measurements.",
+          "meaningVi": "Dữ liệu tốc độ gió dùng trong các dự báo sản lượng điện của các anh chỉ dựa trên một năm đo đạc."
+        },
+        {
+          "speaker": 0,
+          "text": "That's fair. A second measurement tower installed in March will give us two full years by next spring.",
+          "meaningVi": "Cũng có lý. Một cột đo thứ hai lắp hồi tháng Ba sẽ cho chúng tôi đủ hai năm số liệu vào mùa xuân tới."
+        },
+        {
+          "speaker": 1,
+          "text": "And who checks that the money is really spent on the turbines and the road?",
+          "meaningVi": "Thế ai kiểm tra rằng tiền thực sự được chi cho tua-bin và con đường?"
+        },
+        {
+          "speaker": 0,
+          "text": "An independent audit firm will publish a report on the use of funds every six months.",
+          "meaningVi": "Một công ty kiểm toán độc lập sẽ công bố báo cáo về việc sử dụng vốn sáu tháng một lần."
+        },
+        {
+          "speaker": 1,
+          "text": "Then I think the board will ask for a meeting with the developer. Can you arrange it?",
+          "meaningVi": "Vậy tôi nghĩ hội đồng sẽ đề nghị gặp chủ đầu tư. Anh sắp xếp được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'll send you three possible dates before the end of the week.",
+          "meaningVi": "Tôi sẽ gửi chị ba ngày có thể gặp trước cuối tuần."
+        }
+      ]
+    },
+    "grammarTipVi": "Một danh từ có thể được bổ nghĩa cả trước lẫn sau: the wind speed data (chuỗi danh từ) used in your energy output forecasts (phân từ); a second measurement tower installed in March; a report on the use of funds (cụm giới từ lồng nhau).",
+    "translations": [
+      {
+        "vi": "Ngân hàng nên thoái vốn khỏi nhà máy nhiệt điện than.",
+        "en": "The bank should divest from the coal power plant.",
+        "distractors": [
+          "divests",
+          "planted",
+          "into"
+        ]
+      },
+      {
+        "vi": "Trái phiếu xanh này sẽ tài trợ cho một trang trại điện gió.",
+        "en": "This green bond will finance a wind farm.",
+        "distractors": [
+          "bonds",
+          "financed",
+          "winds"
+        ]
+      },
+      {
+        "vi": "Lợi tức đầu tư dài hạn sẽ giảm mạnh.",
+        "en": "The long-term return on investment will fall sharply.",
+        "distractors": [
+          "fell",
+          "invest",
+          "sharpen"
+        ]
+      },
+      {
+        "vi": "Dự án còn có thể tạo ra tín chỉ các-bon.",
+        "en": "The project could also generate carbon credits.",
+        "distractors": [
+          "credited",
+          "generates",
+          "projected"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Toàn và chị Quỳnh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trái phiếu cho dự án điện gió Quảng Trị",
+          "Việc bán nhà máy điện than",
+          "Một khoản vay mua nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toàn hỏi về \"the summary of the Quang Tri wind bond\".",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hội đồng của quỹ lo nhất điều gì?",
+        "promptVi": "",
+        "options": [
+          "Số liệu tốc độ gió chỉ có một năm",
+          "Lãi suất quá thấp",
+          "Con đường quá dài"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Quỳnh nói dữ liệu \"comes from only one year of measurements.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai kiểm tra việc sử dụng vốn?",
+        "promptVi": "",
+        "options": [
+          "Một công ty kiểm toán độc lập",
+          "Chính quyền tỉnh",
+          "Chính chủ đầu tư"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toàn nói \"An independent audit firm will publish a report on the use of funds\".",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The second measurement tower was installed in March.",
+        "promptVi": "Cột đo thứ hai được lắp vào tháng Ba.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì \"A second measurement tower installed in March\".",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Vì sao hai công ty trong danh mục hoạt động kém? Trái phiếu xanh hấp dẫn nhà đầu tư ở điểm nào, và ngân hàng quyết định thế nào về nhà máy điện than?",
+    "grammarStep": {
+      "titleVi": "Cụm danh từ phức",
+      "noticing": [
+        {
+          "sentence": "It compares the actual and expected returns of the bank's green infrastructure venture capital portfolio over the past three years.",
+          "highlights": [
+            "the bank's green infrastructure venture capital portfolio"
+          ]
+        },
+        {
+          "sentence": "Two of the seven companies in it, a rooftop solar installer in Binh Duong and a battery storage developer in Hai Phong, have performed far below the long-term clean technology yield models used when the deals were signed.",
+          "highlights": [
+            "the long-term clean technology yield models used when the deals were signed"
+          ]
+        },
+        {
+          "sentence": "Several regional pension funds have shown interest, attracted by a fixed annual coupon of around six percent and the growing demand for investments with a measurable environmental impact.",
+          "highlights": [
+            "a fixed annual coupon of around six percent",
+            "investments with a measurable environmental impact"
+          ]
+        },
+        {
+          "sentence": "Should the bank divest from its remaining stake in a coal-fired power plant in the Mekong Delta, a holding that still produces steady profits?",
+          "highlights": [
+            "its remaining stake in a coal-fired power plant in the Mekong Delta",
+            "a holding that still produces steady profits"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"một danh mục vốn đầu tư mạo hiểm vào hạ tầng xanh\". Cụm nào đúng?",
+      "options": [
+        "a green infrastructure venture capital portfolio",
+        "a green infrastructures venture capitals portfolio",
+        "a portfolio green of infrastructure venture capital"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Danh từ trung tâm portfolio đứng cuối; infrastructure và venture capital bổ nghĩa đứng trước ở số ít; tính từ green đứng đầu.",
+      "whenVi": "Dùng nhiều trong báo cáo đầu tư, bản cáo bạch trái phiếu và tin tài chính: chuỗi danh từ gọi tên chính xác loại tài sản, còn bổ ngữ đứng sau thêm điều kiện, con số.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không viết"
+      ],
+      "table": [
+        {
+          "subject": "Chuỗi danh từ",
+          "form": "a green infrastructure venture capital portfolio",
+          "negative": "a green infrastructures portfolio"
+        },
+        {
+          "subject": "Tính từ ghép",
+          "form": "a coal-fired power plant; a ten-year bond",
+          "negative": "a ten-years bond"
+        },
+        {
+          "subject": "Danh từ + of/with/for",
+          "form": "a coupon of six percent; investments with a measurable impact",
+          "negative": "a six percent of coupon"
+        },
+        {
+          "subject": "Danh từ + phân từ / mệnh đề",
+          "form": "projects backed by government contracts; the reports the bank prepared",
+          "negative": "projects are backed by government contracts"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "a ten-years green bond",
+          "right": "a ten-year green bond"
+        },
+        {
+          "wrong": "projects are backed by government contracts are safer",
+          "right": "projects backed by government contracts are safer"
+        },
+        {
+          "wrong": "a green infrastructures portfolio",
+          "right": "a green infrastructure portfolio"
+        }
+      ],
+      "noteVi": "Chuỗi trên bốn danh từ khó đọc ngay cả với người bản ngữ; khi viết, hãy tách bớt ra sau bằng cụm giới từ: the bank's portfolio of venture capital investments in green infrastructure.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Trái phiếu kỳ hạn mười năm. Điền một từ vào chỗ trống.",
+          "text": "The bank issued a ten-___ green bond for the wind farm.",
+          "answers": [
+            "year"
+          ],
+          "explanationVi": "Tính từ ghép có số dùng danh từ số ít: a ten-year bond."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Quy định khí thải sẽ chặt hơn và điều đó sẽ làm giảm lợi nhuận. Chọn cụm danh từ đúng.",
+          "text": "The ___ will cut profits.",
+          "options": [
+            "introduction of stricter emission rules",
+            "introduce of stricter emission rules",
+            "stricter emission rules introducing",
+            "emission rules stricter introduction"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Danh từ hoá động từ (introduce → introduction) rồi thêm of + cụm danh từ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The bond pays a six-percents annual coupon.",
+          "sentence": "The bond pays a six-percent annual coupon.",
+          "explanationVi": "Trong tính từ ghép có số, danh từ không thêm -s: six-percent.",
+          "answers": [
+            "The bond pays a six per cent annual coupon.",
+            "The bond pays a six percent annual coupon.",
+            "The bond pays a six-per-cent annual coupon."
+          ]
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ngân hàng sở hữu một nhà máy nhiệt điện than.",
+          "sentence": "The bank owns a coal-fired power plant.",
+          "words": [
+            "The",
+            "bank",
+            "owns",
+            "a",
+            "coal-fired",
+            "power",
+            "plant.",
+            "of"
+          ],
+          "explanationVi": "Tính từ ghép coal-fired và danh từ power đứng trước danh từ trung tâm plant; không cần \"of\"."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Managing director Nghiem Thu Trang does not hide her disappointment.",
+        "tipVi": "Nhấn does not hide; disappointment /ˌdɪsəˈpɔɪntmənt/."
+      },
+      {
+        "text": "Then comes the hardest question of the afternoon.",
+        "tipVi": "Nhấn hardest question, lên giọng nhẹ để báo hiệu điều quan trọng sắp đến."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Would you put your savings into a renewable energy project? Why or why not?",
+        "questionVi": "Bạn có bỏ tiền tiết kiệm vào một dự án năng lượng tái tạo không? Vì sao?",
+        "frame": "I would invest in a ___ project with ___."
+      },
+      {
+        "question": "Should banks stop investing in coal? Why?",
+        "questionVi": "Ngân hàng có nên ngừng đầu tư vào than không? Vì sao?",
+        "frame": "A gradual exit from ___ over ___ would ___."
+      },
+      {
+        "question": "What information would you want before investing in a new company?",
+        "questionVi": "Bạn muốn có thông tin gì trước khi đầu tư vào một công ty mới?",
+        "frame": "I would want a detailed report on ___ prepared by ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có cụm danh từ phức (vd. a fifteen-year solar power project, contracts signed with…)",
+      "anyOf": [
+        "backed by",
+        "signed with",
+        "raised from",
+        "yield of",
+        "long-term",
+        "ten-year",
+        "fifteen-year",
+        "power project"
+      ],
+      "outlineVi": [
+        "Giới thiệu dự án năng lượng sạch bạn đề xuất bằng một chuỗi danh từ (a rooftop solar power project…).",
+        "Nêu lợi suất, rủi ro bằng cụm có of/with và phân từ (a coupon of…, contracts signed with…).",
+        "Đề xuất khoản đầu tư cần bán và lý do."
+      ],
+      "modelAnswer": "To the investment committee: I recommend a fifteen-year rooftop solar power project for industrial parks in Bac Ninh. The project, backed by long-term contracts with three electronics factories, offers an expected yield of about seven percent. The main risk is the cost of imported panels, which has risen this year. At the same time, I suggest that we sell our shares in a cement company with high carbon emissions. The money raised from the sale could fund the first stage of the solar project."
+    }
+  },
+  "glosses": [
+    {
+      "text": "feed-in tariff",
+      "lemma": "feed-in tariff",
+      "meaningVi": "giá mua điện ưu đãi (nhà nước mua điện tái tạo với giá cố định)",
+      "pos": "noun",
+      "phrase": "a feed-in tariff scheme",
+      "phraseVi": "một cơ chế giá mua điện ưu đãi",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "underestimated",
+      "lemma": "underestimate",
+      "meaningVi": "đánh giá thấp",
+      "pos": "verb",
+      "phrase": "underestimated the cost of the imported cells",
+      "phraseVi": "đánh giá thấp chi phí các tế bào pin nhập khẩu",
+      "sentenceIndex": 6
+    },
+    {
+      "text": "coupon",
+      "lemma": "coupon",
+      "meaningVi": "lãi trái phiếu trả định kỳ",
+      "pos": "noun",
+      "phrase": "a fixed annual coupon of around six percent",
+      "phraseVi": "mức lãi coupon cố định khoảng sáu phần trăm mỗi năm",
+      "sentenceIndex": 10
+    },
+    {
+      "text": "stake",
+      "lemma": "stake",
+      "meaningVi": "phần vốn góp, cổ phần",
+      "pos": "noun",
+      "phrase": "its remaining stake",
+      "phraseVi": "phần cổ phần còn lại",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "compromise",
+      "lemma": "compromise",
+      "meaningVi": "sự thoả hiệp, phương án dung hoà",
+      "pos": "noun",
+      "phrase": "a compromise is on the table",
+      "phraseVi": "một phương án dung hoà được đưa ra",
+      "sentenceIndex": 17
+    }
+  ]
+}

@@ -310,7 +310,7 @@
         "distractors": [
           "transparent",
           "cannot",
-          "saves"
+          "saving"
         ]
       }
     ],
@@ -404,16 +404,26 @@
       "answerIndex": 0,
       "explanationVi": "No sooner + had + chủ ngữ + V3, rồi dùng than (Hardly mới đi với when).",
       "whenVi": "Dùng đảo ngữ trong bản tin, báo cáo pháp lý, bài phân tích để nhấn mạnh tốc độ hoặc mức độ nghiêm trọng. Dùng do nhấn mạnh khi khẳng định một sự thật mà người khác có thể nghi ngờ.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
           "subject": "No sooner … than",
-          "form": "No sooner had + S + V3 … than + quá khứ đơn",
-          "negative": "= vừa … thì …; không dùng when"
+          "form": "No sooner had the advert gone on air than doctors complained.",
+          "negative": "No sooner had + S + V3 … than; không dùng when"
         },
         {
-          "subject": "Not only / Only if",
-          "form": "Not only was + S …, but S also … / Only if + mệnh đề, would + S + V",
-          "negative": "Đảo ở mệnh đề chính"
+          "subject": "Not only",
+          "form": "Not only was the claim false, but it was also dangerous.",
+          "negative": "Đảo ở mệnh đề chính: was the claim"
+        },
+        {
+          "subject": "Only if",
+          "form": "Only if new tests proved the claim would the advert be allowed back.",
+          "negative": "Đảo ở mệnh đề chính, không đảo sau Only if"
         },
         {
           "subject": "do / does / did + V",
@@ -457,14 +467,14 @@
         },
         {
           "kind": "fix",
-          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng, giữ \"Rarely\" ở đầu câu.",
           "text": "Rarely I have seen a company lose trust so fast.",
           "sentence": "Rarely have I seen a company lose trust so fast.",
           "explanationVi": "Rarely đầu câu → đảo: have I seen."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "promptVi": "Sắp xếp các từ thành câu đúng, có do nhấn mạnh.",
           "text": "Viên nang này thật sự giúp một số người ngủ ngon hơn.",
           "sentence": "The capsules do help some people sleep better.",
           "words": [
@@ -510,18 +520,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ và 1 câu với do/does/did nhấn mạnh",
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (No sooner had… / Hardly had… / Not only was/did/is… / Only if… / Only after… / Only when…)",
       "anyOf": [
-        "no sooner",
-        "not only",
+        "no sooner had",
+        "hardly had",
+        "not only was",
+        "not only did",
+        "not only is",
         "only if",
         "only after",
-        "only when",
-        "hardly",
-        "rarely",
-        " do ",
-        " does ",
-        " did "
+        "only when"
       ],
       "outlineVi": [
         "Quảng cáo đã khẳng định điều gì sai.",

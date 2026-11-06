@@ -1,0 +1,617 @@
+{
+  "content": "On the twenty-third floor of a co-working tower in Thu Duc City, the five-person leadership team of ChoMay, a fast-growing Vietnamese online marketplace for handmade homeware, is preparing for the most important board meeting in its short history. Two years after its launch, the startup now connects around four thousand small workshops with buyers in nine countries.\n\nChief executive Vuong Kim Ngan opens with the quarterly cross-border trade volume distribution figures. Almost sixty percent of last quarter's orders came from outside Vietnam, with Singapore, Australia and South Korea accounting for most of the growth. \"A ceramic bowl made by a family workshop in Bat Trang can now reach a kitchen in Melbourne in six days,\" she says proudly. Yet the average value of each transaction, roughly thirty-five dollars, remains stubbornly low.\n\nThe second part of the meeting is less comfortable. Head of operations Ha Duc Phong presents the latest updates to the regional payment processing framework that several Southeast Asian banks introduced in October. Under the new rules, every payment gateway handling foreign card payments must verify the identity of both buyer and seller within forty-eight hours. \"Our current system wasn't designed for checks of this kind,\" Phong admits. The cost of compliance, he warns, could exceed the company's entire marketing budget for the coming year.\n\nThen there is logistics. Most sellers on the platform still pack their goods by hand and drop them at a single sorting centre outside Hanoi, a system that works for two hundred parcels a day but not for two thousand. How can a platform built for small workshops grow without losing the personal touch its buyers value? The question of scalability, Ngan argues, is not only technical but cultural.\n\nInvestors, meanwhile, are watching closely. A Singapore-based investment fund is said to be considering a second funding round at a valuation of around sixty million dollars, a figure that Ngan privately considers optimistic. Before any money arrives, however, the fund will want detailed answers on fraud rates, delivery times and the growth of the e-commerce sector in the region. Ngan closes her laptop, looks at her tired team and smiles. \"Nobody said selling bowls to the world would be easy,\" she says.",
+  "targetWords": [
+    "marketplace",
+    "startup",
+    "cross-border",
+    "transaction",
+    "payment gateway",
+    "compliance",
+    "logistics",
+    "scalability",
+    "valuation",
+    "e-commerce"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "marketplace",
+        "lemma": "marketplace",
+        "meaningVi": "sàn giao dịch, chợ (trực tuyến)",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "startup",
+        "lemma": "startup",
+        "meaningVi": "công ty khởi nghiệp",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cross-border",
+        "lemma": "cross-border",
+        "meaningVi": "xuyên biên giới",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "transaction",
+        "lemma": "transaction",
+        "meaningVi": "giao dịch",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "payment gateway",
+        "lemma": "payment gateway",
+        "meaningVi": "cổng thanh toán",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "compliance",
+        "lemma": "compliance",
+        "meaningVi": "sự tuân thủ (quy định, luật)",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "logistics",
+        "lemma": "logistics",
+        "meaningVi": "hậu cần, khâu vận chuyển và kho vận",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "scalability",
+        "lemma": "scalability",
+        "meaningVi": "khả năng mở rộng quy mô",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "valuation",
+        "lemma": "valuation",
+        "meaningVi": "mức định giá (doanh nghiệp)",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "e-commerce",
+        "lemma": "e-commerce",
+        "meaningVi": "thương mại điện tử",
+        "pos": "noun",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "The leaders of an online marketplace reviewing its growth abroad and its new problems",
+          "How ceramic bowls are made in Bat Trang",
+          "A bank opening new branches in Southeast Asia",
+          "A delivery company closing its sorting centre"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ban lãnh đạo ChoMay xem số liệu đơn hàng nước ngoài, quy định thanh toán mới, hậu cần và vòng gọi vốn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where did most of the growth in orders come from?",
+        "promptVi": "Phần lớn mức tăng đơn hàng đến từ đâu?",
+        "options": [
+          "Hanoi and Ho Chi Minh City",
+          "Singapore, Australia and South Korea",
+          "Cambodia and Laos",
+          "Europe and the United States"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"with Singapore, Australia and South Korea accounting for most of the growth.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What must every payment gateway now do?",
+        "promptVi": "Mọi cổng thanh toán giờ phải làm gì?",
+        "options": [
+          "Lower its fees for small sellers",
+          "Accept only local cards",
+          "Check who the buyer and the seller are within 48 hours",
+          "Send money to sellers every day"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"must verify the identity of both buyer and seller within forty-eight hours.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngan thinks the valuation of sixty million dollars is too low.",
+        "promptVi": "Ngân cho rằng mức định giá sáu mươi triệu đô la là quá thấp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà \"privately considers [it] optimistic\", tức là cho là khá cao."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"verify\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Under the new rules, every payment gateway handling foreign card payments must verify the identity of both buyer and seller within forty-eight hours.",
+        "options": [
+          "xác minh",
+          "thay đổi",
+          "che giấu",
+          "bỏ qua"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Verify = xác minh, kiểm tra cho chắc là đúng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm danh từ phức",
+      "bodyVi": "Bài đọc dùng nhiều cụm danh từ dài để nói gọn. (1) Chuỗi danh từ: the quarterly cross-border trade volume distribution figures = các số liệu (figures) về sự phân bổ (distribution) của khối lượng (volume) giao dịch thương mại xuyên biên giới, hằng quý. Đọc từ danh từ cuối ngược về trước. Tính từ ghép: a five-person leadership team, a Singapore-based investment fund (không có -s ở person). (2) Bổ ngữ đứng sau: phân từ (a ceramic bowl made by a family workshop; every payment gateway handling foreign card payments; a platform built for small workshops), mệnh đề quan hệ (the framework that several banks introduced), mệnh đề bỏ that (the personal touch its buyers value), cụm giới từ (the cost of compliance). (3) Đồng vị ngữ: ChoMay, a fast-growing Vietnamese online marketplace for handmade homeware. Đối chiếu với mệnh đề: the quarterly cross-border trade volume figures = how much the company traded across borders each quarter.",
+      "examples": [
+        "On the twenty-third floor of a co-working tower in Thu Duc City, the five-person leadership team of ChoMay, a fast-growing Vietnamese online marketplace for handmade homeware, is preparing for the most important board meeting in its short history.",
+        "Chief executive Vuong Kim Ngan opens with the quarterly cross-border trade volume distribution figures.",
+        "Head of operations Ha Duc Phong presents the latest updates to the regional payment processing framework that several Southeast Asian banks introduced in October.",
+        "How can a platform built for small workshops grow without losing the personal touch its buyers value?"
+      ]
+    },
+    "writingPrompt": "Write a short update for investors about an online business selling to other countries. Use at least three complex noun phrases, e.g. a noun stack (the monthly cross-border order figures), a noun + participle (products made by…, sellers using…) and a noun + relative clause.",
+    "sentenceTranslations": [
+      "Trên tầng hai mươi ba của một toà nhà văn phòng chia sẻ ở thành phố Thủ Đức, ban lãnh đạo năm người của ChoMay, một sàn thương mại trực tuyến Việt Nam bán đồ gia dụng thủ công đang tăng trưởng nhanh, chuẩn bị cho cuộc họp hội đồng quản trị quan trọng nhất trong lịch sử ngắn ngủi của công ty.",
+      "Hai năm sau khi ra đời, công ty khởi nghiệp này hiện kết nối khoảng bốn nghìn xưởng nhỏ với người mua ở chín quốc gia.",
+      "Giám đốc điều hành Vương Kim Ngân mở đầu bằng các số liệu phân bổ khối lượng giao dịch xuyên biên giới hằng quý.",
+      "Gần sáu mươi phần trăm đơn hàng quý trước đến từ ngoài Việt Nam, trong đó Singapore, Úc và Hàn Quốc chiếm phần lớn mức tăng trưởng.",
+      "Bà tự hào nói: \"Một chiếc bát gốm do một xưởng gia đình ở Bát Tràng làm ra giờ có thể đến một gian bếp ở Melbourne trong sáu ngày.\"",
+      "Thế nhưng giá trị trung bình của mỗi giao dịch, khoảng ba mươi lăm đô la, vẫn thấp một cách dai dẳng.",
+      "Phần thứ hai của cuộc họp kém dễ chịu hơn.",
+      "Trưởng bộ phận vận hành Hà Đức Phong trình bày những cập nhật mới nhất của khung xử lý thanh toán khu vực mà một số ngân hàng Đông Nam Á đưa ra hồi tháng Mười.",
+      "Theo quy định mới, mọi cổng thanh toán xử lý giao dịch thẻ nước ngoài phải xác minh danh tính của cả người mua lẫn người bán trong vòng bốn mươi tám giờ.",
+      "Phong thừa nhận: \"Hệ thống hiện tại của chúng ta không được thiết kế cho kiểu kiểm tra này.\"",
+      "Anh cảnh báo rằng chi phí tuân thủ có thể vượt cả ngân sách tiếp thị của công ty cho năm tới.",
+      "Rồi còn chuyện hậu cần.",
+      "Phần lớn người bán trên nền tảng vẫn tự tay đóng gói hàng và gửi tại một trung tâm phân loại duy nhất ở ngoại thành Hà Nội, một hệ thống chạy được với hai trăm kiện mỗi ngày nhưng không kham nổi hai nghìn kiện.",
+      "Làm sao một nền tảng xây dựng cho các xưởng nhỏ có thể lớn lên mà không đánh mất nét riêng tư, gần gũi mà người mua trân trọng?",
+      "Ngân cho rằng câu hỏi về khả năng mở rộng quy mô không chỉ là chuyện kỹ thuật mà còn là chuyện văn hoá.",
+      "Trong khi đó, các nhà đầu tư đang theo dõi sát sao.",
+      "Nghe nói một quỹ đầu tư có trụ sở ở Singapore đang cân nhắc vòng gọi vốn thứ hai với mức định giá khoảng sáu mươi triệu đô la, một con số mà riêng Ngân cho là lạc quan.",
+      "Tuy vậy, trước khi tiền về, quỹ sẽ muốn có câu trả lời chi tiết về tỷ lệ gian lận, thời gian giao hàng và sự tăng trưởng của ngành thương mại điện tử trong khu vực.",
+      "Ngân gập máy tính, nhìn đội ngũ đang mệt mỏi của mình và mỉm cười.",
+      "Bà nói: \"Có ai bảo bán bát ra thế giới là dễ đâu.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể báo cáo số liệu thương mại điện tử xuyên biên giới và quy định thanh toán bằng cụm danh từ phức (the quarterly cross-border trade volume figures…).",
+    "examples": [
+      {
+        "lemma": "marketplace",
+        "sentence": "She sells her paintings on an online marketplace.",
+        "meaningVi": "Cô ấy bán tranh trên một sàn thương mại trực tuyến."
+      },
+      {
+        "lemma": "startup",
+        "sentence": "He left his bank job to join a small startup.",
+        "meaningVi": "Anh ấy bỏ việc ở ngân hàng để gia nhập một công ty khởi nghiệp nhỏ."
+      },
+      {
+        "lemma": "cross-border",
+        "sentence": "Young people now find cross-border shopping easy.",
+        "meaningVi": "Giờ đây người trẻ thấy mua sắm xuyên biên giới thật dễ dàng."
+      },
+      {
+        "lemma": "transaction",
+        "sentence": "Every transaction is recorded in the system.",
+        "meaningVi": "Mọi giao dịch đều được ghi lại trong hệ thống."
+      },
+      {
+        "lemma": "payment gateway",
+        "sentence": "The shop changed its payment gateway after many failed orders.",
+        "meaningVi": "Cửa hàng đổi cổng thanh toán sau nhiều đơn hàng bị lỗi."
+      },
+      {
+        "lemma": "compliance",
+        "sentence": "The bank hired more staff to check compliance with the new law.",
+        "meaningVi": "Ngân hàng tuyển thêm nhân viên để kiểm tra việc tuân thủ luật mới."
+      },
+      {
+        "lemma": "logistics",
+        "sentence": "Good logistics are the key to fast delivery.",
+        "meaningVi": "Hậu cần tốt là chìa khoá để giao hàng nhanh."
+      },
+      {
+        "lemma": "scalability",
+        "sentence": "Investors asked about the scalability of the app.",
+        "meaningVi": "Nhà đầu tư hỏi về khả năng mở rộng quy mô của ứng dụng."
+      },
+      {
+        "lemma": "valuation",
+        "sentence": "The company's valuation doubled in one year.",
+        "meaningVi": "Mức định giá của công ty tăng gấp đôi trong một năm."
+      },
+      {
+        "lemma": "e-commerce",
+        "sentence": "The growth of e-commerce has changed the way Vietnamese families shop.",
+        "meaningVi": "Sự phát triển của thương mại điện tử đã thay đổi cách các gia đình Việt mua sắm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phong",
+        "Mrs Thanh Hien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mrs Thanh Hien, thank you for calling back. Have you seen our message about the new identity checks?",
+          "meaningVi": "Chị Thanh Hiền, cảm ơn chị đã gọi lại. Chị đã xem tin nhắn của bên em về việc xác minh danh tính mới chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "I have, but I don't understand it. Why does a pottery workshop need to send a photo of my ID card?",
+          "meaningVi": "Tôi xem rồi, nhưng không hiểu. Sao một xưởng gốm lại phải gửi ảnh căn cước của tôi?"
+        },
+        {
+          "speaker": 0,
+          "text": "It is part of a regional rule introduced by banks to stop online card fraud.",
+          "meaningVi": "Đó là một phần của quy định khu vực do các ngân hàng đưa ra để chặn gian lận thẻ trên mạng."
+        },
+        {
+          "speaker": 1,
+          "text": "And if I refuse, what happens to the orders from my Australian customers?",
+          "meaningVi": "Thế nếu tôi từ chối thì đơn hàng của khách Úc của tôi sẽ ra sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "Payments from foreign cards would be blocked until the check is complete.",
+          "meaningVi": "Các khoản thanh toán bằng thẻ nước ngoài sẽ bị chặn cho đến khi kiểm tra xong."
+        },
+        {
+          "speaker": 1,
+          "text": "That is half of my income. How long does the whole process take?",
+          "meaningVi": "Đó là một nửa thu nhập của tôi. Toàn bộ quy trình mất bao lâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Usually less than a day for sellers who upload clear documents.",
+          "meaningVi": "Thường chưa đến một ngày với những người bán tải lên giấy tờ rõ ràng."
+        },
+        {
+          "speaker": 1,
+          "text": "All right. Can your staff help the older potters in our village with the upload?",
+          "meaningVi": "Được rồi. Nhân viên bên anh có thể giúp các nghệ nhân lớn tuổi trong làng tải giấy tờ lên không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we're sending a small support team to Bat Trang next Tuesday.",
+          "meaningVi": "Có, thứ Ba tới bên em sẽ cử một nhóm hỗ trợ nhỏ xuống Bát Tràng."
+        }
+      ]
+    },
+    "grammarTipVi": "Phân từ đứng sau danh từ thay cho mệnh đề: a regional rule introduced by banks (= which was introduced by banks); payments from foreign cards (cụm giới từ); sellers who upload clear documents (mệnh đề quan hệ chủ ngữ, không được bỏ who).",
+    "translations": [
+      {
+        "vi": "Giá trị trung bình của mỗi giao dịch vẫn còn thấp.",
+        "en": "The average value of each transaction remains low.",
+        "distractors": [
+          "transactions",
+          "remain",
+          "lowly"
+        ]
+      },
+      {
+        "vi": "Mọi cổng thanh toán phải xác minh danh tính người mua.",
+        "en": "Every payment gateway must verify the buyer's identity.",
+        "distractors": [
+          "verifies",
+          "payments",
+          "gateways"
+        ]
+      },
+      {
+        "vi": "Chi phí tuân thủ có thể vượt ngân sách tiếp thị của chúng tôi.",
+        "en": "The cost of compliance could exceed our marketing budget.",
+        "distractors": [
+          "comply",
+          "exceeds",
+          "markets"
+        ]
+      },
+      {
+        "vi": "Công ty khởi nghiệp này hiện kết nối bốn nghìn xưởng nhỏ.",
+        "en": "This startup now connects four thousand small workshops.",
+        "distractors": [
+          "thousands",
+          "connecting",
+          "workshop"
+        ],
+        "accepted": [
+          "Now this startup connects four thousand small workshops.",
+          "This startup connects four thousand small workshops now."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Phong và chị Thanh Hiền nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Quy định xác minh danh tính mới cho người bán",
+          "Giá bát gốm ở Úc",
+          "Việc mở xưởng mới ở Hà Nội"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong hỏi \"Have you seen our message about the new identity checks?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quy định mới được đưa ra để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Để chặn gian lận thẻ trên mạng",
+          "Để thu thêm thuế",
+          "Để giảm phí vận chuyển"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong nói \"to stop online card fraud.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thường mất bao lâu để kiểm tra xong?",
+        "promptVi": "",
+        "options": [
+          "Chưa đến một ngày",
+          "Một tuần",
+          "Một tháng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong nói \"Usually less than a day\".",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "A support team will visit Bat Trang next Tuesday.",
+        "promptVi": "Một nhóm hỗ trợ sẽ đến Bát Tràng vào thứ Ba tới.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Phong nói \"we're sending a small support team to Bat Trang next Tuesday.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "ChoMay đã tăng trưởng thế nào ở nước ngoài? Ba khó khăn mà ban lãnh đạo phải đối mặt là gì, và các nhà đầu tư muốn biết thêm điều gì?",
+    "grammarStep": {
+      "titleVi": "Cụm danh từ phức",
+      "noticing": [
+        {
+          "sentence": "On the twenty-third floor of a co-working tower in Thu Duc City, the five-person leadership team of ChoMay, a fast-growing Vietnamese online marketplace for handmade homeware, is preparing for the most important board meeting in its short history.",
+          "highlights": [
+            "the five-person leadership team of ChoMay",
+            "a fast-growing Vietnamese online marketplace for handmade homeware"
+          ]
+        },
+        {
+          "sentence": "Chief executive Vuong Kim Ngan opens with the quarterly cross-border trade volume distribution figures.",
+          "highlights": [
+            "the quarterly cross-border trade volume distribution figures"
+          ]
+        },
+        {
+          "sentence": "Head of operations Ha Duc Phong presents the latest updates to the regional payment processing framework that several Southeast Asian banks introduced in October.",
+          "highlights": [
+            "the latest updates to the regional payment processing framework that several Southeast Asian banks introduced in October"
+          ]
+        },
+        {
+          "sentence": "How can a platform built for small workshops grow without losing the personal touch its buyers value?",
+          "highlights": [
+            "a platform built for small workshops",
+            "the personal touch its buyers value"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"các số liệu khối lượng thương mại xuyên biên giới hằng quý\". Cụm nào đúng?",
+      "options": [
+        "the quarterly cross-border trade volume figures",
+        "the quarterly cross-borders trades volume figures",
+        "the figures quarterly of cross-border trade volume"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Danh từ trung tâm figures đứng cuối; cross-border, trade, volume bổ nghĩa đứng trước ở số ít; tính từ quarterly đứng đầu.",
+      "whenVi": "Hay gặp trong báo cáo cho nhà đầu tư, tin công nghệ và văn bản quy định: cụm danh từ dài giúp nêu số liệu và quy tắc chính xác, gọn gàng.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không viết"
+      ],
+      "table": [
+        {
+          "subject": "Chuỗi danh từ",
+          "form": "the payment processing framework",
+          "negative": "the payments processings framework"
+        },
+        {
+          "subject": "Tính từ ghép",
+          "form": "a five-person team; a Singapore-based fund",
+          "negative": "a five-persons team"
+        },
+        {
+          "subject": "Danh từ + phân từ",
+          "form": "a bowl made by a family workshop; gateways handling card payments",
+          "negative": "a bowl was made by a family workshop"
+        },
+        {
+          "subject": "Danh từ + mệnh đề quan hệ",
+          "form": "the touch (that) its buyers value; sellers who upload documents",
+          "negative": "sellers upload documents"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "a five-persons leadership team",
+          "right": "a five-person leadership team"
+        },
+        {
+          "wrong": "We need a system can handle two thousand parcels.",
+          "right": "We need a system that can handle two thousand parcels."
+        },
+        {
+          "wrong": "a bowl was made by a family workshop can reach Melbourne",
+          "right": "a bowl made by a family workshop can reach Melbourne"
+        }
+      ],
+      "noteVi": "Chỉ được bỏ that/which/who khi nó là tân ngữ của mệnh đề (the touch [that] its buyers value); khi nó là chủ ngữ thì phải giữ, hoặc đổi sang phân từ (sellers uploading documents).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một phân từ (nền tảng được xây dựng cho các xưởng nhỏ).",
+          "text": "It is a platform ___ for small workshops.",
+          "answers": [
+            "built",
+            "designed",
+            "made",
+            "created",
+            "developed"
+          ],
+          "explanationVi": "Phân từ bị động đứng sau danh từ: a platform built for… = which was built for…"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Doanh số ở nước ngoài tăng nhanh, điều này làm nhà đầu tư bất ngờ. Chọn cụm danh từ đúng.",
+          "text": "The ___ surprised investors.",
+          "options": [
+            "rapid growth in foreign sales",
+            "rapidly growth of foreign sales",
+            "foreign sales grew rapid",
+            "growth rapid of foreign sales"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "grew rapidly → rapid growth; thêm in + danh từ: rapid growth in foreign sales."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We need a system can handle two thousand parcels.",
+          "sentence": "We need a system that can handle two thousand parcels.",
+          "explanationVi": "Đại từ quan hệ that/which là chủ ngữ của mệnh đề (that can handle…) nên không được bỏ.",
+          "answers": [
+            "We need a system which can handle two thousand parcels."
+          ]
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nền tảng này cần một hệ thống giao hàng nhanh hơn.",
+          "sentence": "The platform needs a faster delivery system.",
+          "words": [
+            "The",
+            "platform",
+            "needs",
+            "a",
+            "faster",
+            "delivery",
+            "system.",
+            "of"
+          ],
+          "explanationVi": "Tính từ faster đứng trước, danh từ delivery bổ nghĩa cho system; không cần \"of\"."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The question of scalability, Ngan argues, is not only technical but cultural.",
+        "tipVi": "Ngắt hơi trước và sau Ngan argues; scalability /ˌskeɪləˈbɪləti/."
+      },
+      {
+        "text": "Investors, meanwhile, are watching closely.",
+        "tipVi": "Hạ giọng ở meanwhile như một lời chen; nhấn closely."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever bought something from another country online? What was it?",
+        "questionVi": "Bạn đã bao giờ mua hàng trực tuyến từ nước khác chưa? Đó là gì?",
+        "frame": "I once bought a ___ made by ___ in ___."
+      },
+      {
+        "question": "What problems do small sellers face when they sell abroad?",
+        "questionVi": "Người bán nhỏ gặp khó khăn gì khi bán ra nước ngoài?",
+        "frame": "The biggest problem is the high cost of ___ for ___."
+      },
+      {
+        "question": "Would you invest in an online marketplace? Why or why not?",
+        "questionVi": "Bạn có muốn đầu tư vào một sàn thương mại trực tuyến không? Vì sao?",
+        "frame": "I would want detailed answers on ___ before ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có cụm danh từ phức (vd. cross-border order figures, orders placed by…, growth in…)",
+      "anyOf": [
+        "cross-border",
+        "order figures",
+        "made by",
+        "placed by",
+        "reported by",
+        "growth in",
+        "growth rate",
+        "based in"
+      ],
+      "outlineVi": [
+        "Nêu số liệu tăng trưởng chính bằng một chuỗi danh từ (the monthly cross-border order figures…).",
+        "Trình bày một khó khăn (thanh toán, hậu cần, quy định) bằng danh từ + phân từ hoặc mệnh đề quan hệ.",
+        "Kết thúc bằng kế hoạch cho quý tới."
+      ],
+      "modelAnswer": "Dear investors, the monthly cross-border order figures for October are our best so far. Orders placed by customers in Japan rose by about forty percent, mainly for silk scarves made by workshops in Ha Dong. However, the delivery times reported by many buyers are still too long. A new partnership with a Ho Chi Minh City-based courier company, which starts in December, should cut them to five days. Our goal for next quarter is a stable growth rate without higher shipping fees."
+    }
+  },
+  "glosses": [
+    {
+      "text": "stubbornly",
+      "lemma": "stubbornly",
+      "meaningVi": "một cách dai dẳng, ương ngạnh",
+      "pos": "adverb",
+      "phrase": "remains stubbornly low",
+      "phraseVi": "vẫn thấp một cách dai dẳng",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "verify",
+      "lemma": "verify",
+      "meaningVi": "xác minh",
+      "pos": "verb",
+      "phrase": "verify the identity of both buyer and seller",
+      "phraseVi": "xác minh danh tính của cả người mua lẫn người bán",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "sorting centre",
+      "lemma": "sorting centre",
+      "meaningVi": "trung tâm phân loại (bưu kiện)",
+      "pos": "noun",
+      "phrase": "a single sorting centre outside Hanoi",
+      "phraseVi": "một trung tâm phân loại duy nhất ở ngoại thành Hà Nội",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "personal touch",
+      "lemma": "personal touch",
+      "meaningVi": "nét riêng, sự gần gũi mang dấu ấn cá nhân",
+      "pos": "noun",
+      "phrase": "the personal touch its buyers value",
+      "phraseVi": "nét gần gũi riêng mà người mua trân trọng",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "funding round",
+      "lemma": "funding round",
+      "meaningVi": "vòng gọi vốn",
+      "pos": "noun",
+      "phrase": "a second funding round",
+      "phraseVi": "vòng gọi vốn thứ hai",
+      "sentenceIndex": 16
+    }
+  ]
+}

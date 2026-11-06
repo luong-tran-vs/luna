@@ -1,0 +1,618 @@
+{
+  "content": "In a café near the river in Lisbon, software engineer Trinh Bao Ngoc is sharing a table with Lai Minh Khoa, a fellow expatriate she met through an online group for Vietnamese people in Europe. For four years Ngoc has lived a nomadic life, moving every few months between Berlin, Prague, Lisbon and Tallinn with only a laptop and one suitcase. Khoa, by contrast, has spent eleven years in the same flat in Berlin.\n\n\"Exciting as it sounds, this life is lonelier than people think,\" Ngoc admits. \"My friends at home see the photos and imagine I'm always on holiday. Nobody sees the evenings I spend alone in a rented room. Admittedly, I see more of Europe in a year than most people see in a lifetime, but I rarely stay long enough to make a real friend.\"\n\n\"Much as I envy your freedom, I couldn't live like that,\" Khoa says. \"Don't you ever feel rootless?\"\n\n\"All the time. Cosmopolitan, my colleagues call me, but rootless is closer to the truth. Strange as it may seem, I feel most Vietnamese at four in the morning, when I wake up for a call with my team in Ho Chi Minh City.\"\n\n\"For me it was the opposite. So deep was my homesickness in that first Berlin winter that I phoned my mother every night. In the end I asked her for her recipe for sour fish soup, and slowly I learned to cook my way home.\"\n\n\"I do something similar. In my suitcase, between the chargers and the cables, travels a small bottle of fish sauce.\"\n\nKhoa laughs, then grows serious. \"Do you ever think about going back for good?\"\n\n\"Of course. Nostalgic though I am about Hanoi, I know the city I miss no longer exists. It has changed, and so have I.\"\n\n\"That is the real displacement, isn't it? Not the move itself, but the feeling of belonging nowhere when you finally return.\"\n\n\"Be that as it may, I'm not unhappy. Uprooted people learn to carry home with them: a language, a dish, a way of greeting their elders. This much I have learned: home is wherever someone answers when I speak Vietnamese.\"\n\nKhoa smiles and answers her in Vietnamese, and for a moment the noisy café feels a little like home.",
+  "targetWords": [
+    "expatriate",
+    "nomadic",
+    "rootless",
+    "cosmopolitan",
+    "homesickness",
+    "recipe",
+    "nostalgic",
+    "displacement",
+    "belonging nowhere",
+    "uprooted"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "expatriate",
+        "lemma": "expatriate",
+        "meaningVi": "người sống xa tổ quốc, người xa xứ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "nomadic",
+        "lemma": "nomadic",
+        "meaningVi": "du mục, sống nay đây mai đó",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "rootless",
+        "lemma": "rootless",
+        "meaningVi": "không gốc rễ, không có nơi gắn bó",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "Cosmopolitan",
+        "lemma": "cosmopolitan",
+        "meaningVi": "mang tính quốc tế, công dân thế giới",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "homesickness",
+        "lemma": "homesickness",
+        "meaningVi": "nỗi nhớ nhà",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "recipe",
+        "lemma": "recipe",
+        "meaningVi": "công thức nấu ăn",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "Nostalgic",
+        "lemma": "nostalgic",
+        "meaningVi": "hoài niệm, luyến tiếc quá khứ",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "displacement",
+        "lemma": "displacement",
+        "meaningVi": "sự ly hương, sự bị bứt khỏi nơi mình thuộc về",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "belonging nowhere",
+        "lemma": "belonging nowhere",
+        "meaningVi": "không thuộc về nơi nào cả",
+        "pos": "phrase",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "Uprooted",
+        "lemma": "uprooted",
+        "meaningVi": "bị bứt khỏi quê hương, bị nhổ bật gốc",
+        "pos": "adjective",
+        "sentenceIndex": 25
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the conversation mainly about?",
+        "promptVi": "Cuộc trò chuyện chủ yếu nói về điều gì?",
+        "options": [
+          "How two Vietnamese people abroad keep a sense of home",
+          "How to find a cheap flat in Berlin",
+          "Why Lisbon is better than Hanoi",
+          "How to become a software engineer"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc và Khoa kể về nỗi cô đơn, nỗi nhớ nhà và cách họ \"carry home with them\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Ngoc's life lonelier than people think?",
+        "promptVi": "Vì sao cuộc sống của Ngọc cô đơn hơn người ta tưởng?",
+        "options": [
+          "Because she works at night",
+          "Because she rarely stays long enough to make real friends",
+          "Because she cannot speak English",
+          "Because her colleagues dislike her"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cô nói \"I rarely stay long enough to make a real friend.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Khoa do to cope with missing home?",
+        "promptVi": "Khoa làm gì để vượt qua nỗi nhớ nhà?",
+        "options": [
+          "He moved back to Vietnam",
+          "He travelled around Europe",
+          "He learned to cook his mother's sour fish soup",
+          "He joined a sports club"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"I asked her for her recipe for sour fish soup, and slowly I learned to cook my way home.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc believes the Hanoi she misses is exactly the same as before.",
+        "promptVi": "Ngọc tin rằng Hà Nội mà cô nhớ vẫn y nguyên như xưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"the city I miss no longer exists. It has changed\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"envy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Much as I envy your freedom, I couldn't live like that,\" Khoa says.",
+        "options": [
+          "ghen tị, thèm muốn",
+          "ghét bỏ",
+          "lo lắng cho",
+          "chia sẻ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Envy = ghen tị, mong có được thứ người khác có. Khoa thèm sự tự do của Ngọc nhưng không thể sống như cô."
+      }
+    ],
+    "grammarNote": {
+      "title": "Nhượng bộ và nhấn mạnh",
+      "bodyVi": "Bài dùng nhiều cấu trúc nhượng bộ để thừa nhận một ý rồi nói điều ngược lại. (1) Tính từ + as / though + chủ ngữ + động từ: Exciting as it sounds, …; Strange as it may seem, …; Nostalgic though I am about Hanoi, … (tính từ đứng đầu, không có mạo từ). (2) Much as + mệnh đề: Much as I envy your freedom, I couldn't live like that (không thêm but). (3) Admittedly …, but …: Admittedly, I see more of Europe…, but I rarely stay… (4) Be that as it may mở đầu câu mới, phản bác ý vừa nêu: Be that as it may, I'm not unhappy. Ngoài ra bài còn đưa thành phần lên đầu câu để nhấn mạnh: So deep was my homesickness that…; In my suitcase… travels a small bottle of fish sauce; This much I have learned.",
+      "examples": [
+        "\"Exciting as it sounds, this life is lonelier than people think,\" Ngoc admits.",
+        "\"Much as I envy your freedom, I couldn't live like that,\" Khoa says.",
+        "Strange as it may seem, I feel most Vietnamese at four in the morning, when I wake up for a call with my team in Ho Chi Minh City.\"",
+        "Nostalgic though I am about Hanoi, I know the city I miss no longer exists."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph about living far from home (or imagining it). Use at least two concession structures (Much as…, Strange as it may seem…, Nostalgic though I am…, Admittedly…, but…, Be that as it may…) and one fronted structure (So deep was… that…).",
+    "sentenceTranslations": [
+      "Trong một quán cà phê gần bờ sông ở Lisbon, kỹ sư phần mềm Trịnh Bảo Ngọc ngồi chung bàn với Lại Minh Khoa, một người Việt xa xứ như cô mà cô quen qua một nhóm trực tuyến của người Việt ở châu Âu.",
+      "Suốt bốn năm qua Ngọc sống cuộc đời du mục, cứ vài tháng lại chuyển chỗ giữa Berlin, Praha, Lisbon và Tallinn với vỏn vẹn một chiếc máy tính xách tay và một chiếc vali.",
+      "Còn Khoa thì ngược lại, đã ở mười một năm trong cùng một căn hộ ở Berlin.",
+      "Ngọc thừa nhận: \"Nghe thì hấp dẫn đấy, nhưng cuộc sống này cô đơn hơn người ta tưởng.",
+      "Bạn bè ở nhà xem ảnh và tưởng mình lúc nào cũng đang đi nghỉ.",
+      "Chẳng ai thấy những buổi tối mình ngồi một mình trong căn phòng thuê.",
+      "Phải thừa nhận là một năm mình được thấy châu Âu nhiều hơn phần lớn mọi người thấy cả đời, nhưng hiếm khi mình ở đủ lâu để có được một người bạn thật sự.\"",
+      "Khoa nói: \"Dù rất ghen tị với sự tự do của bạn, mình không thể sống như thế được.",
+      "Bạn có bao giờ thấy mình như cây không rễ không?\"",
+      "\"Lúc nào cũng thấy.",
+      "Đồng nghiệp gọi mình là công dân thế giới, nhưng \"không gốc rễ\" mới gần với sự thật hơn.",
+      "Nghe có vẻ lạ, nhưng mình thấy mình Việt Nam nhất là lúc bốn giờ sáng, khi thức dậy để họp trực tuyến với nhóm ở Thành phố Hồ Chí Minh.\"",
+      "\"Với mình thì ngược lại.",
+      "Mùa đông đầu tiên ở Berlin, mình nhớ nhà da diết đến mức đêm nào cũng gọi điện cho mẹ.",
+      "Cuối cùng mình xin mẹ công thức nấu canh chua cá, và dần dần mình học cách nấu để tìm về nhà.\"",
+      "\"Mình cũng làm gần giống vậy.",
+      "Trong vali của mình, giữa đống sạc và dây cáp, lúc nào cũng có một chai nước mắm nhỏ đi theo.\"",
+      "Khoa bật cười, rồi trở nên nghiêm túc.",
+      "\"Bạn có bao giờ nghĩ đến chuyện về hẳn không?\"",
+      "\"Tất nhiên rồi.",
+      "Dù hoài niệm về Hà Nội đến mấy, mình biết thành phố mà mình nhớ không còn nữa.",
+      "Nó đã thay đổi, và mình cũng vậy.\"",
+      "\"Đó mới là sự ly hương thật sự, phải không?",
+      "Không phải bản thân việc chuyển đi, mà là cảm giác không thuộc về nơi nào khi cuối cùng ta trở về.\"",
+      "\"Dù vậy đi nữa, mình không thấy bất hạnh.",
+      "Những người bị bứt khỏi quê hương học được cách mang nhà theo mình: một ngôn ngữ, một món ăn, một cách chào hỏi người lớn tuổi.",
+      "Mình chỉ học được chừng này thôi: nhà là bất cứ nơi nào có người đáp lại khi mình nói tiếng Việt.\"",
+      "Khoa mỉm cười và trả lời cô bằng tiếng Việt, và trong khoảnh khắc ấy, quán cà phê ồn ào bỗng có chút gì đó giống như nhà."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về cuộc sống xa quê và nỗi nhớ nhà, thừa nhận rồi phản bác bằng cấu trúc nhượng bộ (Much as…, Strange as it may seem…, Be that as it may…).",
+    "examples": [
+      {
+        "lemma": "expatriate",
+        "sentence": "She works for an agency that helps expatriate families find schools.",
+        "meaningVi": "Cô làm cho một công ty giúp các gia đình xa xứ tìm trường học."
+      },
+      {
+        "lemma": "nomadic",
+        "sentence": "His nomadic childhood meant he changed school every year.",
+        "meaningVi": "Tuổi thơ nay đây mai đó khiến cậu năm nào cũng phải đổi trường."
+      },
+      {
+        "lemma": "rootless",
+        "sentence": "After so many moves, he felt completely rootless.",
+        "meaningVi": "Sau bao nhiêu lần chuyển nhà, anh thấy mình hoàn toàn không gốc rễ."
+      },
+      {
+        "lemma": "cosmopolitan",
+        "sentence": "Singapore is one of the most cosmopolitan cities in Asia.",
+        "meaningVi": "Singapore là một trong những thành phố mang tính quốc tế nhất châu Á."
+      },
+      {
+        "lemma": "homesickness",
+        "sentence": "Many students suffer from homesickness in their first year abroad.",
+        "meaningVi": "Nhiều sinh viên khổ sở vì nhớ nhà trong năm đầu ở nước ngoài."
+      },
+      {
+        "lemma": "recipe",
+        "sentence": "This recipe has been in our family for three generations.",
+        "meaningVi": "Công thức này đã có trong gia đình tôi suốt ba thế hệ."
+      },
+      {
+        "lemma": "nostalgic",
+        "sentence": "Old songs always make my father nostalgic.",
+        "meaningVi": "Những bài hát cũ luôn khiến bố tôi hoài niệm."
+      },
+      {
+        "lemma": "displacement",
+        "sentence": "The novel describes the pain of displacement after the war.",
+        "meaningVi": "Cuốn tiểu thuyết miêu tả nỗi đau ly hương sau chiến tranh."
+      },
+      {
+        "lemma": "belonging nowhere",
+        "sentence": "Some migrants describe a sense of belonging nowhere.",
+        "meaningVi": "Một số người di cư mô tả cảm giác không thuộc về nơi nào cả."
+      },
+      {
+        "lemma": "uprooted",
+        "sentence": "The flood left thousands of families uprooted.",
+        "meaningVi": "Trận lũ khiến hàng nghìn gia đình phải rời bỏ quê hương."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lai Minh Thu",
+        "Vuong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "My brother Khoa says I should try working remotely from Europe. What do you think?",
+          "meaningVi": "Anh Khoa bảo tớ nên thử làm việc từ xa ở châu Âu. Cậu thấy sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "Much as I'd miss you, I think you should go.",
+          "meaningVi": "Dù tớ sẽ nhớ cậu lắm, tớ nghĩ cậu nên đi."
+        },
+        {
+          "speaker": 0,
+          "text": "But he also warned me about the loneliness. Isn't that a bad sign?",
+          "meaningVi": "Nhưng anh ấy cũng cảnh báo tớ về nỗi cô đơn. Đó chẳng phải là dấu hiệu xấu sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "Admittedly, the first winter will be hard, but you've always made friends easily.",
+          "meaningVi": "Phải thừa nhận là mùa đông đầu tiên sẽ khó khăn, nhưng cậu lúc nào cũng dễ kết bạn mà."
+        },
+        {
+          "speaker": 0,
+          "text": "Strange as it may sound, I'm more worried about missing Tet.",
+          "meaningVi": "Nghe thì lạ, nhưng tớ lo về chuyện lỡ Tết hơn."
+        },
+        {
+          "speaker": 1,
+          "text": "That I understand. Will you come home every year?",
+          "meaningVi": "Điều đó thì tớ hiểu. Năm nào cậu cũng về chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "I hope so. Flights are expensive, though.",
+          "meaningVi": "Tớ hy vọng vậy. Có điều vé máy bay đắt lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Expensive they are. Be that as it may, your mother will want you home.",
+          "meaningVi": "Đắt thì đắt thật. Dù vậy, mẹ cậu sẽ muốn cậu về nhà."
+        }
+      ]
+    },
+    "grammarTipVi": "Much as + mệnh đề, không thêm but: Much as I'd miss you, I think you should go. Tính từ + as + chủ ngữ + động từ: Strange as it may sound, … Admittedly …, but … và Be that as it may mở đầu câu phản bác.",
+    "translations": [
+      {
+        "vi": "Dù rất yêu Lisbon, tôi vẫn thường thấy mình không gốc rễ.",
+        "en": "Much as I love Lisbon, I often feel rootless.",
+        "distractors": [
+          "loves",
+          "feeling",
+          "rooted"
+        ],
+        "accepted": [
+          "I often feel rootless, much as I love Lisbon."
+        ]
+      },
+      {
+        "vi": "Dù hoài niệm, tôi biết thành phố đã thay đổi.",
+        "en": "Nostalgic though I am, I know the city has changed.",
+        "distractors": [
+          "changing",
+          "nostalgia",
+          "knows"
+        ],
+        "accepted": [
+          "Though I am nostalgic, I know the city has changed.",
+          "I know the city has changed, nostalgic though I am.",
+          "I know the city has changed, though I am nostalgic."
+        ]
+      },
+      {
+        "vi": "Năm ngoái tôi đã xin mẹ công thức nấu ăn của mẹ.",
+        "en": "Last year I asked my mother for her recipe.",
+        "distractors": [
+          "asks",
+          "mothers",
+          "he"
+        ],
+        "accepted": [
+          "I asked my mother for her recipe last year."
+        ]
+      },
+      {
+        "vi": "Đó mới là sự ly hương thật sự: cảm giác không thuộc về nơi nào.",
+        "en": "That is the real displacement: the feeling of belonging nowhere.",
+        "distractors": [
+          "belongs",
+          "displace",
+          "felt"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu và Vương nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Việc Thu có nên sang châu Âu làm việc từ xa hay không",
+          "Chuyến du lịch Tết của Vương",
+          "Cách nấu canh chua"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu mở đầu: \"My brother Khoa says I should try working remotely from Europe.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vương khuyên Thu thế nào?",
+        "promptVi": "",
+        "options": [
+          "Nên đi",
+          "Nên ở lại",
+          "Nên đợi thêm một năm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vương nói \"I think you should go.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thu lo nhất về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Lỡ Tết",
+          "Thời tiết lạnh",
+          "Không tìm được việc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"I'm more worried about missing Tet.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu says flights home are cheap.",
+        "promptVi": "Thu nói vé máy bay về nhà rẻ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"Flights are expensive, though.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Cuộc sống du mục của Ngọc có những mặt tốt và xấu nào? Khoa đã vượt qua nỗi nhớ nhà ra sao, và theo Ngọc, \"nhà\" là gì?",
+    "grammarStep": {
+      "titleVi": "Nhượng bộ và nhấn mạnh",
+      "noticing": [
+        {
+          "sentence": "\"Exciting as it sounds, this life is lonelier than people think,\" Ngoc admits.",
+          "highlights": [
+            "Exciting as it sounds"
+          ]
+        },
+        {
+          "sentence": "\"Much as I envy your freedom, I couldn't live like that,\" Khoa says.",
+          "highlights": [
+            "Much as I envy your freedom"
+          ]
+        },
+        {
+          "sentence": "Strange as it may seem, I feel most Vietnamese at four in the morning, when I wake up for a call with my team in Ho Chi Minh City.\"",
+          "highlights": [
+            "Strange as it may seem"
+          ]
+        },
+        {
+          "sentence": "Nostalgic though I am about Hanoi, I know the city I miss no longer exists.",
+          "highlights": [
+            "Nostalgic though I am about Hanoi"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: dù rất yêu công việc, cô ấy vẫn nhớ nhà. Câu nào đúng?",
+      "options": [
+        "Much as she loves her job, she misses home.",
+        "Much as she loves her job, but she misses home.",
+        "As much she loves her job, she misses home."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Much as + chủ ngữ + động từ đã mang nghĩa \"dù rất…\", nên vế sau không thêm but.",
+      "whenVi": "Dùng khi lập luận có sắc thái hoặc tâm sự thành thật: thừa nhận một điều đúng (cuộc sống hấp dẫn, mình yêu quê) rồi mới đưa ra ý chính đối lập. Rất hợp với bài luận về di cư và bản sắc.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
+      "table": [
+        {
+          "subject": "Much as + mệnh đề",
+          "form": "Much as I envy your freedom, I couldn't live like that.",
+          "negative": "Although I envy your freedom, I couldn't live like that."
+        },
+        {
+          "subject": "Tính từ + as / though + S + V",
+          "form": "Nostalgic though I am, I won't return.",
+          "negative": "Although I am nostalgic, I won't return."
+        },
+        {
+          "subject": "Admittedly, …, but …",
+          "form": "Admittedly, I travel a lot, but I rarely make friends.",
+          "negative": "It's true that I travel a lot, but I rarely make friends."
+        },
+        {
+          "subject": "Be that as it may, …",
+          "form": "Life abroad is lonely. Be that as it may, I'm happy.",
+          "negative": "Life abroad is lonely. Even so, I'm happy."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Much as I envy your freedom, but I couldn't live like that.",
+          "right": "Much as I envy your freedom, I couldn't live like that."
+        },
+        {
+          "wrong": "A strange as it may seem, I enjoy it.",
+          "right": "Strange as it may seem, I enjoy it."
+        },
+        {
+          "wrong": "Though nostalgic I am, I won't return.",
+          "right": "Nostalgic though I am, I won't return."
+        }
+      ],
+      "noteVi": "Trong cấu trúc tính từ + as / though, tính từ phải đứng đầu và không có mạo từ; sau đó là chủ ngữ + động từ (Nostalgic though I am). Much as và Be that as it may đều không đi kèm but.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "___ as I love my job, I need a break from travelling.",
+          "answers": [
+            "Much"
+          ],
+          "explanationVi": "Much as + mệnh đề = dù rất… : Much as I love my job, …"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Exciting ___ it sounds, this life is often lonely.",
+          "options": [
+            "as",
+            "so",
+            "than",
+            "what"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Tính từ + as + chủ ngữ + động từ: Exciting as it sounds."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Much as I miss Hanoi, but I am happy here.",
+          "sentence": "Much as I miss Hanoi, I am happy here.",
+          "explanationVi": "Much as đã mang nghĩa nhượng bộ nên bỏ but ở vế sau."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nghe có vẻ lạ, nhưng tôi thích mùa đông.",
+          "sentence": "Strange as it may seem, I like winter.",
+          "words": [
+            "Strange",
+            "as",
+            "it",
+            "may",
+            "seem,",
+            "I",
+            "like",
+            "winter.",
+            "but"
+          ],
+          "explanationVi": "Tính từ đứng đầu + as + it may seem, rồi đến mệnh đề chính; không thêm \"but\"."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Exciting as it sounds, this life is lonelier than people think,\" Ngoc admits.",
+        "tipVi": "Nhấn Exciting và lonelier, ngắt hơi sau sounds; lonelier /ˈləʊnliə/."
+      },
+      {
+        "text": "It has changed, and so have I.\"",
+        "tipVi": "Đọc hai vế đều nhau, nhấn changed và so have I."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Would you like to live and work in another country?",
+        "questionVi": "Bạn có muốn sống và làm việc ở nước khác không?",
+        "frame": "Much as I would love to ___, I ___."
+      },
+      {
+        "question": "What would you miss most about Vietnam if you lived abroad?",
+        "questionVi": "Nếu sống ở nước ngoài, bạn sẽ nhớ điều gì nhất ở Việt Nam?",
+        "frame": "Strange as it may sound, I would miss ___."
+      },
+      {
+        "question": "What does \"home\" mean to you?",
+        "questionVi": "\"Nhà\" có ý nghĩa gì với bạn?",
+        "frame": "This much I know: home is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc nhượng bộ (Much as… / Exciting as it sounds… / Admittedly…, but… / Be that as it may)",
+      "anyOf": [
+        "much as",
+        "as it may",
+        "as it sounds",
+        "admittedly",
+        "exciting as",
+        "strange as",
+        "nostalgic though"
+      ],
+      "outlineVi": [
+        "Giới thiệu nơi bạn sống (hoặc tưởng tượng) xa nhà, dùng Exciting as it sounds…",
+        "Kể nỗi nhớ nhà và cách bạn vượt qua, dùng So deep was… that… hoặc Admittedly…, but…",
+        "Kết bằng ý nghĩa của \"nhà\" với bạn, dùng Be that as it may…"
+      ],
+      "modelAnswer": "Two years ago I moved to Seoul for a master's degree. Exciting as it sounds, the first months were hard. So strong was my homesickness that I cooked rice with fish sauce every night just to smell home. Admittedly, my Korean friends were kind, but I still felt like a guest. Much as I love Seoul now, I know I will go back to Da Nang one day. Be that as it may, part of me will always belong here."
+    }
+  },
+  "glosses": [
+    {
+      "text": "envy",
+      "lemma": "envy",
+      "meaningVi": "ghen tị, thèm muốn",
+      "pos": "verb",
+      "phrase": "Much as I envy your freedom",
+      "phraseVi": "Dù rất ghen tị với sự tự do của bạn",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "by contrast",
+      "lemma": "by contrast",
+      "meaningVi": "ngược lại",
+      "pos": "phrase",
+      "phrase": "Khoa, by contrast",
+      "phraseVi": "Còn Khoa thì ngược lại",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "chargers",
+      "lemma": "charger",
+      "meaningVi": "bộ sạc",
+      "pos": "noun",
+      "phrase": "between the chargers and the cables",
+      "phraseVi": "giữa đống sạc và dây cáp",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "for good",
+      "lemma": "for good",
+      "meaningVi": "mãi mãi, hẳn luôn",
+      "pos": "phrase",
+      "phrase": "going back for good",
+      "phraseVi": "về hẳn",
+      "sentenceIndex": 18
+    },
+    {
+      "text": "elders",
+      "lemma": "elder",
+      "meaningVi": "người lớn tuổi, bề trên",
+      "pos": "noun",
+      "phrase": "a way of greeting their elders",
+      "phraseVi": "một cách chào hỏi người lớn tuổi",
+      "sentenceIndex": 25
+    }
+  ]
+}

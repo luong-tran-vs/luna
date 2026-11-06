@@ -1,0 +1,633 @@
+{
+  "content": "On a humid Friday evening in Ho Chi Minh City, two senior managers at Sao Bien Software are still sitting in a glass meeting room on the twelfth floor. That afternoon, their engineers found a flaw in the company's invoicing app: in rare cases it rounds tax figures incorrectly, and about three hundred small businesses may have overpaid by a few thousand dong each.\n\n\"Minor as the problem may seem, we have to disclose it this week,\" says Thao, the head of product. \"Our customers trust us with their accounts, and that trust is our whole reputation.\"\nKhai, the sales director, rubs his eyes. \"Much as I admire your honesty, I think you're being naive. On Monday we sign the biggest contract in our history with a bank. If we announce a flaw now, they'll walk away, and then what happens to our staff?\"\n\"Admittedly, the timing is terrible,\" Thao replies, \"but bad timing doesn't make silence right. For all our talk about transparency, we would be hiding a mistake simply because it is inconvenient.\"\n\"It isn't hiding. We fix the code quietly, refund everyone, and nobody is harmed.\"\n\"And if a journalist finds out later? Then the story is no longer a rounding error; it's a company that knew and said nothing.\"\nKhai is silent for a moment. He has spent eight years building relationships with clients, and he hates the idea of calling them with bad news. \"That's a fair point. Be that as it may, I'm accountable to the board and to two hundred employees, not only to a few hundred customers.\"\n\"Every stakeholder matters here: the staff, the board, the bank, and the customers who paid money they didn't owe. Our lawyers also warned me about liability. If we stay silent and the error comes out, the fines could be far larger than any refund. Try as I might, I can't see how a short-term gain is worth that risk.\"\n\"So you don't think this is a real dilemma?\" \"It's a dilemma only if we pretend the bank will never find out.\"\nKhai finally laughs, though not happily. \"So integrity really is expensive, isn't it?\"\n\"Cheaper than the alternative,\" she answers. \"Let's call the bank first thing on Monday, before we sign, and tell them exactly how we're fixing it.\"",
+  "targetWords": [
+    "flaw",
+    "disclose",
+    "reputation",
+    "transparency",
+    "accountable",
+    "stakeholder",
+    "liability",
+    "short-term gain",
+    "dilemma",
+    "integrity"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flaw",
+        "lemma": "flaw",
+        "meaningVi": "lỗi, khiếm khuyết",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "disclose",
+        "lemma": "disclose",
+        "meaningVi": "công khai, tiết lộ",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "reputation",
+        "lemma": "reputation",
+        "meaningVi": "danh tiếng, uy tín",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "transparency",
+        "lemma": "transparency",
+        "meaningVi": "sự minh bạch",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "accountable",
+        "lemma": "accountable",
+        "meaningVi": "phải chịu trách nhiệm (trước ai)",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "stakeholder",
+        "lemma": "stakeholder",
+        "meaningVi": "bên liên quan, người có quyền lợi liên quan",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "liability",
+        "lemma": "liability",
+        "meaningVi": "trách nhiệm pháp lý",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "short-term gain",
+        "lemma": "short-term gain",
+        "meaningVi": "lợi ích trước mắt",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "dilemma",
+        "lemma": "dilemma",
+        "meaningVi": "tình thế khó xử, thế tiến thoái lưỡng nan",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "integrity",
+        "lemma": "integrity",
+        "meaningVi": "sự chính trực, liêm chính",
+        "pos": "noun",
+        "sentenceIndex": 25
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Thao and Khai mainly arguing about?",
+        "promptVi": "Thảo và Khải chủ yếu tranh luận về điều gì?",
+        "options": [
+          "Whether to tell customers about a software error",
+          "Whether to sign a contract with a different bank",
+          "How to hire more engineers",
+          "Who should become the new director"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo muốn \"disclose it this week\", còn Khải muốn lặng lẽ sửa lỗi và hoàn tiền."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What exactly is wrong with the invoicing app?",
+        "promptVi": "Ứng dụng lập hoá đơn bị lỗi gì?",
+        "options": [
+          "It deletes customers' accounts.",
+          "It sometimes rounds tax figures incorrectly.",
+          "It sends invoices to the wrong bank.",
+          "It stops working on Mondays."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"in rare cases it rounds tax figures incorrectly\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Khai worried about disclosing the problem now?",
+        "promptVi": "Vì sao Khải lo lắng nếu công khai vấn đề lúc này?",
+        "options": [
+          "Because the engineers cannot fix it",
+          "Because a journalist has already called",
+          "Because the bank may walk away from Monday's contract",
+          "Because the customers have not paid"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khải nói \"On Monday we sign the biggest contract in our history\" và \"they'll walk away\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khai has worked with the company's clients for eight years.",
+        "promptVi": "Khải đã làm việc với khách hàng của công ty được tám năm.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng: \"He has spent eight years building relationships with clients\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"naive\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Much as I admire your honesty, I think you're being naive.",
+        "options": [
+          "ngây thơ, cả tin",
+          "thông minh",
+          "nóng tính",
+          "thận trọng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Naive = ngây thơ, thiếu thực tế. Khải cho rằng Thảo nghĩ quá đơn giản về chuyện kinh doanh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Nhượng bộ và nhấn mạnh",
+      "bodyVi": "Ở trình độ C2, người nói thường thừa nhận một ý trước rồi mới phản bác, để lập luận có sắc thái và lịch sự. (1) Tính từ + as + chủ ngữ + may seem / is: Minor as the problem may seem, … (dù vấn đề có vẻ nhỏ). (2) Much as + mệnh đề: Much as I admire your honesty, I think… (vế sau không thêm but). (3) Admittedly, …, but …: thừa nhận trước rồi phản bác. (4) For all + cụm danh từ: For all our talk about transparency (dù nói nhiều về…). (5) Be that as it may mở đầu câu mới sau khi đã công nhận ý của người kia. (6) Try as I might, I can't… (dù cố mấy cũng không…).",
+      "examples": [
+        "\"Minor as the problem may seem, we have to disclose it this week,\" says Thao, the head of product.",
+        "\"Much as I admire your honesty, I think you're being naive.",
+        "\"Admittedly, the timing is terrible,\" Thao replies, \"but bad timing doesn't make silence right.",
+        "For all our talk about transparency, we would be hiding a mistake simply because it is inconvenient.\"",
+        "Be that as it may, I'm accountable to the board and to two hundred employees, not only to a few hundred customers.\"",
+        "Try as I might, I can't see how a short-term gain is worth that risk.\""
+      ]
+    },
+    "writingPrompt": "Write a short paragraph giving your advice to a company that has found a small mistake in its product. Admit the other side's point before you argue, using at least two concession structures (Much as…, Minor as it may seem…, Admittedly… but, For all…, Be that as it may).",
+    "sentenceTranslations": [
+      "Vào một tối thứ Sáu oi ả ở Thành phố Hồ Chí Minh, hai quản lý cấp cao của công ty Phần mềm Sao Biển vẫn ngồi trong một phòng họp kính trên tầng mười hai.",
+      "Chiều hôm đó, các kỹ sư của họ phát hiện một lỗi trong ứng dụng lập hoá đơn của công ty: trong một số ít trường hợp, nó làm tròn số thuế sai, và khoảng ba trăm doanh nghiệp nhỏ có thể đã nộp thừa mỗi nơi vài nghìn đồng.",
+      "Thảo, trưởng bộ phận sản phẩm, nói: \"Dù vấn đề có vẻ nhỏ, chúng ta vẫn phải công khai nó ngay trong tuần này.",
+      "Khách hàng giao sổ sách cho chúng ta vì tin chúng ta, và niềm tin ấy chính là toàn bộ danh tiếng của công ty.\"",
+      "Khải, giám đốc kinh doanh, dụi mắt.",
+      "\"Dù rất nể sự thẳng thắn của chị, tôi nghĩ chị đang ngây thơ quá.",
+      "Thứ Hai này chúng ta ký hợp đồng lớn nhất từ trước đến nay với một ngân hàng.",
+      "Nếu bây giờ công bố có lỗi, họ sẽ bỏ đi, rồi nhân viên của chúng ta sẽ ra sao?\"",
+      "Thảo đáp: \"Phải thừa nhận là thời điểm rất tệ, nhưng thời điểm xấu không làm cho việc im lặng trở thành đúng.",
+      "Dù lúc nào cũng nói về sự minh bạch, chúng ta lại sắp giấu một sai sót chỉ vì nó gây bất tiện.\"",
+      "\"Đó không phải là giấu.",
+      "Chúng ta lặng lẽ sửa mã, hoàn tiền cho mọi người, và không ai bị thiệt cả.\"",
+      "\"Còn nếu sau này một nhà báo phát hiện ra thì sao?",
+      "Khi đó câu chuyện không còn là một lỗi làm tròn nữa; nó là chuyện một công ty biết mà vẫn im lặng.\"",
+      "Khải im lặng một lúc.",
+      "Anh đã mất tám năm xây dựng quan hệ với khách hàng, và anh ghét phải gọi cho họ để báo tin xấu.",
+      "\"Chị nói có lý.",
+      "Dù vậy đi nữa, tôi phải chịu trách nhiệm trước hội đồng quản trị và hai trăm nhân viên, chứ không chỉ trước vài trăm khách hàng.\"",
+      "\"Ở đây bên liên quan nào cũng quan trọng: nhân viên, hội đồng quản trị, ngân hàng, và cả những khách hàng đã trả số tiền mà họ không nợ.",
+      "Luật sư của chúng ta cũng đã cảnh báo tôi về trách nhiệm pháp lý.",
+      "Nếu chúng ta im lặng mà lỗi bị lộ ra, tiền phạt có thể lớn hơn nhiều so với bất kỳ khoản hoàn tiền nào.",
+      "Dù cố đến mấy, tôi cũng không thấy một khoản lợi trước mắt lại đáng để liều như vậy.\"",
+      "\"Vậy chị không nghĩ đây là một tình thế khó xử thật sự à?\"",
+      "\"Nó chỉ khó xử nếu chúng ta giả vờ rằng ngân hàng sẽ không bao giờ biết.\"",
+      "Cuối cùng Khải bật cười, dù chẳng vui vẻ gì.",
+      "\"Vậy là sự chính trực đúng là đắt thật, phải không?\"",
+      "Chị đáp: \"Vẫn rẻ hơn lựa chọn còn lại.",
+      "Sáng thứ Hai, việc đầu tiên là gọi cho ngân hàng, trước khi ký, và nói rõ với họ chúng ta đang sửa lỗi như thế nào.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tranh luận về một quyết định đạo đức trong kinh doanh, thừa nhận ý người khác rồi phản bác bằng Much as…, Minor as it may seem…, Admittedly…, Be that as it may.",
+    "examples": [
+      {
+        "lemma": "flaw",
+        "sentence": "The inspector found a serious flaw in the design of the bridge.",
+        "meaningVi": "Thanh tra phát hiện một lỗi nghiêm trọng trong thiết kế cây cầu."
+      },
+      {
+        "lemma": "disclose",
+        "sentence": "The company refused to disclose how much the director earns.",
+        "meaningVi": "Công ty từ chối tiết lộ giám đốc kiếm được bao nhiêu tiền."
+      },
+      {
+        "lemma": "reputation",
+        "sentence": "The restaurant has a reputation for fresh seafood.",
+        "meaningVi": "Nhà hàng nổi tiếng với hải sản tươi."
+      },
+      {
+        "lemma": "transparency",
+        "sentence": "Investors are asking for more transparency about the budget.",
+        "meaningVi": "Các nhà đầu tư đang đòi hỏi minh bạch hơn về ngân sách."
+      },
+      {
+        "lemma": "accountable",
+        "sentence": "Managers should be accountable for the decisions they make.",
+        "meaningVi": "Các nhà quản lý phải chịu trách nhiệm về những quyết định của mình."
+      },
+      {
+        "lemma": "stakeholder",
+        "sentence": "Every stakeholder was invited to comment on the new plan.",
+        "meaningVi": "Mọi bên liên quan đều được mời góp ý cho kế hoạch mới."
+      },
+      {
+        "lemma": "liability",
+        "sentence": "The hotel accepts no liability for valuables left in the rooms.",
+        "meaningVi": "Khách sạn không chịu trách nhiệm pháp lý về đồ quý giá để trong phòng."
+      },
+      {
+        "lemma": "short-term gain",
+        "sentence": "They sacrificed their customers' trust for a short-term gain.",
+        "meaningVi": "Họ đánh đổi lòng tin của khách hàng lấy một khoản lợi trước mắt."
+      },
+      {
+        "lemma": "dilemma",
+        "sentence": "She faced a dilemma: tell the truth or protect her friend.",
+        "meaningVi": "Cô rơi vào thế khó xử: nói thật hay bảo vệ bạn mình."
+      },
+      {
+        "lemma": "integrity",
+        "sentence": "He is a man of great integrity who never takes bribes.",
+        "meaningVi": "Ông là người rất chính trực, không bao giờ nhận hối lộ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngan",
+        "Thao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thao, I saw your email about the invoicing error. Are we really telling every customer?",
+          "meaningVi": "Chị Thảo, em đọc email của chị về lỗi hoá đơn rồi. Mình sẽ báo cho tất cả khách hàng thật ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Small as the amounts are, people deserve to know.",
+          "meaningVi": "Ừ. Dù số tiền nhỏ, mọi người vẫn có quyền được biết."
+        },
+        {
+          "speaker": 0,
+          "text": "Our support team will get hundreds of calls, though.",
+          "meaningVi": "Nhưng đội hỗ trợ của mình sẽ nhận hàng trăm cuộc gọi đấy ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Admittedly, the next two weeks will be hard, but we can prepare clear answers.",
+          "meaningVi": "Phải thừa nhận là hai tuần tới sẽ vất vả, nhưng mình có thể chuẩn bị sẵn câu trả lời rõ ràng."
+        },
+        {
+          "speaker": 0,
+          "text": "What did the bank say when you called them this morning?",
+          "meaningVi": "Sáng nay chị gọi thì ngân hàng nói gì ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Surprising as it may sound, they thanked us for being honest.",
+          "meaningVi": "Nghe thì có vẻ lạ, nhưng họ cảm ơn mình vì đã thành thật."
+        },
+        {
+          "speaker": 0,
+          "text": "So the contract is still going ahead?",
+          "meaningVi": "Vậy hợp đồng vẫn được ký ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It is, a week later than planned. Be that as it may, I'm relieved.",
+          "meaningVi": "Vẫn ký, chỉ chậm hơn dự kiến một tuần. Dù vậy, chị vẫn thấy nhẹ nhõm."
+        },
+        {
+          "speaker": 0,
+          "text": "And Khai? Much as he complained on Friday, he seems calm now.",
+          "meaningVi": "Còn anh Khải? Dù hôm thứ Sáu than phiền đủ điều, giờ anh ấy có vẻ bình tĩnh rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "He is. He even offered to write the apology letter himself.",
+          "meaningVi": "Đúng vậy. Anh ấy còn xin tự viết thư xin lỗi nữa."
+        }
+      ]
+    },
+    "grammarTipVi": "Tính từ + as + chủ ngữ + động từ: Small as the amounts are, … ; Surprising as it may sound, … Much as + mệnh đề, + mệnh đề chính (không thêm but). Admittedly, …, but … Be that as it may đứng đầu một câu mới, sau khi đã công nhận điều vừa nói.",
+    "translations": [
+      {
+        "vi": "Chúng ta phải công khai lỗi này với khách hàng của mình.",
+        "en": "We have to disclose this flaw to our customers.",
+        "distractors": [
+          "disclosed",
+          "flaws",
+          "at"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Dù rất tôn trọng sự chính trực của anh ấy, tôi không đồng ý với anh ấy.",
+        "en": "Much as I respect his integrity, I disagree with him.",
+        "distractors": [
+          "but",
+          "respects",
+          "integrities"
+        ],
+        "accepted": [
+          "I disagree with him, much as I respect his integrity."
+        ]
+      },
+      {
+        "vi": "Danh tiếng của công ty phụ thuộc vào sự minh bạch.",
+        "en": "The company's reputation depends on transparency.",
+        "distractors": [
+          "depend",
+          "transparent",
+          "in"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Dù vậy đi nữa, chúng tôi phải chịu trách nhiệm trước khách hàng của mình.",
+        "en": "Be that as it may, we are accountable to our customers.",
+        "distractors": [
+          "is",
+          "might",
+          "accounts"
+        ],
+        "accepted": []
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngân và Thảo nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Việc báo cho khách hàng về lỗi hoá đơn và phản ứng của ngân hàng",
+          "Kế hoạch tuyển thêm nhân viên hỗ trợ",
+          "Một chuyến công tác của anh Khải"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngân hỏi về \"the invoicing error\", rồi hỏi ngân hàng nói gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngân hàng phản ứng thế nào khi Thảo gọi?",
+        "promptVi": "",
+        "options": [
+          "Họ cảm ơn công ty vì đã thành thật",
+          "Họ huỷ hợp đồng",
+          "Họ đòi giảm giá"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo nói \"they thanked us for being honest.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hợp đồng với ngân hàng sẽ ra sao?",
+        "promptVi": "",
+        "options": [
+          "Vẫn được ký, chậm hơn một tuần",
+          "Được ký ngay hôm nay",
+          "Bị huỷ hoàn toàn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo nói \"It is, a week later than planned.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khai refused to help with the apology letter.",
+        "promptVi": "Khải từ chối giúp viết thư xin lỗi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"He even offered to write the apology letter himself.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Thảo và Khải mỗi người thừa nhận điều gì ở ý của người kia trước khi phản bác? Cuối cùng họ quyết định thế nào?",
+    "grammarStep": {
+      "titleVi": "Nhượng bộ và nhấn mạnh",
+      "noticing": [
+        {
+          "sentence": "\"Minor as the problem may seem, we have to disclose it this week,\" says Thao, the head of product.",
+          "highlights": [
+            "Minor as the problem may seem"
+          ]
+        },
+        {
+          "sentence": "\"Much as I admire your honesty, I think you're being naive.",
+          "highlights": [
+            "Much as I admire your honesty"
+          ]
+        },
+        {
+          "sentence": "\"Admittedly, the timing is terrible,\" Thao replies, \"but bad timing doesn't make silence right.",
+          "highlights": [
+            "Admittedly",
+            "but"
+          ]
+        },
+        {
+          "sentence": "Be that as it may, I'm accountable to the board and to two hundred employees, not only to a few hundred customers.\"",
+          "highlights": [
+            "Be that as it may"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"Dù rất nể sự thẳng thắn của chị, tôi nghĩ chị ngây thơ quá.\" Câu nào đúng?",
+      "options": [
+        "Much as I admire your honesty, I think you're being naive.",
+        "Much as I admire your honesty, but I think you're being naive.",
+        "As much I admire your honesty, I think you're being naive."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Much as + mệnh đề đã mang nghĩa nhượng bộ (dù rất…), nên vế sau không thêm but. Trật tự đúng là Much as, không phải As much.",
+      "whenVi": "Dùng khi tranh luận, đàm phán hay viết bài nghị luận: bạn công nhận điểm hợp lý của người kia trước, rồi mới đưa ra ý của mình, khiến lời phản bác lịch sự và thuyết phục hơn.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
+      "table": [
+        {
+          "subject": "Much as + mệnh đề",
+          "form": "Much as I admire your honesty, I disagree.",
+          "negative": "Although I admire your honesty, I disagree."
+        },
+        {
+          "subject": "Tính từ + as + S + V",
+          "form": "Minor as the problem may seem, we must act.",
+          "negative": "Although the problem may seem minor, we must act."
+        },
+        {
+          "subject": "Admittedly, …, but …",
+          "form": "Admittedly, the timing is bad, but we must speak.",
+          "negative": "It's true that the timing is bad, but we must speak."
+        },
+        {
+          "subject": "For all + cụm danh từ",
+          "form": "For all our talk about transparency, we hid it.",
+          "negative": "Despite all our talk about transparency, we hid it."
+        },
+        {
+          "subject": "Be that as it may, …",
+          "form": "That's fair. Be that as it may, I'm accountable.",
+          "negative": "That's fair. Even so, I'm accountable."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Much as I respect her, but I disagree.",
+          "right": "Much as I respect her, I disagree."
+        },
+        {
+          "wrong": "A minor as the problem seems, we must act.",
+          "right": "Minor as the problem seems, we must act."
+        },
+        {
+          "wrong": "For all we talk about transparency, we hid it.",
+          "right": "For all our talk about transparency, we hid it."
+        }
+      ],
+      "noteVi": "Sau Much as và sau cấu trúc tính từ + as không dùng but. Tính từ đứng đầu không có mạo từ a/the. For all đi với cụm danh từ (our talk, his experience), không đi với một mệnh đề đầy đủ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "___ as I like the idea, I can't support it.",
+          "answers": [
+            "Much"
+          ],
+          "explanationVi": "Much as + mệnh đề = dù rất…; vế sau không cần but."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Strange ___ it may seem, the smallest client mattered most.",
+          "options": [
+            "as",
+            "so",
+            "but",
+            "although"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Tính từ + as + chủ ngữ + may seem: Strange as it may seem (dù nghe có vẻ lạ)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Much as I admire her, but I disagree with her decision.",
+          "sentence": "Much as I admire her, I disagree with her decision.",
+          "explanationVi": "Much as đã là liên từ nhượng bộ, nên bỏ but ở vế sau."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Dù lỗi nhỏ, chúng ta vẫn phải công khai nó.",
+          "sentence": "Minor as the flaw is, we must disclose it.",
+          "words": [
+            "Minor",
+            "as",
+            "the",
+            "flaw",
+            "is,",
+            "we",
+            "must",
+            "disclose",
+            "it.",
+            "although"
+          ],
+          "explanationVi": "Tính từ (Minor) + as + chủ ngữ + động từ, rồi đến mệnh đề chính; từ \"although\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Our lawyers also warned me about liability.",
+        "tipVi": "Nhấn vào liability /ˌlaɪəˈbɪləti/, trọng âm rơi vào âm \"bil\"."
+      },
+      {
+        "text": "\"So integrity really is expensive, isn't it?\"",
+        "tipVi": "Nhấn mạnh \"really is\"; câu hỏi đuôi isn't it xuống giọng vì Khải gần như đã biết câu trả lời; integrity /ɪnˈteɡrəti/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Should a company always tell customers about its mistakes, even small ones?",
+        "questionVi": "Công ty có nên luôn báo cho khách hàng về lỗi của mình, kể cả lỗi nhỏ không?",
+        "frame": "Minor as a mistake may seem, ___."
+      },
+      {
+        "question": "Have you ever had to choose between honesty and keeping someone happy?",
+        "questionVi": "Bạn đã bao giờ phải chọn giữa thành thật và làm ai đó vui lòng chưa?",
+        "frame": "Much as I wanted to ___, I ___."
+      },
+      {
+        "question": "Which do you think matters more in business: profit or reputation?",
+        "questionVi": "Theo bạn trong kinh doanh, lợi nhuận hay danh tiếng quan trọng hơn?",
+        "frame": "Admittedly, profit ___, but ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc nhượng bộ (Much as… / Admittedly…, but / Be that as it may / Strange as it may seem… / For all its… / Try as I might)",
+      "anyOf": [
+        "much as",
+        "admittedly",
+        "be that as it may",
+        "as it may seem",
+        "as it may sound",
+        "for all its",
+        "for all their",
+        "try as i might"
+      ],
+      "outlineVi": [
+        "Tóm tắt lỗi mà công ty phát hiện và lý do có người muốn giữ im lặng.",
+        "Thừa nhận lý lẽ của phía muốn im lặng (Admittedly…, Much as…), rồi phản bác.",
+        "Đưa ra lời khuyên cụ thể, có thể mở đầu bằng Be that as it may."
+      ],
+      "modelAnswer": "Small as the error may seem, I believe the company should tell its customers immediately. Admittedly, the news will upset some clients, and the sales team will have a difficult month. Much as I understand their fears, silence is far more dangerous: if the problem comes out later, nobody will trust the company again. For all the cost of refunds, honesty is the cheaper choice. The timing is bad. Be that as it may, the company should call every customer, apologise and explain how it is fixing the problem."
+    }
+  },
+  "glosses": [
+    {
+      "text": "invoicing",
+      "lemma": "invoicing",
+      "meaningVi": "việc lập hoá đơn",
+      "pos": "noun",
+      "phrase": "the company's invoicing app",
+      "phraseVi": "ứng dụng lập hoá đơn của công ty",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "overpaid",
+      "lemma": "overpay",
+      "meaningVi": "trả thừa, nộp thừa",
+      "pos": "verb",
+      "phrase": "may have overpaid by a few thousand dong each",
+      "phraseVi": "có thể đã nộp thừa mỗi nơi vài nghìn đồng",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "naive",
+      "lemma": "naive",
+      "meaningVi": "ngây thơ, thiếu thực tế",
+      "pos": "adjective",
+      "phrase": "you're being naive",
+      "phraseVi": "chị đang ngây thơ quá",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "walk away",
+      "lemma": "walk away",
+      "meaningVi": "bỏ đi, rút lui (khỏi một thoả thuận)",
+      "pos": "phrasal verb",
+      "phrase": "they'll walk away",
+      "phraseVi": "họ sẽ bỏ đi",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "rounding error",
+      "lemma": "rounding error",
+      "meaningVi": "lỗi làm tròn số",
+      "pos": "noun",
+      "phrase": "no longer a rounding error",
+      "phraseVi": "không còn là một lỗi làm tròn nữa",
+      "sentenceIndex": 13
+    }
+  ]
+}

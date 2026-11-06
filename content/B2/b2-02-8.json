@@ -433,6 +433,11 @@
       "answerIndex": 0,
       "explanationVi": "Lẽ ra phải làm nhưng đã không làm: should have + V3. Must have là suy đoán chắc chắn, can't have là chắc chắn không.",
       "whenVi": "Dùng khi phân tích một sự việc đã qua: chỉ ra điều lẽ ra nên làm (should / could have) và đoán nguyên nhân (must / might have).",
+      "columns": [
+        "Cấu trúc",
+        "Khẳng định",
+        "Phủ định"
+      ],
       "table": [
         {
           "subject": "should have + V3",
@@ -440,14 +445,14 @@
           "negative": "They shouldn't have waited until six."
         },
         {
-          "subject": "could have + V3",
+          "subject": "could have + V3 (có thể mà không làm)",
           "form": "The water company could have warned us.",
-          "negative": "(có thể làm nhưng đã không làm)"
+          "negative": "The police couldn't have stopped the rain."
         },
         {
-          "subject": "must / might have + V3",
+          "subject": "must / can't have + V3",
           "form": "They must have known since the afternoon.",
-          "negative": "They might have stopped because of the rain."
+          "negative": "The drivers can't have known about the broken pipe."
         }
       ],
       "mistakes": [
@@ -467,9 +472,10 @@
           "promptVi": "Điền một modal vào chỗ trống.",
           "text": "The first message ___ have gone out at five, not seven.",
           "answers": [
-            "should"
+            "should",
+            "could"
           ],
-          "explanationVi": "Lẽ ra nên làm: should have + V3."
+          "explanationVi": "Lẽ ra nên làm (should) hoặc lẽ ra đã có thể làm (could): should / could have + V3."
         },
         {
           "kind": "choice",

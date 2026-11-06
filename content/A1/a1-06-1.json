@@ -1,5 +1,5 @@
 {
-  "content": "Mai and David are at an office in Hanoi. Work starts at eight o'clock in the morning. Mai is never late. She is at her desk at a quarter to eight. David isn't early, and he is often late by ten minutes.\n\n\"What time is it, Mai?\" asks David.\n\"It's half past eight, and you are late again,\" she says.\n\"Sorry, the bus is slow in the morning,\" he says.\n\nLunch is at twelve o'clock, and it is one hour long. On Monday and Thursday, there is a meeting at two in the afternoon. The meetings are long, and David is often tired after them.\n\n\"When is our meeting this week?\" asks Mai on Wednesday.\n\"Wait a second,\" says David, and he looks at his phone.\n\"It's on Thursday at two.\"\n\nIn August, work finishes at four on Friday, and David is very happy.",
+  "content": "Mai and David are at an office in Hanoi. Work starts at eight o'clock in the morning. Mai is never late. She is at her desk at a quarter to eight. David isn't early, and he is often thirty minutes late.\n\n\"What time is it, Mai?\" asks David.\n\"It's half past eight, and you are late again,\" she says.\n\"Sorry, the bus is slow in the morning,\" he says.\n\nLunch is at twelve o'clock, and it is one hour long. On Monday and Thursday, there is a meeting at two in the afternoon. The meetings are long, and David is often tired after them.\n\n\"When is our meeting this week?\" asks Mai on Wednesday.\n\"Wait a second,\" says David, and he looks at his phone.\n\"It's on Thursday at two.\"\n\nIn August, work finishes at four on Friday, and David is very happy.",
   "targetWords": [
     "time",
     "o'clock",
@@ -115,7 +115,7 @@
         "promptVi": "David lúc nào cũng đi làm sớm.",
         "options": [],
         "answerIndex": 1,
-        "explanationVi": "Sai, vì bài viết nói \"David isn't early, and he is often late by ten minutes\"."
+        "explanationVi": "Sai, vì bài viết nói \"David isn't early, and he is often thirty minutes late\"."
       },
       {
         "kind": "vocab",
@@ -147,7 +147,7 @@
       "Giờ làm việc bắt đầu lúc tám giờ sáng.",
       "Mai không bao giờ đến muộn.",
       "Cô ấy có mặt ở bàn làm việc lúc tám giờ kém mười lăm.",
-      "David thì không đến sớm, và anh ấy hay muộn mười phút.",
+      "David thì không đến sớm, và anh ấy hay muộn ba mươi phút.",
       "\"Mấy giờ rồi, Mai?\" David hỏi.",
       "\"Tám giờ rưỡi rồi, và anh lại muộn nữa,\" cô ấy nói.",
       "\"Xin lỗi, buổi sáng xe buýt chạy chậm quá,\" anh ấy nói.",
@@ -180,8 +180,8 @@
       },
       {
         "lemma": "minute",
-        "sentence": "The bus is here in one minute.",
-        "meaningVi": "Một phút nữa xe buýt đến."
+        "sentence": "The meeting is in ten minutes.",
+        "meaningVi": "Mười phút nữa là đến cuộc họp."
       },
       {
         "lemma": "second",
@@ -267,7 +267,9 @@
           "on",
           "are"
         ],
-        "accepted": []
+        "accepted": [
+          "The meeting is at two."
+        ]
       },
       {
         "vi": "Bây giờ là tám giờ rưỡi.",
@@ -279,7 +281,8 @@
         ],
         "accepted": [
           "Now it is half past eight.",
-          "It is now half past eight."
+          "It is now half past eight.",
+          "It is half past eight."
         ]
       },
       {
@@ -291,7 +294,7 @@
           "past"
         ],
         "accepted": [
-          "Mai is at a quarter to eight at her desk."
+          "At a quarter to eight Mai is at her desk."
         ]
       },
       {
@@ -302,7 +305,9 @@
           "minute",
           "in"
         ],
-        "accepted": []
+        "accepted": [
+          "Lunch is one hour."
+        ]
       },
       {
         "vi": "Buổi sáng xe buýt rất chậm.",
@@ -413,18 +418,18 @@
       "table": [
         {
           "subject": "at + giờ",
-          "form": "at eight o'clock, at half past eight",
-          "negative": "at a quarter to eight"
+          "form": "The meeting is at two o'clock.",
+          "negative": "The meeting isn't at three o'clock."
         },
         {
           "subject": "on + thứ / ngày",
-          "form": "on Monday, on Friday",
-          "negative": "on Thursday at two"
+          "form": "The meeting is on Thursday.",
+          "negative": "The meeting isn't on Friday."
         },
         {
           "subject": "in + tháng / buổi",
-          "form": "in August, in July",
-          "negative": "in the morning, in the afternoon"
+          "form": "The meeting is in the afternoon.",
+          "negative": "The meeting isn't in the morning."
         }
       ],
       "mistakes": [
@@ -483,18 +488,21 @@
             "bus",
             "on"
           ],
-          "explanationVi": "Buổi trong ngày đi với in: in the morning; từ \"on\" bị thừa."
+          "explanationVi": "Buổi trong ngày đi với in: in the morning; từ \"on\" bị thừa.",
+          "answers": [
+            "In the morning, the bus is slow."
+          ]
         }
       ]
     },
     "readAloud": [
       {
         "text": "Work starts at eight o'clock in the morning.",
-        "tipVi": "O'clock /əˈklɑk/ nhấn ở âm sau \"CLOCK\"; morning /ˈmɔrnɪŋ/ nhấn âm đầu."
+        "tipVi": "O'clock /əˈklɒk/ nhấn ở âm sau \"CLOCK\"; morning /ˈmɔːnɪŋ/ nhấn âm đầu."
       },
       {
         "text": "She is at her desk at a quarter to eight.",
-        "tipVi": "Quarter /ˈkwɔrtər/ đọc \"QUO-tơ\"; nối \"at a\" thành /ət ə/ nhẹ và nhanh."
+        "tipVi": "Quarter /ˈkwɔːtə/ đọc \"QUO-tơ\"; nối \"at a\" thành /ət ə/ nhẹ và nhanh."
       }
     ],
     "speakQuestions": [

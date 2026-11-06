@@ -1,0 +1,621 @@
+{
+  "content": "On the terrace of a restaurant overlooking Truc Bach Lake, chef Phan Khanh Linh and food critic Do Quang Thai are tasting two bowls of pho side by side. Linh runs a small restaurant in Lyon, and the second bowl is the version she serves to her French customers. Thai is known for his harsh reviews, and Linh has invited him precisely because of them.\n\n\"Let me be honest,\" Thai says. \"Much as I admire your cooking, I came here ready to dislike this bowl.\"\n\n\"That I expected,\" Linh laughs. \"You have always been a purist.\"\n\n\"Guilty. For me, pho is the broth: beef bones that simmer for ten hours with charred onion, ginger, star anise and cinnamon. So aromatic is a good broth that you can smell it before the bowl reaches the table.\"\n\n\"Mine cooks just as long. What changes is everything around it. French palates are not used to so much fish sauce, so I use a little less. And on every table stands a plate of fresh herbs that customers add themselves.\"\n\n\"And the condiments? In Saigon people drown their pho in hoisin and chilli sauce, which northern cooks have never really accepted.\"\n\n\"In Lyon I offer them, but I don't push them. Strange as it may sound, my French customers add less sauce than my Vietnamese ones.\"\n\n\"So how exactly do you adapt the dish?\"\n\n\"In the side dishes. Next to the pho sits a small salad of local ingredients: endive, walnuts, a little mustard. That is fusion cuisine, I admit, but the bowl itself I refuse to change.\"\n\n\"Such is the pressure on chefs abroad that many give up and serve a sweet, cloudy soup with a Vietnamese name. Yours is not that.\"\n\n\"My grandmother's recipe came from Nam Dinh, where many people say pho was born. Admittedly, I have changed the noodles, because fresh rice noodles are hard to find in France, but the soul of the dish is still hers.\"\n\n\"Is that soul in the recipe, or in the cook?\"\n\n\"In both, I think. A recipe can travel easily; a culinary tradition survives only if someone cares enough to defend it.\"\n\nThai finished his bowl without another word. Rare is the critic who admits defeat, but in his column the following week he did exactly that.",
+  "targetWords": [
+    "purist",
+    "broth",
+    "simmer",
+    "aromatic",
+    "palate",
+    "condiment",
+    "adapt",
+    "ingredient",
+    "fusion cuisine",
+    "culinary"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "purist",
+        "lemma": "purist",
+        "meaningVi": "người theo chủ nghĩa thuần tuý, khắt khe giữ nguyên gốc",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "broth",
+        "lemma": "broth",
+        "meaningVi": "nước dùng, nước hầm xương",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "simmer",
+        "lemma": "simmer",
+        "meaningVi": "ninh nhỏ lửa, đun liu riu",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "aromatic",
+        "lemma": "aromatic",
+        "meaningVi": "thơm, ngào ngạt hương",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "palates",
+        "lemma": "palate",
+        "meaningVi": "khẩu vị",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "condiments",
+        "lemma": "condiment",
+        "meaningVi": "đồ chấm, gia vị nêm thêm",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "adapt",
+        "lemma": "adapt",
+        "meaningVi": "điều chỉnh, biến tấu cho phù hợp",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "ingredients",
+        "lemma": "ingredient",
+        "meaningVi": "nguyên liệu",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "fusion cuisine",
+        "lemma": "fusion cuisine",
+        "meaningVi": "ẩm thực kết hợp (pha trộn nhiều nền ẩm thực)",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "culinary",
+        "lemma": "culinary",
+        "meaningVi": "thuộc về ẩm thực, nấu nướng",
+        "pos": "adjective",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the conversation mainly about?",
+        "promptVi": "Cuộc trò chuyện chủ yếu nói về điều gì?",
+        "options": [
+          "How a chef changes pho for foreign customers without losing its character",
+          "How to open a restaurant in Lyon",
+          "Why French food is better than Vietnamese food",
+          "The history of Truc Bach Lake"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh kể cô điều chỉnh những gì xung quanh bát phở cho khách Pháp nhưng giữ nguyên nước dùng: \"the bowl itself I refuse to change.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Linh change for her French customers?",
+        "promptVi": "Linh thay đổi điều gì cho khách Pháp?",
+        "options": [
+          "She cooks the broth for a shorter time",
+          "She uses less fish sauce and adds a local salad",
+          "She uses beef instead of chicken",
+          "She adds more hoisin sauce"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cô nói \"I use a little less\" (nước mắm) và \"Next to the pho sits a small salad of local ingredients\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why has Linh changed the noodles?",
+        "promptVi": "Vì sao Linh đổi bánh phở?",
+        "options": [
+          "Because her grandmother asked her to",
+          "Because French customers dislike rice",
+          "Because fresh rice noodles are hard to find in France",
+          "Because Thai told her to"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"fresh rice noodles are hard to find in France\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh's French customers add more sauce than her Vietnamese customers.",
+        "promptVi": "Khách Pháp của Linh cho nhiều tương hơn khách Việt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"my French customers add less sauce than my Vietnamese ones.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cloudy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Such is the pressure on chefs abroad that many give up and serve a sweet, cloudy soup with a Vietnamese name.",
+        "options": [
+          "đục, không trong",
+          "nhiều mây",
+          "cay nồng",
+          "nguội lạnh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cloudy nói về chất lỏng nghĩa là đục, không trong. Nước dùng phở ngon phải trong, nên \"cloudy soup\" là lời chê."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đảo thành phần lên đầu câu",
+      "bodyVi": "Bài dùng nhiều cách đưa thành phần lên đầu câu để nhấn mạnh. (1) So + tính từ + be + chủ ngữ + that: So aromatic is a good broth that you can smell it… (2) Such + be + chủ ngữ + that: Such is the pressure on chefs abroad that many give up… (3) Cụm chỉ nơi chốn + động từ + chủ ngữ: On every table stands a plate of fresh herbs; Next to the pho sits a small salad… (4) Tân ngữ đứng đầu, không đảo: That I expected; the bowl itself I refuse to change. (5) Rare + be + chủ ngữ: Rare is the critic who admits defeat. Bên cạnh đó bài còn dùng cấu trúc nhượng bộ: Much as I admire your cooking, …; Strange as it may sound, …; Admittedly, …, but …",
+      "examples": [
+        "\"That I expected,\" Linh laughs.",
+        "So aromatic is a good broth that you can smell it before the bowl reaches the table.\"",
+        "Next to the pho sits a small salad of local ingredients: endive, walnuts, a little mustard.",
+        "\"Such is the pressure on chefs abroad that many give up and serve a sweet, cloudy soup with a Vietnamese name."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph about a Vietnamese dish that has changed when it travelled abroad or to another region. Use at least two fronted structures (So … is … that…, Such is … that…, On the table stands…, This I refuse to change) and one concession (Much as…, Strange as it may sound…).",
+    "sentenceTranslations": [
+      "Trên sân hiên một nhà hàng nhìn ra hồ Trúc Bạch, đầu bếp Phan Khánh Linh và nhà phê bình ẩm thực Đỗ Quang Thái đang nếm hai bát phở đặt cạnh nhau.",
+      "Linh có một nhà hàng nhỏ ở Lyon, và bát thứ hai là phiên bản cô phục vụ khách Pháp của mình.",
+      "Thái nổi tiếng với những bài chê gay gắt, và Linh mời anh đến chính là vì thế.",
+      "Thái nói: \"Để tôi nói thật nhé.",
+      "Dù rất ngưỡng mộ tay nghề của chị, tôi đến đây với tâm thế sẵn sàng chê bát phở này.\"",
+      "Linh bật cười: \"Điều đó thì tôi đã đoán trước.",
+      "Anh xưa nay vẫn là người theo trường phái thuần tuý mà.\"",
+      "\"Tôi nhận.",
+      "Với tôi, phở là ở nước dùng: xương bò ninh liu riu mười tiếng cùng hành nướng cháy xém, gừng, hoa hồi và quế.",
+      "Một nồi nước dùng ngon thơm đến mức bát phở chưa tới bàn đã ngửi thấy mùi.\"",
+      "\"Nước dùng của tôi cũng nấu lâu y như vậy.",
+      "Cái thay đổi là mọi thứ xung quanh nó.",
+      "Khẩu vị người Pháp không quen với nhiều nước mắm như thế, nên tôi cho bớt đi một chút.",
+      "Còn trên mỗi bàn đều có sẵn một đĩa rau thơm để khách tự cho thêm.\"",
+      "\"Thế còn đồ chấm và gia vị?",
+      "Ở Sài Gòn người ta chan ngập tương đen và tương ớt vào phở, điều mà người nấu phở miền Bắc chưa bao giờ thực sự chấp nhận.\"",
+      "\"Ở Lyon tôi có để sẵn, nhưng không mời mọc.",
+      "Nghe thì lạ, nhưng khách Pháp của tôi cho ít tương hơn khách Việt.\"",
+      "\"Vậy chính xác thì chị biến tấu món ăn thế nào?\"",
+      "\"Ở các món ăn kèm.",
+      "Bên cạnh bát phở là một đĩa salad nhỏ làm từ nguyên liệu địa phương: rau diếp xoăn, quả óc chó, một chút mù tạt.",
+      "Tôi thừa nhận đó là ẩm thực kết hợp, nhưng riêng bát phở thì tôi nhất định không thay đổi.\"",
+      "\"Áp lực đè lên các đầu bếp ở nước ngoài lớn đến mức nhiều người bỏ cuộc và bán một thứ canh ngọt, đục, chỉ mang cái tên tiếng Việt.",
+      "Phở của chị thì không phải thế.\"",
+      "\"Công thức của bà tôi có từ Nam Định, nơi nhiều người cho là quê hương của phở.",
+      "Phải thừa nhận là tôi đã đổi bánh phở, vì ở Pháp khó tìm bánh phở tươi, nhưng linh hồn của món ăn vẫn là của bà.\"",
+      "\"Linh hồn ấy nằm ở công thức, hay ở người nấu?\"",
+      "\"Ở cả hai, tôi nghĩ vậy.",
+      "Công thức thì dễ dàng đi xa; còn một truyền thống ẩm thực chỉ tồn tại nếu có người đủ tâm huyết để gìn giữ nó.\"",
+      "Thái ăn hết bát phở mà không nói thêm lời nào.",
+      "Hiếm có nhà phê bình nào chịu nhận thua, nhưng trong bài báo tuần sau đó, anh đã làm đúng như vậy."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về việc biến tấu một món ăn truyền thống ở nước ngoài, nhấn mạnh bằng thành phần đứng đầu câu (So aromatic is… that…, On every table stands…).",
+    "examples": [
+      {
+        "lemma": "purist",
+        "sentence": "A purist would never put sugar in fish sauce.",
+        "meaningVi": "Một người thuần tuý sẽ không bao giờ cho đường vào nước mắm."
+      },
+      {
+        "lemma": "broth",
+        "sentence": "The secret of good pho is a clear broth.",
+        "meaningVi": "Bí quyết của bát phở ngon là nước dùng trong."
+      },
+      {
+        "lemma": "simmer",
+        "sentence": "Let the soup simmer gently for two hours.",
+        "meaningVi": "Hãy để món canh ninh nhỏ lửa trong hai tiếng."
+      },
+      {
+        "lemma": "aromatic",
+        "sentence": "Star anise makes the soup sweet and aromatic.",
+        "meaningVi": "Hoa hồi làm món canh ngọt và thơm."
+      },
+      {
+        "lemma": "palate",
+        "sentence": "Spicy food is too strong for my palate.",
+        "meaningVi": "Đồ cay quá mạnh với khẩu vị của tôi."
+      },
+      {
+        "lemma": "condiment",
+        "sentence": "Fish sauce is the most important condiment in Vietnamese cooking.",
+        "meaningVi": "Nước mắm là loại gia vị quan trọng nhất trong cách nấu của người Việt."
+      },
+      {
+        "lemma": "adapt",
+        "sentence": "Many restaurants adapt their menus for tourists.",
+        "meaningVi": "Nhiều nhà hàng điều chỉnh thực đơn cho khách du lịch."
+      },
+      {
+        "lemma": "ingredient",
+        "sentence": "Fresh herbs are an essential ingredient of this dish.",
+        "meaningVi": "Rau thơm tươi là nguyên liệu không thể thiếu của món này."
+      },
+      {
+        "lemma": "fusion cuisine",
+        "sentence": "The new café serves fusion cuisine from Japan and Peru.",
+        "meaningVi": "Quán cà phê mới phục vụ ẩm thực kết hợp giữa Nhật Bản và Peru."
+      },
+      {
+        "lemma": "culinary",
+        "sentence": "Hanoi has a rich culinary history.",
+        "meaningVi": "Hà Nội có một lịch sử ẩm thực phong phú."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Bao Tram",
+        "Mr Khiem"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "I read Thai's column about the pho in Lyon. Have you tried it?",
+          "meaningVi": "Tôi đọc bài của Thái về món phở ở Lyon rồi. Cô ăn thử chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, last spring. So clear was the broth that I could see the bottom of the bowl.",
+          "meaningVi": "Rồi, hồi mùa xuân năm ngoái. Nước dùng trong đến mức tôi nhìn thấy cả đáy bát."
+        },
+        {
+          "speaker": 1,
+          "text": "And the salad on the side? Didn't that feel strange?",
+          "meaningVi": "Còn đĩa salad ăn kèm thì sao? Cô không thấy lạ à?"
+        },
+        {
+          "speaker": 0,
+          "text": "A little. Much as I love tradition, I enjoyed the walnuts.",
+          "meaningVi": "Hơi lạ. Dù rất yêu truyền thống, tôi vẫn thích món óc chó ấy."
+        },
+        {
+          "speaker": 1,
+          "text": "My father would never accept walnuts near his pho.",
+          "meaningVi": "Bố tôi sẽ chẳng bao giờ chịu để óc chó ở gần bát phở của ông."
+        },
+        {
+          "speaker": 0,
+          "text": "That I can believe. Was he a cook himself?",
+          "meaningVi": "Điều đó thì tôi tin. Ông cũng là người nấu ăn à?"
+        },
+        {
+          "speaker": 1,
+          "text": "For forty years. Above his stove hung a photo of his first pho stall.",
+          "meaningVi": "Bốn mươi năm. Phía trên bếp của ông treo tấm ảnh quán phở đầu tiên."
+        },
+        {
+          "speaker": 0,
+          "text": "Then he would understand Linh. She simply wants French people to taste real pho.",
+          "meaningVi": "Vậy chắc ông sẽ hiểu Linh. Cô ấy chỉ muốn người Pháp được nếm phở thật."
+        }
+      ]
+    },
+    "grammarTipVi": "So + tính từ + was + chủ ngữ + that: So clear was the broth that… Tân ngữ đứng đầu, không đảo: That I can believe. Cụm chỉ nơi chốn + động từ + chủ ngữ danh từ: Above his stove hung a photo…",
+    "translations": [
+      {
+        "vi": "Hôm ấy nước dùng ngon đến mức tôi ăn hết sạch.",
+        "en": "So good was the broth that day that I finished everything.",
+        "distractors": [
+          "were",
+          "goodly",
+          "finish"
+        ],
+        "accepted": [
+          "The broth was so good that day that I finished everything.",
+          "That day the broth was so good that I finished everything.",
+          "That day, so good was the broth that I finished everything.",
+          "So good was the broth that I finished everything that day.",
+          "The broth was so good that I finished everything that day."
+        ]
+      },
+      {
+        "vi": "Trên mỗi bàn đều có một đĩa gia vị.",
+        "en": "On every table stands a plate of condiments.",
+        "distractors": [
+          "stand",
+          "tables",
+          "condiment"
+        ],
+        "accepted": [
+          "A plate of condiments stands on every table."
+        ]
+      },
+      {
+        "vi": "Riêng nước dùng thì tôi không bao giờ thay đổi.",
+        "en": "The broth itself I never change.",
+        "distractors": [
+          "changes",
+          "myself",
+          "chance"
+        ],
+        "accepted": [
+          "I never change the broth itself."
+        ]
+      },
+      {
+        "vi": "Khẩu vị người Pháp không quen với nhiều nước mắm.",
+        "en": "French palates are not used to much fish sauce.",
+        "distractors": [
+          "use",
+          "palate",
+          "fishes"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bảo Trâm và ông Khiêm nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Món phở của Linh ở Lyon",
+          "Một quán ăn mới ở Sài Gòn",
+          "Cách trồng óc chó"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Khiêm mở đầu: \"I read Thai's column about the pho in Lyon.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bảo Trâm nhận xét gì về nước dùng?",
+        "promptVi": "",
+        "options": [
+          "Rất trong",
+          "Quá mặn",
+          "Quá ngọt"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"So clear was the broth that I could see the bottom of the bowl.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phía trên bếp của bố ông Khiêm có gì?",
+        "promptVi": "",
+        "options": [
+          "Tấm ảnh quán phở đầu tiên của ông",
+          "Một tờ thực đơn cũ",
+          "Một chiếc đồng hồ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Above his stove hung a photo of his first pho stall.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao Tram did not like the walnuts at all.",
+        "promptVi": "Bảo Trâm hoàn toàn không thích món óc chó.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"I enjoyed the walnuts.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Linh giữ nguyên điều gì và thay đổi điều gì khi nấu phở cho khách Pháp? Vì sao cuối cùng nhà phê bình Thái chịu nhận thua?",
+    "grammarStep": {
+      "titleVi": "Đảo thành phần lên đầu câu",
+      "noticing": [
+        {
+          "sentence": "So aromatic is a good broth that you can smell it before the bowl reaches the table.\"",
+          "highlights": [
+            "So aromatic is a good broth",
+            "that"
+          ]
+        },
+        {
+          "sentence": "And on every table stands a plate of fresh herbs that customers add themselves.\"",
+          "highlights": [
+            "on every table stands a plate of fresh herbs"
+          ]
+        },
+        {
+          "sentence": "That is fusion cuisine, I admit, but the bowl itself I refuse to change.\"",
+          "highlights": [
+            "the bowl itself I refuse to change"
+          ]
+        },
+        {
+          "sentence": "\"Such is the pressure on chefs abroad that many give up and serve a sweet, cloudy soup with a Vietnamese name.",
+          "highlights": [
+            "Such is the pressure on chefs abroad",
+            "that"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: món canh thơm đến mức cả phố đều ngửi thấy. Câu nào đúng?",
+      "options": [
+        "So aromatic was the soup that the whole street could smell it.",
+        "So aromatic the soup was that the whole street could smell it.",
+        "So the soup was aromatic that the whole street could smell it."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "So + tính từ đứng đầu thì be phải đứng ngay trước chủ ngữ: So aromatic was the soup that…",
+      "whenVi": "Hay gặp trong lời bình về ẩm thực, văn miêu tả và lập luận trang trọng: người nói đưa phẩm chất (so aromatic, such) hoặc nơi chốn (on every table) lên trước để gây ấn tượng, hoặc đưa tân ngữ lên trước để đối lập (the bowl itself I refuse to change).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không nói"
+      ],
+      "table": [
+        {
+          "subject": "So + tính từ + be + S + that",
+          "form": "So aromatic is the broth that you smell it first.",
+          "negative": "So aromatic the broth is that you smell it first."
+        },
+        {
+          "subject": "Such + be + S + that",
+          "form": "Such is the pressure that many give up.",
+          "negative": "Such the pressure is that many give up."
+        },
+        {
+          "subject": "Cụm nơi chốn + V + S",
+          "form": "On every table stands a plate of herbs.",
+          "negative": "On every table stands it. (đại từ thì không đảo)"
+        },
+        {
+          "subject": "Tân ngữ + S + V",
+          "form": "The bowl itself I refuse to change.",
+          "negative": "The bowl itself do I refuse to change."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "So aromatic the broth is that you smell it first.",
+          "right": "So aromatic is the broth that you smell it first."
+        },
+        {
+          "wrong": "Next to the pho sit a small salad.",
+          "right": "Next to the pho sits a small salad."
+        },
+        {
+          "wrong": "Such the pressure is that many give up.",
+          "right": "Such is the pressure that many give up."
+        }
+      ],
+      "noteVi": "Khi tân ngữ đứng đầu (That I expected) thì không đảo trợ động từ; chỉ đảo be hoặc động từ khi so/such hay cụm nơi chốn đứng đầu, và động từ chia theo chủ ngữ đứng sau.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "So aromatic ___ the broth that we smelled it from the street.",
+          "answers": [
+            "was"
+          ],
+          "explanationVi": "Câu ở quá khứ (smelled) và chủ ngữ số ít (the broth): was."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Next to the bowl ___ a plate of fresh herbs.",
+          "options": [
+            "sits",
+            "sit",
+            "sitting",
+            "does sit"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Cụm nơi chốn đứng đầu + động từ + chủ ngữ số ít (a plate): sits."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Such the pressure was that many chefs gave up.",
+          "sentence": "Such was the pressure that many chefs gave up.",
+          "explanationVi": "Such đứng đầu thì be đứng ngay sau: Such was the pressure that…"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp thành câu đưa tân ngữ (That) lên đầu.",
+          "text": "Điều đó thì tôi đã đoán trước.",
+          "sentence": "That I expected.",
+          "words": [
+            "That",
+            "I",
+            "expected.",
+            "did"
+          ],
+          "explanationVi": "Tân ngữ (That) đứng đầu, rồi chủ ngữ + động từ, không đảo nên không cần \"did\"."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "And on every table stands a plate of fresh herbs that customers add themselves.\"",
+        "tipVi": "Nhấn on every table và stands, đọc liền mạch đến herbs; herbs /hɜːbz/."
+      },
+      {
+        "text": "Next to the pho sits a small salad of local ingredients: endive, walnuts, a little mustard.",
+        "tipVi": "Nhấn Next to the pho và sits, ngắt hơi trước danh sách nguyên liệu; ingredients /ɪnˈɡriːdiənts/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which Vietnamese dish do you think tastes best, and why?",
+        "questionVi": "Theo bạn món Việt nào ngon nhất, vì sao?",
+        "frame": "So ___ is ___ that I ___."
+      },
+      {
+        "question": "Should restaurants abroad change traditional recipes for local customers?",
+        "questionVi": "Nhà hàng ở nước ngoài có nên thay đổi công thức truyền thống cho khách địa phương không?",
+        "frame": "Much as I understand ___, ___."
+      },
+      {
+        "question": "What part of a traditional dish would you never change?",
+        "questionVi": "Phần nào của một món ăn truyền thống mà bạn sẽ không bao giờ thay đổi?",
+        "frame": "The ___ itself I would never ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu đưa thành phần lên đầu câu (So good was… that / Such is… that / nơi chốn + stands/sits + chủ ngữ)",
+      "anyOf": [
+        "so good was",
+        "so popular is",
+        "such is",
+        "such was",
+        "stands a",
+        "sits a",
+        "stood a",
+        "sat a"
+      ],
+      "outlineVi": [
+        "Giới thiệu món ăn và nơi nó được bán ở xa quê, dùng So … is … that…",
+        "Kể những gì đã được biến tấu, dùng Much as… hoặc Strange as it may sound…",
+        "Nêu điều bạn muốn giữ nguyên, dùng tân ngữ đứng đầu (This I would never change)."
+      ],
+      "modelAnswer": "In a small street in Berlin there is a restaurant that sells bun cha. So popular is it that people queue in the rain. Much as I enjoyed the meal, I noticed the changes: the fish sauce was sweeter and the grilled pork came with a German salad. On every table stood a bottle of chilli sauce. Strange as it may sound, I did not mind. The smoky taste of the pork the chef had kept, and that, for me, is what matters."
+    }
+  },
+  "glosses": [
+    {
+      "text": "charred",
+      "lemma": "charred",
+      "meaningVi": "nướng cháy xém",
+      "pos": "adjective",
+      "phrase": "charred onion",
+      "phraseVi": "hành nướng cháy xém",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "drown",
+      "lemma": "drown",
+      "meaningVi": "làm ngập, chan đẫm",
+      "pos": "verb",
+      "phrase": "drown their pho in hoisin and chilli sauce",
+      "phraseVi": "chan ngập tương đen và tương ớt vào phở",
+      "sentenceIndex": 15
+    },
+    {
+      "text": "side dishes",
+      "lemma": "side dish",
+      "meaningVi": "món ăn kèm",
+      "pos": "noun",
+      "phrase": "In the side dishes",
+      "phraseVi": "Ở các món ăn kèm",
+      "sentenceIndex": 19
+    },
+    {
+      "text": "cloudy",
+      "lemma": "cloudy",
+      "meaningVi": "đục, không trong",
+      "pos": "adjective",
+      "phrase": "a sweet, cloudy soup",
+      "phraseVi": "một thứ canh ngọt, đục",
+      "sentenceIndex": 22
+    },
+    {
+      "text": "defeat",
+      "lemma": "defeat",
+      "meaningVi": "sự thất bại, chịu thua",
+      "pos": "noun",
+      "phrase": "admits defeat",
+      "phraseVi": "chịu nhận thua",
+      "sentenceIndex": 30
+    }
+  ]
+}

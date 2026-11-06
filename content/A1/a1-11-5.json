@@ -1,5 +1,5 @@
 {
-  "content": "Phong likes to exercise at a club near his home every morning. He loves exercising there, but he always needs music.\n\nEvery evening, Phong chooses songs for the morning. He likes fast songs because they make him strong and happy. \"Fast music is great when I run,\" he says.\n\nHis friend Khanh goes to the club with him. She likes exercising too, but she doesn't like fast music. She loves listening to slow songs on her phone.\n\nOne morning, Phong turns on his music in the club. \"Do you like this song?\" he asks. \"It's too fast for me,\" Khanh says. \"Can we listen to a slow song, or can I use my phone?\"\n\nPhong laughs. \"OK, you can choose a song.\" Now they listen to fast songs when they run, and slow songs at the end.",
+  "content": "Phong exercises at a club near his home every morning. He loves exercising there, but he always needs music.\n\nEvery evening, Phong chooses songs for the morning. He likes fast songs because they make him feel strong and happy. \"Fast music is great when I run,\" he says.\n\nHis friend Khanh goes to the club with him. She likes exercising too, but she doesn't like fast music. She loves listening to slow songs on her phone.\n\nOne morning, Phong turns on his music in the club. \"Do you like this song?\" he asks. \"It's too fast for me,\" Khanh says. \"Can we listen to a slow song, or can I use my phone?\"\n\nPhong laughs. \"OK, you can choose a song.\" Now they listen to fast songs when they run, and slow songs at the end.",
   "targetWords": [
     "fast",
     "slow",
@@ -13,7 +13,7 @@
   "annotate": {
     "annotations": [
       {
-        "text": "exercise",
+        "text": "exercises",
         "lemma": "exercise",
         "meaningVi": "tập thể dục",
         "pos": "verb",
@@ -89,12 +89,12 @@
         "promptVi": "Vì sao Phong thích bài hát nhanh?",
         "options": [
           "Because Khanh likes them",
-          "Because they make him strong and happy",
+          "Because they make him feel strong and happy",
           "Because they are new",
           "Because he can sing them"
         ],
         "answerIndex": 1,
-        "explanationVi": "Bài viết \"He likes fast songs because they make him strong and happy.\""
+        "explanationVi": "Bài viết \"He likes fast songs because they make him feel strong and happy.\""
       },
       {
         "kind": "detail",
@@ -134,16 +134,16 @@
     ],
     "grammarNote": {
       "title": "Like / love + danh từ hoặc V-ing, và các từ nối and / but / or / because",
-      "bodyVi": "Nói điều mình thích: like / love + danh từ (He likes fast songs) hoặc like / love + động từ thêm -ing (He loves exercising there, She loves listening to slow songs). Với he / she thì thêm -s: likes, loves; câu phủ định: she doesn't like fast music. Nối hai ý bằng and (và), but (nhưng), or (hoặc), because (vì): He likes fast songs because they make him strong and happy.",
+      "bodyVi": "Nói điều mình thích: like / love + danh từ (He likes fast songs) hoặc like / love + động từ thêm -ing (He loves exercising there, She loves listening to slow songs). Với he / she thì thêm -s: likes, loves; câu phủ định: she doesn't like fast music. Nối hai ý bằng and (và), but (nhưng), or (hoặc), because (vì): He likes fast songs because they make him feel strong and happy.",
       "examples": [
         "He loves exercising there, but he always needs music.",
-        "He likes fast songs because they make him strong and happy.",
+        "He likes fast songs because they make him feel strong and happy.",
         "She likes exercising too, but she doesn't like fast music."
       ]
     },
     "writingPrompt": "Write about the music you like when you exercise, and why.",
     "sentenceTranslations": [
-      "Sáng nào Phong cũng thích tập thể dục ở một câu lạc bộ gần nhà.",
+      "Sáng nào Phong cũng tập thể dục ở một câu lạc bộ gần nhà.",
       "Cậu ấy rất thích tập ở đó, nhưng lúc nào cậu ấy cũng cần có nhạc.",
       "Tối nào Phong cũng chọn bài hát cho buổi sáng hôm sau.",
       "Cậu ấy thích những bài hát nhanh vì chúng làm cậu ấy thấy khoẻ và vui.",
@@ -359,7 +359,7 @@
           ]
         },
         {
-          "sentence": "He likes fast songs because they make him strong and happy.",
+          "sentence": "He likes fast songs because they make him feel strong and happy.",
           "highlights": [
             "likes fast songs",
             "because"
@@ -378,7 +378,7 @@
           ]
         }
       ],
-      "questionVi": "Trong câu \"He likes fast songs because they make him strong and happy\", phần sau because cho biết điều gì?",
+      "questionVi": "Trong câu \"He likes fast songs because they make him feel strong and happy\", phần sau because cho biết điều gì?",
       "options": [
         "Lý do Phong thích bài nhanh",
         "Thời gian Phong tập",
@@ -406,24 +406,25 @@
       ],
       "mistakes": [
         {
-          "wrong": "He loves exercise there.",
-          "right": "He loves exercising there."
+          "wrong": "He loves run in the morning.",
+          "right": "He loves running in the morning."
         },
         {
           "wrong": "She doesn't likes fast music.",
           "right": "She doesn't like fast music."
         }
       ],
-      "noteVi": "Sau doesn't, động từ giữ nguyên, không thêm -s: she doesn't like (không viết doesn't likes). Sau like / love, động từ thêm -ing: loves exercising.",
+      "noteVi": "Sau doesn't, động từ giữ nguyên, không thêm -s: she doesn't like (không viết doesn't likes). Sau like / love, ta thường dùng V-ing (cũng có thể nói like to + V), không dùng động từ nguyên mẫu trần: loves running, không nói \"loves run\".",
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền dạng đúng của động từ trong ngoặc (exercise).",
-          "text": "Phong loves ___ in the morning.",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (run).",
+          "text": "Phong loves ___ to fast songs.",
           "answers": [
-            "exercising"
+            "running",
+            "to run"
           ],
-          "explanationVi": "Sau love, động từ thêm -ing; exercise bỏ e rồi thêm -ing: exercising."
+          "explanationVi": "Sau love, ta thường dùng V-ing; run có một nguyên âm và một phụ âm cuối nên gấp đôi n: running (cũng có thể nói loves to run)."
         },
         {
           "kind": "choice",
@@ -468,7 +469,7 @@
     },
     "readAloud": [
       {
-        "text": "He likes fast songs because they make him strong and happy.",
+        "text": "He likes fast songs because they make him feel strong and happy.",
         "tipVi": "Fast /fɑːst/ có /st/ ở cuối; songs /sɒŋz/ có /z/."
       },
       {
@@ -544,7 +545,7 @@
       "lemma": "strong",
       "meaningVi": "khoẻ",
       "pos": "adjective",
-      "phrase": "they make him strong and happy",
+      "phrase": "they make him feel strong and happy",
       "phraseVi": "chúng làm cậu ấy thấy khoẻ và vui",
       "sentenceIndex": 3
     },

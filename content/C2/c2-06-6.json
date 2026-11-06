@@ -1,0 +1,615 @@
+{
+  "content": "Every Thursday evening, a small group of environmental scientists meets in a café near a university in Ho Chi Minh City to argue about something far from their daily work. This week the subject was asteroid mining, and the debate was livelier than usual.\n\nVuong Thao Nguyen, a soil scientist, opened with a provocative claim. \"Within this century, humanity may well turn to off-world resources, because mines on Earth keep getting deeper, dirtier and more expensive,\" she said. \"Some asteroids contain huge deposits of iron and nickel, and others hold water ice that could be split into hydrogen and oxygen for rocket fuel. Fuel made in space would mean rockets no longer had to carry every litre up from the ground.\"\n\nLac Dinh Khoi, who studies river pollution, was not persuaded. \"Difficult as the engineering challenges may be, they are not my main worry,\" he replied. \"We could hardly manage mining responsibly here, so why should we trust ourselves out there?\" He reminded the group that some mines on Earth have left whole valleys poisoned for generations.\n\nNguyen admitted that the feasibility of the whole idea remains uncertain. Every kilogram of payload launched into orbit still costs a great deal, and no machine has ever mined an asteroid. So far, space agencies have brought back only tiny samples of asteroid dust, measured in grams rather than tonnes. Better propulsion is bound to lower the cost, she argued, but nobody can say when. \"Be that as it may, mining in space keeps the pollution far away from any river or rice field.\"\n\nThe conversation then turned to colonisation. A young researcher asked whether a habitat on Mars could ever support a real city. Khoi laughed and said that the first settlers might well spend most of their lives underground, sheltering from radiation. \"If we have to build sealed cities anyway, we might as well learn to build them in our own deserts first,\" he added.\n\nNear midnight, the group reached a cautious conclusion. In the end, extraterrestrial resources may well matter one day, but they could hardly replace the duty to repair the planet we already have. Next Thursday, they will discuss whether the Moon should belong to anyone at all.",
+  "targetWords": [
+    "asteroid",
+    "mining",
+    "off-world",
+    "feasibility",
+    "payload",
+    "orbit",
+    "propulsion",
+    "colonisation",
+    "habitat",
+    "extraterrestrial"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "asteroid",
+        "lemma": "asteroid",
+        "meaningVi": "tiểu hành tinh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "mining",
+        "lemma": "mining",
+        "meaningVi": "sự khai thác mỏ, khai khoáng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "off-world",
+        "lemma": "off-world",
+        "meaningVi": "ngoài Trái Đất",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "feasibility",
+        "lemma": "feasibility",
+        "meaningVi": "tính khả thi",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "payload",
+        "lemma": "payload",
+        "meaningVi": "tải trọng (hàng hoá tên lửa mang theo)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "orbit",
+        "lemma": "orbit",
+        "meaningVi": "quỹ đạo",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "propulsion",
+        "lemma": "propulsion",
+        "meaningVi": "lực đẩy, hệ thống đẩy",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "colonisation",
+        "lemma": "colonisation",
+        "meaningVi": "sự định cư, lập thuộc địa (ngoài vũ trụ)",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "habitat",
+        "lemma": "habitat",
+        "meaningVi": "khu cư trú, nơi ở",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "extraterrestrial",
+        "lemma": "extraterrestrial",
+        "meaningVi": "ngoài Trái Đất",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Scientists debating whether humanity should mine space and settle other planets",
+          "A company that has started mining an asteroid",
+          "Pollution in rivers near Ho Chi Minh City",
+          "How to build a café for scientists"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhóm nhà khoa học tranh luận về khai thác tiểu hành tinh và việc định cư ngoài vũ trụ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is water ice on asteroids useful, according to Nguyen?",
+        "promptVi": "Theo bà Nguyên, băng nước trên tiểu hành tinh có ích gì?",
+        "options": [
+          "It can be turned into rocket fuel",
+          "It can be sold as drinking water on Earth",
+          "It cools the mining machines",
+          "It protects settlers from radiation"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Băng nước \"could be split into hydrogen and oxygen for rocket fuel\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Khoi's main worry?",
+        "promptVi": "Nỗi lo chính của ông Khôi là gì?",
+        "options": [
+          "Humans may mine as irresponsibly in space as on Earth",
+          "The engineering is too difficult",
+          "Rockets are too slow",
+          "Mars is too far away"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói \"We could hardly manage mining responsibly here, so why should we trust ourselves out there?\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "A machine has already mined an asteroid.",
+        "promptVi": "Đã có cỗ máy khai thác một tiểu hành tinh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"no machine has ever mined an asteroid\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cautious\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Near midnight, the group reached a cautious conclusion.",
+        "options": [
+          "thận trọng",
+          "táo bạo",
+          "buồn bã",
+          "vội vàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cautious = thận trọng. Kết luận của nhóm không quá lạc quan cũng không bác bỏ hoàn toàn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Sắc thái của động từ khuyết thiếu",
+      "bodyVi": "Bài đọc dùng modal ghép để nói mức chắc chắn và thái độ. (1) May well / might well + động từ: nhiều khả năng: humanity may well turn to off-world resources; the first settlers might well spend… (2) Be bound to + động từ: chắc chắn sẽ: Better propulsion is bound to lower the cost. (3) Could hardly + động từ: hầu như không thể: We could hardly manage mining responsibly here; they could hardly replace the duty… (4) Might as well + động từ: cứ làm vậy đi vì không có cách nào hay hơn: we might as well learn to build them in our own deserts first. Bài còn dùng cấu trúc nhượng bộ: Difficult as the engineering challenges may be, …; Be that as it may, …",
+      "examples": [
+        "\"Within this century, humanity may well turn to off-world resources, because mines on Earth keep getting deeper, dirtier and more expensive,\" she said.",
+        "\"We could hardly manage mining responsibly here, so why should we trust ourselves out there?\"",
+        "Better propulsion is bound to lower the cost, she argued, but nobody can say when.",
+        "Khoi laughed and said that the first settlers might well spend most of their lives underground, sheltering from radiation.",
+        "\"If we have to build sealed cities anyway, we might as well learn to build them in our own deserts first,\" he added."
+      ]
+    },
+    "writingPrompt": "Should humanity spend money on mining asteroids and building cities on Mars? Write a short paragraph giving your view. Use at least two modal structures (may well, might as well, could hardly, be bound to) and, if you can, one concession (Difficult as … may be, Be that as it may).",
+    "sentenceTranslations": [
+      "Tối thứ Năm nào cũng vậy, một nhóm nhỏ các nhà khoa học môi trường gặp nhau ở một quán cà phê gần một trường đại học tại Thành phố Hồ Chí Minh để tranh luận về một chuyện xa rời công việc hằng ngày của họ.",
+      "Tuần này đề tài là khai thác khoáng sản trên tiểu hành tinh, và cuộc tranh luận sôi nổi hơn thường lệ.",
+      "Vương Thảo Nguyên, một nhà khoa học đất, mở đầu bằng một nhận định đầy khiêu khích.",
+      "Bà nói: \"Nhiều khả năng ngay trong thế kỷ này nhân loại sẽ chuyển sang tài nguyên ngoài Trái Đất, vì các mỏ trên Trái Đất ngày càng sâu hơn, bẩn hơn và đắt đỏ hơn.",
+      "Một số tiểu hành tinh chứa những trữ lượng sắt và niken khổng lồ, số khác có băng nước có thể tách thành hydro và oxy để làm nhiên liệu tên lửa.",
+      "Có nhiên liệu sản xuất ngay trong không gian thì tên lửa sẽ không còn phải chở từng lít từ mặt đất lên nữa.\"",
+      "Lạc Đình Khôi, người nghiên cứu ô nhiễm sông ngòi, không bị thuyết phục.",
+      "Ông đáp: \"Dù những thách thức kỹ thuật có khó khăn đến đâu, đó cũng không phải nỗi lo chính của tôi.",
+      "Ở đây chúng ta còn khó mà quản lý việc khai thác một cách có trách nhiệm, vậy sao lại tin rằng mình làm tốt ở ngoài kia?\"",
+      "Ông nhắc cả nhóm rằng có những mỏ trên Trái Đất đã để lại cả những thung lũng bị nhiễm độc suốt nhiều thế hệ.",
+      "Bà Nguyên thừa nhận rằng tính khả thi của cả ý tưởng này vẫn còn bỏ ngỏ.",
+      "Mỗi ki-lô-gam tải trọng phóng lên quỹ đạo vẫn tốn rất nhiều tiền, và chưa từng có cỗ máy nào khai thác một tiểu hành tinh.",
+      "Cho đến nay, các cơ quan vũ trụ mới chỉ mang về những mẫu bụi tiểu hành tinh rất nhỏ, tính bằng gam chứ không phải bằng tấn.",
+      "Bà lập luận rằng hệ thống đẩy tốt hơn chắc chắn sẽ làm giảm chi phí, chỉ là không ai biết đến bao giờ.",
+      "\"Dù vậy đi nữa, khai thác trong không gian sẽ giữ ô nhiễm ở thật xa mọi dòng sông hay cánh đồng lúa.\"",
+      "Sau đó câu chuyện chuyển sang việc định cư ngoài vũ trụ.",
+      "Một nhà nghiên cứu trẻ hỏi liệu một khu cư trú trên sao Hoả có bao giờ nuôi sống được cả một thành phố thực sự hay không.",
+      "Ông Khôi bật cười và nói rằng nhiều khả năng những người định cư đầu tiên sẽ sống phần lớn đời mình dưới lòng đất để tránh phóng xạ.",
+      "Ông nói thêm: \"Đằng nào cũng phải xây những thành phố khép kín, thì ta cứ học cách xây chúng ở sa mạc của chính mình trước đã.\"",
+      "Gần nửa đêm, cả nhóm đi đến một kết luận thận trọng.",
+      "Rốt cuộc, nhiều khả năng một ngày nào đó tài nguyên ngoài Trái Đất sẽ trở nên quan trọng, nhưng chúng khó mà thay thế được trách nhiệm hàn gắn hành tinh mà ta đang có.",
+      "Thứ Năm tới, họ sẽ bàn xem Mặt Trăng có nên thuộc về bất kỳ ai hay không."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về khai thác tài nguyên ngoài Trái Đất, nói mức chắc chắn bằng may well, be bound to, could hardly, might as well và nhượng bộ bằng Difficult as… may be.",
+    "examples": [
+      {
+        "lemma": "asteroid",
+        "sentence": "An asteroid passed safely between the Earth and the Moon.",
+        "meaningVi": "Một tiểu hành tinh đã bay qua an toàn giữa Trái Đất và Mặt Trăng."
+      },
+      {
+        "lemma": "mining",
+        "sentence": "Coal mining has shaped the history of Quang Ninh.",
+        "meaningVi": "Ngành khai thác than đã định hình lịch sử của Quảng Ninh."
+      },
+      {
+        "lemma": "off-world",
+        "sentence": "The film imagines an off-world colony on Mars.",
+        "meaningVi": "Bộ phim tưởng tượng về một khu định cư ngoài Trái Đất trên sao Hoả."
+      },
+      {
+        "lemma": "feasibility",
+        "sentence": "The engineers are studying the feasibility of a new bridge.",
+        "meaningVi": "Các kỹ sư đang nghiên cứu tính khả thi của một cây cầu mới."
+      },
+      {
+        "lemma": "payload",
+        "sentence": "The rocket can carry a payload of two tonnes.",
+        "meaningVi": "Tên lửa có thể mang một tải trọng hai tấn."
+      },
+      {
+        "lemma": "orbit",
+        "sentence": "The satellite has been in orbit for ten years.",
+        "meaningVi": "Vệ tinh đã ở trên quỹ đạo được mười năm."
+      },
+      {
+        "lemma": "propulsion",
+        "sentence": "Electric propulsion uses very little fuel.",
+        "meaningVi": "Hệ thống đẩy bằng điện tiêu tốn rất ít nhiên liệu."
+      },
+      {
+        "lemma": "colonisation",
+        "sentence": "Some scientists think the colonisation of Mars is a dangerous dream.",
+        "meaningVi": "Một số nhà khoa học cho rằng việc định cư trên sao Hoả là một giấc mơ nguy hiểm."
+      },
+      {
+        "lemma": "habitat",
+        "sentence": "The astronauts tested a small habitat in the desert.",
+        "meaningVi": "Các phi hành gia đã thử nghiệm một khu cư trú nhỏ trong sa mạc."
+      },
+      {
+        "lemma": "extraterrestrial",
+        "sentence": "There is still no evidence of extraterrestrial life.",
+        "meaningVi": "Vẫn chưa có bằng chứng nào về sự sống ngoài Trái Đất."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Kha Linh",
+        "To Bao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "That was a long night. Do you think Nguyen was right about the mines?",
+          "meaningVi": "Tối nay dài thật. Cậu có nghĩ bà Nguyên nói đúng về chuyện các mỏ không?"
+        },
+        {
+          "speaker": 1,
+          "text": "She may well be right. Mines here are getting more expensive every year.",
+          "meaningVi": "Nhiều khả năng bà ấy đúng. Các mỏ ở đây mỗi năm một đắt đỏ hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "But I could hardly imagine a mine on a rock in space.",
+          "meaningVi": "Nhưng mình khó mà hình dung nổi một cái mỏ trên một tảng đá ngoài vũ trụ."
+        },
+        {
+          "speaker": 1,
+          "text": "Nor could people imagine satellites a hundred years ago.",
+          "meaningVi": "Một trăm năm trước người ta cũng đâu hình dung nổi vệ tinh."
+        },
+        {
+          "speaker": 0,
+          "text": "True. Would you live in a city on Mars?",
+          "meaningVi": "Cũng đúng. Cậu có muốn sống ở một thành phố trên sao Hoả không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Underground for years? I am bound to go crazy.",
+          "meaningVi": "Sống dưới lòng đất nhiều năm ư? Mình chắc chắn sẽ phát điên."
+        },
+        {
+          "speaker": 0,
+          "text": "Me too. Oh no, the last bus has gone.",
+          "meaningVi": "Mình cũng vậy. Ôi thôi, chuyến xe buýt cuối đi mất rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Then we might as well walk. It is only two kilometres.",
+          "meaningVi": "Thế thì mình cứ đi bộ thôi. Chỉ có hai cây số."
+        },
+        {
+          "speaker": 0,
+          "text": "Fine. Tiring as it is, walking is better than waiting here.",
+          "meaningVi": "Được. Dù mệt thì đi bộ vẫn hơn đứng đợi ở đây."
+        }
+      ]
+    },
+    "grammarTipVi": "May well + động từ: nhiều khả năng (She may well be right). Could hardly + động từ: khó mà… (I could hardly imagine…). Be bound to + động từ: chắc chắn sẽ (I am bound to go crazy). Might as well + động từ: đành/cứ làm vậy (we might as well walk).",
+    "translations": [
+      {
+        "vi": "Nhiều khả năng việc khai thác tiểu hành tinh sẽ bắt đầu trong thế kỷ này.",
+        "en": "Asteroid mining may well begin this century.",
+        "distractors": [
+          "begins",
+          "mine",
+          "good"
+        ],
+        "accepted": [
+          "This century, asteroid mining may well begin."
+        ]
+      },
+      {
+        "vi": "Thôi thì ta cứ thử nghiệm một khu cư trú trong sa mạc trước đã.",
+        "en": "We might as well test a habitat in the desert first.",
+        "distractors": [
+          "tested",
+          "deserted",
+          "firstly"
+        ],
+        "accepted": [
+          "First, we might as well test a habitat in the desert."
+        ]
+      },
+      {
+        "vi": "Hệ thống đẩy tốt hơn chắc chắn sẽ làm giảm chi phí.",
+        "en": "Better propulsion is bound to lower the cost.",
+        "distractors": [
+          "bind",
+          "lowering",
+          "cheaply"
+        ]
+      },
+      {
+        "vi": "Dù có khó khăn đến mấy, khai thác ngoài Trái Đất vẫn có thể thực hiện được.",
+        "en": "Difficult as it may be, off-world mining is possible.",
+        "distractors": [
+          "difficulty",
+          "but",
+          "impossible"
+        ],
+        "accepted": [
+          "Off-world mining is possible, difficult as it may be."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kha Linh và Tô Bảo nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuộc tranh luận tối nay về khai thác vũ trụ và sống trên sao Hoả",
+          "Giá vé xe buýt",
+          "Một bộ phim về người ngoài hành tinh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người nhắc lại ý của bà Nguyên về các mỏ và chuyện sống trên sao Hoả.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Tô Bảo nghĩ bà Nguyên có thể đúng?",
+        "promptVi": "",
+        "options": [
+          "Vì các mỏ trên Trái Đất ngày càng đắt đỏ",
+          "Vì bà ấy là giáo sư",
+          "Vì đã có mỏ trên tiểu hành tinh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"Mines here are getting more expensive every year.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao hai người quyết định đi bộ?",
+        "promptVi": "",
+        "options": [
+          "Vì chuyến xe buýt cuối đã đi",
+          "Vì họ thích tập thể dục",
+          "Vì trời không mưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"the last bus has gone\", nên Bảo bảo \"we might as well walk.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "To Bao would happily live underground on Mars.",
+        "promptVi": "Tô Bảo sẵn lòng sống dưới lòng đất trên sao Hoả.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cậu nói \"I am bound to go crazy.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Bà Nguyên đưa ra lý do gì để tin rằng con người sẽ khai thác tài nguyên ngoài Trái Đất? Ông Khôi lo ngại điều gì, và cuối cùng cả nhóm kết luận ra sao?",
+    "grammarStep": {
+      "titleVi": "Sắc thái của động từ khuyết thiếu",
+      "noticing": [
+        {
+          "sentence": "\"Within this century, humanity may well turn to off-world resources, because mines on Earth keep getting deeper, dirtier and more expensive,\" she said.",
+          "highlights": [
+            "may well turn"
+          ]
+        },
+        {
+          "sentence": "\"We could hardly manage mining responsibly here, so why should we trust ourselves out there?\"",
+          "highlights": [
+            "could hardly manage"
+          ]
+        },
+        {
+          "sentence": "Better propulsion is bound to lower the cost, she argued, but nobody can say when.",
+          "highlights": [
+            "is bound to lower"
+          ]
+        },
+        {
+          "sentence": "\"If we have to build sealed cities anyway, we might as well learn to build them in our own deserts first,\" he added.",
+          "highlights": [
+            "might as well learn"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: chuyến xe cuối đi rồi, nên ta cứ đi bộ thôi. Câu nào đúng?",
+      "options": [
+        "The last bus has gone, so we might as well walk.",
+        "The last bus has gone, so we may well walk.",
+        "The last bus has gone, so we are bound walk."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Might as well = cứ làm vậy vì không còn lựa chọn nào tốt hơn. May well = nhiều khả năng; bound phải có to.",
+      "whenVi": "Hay gặp trong tranh luận và dự đoán: người nói cho biết điều gì rất có thể xảy ra (may well), chắc chắn xảy ra (be bound to), gần như không thể (could hardly) hay là lựa chọn đành chấp nhận (might as well).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Nghĩa"
+      ],
+      "table": [
+        {
+          "subject": "may / might well + V",
+          "form": "Humanity may well turn to space.",
+          "negative": "rất có thể"
+        },
+        {
+          "subject": "be bound to + V",
+          "form": "Costs are bound to fall.",
+          "negative": "chắc chắn sẽ"
+        },
+        {
+          "subject": "could / can hardly + V",
+          "form": "We could hardly manage it.",
+          "negative": "hầu như không thể (không thêm not)"
+        },
+        {
+          "subject": "might / may as well + V",
+          "form": "We might as well start here.",
+          "negative": "thôi thì cứ…, đành vậy"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Better engines are bound lower the cost.",
+          "right": "Better engines are bound to lower the cost."
+        },
+        {
+          "wrong": "We couldn't hardly believe it.",
+          "right": "We could hardly believe it."
+        },
+        {
+          "wrong": "Humanity may well turns to space.",
+          "right": "Humanity may well turn to space."
+        }
+      ],
+      "noteVi": "Sau may well, might well, might as well, could hardly là động từ nguyên mẫu không to; riêng be bound luôn đi với to. Hardly đã mang nghĩa phủ định nên không dùng thêm not.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "We have missed the last bus, so we might as ___ walk home.",
+          "answers": [
+            "well"
+          ],
+          "explanationVi": "Might as well + động từ: cứ làm vậy vì không có cách nào hay hơn."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "With cheaper rockets, launch prices are bound ___ fall.",
+          "options": [
+            "to",
+            "for",
+            "that",
+            "on"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Be bound to + động từ nguyên mẫu: chắc chắn sẽ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Better engines are bound lower the cost.",
+          "sentence": "Better engines are bound to lower the cost.",
+          "explanationVi": "Bound phải có to: be bound to + động từ."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nhiều khả năng những người định cư đầu tiên sẽ sống dưới lòng đất.",
+          "sentence": "The first settlers may well live underground.",
+          "words": [
+            "The",
+            "first",
+            "settlers",
+            "may",
+            "well",
+            "live",
+            "underground.",
+            "to"
+          ],
+          "explanationVi": "May well + động từ nguyên mẫu không to: may well live."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Better propulsion is bound to lower the cost, she argued, but nobody can say when.",
+        "tipVi": "Nhấn bound và lower; propulsion /prəˈpʌlʃn/; ngắt hơi trước và sau she argued."
+      },
+      {
+        "text": "Near midnight, the group reached a cautious conclusion.",
+        "tipVi": "Ngắt hơi sau midnight; cautious /ˈkɔːʃəs/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Will people live on Mars in your lifetime?",
+        "questionVi": "Liệu con người có sống trên sao Hoả trong đời bạn không?",
+        "frame": "People may well ___, but ___."
+      },
+      {
+        "question": "What is bound to change in space travel soon?",
+        "questionVi": "Điều gì chắc chắn sẽ thay đổi trong du hành vũ trụ sắp tới?",
+        "frame": "___ is bound to ___."
+      },
+      {
+        "question": "Should we fix Earth before going to other planets?",
+        "questionVi": "Chúng ta có nên sửa chữa Trái Đất trước khi đến các hành tinh khác không?",
+        "frame": "We could hardly ___, so we might as well ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 modal ghép (may well / might well, might as well, could hardly / can hardly, be bound to)",
+      "anyOf": [
+        "may well",
+        "might well",
+        "might as well",
+        "may as well",
+        "could hardly",
+        "can hardly",
+        "bound to"
+      ],
+      "outlineVi": [
+        "Nêu dự đoán của bạn về khai thác vũ trụ (may well / be bound to).",
+        "Nêu khó khăn hoặc rủi ro (could hardly, Difficult as … may be).",
+        "Kết luận nên làm gì trước (might as well …)."
+      ],
+      "modelAnswer": "Humanity may well mine asteroids before the end of this century. Rockets are getting cheaper, and better engines are bound to lower the cost even more. Difficult as the engineering may be, it is not the biggest problem. We could hardly protect our own rivers and forests from mining, so I am not sure we will behave better in space. If we really want to build sealed cities, we might as well practise in our own deserts first and learn to waste less."
+    }
+  },
+  "glosses": [
+    {
+      "text": "provocative",
+      "lemma": "provocative",
+      "meaningVi": "mang tính khiêu khích, gây tranh cãi",
+      "pos": "adjective",
+      "phrase": "a provocative claim",
+      "phraseVi": "một nhận định đầy khiêu khích",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "deposits",
+      "lemma": "deposit",
+      "meaningVi": "mỏ, trữ lượng (khoáng sản)",
+      "pos": "noun",
+      "phrase": "huge deposits of iron and nickel",
+      "phraseVi": "những trữ lượng sắt và niken khổng lồ",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "poisoned",
+      "lemma": "poison",
+      "meaningVi": "đầu độc, làm nhiễm độc",
+      "pos": "verb",
+      "phrase": "whole valleys poisoned for generations",
+      "phraseVi": "cả những thung lũng bị nhiễm độc suốt nhiều thế hệ",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "settlers",
+      "lemma": "settler",
+      "meaningVi": "người định cư",
+      "pos": "noun",
+      "phrase": "the first settlers",
+      "phraseVi": "những người định cư đầu tiên",
+      "sentenceIndex": 17
+    },
+    {
+      "text": "cautious",
+      "lemma": "cautious",
+      "meaningVi": "thận trọng",
+      "pos": "adjective",
+      "phrase": "a cautious conclusion",
+      "phraseVi": "một kết luận thận trọng",
+      "sentenceIndex": 19
+    }
+  ]
+}

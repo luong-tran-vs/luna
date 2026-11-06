@@ -1,5 +1,5 @@
 {
-  "content": "Linh and Nam work in a small office in Hanoi. They sit at the same table, and they love music.\n\nEvery morning, Nam turns on his computer and plays a song. He likes listening to music at work because it makes him happy. His favorite song is by a young singer from Korea.\n\nLinh likes pop music too, but she doesn't like it at work. \"Can you make it quiet, Nam?\" she asks. \"I can't hear my phone.\"\n\nNam laughs, and he makes the music quiet. Linh loves the singer, and she sings along with the song. Nam sings with her. They both enjoy dancing, and they often want to dance to the music. But they can't dance in the office!\n\nAt lunch, they enjoy talking about new songs, or they listen to their favorite singers.",
+  "content": "Linh and Nam work in a small office in Hanoi. They sit at the same table, and they love music.\n\nEvery morning, Nam turns on his computer and plays a song. He likes listening to music at work because it makes him happy. His favorite song is by a young singer from Korea.\n\nLinh likes pop music too, but she doesn't like it at work. \"Can you turn it down, Nam?\" she asks. \"I can't hear my phone.\"\n\nNam laughs and turns the music down, so the office is quiet. Linh loves the singer, and she sings along with the song. Nam sings with her. They both enjoy dancing, and they often want to dance to the music. But they can't dance in the office!\n\nAt lunch, they enjoy talking about new songs, or they listen to their favorite singers.",
   "targetWords": [
     "music",
     "song",
@@ -43,9 +43,9 @@
       {
         "text": "quiet",
         "lemma": "quiet",
-        "meaningVi": "nhỏ (tiếng), yên tĩnh",
+        "meaningVi": "yên tĩnh, nhỏ (tiếng)",
         "pos": "adjective",
-        "sentenceIndex": 6
+        "sentenceIndex": 8
       },
       {
         "text": "listen to",
@@ -98,7 +98,7 @@
       },
       {
         "kind": "detail",
-        "prompt": "Why does Linh ask Nam to make the music quiet?",
+        "prompt": "Why does Linh ask Nam to turn the music down?",
         "promptVi": "Vì sao Linh nhờ Nam để nhạc nhỏ lại?",
         "options": [
           "She doesn't like pop music.",
@@ -149,9 +149,9 @@
       "Cậu ấy thích nghe nhạc khi làm việc vì nhạc làm cậu ấy vui.",
       "Bài cậu ấy thích nhất là của một ca sĩ trẻ người Hàn Quốc.",
       "Linh cũng thích nhạc pop, nhưng cô ấy không thích nghe lúc làm việc.",
-      "\"Nam ơi, cậu để nhỏ được không?\" cô ấy hỏi.",
+      "\"Nam ơi, cậu vặn nhỏ đi được không?\" cô ấy hỏi.",
       "\"Mình không nghe được điện thoại.\"",
-      "Nam cười, và cậu ấy để nhạc nhỏ lại.",
+      "Nam cười và vặn nhỏ nhạc, nên văn phòng yên tĩnh lại.",
       "Linh mê ca sĩ đó, và cô ấy hát theo bài hát.",
       "Nam hát cùng cô ấy.",
       "Cả hai đều thích nhảy, và hai bạn hay muốn nhảy theo nhạc.",
@@ -221,7 +221,7 @@
         },
         {
           "speaker": 0,
-          "text": "Yes, I like the song, but please make it quiet.",
+          "text": "Yes, I like the song, but please turn it down.",
           "meaningVi": "Có, mình thích bài này, nhưng cậu để nhỏ thôi nhé."
         },
         {
@@ -314,7 +314,7 @@
           "Buồn quá"
         ],
         "answerIndex": 1,
-        "explanationVi": "Linh nói \"I like the song, but please make it quiet.\"",
+        "explanationVi": "Linh nói \"I like the song, but please turn it down.\"",
         "turnIndex": 2
       },
       {
@@ -381,7 +381,7 @@
         "Vì listen là danh từ"
       ],
       "answerIndex": 0,
-      "explanationVi": "Sau like / love, ta dùng danh từ (music, the singer) hoặc động từ thêm -ing (listening, dancing). Không nói \"He likes listen\".",
+      "explanationVi": "Sau like / love, ta dùng danh từ (music, the singer) hoặc thường dùng động từ thêm -ing (listening, dancing); cũng có thể nói like to + V. Không nói \"He likes listen\".",
       "whenVi": "Dùng like / love để nói sở thích; dùng and để thêm ý, but để nói ý ngược lại, or để nói lựa chọn, because để nói lý do.",
       "table": [
         {
@@ -410,16 +410,17 @@
           "right": "She doesn't like fast songs."
         }
       ],
-      "noteVi": "Tiếng Việt nói \"thích nghe\" (hai động từ đứng liền nhau), nên người Việt hay viết \"like listen\". Trong tiếng Anh, động từ sau like / love cần thêm -ing.",
+      "noteVi": "Tiếng Việt nói \"thích nghe\" (hai động từ đứng liền nhau), nên người Việt hay viết \"like listen\". Trong tiếng Anh, sau like / love ta thường dùng V-ing (cũng có thể nói like to + V), không dùng động từ nguyên mẫu trần: không nói \"like listen\".",
       "exercises": [
         {
           "kind": "fill",
           "promptVi": "Điền dạng đúng của động từ trong ngoặc (dance).",
           "text": "My brother loves ___ to pop music.",
           "answers": [
-            "dancing"
+            "dancing",
+            "to dance"
           ],
-          "explanationVi": "Sau love, động từ thêm -ing: loves dancing."
+          "explanationVi": "Sau love, ta thường dùng V-ing: loves dancing (cũng có thể nói loves to dance)."
         },
         {
           "kind": "choice",
@@ -439,7 +440,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "Nam likes listen to music at work.",
           "sentence": "Nam likes listening to music at work.",
-          "explanationVi": "Sau like, động từ thêm -ing: likes listening."
+          "explanationVi": "Sau like không dùng động từ nguyên mẫu trần: likes listening (hoặc likes to listen).",
+          "answers": [
+            "Nam likes to listen to music at work."
+          ]
         },
         {
           "kind": "reorder",

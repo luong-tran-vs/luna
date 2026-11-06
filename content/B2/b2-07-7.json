@@ -321,9 +321,9 @@
         "vi": "Chi tiết nào cũng tinh tế quá.",
         "en": "Every detail is so fine.",
         "distractors": [
-          "all",
-          "are",
-          "details"
+          "details",
+          "both",
+          "finely"
         ]
       },
       {
@@ -433,16 +433,21 @@
       "answerIndex": 0,
       "explanationVi": "Trong câu hỏi về một trong hai thứ, dùng either.",
       "whenVi": "Dùng khi nhận xét về từng món đồ (each, every), cả hai (both), một trong hai (either) hoặc không cái nào (neither).",
+      "columns": [
+        "Từ",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
-          "subject": "each / every",
-          "form": "Each vase is painted by hand. / every surface is covered with lines",
+          "subject": "each / every + số ít",
+          "form": "Each vase is painted by hand. / Every surface is covered with lines.",
           "negative": "Không viết: each vases, every surfaces"
         },
         {
           "subject": "both (of) + số nhiều",
-          "form": "Both of them are real masters. / I like both.",
-          "negative": "We can't buy both."
+          "form": "Both of them are real masters. / We can't buy both.",
+          "negative": "Động từ số nhiều; both có thể đứng một mình"
         },
         {
           "subject": "either / neither (of)",
@@ -464,7 +469,7 @@
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền một từ vào chỗ trống.",
+          "promptVi": "Điền một từ vào chỗ trống (nghĩa: không cái nào trong hai).",
           "text": "___ of them is cheap, it's true.",
           "answers": [
             "Neither"
@@ -489,7 +494,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "Both of them is real masters.",
           "sentence": "Both of them are real masters.",
-          "explanationVi": "Both đi với động từ số nhiều: are."
+          "explanationVi": "Both đi với động từ số nhiều: are.",
+          "answers": [
+            "Both of them were real masters."
+          ]
         },
         {
           "kind": "reorder",
@@ -539,16 +547,11 @@
     "writingHelp": {
       "grammarLabelVi": "Có ít nhất 1 câu với each / every / both / either / neither",
       "anyOf": [
-        "each",
-        "Each",
-        "every",
-        "Every",
         "both",
-        "Both",
+        "each",
+        "every",
         "either",
-        "Either",
-        "neither",
-        "Neither"
+        "neither"
       ],
       "outlineVi": [
         "Bạn đi đâu, với ai.",

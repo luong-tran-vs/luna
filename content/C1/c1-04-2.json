@@ -348,7 +348,7 @@
         "vi": "Chủ cửa hàng đã đề nghị đưa kẻ đó ra toà.",
         "en": "The shop owner suggested that the man be taken to court.",
         "distractors": [
-          "taking",
+          "takes",
           "suggests",
           "prison"
         ],
@@ -439,21 +439,26 @@
       "answerIndex": 0,
       "explanationVi": "Sau insist that dùng động từ nguyên mẫu không to: each guard be on time.",
       "whenVi": "Dùng khi đưa ra yêu cầu, đề xuất trang trọng: quy định, biên bản họp, thư công việc, văn bản pháp lý.",
+      "columns": [
+        "Cấu trúc",
+        "Khẳng định",
+        "Phủ định"
+      ],
       "table": [
         {
-          "subject": "insist / demand / ask that",
-          "form": "S + insist that + S + V nguyên mẫu: I insist that every guard remain vigilant.",
-          "negative": "insist that he not leave the entrance"
+          "subject": "insist / demand / ask that + S + V",
+          "form": "I insist that every guard remain vigilant.",
+          "negative": "I insist that he not leave the entrance."
         },
         {
-          "subject": "recommend / suggest that",
-          "form": "S + suggest that + S + V nguyên mẫu: I suggest that one supervisor check the recordings.",
-          "negative": "suggest that they not use force"
+          "subject": "recommend / suggest that + S + V",
+          "form": "I suggest that one supervisor check the recordings.",
+          "negative": "I suggest that they not use force."
         },
         {
-          "subject": "Bị động",
-          "form": "that + S + be + V3: I recommend that the protocols be implemented.",
-          "negative": "that the photos not be published"
+          "subject": "Bị động: that + S + be + V3",
+          "form": "I recommend that the protocols be implemented.",
+          "negative": "I ask that the photos not be published."
         }
       ],
       "mistakes": [
@@ -497,7 +502,12 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "The manager suggested that Tuan to check the recordings every day.",
           "sentence": "The manager suggested that Tuan check the recordings every day.",
-          "explanationVi": "Sau suggest that không dùng to: Tuan check."
+          "explanationVi": "Sau suggest that không dùng to: Tuan check.",
+          "answers": [
+            "The manager suggested that Tuan should check the recordings every day.",
+            "The manager suggested Tuan check the recordings every day.",
+            "The manager suggested Tuan should check the recordings every day."
+          ]
         },
         {
           "kind": "reorder",
@@ -554,10 +564,8 @@
         "insists that",
         "insisted that",
         "recommend that",
-        "recommends that",
         "recommended that",
         "suggest that",
-        "suggests that",
         "suggested that",
         "demand that"
       ],

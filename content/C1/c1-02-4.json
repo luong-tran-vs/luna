@@ -399,20 +399,25 @@
       "answerIndex": 0,
       "explanationVi": "Với Only when, mệnh đề when giữ nguyên trật tự; đảo ngữ nằm ở mệnh đề chính: did it support.",
       "whenVi": "Dùng đảo ngữ khi kể lại hoặc đánh giá một sự kiện trong văn phong trang trọng, để nhấn mạnh tốc độ (Hardly … when) hay điều kiện (Only when …).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
           "subject": "Hardly … when",
-          "form": "Hardly had + S + V3 … when + quá khứ đơn",
-          "negative": "= vừa … thì …"
+          "form": "Hardly had the advert gone online when the comments started.",
+          "negative": "Hardly had + S + V3 … when + quá khứ đơn; = vừa … thì …"
         },
         {
           "subject": "Only when / Only after",
-          "form": "Only when + S + V, did + S + V nguyên mẫu",
+          "form": "Only when the tests were repeated did the truth come out.",
           "negative": "Chỉ đảo ở mệnh đề chính"
         },
         {
           "subject": "whatever / whoever / however",
-          "form": "whatever it claimed / Whoever copies … / however far they lived",
+          "form": "Whatever it claimed, the cream was ordinary. / Customers came back, however far they lived.",
           "negative": "however + tính từ / trạng từ + S + V"
         }
       ],
@@ -433,7 +438,8 @@
           "promptVi": "Điền một từ vào chỗ trống.",
           "text": "Hardly had the advert gone online ___ the comments started.",
           "answers": [
-            "when"
+            "when",
+            "before"
           ],
           "explanationVi": "Hardly … when (No sooner mới đi với than)."
         },
@@ -452,14 +458,14 @@
         },
         {
           "kind": "fix",
-          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng, giữ \"Not only\" ở đầu câu.",
           "text": "Not only that honesty calmed the critics, but it also won customers.",
           "sentence": "Not only did that honesty calm the critics, but it also won customers.",
           "explanationVi": "Not only đầu câu → đảo: did + chủ ngữ + calm."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "promptVi": "Sắp xếp thành câu đảo ngữ, bắt đầu bằng \"Hardly\".",
           "text": "Chúng tôi vừa đến thì trời bắt đầu mưa.",
           "sentence": "Hardly had we arrived when it started to rain.",
           "words": [
@@ -506,17 +512,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ và 1 câu với whatever / whoever / however",
+      "grammarLabelVi": "Có ít nhất 1 câu với whatever / whoever / wherever, hoặc 1 câu đảo ngữ (Not only will/did… / Only when… / Hardly had… / Rarely do…)",
       "anyOf": [
-        "not only",
-        "only when",
-        "only after",
-        "hardly",
-        "no sooner",
-        "rarely",
         "whatever",
         "whoever",
-        "however"
+        "wherever",
+        "not only will",
+        "not only did",
+        "only when",
+        "hardly had",
+        "rarely do"
       ],
       "outlineVi": [
         "Sản phẩm \"xanh\" và lý do người ta nghi ngờ.",

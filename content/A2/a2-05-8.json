@@ -148,7 +148,7 @@
       "Sau hai tiếng, họ đã rất no.",
       "Bắc gọi người phục vụ mang hoá đơn.",
       "Anh kiểm tra, và thấy hoá đơn bị sai.",
-      "\"Bọn mình đã uống bao nhiêu đồ uống nhỉ?\" anh hỏi Ben.",
+      "\"Bọn mình gọi mấy đồ uống nhỉ?\" anh hỏi Ben.",
       "\"Chỉ bốn lon cola thôi, mình nghĩ thế,\" Ben nói.",
       "\"Nhưng hoá đơn ghi tám lon,\" Bắc nói.",
       "Anh gọi người phục vụ và hỏi: \"Xin lỗi, em kiểm tra lại hoá đơn giúp anh được không?",
@@ -209,13 +209,13 @@
     "dialogue": {
       "speakers": [
         "Bac",
-        "Ben"
+        "Emma"
       ],
       "turns": [
         {
           "speaker": 1,
-          "text": "Bac, how much was our dinner last night?",
-          "meaningVi": "Bắc ơi, bữa tối hôm qua của bọn mình hết bao nhiêu tiền?"
+          "text": "Bac, how much was your dinner last night?",
+          "meaningVi": "Bắc ơi, bữa tối hôm qua của các cậu hết bao nhiêu tiền?"
         },
         {
           "speaker": 0,
@@ -224,8 +224,8 @@
         },
         {
           "speaker": 1,
-          "text": "That isn't much for a lot of beef.",
-          "meaningVi": "Thế là không nhiều đâu với ngần ấy thịt bò."
+          "text": "That isn't much for a hotpot dinner.",
+          "meaningVi": "Thế là không nhiều cho một bữa lẩu đâu."
         },
         {
           "speaker": 0,
@@ -234,8 +234,8 @@
         },
         {
           "speaker": 1,
-          "text": "How many plates of beef did we eat?",
-          "meaningVi": "Bọn mình ăn mấy đĩa bò nhỉ?"
+          "text": "How many plates of beef did you eat?",
+          "meaningVi": "Các cậu ăn mấy đĩa bò?"
         },
         {
           "speaker": 0,
@@ -244,13 +244,13 @@
         },
         {
           "speaker": 1,
-          "text": "Was there any problem with the new bill?",
-          "meaningVi": "Hoá đơn mới có vấn đề gì không?"
+          "text": "Was there any problem with the bill?",
+          "meaningVi": "Hoá đơn có vấn đề gì không?"
         },
         {
           "speaker": 0,
-          "text": "No, and the waiter was very nice about it.",
-          "meaningVi": "Không, mà anh phục vụ cũng rất lịch sự."
+          "text": "Yes, it was wrong, but the waiter was very nice about it.",
+          "meaningVi": "Có, hoá đơn bị sai, nhưng anh phục vụ rất lịch sự."
         },
         {
           "speaker": 1,
@@ -285,6 +285,9 @@
           "is",
           "full",
           "can"
+        ],
+        "accepted": [
+          "On the table there are four empty cans."
         ]
       },
       {
@@ -309,15 +312,15 @@
     "listeningQuestions": [
       {
         "kind": "gist",
-        "prompt": "Ben và Bắc nói về điều gì?",
+        "prompt": "Emma và Bắc nói về điều gì?",
         "promptVi": "",
         "options": [
           "Bữa tối ở quán lẩu hôm qua",
-          "Một món lẩu Ben nấu",
+          "Một món lẩu Emma nấu",
           "Công việc mới của Bắc"
         ],
         "answerIndex": 0,
-        "explanationVi": "Ben hỏi \"how much was our dinner last night?\" và hai người nói về bữa lẩu đó.",
+        "explanationVi": "Emma hỏi \"how much was your dinner last night?\" và hai người nói về bữa lẩu đó.",
         "turnIndex": -1
       },
       {
@@ -386,14 +389,14 @@
           ]
         }
       ],
-      "questionVi": "Vì sao Ben nói \"four cans of cola\" mà không nói \"four colas\"?",
+      "questionVi": "Vì sao Ben nói \"four cans of cola\"?",
       "options": [
         "Vì cola là danh từ số nhiều.",
         "Vì không có cách nào khác để nói.",
-        "Vì cola (nước) không đếm được, nên đếm bằng lon (cans)."
+        "Vì cola là chất lỏng, thường đếm bằng đơn vị (lon, cốc, chai)."
       ],
       "answerIndex": 2,
-      "explanationVi": "Đồ uống như cola, tea, water không đếm được; muốn đếm thì dùng đơn vị: a can of cola, a cup of tea, a glass of water.",
+      "explanationVi": "Đồ uống như cola, tea, water thường không đếm được; muốn đếm thì dùng đơn vị: a can of cola, a cup of tea, a glass of water. Khi gọi món, người ta vẫn có thể nói two colas, two coffees.",
       "whenVi": "Dùng many / How many với danh từ đếm được, much / How much với danh từ không đếm được; đếm danh từ không đếm được bằng đơn vị như a can of, a plate of, a cup of.",
       "table": [
         {
@@ -551,7 +554,7 @@
       "sentenceIndex": 5,
       "pos": "phrase",
       "phrase": "How many drinks did we have",
-      "phraseVi": "Bọn mình đã uống bao nhiêu đồ uống"
+      "phraseVi": "Bọn mình gọi mấy đồ uống"
     },
     {
       "text": "Excuse me",

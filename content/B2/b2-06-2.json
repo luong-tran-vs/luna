@@ -439,21 +439,26 @@
       "answerIndex": 0,
       "explanationVi": "Cảm biến bị đặt (bị động) nên dùng phân từ V3: Placed.",
       "whenVi": "Dùng trong báo cáo, bài viết để rút gọn câu: V-ing (chủ động), V3 (bị động), Having + V3 (việc xảy ra trước).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
       "table": [
         {
-          "subject": "V-ing …",
-          "form": "Chủ động: Using the sensor, farmers reduced their fertiliser.",
-          "negative": "Chủ ngữ hai vế phải là một."
+          "subject": "V-ing (chủ động)",
+          "form": "Using the sensor, farmers reduced their fertiliser.",
+          "negative": "= Because they used the sensor, farmers reduced …"
         },
         {
-          "subject": "V3 …",
-          "form": "Bị động: Placed too close to the canals, some sensors gave wrong readings.",
-          "negative": "= Because they were placed …"
+          "subject": "V3 (bị động)",
+          "form": "Placed too close to the canals, some sensors gave wrong readings.",
+          "negative": "= Because they were placed too close to the canals, …"
         },
         {
-          "subject": "Having + V3 …",
-          "form": "Việc xảy ra trước: Having completed the trials, the team met.",
-          "negative": "= After they had completed …"
+          "subject": "Having + V3 (xảy ra trước)",
+          "form": "Having completed the trials, the team met.",
+          "negative": "= After they had completed the trials, …"
         }
       ],
       "mistakes": [
@@ -495,7 +500,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "Placing too close to the canals, some sensors gave wrong readings.",
           "sentence": "Placed too close to the canals, some sensors gave wrong readings.",
-          "explanationVi": "Cảm biến bị đặt (bị động): Placed."
+          "explanationVi": "Cảm biến bị đặt (bị động): Placed.",
+          "answers": [
+            "Being placed too close to the canals, some sensors gave wrong readings."
+          ]
         },
         {
           "kind": "reorder",
@@ -544,14 +552,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 mệnh đề phân từ (Using …, Having + V3 …, Tested …)",
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề phân từ với Having + V3 (vd. Having finished …, …)",
       "anyOf": [
-        "Having",
-        "Using",
-        "Seeing",
-        "Placed",
-        "Tested",
-        "Designed"
+        "having tested",
+        "having finished",
+        "having completed",
+        "having used",
+        "having been",
+        "having seen",
+        "having made",
+        "not having"
       ],
       "outlineVi": [
         "Bạn đã thử sản phẩm gì, trong bao lâu (Having tested …).",

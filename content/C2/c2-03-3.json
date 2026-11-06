@@ -1,0 +1,629 @@
+{
+  "content": "Every other Sunday, the extended Nguyen family gathers at Grandmother's house in Nam Dinh for a long lunch that somehow lasts until dinner. This week the conversation drifts, as it usually does, towards the generation gap and the mysterious things young people do with their phones.\n\nUncle Bao, a retired railway engineer, holds up his phone with a puzzled frown. \"Thu Ha, my old colleague sent me this picture of a cat shouting at a dinner table,\" he says. \"Everyone in the group says it's hilarious, but nobody will tell me why.\"\n\nThu Ha, who works in digital marketing in Hanoi, puts down her chopsticks. \"It's a meme, Uncle. People add new words to the same picture again and again, until the picture becomes, as it were, a shared language.\"\n\n\"So the cat isn't actually angry?\" \"Not at all; the literal meaning hardly matters. It's figurative: the cat is everyone who has ever been annoyed at a family dinner.\"\n\nHer aunt bursts out laughing, but Uncle Bao is not convinced. \"The more you explain, the less I understand,\" he says. \"In my day, a joke had a beginning, a middle and a punchline. These memes have no ending at all; if anything, they're just pictures with spelling mistakes.\"\n\n\"That's the point,\" Thu Ha says. \"The more often a meme is shared, the funnier it becomes, even if it was barely funny at the start. And once something goes viral, nobody remembers who made it.\"\n\nHer cousin Khoa, who is sixteen, points out that Uncle Bao's own jokes work in exactly the same way. \"Remember your pun about leaving the railway because your career had gone off the rails?\" he asks. \"You've told it at every Tet for ten years.\"\n\nUncle Bao looks offended for a moment, then admits it was his finest work. \"Then explain this,\" he says. \"Why do you young people call something cringe when you obviously enjoy it?\"\n\nThu Ha thinks carefully before she answers. \"It's a way of laughing at yourself first, so to speak. We ridicule our own old photos before anybody else can.\"\n\nUncle Bao nods slowly and types something. A minute later, every phone at the table buzzes: he has posted the shouting cat in the family group, with the caption \"Me, when the rice runs out\". \"The older the uncle, the better the meme,\" Thu Ha says, laughing. Only Grandmother, who has never owned a smartphone, wants to know what is so funny, and nobody dares to explain.",
+  "targetWords": [
+    "generation gap",
+    "hilarious",
+    "meme",
+    "literal",
+    "figurative",
+    "punchline",
+    "viral",
+    "pun",
+    "cringe",
+    "ridicule"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "generation gap",
+        "lemma": "generation gap",
+        "meaningVi": "khoảng cách thế hệ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "hilarious",
+        "lemma": "hilarious",
+        "meaningVi": "cực kỳ buồn cười",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "meme",
+        "lemma": "meme",
+        "meaningVi": "ảnh chế, nội dung hài lan truyền trên mạng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "literal",
+        "lemma": "literal",
+        "meaningVi": "theo nghĩa đen",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "figurative",
+        "lemma": "figurative",
+        "meaningVi": "theo nghĩa bóng",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "punchline",
+        "lemma": "punchline",
+        "meaningVi": "câu chốt (gây cười) của chuyện cười",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "viral",
+        "lemma": "viral",
+        "meaningVi": "lan truyền chóng mặt (trên mạng)",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "pun",
+        "lemma": "pun",
+        "meaningVi": "lối chơi chữ",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "cringe",
+        "lemma": "cringe",
+        "meaningVi": "ngượng chín người, \"sượng\" (từ lóng)",
+        "pos": "adjective",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "ridicule",
+        "lemma": "ridicule",
+        "meaningVi": "chế giễu, giễu cợt",
+        "pos": "verb",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What happens at the family lunch?",
+        "promptVi": "Chuyện gì diễn ra trong bữa trưa gia đình?",
+        "options": [
+          "Thu Ha tries to explain internet memes to her uncle.",
+          "Uncle Bao teaches the children how to use a smartphone.",
+          "The family plans a trip to Hanoi.",
+          "Thu Ha shows her family her new marketing project."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bác Bảo hỏi về bức ảnh con mèo, và Thu Hà giải thích \"It's a meme, Uncle.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Thu Ha, what does the shouting cat represent?",
+        "promptVi": "Theo Thu Hà, con mèo đang quát tượng trưng cho điều gì?",
+        "options": [
+          "An angry pet",
+          "Everyone who has been annoyed at a family dinner",
+          "Her uncle's old colleague",
+          "People who make spelling mistakes"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cô nói \"the cat is everyone who has ever been annoyed at a family dinner.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Uncle Bao do at the end?",
+        "promptVi": "Cuối cùng bác Bảo làm gì?",
+        "options": [
+          "He leaves the family group.",
+          "He asks Grandmother for help.",
+          "He posts the cat picture in the family group with his own caption.",
+          "He tells his railway joke again."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"He has posted the shouting cat in the family group, with the caption…\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Grandmother understands the meme immediately.",
+        "promptVi": "Bà nội hiểu ngay bức ảnh chế.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà \"wants to know what is so funny, and nobody dares to explain.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"frown\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Uncle Bao, a retired railway engineer, holds up his phone with a puzzled frown.",
+        "options": [
+          "cái cau mày",
+          "nụ cười",
+          "cái gật đầu",
+          "tiếng thở dài"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Frown = cái cau mày, thể hiện sự khó hiểu hoặc không hài lòng. Bác Bảo cau mày vì không hiểu bức ảnh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cấu trúc cố định: the more…, the more…; if anything; as it were; so to speak",
+      "bodyVi": "Hai thế hệ tranh luận về ảnh chế bằng các khung câu cố định. (1) The + so sánh hơn …, the + so sánh hơn … (càng… càng…): The more you explain, the less I understand; The more often a meme is shared, the funnier it becomes; The older the uncle, the better the meme. So sánh hơn có thể là more/less hoặc tính từ -er, và luôn đứng đầu mỗi vế. (2) If anything đưa ra một nhận định \"thậm chí ngược lại\" sau một câu phủ định: no ending at all; if anything, they're just pictures… (3) As it were và so to speak báo rằng mình nói theo nghĩa bóng: becomes, as it were, a shared language; laughing at yourself first, so to speak. Đây là cụm cố định, đứng tách bằng dấu phẩy.",
+      "examples": [
+        "People add new words to the same picture again and again, until the picture becomes, as it were, a shared language.\"",
+        "\"The more you explain, the less I understand,\" he says.",
+        "These memes have no ending at all; if anything, they're just pictures with spelling mistakes.\"",
+        "\"The more often a meme is shared, the funnier it becomes, even if it was barely funny at the start."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph explaining a joke, a meme or a slang word to an older relative. Use the + comparative…, the + comparative at least once, and if anything, as it were or so to speak.",
+    "sentenceTranslations": [
+      "Cứ hai tuần một lần vào Chủ nhật, đại gia đình họ Nguyễn lại tụ họp ở nhà bà nội tại Nam Định cho một bữa trưa dài mà chẳng hiểu sao kéo đến tận bữa tối.",
+      "Tuần này câu chuyện lại trôi, như thường lệ, sang khoảng cách thế hệ và những điều bí ẩn mà người trẻ làm với chiếc điện thoại.",
+      "Bác Bảo, một kỹ sư đường sắt đã nghỉ hưu, giơ điện thoại lên, cau mày khó hiểu.",
+      "Bác nói: \"Thu Hà này, ông bạn đồng nghiệp cũ gửi cho bác bức ảnh một con mèo đang quát tháo bên bàn ăn.",
+      "Cả nhóm ai cũng bảo nó buồn cười kinh khủng, nhưng chẳng ai chịu giải thích tại sao.\"",
+      "Thu Hà, người làm marketing số ở Hà Nội, đặt đũa xuống.",
+      "\"Đó là ảnh chế đấy bác ạ.",
+      "Người ta cứ thêm chữ mới vào cùng một bức ảnh hết lần này đến lần khác, cho đến khi bức ảnh trở thành, có thể nói là, một thứ ngôn ngữ chung.\"",
+      "\"Vậy là con mèo không giận thật à?\"",
+      "\"Không hề; nghĩa đen gần như chẳng quan trọng.",
+      "Đó là nghĩa bóng: con mèo là bất kỳ ai từng bực mình trong một bữa cơm gia đình.\"",
+      "Bà cô của Hà phá lên cười, nhưng bác Bảo vẫn chưa bị thuyết phục.",
+      "Bác nói: \"Cháu càng giải thích, bác càng không hiểu.",
+      "Thời của bác, một câu chuyện cười phải có mở đầu, đoạn giữa và câu chốt.",
+      "Mấy cái ảnh chế này chẳng có kết thúc gì cả; nếu có thì chỉ là những bức ảnh viết sai chính tả.\"",
+      "Thu Hà nói: \"Chính thế mới vui ạ.",
+      "Ảnh chế càng được chia sẻ nhiều thì càng buồn cười, kể cả khi lúc đầu nó chẳng mấy hài hước.",
+      "Và một khi thứ gì đó đã lan truyền chóng mặt thì chẳng ai nhớ ai làm ra nó nữa.\"",
+      "Cậu em họ Khoa, mười sáu tuổi, chỉ ra rằng những câu đùa của chính bác Bảo cũng y hệt như vậy.",
+      "Cậu hỏi: \"Bác còn nhớ câu chơi chữ của bác về chuyện nghỉ làm đường sắt vì sự nghiệp đã 'trật đường ray' không?",
+      "Bác kể câu đó vào mọi dịp Tết suốt mười năm nay rồi.\"",
+      "Bác Bảo trông có vẻ phật ý trong giây lát, rồi thừa nhận đó là tác phẩm xuất sắc nhất của mình.",
+      "Bác nói: \"Thế thì giải thích cái này đi.",
+      "Sao bọn trẻ các cháu lại gọi một thứ là 'cringe' trong khi rõ ràng là thích nó?\"",
+      "Thu Hà suy nghĩ kỹ trước khi trả lời.",
+      "\"Có thể nói đó là cách tự cười mình trước.",
+      "Bọn cháu tự giễu những bức ảnh cũ của mình trước khi người khác kịp làm thế.\"",
+      "Bác Bảo chậm rãi gật đầu và gõ gì đó.",
+      "Một phút sau, mọi chiếc điện thoại trên bàn đều rung lên: bác đã đăng con mèo đang quát vào nhóm gia đình, kèm dòng chú thích \"Tôi, khi nồi cơm hết\".",
+      "Thu Hà vừa cười vừa nói: \"Bác càng lớn tuổi thì ảnh chế càng hay.\"",
+      "Chỉ có bà nội, người chưa từng có điện thoại thông minh, muốn biết có gì buồn cười đến thế, và không ai dám giải thích."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giải thích ảnh chế và tiếng lóng cho người lớn tuổi một cách hài hước bằng các khung cố định: the more…, the less…; if anything; as it were; so to speak.",
+    "examples": [
+      {
+        "lemma": "generation gap",
+        "sentence": "Music is often where the generation gap is easiest to hear.",
+        "meaningVi": "Âm nhạc thường là nơi dễ nghe thấy khoảng cách thế hệ nhất."
+      },
+      {
+        "lemma": "hilarious",
+        "sentence": "The video of the dancing grandfather is hilarious.",
+        "meaningVi": "Đoạn video ông cụ nhảy múa buồn cười kinh khủng."
+      },
+      {
+        "lemma": "meme",
+        "sentence": "My mother sent me a meme about Monday mornings.",
+        "meaningVi": "Mẹ tôi gửi cho tôi một ảnh chế về những buổi sáng thứ Hai."
+      },
+      {
+        "lemma": "literal",
+        "sentence": "The literal translation of the idiom makes no sense in English.",
+        "meaningVi": "Bản dịch nghĩa đen của thành ngữ này chẳng có nghĩa gì trong tiếng Anh."
+      },
+      {
+        "lemma": "figurative",
+        "sentence": "Poets often use figurative language to describe love.",
+        "meaningVi": "Các nhà thơ thường dùng ngôn ngữ hình ảnh để miêu tả tình yêu."
+      },
+      {
+        "lemma": "punchline",
+        "sentence": "He laughed so hard that he forgot the punchline.",
+        "meaningVi": "Anh cười nhiều đến mức quên mất câu chốt."
+      },
+      {
+        "lemma": "viral",
+        "sentence": "Her video went viral overnight.",
+        "meaningVi": "Video của cô lan truyền chóng mặt chỉ sau một đêm."
+      },
+      {
+        "lemma": "pun",
+        "sentence": "The headline is a clever pun on the minister's name.",
+        "meaningVi": "Tiêu đề là một lối chơi chữ thông minh dựa trên tên của vị bộ trưởng."
+      },
+      {
+        "lemma": "cringe",
+        "sentence": "My old school photos are so cringe.",
+        "meaningVi": "Ảnh hồi đi học của tôi \"sượng\" kinh khủng."
+      },
+      {
+        "lemma": "ridicule",
+        "sentence": "Good teachers never ridicule a student's wrong answer.",
+        "meaningVi": "Giáo viên giỏi không bao giờ chế giễu câu trả lời sai của học sinh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khoa",
+        "Thu Ha"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Did you see Uncle Bao's new post this morning?",
+          "meaningVi": "Chị có thấy bài đăng mới của bác Bảo sáng nay không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I did. He has posted five memes since lunch yesterday.",
+          "meaningVi": "Thấy rồi. Từ trưa hôm qua đến giờ bác đăng năm cái ảnh chế rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Are any of them actually funny?",
+          "meaningVi": "Có cái nào buồn cười thật không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "They aren't bad. If anything, they're better than mine.",
+          "meaningVi": "Không tệ đâu. Nếu có thì còn hay hơn của chị ấy chứ."
+        },
+        {
+          "speaker": 0,
+          "text": "You created a monster, as it were.",
+          "meaningVi": "Có thể nói là chị đã tạo ra một con quái vật."
+        },
+        {
+          "speaker": 1,
+          "text": "I know. The more likes he gets, the faster he posts.",
+          "meaningVi": "Chị biết. Bác càng được nhiều lượt thích thì đăng càng nhanh."
+        },
+        {
+          "speaker": 0,
+          "text": "Should we tell him to slow down?",
+          "meaningVi": "Mình có nên bảo bác đăng chậm lại không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No way. He is the family's new comedian, so to speak.",
+          "meaningVi": "Không đời nào. Có thể nói bác là danh hài mới của cả nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Then what about Grandmother? She still wants an explanation.",
+          "meaningVi": "Thế còn bà thì sao? Bà vẫn muốn được giải thích."
+        },
+        {
+          "speaker": 1,
+          "text": "Let Uncle Bao try. The sooner, the better.",
+          "meaningVi": "Để bác Bảo thử đi. Càng sớm càng tốt."
+        }
+      ]
+    },
+    "grammarTipVi": "The + so sánh hơn…, the + so sánh hơn…: the more likes he gets, the faster he posts; dạng rút gọn: The sooner, the better. If anything sửa ý vừa nói: They aren't bad. If anything, they're better than mine. As it were / so to speak đi với một cách nói hình ảnh: a monster, as it were; the family's new comedian, so to speak.",
+    "translations": [
+      {
+        "vi": "Ảnh chế càng được chia sẻ nhiều thì càng buồn cười.",
+        "en": "The more a meme is shared, the funnier it becomes.",
+        "distractors": [
+          "funny",
+          "most",
+          "sharing"
+        ]
+      },
+      {
+        "vi": "Đừng hiểu nó theo nghĩa đen; đó là nghĩa bóng.",
+        "en": "Don't take it in the literal sense; it's figurative.",
+        "distractors": [
+          "literate",
+          "figure",
+          "not"
+        ]
+      },
+      {
+        "vi": "Một khi thứ gì đó đã lan truyền rộng, chẳng ai nhớ ai làm ra nó.",
+        "en": "Once something goes viral, nobody remembers who made it.",
+        "distractors": [
+          "virus",
+          "remember",
+          "make"
+        ],
+        "accepted": [
+          "Nobody remembers who made it once something goes viral."
+        ]
+      },
+      {
+        "vi": "Thời đó, câu chuyện cười nào cũng có câu chốt.",
+        "en": "In those days, every joke had a punchline.",
+        "distractors": [
+          "have",
+          "punch",
+          "jokes"
+        ],
+        "accepted": [
+          "Every joke had a punchline in those days."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khoa và Thu Hà nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Những ảnh chế mới mà bác Bảo đăng",
+          "Bài kiểm tra của Khoa",
+          "Bữa trưa Chủ nhật tuần sau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa hỏi \"Did you see Uncle Bao's new post this morning?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thu Hà nhận xét gì về ảnh chế của bác Bảo?",
+        "promptVi": "",
+        "options": [
+          "Còn hay hơn của cô",
+          "Rất nhàm chán",
+          "Viết sai chính tả"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"If anything, they're better than mine.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Điều gì khiến bác Bảo đăng nhanh hơn?",
+        "promptVi": "",
+        "options": [
+          "Càng được nhiều lượt thích",
+          "Có điện thoại mới",
+          "Bà nội yêu cầu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"The more likes he gets, the faster he posts.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu Ha wants to ask Uncle Bao to stop posting.",
+        "promptVi": "Thu Hà muốn bảo bác Bảo ngừng đăng bài.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Khoa hỏi có nên bảo bác chậm lại không, cô nói \"No way.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Thu Hà giải thích ảnh chế cho bác Bảo như thế nào? Bác Bảo phản ứng ra sao, và cuối bữa ăn điều gì bất ngờ xảy ra?",
+    "grammarStep": {
+      "titleVi": "Cấu trúc cố định: càng… càng…, if anything, as it were, so to speak",
+      "noticing": [
+        {
+          "sentence": "People add new words to the same picture again and again, until the picture becomes, as it were, a shared language.\"",
+          "highlights": [
+            "as it were"
+          ]
+        },
+        {
+          "sentence": "\"The more you explain, the less I understand,\" he says.",
+          "highlights": [
+            "The more you explain",
+            "the less I understand"
+          ]
+        },
+        {
+          "sentence": "These memes have no ending at all; if anything, they're just pictures with spelling mistakes.\"",
+          "highlights": [
+            "if anything"
+          ]
+        },
+        {
+          "sentence": "\"The more often a meme is shared, the funnier it becomes, even if it was barely funny at the start.",
+          "highlights": [
+            "The more often a meme is shared",
+            "the funnier it becomes"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: cháu càng giải thích, bác càng không hiểu. Câu nào đúng?",
+      "options": [
+        "The more you explain, the less I understand.",
+        "The more you explain, I understand the less.",
+        "More you explain, less I understand."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Mỗi vế đều bắt đầu bằng the + so sánh hơn (the more, the less), sau đó mới đến chủ ngữ và động từ.",
+      "whenVi": "Dùng khi giải thích, tranh luận nhẹ nhàng hoặc đùa trong gia đình: the more…, the less… để nêu quan hệ tăng giảm; if anything để đảo nhận định; as it were / so to speak khi dùng hình ảnh không theo nghĩa đen.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Nghĩa"
+      ],
+      "table": [
+        {
+          "subject": "The + so sánh hơn, the + so sánh hơn",
+          "form": "The more a meme is shared, the funnier it becomes. The more you explain, the less I understand.",
+          "negative": "càng… thì càng…; chỉ dùng so sánh hơn"
+        },
+        {
+          "subject": "Dạng rút gọn",
+          "form": "The older the uncle, the better the meme. The sooner, the better.",
+          "negative": "càng… càng… (bỏ động từ khi ý đã rõ)"
+        },
+        {
+          "subject": "If anything",
+          "form": "They aren't bad; if anything, they're better.",
+          "negative": "thậm chí ngược lại"
+        },
+        {
+          "subject": "As it were / so to speak",
+          "form": "The picture becomes, as it were, a shared language.",
+          "negative": "có thể nói là (nghĩa bóng)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The older the uncle, the best the meme.",
+          "right": "The older the uncle, the better the meme."
+        },
+        {
+          "wrong": "The more you explain, the more less I understand.",
+          "right": "The more you explain, the less I understand."
+        },
+        {
+          "wrong": "The picture becomes, as it was, a shared language.",
+          "right": "The picture becomes, as it were, a shared language."
+        }
+      ],
+      "noteVi": "Trong the more…, the more… chỉ dùng so sánh hơn (better, funnier, less), không dùng so sánh nhất (best, funniest, least).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The more a meme is shared, ___ funnier it becomes.",
+          "answers": [
+            "the"
+          ],
+          "explanationVi": "Vế thứ hai cũng bắt đầu bằng the + so sánh hơn: the funnier."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Her joke wasn't offensive; ___, it was rather sweet.",
+          "options": [
+            "if anything",
+            "so to speak",
+            "as it were",
+            "the more"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau một câu phủ định, if anything đưa ra ý ngược lại: không xúc phạm, thậm chí còn khá dễ thương."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The older the uncle, the best the meme.",
+          "sentence": "The older the uncle, the better the meme.",
+          "explanationVi": "Cấu trúc càng… càng… dùng so sánh hơn: better, không dùng so sánh nhất best."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cháu càng giải thích, bác càng không hiểu.",
+          "sentence": "The more you explain, the less I understand.",
+          "words": [
+            "The",
+            "more",
+            "you",
+            "explain,",
+            "the",
+            "less",
+            "I",
+            "understand.",
+            "than"
+          ],
+          "explanationVi": "The more + you explain, rồi the less + I understand; từ \"than\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"The more you explain, the less I understand,\" he says.",
+        "tipVi": "Lên giọng ở explain, xuống giọng ở understand; nhấn more và less."
+      },
+      {
+        "text": "\"The older the uncle, the better the meme,\" Thu Ha says, laughing.",
+        "tipVi": "Nhấn older và better; đọc phần \"Thu Ha says, laughing\" nhẹ và nhanh hơn."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a generation gap in your family when it comes to humour?",
+        "questionVi": "Trong gia đình bạn có khoảng cách thế hệ về cách hài hước không?",
+        "frame": "The older my relatives are, the more ___."
+      },
+      {
+        "question": "Have you ever explained a meme or a slang word to an older person?",
+        "questionVi": "Bạn đã bao giờ giải thích một ảnh chế hay từ lóng cho người lớn tuổi chưa?",
+        "frame": "It isn't ___; if anything, it ___."
+      },
+      {
+        "question": "Who is the funniest person in your family?",
+        "questionVi": "Ai là người hài hước nhất nhà bạn?",
+        "frame": "___ is, so to speak, the ___ of our family."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có câu the + so sánh hơn…, the + so sánh hơn hoặc cụm if anything / as it were / so to speak",
+      "anyOf": [
+        "the more",
+        "the less",
+        "the longer",
+        "the sooner",
+        "if anything",
+        "as it were",
+        "so to speak",
+        "the older"
+      ],
+      "outlineVi": [
+        "Giới thiệu ảnh chế, câu đùa hoặc từ lóng bạn muốn giải thích, và người nghe là ai.",
+        "Giải thích nghĩa đen và nghĩa bóng, dùng as it were hoặc so to speak.",
+        "Kể phản ứng của người nghe, dùng the more…, the more… hoặc if anything."
+      ],
+      "modelAnswer": "Last Tet I tried to explain the word \"flex\" to my grandmother. I told her it means showing off in a funny way. She said it wasn't new at all; if anything, her neighbours had been 'flexing', so to speak, for sixty years with their new motorbikes. The more examples I gave, the more stories she told me about the neighbours. In the end she taught me more than I taught her, and she now uses the word every time someone buys a new phone."
+    }
+  },
+  "glosses": [
+    {
+      "text": "frown",
+      "lemma": "frown",
+      "meaningVi": "cái cau mày",
+      "pos": "noun",
+      "phrase": "with a puzzled frown",
+      "phraseVi": "cau mày khó hiểu",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "chopsticks",
+      "lemma": "chopsticks",
+      "meaningVi": "đôi đũa",
+      "pos": "noun",
+      "phrase": "puts down her chopsticks",
+      "phraseVi": "đặt đũa xuống",
+      "sentenceIndex": 5
+    },
+    {
+      "text": "off the rails",
+      "lemma": "go off the rails",
+      "meaningVi": "trật đường ray; (nghĩa bóng) đi chệch hướng, hỏng bét",
+      "pos": "phrase",
+      "phrase": "your career had gone off the rails",
+      "phraseVi": "sự nghiệp đã \"trật đường ray\"",
+      "sentenceIndex": 19
+    },
+    {
+      "text": "offended",
+      "lemma": "offended",
+      "meaningVi": "phật ý, bị xúc phạm",
+      "pos": "adjective",
+      "phrase": "looks offended for a moment",
+      "phraseVi": "trông phật ý trong giây lát",
+      "sentenceIndex": 21
+    },
+    {
+      "text": "caption",
+      "lemma": "caption",
+      "meaningVi": "dòng chú thích (dưới ảnh)",
+      "pos": "noun",
+      "phrase": "with the caption",
+      "phraseVi": "kèm dòng chú thích",
+      "sentenceIndex": 28
+    }
+  ]
+}

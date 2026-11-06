@@ -1,0 +1,625 @@
+{
+  "content": "On a humid Monday morning in District 1 of Ho Chi Minh City, two analysts at Saola Research, a small investment advisory firm, are studying a set of flow diagrams on a large wall screen. Thao, the firm's head of regional research, must send her quarterly outlook to clients by Friday, and her younger colleague Khiem is not yet convinced by its conclusions.\n\n\"Start with the thick blue arrow,\" Thao says. \"It shows the net foreign direct investment inflow into the southern provinces over the past four quarters: roughly eleven billion dollars, on our own estimates.\"\nKhiem points at the bottom of the screen: \"And what does the thin red line mean?\"\n\"That is the steady outflow of capital from the ageing industrial parks around the old city ring road. Most of it moves to cheaper land further south, so it isn't a loss for the country, only a shift.\"\n\"Then the real story is the rapid expansion of electronics assembly plants owned by mid-sized East Asian firms,\" Khiem says.\n\"Exactly, and behind that expansion lies a large-scale supply chain restructuring programme announced by several component makers last spring. The relocation of labour-intensive production lines from older Asian factory towns has been going on for a decade, but this time the higher-value design work is coming too.\"\n\"Your draft describes the southern corridor as the region's next manufacturing hub. Isn't that a little optimistic?\"\n\"Perhaps, but our five-year growth forecast for the corridor rests on only two assumptions: a stable electricity supply and a steady stream of trained engineers.\"\n\"And if either of them fails?\"\n\"Then look at the second chart. The lower projection, which assumes power shortages every summer, cuts expected growth by almost a third.\"\nKhiem frowns for a moment. \"So, put simply, the factories will come only if the lights stay on and the workers can read a circuit diagram.\"\n\"Put like that, it sounds far less impressive,\" Thao laughs. \"But that is precisely the main message of the report: investor confidence in the region now depends less on cheap labour than on reliable infrastructure.\"\n\"Then let's say so in the very first paragraph,\" Khiem replies, and Thao agrees to rewrite her summary before lunch.",
+  "targetWords": [
+    "foreign direct investment",
+    "inflow",
+    "outflow",
+    "expansion",
+    "restructuring",
+    "relocation",
+    "manufacturing hub",
+    "forecast",
+    "projection",
+    "investor confidence"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "foreign direct investment",
+        "lemma": "foreign direct investment",
+        "meaningVi": "đầu tư trực tiếp nước ngoài (FDI)",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "inflow",
+        "lemma": "inflow",
+        "meaningVi": "dòng (vốn, tiền) chảy vào",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "outflow",
+        "lemma": "outflow",
+        "meaningVi": "dòng (vốn, tiền) chảy ra",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "expansion",
+        "lemma": "expansion",
+        "meaningVi": "sự mở rộng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "restructuring",
+        "lemma": "restructuring",
+        "meaningVi": "sự tái cấu trúc",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "relocation",
+        "lemma": "relocation",
+        "meaningVi": "sự di dời, chuyển địa điểm",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "manufacturing hub",
+        "lemma": "manufacturing hub",
+        "meaningVi": "trung tâm sản xuất",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "forecast",
+        "lemma": "forecast",
+        "meaningVi": "dự báo",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "projection",
+        "lemma": "projection",
+        "meaningVi": "kịch bản dự phóng, ước tính về tương lai",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "investor confidence",
+        "lemma": "investor confidence",
+        "meaningVi": "niềm tin của nhà đầu tư",
+        "pos": "noun",
+        "sentenceIndex": 19
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Thao and Khiem mainly doing?",
+        "promptVi": "Thảo và Khiêm chủ yếu đang làm gì?",
+        "options": [
+          "Discussing investment flow diagrams for a client report",
+          "Choosing a site for a new factory",
+          "Interviewing engineers for their firm",
+          "Negotiating a loan with a foreign bank"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người xem \"a set of flow diagrams\" và bàn về bản nhận định quý Thảo phải gửi cho khách hàng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the thin red line show?",
+        "promptVi": "Đường kẻ đỏ mảnh thể hiện điều gì?",
+        "options": [
+          "Money leaving the country for good",
+          "Capital moving out of ageing industrial parks, mostly to cheaper land further south",
+          "The salaries of trained engineers",
+          "Electricity prices in the summer"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói đó là \"the steady outflow of capital from the ageing industrial parks\", và phần lớn \"moves to cheaper land further south\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the lower projection assume?",
+        "promptVi": "Kịch bản dự phóng thấp hơn giả định điều gì?",
+        "options": [
+          "A shortage of engineers",
+          "A fall in land prices",
+          "Power shortages every summer",
+          "A new supply chain programme"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Câu \"The lower projection, which assumes power shortages every summer, cuts expected growth by almost a third.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khiem thinks that calling the corridor the next manufacturing hub may be too optimistic.",
+        "promptVi": "Khiêm nghĩ rằng gọi hành lang này là trung tâm sản xuất tiếp theo có thể là quá lạc quan.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Khiêm hỏi \"Isn't that a little optimistic?\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"labour-intensive\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The relocation of labour-intensive production lines from older Asian factory towns has been going on for a decade, but this time the higher-value design work is coming too.\"",
+        "options": [
+          "cần nhiều lao động",
+          "được tự động hoá hoàn toàn",
+          "có lương cao",
+          "gây ô nhiễm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Labour-intensive = cần nhiều sức lao động (con người) hơn là máy móc, ví dụ may mặc, lắp ráp đơn giản."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm danh từ phức",
+      "bodyVi": "Văn phân tích kinh tế nén nhiều thông tin vào một cụm danh từ. (1) Bổ ngữ đứng trước: chuỗi danh từ và tính từ ghép, danh từ cuối là trung tâm, các danh từ trước ở số ít: the net foreign direct investment inflow; a large-scale supply chain restructuring programme; our five-year growth forecast (không viết five-years). (2) Bổ ngữ đứng sau: cụm giới từ (the outflow of capital from the ageing industrial parks), phân từ (plants owned by mid-sized East Asian firms; a programme announced by several component makers), mệnh đề quan hệ (The lower projection, which assumes power shortages every summer, …). (3) Muốn hiểu, hãy \"tháo\" cụm ra thành mệnh đề: tìm danh từ trung tâm rồi hỏi \"của ai, ở đâu, do ai làm\": investor confidence in the region = how much investors trust the region. Khiêm làm đúng việc đó khi nói \"put simply, the factories will come only if…\".",
+      "examples": [
+        "\"It shows the net foreign direct investment inflow into the southern provinces over the past four quarters: roughly eleven billion dollars, on our own estimates.\"",
+        "\"That is the steady outflow of capital from the ageing industrial parks around the old city ring road.",
+        "\"Then the real story is the rapid expansion of electronics assembly plants owned by mid-sized East Asian firms,\" Khiem says.",
+        "\"Exactly, and behind that expansion lies a large-scale supply chain restructuring programme announced by several component makers last spring.",
+        "The lower projection, which assumes power shortages every summer, cuts expected growth by almost a third.\""
+      ]
+    },
+    "writingPrompt": "Write a short paragraph for an investment report about money flowing into or out of a city or region you know. Use at least three complex noun phrases (for example a noun + noun stack, a five-year forecast, plants owned by…, a projection which assumes…), and then explain one of them in plain words.",
+    "sentenceTranslations": [
+      "Vào một sáng thứ Hai oi bức ở Quận 1, Thành phố Hồ Chí Minh, hai chuyên viên phân tích của Saola Research, một công ty tư vấn đầu tư nhỏ, đang xem xét một loạt biểu đồ dòng vốn trên một màn hình lớn treo tường.",
+      "Thảo, trưởng bộ phận nghiên cứu khu vực của công ty, phải gửi bản nhận định quý cho khách hàng trước thứ Sáu, còn đồng nghiệp trẻ hơn của chị là Khiêm thì vẫn chưa bị thuyết phục bởi các kết luận trong đó.",
+      "Thảo nói: \"Bắt đầu từ mũi tên xanh to nhé.",
+      "Nó thể hiện dòng vốn đầu tư trực tiếp nước ngoài ròng đổ vào các tỉnh phía Nam trong bốn quý vừa qua: khoảng mười một tỉ đô la, theo ước tính của chính chúng ta.\"",
+      "Khiêm chỉ xuống cuối màn hình: \"Còn đường kẻ đỏ mảnh kia nghĩa là gì?\"",
+      "\"Đó là dòng vốn chảy ra đều đặn khỏi những khu công nghiệp đã cũ quanh đường vành đai cũ của thành phố.",
+      "Phần lớn số vốn đó chuyển xuống những vùng đất rẻ hơn ở phía nam, nên đó không phải là tổn thất cho đất nước, chỉ là một sự dịch chuyển.\"",
+      "Khiêm nói: \"Vậy câu chuyện thực sự là sự mở rộng nhanh chóng của các nhà máy lắp ráp điện tử thuộc sở hữu của những công ty Đông Á cỡ vừa.\"",
+      "\"Đúng vậy, và đằng sau sự mở rộng đó là một chương trình tái cấu trúc chuỗi cung ứng quy mô lớn mà nhiều nhà sản xuất linh kiện đã công bố hồi mùa xuân năm ngoái.",
+      "Việc di dời các dây chuyền sản xuất cần nhiều lao động khỏi những thị trấn công nghiệp lâu đời ở châu Á đã diễn ra cả chục năm nay, nhưng lần này cả khâu thiết kế có giá trị cao hơn cũng đang chuyển đến.\"",
+      "\"Bản nháp của chị mô tả hành lang phía Nam là trung tâm sản xuất tiếp theo của khu vực.",
+      "Như thế chẳng phải hơi lạc quan sao?\"",
+      "\"Có thể, nhưng dự báo tăng trưởng năm năm của chúng ta cho hành lang này chỉ dựa trên hai giả định: nguồn cung điện ổn định và một dòng kỹ sư được đào tạo đều đặn.\"",
+      "\"Thế nếu một trong hai điều đó không thành thì sao?\"",
+      "\"Thì xem biểu đồ thứ hai.",
+      "Kịch bản dự phóng thấp hơn, vốn giả định mùa hè nào cũng thiếu điện, làm mức tăng trưởng dự kiến giảm gần một phần ba.\"",
+      "Khiêm cau mày một lúc.",
+      "\"Vậy nói đơn giản thì các nhà máy chỉ đến nếu đèn không tắt và công nhân đọc được sơ đồ mạch điện.\"",
+      "Thảo bật cười: \"Nói kiểu đó thì nghe kém ấn tượng hơn hẳn.",
+      "Nhưng đó chính là thông điệp chính của bản báo cáo: niềm tin của nhà đầu tư vào khu vực giờ đây ít phụ thuộc vào lao động rẻ hơn là vào hạ tầng đáng tin cậy.\"",
+      "Khiêm đáp: \"Vậy thì mình nói thẳng điều đó ngay ở đoạn đầu tiên đi\", và Thảo đồng ý viết lại phần tóm tắt của mình trước bữa trưa."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đọc và trình bày xu hướng đầu tư nước ngoài bằng cụm danh từ phức (chuỗi danh từ, tính từ ghép, cụm giới từ, phân từ, mệnh đề quan hệ) và tháo chúng ra thành câu đơn giản.",
+    "examples": [
+      {
+        "lemma": "foreign direct investment",
+        "sentence": "The province attracted twice as much foreign direct investment as last year.",
+        "meaningVi": "Tỉnh đã thu hút lượng vốn đầu tư trực tiếp nước ngoài gấp đôi năm ngoái."
+      },
+      {
+        "lemma": "inflow",
+        "sentence": "The inflow of tourists has slowed since the summer.",
+        "meaningVi": "Dòng du khách đổ về đã chậm lại kể từ mùa hè."
+      },
+      {
+        "lemma": "outflow",
+        "sentence": "The bank is worried about a large outflow of deposits.",
+        "meaningVi": "Ngân hàng lo ngại về một dòng tiền gửi lớn bị rút ra."
+      },
+      {
+        "lemma": "expansion",
+        "sentence": "The expansion of the airport will take five years.",
+        "meaningVi": "Việc mở rộng sân bay sẽ mất năm năm."
+      },
+      {
+        "lemma": "restructuring",
+        "sentence": "After the restructuring, two departments were closed.",
+        "meaningVi": "Sau đợt tái cấu trúc, hai phòng ban đã bị đóng cửa."
+      },
+      {
+        "lemma": "relocation",
+        "sentence": "The relocation of the head office cost more than expected.",
+        "meaningVi": "Việc chuyển trụ sở chính tốn kém hơn dự kiến."
+      },
+      {
+        "lemma": "manufacturing hub",
+        "sentence": "The town has become a manufacturing hub for bicycle parts.",
+        "meaningVi": "Thị trấn đã trở thành một trung tâm sản xuất phụ tùng xe đạp."
+      },
+      {
+        "lemma": "forecast",
+        "sentence": "The latest forecast predicts slower growth next year.",
+        "meaningVi": "Dự báo mới nhất cho thấy tăng trưởng sẽ chậm hơn vào năm sau."
+      },
+      {
+        "lemma": "projection",
+        "sentence": "Our projection shows the population ageing quickly.",
+        "meaningVi": "Kịch bản dự phóng của chúng tôi cho thấy dân số già đi nhanh chóng."
+      },
+      {
+        "lemma": "investor confidence",
+        "sentence": "Clear rules help to build investor confidence.",
+        "meaningVi": "Các quy định rõ ràng giúp xây dựng niềm tin của nhà đầu tư."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mrs Loan",
+        "Khiem"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khiem, I have read your quarterly outlook. Can I ask a few questions?",
+          "meaningVi": "Khiêm à, tôi đã đọc bản nhận định quý của anh. Tôi hỏi vài câu được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Of course, Mrs Loan. Which part of the report would you like to discuss?",
+          "meaningVi": "Tất nhiên rồi, thưa chị Loan. Chị muốn trao đổi phần nào của báo cáo ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "The section on the new electronics plants built along the southern corridor.",
+          "meaningVi": "Phần nói về các nhà máy điện tử mới được xây dọc hành lang phía Nam."
+        },
+        {
+          "speaker": 1,
+          "text": "Those plants depend on a reliable power supply, and that is our main concern.",
+          "meaningVi": "Những nhà máy đó phụ thuộc vào nguồn điện ổn định, và đó là mối lo chính của chúng tôi."
+        },
+        {
+          "speaker": 0,
+          "text": "So what does your low-growth scenario for next year actually mean for my fund?",
+          "meaningVi": "Vậy kịch bản tăng trưởng thấp của anh cho năm tới thực ra có ý nghĩa gì với quỹ của tôi?"
+        },
+        {
+          "speaker": 1,
+          "text": "Put simply, if the lights go off, the factories will not come, and land prices will stop rising.",
+          "meaningVi": "Nói đơn giản, nếu mất điện thì nhà máy sẽ không đến, và giá đất sẽ ngừng tăng."
+        },
+        {
+          "speaker": 0,
+          "text": "I see. Is the government plan to build two new power stations realistic?",
+          "meaningVi": "Tôi hiểu rồi. Kế hoạch của chính phủ xây hai nhà máy điện mới có thực tế không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Partly. The first station is already under construction, but the second one has no investor yet.",
+          "meaningVi": "Một phần thôi ạ. Nhà máy thứ nhất đang được xây, còn nhà máy thứ hai vẫn chưa có nhà đầu tư."
+        },
+        {
+          "speaker": 0,
+          "text": "Then I will wait for your next update before moving any money.",
+          "meaningVi": "Vậy tôi sẽ chờ bản cập nhật tiếp theo của anh rồi mới chuyển tiền."
+        }
+      ]
+    },
+    "grammarTipVi": "Chuỗi danh từ: danh từ cuối là trung tâm, danh từ trước ở số ít: a supply chain restructuring programme, a power supply problem. Tính từ ghép với số: a five-year forecast (không có -s). Bổ ngữ sau: the plants built along the corridor (phân từ), the plan to build two power stations (to + V), the projection which assumes… (mệnh đề quan hệ).",
+    "translations": [
+      {
+        "vi": "Năm ngoái, dòng vốn đầu tư trực tiếp nước ngoài đổ vào đã tăng mạnh.",
+        "en": "Last year foreign direct investment inflows rose sharply.",
+        "distractors": [
+          "rises",
+          "sharp",
+          "outflows"
+        ],
+        "accepted": [
+          "Foreign direct investment inflows rose sharply last year."
+        ]
+      },
+      {
+        "vi": "Việc di dời các dây chuyền sản xuất đã bắt đầu từ năm ngoái.",
+        "en": "The relocation of production lines began last year.",
+        "distractors": [
+          "begun",
+          "relocate",
+          "at"
+        ],
+        "accepted": [
+          "Last year the relocation of production lines began."
+        ]
+      },
+      {
+        "vi": "Dự báo tăng trưởng năm năm của chúng tôi phụ thuộc vào nguồn cung điện ổn định.",
+        "en": "Our five-year growth forecast depends on a stable electricity supply.",
+        "distractors": [
+          "years",
+          "depend",
+          "stably"
+        ]
+      },
+      {
+        "vi": "Các quy định rõ ràng đã củng cố niềm tin của nhà đầu tư vào khu vực này.",
+        "en": "Clear rules have strengthened investor confidence in this region.",
+        "distractors": [
+          "strengthen",
+          "investors",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Loan và Khiêm nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bản nhận định quý và các nhà máy ở hành lang phía Nam",
+          "Chuyến du lịch của chị Loan",
+          "Một vị trí tuyển dụng mới ở công ty"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Loan nói \"I have read your quarterly outlook\" rồi hỏi về \"the new electronics plants built along the southern corridor\".",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mối lo chính của Khiêm là gì?",
+        "promptVi": "",
+        "options": [
+          "Nguồn điện ổn định cho các nhà máy",
+          "Giá đất quá thấp",
+          "Thiếu công nhân phổ thông"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khiêm nói \"Those plants depend on a reliable power supply, and that is our main concern.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nhà máy điện thứ hai đang ở tình trạng nào?",
+        "promptVi": "",
+        "options": [
+          "Chưa có nhà đầu tư",
+          "Đang được xây",
+          "Đã hoạt động"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khiêm nói \"the second one has no investor yet\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mrs Loan decides to move her money immediately.",
+        "promptVi": "Chị Loan quyết định chuyển tiền ngay lập tức.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị nói \"I will wait for your next update before moving any money.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Hai chuyên viên đọc những dòng vốn nào trên biểu đồ? Dự báo tăng trưởng dựa trên những giả định nào, và Khiêm \"tháo\" cụm danh từ ra thành câu đơn giản ra sao?",
+    "grammarStep": {
+      "titleVi": "Cụm danh từ phức",
+      "noticing": [
+        {
+          "sentence": "\"It shows the net foreign direct investment inflow into the southern provinces over the past four quarters: roughly eleven billion dollars, on our own estimates.\"",
+          "highlights": [
+            "the net foreign direct investment inflow",
+            "into the southern provinces",
+            "over the past four quarters"
+          ]
+        },
+        {
+          "sentence": "\"Then the real story is the rapid expansion of electronics assembly plants owned by mid-sized East Asian firms,\" Khiem says.",
+          "highlights": [
+            "the rapid expansion",
+            "of electronics assembly plants",
+            "owned by mid-sized East Asian firms"
+          ]
+        },
+        {
+          "sentence": "\"Exactly, and behind that expansion lies a large-scale supply chain restructuring programme announced by several component makers last spring.",
+          "highlights": [
+            "a large-scale supply chain restructuring programme",
+            "announced by several component makers"
+          ]
+        },
+        {
+          "sentence": "The lower projection, which assumes power shortages every summer, cuts expected growth by almost a third.\"",
+          "highlights": [
+            "The lower projection",
+            "which assumes power shortages every summer"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói \"dòng vốn đầu tư trực tiếp nước ngoài đổ vào các tỉnh phía Nam\". Cụm nào đúng?",
+      "options": [
+        "the foreign direct investment inflow into the southern provinces",
+        "the foreign direct investments inflow into the southern provinces",
+        "the inflow into the southern provinces foreign direct investment"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Danh từ trung tâm là inflow; các danh từ đứng trước bổ nghĩa cho nó và ở số ít (investment, không phải investments); cụm giới từ into… đứng sau danh từ trung tâm.",
+      "whenVi": "Dùng trong báo cáo, bài phân tích và bài thuyết trình kinh tế để nói nhiều thông tin trong ít chữ; khi giải thích cho người không chuyên thì tháo ra thành mệnh đề (factories are moving because…).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không viết"
+      ],
+      "table": [
+        {
+          "subject": "Chuỗi danh từ (danh từ trước ở số ít)",
+          "form": "a supply chain restructuring programme",
+          "negative": "a supply chains restructurings programme"
+        },
+        {
+          "subject": "Tính từ ghép có số",
+          "form": "our five-year growth forecast",
+          "negative": "our five-years growth forecast"
+        },
+        {
+          "subject": "Danh từ + cụm giới từ",
+          "form": "the outflow of capital from the ageing industrial parks; investor confidence in the region",
+          "negative": "investor confidence on the region"
+        },
+        {
+          "subject": "Danh từ + phân từ (V3 / V-ing)",
+          "form": "plants owned by East Asian firms; firms making electronic components",
+          "negative": "plants owning by East Asian firms"
+        },
+        {
+          "subject": "Danh từ + mệnh đề quan hệ",
+          "form": "the lower projection, which assumes power shortages; the engineers who design the chips",
+          "negative": "the lower projection, that assumes power shortages"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "our five-years growth forecast",
+          "right": "our five-year growth forecast"
+        },
+        {
+          "wrong": "the investments inflow into the south",
+          "right": "the investment inflow into the south"
+        },
+        {
+          "wrong": "plants owning by East Asian firms",
+          "right": "plants owned by East Asian firms"
+        }
+      ],
+      "noteVi": "Đọc cụm danh từ dài từ phải sang trái: tìm danh từ trung tâm (thường là danh từ cuối của chuỗi, đứng ngay trước giới từ hoặc phân từ), rồi xem các từ đứng trước và sau nó bổ sung thông tin gì.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một giới từ vào chỗ trống.",
+          "text": "Investor confidence ___ the southern corridor has risen this year.",
+          "answers": [
+            "in"
+          ],
+          "explanationVi": "Confidence in + nơi/người được tin tưởng: investor confidence in the southern corridor."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The firm published a ___ growth forecast for the corridor.",
+          "options": [
+            "five-year",
+            "five-years",
+            "five years",
+            "five-year's"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Tính từ ghép có số đứng trước danh từ: số + danh từ số ít, nối bằng gạch: five-year."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The investments inflow into the south rose sharply.",
+          "sentence": "The investment inflow into the south rose sharply.",
+          "explanationVi": "Danh từ đứng trước bổ nghĩa cho inflow nên ở số ít: investment."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Các nhà máy thuộc sở hữu của các công ty Đông Á đang mở rộng.",
+          "sentence": "The plants owned by East Asian firms are expanding.",
+          "words": [
+            "The",
+            "plants",
+            "owned",
+            "by",
+            "East",
+            "Asian",
+            "firms",
+            "are",
+            "expanding.",
+            "owning"
+          ],
+          "explanationVi": "Danh từ trung tâm (The plants) + phân từ bị động (owned by East Asian firms) + động từ chính (are expanding); \"owning\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Isn't that a little optimistic?\"",
+        "tipVi": "Câu hỏi phủ định để bày tỏ nghi ngờ: lên giọng nhẹ ở optimistic /ˌɒptɪˈmɪstɪk/."
+      },
+      {
+        "text": "\"Put like that, it sounds far less impressive,\" Thao laughs.",
+        "tipVi": "Ngắt hơi sau that; nhấn far less và impressive /ɪmˈpresɪv/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which city or province in Vietnam is attracting the most foreign investment, in your opinion?",
+        "questionVi": "Theo bạn, thành phố hay tỉnh nào ở Việt Nam đang thu hút nhiều vốn đầu tư nước ngoài nhất?",
+        "frame": "The rapid expansion of ___ in ___ shows that ___."
+      },
+      {
+        "question": "Why do foreign companies move their factories to a new country?",
+        "questionVi": "Vì sao các công ty nước ngoài chuyển nhà máy sang một nước mới?",
+        "frame": "The relocation of ___ from ___ is mainly caused by ___."
+      },
+      {
+        "question": "What would make investors lose confidence in a region?",
+        "questionVi": "Điều gì sẽ khiến nhà đầu tư mất niềm tin vào một khu vực?",
+        "frame": "Investor confidence in ___ depends on ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có cụm danh từ phức (vd. the expansion of…, firms based in…, a three-year growth forecast)",
+      "anyOf": [
+        "investment inflow",
+        "expansion of",
+        "based in",
+        "owned by",
+        "announced by",
+        "growth forecast",
+        "three-year",
+        "five-year"
+      ],
+      "outlineVi": [
+        "Giới thiệu khu vực và dòng vốn chính bằng một cụm danh từ phức (the foreign direct investment inflow into…).",
+        "Nêu nguyên nhân hoặc kịch bản tương lai bằng cụm có phân từ hoặc mệnh đề quan hệ (a projection which assumes…).",
+        "Tháo một cụm ra thành câu đơn giản cho người đọc không chuyên (Put simply, …)."
+      ],
+      "modelAnswer": "The foreign direct investment inflow into Da Nang over the past two years has come mainly from software firms based in Japan and Korea. The rapid expansion of office space near the airport reflects this trend. Our three-year growth forecast for the city assumes a steady supply of young engineers trained at local universities. A lower projection, which assumes that many graduates leave for Ho Chi Minh City, is far less positive. Put simply, the investment will keep coming only if the city can keep its talent."
+    }
+  },
+  "glosses": [
+    {
+      "text": "net",
+      "lemma": "net",
+      "meaningVi": "ròng (sau khi trừ đi phần chảy ra)",
+      "pos": "adjective",
+      "phrase": "the net foreign direct investment inflow",
+      "phraseVi": "dòng vốn đầu tư trực tiếp nước ngoài ròng",
+      "sentenceIndex": 3
+    },
+    {
+      "text": "labour-intensive",
+      "lemma": "labour-intensive",
+      "meaningVi": "cần nhiều lao động",
+      "pos": "adjective",
+      "phrase": "labour-intensive production lines",
+      "phraseVi": "các dây chuyền sản xuất cần nhiều lao động",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "component makers",
+      "lemma": "component maker",
+      "meaningVi": "nhà sản xuất linh kiện",
+      "pos": "noun",
+      "phrase": "announced by several component makers",
+      "phraseVi": "được nhiều nhà sản xuất linh kiện công bố",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "assumptions",
+      "lemma": "assumption",
+      "meaningVi": "giả định",
+      "pos": "noun",
+      "phrase": "rests on only two assumptions",
+      "phraseVi": "chỉ dựa trên hai giả định",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "circuit diagram",
+      "lemma": "circuit diagram",
+      "meaningVi": "sơ đồ mạch điện",
+      "pos": "noun",
+      "phrase": "read a circuit diagram",
+      "phraseVi": "đọc sơ đồ mạch điện",
+      "sentenceIndex": 17
+    }
+  ]
+}

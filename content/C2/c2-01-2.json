@@ -1,0 +1,626 @@
+{
+  "content": "Every second Thursday, a small book club meets in a café near My Khe Beach in Da Nang. Tonight the host, Phuong, a librarian in her forties, has chosen Xuan Quynh's famous love poem Waves, and eight members sit around a long wooden table with copies in their hands. Outside the window roars the very sea that seems to fill every line.\n\n\"Let's start with the first stanza,\" Phuong says. \"Fierce and gentle, noisy and silent: the poet opens with two pairs of opposites. What do they do?\"\n\"They set up the rhythm,\" says Khanh, a retired teacher. \"Short phrases, then a pause, like water rising and falling. Such is the music of the verse that I can never read it quickly.\"\n\"For me, it's the imagery,\" says Thao, a young engineer. \"Beneath the calm surface lies a wave that never stops moving, and that wave is the woman's heart.\"\n\"Exactly. So central is that metaphor that the whole poem depends on it. The wave is love, but it is also the poet herself.\"\n\"Especially moving is the stanza where the wave misses the shore and cannot sleep, day or night,\" Khanh says quietly. \"That longing I understood only years later, when my wife was working in Japan and she called me every Sunday.\"\n\"I'm not sure I agree with the usual interpretation, though,\" Thao replies. \"At school we were told it was a simple, happy love poem. I find it full of melancholy, because she knows that love, like life, doesn't last forever.\"\n\"That's a fair reading,\" Phuong says. \"Look at the final stanza. Here the poet wishes she could dissolve into a hundred small waves in the great sea of love, so that she could keep beating against the shore for a thousand years.\"\n\"Such a wish only makes sense if she fears that time is short,\" Khanh adds.\n\"And that is why it can still evoke such strong feelings, sixty years later,\" Thao says.\nPhuong frowns slightly. \"But does it resonate with younger readers? \"The students who visit my library seem to prefer short poems on their phones.\"\n\"They share this one too,\" Thao says with a smile. \"Some lines simply never go out of fashion.\"\nNobody speaks for a moment. Out on the dark beach roll the waves, just as they do in the poem.",
+  "targetWords": [
+    "stanza",
+    "rhythm",
+    "verse",
+    "imagery",
+    "metaphor",
+    "longing",
+    "interpretation",
+    "melancholy",
+    "evoke",
+    "resonate"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "stanza",
+        "lemma": "stanza",
+        "meaningVi": "khổ thơ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "rhythm",
+        "lemma": "rhythm",
+        "meaningVi": "nhịp điệu",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "verse",
+        "lemma": "verse",
+        "meaningVi": "thơ, câu thơ",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "imagery",
+        "lemma": "imagery",
+        "meaningVi": "hình ảnh (trong thơ văn)",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "metaphor",
+        "lemma": "metaphor",
+        "meaningVi": "phép ẩn dụ, hình ảnh ẩn dụ",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "longing",
+        "lemma": "longing",
+        "meaningVi": "nỗi khát khao, nỗi nhớ mong",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "interpretation",
+        "lemma": "interpretation",
+        "meaningVi": "cách hiểu, cách diễn giải",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "melancholy",
+        "lemma": "melancholy",
+        "meaningVi": "nỗi u buồn, sầu muộn",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "evoke",
+        "lemma": "evoke",
+        "meaningVi": "gợi lên",
+        "pos": "verb",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "resonate",
+        "lemma": "resonate",
+        "meaningVi": "gây đồng cảm, chạm đến lòng người",
+        "pos": "verb",
+        "sentenceIndex": 25
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the book club doing tonight?",
+        "promptVi": "Tối nay câu lạc bộ sách làm gì?",
+        "options": [
+          "Discussing a famous love poem by Xuan Quynh",
+          "Writing their own poems about the sea",
+          "Choosing books for a library",
+          "Listening to a lecture on modern novels"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương \"has chosen Xuan Quynh's famous love poem Waves\" và cả nhóm cùng bàn về nó."
+      },
+      {
+        "kind": "detail",
+        "prompt": "According to Khanh, what do the two pairs of opposites in the first stanza create?",
+        "promptVi": "Theo Khánh, hai cặp đối lập ở khổ đầu tạo ra điều gì?",
+        "options": [
+          "A sad ending",
+          "The rhythm of the poem",
+          "A story about a sailor",
+          "A joke about love"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khánh nói \"They set up the rhythm\": chúng tạo ra nhịp điệu, như nước dâng lên rồi hạ xuống."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Thao find the poem full of melancholy?",
+        "promptVi": "Vì sao Thảo thấy bài thơ đầy u buồn?",
+        "options": [
+          "Because the poet lost her husband at sea",
+          "Because the poem has no rhythm",
+          "Because the poet knows that love does not last forever",
+          "Because the poem was written in a war"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"she knows that love, like life, doesn't last forever\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khanh understood the longing in the poem when he first read it at school.",
+        "promptVi": "Khánh hiểu nỗi nhớ mong trong bài thơ ngay lần đầu đọc ở trường.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông nói \"That longing I understood only years later\": mãi nhiều năm sau, khi vợ đi làm ở Nhật, ông mới hiểu."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"dissolve\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Here the poet wishes she could dissolve into a hundred small waves in the great sea of love, so that she could keep beating against the shore for a thousand years.\"",
+        "options": [
+          "tan ra",
+          "trôi đi",
+          "vỡ vụn",
+          "biến mất"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Dissolve = tan ra, hoà tan vào thứ khác. Nhà thơ ước được tan ra thành trăm con sóng nhỏ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đảo thành phần lên đầu câu",
+      "bodyVi": "Bài dùng nhiều cách đưa một thành phần lên đầu câu để nhấn mạnh hình ảnh. (1) Cụm chỉ nơi chốn + động từ chỉ vị trí/chuyển động + chủ ngữ: Outside the window roars the very sea…; Beneath the calm surface lies a wave…; Out on the dark beach roll the waves. (2) So + tính từ + be + chủ ngữ + that: So central is that metaphor that the whole poem depends on it. (3) Such + be + danh từ + that: Such is the music of the verse that… (4) Tính từ đứng đầu rồi đảo be: Especially moving is the stanza where… (5) Tân ngữ đứng đầu, không đảo: That longing I understood only years later. Lưu ý động từ chia theo chủ ngữ đứng sau: roll the waves (số nhiều), lies a wave (số ít).",
+      "examples": [
+        "Outside the window roars the very sea that seems to fill every line.",
+        "\"Beneath the calm surface lies a wave that never stops moving, and that wave is the woman's heart.\"",
+        "So central is that metaphor that the whole poem depends on it.",
+        "Out on the dark beach roll the waves, just as they do in the poem."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph about a poem or song lyric that means a lot to you. Describe one strong image and use at least two fronted structures (a place phrase + verb + subject, So + adjective + is…, or a fronted object).",
+    "sentenceTranslations": [
+      "Cứ hai tuần một lần vào thứ Năm, một câu lạc bộ sách nhỏ lại họp ở một quán cà phê gần biển Mỹ Khê, Đà Nẵng.",
+      "Tối nay, người dẫn chương trình là Phương, một thủ thư ngoài bốn mươi tuổi, đã chọn bài thơ tình nổi tiếng \"Sóng\" của Xuân Quỳnh, và tám thành viên ngồi quanh một chiếc bàn gỗ dài, tay cầm bản in bài thơ.",
+      "Ngoài cửa sổ, chính vùng biển dường như tràn ngập từng câu thơ ấy đang gầm vang.",
+      "Phương nói: \"Mình bắt đầu từ khổ thơ đầu nhé.",
+      "Dữ dội và dịu êm, ồn ào và lặng lẽ: nhà thơ mở đầu bằng hai cặp đối lập.",
+      "Chúng có tác dụng gì?\"",
+      "Khánh, một thầy giáo đã nghỉ hưu, nói: \"Chúng tạo ra nhịp điệu.",
+      "Những cụm từ ngắn, rồi một quãng ngừng, như nước dâng lên rồi hạ xuống.",
+      "Nhạc điệu của câu thơ hay đến mức tôi chẳng bao giờ đọc nhanh được.\"",
+      "Thảo, một kỹ sư trẻ, nói: \"Với tôi thì là hình ảnh.",
+      "Bên dưới mặt nước yên ả là một con sóng không bao giờ ngừng chuyển động, và con sóng ấy chính là trái tim người phụ nữ.\"",
+      "\"Đúng thế.",
+      "Hình ảnh ẩn dụ ấy quan trọng đến mức cả bài thơ dựa vào nó.",
+      "Con sóng là tình yêu, nhưng cũng chính là nhà thơ.\"",
+      "Khánh khẽ nói: \"Đặc biệt cảm động là khổ thơ con sóng nhớ bờ, ngày đêm không ngủ được.",
+      "Nỗi nhớ mong ấy thì mãi nhiều năm sau tôi mới hiểu, khi vợ tôi làm việc ở Nhật và chủ nhật nào cũng gọi điện cho tôi.\"",
+      "Thảo đáp: \"Nhưng tôi không chắc mình đồng ý với cách hiểu thông thường.",
+      "Hồi đi học, chúng tôi được dạy rằng đây là một bài thơ tình đơn giản, vui tươi.",
+      "Tôi lại thấy nó đầy u buồn, vì nhà thơ biết rằng tình yêu, cũng như đời người, không kéo dài mãi mãi.\"",
+      "Phương nói: \"Cách đọc đó cũng có lý.",
+      "Hãy nhìn khổ cuối.",
+      "Ở đây nhà thơ ước mình được tan ra thành trăm con sóng nhỏ giữa biển lớn tình yêu, để ngàn năm còn vỗ vào bờ.\"",
+      "Khánh nói thêm: \"Ước muốn như thế chỉ có nghĩa khi người ta sợ rằng thời gian ngắn ngủi.\"",
+      "Thảo nói: \"Và đó là lý do vì sao, sáu mươi năm sau, nó vẫn gợi lên những cảm xúc mạnh mẽ như vậy.\"",
+      "Phương hơi cau mày.",
+      "\"Nhưng liệu nó có còn chạm đến độc giả trẻ không?",
+      "Các bạn sinh viên đến thư viện của tôi có vẻ thích những bài thơ ngắn trên điện thoại hơn.\"",
+      "Thảo mỉm cười: \"Bài này họ cũng chia sẻ đấy.",
+      "Có những câu thơ đơn giản là không bao giờ lỗi thời.\"",
+      "Không ai nói gì trong giây lát.",
+      "Ngoài bãi biển tối, những con sóng vẫn cuộn vào bờ, hệt như trong bài thơ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về hình ảnh, nhịp điệu, ẩn dụ của một bài thơ và nhấn mạnh hình ảnh bằng cấu trúc đưa thành phần lên đầu câu (Beneath the surface lies…, So central is…, That longing I…).",
+    "examples": [
+      {
+        "lemma": "stanza",
+        "sentence": "The second stanza describes the poet's childhood village.",
+        "meaningVi": "Khổ thơ thứ hai miêu tả ngôi làng tuổi thơ của nhà thơ."
+      },
+      {
+        "lemma": "rhythm",
+        "sentence": "Read the poem aloud and you will hear its rhythm.",
+        "meaningVi": "Hãy đọc to bài thơ và bạn sẽ nghe ra nhịp điệu của nó."
+      },
+      {
+        "lemma": "verse",
+        "sentence": "She wrote her first verse at the age of twelve.",
+        "meaningVi": "Bà viết câu thơ đầu tiên năm mười hai tuổi."
+      },
+      {
+        "lemma": "imagery",
+        "sentence": "The imagery of rain and rivers appears in many of his poems.",
+        "meaningVi": "Hình ảnh mưa và sông nước xuất hiện trong nhiều bài thơ của ông."
+      },
+      {
+        "lemma": "metaphor",
+        "sentence": "In this poem, the bamboo is a metaphor for the Vietnamese people.",
+        "meaningVi": "Trong bài thơ này, cây tre là ẩn dụ cho con người Việt Nam."
+      },
+      {
+        "lemma": "longing",
+        "sentence": "His letters were full of longing for home.",
+        "meaningVi": "Những lá thư của anh đầy nỗi nhớ mong quê nhà."
+      },
+      {
+        "lemma": "interpretation",
+        "sentence": "Each reader brings a different interpretation to the same poem.",
+        "meaningVi": "Mỗi người đọc mang đến một cách hiểu khác nhau cho cùng một bài thơ."
+      },
+      {
+        "lemma": "melancholy",
+        "sentence": "There is a quiet melancholy in her later work.",
+        "meaningVi": "Những tác phẩm về sau của bà có một nỗi u buồn lặng lẽ."
+      },
+      {
+        "lemma": "evoke",
+        "sentence": "The smell of rain can evoke memories of childhood.",
+        "meaningVi": "Mùi mưa có thể gợi lên những ký ức tuổi thơ."
+      },
+      {
+        "lemma": "resonate",
+        "sentence": "Stories about leaving home resonate with many migrants.",
+        "meaningVi": "Những câu chuyện về việc rời quê gây đồng cảm với nhiều người di cư."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phuong",
+        "Vy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "You're new to the club, aren't you? Which poem would you like us to read next time?",
+          "meaningVi": "Bạn mới vào câu lạc bộ phải không? Lần sau bạn muốn cả nhóm đọc bài thơ nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe something by Han Mac Tu. So strange are his images that I keep rereading them.",
+          "meaningVi": "Có lẽ một bài của Hàn Mặc Tử. Hình ảnh thơ ông lạ đến nỗi tôi cứ đọc đi đọc lại."
+        },
+        {
+          "speaker": 0,
+          "text": "Good choice. Which poem do you have in mind?",
+          "meaningVi": "Lựa chọn hay đấy. Bạn đang nghĩ đến bài nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "The one about the village of Vi Da. Over the river hangs a moon that seems almost alive.",
+          "meaningVi": "Bài về thôn Vĩ Dạ. Trên dòng sông treo một vầng trăng dường như có cả sự sống."
+        },
+        {
+          "speaker": 0,
+          "text": "That poem I studied at school, but I hardly remember the ending.",
+          "meaningVi": "Bài đó thì tôi học hồi đi học, nhưng gần như không nhớ đoạn kết."
+        },
+        {
+          "speaker": 1,
+          "text": "The ending is the best part. Such is its sadness that it stays with you for days.",
+          "meaningVi": "Đoạn kết là hay nhất. Nó buồn đến mức cứ đọng lại trong lòng bạn nhiều ngày."
+        },
+        {
+          "speaker": 0,
+          "text": "Would you be willing to lead the discussion?",
+          "meaningVi": "Bạn có sẵn lòng dẫn dắt buổi thảo luận không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'd love to, though I'm a little nervous.",
+          "meaningVi": "Tôi rất muốn, dù hơi hồi hộp một chút."
+        },
+        {
+          "speaker": 0,
+          "text": "Don't worry. Nervous we all were at our first meeting.",
+          "meaningVi": "Đừng lo. Buổi đầu tiên ai trong chúng tôi cũng hồi hộp cả."
+        }
+      ]
+    },
+    "grammarTipVi": "Nơi chốn đứng đầu, động từ chỉ vị trí đứng trước chủ ngữ: Over the river hangs a moon. So + tính từ + be + chủ ngữ + that: So strange are his images that… Such + be + danh từ + that: Such is its sadness that… Tân ngữ hoặc tính từ đứng đầu, không đảo: That poem I studied at school; Nervous we all were.",
+    "translations": [
+      {
+        "vi": "Bên dưới mặt nước yên ả là một nỗi khát khao sâu thẳm.",
+        "en": "Beneath the calm surface lies a deep longing.",
+        "distractors": [
+          "lays",
+          "longs",
+          "calmly"
+        ],
+        "accepted": [
+          "A deep longing lies beneath the calm surface."
+        ]
+      },
+      {
+        "vi": "Hình ảnh ẩn dụ ấy quan trọng đến mức cả bài thơ dựa vào nó.",
+        "en": "So central is that metaphor that the whole poem depends on it.",
+        "distractors": [
+          "such",
+          "depend",
+          "in"
+        ],
+        "accepted": [
+          "That metaphor is so central that the whole poem depends on it."
+        ]
+      },
+      {
+        "vi": "Tôi không đồng ý với cách hiểu thông thường.",
+        "en": "I don't agree with the usual interpretation.",
+        "distractors": [
+          "interpret",
+          "usually",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Bài thơ có còn chạm đến độc giả trẻ không?",
+        "en": "Does the poem still resonate with young readers?",
+        "distractors": [
+          "resonates",
+          "Is",
+          "youth"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Phương và Vy đang bàn chuyện gì?",
+        "promptVi": "",
+        "options": [
+          "Bài thơ cho buổi họp lần sau",
+          "Cách mua sách cũ",
+          "Chuyến du lịch Huế"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương hỏi \"Which poem would you like us to read next time?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Vy cứ đọc đi đọc lại thơ Hàn Mặc Tử?",
+        "promptVi": "",
+        "options": [
+          "Vì hình ảnh thơ ông rất lạ",
+          "Vì thơ ông rất ngắn",
+          "Vì cô phải học thuộc để thi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy nói \"So strange are his images that I keep rereading them.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phương nhớ gì về bài thơ đó?",
+        "promptVi": "",
+        "options": [
+          "Chị học ở trường nhưng gần như quên đoạn kết",
+          "Chị chưa bao giờ đọc nó",
+          "Chị thuộc lòng cả bài"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương nói \"That poem I studied at school, but I hardly remember the ending.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy refuses to lead the next discussion.",
+        "promptVi": "Vy từ chối dẫn dắt buổi thảo luận sau.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy nói \"I'd love to, though I'm a little nervous.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Mỗi thành viên chú ý đến điều gì trong bài thơ \"Sóng\": nhịp điệu, hình ảnh hay nỗi buồn? Cách hiểu của Thảo khác cách hiểu ở trường như thế nào?",
+    "grammarStep": {
+      "titleVi": "Đảo thành phần lên đầu câu",
+      "noticing": [
+        {
+          "sentence": "Outside the window roars the very sea that seems to fill every line.",
+          "highlights": [
+            "Outside the window roars the very sea"
+          ]
+        },
+        {
+          "sentence": "\"Beneath the calm surface lies a wave that never stops moving, and that wave is the woman's heart.\"",
+          "highlights": [
+            "Beneath the calm surface lies a wave"
+          ]
+        },
+        {
+          "sentence": "So central is that metaphor that the whole poem depends on it.",
+          "highlights": [
+            "So central is that metaphor",
+            "that"
+          ]
+        },
+        {
+          "sentence": "\"That longing I understood only years later, when my wife was working in Japan and she called me every Sunday.\"",
+          "highlights": [
+            "That longing I understood"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn tả: ngoài bãi biển tối, những con sóng cuộn vào bờ. Câu nào đúng với lối đảo nơi chốn lên đầu?",
+      "options": [
+        "Out on the dark beach roll the waves.",
+        "Out on the dark beach rolls the waves.",
+        "Out on the dark beach do the waves roll."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Cụm nơi chốn đứng đầu, động từ chuyển lên trước chủ ngữ và chia theo chủ ngữ (the waves, số nhiều): roll. Không thêm trợ động từ do như trong câu hỏi.",
+      "whenVi": "Hay dùng khi miêu tả cảnh vật trong văn chương hoặc khi bình thơ, để người nghe thấy khung cảnh trước rồi mới đến đối tượng chính.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Lưu ý"
+      ],
+      "table": [
+        {
+          "subject": "Nơi chốn + V + chủ ngữ",
+          "form": "Beneath the calm surface lies a wave. Out on the beach roll the waves.",
+          "negative": "Chủ ngữ là đại từ thì không đảo: Out on the beach they roll."
+        },
+        {
+          "subject": "So + tính từ + be + chủ ngữ + that",
+          "form": "So central is that metaphor that the poem depends on it.",
+          "negative": "Vế that nêu kết quả: So quiet was the room that nobody dared to speak."
+        },
+        {
+          "subject": "Such + be + danh từ + that",
+          "form": "Such is the music of the verse that I read it slowly.",
+          "negative": "Nhấn mạnh mức độ; be chia theo danh từ đứng sau"
+        },
+        {
+          "subject": "Tính từ + be + chủ ngữ",
+          "form": "Especially moving is the stanza where the wave misses the shore.",
+          "negative": "Chủ ngữ thường dài, được đẩy về cuối câu"
+        },
+        {
+          "subject": "Tân ngữ + chủ ngữ + V",
+          "form": "That longing I understood only years later. That line I never understood.",
+          "negative": "Không đảo động từ, không thêm do/did"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Beneath the surface a wave lies deeply.",
+          "right": "Beneath the surface lies a wave."
+        },
+        {
+          "wrong": "Out on the beach roll they.",
+          "right": "Out on the beach they roll."
+        },
+        {
+          "wrong": "Especially moving the last stanza is.",
+          "right": "Especially moving is the last stanza."
+        }
+      ],
+      "noteVi": "Chỉ đảo khi chủ ngữ là danh từ và động từ là động từ chỉ vị trí hoặc chuyển động (lie, stand, hang, roll, come, run). Động từ vẫn chia theo chủ ngữ đứng sau nó.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Such ___ the beauty of the final stanza that many readers learn it by heart.",
+          "answers": [
+            "is"
+          ],
+          "explanationVi": "Such + be + danh từ + that; mệnh đề sau ở hiện tại (learn) nên dùng \"is\"."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ powerful is the final image that readers remember it for years.",
+          "options": [
+            "So",
+            "Such",
+            "Very",
+            "Too"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Trước tính từ đứng một mình (powerful) dùng So; Such đi với danh từ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy sửa lỗi đó, giữ nguyên thành phần đang đứng đầu câu.",
+          "text": "Especially moving the last stanza is.",
+          "sentence": "Especially moving is the last stanza.",
+          "explanationVi": "Tính từ đứng đầu thì be đứng trước chủ ngữ: Especially moving is the last stanza."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp thành câu có thành phần đưa lên đầu, bắt đầu bằng \"Outside\".",
+          "text": "Ngoài cửa sổ, biển cả đang gầm vang.",
+          "sentence": "Outside the window roars the sea.",
+          "words": [
+            "Outside",
+            "the",
+            "window",
+            "roars",
+            "the",
+            "sea.",
+            "does"
+          ],
+          "explanationVi": "Cụm nơi chốn (Outside the window) + động từ (roars) + chủ ngữ (the sea); không dùng \"does\"."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Outside the window roars the very sea that seems to fill every line.",
+        "tipVi": "Nhấn vào roars và sea; very đọc nhẹ, ngắt hơi sau sea."
+      },
+      {
+        "text": "Out on the dark beach roll the waves, just as they do in the poem.",
+        "tipVi": "Đọc chậm, nhấn vào roll và waves; ngắt hơi sau dấu phẩy."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which poem or song lyric do you know by heart?",
+        "questionVi": "Bạn thuộc lòng bài thơ hay lời bài hát nào?",
+        "frame": "That poem I learned when ___, and I still ___."
+      },
+      {
+        "question": "Describe a strong image from a poem you like.",
+        "questionVi": "Hãy tả một hình ảnh ấn tượng trong bài thơ bạn thích.",
+        "frame": "In the poem, beneath ___ lies ___."
+      },
+      {
+        "question": "Do old poems still resonate with young people today? Why?",
+        "questionVi": "Những bài thơ cũ có còn chạm đến người trẻ ngày nay không? Vì sao?",
+        "frame": "I think they do, because so ___ are their images that ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu đưa thành phần lên đầu (nơi chốn + lies/stands + chủ ngữ, Such is… that, So + tính từ + is… that)",
+      "anyOf": [
+        "such is",
+        "such was",
+        "lies a",
+        "lies the",
+        "stands a",
+        "stands the",
+        "so gentle is",
+        "so powerful is"
+      ],
+      "outlineVi": [
+        "Giới thiệu bài thơ hoặc bài hát và tác giả.",
+        "Tả một hình ảnh mạnh bằng cấu trúc nơi chốn + động từ + chủ ngữ.",
+        "Nói vì sao nó chạm đến bạn, có thể dùng So… is… that hoặc tân ngữ đứng đầu."
+      ],
+      "modelAnswer": "My favourite poem is Nguyen Khoa Diem's piece about the country. At its heart lies a simple idea: the nation is made of ordinary people. So gentle is the rhythm of the verse that it sounds like a mother talking to her child. In one stanza, behind every mountain and river stands a story of the people who lived there. That image I have never forgotten, and it still makes me look at my hometown differently."
+    }
+  },
+  "glosses": [
+    {
+      "text": "host",
+      "lemma": "host",
+      "meaningVi": "người dẫn dắt, chủ trì buổi gặp",
+      "pos": "noun",
+      "phrase": "the host, Phuong",
+      "phraseVi": "người chủ trì là Phương",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "roars",
+      "lemma": "roar",
+      "meaningVi": "gầm, gầm vang",
+      "pos": "verb",
+      "phrase": "Outside the window roars the very sea",
+      "phraseVi": "ngoài cửa sổ, chính vùng biển ấy gầm vang",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "opposites",
+      "lemma": "opposite",
+      "meaningVi": "điều đối lập, cặp trái nghĩa",
+      "pos": "noun",
+      "phrase": "two pairs of opposites",
+      "phraseVi": "hai cặp đối lập",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "dissolve",
+      "lemma": "dissolve",
+      "meaningVi": "tan ra, hoà tan",
+      "pos": "verb",
+      "phrase": "dissolve into a hundred small waves",
+      "phraseVi": "tan ra thành trăm con sóng nhỏ",
+      "sentenceIndex": 21
+    },
+    {
+      "text": "go out of fashion",
+      "lemma": "go out of fashion",
+      "meaningVi": "lỗi thời, hết thịnh hành",
+      "pos": "phrase",
+      "phrase": "never go out of fashion",
+      "phraseVi": "không bao giờ lỗi thời",
+      "sentenceIndex": 28
+    }
+  ]
+}

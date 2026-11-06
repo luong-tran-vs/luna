@@ -1,0 +1,631 @@
+{
+  "content": "In a quiet café near the software park in Da Nang, Duc, an IT consultant in his late thirties, is stirring his coffee with the expression of a man about to confess something. His colleague Mai Anh, who missed yesterday's client presentation, has just asked him how it went.\n\n\"Let's just say it was memorable,\" he begins, with the self-deprecating smile she knows so well. \"I'd prepared forty slides on cloud security, and I'd rehearsed them twice. The more I rehearsed, the more confident I felt, which, in hindsight, was my first blunder.\"\n\n\"Why? What happened?\"\n\n\"The projector refused to work, so I shared my screen through the video call instead. Unfortunately, the screen I shared was not my presentation; it was my online shopping basket, with a giant inflatable crocodile in it.\"\n\nMai Anh nearly chokes on her coffee. \"That's embarrassing,\" she says. \"I wouldn't call it a disaster,\" he replies. \"If anything, it was educational; the client now knows exactly how I spend my weekends.\"\n\nThe mishap did not end there. When he finally found the right file, he spent ten minutes explaining his main argument before somebody politely pointed out that he was on mute. \"So for ten minutes I was, as it were, a silent film,\" he says. \"Quite an artistic performance, actually.\"\n\nMai Anh, wiping her eyes, asks whether the client was angry. Luckily, their director is famous for his dry humour. At the end, he told Duc that the presentation had been surprisingly witty for one that nobody could hear. Duc has decided to take it as a compliment.\n\n\"And how did you react?\" \"I laughed off the whole thing, of course. What else can you do? The longer you apologise, the more awkward it becomes for everyone. It's better to own the story, so to speak, before someone else tells it for you.\"\n\nMai Anh shakes her head, still laughing, and finally manages a question. \"Will they still sign the contract?\"\n\n\"They signed it this morning,\" Duc says, finishing his coffee. \"Apparently the crocodile made our company look more human. The bigger the mistake, the warmer the client, it seems.\"\n\n\"Next time,\" she says, \"perhaps check your screen before you share it, and leave the crocodile at home.\"",
+  "targetWords": [
+    "self-deprecating",
+    "slide",
+    "blunder",
+    "embarrassing",
+    "mishap",
+    "mute",
+    "dry humour",
+    "witty",
+    "laugh off",
+    "awkward"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "self-deprecating",
+        "lemma": "self-deprecating",
+        "meaningVi": "tự giễu, tự hạ thấp mình một cách hài hước",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "slides",
+        "lemma": "slide",
+        "meaningVi": "trang chiếu (trong bài thuyết trình)",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "blunder",
+        "lemma": "blunder",
+        "meaningVi": "sai lầm ngớ ngẩn, lỗi hớ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "embarrassing",
+        "lemma": "embarrassing",
+        "meaningVi": "gây xấu hổ, ngượng ngùng",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "mishap",
+        "lemma": "mishap",
+        "meaningVi": "sự cố nhỏ, rủi ro không may",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "mute",
+        "lemma": "mute",
+        "meaningVi": "chế độ tắt tiếng",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "dry humour",
+        "lemma": "dry humour",
+        "meaningVi": "lối hài hước khô khan, nói đùa mặt tỉnh queo",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "witty",
+        "lemma": "witty",
+        "meaningVi": "dí dỏm, hóm hỉnh",
+        "pos": "adjective",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "laughed off",
+        "lemma": "laugh off",
+        "meaningVi": "cười trừ cho qua, coi nhẹ bằng một tiếng cười",
+        "pos": "phrasal verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "awkward",
+        "lemma": "awkward",
+        "meaningVi": "ngượng ngùng, khó xử",
+        "pos": "adjective",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Duc mainly doing in the café?",
+        "promptVi": "Đức chủ yếu đang làm gì trong quán cà phê?",
+        "options": [
+          "Telling a colleague, with humour, about a presentation that went wrong",
+          "Preparing slides for a new client",
+          "Complaining to his boss about the projector",
+          "Interviewing Mai Anh for a job"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai Anh hỏi buổi thuyết trình thế nào, và Đức kể lại các sự cố với \"the self-deprecating smile\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Duc accidentally share with the client?",
+        "promptVi": "Đức đã vô tình chia sẻ gì cho khách hàng xem?",
+        "options": [
+          "His holiday photos",
+          "His online shopping basket",
+          "An email to his manager",
+          "A video of a crocodile"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"The screen I shared… was my online shopping basket, with a giant inflatable crocodile in it.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why could nobody hear Duc's main argument?",
+        "promptVi": "Vì sao không ai nghe được lập luận chính của Đức?",
+        "options": [
+          "The room was too noisy.",
+          "He spoke too quietly.",
+          "He was on mute.",
+          "The client left the call."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Có người nhắc \"that he was on mute\" sau mười phút anh nói."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The client decided not to sign the contract.",
+        "promptVi": "Khách hàng quyết định không ký hợp đồng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"They signed it this morning.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"in hindsight\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The more I rehearsed, the more confident I felt, which, in hindsight, was my first blunder.\"",
+        "options": [
+          "khi nhìn lại, giờ nghĩ lại",
+          "ngay từ đầu",
+          "một cách bí mật",
+          "trong tương lai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "In hindsight = khi nhìn lại (sau khi sự việc đã xảy ra). Giờ nghĩ lại, Đức thấy sự tự tin quá mức là sai lầm đầu tiên."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cấu trúc cố định: the more…, the more…; if anything; as it were; so to speak",
+      "bodyVi": "Đức tự giễu bằng các khung câu cố định để giảm nhẹ sự cố. (1) The + so sánh hơn …, the + so sánh hơn … (càng… càng…): The more I rehearsed, the more confident I felt; The longer you apologise, the more awkward it becomes; dạng rút gọn: The bigger the mistake, the warmer the client. (2) If anything nói điều \"thậm chí ngược lại\" sau một câu phủ định: I wouldn't call it a disaster… If anything, it was educational. (3) As it were và so to speak làm mềm một hình ảnh nghĩa bóng: I was, as it were, a silent film; own the story, so to speak. Các cụm này không đổi hình thức và đứng tách bằng dấu phẩy.",
+      "examples": [
+        "The more I rehearsed, the more confident I felt, which, in hindsight, was my first blunder.\"",
+        "\"If anything, it was educational; the client now knows exactly how I spend my weekends.\"",
+        "\"So for ten minutes I was, as it were, a silent film,\" he says.",
+        "The longer you apologise, the more awkward it becomes for everyone."
+      ]
+    },
+    "writingPrompt": "Write a short, self-deprecating story about a small mistake you made at work or at school. Use the + comparative…, the + comparative at least once, and if anything, as it were or so to speak.",
+    "sentenceTranslations": [
+      "Trong một quán cà phê yên tĩnh gần khu công viên phần mềm ở Đà Nẵng, Đức, một chuyên viên tư vấn công nghệ thông tin gần bốn mươi tuổi, đang khuấy cà phê với vẻ mặt của một người sắp thú nhận điều gì đó.",
+      "Đồng nghiệp của anh là Mai Anh, người đã vắng mặt trong buổi thuyết trình với khách hàng hôm qua, vừa hỏi anh mọi chuyện thế nào.",
+      "Anh mở đầu, với nụ cười tự giễu mà cô đã quá quen: \"Cứ cho là nó rất đáng nhớ đi.",
+      "Anh đã chuẩn bị bốn mươi trang chiếu về bảo mật đám mây, và đã tập dượt hai lần.",
+      "Càng tập, anh càng thấy tự tin, mà giờ nghĩ lại, đó chính là sai lầm ngớ ngẩn đầu tiên.\"",
+      "\"Sao lại thế?",
+      "Đã xảy ra chuyện gì?\"",
+      "\"Máy chiếu không chịu chạy, nên anh chia sẻ màn hình qua cuộc gọi video.",
+      "Không may, màn hình anh chia sẻ không phải bài thuyết trình; đó là giỏ hàng trực tuyến của anh, trong đó có một con cá sấu bơm hơi khổng lồ.\"",
+      "Mai Anh suýt sặc cà phê.",
+      "Cô nói: \"Thế thì xấu hổ thật.\"",
+      "Anh đáp: \"Anh không gọi đó là thảm hoạ đâu.",
+      "Nếu có thì nó còn mang tính giáo dục ấy chứ; giờ khách hàng biết chính xác anh dành cuối tuần thế nào.\"",
+      "Sự cố không dừng lại ở đó.",
+      "Khi cuối cùng cũng tìm được đúng tệp, anh dành mười phút giải thích lập luận chính, trước khi có người lịch sự nhắc rằng anh đang tắt tiếng.",
+      "Anh nói: \"Vậy là trong mười phút, có thể nói anh là một bộ phim câm.",
+      "Thật ra cũng là một màn trình diễn khá nghệ thuật đấy.\"",
+      "Mai Anh vừa lau nước mắt vừa hỏi khách hàng có giận không.",
+      "May thay, giám đốc bên đó nổi tiếng với lối hài hước khô khan, tỉnh queo.",
+      "Cuối buổi, ông bảo Đức rằng bài thuyết trình dí dỏm đến bất ngờ, đối với một bài mà chẳng ai nghe thấy gì.",
+      "Đức quyết định coi đó là một lời khen.",
+      "\"Thế anh phản ứng thế nào?\"",
+      "\"Tất nhiên là anh cười trừ cho qua mọi chuyện.",
+      "Còn làm gì khác được nữa?",
+      "Càng xin lỗi lâu, mọi người lại càng thấy ngượng.",
+      "Tốt hơn là, có thể nói, tự nắm lấy câu chuyện của mình, trước khi người khác kể hộ.\"",
+      "Mai Anh lắc đầu, vẫn còn cười, và cuối cùng cũng hỏi được một câu.",
+      "\"Họ vẫn sẽ ký hợp đồng chứ?\"",
+      "Đức vừa uống nốt cà phê vừa nói: \"Họ ký sáng nay rồi.",
+      "Hình như con cá sấu làm công ty mình trông gần gũi hơn.",
+      "Có vẻ như lỗi càng to thì khách hàng càng thân thiện.\"",
+      "Cô nói: \"Lần sau, có lẽ anh nên kiểm tra màn hình trước khi chia sẻ, và để con cá sấu ở nhà.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một sự cố đáng xấu hổ theo lối tự giễu, giảm nhẹ nó bằng các khung cố định: the more…, the more…; if anything; as it were; so to speak.",
+    "examples": [
+      {
+        "lemma": "self-deprecating",
+        "sentence": "Her self-deprecating jokes make the audience trust her.",
+        "meaningVi": "Những câu đùa tự giễu của cô khiến khán giả tin tưởng cô."
+      },
+      {
+        "lemma": "slide",
+        "sentence": "The last slide shows the budget for next year.",
+        "meaningVi": "Trang chiếu cuối cùng trình bày ngân sách năm sau."
+      },
+      {
+        "lemma": "blunder",
+        "sentence": "Sending the email to the whole company was a terrible blunder.",
+        "meaningVi": "Gửi email đó cho cả công ty là một sai lầm ngớ ngẩn khủng khiếp."
+      },
+      {
+        "lemma": "embarrassing",
+        "sentence": "It was embarrassing to forget my own phone number.",
+        "meaningVi": "Quên cả số điện thoại của chính mình thật là xấu hổ."
+      },
+      {
+        "lemma": "mishap",
+        "sentence": "Apart from a small mishap with the microphone, the event went well.",
+        "meaningVi": "Ngoài một sự cố nhỏ với micrô, sự kiện diễn ra suôn sẻ."
+      },
+      {
+        "lemma": "mute",
+        "sentence": "Please put your phone on mute during the meeting.",
+        "meaningVi": "Vui lòng để điện thoại ở chế độ tắt tiếng trong cuộc họp."
+      },
+      {
+        "lemma": "dry humour",
+        "sentence": "My father's dry humour confuses people who meet him for the first time.",
+        "meaningVi": "Lối hài hước tỉnh queo của bố tôi làm những người mới gặp ông bối rối."
+      },
+      {
+        "lemma": "witty",
+        "sentence": "The speech was short, witty and very clear.",
+        "meaningVi": "Bài phát biểu ngắn, dí dỏm và rất rõ ràng."
+      },
+      {
+        "lemma": "laugh off",
+        "sentence": "She tried to laugh off the criticism, but it clearly hurt her.",
+        "meaningVi": "Cô cố cười cho qua lời chỉ trích, nhưng rõ ràng nó làm cô tổn thương."
+      },
+      {
+        "lemma": "awkward",
+        "sentence": "There was an awkward silence after his question.",
+        "meaningVi": "Sau câu hỏi của anh là một khoảng im lặng ngượng ngùng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai Anh",
+        "Mr Vu"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai Anh, have you heard about Duc's presentation yesterday?",
+          "meaningVi": "Mai Anh, em đã nghe chuyện bài thuyết trình hôm qua của Đức chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "I have. He told me everything over coffee this morning.",
+          "meaningVi": "Em nghe rồi ạ. Sáng nay anh ấy kể hết cho em lúc uống cà phê."
+        },
+        {
+          "speaker": 1,
+          "text": "Was he upset about the crocodile?",
+          "meaningVi": "Cậu ấy có buồn vì chuyện con cá sấu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really. If anything, he seemed rather proud of it.",
+          "meaningVi": "Không hẳn ạ. Nếu có thì trông anh ấy còn khá tự hào nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Should we give him some training on video calls?",
+          "meaningVi": "Chúng ta có nên cho cậu ấy học thêm về cuộc gọi video không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Maybe. But the more we talk about it, the more famous the crocodile gets.",
+          "meaningVi": "Có thể ạ. Nhưng mình càng nhắc tới, con cá sấu càng nổi tiếng."
+        },
+        {
+          "speaker": 1,
+          "text": "True. It is already the company mascot, so to speak.",
+          "meaningVi": "Đúng thế. Có thể nói nó đã thành linh vật của công ty rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "And the client liked his honesty. He was, as it were, refreshingly human.",
+          "meaningVi": "Và khách hàng thích sự thật thà của anh ấy. Có thể nói anh ấy gần gũi một cách dễ chịu."
+        },
+        {
+          "speaker": 1,
+          "text": "Then let him present again next month. The sooner, the better.",
+          "meaningVi": "Vậy để cậu ấy thuyết trình tiếp vào tháng sau. Càng sớm càng tốt."
+        }
+      ]
+    },
+    "grammarTipVi": "The + so sánh hơn…, the + so sánh hơn…: the more we talk about it, the more famous the crocodile gets; dạng rút gọn: The sooner, the better. If anything sửa lại ý vừa phủ định: Not really. If anything, he seemed rather proud of it. As it were / so to speak đi kèm cách nói hình ảnh: the company mascot, so to speak; as it were, refreshingly human.",
+    "translations": [
+      {
+        "vi": "Tôi càng thêm trang chiếu thì mọi chuyện càng ngượng ngùng.",
+        "en": "The more slides I added, the more awkward it became.",
+        "distractors": [
+          "slide",
+          "becomed",
+          "most"
+        ]
+      },
+      {
+        "vi": "Hôm qua tôi đã nói suốt mười phút trong khi đang tắt tiếng.",
+        "en": "Yesterday I spoke for ten minutes while I was on mute.",
+        "distractors": [
+          "speaked",
+          "mutes",
+          "am"
+        ],
+        "accepted": [
+          "I spoke for ten minutes while I was on mute yesterday.",
+          "Yesterday I spoke while I was on mute for ten minutes."
+        ]
+      },
+      {
+        "vi": "Hôm qua anh ấy chỉ cười trừ cho qua sự cố đó.",
+        "en": "Yesterday he just laughed off the mishap.",
+        "distractors": [
+          "laughs",
+          "of",
+          "mishapped"
+        ],
+        "accepted": [
+          "He just laughed off the mishap yesterday.",
+          "Yesterday he just laughed the mishap off.",
+          "He just laughed the mishap off yesterday."
+        ]
+      },
+      {
+        "vi": "Giờ nghĩ lại, đó là sai lầm ngớ ngẩn đầu tiên của tôi.",
+        "en": "In hindsight, that was my first blunder.",
+        "distractors": [
+          "blunders",
+          "firstly",
+          "were"
+        ],
+        "accepted": [
+          "That was my first blunder, in hindsight."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai Anh và ông Vũ nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bài thuyết trình hôm qua của Đức",
+          "Hợp đồng với một nhà cung cấp mới",
+          "Kế hoạch nghỉ phép của Mai Anh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Vũ hỏi \"have you heard about Duc's presentation yesterday?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đức cảm thấy thế nào về chuyện con cá sấu?",
+        "promptVi": "",
+        "options": [
+          "Khá tự hào",
+          "Rất buồn",
+          "Tức giận"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai Anh nói \"If anything, he seemed rather proud of it.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Mai Anh, điều gì xảy ra nếu mọi người cứ nhắc tới chuyện đó?",
+        "promptVi": "",
+        "options": [
+          "Con cá sấu càng nổi tiếng",
+          "Đức càng xấu hổ",
+          "Khách hàng sẽ huỷ hợp đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"the more we talk about it, the more famous the crocodile gets.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Vu wants Duc to present again next month.",
+        "promptVi": "Ông Vũ muốn Đức thuyết trình lại vào tháng sau.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì ông nói \"let him present again next month.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Đức gặp những sự cố gì trong buổi thuyết trình? Anh kể lại theo lối tự giễu như thế nào, và cuối cùng kết quả ra sao?",
+    "grammarStep": {
+      "titleVi": "Cấu trúc cố định: càng… càng…, if anything, as it were, so to speak",
+      "noticing": [
+        {
+          "sentence": "The more I rehearsed, the more confident I felt, which, in hindsight, was my first blunder.\"",
+          "highlights": [
+            "The more I rehearsed",
+            "the more confident I felt"
+          ]
+        },
+        {
+          "sentence": "\"If anything, it was educational; the client now knows exactly how I spend my weekends.\"",
+          "highlights": [
+            "If anything"
+          ]
+        },
+        {
+          "sentence": "\"So for ten minutes I was, as it were, a silent film,\" he says.",
+          "highlights": [
+            "as it were"
+          ]
+        },
+        {
+          "sentence": "The longer you apologise, the more awkward it becomes for everyone.",
+          "highlights": [
+            "The longer you apologise",
+            "the more awkward it becomes"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: càng xin lỗi lâu, mọi chuyện càng ngượng. Câu nào đúng?",
+      "options": [
+        "The longer you apologise, the more awkward it becomes.",
+        "The longer you apologise, it becomes more awkward.",
+        "Longer you apologise, the most awkward it becomes."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Cả hai vế đều bắt đầu bằng the + so sánh hơn (the longer, the more awkward), rồi mới đến chủ ngữ và động từ.",
+      "whenVi": "Dùng khi kể chuyện tự giễu hoặc nói chuyện thân mật: the more…, the more… để nêu hai điều thay đổi cùng nhau; if anything để biến một điều xấu thành điều \"thậm chí còn tốt\"; as it were / so to speak khi dùng hình ảnh không theo nghĩa đen.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Nghĩa"
+      ],
+      "table": [
+        {
+          "subject": "The + so sánh hơn, the + so sánh hơn",
+          "form": "The more I rehearsed, the more confident I felt. The longer you apologise, the less people listen.",
+          "negative": "càng… thì càng…; tính từ dài dùng more"
+        },
+        {
+          "subject": "Dạng rút gọn",
+          "form": "The bigger the mistake, the warmer the client. The sooner, the better.",
+          "negative": "càng… càng… (bỏ động từ khi ý đã rõ)"
+        },
+        {
+          "subject": "If anything",
+          "form": "It wasn't a disaster; if anything, it was educational.",
+          "negative": "thậm chí còn ngược lại"
+        },
+        {
+          "subject": "As it were / so to speak",
+          "form": "I was, as it were, a silent film. It's better to own the story, so to speak.",
+          "negative": "có thể nói là (nghĩa bóng)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The longer you apologise, it becomes more awkward.",
+          "right": "The longer you apologise, the more awkward it becomes."
+        },
+        {
+          "wrong": "The more I rehearsed, the confident I felt.",
+          "right": "The more I rehearsed, the more confident I felt."
+        },
+        {
+          "wrong": "It wasn't a disaster; if nothing, it was educational.",
+          "right": "It wasn't a disaster; if anything, it was educational."
+        }
+      ],
+      "noteVi": "Với tính từ dài (confident, awkward), dùng the more + tính từ: the more awkward, không nói the awkwarder.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The longer you apologise, the ___ awkward it becomes.",
+          "answers": [
+            "more"
+          ],
+          "explanationVi": "Awkward là tính từ dài, nên so sánh hơn là more awkward."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The mistake didn't hurt the deal; ___, it helped.",
+          "options": [
+            "if anything",
+            "as it were",
+            "so to speak",
+            "the more"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau một câu phủ định, if anything nêu ý ngược lại: không làm hỏng thương vụ, thậm chí còn giúp ích."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The more I rehearsed, the confident I felt.",
+          "sentence": "The more I rehearsed, the more confident I felt.",
+          "explanationVi": "Vế thứ hai cần so sánh hơn: the more confident."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Lỗi càng to thì khách hàng càng thân thiện.",
+          "sentence": "The bigger the mistake, the warmer the client.",
+          "words": [
+            "The",
+            "bigger",
+            "the",
+            "mistake,",
+            "the",
+            "warmer",
+            "the",
+            "client.",
+            "than"
+          ],
+          "explanationVi": "Dạng rút gọn: The bigger + the mistake, the warmer + the client; từ \"than\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The more I rehearsed, the more confident I felt, which, in hindsight, was my first blunder.\"",
+        "tipVi": "Lên giọng ở rehearsed, ngắt hơi trước và sau in hindsight; blunder /ˈblʌndə/."
+      },
+      {
+        "text": "The longer you apologise, the more awkward it becomes for everyone.",
+        "tipVi": "Nhấn longer và more awkward; awkward /ˈɔːkwəd/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Tell me about a small mistake you made in a meeting, class or presentation.",
+        "questionVi": "Hãy kể về một lỗi nhỏ bạn từng mắc trong cuộc họp, lớp học hoặc bài thuyết trình.",
+        "frame": "It wasn't a disaster; if anything, it ___."
+      },
+      {
+        "question": "Is it better to laugh off a mistake or to apologise seriously?",
+        "questionVi": "Nên cười cho qua một lỗi lầm hay xin lỗi nghiêm túc thì tốt hơn?",
+        "frame": "The longer you ___, the more ___."
+      },
+      {
+        "question": "Do you enjoy self-deprecating humour? Why or why not?",
+        "questionVi": "Bạn có thích lối hài hước tự giễu không? Vì sao?",
+        "frame": "It is, so to speak, a way of ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có câu the + so sánh hơn…, the + so sánh hơn hoặc cụm if anything / as it were / so to speak",
+      "anyOf": [
+        "the more",
+        "the less",
+        "the longer",
+        "the sooner",
+        "if anything",
+        "as it were",
+        "so to speak",
+        "the bigger"
+      ],
+      "outlineVi": [
+        "Kể ngắn bối cảnh: bạn đang làm gì, trước mặt ai.",
+        "Tả sự cố một cách tự giễu, dùng as it were hoặc so to speak.",
+        "Kể bạn đã phản ứng ra sao và rút ra điều gì, dùng the more…, the more… hoặc if anything."
+      ],
+      "modelAnswer": "Last year I gave a speech at my best friend's wedding. I had practised it for weeks, and the more I practised, the more nervous I became. On the day, I walked to the microphone, smiled at two hundred guests and called the bride by the wrong name. There was an awkward silence. The speech wasn't ruined, though; if anything, the mistake became, as it were, its punchline, because everyone still remembers it."
+    }
+  },
+  "glosses": [
+    {
+      "text": "confess",
+      "lemma": "confess",
+      "meaningVi": "thú nhận",
+      "pos": "verb",
+      "phrase": "a man about to confess something",
+      "phraseVi": "một người sắp thú nhận điều gì đó",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "in hindsight",
+      "lemma": "in hindsight",
+      "meaningVi": "khi nhìn lại, giờ nghĩ lại",
+      "pos": "phrase",
+      "phrase": "which, in hindsight, was my first blunder",
+      "phraseVi": "mà giờ nghĩ lại, đó là sai lầm đầu tiên",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "inflatable",
+      "lemma": "inflatable",
+      "meaningVi": "bơm hơi",
+      "pos": "adjective",
+      "phrase": "a giant inflatable crocodile",
+      "phraseVi": "một con cá sấu bơm hơi khổng lồ",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "chokes",
+      "lemma": "choke",
+      "meaningVi": "sặc, nghẹn",
+      "pos": "verb",
+      "phrase": "nearly chokes on her coffee",
+      "phraseVi": "suýt sặc cà phê",
+      "sentenceIndex": 9
+    },
+    {
+      "text": "own",
+      "lemma": "own",
+      "meaningVi": "tự nhận lấy, làm chủ (câu chuyện, lỗi lầm của mình)",
+      "pos": "verb",
+      "phrase": "own the story",
+      "phraseVi": "tự nắm lấy câu chuyện",
+      "sentenceIndex": 25
+    }
+  ]
+}

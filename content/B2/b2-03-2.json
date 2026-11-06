@@ -439,21 +439,26 @@
       "answerIndex": 0,
       "explanationVi": "Câu hỏi tường thuật dùng trật tự câu kể (we hadn't told), không dùng did, và lùi thì (didn't tell → hadn't told).",
       "whenVi": "Dùng khi kể lại cho người khác những câu hỏi ai đó đã hỏi và những yêu cầu đã được đưa ra.",
+      "columns": [
+        "Loại",
+        "Câu tường thuật",
+        "Lưu ý"
+      ],
       "table": [
         {
           "subject": "Câu hỏi Wh-",
-          "form": "asked + từ để hỏi + chủ ngữ + động từ: asked how many customers had become ill",
+          "form": "The first reporter asked how many customers had become ill.",
           "negative": "Không đảo ngữ, không dùng do / did."
         },
         {
           "subject": "Câu hỏi Yes / No",
-          "form": "asked if / whether + chủ ngữ + động từ: asked if customers would get their money back",
-          "negative": "Lùi thì: will → would, can → could."
+          "form": "One reporter asked if customers would get their money back.",
+          "negative": "if / whether; lùi thì: will → would, can → could"
         },
         {
           "subject": "Mệnh lệnh, yêu cầu",
-          "form": "told / asked + người + to + V: told her to stay calm",
-          "negative": "not to + V: not to argue with anyone"
+          "form": "I told her to stay calm and not to argue with anyone.",
+          "negative": "told / asked + người + (not) to + V"
         }
       ],
       "mistakes": [
@@ -494,9 +499,9 @@
         {
           "kind": "fix",
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
-          "text": "He asked me what will we do next.",
+          "text": "He asked me what would we do next.",
           "sentence": "He asked me what we would do next.",
-          "explanationVi": "Trật tự câu kể (we would) và lùi thì will → would."
+          "explanationVi": "Câu tường thuật dùng trật tự câu kể: what we would do, không đảo would lên trước chủ ngữ."
         },
         {
           "kind": "reorder",
@@ -546,18 +551,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu tường thuật câu hỏi hoặc mệnh lệnh (asked if / what …, told … to …)",
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật câu hỏi hoặc mệnh lệnh (asked if / whether / what / why …, told me / us to …)",
       "anyOf": [
         "asked if",
         "asked whether",
+        "asked me if",
+        "asked me whether",
         "asked what",
-        "asked how",
         "asked why",
-        "asked when",
         "told me to",
-        "told them to",
-        "told us to",
-        "not to"
+        "told us to"
       ],
       "outlineVi": [
         "Buổi họp báo về chuyện gì, ở đâu.",

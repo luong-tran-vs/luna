@@ -1,0 +1,626 @@
+{
+  "content": "At half past six on a Thursday evening, the open-plan office of a logistics firm in Ho Chi Minh City's District 3 is almost empty. Only Phuong and Khanh, two senior analysts who have outlived three managers between them, are still at their desks, staring at an email that arrived an hour ago. Its subject line reads simply \"Small request\".\n\n\"Mr Quoc would like the entire system migrated by Monday,\" Khanh reads aloud in a perfectly deadpan voice. \"That's four days for a project we planned for three months.\"\n\"I wouldn't call it unrealistic,\" Phuong replies. \"If anything, it's rather relaxed; he could easily have said Friday.\"\nKhanh smiles at the sarcasm, which has been, as it were, the team's emergency fuel for years. Their banter is quiet, almost polite, but everyone on the floor knows what it means.\n\"You know his theory,\" he says. \"The closer the deadline, the faster people work.\"\n\"And the faster people work, the more mistakes the clients find,\" she retorts. \"But let's be fair: it isn't entirely his fault. Somebody upstairs overpromised again, I assume?\"\n\"Naturally. Our sales director told the client that the work was already half done, so to speak. By that he means someone has created an empty folder.\"\nKhanh leans back in his chair and sighs. \"Calling this challenging would be the understatement of the year. I'm not trying to exaggerate, but the last time we rushed a migration, the printer caught fire.\"\n\"That story gets more absurd every time you tell it,\" Phuong says. \"The more often you tell it, the bigger the flames become.\"\nKhanh does not deny it. \"A good story deserves to grow a little,\" he says. \"Besides, Mr Quoc is exactly the same: the more pressure he gets from above, the more optimistic his calendar becomes.\"\nPhuong laughs despite herself, then glances at the clock above the door.\n\"So what do we actually do?\"\n\"What we always do,\" she says, opening a new spreadsheet. \"We send him a short, honest list of what is possible by Monday, and nothing more. No apologies, no promises, no heroics.\"\n\"The shorter the list, the happier he'll be,\" Khanh says, already typing.",
+  "targetWords": [
+    "deadpan",
+    "unrealistic",
+    "sarcasm",
+    "banter",
+    "deadline",
+    "retort",
+    "overpromise",
+    "understatement",
+    "exaggerate",
+    "absurd"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "deadpan",
+        "lemma": "deadpan",
+        "meaningVi": "tỉnh bơ, nói đùa mà mặt không biểu cảm",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "unrealistic",
+        "lemma": "unrealistic",
+        "meaningVi": "phi thực tế, không khả thi",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "sarcasm",
+        "lemma": "sarcasm",
+        "meaningVi": "sự mỉa mai, lời châm biếm",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "banter",
+        "lemma": "banter",
+        "meaningVi": "những câu đùa qua lại, trêu chọc vui vẻ",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "deadline",
+        "lemma": "deadline",
+        "meaningVi": "hạn chót",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "retorts",
+        "lemma": "retort",
+        "meaningVi": "vặn lại, đáp trả nhanh và sắc",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "overpromised",
+        "lemma": "overpromise",
+        "meaningVi": "hứa hẹn quá mức, hứa quá khả năng",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "understatement",
+        "lemma": "understatement",
+        "meaningVi": "cách nói giảm nhẹ, nói nhẹ đi so với thực tế",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "exaggerate",
+        "lemma": "exaggerate",
+        "meaningVi": "phóng đại, nói quá",
+        "pos": "verb",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "absurd",
+        "lemma": "absurd",
+        "meaningVi": "vô lý, lố bịch",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Phuong and Khanh mainly doing?",
+        "promptVi": "Phương và Khánh chủ yếu đang làm gì?",
+        "options": [
+          "Joking about an impossible deadline and deciding how to reply",
+          "Planning a party for their new manager",
+          "Repairing a printer that caught fire",
+          "Interviewing a new sales director"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ đùa về email đòi xong dự án \"by Monday\" rồi quyết định gửi \"a short, honest list of what is possible\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long was the project originally planned to take?",
+        "promptVi": "Ban đầu dự án được lên kế hoạch làm trong bao lâu?",
+        "options": [
+          "Four days",
+          "One week",
+          "Three months",
+          "One year"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khánh nói \"four days for a project we planned for three months\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the sales director mean by \"already half done\"?",
+        "promptVi": "Giám đốc kinh doanh muốn nói gì khi bảo \"đã xong một nửa\"?",
+        "options": [
+          "Half of the system has been migrated.",
+          "Someone has created an empty folder.",
+          "The client has paid half the money.",
+          "Half of the team has finished."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khánh giải thích: \"By that he means someone has created an empty folder.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuong believes the printer story is completely accurate.",
+        "promptVi": "Phương tin rằng chuyện cái máy in là hoàn toàn chính xác.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phương nói câu chuyện \"gets more absurd every time you tell it\", tức là Khánh thêm thắt mỗi lần kể."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"outlived\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Only Phuong and Khanh, two senior analysts who have outlived three managers between them, are still at their desks, staring at an email that arrived an hour ago.",
+        "options": [
+          "trụ lại lâu hơn, tồn tại lâu hơn",
+          "thăng chức thay cho",
+          "đào tạo",
+          "tuyển dụng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Outlive = sống/tồn tại lâu hơn ai đó. Hai người đã làm ở công ty lâu hơn cả ba đời quản lý."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cấu trúc cố định: the more…, the more…; if anything; as it were; so to speak",
+      "bodyVi": "Hai đồng nghiệp đùa khô bằng các khung câu cố định. (1) The + so sánh hơn …, the + so sánh hơn … (càng… càng…): The closer the deadline, the faster people work; The shorter the list, the happier he'll be. Cả hai vế đều có the, trật tự không đổi; vế ngắn có thể bỏ động từ (the closer the deadline). (2) If anything (nếu có thì ngược lại mới đúng) sửa lại nhận định vừa nói, thường sau một câu phủ định: I wouldn't call it unrealistic… If anything, it's rather relaxed. (3) As it were và so to speak báo cho người nghe biết mình đang nói theo nghĩa bóng, ước lệ: the team's emergency fuel, as it were; already half done, so to speak. Các cụm này đứng tách bằng dấu phẩy và không đổi hình thức.",
+      "examples": [
+        "\"If anything, it's rather relaxed; he could easily have said Friday.\"",
+        "Khanh smiles at the sarcasm, which has been, as it were, the team's emergency fuel for years.",
+        "\"The closer the deadline, the faster people work.\"",
+        "Our sales director told the client that the work was already half done, so to speak."
+      ]
+    },
+    "writingPrompt": "Write a short message to a colleague about an unrealistic request at work, using dry humour. Use the + comparative…, the + comparative at least once, and if anything, as it were or so to speak.",
+    "sentenceTranslations": [
+      "Sáu giờ rưỡi tối thứ Năm, văn phòng không vách ngăn của một công ty logistics ở Quận 3, Thành phố Hồ Chí Minh gần như đã vắng tanh.",
+      "Chỉ còn Phương và Khánh, hai chuyên viên phân tích lâu năm mà cộng lại đã \"sống sót\" qua ba đời quản lý, vẫn ngồi ở bàn, nhìn chằm chằm vào một email đến từ một tiếng trước.",
+      "Dòng tiêu đề chỉ ghi gọn: \"Yêu cầu nhỏ\".",
+      "Khánh đọc to bằng một giọng tỉnh bơ hoàn hảo: \"Anh Quốc muốn toàn bộ hệ thống được chuyển đổi xong trước thứ Hai.",
+      "Tức là bốn ngày cho một dự án mà chúng ta lên kế hoạch làm trong ba tháng.\"",
+      "Phương đáp: \"Tôi không gọi thế là phi thực tế đâu.",
+      "Nếu có thì nó còn khá thong thả ấy chứ; anh ấy hoàn toàn có thể bảo là thứ Sáu.\"",
+      "Khánh mỉm cười trước câu mỉa mai ấy, thứ mà bao năm nay, có thể nói, là nguồn nhiên liệu dự phòng của cả nhóm.",
+      "Những câu đùa qua lại của họ khẽ khàng, gần như lịch sự, nhưng cả tầng ai cũng hiểu nó có nghĩa là gì.",
+      "Anh nói: \"Chị biết lý thuyết của anh ấy rồi đấy.",
+      "Càng gần hạn chót, người ta làm càng nhanh.\"",
+      "Chị vặn lại: \"Và người ta làm càng nhanh thì khách hàng tìm ra càng nhiều lỗi.",
+      "Nhưng công bằng mà nói: đó không hoàn toàn là lỗi của anh ấy.",
+      "Tôi đoán là lại có ai đó ở trên hứa hẹn quá đà rồi, đúng không?\"",
+      "\"Tất nhiên rồi.",
+      "Giám đốc kinh doanh của chúng ta bảo khách hàng rằng công việc đã xong một nửa, nói theo kiểu của anh ta.",
+      "Ý anh ta là đã có người tạo một thư mục trống.\"",
+      "Khánh ngả người ra ghế và thở dài.",
+      "\"Gọi việc này là thử thách thì đúng là cách nói giảm nhẹ nhất năm.",
+      "Tôi không cố phóng đại đâu, nhưng lần trước chúng ta làm vội một đợt chuyển đổi hệ thống, cái máy in đã bốc cháy.\"",
+      "Phương nói: \"Câu chuyện đó mỗi lần anh kể lại càng vô lý hơn.",
+      "Anh kể càng nhiều lần thì ngọn lửa càng to.\"",
+      "Khánh không chối.",
+      "Anh nói: \"Một câu chuyện hay thì cũng nên được lớn lên một chút chứ.",
+      "Vả lại, anh Quốc cũng y như vậy: càng bị cấp trên ép, lịch làm việc của anh ấy càng lạc quan.\"",
+      "Phương bật cười dù không muốn, rồi liếc nhìn chiếc đồng hồ phía trên cửa.",
+      "\"Vậy rốt cuộc chúng ta làm gì?\"",
+      "Chị vừa mở một bảng tính mới vừa nói: \"Làm điều chúng ta vẫn luôn làm.",
+      "Gửi cho anh ấy một danh sách ngắn, trung thực về những gì có thể xong trước thứ Hai, và không hơn.",
+      "Không xin lỗi, không hứa hẹn, không làm anh hùng.\"",
+      "Khánh vừa gõ phím vừa nói: \"Danh sách càng ngắn, anh ấy càng vui.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đùa khô, mỉa mai nhẹ nhàng về một hạn chót phi thực tế bằng các khung cố định: the closer…, the faster…; if anything; as it were; so to speak.",
+    "examples": [
+      {
+        "lemma": "deadpan",
+        "sentence": "She told the joke with a deadpan face, and nobody knew whether to laugh.",
+        "meaningVi": "Cô kể câu đùa với gương mặt tỉnh bơ, và chẳng ai biết có nên cười không."
+      },
+      {
+        "lemma": "unrealistic",
+        "sentence": "Finishing the report in one afternoon is unrealistic.",
+        "meaningVi": "Hoàn thành bản báo cáo trong một buổi chiều là phi thực tế."
+      },
+      {
+        "lemma": "sarcasm",
+        "sentence": "His sarcasm sometimes hurts people who do not know him well.",
+        "meaningVi": "Sự mỉa mai của anh đôi khi làm tổn thương những người không hiểu rõ anh."
+      },
+      {
+        "lemma": "banter",
+        "sentence": "The friendly banter between the two chefs kept the kitchen relaxed.",
+        "meaningVi": "Những câu đùa qua lại thân thiện giữa hai đầu bếp giữ cho bếp luôn thoải mái."
+      },
+      {
+        "lemma": "deadline",
+        "sentence": "The deadline for the application is next Friday.",
+        "meaningVi": "Hạn chót nộp hồ sơ là thứ Sáu tuần sau."
+      },
+      {
+        "lemma": "retort",
+        "sentence": "I wanted to retort, but I decided to stay calm.",
+        "meaningVi": "Tôi muốn vặn lại, nhưng quyết định giữ bình tĩnh."
+      },
+      {
+        "lemma": "overpromise",
+        "sentence": "A good manager will never overpromise to a client.",
+        "meaningVi": "Một người quản lý giỏi sẽ không bao giờ hứa quá khả năng với khách hàng."
+      },
+      {
+        "lemma": "understatement",
+        "sentence": "To say the hotel was small would be an understatement.",
+        "meaningVi": "Nói khách sạn đó nhỏ thì vẫn còn là nói giảm."
+      },
+      {
+        "lemma": "exaggerate",
+        "sentence": "Please don't exaggerate; the meeting lasted one hour, not five.",
+        "meaningVi": "Đừng phóng đại thế; cuộc họp kéo dài một tiếng, đâu phải năm tiếng."
+      },
+      {
+        "lemma": "absurd",
+        "sentence": "It is absurd to hold a meeting about having fewer meetings.",
+        "meaningVi": "Tổ chức một cuộc họp để bàn về việc họp ít hơn thì thật vô lý."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngan",
+        "Phuong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Phuong, did Mr Quoc read your list this morning?",
+          "meaningVi": "Chị Phương ơi, sáng nay anh Quốc đã đọc danh sách của chị chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "He did. He wasn't angry; if anything, he looked relieved.",
+          "meaningVi": "Đọc rồi. Anh ấy không giận; nếu có thì trông còn nhẹ nhõm nữa."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? I expected a long speech about teamwork.",
+          "meaningVi": "Thật ạ? Em cứ tưởng sẽ có một bài diễn văn dài về tinh thần đồng đội."
+        },
+        {
+          "speaker": 1,
+          "text": "So did I. But the more honest the list, the calmer the meeting, apparently.",
+          "meaningVi": "Chị cũng tưởng thế. Nhưng hoá ra danh sách càng trung thực thì cuộc họp càng êm."
+        },
+        {
+          "speaker": 0,
+          "text": "And what about the client? Who is going to tell them?",
+          "meaningVi": "Còn khách hàng thì sao ạ? Ai sẽ báo cho họ?"
+        },
+        {
+          "speaker": 1,
+          "text": "The sales director. He has to eat his words, so to speak.",
+          "meaningVi": "Giám đốc kinh doanh. Có thể nói là anh ta phải nuốt lời mình."
+        },
+        {
+          "speaker": 0,
+          "text": "Will he be in a bad mood all week?",
+          "meaningVi": "Liệu anh ta có cáu cả tuần không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Probably. The longer he waits, the worse it will be for him.",
+          "meaningVi": "Chắc vậy. Anh ta càng chần chừ thì càng tệ cho anh ta."
+        },
+        {
+          "speaker": 0,
+          "text": "You and Khanh are the office firefighters, as it were.",
+          "meaningVi": "Chị với anh Khánh đúng là, có thể nói, đội cứu hoả của văn phòng."
+        },
+        {
+          "speaker": 1,
+          "text": "Please don't say firefighters near Khanh. He will tell the printer story again.",
+          "meaningVi": "Đừng nhắc đến cứu hoả gần anh Khánh nhé. Anh ấy lại kể chuyện cái máy in cho xem."
+        }
+      ]
+    },
+    "grammarTipVi": "The + so sánh hơn…, the + so sánh hơn…: the more honest the list, the calmer the meeting; the longer he waits, the worse it will be. If anything sửa lại ý vừa phủ định: He wasn't angry; if anything, he looked relieved. So to speak / as it were đi kèm một hình ảnh nghĩa bóng: eat his words, so to speak; the office firefighters, as it were.",
+    "translations": [
+      {
+        "vi": "Càng gần hạn chót, người ta làm càng nhanh.",
+        "en": "The closer the deadline, the faster people work.",
+        "distractors": [
+          "close",
+          "fast",
+          "works"
+        ]
+      },
+      {
+        "vi": "Tôi không cố phóng đại, nhưng hạn chót đó phi thực tế.",
+        "en": "I'm not trying to exaggerate, but that deadline is unrealistic.",
+        "distractors": [
+          "exaggerating",
+          "realist",
+          "tries"
+        ]
+      },
+      {
+        "vi": "Đó không phải là phóng đại; nếu có thì đó là nói giảm.",
+        "en": "It isn't an exaggeration; if anything, it's an understatement.",
+        "distractors": [
+          "exaggerate",
+          "anythings",
+          "a"
+        ],
+        "accepted": [
+          "It isn't an exaggeration; it's an understatement, if anything."
+        ]
+      },
+      {
+        "vi": "Những câu đùa qua lại của họ khẽ khàng, gần như lịch sự.",
+        "en": "Their banter is quiet, almost polite.",
+        "distractors": [
+          "are",
+          "politely",
+          "them"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngân và Phương nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Phản ứng của anh Quốc trước danh sách của Phương",
+          "Kế hoạch đi du lịch của văn phòng",
+          "Một khách hàng mới ký hợp đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngân hỏi \"did Mr Quoc read your list this morning?\" và hai người bàn về chuyện sau đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Quốc phản ứng thế nào khi đọc danh sách?",
+        "promptVi": "",
+        "options": [
+          "Anh ấy trông nhẹ nhõm",
+          "Anh ấy rất giận",
+          "Anh ấy đọc một bài diễn văn dài"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương nói \"He wasn't angry; if anything, he looked relieved.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai sẽ báo tin cho khách hàng?",
+        "promptVi": "",
+        "options": [
+          "Giám đốc kinh doanh",
+          "Anh Khánh",
+          "Ngân"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương nói \"The sales director. He has to eat his words, so to speak.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuong wants Ngan to talk about firefighters in front of Khanh.",
+        "promptVi": "Phương muốn Ngân nói chuyện cứu hoả trước mặt Khánh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phương nói \"Please don't say firefighters near Khanh.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Hai đồng nghiệp đùa khô về hạn chót của sếp như thế nào? Tìm những câu nói ngược (mỉa mai) và xem cuối cùng họ quyết định làm gì.",
+    "grammarStep": {
+      "titleVi": "Cấu trúc cố định: càng… càng…, if anything, as it were, so to speak",
+      "noticing": [
+        {
+          "sentence": "\"If anything, it's rather relaxed; he could easily have said Friday.\"",
+          "highlights": [
+            "If anything"
+          ]
+        },
+        {
+          "sentence": "Khanh smiles at the sarcasm, which has been, as it were, the team's emergency fuel for years.",
+          "highlights": [
+            "as it were"
+          ]
+        },
+        {
+          "sentence": "\"The closer the deadline, the faster people work.\"",
+          "highlights": [
+            "The closer the deadline",
+            "the faster people work"
+          ]
+        },
+        {
+          "sentence": "Our sales director told the client that the work was already half done, so to speak.",
+          "highlights": [
+            "so to speak"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: hạn chót càng gần, mọi người càng làm nhanh. Câu nào đúng?",
+      "options": [
+        "The closer the deadline, the faster people work.",
+        "Closer the deadline, faster people work.",
+        "The closer the deadline, people work the faster."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Cả hai vế đều bắt đầu bằng the + so sánh hơn, và phần so sánh luôn đứng đầu vế: the faster people work, không phải people work the faster.",
+      "whenVi": "Dùng khi nói chuyện, bình luận hoặc đùa khô: the more…, the more… để nêu quan hệ tăng giảm cùng nhau; if anything để đảo ngược một nhận định; as it were / so to speak khi dùng một hình ảnh không theo nghĩa đen.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Nghĩa"
+      ],
+      "table": [
+        {
+          "subject": "The + so sánh hơn, the + so sánh hơn",
+          "form": "The closer the deadline, the faster people work. The less we promise, the fewer problems we have.",
+          "negative": "càng… thì càng…"
+        },
+        {
+          "subject": "If anything",
+          "form": "It isn't too short; if anything, it's too long.",
+          "negative": "thậm chí ngược lại (không phải \"nếu có gì\")"
+        },
+        {
+          "subject": "As it were",
+          "form": "Sarcasm is, as it were, our emergency fuel.",
+          "negative": "có thể nói là (nghĩa bóng)"
+        },
+        {
+          "subject": "So to speak",
+          "form": "The work is half done, so to speak.",
+          "negative": "nói theo kiểu ví von"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The closer the deadline, faster people work.",
+          "right": "The closer the deadline, the faster people work."
+        },
+        {
+          "wrong": "The more you tell it, the flames become bigger.",
+          "right": "The more you tell it, the bigger the flames become."
+        },
+        {
+          "wrong": "It isn't cheap; if something, it's expensive.",
+          "right": "It isn't cheap; if anything, it's expensive."
+        }
+      ],
+      "noteVi": "Đừng dùng if anything như \"nếu có gì thì…\" (if anything happens). Ở đây nó là cụm cố định có dấu phẩy, nghĩa là \"thậm chí ngược lại\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The more often you tell it, ___ bigger the flames become.",
+          "answers": [
+            "the"
+          ],
+          "explanationVi": "Vế thứ hai cũng phải bắt đầu bằng the + so sánh hơn: the bigger."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The new plan didn't save time; ___, it made the project longer.",
+          "options": [
+            "if anything",
+            "as it were",
+            "the more",
+            "so to speak"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau một câu phủ định, if anything đưa ra ý ngược lại: không tiết kiệm thời gian, thậm chí còn làm dự án dài hơn."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The more you exaggerate, more people doubt you.",
+          "sentence": "The more you exaggerate, the more people doubt you.",
+          "explanationVi": "Vế thứ hai thiếu the: the more people doubt you."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Danh sách càng ngắn, anh ấy càng vui.",
+          "sentence": "The shorter the list, the happier he will be.",
+          "words": [
+            "The",
+            "shorter",
+            "the",
+            "list,",
+            "the",
+            "happier",
+            "he",
+            "will",
+            "be.",
+            "most"
+          ],
+          "explanationVi": "The + shorter + the list, rồi the + happier + he will be; từ \"most\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"If anything, it's rather relaxed; he could easily have said Friday.\"",
+        "tipVi": "Ngắt hơi sau If anything; nhấn relaxed và Friday để thể hiện giọng mỉa mai."
+      },
+      {
+        "text": "\"The closer the deadline, the faster people work.\"",
+        "tipVi": "Giọng lên ở closer, xuống ở faster; deadline /ˈdedlaɪn/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever been given an unrealistic deadline? What happened?",
+        "questionVi": "Bạn đã bao giờ nhận một hạn chót phi thực tế chưa? Chuyện gì đã xảy ra?",
+        "frame": "The closer the deadline got, the ___."
+      },
+      {
+        "question": "Do you think sarcasm helps a team or hurts it?",
+        "questionVi": "Bạn nghĩ sự mỉa mai giúp ích hay gây hại cho một nhóm?",
+        "frame": "It doesn't ___; if anything, it ___."
+      },
+      {
+        "question": "Who is the person who keeps your team or class going?",
+        "questionVi": "Ai là người giữ lửa cho nhóm hoặc lớp của bạn?",
+        "frame": "___ is, as it were, the ___ of our team."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có câu the + so sánh hơn…, the + so sánh hơn hoặc cụm if anything / as it were / so to speak",
+      "anyOf": [
+        "the more",
+        "the less",
+        "the longer",
+        "the sooner",
+        "if anything",
+        "as it were",
+        "so to speak",
+        "the closer"
+      ],
+      "outlineVi": [
+        "Nêu yêu cầu phi thực tế bạn vừa nhận (ai yêu cầu, thời hạn bao lâu).",
+        "Bình luận một cách mỉa mai nhẹ nhàng, dùng if anything hoặc so to speak.",
+        "Đề xuất cách giải quyết, dùng the more…, the more… hoặc the sooner…, the better."
+      ],
+      "modelAnswer": "Hi Lan, have you seen the new request? The director wants the annual report translated into three languages by tomorrow morning. I wouldn't call it a difficult task; if anything, it's a magic trick, so to speak. Still, the sooner we tell him what is realistic, the better for everyone. I suggest we offer one language by Friday and the others next week. The more honest we are now, the fewer apologies we will have to write later."
+    }
+  },
+  "glosses": [
+    {
+      "text": "open-plan",
+      "lemma": "open-plan",
+      "meaningVi": "không vách ngăn (văn phòng chung)",
+      "pos": "adjective",
+      "phrase": "the open-plan office",
+      "phraseVi": "văn phòng không vách ngăn",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "outlived",
+      "lemma": "outlive",
+      "meaningVi": "tồn tại lâu hơn, trụ lại lâu hơn",
+      "pos": "verb",
+      "phrase": "who have outlived three managers between them",
+      "phraseVi": "cộng lại đã trụ lâu hơn ba đời quản lý",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "migrated",
+      "lemma": "migrate",
+      "meaningVi": "chuyển đổi (hệ thống, dữ liệu) sang nền tảng mới",
+      "pos": "verb",
+      "phrase": "the entire system migrated by Monday",
+      "phraseVi": "toàn bộ hệ thống được chuyển đổi xong trước thứ Hai",
+      "sentenceIndex": 3
+    },
+    {
+      "text": "fuel",
+      "lemma": "fuel",
+      "meaningVi": "nhiên liệu (nghĩa bóng: thứ tiếp sức)",
+      "pos": "noun",
+      "phrase": "the team's emergency fuel",
+      "phraseVi": "nguồn nhiên liệu dự phòng của cả nhóm",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "spreadsheet",
+      "lemma": "spreadsheet",
+      "meaningVi": "bảng tính",
+      "pos": "noun",
+      "phrase": "opening a new spreadsheet",
+      "phraseVi": "mở một bảng tính mới",
+      "sentenceIndex": 27
+    }
+  ]
+}

@@ -434,21 +434,26 @@
       "answerIndex": 0,
       "explanationVi": "Muỗi bị thu hút (bị động): dùng phân từ V3 Attracted.",
       "whenVi": "Dùng trong bài thuyết trình, quảng cáo để nói nhanh về cách sản phẩm hoạt động và kết quả đã đạt được.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
       "table": [
         {
           "subject": "V-ing (chủ động)",
-          "form": "Hoping to raise money, Hieu is talking to investors.",
-          "negative": "Using no chemicals, it's safer than sprays."
+          "form": "Hoping to raise money, Hieu is talking to investors. / Using no chemicals, it's safer than sprays.",
+          "negative": "= Because he hopes to raise money, Hieu …"
         },
         {
           "subject": "V3 (bị động)",
-          "form": "Attracted by the light, they fly into the box.",
-          "negative": "Tested in two hundred homes, it reduced mosquitoes."
+          "form": "Attracted by the light, they fly into the box. / Tested in two hundred homes, it reduced mosquitoes.",
+          "negative": "= Because they are attracted by the light, they …"
         },
         {
-          "subject": "Having + V3",
+          "subject": "Having + V3 (xảy ra trước)",
           "form": "Having sold five thousand units, we want to sell in supermarkets.",
-          "negative": "Việc bán đã xảy ra trước."
+          "negative": "= Because we have sold five thousand units, we …"
         }
       ],
       "mistakes": [
@@ -490,7 +495,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "Testing in two hundred homes, it reduced mosquitoes.",
           "sentence": "Tested in two hundred homes, it reduced mosquitoes.",
-          "explanationVi": "Bẫy được thử nghiệm (bị động): Tested."
+          "explanationVi": "Bẫy được thử nghiệm (bị động): Tested.",
+          "answers": [
+            "Having been tested in two hundred homes, it reduced mosquitoes."
+          ]
         },
         {
           "kind": "reorder",
@@ -540,13 +548,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 mệnh đề phân từ (Using …, Tested …, Having + V3 …)",
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề phân từ với Having + V3 (vd. Having finished …, …)",
       "anyOf": [
-        "Using",
-        "Tested",
-        "Having",
-        "Designed",
-        "Made"
+        "having sold",
+        "having tested",
+        "having finished",
+        "having raised",
+        "having been",
+        "having made",
+        "having used",
+        "not having"
       ],
       "outlineVi": [
         "Sản phẩm là gì, dành cho ai (Designed for …).",

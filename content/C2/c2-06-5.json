@@ -1,0 +1,622 @@
+{
+  "content": "At last week's Digital Trust Forum in Hanoi, the most crowded session was not about artificial intelligence but about quantum computers. Distant as the threat may seem, the speakers argued, it is already shaping decisions in banks and ministries.\n\nDo Minh Khue, a policy analyst who advises several state agencies, opened with a simple warning. Much of the encryption that protects online banking, tax records and hospital data relies on mathematical problems that ordinary computers would need thousands of years to solve. A sufficiently large quantum machine, she explained, could solve some of them in hours. Nobody knows when such a machine will exist, and she was careful not to predict a date. Be that as it may, she said, the danger has already begun. Criminals and hostile states can steal encrypted files today, store them, and decrypt them years later, once the technology catches up. Experts call this strategy \"harvest now, decrypt later\", and it means that any secret meant to last a decade is already at risk.\n\nAdmittedly, today's quantum machines are small and make frequent errors, but engineers keep improving them. Not everyone was convinced, however. Phan Quoc Thinh, a cybersecurity consultant from Da Nang, asked whether the forum was frightening people for nothing. \"Much as I respect the research, my clients face hackers every single day,\" he said. \"A breach that happens tomorrow worries them far more than a machine that may arrive in fifteen years. Why should a small hospital spend its budget on a problem that doesn't exist yet?\"\n\nKhue replied that the two problems are linked. Every vulnerability in old software becomes harder to fix once it is buried deep inside national infrastructure such as the power grid and water networks. Replacing cryptography across a whole country, she reminded him, can take ten years or more. New algorithms designed to resist quantum attacks have already been published, and some can run alongside existing ones during the changeover. Costly as the transition is, waiting would cost far more.\n\nBy the end of the session, the two speakers had found common ground. They proposed that agencies first list every system holding data that must stay secret for a long time. Those systems would move to the new standards first, while smaller organisations would receive free guidance and training. The forum will publish its recommendations next month. Whether ministries act on them quickly is, of course, another question.",
+  "targetWords": [
+    "quantum",
+    "encryption",
+    "decrypt",
+    "cybersecurity",
+    "hacker",
+    "breach",
+    "vulnerability",
+    "infrastructure",
+    "grid",
+    "cryptography"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "quantum",
+        "lemma": "quantum",
+        "meaningVi": "(thuộc) lượng tử",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "encryption",
+        "lemma": "encryption",
+        "meaningVi": "sự mã hoá (dữ liệu)",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "decrypt",
+        "lemma": "decrypt",
+        "meaningVi": "giải mã",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "cybersecurity",
+        "lemma": "cybersecurity",
+        "meaningVi": "an ninh mạng",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "hackers",
+        "lemma": "hacker",
+        "meaningVi": "tin tặc",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "breach",
+        "lemma": "breach",
+        "meaningVi": "vụ xâm nhập, vụ rò rỉ (dữ liệu)",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "vulnerability",
+        "lemma": "vulnerability",
+        "meaningVi": "lỗ hổng (bảo mật), điểm yếu",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "infrastructure",
+        "lemma": "infrastructure",
+        "meaningVi": "cơ sở hạ tầng",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "grid",
+        "lemma": "grid",
+        "meaningVi": "lưới điện",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "cryptography",
+        "lemma": "cryptography",
+        "meaningVi": "mật mã học, hệ thống mật mã",
+        "pos": "noun",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the article mainly about?",
+        "promptVi": "Bài viết chủ yếu nói về điều gì?",
+        "options": [
+          "A forum debate on how to prepare for quantum threats to encryption",
+          "The launch of Vietnam's first quantum computer",
+          "A hospital in Da Nang that lost its data",
+          "Why artificial intelligence is more dangerous than quantum computers"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài tường thuật phiên thảo luận ở diễn đàn về mối đe doạ của máy tính lượng tử đối với mã hoá và cách chuẩn bị."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does \"harvest now, decrypt later\" describe?",
+        "promptVi": "\"Thu thập trước, giải mã sau\" mô tả điều gì?",
+        "options": [
+          "Stealing encrypted data now and reading it when the technology is ready",
+          "Collecting rice before the rainy season",
+          "Testing new software before selling it",
+          "Deleting old files every year"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Câu trước đó nói kẻ xấu \"steal encrypted files today, store them, and decrypt them years later\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Thinh doubt the forum's message?",
+        "promptVi": "Vì sao ông Thịnh nghi ngờ thông điệp của diễn đàn?",
+        "options": [
+          "His clients worry more about attacks happening now",
+          "He thinks quantum computers will never work",
+          "He sells quantum computers himself",
+          "The hospital had already changed its systems"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói khách hàng gặp tin tặc mỗi ngày và một vụ xâm nhập ngày mai làm họ lo hơn một cỗ máy mười lăm năm nữa."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khue said quantum computers able to break encryption will exist within five years.",
+        "promptVi": "Bà Khuê nói máy tính lượng tử phá được mã hoá sẽ ra đời trong vòng năm năm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"she was careful not to predict a date\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"common ground\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "By the end of the session, the two speakers had found common ground.",
+        "options": [
+          "tiếng nói chung, điểm đồng thuận",
+          "mảnh đất công",
+          "tầng trệt",
+          "lý do bất đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Find common ground = tìm được điểm chung để đồng thuận. Cuối phiên, hai người đã cùng đưa ra đề xuất."
+      }
+    ],
+    "grammarNote": {
+      "title": "Nhượng bộ và nhấn mạnh",
+      "bodyVi": "Bài viết thừa nhận một ý rồi mới phản bác bằng các cấu trúc nhượng bộ nâng cao. (1) Tính từ + as + chủ ngữ + động từ: Distant as the threat may seem, …; Costly as the transition is, … (tính từ đứng đầu, không có mạo từ). (2) Be that as it may (dù vậy đi nữa) mở đầu câu mới để phản bác ý vừa nêu: Be that as it may, the danger has already begun. (3) Admittedly …, but …: thừa nhận trước rồi phản bác: Admittedly, today's quantum machines are small…, but engineers keep improving them. (4) Much as + mệnh đề (dù rất…): Much as I respect the research, my clients face hackers… Lưu ý: sau Much as hay tính từ + as, vế sau không thêm but.",
+      "examples": [
+        "Distant as the threat may seem, the speakers argued, it is already shaping decisions in banks and ministries.",
+        "Be that as it may, she said, the danger has already begun.",
+        "Admittedly, today's quantum machines are small and make frequent errors, but engineers keep improving them.",
+        "\"Much as I respect the research, my clients face hackers every single day,\" he said.",
+        "Costly as the transition is, waiting would cost far more."
+      ]
+    },
+    "writingPrompt": "Write a short opinion paragraph about a technology risk that seems far away (quantum computers, data leaks, power cuts). Admit the other side first, then argue your point. Use at least two concession structures (Distant as … may seem, Be that as it may, Admittedly …, but, Much as …).",
+    "sentenceTranslations": [
+      "Tại Diễn đàn Niềm tin Số ở Hà Nội tuần trước, phiên đông người nhất không bàn về trí tuệ nhân tạo mà về máy tính lượng tử.",
+      "Các diễn giả lập luận rằng dù mối đe doạ có vẻ còn xa vời, nó đã và đang chi phối các quyết định ở ngân hàng và các bộ.",
+      "Đỗ Minh Khuê, một chuyên gia phân tích chính sách đang tư vấn cho nhiều cơ quan nhà nước, mở đầu bằng một lời cảnh báo đơn giản.",
+      "Phần lớn công nghệ mã hoá bảo vệ ngân hàng trực tuyến, hồ sơ thuế và dữ liệu bệnh viện dựa vào những bài toán mà máy tính thông thường phải mất hàng nghìn năm mới giải được.",
+      "Bà giải thích rằng một cỗ máy lượng tử đủ lớn có thể giải một số bài toán đó chỉ trong vài giờ.",
+      "Không ai biết khi nào một cỗ máy như vậy sẽ ra đời, và bà thận trọng không đưa ra mốc thời gian nào.",
+      "Bà nói, dù vậy đi nữa, mối nguy đã bắt đầu rồi.",
+      "Tội phạm và các nhà nước thù địch có thể đánh cắp các tệp đã mã hoá ngay hôm nay, cất giữ chúng, rồi giải mã nhiều năm sau, khi công nghệ đã theo kịp.",
+      "Giới chuyên gia gọi chiến lược này là \"thu thập trước, giải mã sau\", và điều đó có nghĩa là bất kỳ bí mật nào cần giữ kín mười năm đều đã gặp nguy.",
+      "Phải thừa nhận rằng các máy lượng tử hiện nay còn nhỏ và hay mắc lỗi, nhưng các kỹ sư vẫn không ngừng cải tiến chúng.",
+      "Tuy vậy, không phải ai cũng bị thuyết phục.",
+      "Phan Quốc Thịnh, một chuyên gia tư vấn an ninh mạng đến từ Đà Nẵng, đặt câu hỏi liệu diễn đàn có đang làm mọi người sợ hãi vô cớ hay không.",
+      "Ông nói: \"Dù tôi rất tôn trọng công trình nghiên cứu này, khách hàng của tôi phải đối mặt với tin tặc mỗi ngày.",
+      "Một vụ xâm nhập xảy ra ngày mai khiến họ lo hơn nhiều so với một cỗ máy có thể mười lăm năm nữa mới xuất hiện.",
+      "Tại sao một bệnh viện nhỏ phải chi ngân sách cho một vấn đề còn chưa tồn tại?\"",
+      "Bà Khuê đáp rằng hai vấn đề này gắn liền với nhau.",
+      "Mọi lỗ hổng trong phần mềm cũ sẽ càng khó vá khi nó đã bị chôn sâu trong hạ tầng quốc gia như lưới điện và mạng lưới cấp nước.",
+      "Bà nhắc ông rằng thay thế hệ thống mật mã trên cả một quốc gia có thể mất mười năm hoặc lâu hơn.",
+      "Những thuật toán mới được thiết kế để chống lại các cuộc tấn công lượng tử đã được công bố, và một số có thể chạy song song với thuật toán hiện có trong thời gian chuyển đổi.",
+      "Dù quá trình chuyển đổi tốn kém, chờ đợi sẽ còn tốn kém hơn nhiều.",
+      "Đến cuối phiên, hai diễn giả đã tìm được tiếng nói chung.",
+      "Họ đề xuất các cơ quan trước hết lập danh sách mọi hệ thống chứa dữ liệu phải giữ bí mật trong thời gian dài.",
+      "Những hệ thống đó sẽ chuyển sang tiêu chuẩn mới trước, còn các tổ chức nhỏ hơn sẽ được hướng dẫn và đào tạo miễn phí.",
+      "Diễn đàn sẽ công bố các khuyến nghị vào tháng tới.",
+      "Còn việc các bộ có nhanh chóng làm theo hay không thì dĩ nhiên lại là chuyện khác."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về rủi ro của máy tính lượng tử với an ninh mạng, thừa nhận ý trái chiều rồi phản bác bằng Be that as it may, Admittedly…but, Much as…, Costly as… is.",
+    "examples": [
+      {
+        "lemma": "quantum",
+        "sentence": "The university has opened a new quantum physics laboratory.",
+        "meaningVi": "Trường đại học vừa mở một phòng thí nghiệm vật lý lượng tử mới."
+      },
+      {
+        "lemma": "encryption",
+        "sentence": "Strong encryption keeps your messages private.",
+        "meaningVi": "Mã hoá mạnh giữ cho tin nhắn của bạn được riêng tư."
+      },
+      {
+        "lemma": "decrypt",
+        "sentence": "Without the key, nobody can decrypt the file.",
+        "meaningVi": "Không có khoá thì không ai giải mã được tệp này."
+      },
+      {
+        "lemma": "cybersecurity",
+        "sentence": "The bank doubled its cybersecurity budget this year.",
+        "meaningVi": "Năm nay ngân hàng đã tăng gấp đôi ngân sách an ninh mạng."
+      },
+      {
+        "lemma": "hacker",
+        "sentence": "A hacker stole thousands of passwords from the website.",
+        "meaningVi": "Một tin tặc đã lấy cắp hàng nghìn mật khẩu từ trang web."
+      },
+      {
+        "lemma": "breach",
+        "sentence": "The company admitted the data breach a week later.",
+        "meaningVi": "Một tuần sau công ty mới thừa nhận vụ rò rỉ dữ liệu."
+      },
+      {
+        "lemma": "vulnerability",
+        "sentence": "Engineers found a serious vulnerability in the app.",
+        "meaningVi": "Các kỹ sư phát hiện một lỗ hổng nghiêm trọng trong ứng dụng."
+      },
+      {
+        "lemma": "infrastructure",
+        "sentence": "Ports and railways are part of a country's infrastructure.",
+        "meaningVi": "Cảng biển và đường sắt là một phần cơ sở hạ tầng của một quốc gia."
+      },
+      {
+        "lemma": "grid",
+        "sentence": "The storm damaged the electricity grid in three provinces.",
+        "meaningVi": "Cơn bão làm hư hại lưới điện ở ba tỉnh."
+      },
+      {
+        "lemma": "cryptography",
+        "sentence": "Modern cryptography is based on difficult mathematics.",
+        "meaningVi": "Mật mã học hiện đại dựa trên những bài toán khó."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lam Thu Ha",
+        "Mr Kieu"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thu Ha, you came back from the forum looking worried. What did they say?",
+          "meaningVi": "Thu Hà, cô dự diễn đàn về mà trông lo lắng thế. Họ nói gì vậy?"
+        },
+        {
+          "speaker": 0,
+          "text": "That our patient records might be stolen now and read in ten years.",
+          "meaningVi": "Rằng hồ sơ bệnh nhân của mình có thể bị lấy cắp bây giờ và bị đọc sau mười năm nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Admittedly, that sounds alarming, but we are only a small clinic in Hue.",
+          "meaningVi": "Phải công nhận nghe thì đáng sợ, nhưng mình chỉ là một phòng khám nhỏ ở Huế thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Small as we are, our data is still valuable to criminals.",
+          "meaningVi": "Dù mình nhỏ, dữ liệu của mình vẫn có giá trị với bọn tội phạm."
+        },
+        {
+          "speaker": 1,
+          "text": "Do we have to replace every computer, then?",
+          "meaningVi": "Vậy mình có phải thay hết máy tính không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, just update the software in stages. The forum will offer free training.",
+          "meaningVi": "Không, chỉ cần cập nhật phần mềm theo từng giai đoạn. Diễn đàn sẽ có đào tạo miễn phí."
+        },
+        {
+          "speaker": 1,
+          "text": "Much as I hate new software, I suppose we should sign up.",
+          "meaningVi": "Dù tôi rất ghét phần mềm mới, chắc mình cũng nên đăng ký."
+        },
+        {
+          "speaker": 0,
+          "text": "The first course starts in December. Shall I register both of us?",
+          "meaningVi": "Khoá đầu tiên bắt đầu vào tháng Mười Hai. Tôi đăng ký cho cả hai ta nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. Be that as it may, I am not giving up my old laptop!",
+          "meaningVi": "Ừ, nhờ cô. Dù sao đi nữa, tôi không bỏ cái máy tính xách tay cũ của tôi đâu!"
+        }
+      ]
+    },
+    "grammarTipVi": "Tính từ + as + chủ ngữ + động từ: Small as we are, … Much as + mệnh đề: Much as I hate new software, … (vế sau không có but). Admittedly …, but … thừa nhận rồi phản bác.",
+    "translations": [
+      {
+        "vi": "Dù mối đe doạ có vẻ xa vời, chúng ta phải bảo vệ hạ tầng của mình.",
+        "en": "Distant as the threat may seem, we must protect our infrastructure.",
+        "distractors": [
+          "protecting",
+          "distance",
+          "ours"
+        ],
+        "accepted": [
+          "We must protect our infrastructure, distant as the threat may seem."
+        ]
+      },
+      {
+        "vi": "Phải thừa nhận việc này tốn kém, nhưng một vụ xâm nhập còn tốn hơn.",
+        "en": "Admittedly, this is costly, but a breach costs more.",
+        "distractors": [
+          "admit",
+          "costing",
+          "breached"
+        ]
+      },
+      {
+        "vi": "Vài năm nữa tin tặc có thể giải mã các tệp này.",
+        "en": "Hackers could decrypt these files in a few years.",
+        "distractors": [
+          "decrypted",
+          "file",
+          "year"
+        ],
+        "accepted": [
+          "In a few years, hackers could decrypt these files."
+        ]
+      },
+      {
+        "vi": "Dù tôi rất tin họ, mật mã cũ không còn an toàn nữa.",
+        "en": "Much as I trust them, old cryptography is no longer safe.",
+        "distractors": [
+          "but",
+          "trusts",
+          "safety"
+        ],
+        "accepted": [
+          "Old cryptography is no longer safe, much as I trust them."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu Hà và ông Kiều bàn về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách phòng khám chuẩn bị trước nguy cơ dữ liệu bị đánh cắp",
+          "Mua máy tính lượng tử cho phòng khám",
+          "Chuyến du lịch ra Đà Nẵng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu Hà kể lại lời cảnh báo ở diễn đàn, rồi hai người quyết định cập nhật phần mềm và đi học.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Thu Hà cho rằng phòng khám nhỏ vẫn gặp nguy?",
+        "promptVi": "",
+        "options": [
+          "Vì dữ liệu của phòng khám vẫn có giá trị với tội phạm",
+          "Vì phòng khám sắp mở rộng",
+          "Vì máy tính của phòng khám đã bị hỏng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"Small as we are, our data is still valuable to criminals.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thu Hà đề xuất làm gì?",
+        "promptVi": "",
+        "options": [
+          "Cập nhật phần mềm theo từng giai đoạn",
+          "Thay toàn bộ máy tính ngay",
+          "Ngừng lưu hồ sơ bệnh nhân"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"just update the software in stages\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Kieu is happy to give up his old laptop.",
+        "promptVi": "Ông Kiều vui vẻ bỏ chiếc máy tính xách tay cũ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông nói \"I am not giving up my old laptop!\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Vì sao mối đe doạ từ máy tính lượng tử được coi là đã bắt đầu, dù chưa có cỗ máy đủ mạnh? Ông Thịnh phản đối điều gì, và cuối cùng hai diễn giả đồng ý với nhau ở điểm nào?",
+    "grammarStep": {
+      "titleVi": "Nhượng bộ và nhấn mạnh",
+      "noticing": [
+        {
+          "sentence": "Distant as the threat may seem, the speakers argued, it is already shaping decisions in banks and ministries.",
+          "highlights": [
+            "Distant as the threat may seem"
+          ]
+        },
+        {
+          "sentence": "Be that as it may, she said, the danger has already begun.",
+          "highlights": [
+            "Be that as it may"
+          ]
+        },
+        {
+          "sentence": "Admittedly, today's quantum machines are small and make frequent errors, but engineers keep improving them.",
+          "highlights": [
+            "Admittedly",
+            "but"
+          ]
+        },
+        {
+          "sentence": "Costly as the transition is, waiting would cost far more.",
+          "highlights": [
+            "Costly as the transition is"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: dù rất tôn trọng nghiên cứu, tôi vẫn không đồng ý. Câu nào đúng?",
+      "options": [
+        "Much as I respect the research, I disagree.",
+        "Much as I respect the research, but I disagree.",
+        "As much I respect the research, I disagree."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Much as + mệnh đề đã mang nghĩa nhượng bộ, nên vế sau không thêm but; trật tự là Much as + chủ ngữ + động từ.",
+      "whenVi": "Hay gặp trong tranh luận, bài phân tích chính sách và bài phát biểu: người nói công nhận ý của đối phương (chi phí cao, rủi ro còn xa) rồi mới đưa ra lập luận của mình.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
+      "table": [
+        {
+          "subject": "Tính từ + as + S + V",
+          "form": "Distant as the threat may seem, it is real.",
+          "negative": "Although the threat may seem distant, it is real."
+        },
+        {
+          "subject": "Much as + mệnh đề",
+          "form": "Much as I respect the research, I disagree.",
+          "negative": "Although I respect the research, I disagree."
+        },
+        {
+          "subject": "Be that as it may, …",
+          "form": "It is expensive. Be that as it may, we must act.",
+          "negative": "It is expensive. Even so, we must act."
+        },
+        {
+          "subject": "Admittedly, …, but …",
+          "form": "Admittedly, the machines are small, but they improve.",
+          "negative": "It's true that the machines are small, but they improve."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Much as I respect him, but I disagree.",
+          "right": "Much as I respect him, I disagree."
+        },
+        {
+          "wrong": "A costly as the transition is, we must act.",
+          "right": "Costly as the transition is, we must act."
+        },
+        {
+          "wrong": "Be that as it is, the danger is real.",
+          "right": "Be that as it may, the danger is real."
+        }
+      ],
+      "noteVi": "Be that as it may là cụm cố định, luôn dùng may. Trong cấu trúc tính từ + as, tính từ đứng đầu không có mạo từ và vế sau không có but.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The plan is expensive. Be that as it ___, we must start now.",
+          "answers": [
+            "may"
+          ],
+          "explanationVi": "Cụm cố định: Be that as it may (dù vậy đi nữa)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ I respect the research, my clients face hackers every day.",
+          "options": [
+            "Much as",
+            "As much",
+            "Despite",
+            "Much though"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Much as + mệnh đề = dù rất…; Despite phải đi với danh từ, không đi với mệnh đề."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Much as I respect him, but I disagree.",
+          "sentence": "Much as I respect him, I disagree.",
+          "explanationVi": "Sau Much as, vế sau không thêm but."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Dù vậy đi nữa, mối nguy là có thật.",
+          "sentence": "Be that as it may, the danger is real.",
+          "words": [
+            "Be",
+            "that",
+            "as",
+            "it",
+            "may,",
+            "the",
+            "danger",
+            "is",
+            "real.",
+            "although"
+          ],
+          "explanationVi": "Be that as it may đứng đầu câu, sau đó là mệnh đề chính; không dùng although."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Be that as it may, she said, the danger has already begun.",
+        "tipVi": "Đọc liền Be that as it may, ngắt hơi trước và sau she said; nhấn danger."
+      },
+      {
+        "text": "Costly as the transition is, waiting would cost far more.",
+        "tipVi": "Nhấn Costly và far more; transition /trænˈzɪʃn/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Should small businesses spend money on future cyber threats?",
+        "questionVi": "Doanh nghiệp nhỏ có nên chi tiền cho các mối đe doạ an ninh mạng trong tương lai không?",
+        "frame": "Costly as it is, ___."
+      },
+      {
+        "question": "Which technology risk do people ignore too easily?",
+        "questionVi": "Người ta hay dễ dàng bỏ qua rủi ro công nghệ nào?",
+        "frame": "Distant as ___ may seem, ___."
+      },
+      {
+        "question": "Do you agree that older systems should be replaced quickly?",
+        "questionVi": "Bạn có đồng ý rằng các hệ thống cũ nên được thay sớm không?",
+        "frame": "Admittedly, ___, but ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc nhượng bộ (Much as… / Admittedly…, but / Be that as it may / Strange as it may seem… / For all its… / Try as I might)",
+      "anyOf": [
+        "much as",
+        "admittedly",
+        "be that as it may",
+        "as it may seem",
+        "as it may sound",
+        "for all its",
+        "for all their",
+        "try as i might"
+      ],
+      "outlineVi": [
+        "Nêu rủi ro công nghệ và lý do người ta coi nó còn xa.",
+        "Thừa nhận ý của phía bên kia (Admittedly …, but / Much as …).",
+        "Phản bác và đề xuất việc cần làm ngay (Be that as it may, …)."
+      ],
+      "modelAnswer": "Many people think quantum computers belong in science fiction. Distant as the threat may seem, our private data is already at risk. Admittedly, today's machines are small and unreliable, but they are improving every year. Much as I understand why small companies want to save money, they cannot ignore this problem. Changing old systems takes a long time. Be that as it may, the first step is simple: find out which data must stay secret for many years and protect it first."
+    }
+  },
+  "glosses": [
+    {
+      "text": "sufficiently",
+      "lemma": "sufficiently",
+      "meaningVi": "đủ, ở mức đủ",
+      "pos": "adverb",
+      "phrase": "A sufficiently large quantum machine",
+      "phraseVi": "một cỗ máy lượng tử đủ lớn",
+      "sentenceIndex": 4
+    },
+    {
+      "text": "hostile",
+      "lemma": "hostile",
+      "meaningVi": "thù địch",
+      "pos": "adjective",
+      "phrase": "hostile states",
+      "phraseVi": "các nhà nước thù địch",
+      "sentenceIndex": 7
+    },
+    {
+      "text": "harvest",
+      "lemma": "harvest",
+      "meaningVi": "thu hoạch, thu thập",
+      "pos": "verb",
+      "phrase": "harvest now, decrypt later",
+      "phraseVi": "thu thập trước, giải mã sau",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "buried",
+      "lemma": "bury",
+      "meaningVi": "chôn, vùi",
+      "pos": "verb",
+      "phrase": "buried deep inside national infrastructure",
+      "phraseVi": "bị chôn sâu trong hạ tầng quốc gia",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "common ground",
+      "lemma": "common ground",
+      "meaningVi": "tiếng nói chung, điểm đồng thuận",
+      "pos": "noun",
+      "phrase": "had found common ground",
+      "phraseVi": "đã tìm được tiếng nói chung",
+      "sentenceIndex": 20
+    }
+  ]
+}

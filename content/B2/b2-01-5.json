@@ -437,21 +437,31 @@
       "answerIndex": 0,
       "explanationVi": "Only after + danh từ đứng đầu câu thì mệnh đề chính đảo ngữ: did + France + agree.",
       "whenVi": "Dùng trong bài thuyết trình, bài viết, bản tin để nhấn mạnh một điều hiếm có hoặc chỉ xảy ra sau một mốc.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không nói"
+      ],
       "table": [
         {
-          "subject": "Seldom / Rarely / Never before",
-          "form": "+ had / has / did + chủ ngữ + V: Seldom had any army moved …",
-          "negative": "Bị động: Never before had bicycles been used …"
+          "subject": "Seldom / Rarely + had",
+          "form": "Seldom had any army moved heavy guns across such steep passes.",
+          "negative": "Seldom any army had moved heavy guns across such steep passes."
+        },
+        {
+          "subject": "Never before (bị động)",
+          "form": "Never before had bicycles been used like this.",
+          "negative": "Never before bicycles had been used like this."
         },
         {
           "subject": "Only after …",
-          "form": "Only after this defeat did France agree …",
-          "negative": "Đảo ngữ ở mệnh đề chính."
+          "form": "Only after this defeat did France agree to leave.",
+          "negative": "Only after this defeat France agreed to leave."
         },
         {
           "subject": "Not until …",
-          "form": "Not until I read the letters did I understand …",
-          "negative": "Không viết: Not until I read the letters I understood."
+          "form": "Not until I read the letters did I understand.",
+          "negative": "Not until I read the letters I understood."
         }
       ],
       "mistakes": [
@@ -469,7 +479,7 @@
         {
           "kind": "fill",
           "promptVi": "Điền một trợ động từ.",
-          "text": "Never before ___ bicycles been used like this in a war.",
+          "text": "Never before ___ bicycles been used like this, so the French were not ready for it.",
           "answers": [
             "had"
           ],
@@ -490,14 +500,14 @@
         },
         {
           "kind": "fix",
-          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "promptVi": "Câu sau có một lỗi đảo ngữ. Hãy viết lại cho đúng, vẫn bắt đầu bằng \"Not until\".",
           "text": "Not until I read the letters I understood how hard it was.",
           "sentence": "Not until I read the letters did I understand how hard it was.",
           "explanationVi": "Sau Not until …, mệnh đề chính phải đảo ngữ: did I understand."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "promptVi": "Sắp xếp thành câu đảo ngữ, bắt đầu bằng \"Seldom\".",
           "text": "Hiếm có đội quân nào kéo pháo qua những con đèo dốc như vậy.",
           "sentence": "Seldom had an army pulled guns across such steep passes.",
           "words": [
@@ -545,15 +555,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never before had …, Rarely has …, Only after … did …)",
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never before had …, Never have I …, Rarely has one …)",
       "anyOf": [
-        "Never before",
-        "Never have",
-        "Never had",
-        "Rarely",
-        "Seldom",
-        "Only after",
-        "Not until"
+        "never before had",
+        "never before has",
+        "never before have",
+        "never had i",
+        "never have i",
+        "rarely has one",
+        "rarely has a",
+        "seldom had any"
       ],
       "outlineVi": [
         "Sự kiện là gì, xảy ra khi nào, ở đâu.",

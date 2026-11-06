@@ -1,0 +1,609 @@
+{
+  "content": "At eight on a humid Monday morning, the supply chain management team of Song Xanh Agri-Export, a mid-sized coffee and pepper exporter based in Buon Ma Thuot, gathers around a screen covered in coloured lines. The first chart shows the weekly global shipping freight index for the past six months, and its shape is not reassuring.\n\nProcurement director Phan Ngoc Anh points to a sharp spike in late August. \"This is the freight cost increase that wiped out most of our third-quarter earnings,\" she says. Her colleague Lai Quoc Bao, a data analyst who joined the company last spring, explains the cause. A two-week closure of a major canal, combined with a shortage of empty containers in Asian ports, created a bottleneck that pushed rates on the Asia-Europe route to roughly double their spring level.\n\nThe second chart is less dramatic but more worrying. It tracks raw material cost fluctuations across the three commodities the company depends on: robusta coffee, black pepper and cashew nuts. Robusta prices on international wholesale markets have risen by about a third since January, partly because of an unusually long dry season in the Central Highlands. Bao, who has spent weeks unpacking these figures, puts it simply: \"Our buyers in Europe pay us in euros, but our farmers want to be paid in dong, and on time.\"\n\nThen comes the uncomfortable question. Should the company build a stockpile of green coffee beans now, before prices climb further, or wait for the harvest in November? Ngoc Anh does not like the idea. Storage in a warehouse near the port costs money, and a large inventory bought at peak prices could become a burden if the market falls. Instead, she proposes a phased procurement plan for the coming season: smaller monthly purchase contracts with farmers' cooperatives in Dak Lak and Gia Lai.\n\nThe last item on the agenda is the fuel surcharge that shipping lines have added to every container booking since September. A charge of around 150 dollars per container may sound small, but on a monthly volume of about eighty containers it adds up quickly. Bao suggests renegotiating the long-term contract with the European carrier that handles most of the company's shipments. By ten o'clock, the team has agreed on a short list of actions, written on the whiteboard in Ngoc Anh's small, careful handwriting. Nobody leaves the room feeling optimistic, but everyone leaves with a plan.",
+  "targetWords": [
+    "shipping",
+    "freight",
+    "bottleneck",
+    "raw material",
+    "fluctuation",
+    "commodity",
+    "wholesale",
+    "stockpile",
+    "procurement",
+    "surcharge"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "shipping",
+        "lemma": "shipping",
+        "meaningVi": "vận tải biển, vận chuyển hàng bằng tàu",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "freight",
+        "lemma": "freight",
+        "meaningVi": "cước vận chuyển, hàng hoá vận chuyển",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "bottleneck",
+        "lemma": "bottleneck",
+        "meaningVi": "điểm nghẽn, chỗ tắc nghẽn",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "raw material",
+        "lemma": "raw material",
+        "meaningVi": "nguyên liệu thô",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "fluctuations",
+        "lemma": "fluctuation",
+        "meaningVi": "sự biến động, dao động (giá cả)",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "commodities",
+        "lemma": "commodity",
+        "meaningVi": "hàng hoá cơ bản, mặt hàng (nông sản, nguyên liệu)",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "wholesale",
+        "lemma": "wholesale",
+        "meaningVi": "bán buôn, bán sỉ",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "stockpile",
+        "lemma": "stockpile",
+        "meaningVi": "kho dự trữ, lượng hàng tích trữ",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "procurement",
+        "lemma": "procurement",
+        "meaningVi": "sự thu mua, mua sắm (nguyên liệu, hàng hoá)",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "surcharge",
+        "lemma": "surcharge",
+        "meaningVi": "phụ phí",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "A meeting about rising transport and raw material costs at an export company",
+          "A coffee festival in Buon Ma Thuot",
+          "How to grow pepper in a dry season",
+          "A new canal built in Asia"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cả nhóm xem biểu đồ cước vận tải, giá nguyên liệu và bàn cách ứng phó."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What caused the spike in freight rates?",
+        "promptVi": "Điều gì gây ra đợt tăng vọt cước vận tải?",
+        "options": [
+          "A strike by farmers in Dak Lak",
+          "A canal closure and a shortage of empty containers",
+          "A new tax on coffee exports",
+          "A fall in the price of fuel"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"A two-week closure of a major canal, combined with a shortage of empty containers…\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Ngoc Anh propose instead of a stockpile?",
+        "promptVi": "Ngọc Anh đề xuất gì thay cho việc tích trữ?",
+        "options": [
+          "Selling the warehouse near the port",
+          "Waiting until next year to buy anything",
+          "Smaller monthly contracts with cooperatives",
+          "Buying all the beans in November"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"she proposes a phased procurement plan…: smaller monthly purchase contracts with farmers' cooperatives\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The team leaves the meeting feeling optimistic.",
+        "promptVi": "Cả nhóm rời cuộc họp với tâm trạng lạc quan.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Nobody leaves the room feeling optimistic\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"burden\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Storage in a warehouse near the port costs money, and a large inventory bought at peak prices could become a burden if the market falls.",
+        "options": [
+          "gánh nặng",
+          "lợi thế",
+          "phần thưởng",
+          "hợp đồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Burden = gánh nặng. Lượng hàng mua lúc giá đỉnh sẽ thành gánh nặng nếu giá giảm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm danh từ phức",
+      "bodyVi": "Văn kinh tế nén nhiều thông tin vào một cụm danh từ. (1) Bổ ngữ đứng trước: nhiều danh từ xếp liền nhau, danh từ cuối là trung tâm, các danh từ trước ở số ít và đọc từ phải sang trái: the weekly global shipping freight index = chỉ số (index) về cước (freight) vận tải biển (shipping) toàn cầu, hằng tuần; raw material cost fluctuations = biến động (fluctuations) của chi phí nguyên liệu thô. Tính từ ghép có số: a two-week closure (không có -s). (2) Bổ ngữ đứng sau: cụm giới từ (a shortage of empty containers in Asian ports), phân từ (a large inventory bought at peak prices), mệnh đề quan hệ (the fuel surcharge that shipping lines have added…), mệnh đề bỏ that (the three commodities the company depends on). (3) Đồng vị ngữ: Lai Quoc Bao, a data analyst who joined…. Muốn hiểu, hãy tìm danh từ trung tâm trước rồi mở cụm thành mệnh đề: a two-week closure of a major canal = a major canal was closed for two weeks.",
+      "examples": [
+        "The first chart shows the weekly global shipping freight index for the past six months, and its shape is not reassuring.",
+        "A two-week closure of a major canal, combined with a shortage of empty containers in Asian ports, created a bottleneck that pushed rates on the Asia-Europe route to roughly double their spring level.",
+        "It tracks raw material cost fluctuations across the three commodities the company depends on: robusta coffee, black pepper and cashew nuts.",
+        "The last item on the agenda is the fuel surcharge that shipping lines have added to every container booking since September."
+      ]
+    },
+    "writingPrompt": "Write a short report for your manager about a cost that has risen for your company (transport, raw materials, energy). Use at least three complex noun phrases, e.g. a noun + noun stack (the monthly fuel cost increase), a phrase with of/in, and a noun followed by a participle or relative clause.",
+    "sentenceTranslations": [
+      "Tám giờ sáng một ngày thứ Hai oi bức, nhóm quản lý chuỗi cung ứng của Song Xanh Agri-Export, một công ty xuất khẩu cà phê và hồ tiêu cỡ vừa đặt trụ sở ở Buôn Ma Thuột, quây quanh một màn hình chi chít những đường kẻ nhiều màu.",
+      "Biểu đồ đầu tiên là chỉ số cước vận tải biển toàn cầu hằng tuần trong sáu tháng qua, và hình dạng của nó chẳng mấy yên tâm.",
+      "Giám đốc thu mua Phan Ngọc Anh chỉ vào một đỉnh nhọn vọt lên hồi cuối tháng Tám.",
+      "Bà nói: \"Đây chính là đợt tăng cước vận chuyển đã xoá sạch phần lớn lợi nhuận quý ba của chúng ta.\"",
+      "Đồng nghiệp của bà, Lại Quốc Bảo, một chuyên viên phân tích dữ liệu vào công ty từ mùa xuân năm ngoái, giải thích nguyên nhân.",
+      "Việc một kênh đào lớn đóng cửa hai tuần, cộng với tình trạng thiếu container rỗng ở các cảng châu Á, đã tạo ra một điểm nghẽn đẩy giá cước tuyến châu Á - châu Âu lên gần gấp đôi mức hồi mùa xuân.",
+      "Biểu đồ thứ hai ít kịch tính hơn nhưng đáng lo hơn.",
+      "Nó theo dõi biến động chi phí nguyên liệu thô của ba mặt hàng mà công ty phụ thuộc vào: cà phê robusta, hồ tiêu đen và hạt điều.",
+      "Giá robusta trên các thị trường bán buôn quốc tế đã tăng khoảng một phần ba kể từ tháng Một, một phần vì mùa khô ở Tây Nguyên kéo dài bất thường.",
+      "Bảo, người đã mất nhiều tuần mổ xẻ những con số này, nói gọn: \"Khách mua ở châu Âu trả ta bằng euro, nhưng nông dân của ta muốn được trả bằng tiền đồng, và đúng hạn.\"",
+      "Rồi đến câu hỏi khó xử.",
+      "Công ty có nên tích trữ một kho cà phê nhân ngay bây giờ, trước khi giá leo thêm, hay đợi đến vụ thu hoạch tháng Mười một?",
+      "Ngọc Anh không thích ý tưởng đó.",
+      "Thuê kho gần cảng thì tốn tiền, và một lượng hàng tồn lớn mua vào lúc giá đỉnh có thể trở thành gánh nặng nếu thị trường đi xuống.",
+      "Thay vào đó, bà đề xuất một kế hoạch thu mua theo từng giai đoạn cho mùa vụ tới: các hợp đồng mua hằng tháng nhỏ hơn với các hợp tác xã nông dân ở Đắk Lắk và Gia Lai.",
+      "Mục cuối cùng trong chương trình họp là khoản phụ phí nhiên liệu mà các hãng tàu đã cộng vào mỗi lần đặt container kể từ tháng Chín.",
+      "Khoản phí khoảng 150 đô la mỗi container nghe có vẻ nhỏ, nhưng với khối lượng khoảng tám mươi container mỗi tháng thì nó cộng dồn rất nhanh.",
+      "Bảo đề nghị đàm phán lại hợp đồng dài hạn với hãng vận tải châu Âu đang chở phần lớn các lô hàng của công ty.",
+      "Đến mười giờ, cả nhóm đã thống nhất một danh sách hành động ngắn, được viết trên bảng trắng bằng nét chữ nhỏ, cẩn thận của Ngọc Anh.",
+      "Không ai rời phòng với tâm trạng lạc quan, nhưng ai cũng ra về với một kế hoạch."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đọc và tóm tắt biểu đồ giá hàng hoá, cước vận tải bằng cụm danh từ phức (the weekly global shipping freight index, raw material cost fluctuations…).",
+    "examples": [
+      {
+        "lemma": "shipping",
+        "sentence": "The cost of shipping between Asia and Europe has doubled this year.",
+        "meaningVi": "Chi phí vận tải biển giữa châu Á và châu Âu đã tăng gấp đôi trong năm nay."
+      },
+      {
+        "lemma": "freight",
+        "sentence": "The freight was delayed for a week at the port.",
+        "meaningVi": "Lô hàng vận chuyển bị chậm một tuần ở cảng."
+      },
+      {
+        "lemma": "bottleneck",
+        "sentence": "The new road should remove a serious bottleneck near the port.",
+        "meaningVi": "Con đường mới sẽ tháo gỡ một điểm nghẽn nghiêm trọng gần cảng."
+      },
+      {
+        "lemma": "raw material",
+        "sentence": "Cotton is the main raw material for this factory.",
+        "meaningVi": "Bông là nguyên liệu thô chính của nhà máy này."
+      },
+      {
+        "lemma": "fluctuation",
+        "sentence": "A sudden fluctuation in the exchange rate worried investors.",
+        "meaningVi": "Một biến động đột ngột của tỷ giá khiến nhà đầu tư lo lắng."
+      },
+      {
+        "lemma": "commodity",
+        "sentence": "Rice is still Vietnam's most important agricultural commodity.",
+        "meaningVi": "Gạo vẫn là mặt hàng nông sản quan trọng nhất của Việt Nam."
+      },
+      {
+        "lemma": "wholesale",
+        "sentence": "Restaurants usually buy vegetables at wholesale prices.",
+        "meaningVi": "Nhà hàng thường mua rau với giá bán buôn."
+      },
+      {
+        "lemma": "stockpile",
+        "sentence": "The government keeps a stockpile of rice for emergencies.",
+        "meaningVi": "Chính phủ giữ một kho gạo dự trữ cho trường hợp khẩn cấp."
+      },
+      {
+        "lemma": "procurement",
+        "sentence": "She is responsible for procurement at a textile company.",
+        "meaningVi": "Cô ấy phụ trách thu mua ở một công ty dệt may."
+      },
+      {
+        "lemma": "surcharge",
+        "sentence": "The airline added a surcharge for extra luggage.",
+        "meaningVi": "Hãng bay thu thêm phụ phí cho hành lý quá cước."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Bao",
+        "Mrs Thuy Duong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Good afternoon, Mrs Thuy Duong. Did you get our proposal for monthly purchase contracts?",
+          "meaningVi": "Chào chị Thuỳ Dương. Chị đã nhận được đề xuất về các hợp đồng mua hằng tháng của chúng tôi chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "I did. But a contract signed every month means more paperwork for our cooperative members.",
+          "meaningVi": "Tôi nhận rồi. Nhưng hợp đồng ký mỗi tháng đồng nghĩa với nhiều giấy tờ hơn cho xã viên của chúng tôi."
+        },
+        {
+          "speaker": 0,
+          "text": "True. In return, the price risk from sudden market swings is shared by both sides.",
+          "meaningVi": "Đúng vậy. Đổi lại, rủi ro giá do thị trường lên xuống đột ngột được cả hai bên cùng chia sẻ."
+        },
+        {
+          "speaker": 1,
+          "text": "How would you set the price for each delivery?",
+          "meaningVi": "Anh định giá cho từng đợt giao hàng thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "We would use the average export price of the previous two weeks, minus a fixed transport fee.",
+          "meaningVi": "Chúng tôi dùng giá xuất khẩu trung bình của hai tuần trước đó, trừ đi một khoản phí vận chuyển cố định."
+        },
+        {
+          "speaker": 1,
+          "text": "Our members don't trust formulas they can't check themselves.",
+          "meaningVi": "Xã viên chúng tôi không tin những công thức mà họ không tự kiểm tra được."
+        },
+        {
+          "speaker": 0,
+          "text": "Then we can send a simple weekly price summary to every farmer by text message.",
+          "meaningVi": "Vậy chúng tôi có thể gửi bản tóm tắt giá hằng tuần đơn giản đến từng nông dân qua tin nhắn."
+        },
+        {
+          "speaker": 1,
+          "text": "That might work. Can you come to Dak Lak and explain it at our next members' meeting?",
+          "meaningVi": "Cách đó có thể được. Anh có thể lên Đắk Lắk giải thích tại cuộc họp xã viên lần tới không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. I'll bring the price charts from the last six months.",
+          "meaningVi": "Tất nhiên. Tôi sẽ mang theo biểu đồ giá của sáu tháng gần nhất."
+        }
+      ]
+    },
+    "grammarTipVi": "Tìm danh từ trung tâm rồi đọc ngược: a simple weekly price summary = bản tóm tắt (summary) về giá, hằng tuần, đơn giản. Bổ ngữ đứng sau: a contract signed every month (phân từ), formulas they can't check (mệnh đề bỏ that), the average export price of the previous two weeks (cụm giới từ).",
+    "translations": [
+      {
+        "vi": "Chỉ số cước vận tải biển toàn cầu đã tăng gấp đôi từ tháng Tám.",
+        "en": "The global shipping freight index has doubled since August.",
+        "distractors": [
+          "doubling",
+          "for",
+          "freights"
+        ],
+        "accepted": [
+          "Since August, the global shipping freight index has doubled."
+        ]
+      },
+      {
+        "vi": "Một kho dự trữ lớn có thể trở thành gánh nặng.",
+        "en": "A large stockpile could become a burden.",
+        "distractors": [
+          "becomes",
+          "stockpiles",
+          "heavy"
+        ]
+      },
+      {
+        "vi": "Mỗi lần đặt container đều bị cộng thêm một khoản phụ phí nhiên liệu.",
+        "en": "A fuel surcharge is added to every container booking.",
+        "distractors": [
+          "addition",
+          "surcharges",
+          "fueled"
+        ]
+      },
+      {
+        "vi": "Bà ấy đề xuất một kế hoạch thu mua theo từng giai đoạn.",
+        "en": "She proposes a phased procurement plan.",
+        "distractors": [
+          "phase",
+          "procure",
+          "plans"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bảo và chị Thuỳ Dương nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đề xuất hợp đồng mua cà phê hằng tháng với hợp tác xã",
+          "Việc thuê kho gần cảng",
+          "Một chuyến du lịch Đắk Lắk"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo hỏi \"Did you get our proposal for monthly purchase contracts?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Thuỳ Dương lo điều gì về hợp đồng ký mỗi tháng?",
+        "promptVi": "",
+        "options": [
+          "Nhiều giấy tờ hơn cho xã viên",
+          "Giá quá thấp",
+          "Hàng bị giao chậm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"a contract signed every month means more paperwork\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Giá cho mỗi đợt giao hàng được tính thế nào?",
+        "promptVi": "",
+        "options": [
+          "Theo giá xuất khẩu trung bình hai tuần trước, trừ phí vận chuyển",
+          "Theo giá cố định cả năm",
+          "Do nông dân tự quyết"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"the average export price of the previous two weeks, minus a fixed transport fee.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao will bring price charts to the members' meeting.",
+        "promptVi": "Bảo sẽ mang biểu đồ giá đến cuộc họp xã viên.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì anh nói \"I'll bring the price charts from the last six months.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Hai biểu đồ cho thấy điều gì về cước vận tải và giá nguyên liệu? Nhóm của Ngọc Anh chọn cách nào để đối phó, và vì sao họ không muốn tích trữ hàng?",
+    "grammarStep": {
+      "titleVi": "Cụm danh từ phức",
+      "noticing": [
+        {
+          "sentence": "The first chart shows the weekly global shipping freight index for the past six months, and its shape is not reassuring.",
+          "highlights": [
+            "the weekly global shipping freight index for the past six months"
+          ]
+        },
+        {
+          "sentence": "A two-week closure of a major canal, combined with a shortage of empty containers in Asian ports, created a bottleneck that pushed rates on the Asia-Europe route to roughly double their spring level.",
+          "highlights": [
+            "A two-week closure of a major canal",
+            "a shortage of empty containers in Asian ports"
+          ]
+        },
+        {
+          "sentence": "It tracks raw material cost fluctuations across the three commodities the company depends on: robusta coffee, black pepper and cashew nuts.",
+          "highlights": [
+            "raw material cost fluctuations",
+            "the three commodities the company depends on"
+          ]
+        },
+        {
+          "sentence": "The last item on the agenda is the fuel surcharge that shipping lines have added to every container booking since September.",
+          "highlights": [
+            "the fuel surcharge that shipping lines have added to every container booking"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"chỉ số cước container hằng tuần\". Cụm nào đúng?",
+      "options": [
+        "the weekly container freight index",
+        "the weekly containers freights index",
+        "the index weekly of container freight"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Danh từ trung tâm (index) đứng cuối; các danh từ bổ nghĩa đứng trước ở số ít (container, freight); tính từ (weekly) đứng đầu.",
+      "whenVi": "Hay gặp trong báo cáo, biểu đồ và tin kinh tế: một cụm danh từ dài thay cho cả một mệnh đề, giúp câu ngắn gọn và trang trọng.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không viết"
+      ],
+      "table": [
+        {
+          "subject": "Danh từ + danh từ (bổ ngữ trước)",
+          "form": "the global shipping freight index",
+          "negative": "the global shippings freights index"
+        },
+        {
+          "subject": "Tính từ ghép có số",
+          "form": "a two-week closure",
+          "negative": "a two-weeks closure"
+        },
+        {
+          "subject": "Danh từ + cụm giới từ / phân từ",
+          "form": "a shortage of empty containers; an inventory bought at peak prices",
+          "negative": "an inventory which bought at peak prices"
+        },
+        {
+          "subject": "Mệnh đề → cụm danh từ",
+          "form": "Freight rates rose rapidly. → the rapid rise in freight rates",
+          "negative": "the rapidly rise of freight rates"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "a two-weeks closure of the canal",
+          "right": "a two-week closure of the canal"
+        },
+        {
+          "wrong": "the prices of raw materials cost fluctuations",
+          "right": "raw material cost fluctuations"
+        },
+        {
+          "wrong": "the commodities the company depends",
+          "right": "the commodities the company depends on"
+        }
+      ],
+      "noteVi": "Khi gặp một chuỗi danh từ dài, hãy tìm danh từ cuối cùng (danh từ trung tâm) rồi đọc ngược lại; khi viết, đừng xếp quá 3-4 danh từ liền nhau, hãy chuyển bớt sang cụm giới từ (of, for, in).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Kênh đào đóng cửa hai tuần. Điền một từ vào chỗ trống.",
+          "text": "A two-___ closure of the canal created a bottleneck.",
+          "answers": [
+            "week"
+          ],
+          "explanationVi": "Tính từ ghép có số dùng danh từ số ít: a two-week closure."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Giá nguyên liệu biến động và điều đó làm ta lo. Chọn cụm danh từ đúng.",
+          "text": "The ___ worries us.",
+          "options": [
+            "fluctuation in raw material prices",
+            "fluctuate of raw material prices",
+            "raw materials prices fluctuating it",
+            "fluctuation raw material in prices"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Danh từ hoá động từ (fluctuate → fluctuation) rồi thêm cụm giới từ in + danh từ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We signed a three-years contract with the carrier.",
+          "sentence": "We signed a three-year contract with the carrier.",
+          "explanationVi": "Trong tính từ ghép có số, danh từ không thêm -s: three-year."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Biến động chi phí nguyên liệu thô làm khách mua của chúng tôi lo lắng.",
+          "sentence": "Raw material cost fluctuations worry our buyers.",
+          "words": [
+            "Raw",
+            "material",
+            "cost",
+            "fluctuations",
+            "worry",
+            "our",
+            "buyers.",
+            "of"
+          ],
+          "explanationVi": "Các danh từ bổ nghĩa (raw material, cost) đứng trước danh từ trung tâm fluctuations; không cần \"of\"."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The second chart is less dramatic but more worrying.",
+        "tipVi": "Nhấn less dramatic và more worrying để làm rõ sự đối lập."
+      },
+      {
+        "text": "Nobody leaves the room feeling optimistic, but everyone leaves with a plan.",
+        "tipVi": "Ngắt hơi sau optimistic; nhấn Nobody và everyone."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which prices have changed most in your life this year?",
+        "questionVi": "Năm nay giá cả nào thay đổi nhiều nhất trong cuộc sống của bạn?",
+        "frame": "The biggest change has been the ___ price increase in ___."
+      },
+      {
+        "question": "Should a company build a stockpile when prices are rising? Why?",
+        "questionVi": "Công ty có nên tích trữ hàng khi giá đang tăng không? Vì sao?",
+        "frame": "A large stockpile bought at ___ could ___."
+      },
+      {
+        "question": "How do transport costs affect the goods you buy?",
+        "questionVi": "Chi phí vận chuyển ảnh hưởng thế nào đến hàng hoá bạn mua?",
+        "frame": "Higher ___ costs for ___ usually mean ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có cụm danh từ phức (vd. the fuel cost increase, a rise in…, a shortage of…)",
+      "anyOf": [
+        "cost increase",
+        "price increase",
+        "rise in",
+        "increase in",
+        "shortage of",
+        "freight index",
+        "review of",
+        "three-month"
+      ],
+      "outlineVi": [
+        "Nêu khoản chi phí đã tăng và mức tăng, dùng một chuỗi danh từ (the monthly fuel cost increase…).",
+        "Giải thích nguyên nhân bằng cụm danh từ có of/in (a shortage of…, a rise in…).",
+        "Đề xuất một giải pháp cụ thể cho quý tới."
+      ],
+      "modelAnswer": "Dear Ms Lan, the monthly electricity cost increase at our Binh Duong factory is becoming a serious problem. A three-month rise in industrial power prices has added about twelve percent to our production costs. The main reason is a shortage of cheap energy in the southern grid during the dry season. The new air-conditioning system installed last year also uses more power than expected. I suggest a short energy efficiency review of all the machines that run at night."
+    }
+  },
+  "glosses": [
+    {
+      "text": "spike",
+      "lemma": "spike",
+      "meaningVi": "đỉnh nhọn, sự tăng vọt",
+      "pos": "noun",
+      "phrase": "a sharp spike in late August",
+      "phraseVi": "một đợt tăng vọt hồi cuối tháng Tám",
+      "sentenceIndex": 2
+    },
+    {
+      "text": "wiped out",
+      "lemma": "wipe out",
+      "meaningVi": "xoá sạch",
+      "pos": "phrasal verb",
+      "phrase": "wiped out most of our third-quarter earnings",
+      "phraseVi": "xoá sạch phần lớn lợi nhuận quý ba",
+      "sentenceIndex": 3
+    },
+    {
+      "text": "inventory",
+      "lemma": "inventory",
+      "meaningVi": "hàng tồn kho",
+      "pos": "noun",
+      "phrase": "a large inventory bought at peak prices",
+      "phraseVi": "một lượng hàng tồn lớn mua vào lúc giá đỉnh",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "burden",
+      "lemma": "burden",
+      "meaningVi": "gánh nặng",
+      "pos": "noun",
+      "phrase": "could become a burden",
+      "phraseVi": "có thể trở thành gánh nặng",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "carrier",
+      "lemma": "carrier",
+      "meaningVi": "hãng vận tải",
+      "pos": "noun",
+      "phrase": "the European carrier",
+      "phraseVi": "hãng vận tải châu Âu",
+      "sentenceIndex": 17
+    }
+  ]
+}

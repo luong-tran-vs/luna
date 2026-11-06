@@ -330,7 +330,8 @@
           "was"
         ],
         "accepted": [
-          "I had never imagined the cells were so dark."
+          "I had never imagined the cells were so dark.",
+          "I never imagined the cells were so dark."
         ]
       },
       {
@@ -444,21 +445,31 @@
       "answerIndex": 0,
       "explanationVi": "Sau Seldom đứng đầu câu: trợ động từ (have) + chủ ngữ (I) + động từ chính (heard).",
       "whenVi": "Dùng để nhấn mạnh một trải nghiệm đặc biệt, thường trong văn viết, bài phát biểu hoặc khi kể chuyện đầy cảm xúc.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không nói"
+      ],
       "table": [
         {
           "subject": "Never / Rarely / Seldom",
-          "form": "Never + trợ động từ + chủ ngữ + V: Never had I imagined …",
-          "negative": "Không viết: Never I had imagined …"
+          "form": "Never had I imagined the cells would be so small.",
+          "negative": "Never I had imagined the cells would be so small."
         },
         {
-          "subject": "Not until …",
-          "form": "Not until + mệnh đề, did + chủ ngữ + V: Not until I stood there did I understand.",
-          "negative": "Đảo ngữ nằm ở mệnh đề thứ hai."
+          "subject": "Not until + mệnh đề",
+          "form": "Not until I stood there did I understand.",
+          "negative": "Not until I stood there I understood."
         },
         {
           "subject": "Only then / Only after …",
-          "form": "Only then did I realise …",
-          "negative": "Thì đơn mượn do / does / did: Never did I expect …"
+          "form": "Only then did I realise how brave they were.",
+          "negative": "Only then I realised how brave they were."
+        },
+        {
+          "subject": "Thì đơn → mượn did",
+          "form": "Never did I expect the prison to feel so cold.",
+          "negative": "Never I expected the prison to feel so cold."
         }
       ],
       "mistakes": [
@@ -478,9 +489,10 @@
           "promptVi": "Điền một trợ động từ.",
           "text": "Rarely ___ I felt so moved by a museum.",
           "answers": [
-            "have"
+            "have",
+            "had"
           ],
-          "explanationVi": "Rarely + have + I + felt (hiện tại hoàn thành đảo ngữ)."
+          "explanationVi": "Rarely + have / had + I + felt (đảo ngữ hiện tại hoàn thành hoặc quá khứ hoàn thành)."
         },
         {
           "kind": "choice",
@@ -497,14 +509,14 @@
         },
         {
           "kind": "fix",
-          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "promptVi": "Câu sau có một lỗi đảo ngữ. Hãy viết lại cho đúng, vẫn bắt đầu bằng \"Seldom\".",
           "text": "Seldom I have heard such a brave story.",
           "sentence": "Seldom have I heard such a brave story.",
           "explanationVi": "Sau Seldom phải đảo trợ động từ lên trước chủ ngữ: have I heard."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "promptVi": "Sắp xếp thành câu đảo ngữ, bắt đầu bằng \"Never\".",
           "text": "Chưa bao giờ tôi tưởng tượng phòng giam lại nhỏ như vậy.",
           "sentence": "Never had I imagined the cells were so small.",
           "words": [
@@ -551,15 +563,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never have I …, Rarely do …, Not until … did …)",
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never have I …, Rarely do you …, Seldom have I …, Only then did I …)",
       "anyOf": [
-        "Never have",
-        "Never had",
-        "Never did",
-        "Rarely",
-        "Seldom",
-        "Not until",
-        "Only then"
+        "never have i",
+        "never had i",
+        "never did i",
+        "rarely have i",
+        "rarely do you",
+        "seldom have i",
+        "seldom do you",
+        "only then did i"
       ],
       "outlineVi": [
         "Bạn đến nơi nào, khi nào, đi cùng ai.",

@@ -432,21 +432,31 @@
       "answerIndex": 0,
       "explanationVi": "Người: who; mệnh đề nằm giữa hai dấu phẩy.",
       "whenVi": "Dùng trong bài thuyết trình, bản tin để thêm thông tin phụ về người hoặc vật mà không cần viết câu mới.",
+      "columns": [
+        "Trường hợp",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
           "subject": "Ở giữa câu",
-          "form": "Our software, which we call LungSee, marks problem areas.",
-          "negative": "Đặt giữa hai dấu phẩy."
+          "form": "The final decision, which is always made by a doctor, is the most important part.",
+          "negative": "Đặt giữa hai dấu phẩy"
         },
         {
           "subject": "Ở cuối câu",
           "form": "She presented her software, which can read X-rays.",
-          "negative": "Một dấu phẩy trước which."
+          "negative": "Một dấu phẩy trước which"
         },
         {
           "subject": "which làm tân ngữ",
-          "form": "Our software, which we call LungSee, …",
-          "negative": "Không được bỏ which (khác mệnh đề xác định)."
+          "form": "Our software, which we call LungSee, marks problem areas.",
+          "negative": "Không được bỏ which (khác mệnh đề xác định)"
+        },
+        {
+          "subject": "who (người)",
+          "form": "My brother, who is a computer engineer, wrote the code.",
+          "negative": "Không dùng which hay that cho người"
         }
       ],
       "mistakes": [
@@ -543,9 +553,10 @@
     "writingHelp": {
       "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ không xác định (, which … / , who …)",
       "anyOf": [
-        ", which",
-        ", who",
-        ", whose"
+        "which",
+        "who",
+        "whose",
+        "whom"
       ],
       "outlineVi": [
         "Công nghệ mới là gì (, which …).",

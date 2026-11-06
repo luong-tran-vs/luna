@@ -1,0 +1,625 @@
+{
+  "content": "At nine o'clock on a wet Tuesday in Hanoi, Do Bich Ngoc, the chief risk officer of Minh Phat Bank, stands before the executive board with a twenty-page report on the bank's foreign bond portfolio. Her message, she warns them, is not a comfortable one.\n\n\"Over the past decade we have bought about four hundred million dollars of sovereign debt issued by smaller developing economies,\" she begins. \"These bonds have paid well, but the repayment schedule for almost half of them now falls within the next eighteen months.\"\n\nShe clicks to a chart with three coloured lines, each telling a different part of the same story. \"The first line is the ten-year bond yield of a South American government whose debt we hold. It has jumped from seven to almost twelve per cent since March, which means that the market now seriously doubts its creditworthiness.\" \"How seriously?\" asks Mr Lap, the oldest member of the board. \"Seriously enough to price in a real chance of a default within two years.\"\n\nThe second line traces the extreme day-to-day volatility of that country's exchange rate against the US dollar. Ngoc explains that a sharp depreciation of the local currency would make every dollar of repayment far harder for the government to find, even if its leaders remain willing to pay.\n\n\"So what do you propose?\" the chairwoman asks. Ngoc's final slide contains three recommendations, each compressed into a single dense phrase: \"a phased reduction of our exposure to bonds with a maturity of over five years\", \"a currency hedge covering the remaining positions\" and \"an independent quarterly review of every borrower's credit rating\".\n\nMr Lap frowns at the screen. \"I can't follow that,\" he says. \"Say it in plain Vietnamese, please.\" Ngoc smiles and unpacks the first phrase for him: the bank will slowly sell the bonds that will not be repaid for another five years or more. \"Will we lose money?\" \"A little, yes. But the losses from a single government default would be ten times larger.\"\n\nThe board does not vote that morning. However, before the meeting ends, the chairwoman asks Ngoc to prepare a detailed hedging plan for the riskiest positions by the end of the month.",
+  "targetWords": [
+    "sovereign debt",
+    "repayment",
+    "bond yield",
+    "creditworthiness",
+    "default",
+    "volatility",
+    "exchange rate",
+    "depreciation",
+    "maturity",
+    "hedge"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "sovereign debt",
+        "lemma": "sovereign debt",
+        "meaningVi": "nợ chính phủ, nợ công quốc gia",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "repayment",
+        "lemma": "repayment",
+        "meaningVi": "sự trả nợ, hoàn trả",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "bond yield",
+        "lemma": "bond yield",
+        "meaningVi": "lợi suất trái phiếu",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "creditworthiness",
+        "lemma": "creditworthiness",
+        "meaningVi": "khả năng trả nợ, mức độ đáng tin cậy để cho vay",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "default",
+        "lemma": "default",
+        "meaningVi": "sự vỡ nợ, không trả được nợ",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "volatility",
+        "lemma": "volatility",
+        "meaningVi": "sự biến động mạnh",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "exchange rate",
+        "lemma": "exchange rate",
+        "meaningVi": "tỷ giá hối đoái",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "depreciation",
+        "lemma": "depreciation",
+        "meaningVi": "sự mất giá (của đồng tiền)",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "maturity",
+        "lemma": "maturity",
+        "meaningVi": "kỳ hạn (thời điểm trái phiếu đáo hạn)",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "hedge",
+        "lemma": "hedge",
+        "meaningVi": "biện pháp phòng ngừa rủi ro",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the main purpose of Ngoc's presentation?",
+        "promptVi": "Mục đích chính của bài trình bày của bà Ngọc là gì?",
+        "options": [
+          "To warn the board about risks in the bank's foreign government bonds",
+          "To ask the board to buy more foreign bonds",
+          "To explain why the bank needs a new chairwoman",
+          "To celebrate a record profit"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà nói thông điệp \"is not a comfortable one\" rồi trình bày rủi ro của số nợ chính phủ nước ngoài ngân hàng đang nắm giữ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the rise in the bond yield tell the board?",
+        "promptVi": "Việc lợi suất trái phiếu tăng cho ban điều hành biết điều gì?",
+        "options": [
+          "The government has paid back all its debt.",
+          "The market seriously doubts the government's ability to repay.",
+          "The currency has become stronger.",
+          "The bank's profits will double."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Ngọc nói lợi suất tăng \"means that the market now seriously doubts its creditworthiness\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why would a weaker local currency be dangerous?",
+        "promptVi": "Vì sao đồng nội tệ yếu đi lại nguy hiểm?",
+        "options": [
+          "It would make tourists stay away.",
+          "It would stop the bank from selling bonds.",
+          "It would make each dollar of repayment harder for the government to find.",
+          "It would force the board to vote."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Câu \"a sharp depreciation of the local currency would make every dollar of repayment far harder for the government to find\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The board votes to accept all three recommendations that morning.",
+        "promptVi": "Sáng hôm đó ban điều hành biểu quyết thông qua cả ba đề xuất.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"The board does not vote that morning.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"price in\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Seriously enough to price in a real chance of a default within two years.\"",
+        "options": [
+          "tính trước vào giá",
+          "giảm giá bán",
+          "trả bằng tiền mặt",
+          "công bố giá mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Price in = thị trường tính trước một khả năng (ở đây là vỡ nợ) vào giá trái phiếu, nên lợi suất tăng lên."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm danh từ phức",
+      "bodyVi": "Báo cáo rủi ro dùng cụm danh từ dài để nói nhiều điều trong một câu. (1) Bổ ngữ đứng trước: tính từ ghép có số (a twenty-page report, the ten-year bond yield, day-to-day volatility) và chuỗi danh từ (the repayment schedule, a currency hedge). (2) Bổ ngữ đứng sau: cụm giới từ (the volatility of that country's exchange rate against the US dollar), phân từ (sovereign debt issued by smaller developing economies; a hedge covering the remaining positions), mệnh đề quan hệ (a government whose debt we hold). (3) Cách \"tháo\" cụm: tìm danh từ trung tâm (reduction), chuyển nó thành động từ (reduce/sell) rồi xếp các phần còn lại quanh nó: a phased reduction of our exposure to bonds… = we will slowly sell the bonds that…",
+      "examples": [
+        "At nine o'clock on a wet Tuesday in Hanoi, Do Bich Ngoc, the chief risk officer of Minh Phat Bank, stands before the executive board with a twenty-page report on the bank's foreign bond portfolio.",
+        "\"Over the past decade we have bought about four hundred million dollars of sovereign debt issued by smaller developing economies,\" she begins.",
+        "It has jumped from seven to almost twelve per cent since March, which means that the market now seriously doubts its creditworthiness.\"",
+        "The second line traces the extreme day-to-day volatility of that country's exchange rate against the US dollar.",
+        "Mr Lap frowns at the screen."
+      ]
+    },
+    "writingPrompt": "Write a short note to your manager about a financial risk your company or bank faces (for example a weaker currency or a borrower that may not pay). Put your main recommendation in one complex noun phrase, then unpack it in a plain sentence.",
+    "sentenceTranslations": [
+      "Chín giờ sáng một ngày thứ Ba mưa ướt ở Hà Nội, Đỗ Bích Ngọc, giám đốc quản trị rủi ro của Ngân hàng Minh Phát, đứng trước ban điều hành với một bản báo cáo hai mươi trang về danh mục trái phiếu nước ngoài của ngân hàng.",
+      "Bà báo trước với họ rằng thông điệp của bà không dễ nghe chút nào.",
+      "Bà mở đầu: \"Trong mười năm qua, chúng ta đã mua khoảng bốn trăm triệu đô la nợ chính phủ do các nền kinh tế đang phát triển nhỏ hơn phát hành.",
+      "Những trái phiếu này đã mang lại lợi nhuận tốt, nhưng lịch trả nợ của gần một nửa số đó giờ rơi vào mười tám tháng tới.\"",
+      "Bà chuyển sang một biểu đồ có ba đường màu, mỗi đường kể một phần khác nhau của cùng một câu chuyện.",
+      "\"Đường thứ nhất là lợi suất trái phiếu kỳ hạn mười năm của một chính phủ Nam Mỹ mà chúng ta đang nắm giữ nợ.",
+      "Nó đã nhảy từ bảy lên gần mười hai phần trăm kể từ tháng Ba, nghĩa là thị trường giờ đây thực sự nghi ngờ khả năng trả nợ của chính phủ đó.\"",
+      "Ông Lập, thành viên lớn tuổi nhất của ban điều hành, hỏi: \"Nghi ngờ đến mức nào?\"",
+      "\"Đủ nghiêm trọng để thị trường tính vào giá một khả năng vỡ nợ thực sự trong vòng hai năm.\"",
+      "Đường thứ hai thể hiện sự biến động cực mạnh hằng ngày của tỷ giá hối đoái của nước đó so với đồng đô la Mỹ.",
+      "Bà Ngọc giải thích rằng nếu đồng nội tệ mất giá mạnh, chính phủ đó sẽ khó xoay xở hơn nhiều để có từng đô la trả nợ, kể cả khi giới lãnh đạo vẫn sẵn lòng trả.",
+      "Bà chủ tịch hỏi: \"Vậy chị đề xuất gì?\"",
+      "Trang trình chiếu cuối cùng của bà Ngọc có ba đề xuất, mỗi đề xuất được nén vào một cụm từ đặc quánh: \"giảm dần mức độ nắm giữ trái phiếu có kỳ hạn trên năm năm\", \"một hợp đồng phòng ngừa rủi ro tiền tệ cho các khoản còn lại\" và \"đánh giá độc lập hằng quý về xếp hạng tín nhiệm của từng bên đi vay\".",
+      "Ông Lập cau mày nhìn màn hình.",
+      "Ông nói: \"Tôi không theo kịp được.",
+      "Chị nói bằng tiếng Việt dễ hiểu giúp tôi.\"",
+      "Bà Ngọc mỉm cười và \"tháo\" cụm từ đầu tiên ra cho ông: ngân hàng sẽ bán dần những trái phiếu mà phải năm năm nữa hoặc lâu hơn mới được hoàn trả.",
+      "\"Chúng ta có bị lỗ không?\"",
+      "\"Có, một chút.",
+      "Nhưng khoản lỗ nếu chỉ một chính phủ vỡ nợ thôi cũng sẽ lớn gấp mười lần.\"",
+      "Sáng hôm đó ban điều hành không biểu quyết.",
+      "Tuy vậy, trước khi cuộc họp kết thúc, bà chủ tịch yêu cầu bà Ngọc chuẩn bị một kế hoạch phòng ngừa rủi ro chi tiết cho những khoản đầu tư rủi ro nhất trước cuối tháng."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày rủi ro nợ công và biến động tiền tệ bằng cụm danh từ phức (tính từ ghép, chuỗi danh từ, cụm giới từ, phân từ, whose…) và diễn giải lại cho người không chuyên.",
+    "examples": [
+      {
+        "lemma": "sovereign debt",
+        "sentence": "The country's sovereign debt has doubled in ten years.",
+        "meaningVi": "Nợ chính phủ của nước này đã tăng gấp đôi trong mười năm."
+      },
+      {
+        "lemma": "repayment",
+        "sentence": "The first repayment is due in June.",
+        "meaningVi": "Khoản trả nợ đầu tiên đến hạn vào tháng Sáu."
+      },
+      {
+        "lemma": "bond yield",
+        "sentence": "A rising bond yield often signals worry among investors.",
+        "meaningVi": "Lợi suất trái phiếu tăng thường báo hiệu sự lo lắng của nhà đầu tư."
+      },
+      {
+        "lemma": "creditworthiness",
+        "sentence": "The bank checks the creditworthiness of every new customer.",
+        "meaningVi": "Ngân hàng kiểm tra khả năng trả nợ của mọi khách hàng mới."
+      },
+      {
+        "lemma": "default",
+        "sentence": "A default would damage the country's reputation for years.",
+        "meaningVi": "Một vụ vỡ nợ sẽ làm tổn hại uy tín của đất nước trong nhiều năm."
+      },
+      {
+        "lemma": "volatility",
+        "sentence": "Many small investors cannot handle the volatility of the stock market.",
+        "meaningVi": "Nhiều nhà đầu tư nhỏ không chịu nổi sự biến động của thị trường chứng khoán."
+      },
+      {
+        "lemma": "exchange rate",
+        "sentence": "The exchange rate changes every morning at the airport.",
+        "meaningVi": "Tỷ giá hối đoái ở sân bay thay đổi mỗi sáng."
+      },
+      {
+        "lemma": "depreciation",
+        "sentence": "The depreciation of the yen made Japanese holidays cheaper.",
+        "meaningVi": "Việc đồng yên mất giá khiến du lịch Nhật Bản rẻ hơn."
+      },
+      {
+        "lemma": "maturity",
+        "sentence": "These bonds reach maturity in 2030.",
+        "meaningVi": "Những trái phiếu này đáo hạn vào năm 2030."
+      },
+      {
+        "lemma": "hedge",
+        "sentence": "Gold is often seen as a hedge against inflation.",
+        "meaningVi": "Vàng thường được xem là một cách phòng ngừa lạm phát."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Quan",
+        "Ms Ngoc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Ms Ngoc, the chairwoman wants the hedging plan by the end of the month. Where should I start?",
+          "meaningVi": "Chị Ngọc ơi, chủ tịch muốn có kế hoạch phòng ngừa rủi ro trước cuối tháng. Em nên bắt đầu từ đâu ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Start with a list of every bond issued by the South American government.",
+          "meaningVi": "Bắt đầu bằng danh sách tất cả trái phiếu do chính phủ Nam Mỹ đó phát hành."
+        },
+        {
+          "speaker": 0,
+          "text": "Should I include the bonds bought by our Singapore office?",
+          "meaningVi": "Em có nên tính cả những trái phiếu do văn phòng Singapore của mình mua không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. The board needs one clear picture, not two separate tables.",
+          "meaningVi": "Có. Ban điều hành cần một bức tranh rõ ràng, không phải hai bảng tách rời."
+        },
+        {
+          "speaker": 0,
+          "text": "And how much protection against a weaker currency do we need?",
+          "meaningVi": "Thế mình cần mức bảo vệ trước việc đồng tiền yếu đi là bao nhiêu ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Enough to cover the positions that mature within two years. The rest we will sell.",
+          "meaningVi": "Đủ để che chắn những khoản đáo hạn trong vòng hai năm. Phần còn lại mình sẽ bán."
+        },
+        {
+          "speaker": 0,
+          "text": "Mr Lap said he did not understand the last slide. Should I rewrite it?",
+          "meaningVi": "Ông Lập nói ông không hiểu trang trình chiếu cuối. Em có nên viết lại không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Please do. Keep one short phrase for each idea and add a plain sentence under it.",
+          "meaningVi": "Em viết lại đi. Mỗi ý giữ một cụm ngắn và thêm một câu dễ hiểu bên dưới."
+        },
+        {
+          "speaker": 0,
+          "text": "Understood. I will send you the first draft on Friday.",
+          "meaningVi": "Em hiểu rồi. Thứ Sáu em sẽ gửi chị bản nháp đầu tiên."
+        }
+      ]
+    },
+    "grammarTipVi": "Danh từ + phân từ thay cho mệnh đề quan hệ: every bond issued by the government (= which was issued by…); the bonds bought by our Singapore office. Danh từ + cụm giới từ: protection against a weaker currency. Viết ngắn gọn bằng cụm danh từ, rồi giải thích lại bằng một câu thường để người nghe dễ hiểu.",
+    "translations": [
+      {
+        "vi": "Đồng nội tệ mất giá mạnh sẽ khiến việc trả nợ khó hơn nhiều.",
+        "en": "A sharp depreciation of the currency would make repayment much harder.",
+        "distractors": [
+          "depreciate",
+          "hardly",
+          "makes"
+        ]
+      },
+      {
+        "vi": "Lợi suất trái phiếu đã tăng kể từ tháng Ba.",
+        "en": "The bond yield has risen since March.",
+        "distractors": [
+          "rose",
+          "raised",
+          "yields"
+        ],
+        "accepted": [
+          "Since March the bond yield has risen."
+        ]
+      },
+      {
+        "vi": "Chúng tôi sẽ phòng ngừa rủi ro tỷ giá cho các khoản còn lại.",
+        "en": "We will hedge the exchange rate risk on the remaining positions.",
+        "distractors": [
+          "hedges",
+          "rates",
+          "remain"
+        ]
+      },
+      {
+        "vi": "Giờ đây thị trường nghi ngờ khả năng trả nợ của chính phủ đó.",
+        "en": "The market now doubts that government's creditworthiness.",
+        "distractors": [
+          "doubt",
+          "governments",
+          "worthy"
+        ],
+        "accepted": [
+          "Now the market doubts that government's creditworthiness."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Quân và chị Ngọc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách chuẩn bị kế hoạch phòng ngừa rủi ro cho ban điều hành",
+          "Chuyến công tác Singapore của Quân",
+          "Lương thưởng cuối năm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quân nói \"the chairwoman wants the hedging plan by the end of the month. Where should I start?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Ngọc muốn Quân bắt đầu bằng việc gì?",
+        "promptVi": "",
+        "options": [
+          "Lập danh sách mọi trái phiếu của chính phủ Nam Mỹ đó",
+          "Gọi điện cho ông Lập",
+          "Bán hết trái phiếu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"Start with a list of every bond issued by the South American government.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Những khoản nào sẽ được bảo vệ trước việc đồng tiền yếu đi?",
+        "promptVi": "",
+        "options": [
+          "Các khoản đáo hạn trong vòng hai năm",
+          "Tất cả các khoản",
+          "Chỉ các khoản của văn phòng Singapore"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"Enough to cover the positions that mature within two years.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Ngoc tells Quan not to change the last slide.",
+        "promptVi": "Chị Ngọc bảo Quân đừng sửa trang trình chiếu cuối.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị nói \"Please do\" khi Quân hỏi có nên viết lại không.",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Ba đường trên biểu đồ của bà Ngọc cho thấy những rủi ro nào? Bà đề xuất gì, và bà \"tháo\" cụm danh từ đầu tiên ra cho ông Lập như thế nào?",
+    "grammarStep": {
+      "titleVi": "Cụm danh từ phức",
+      "noticing": [
+        {
+          "sentence": "At nine o'clock on a wet Tuesday in Hanoi, Do Bich Ngoc, the chief risk officer of Minh Phat Bank, stands before the executive board with a twenty-page report on the bank's foreign bond portfolio.",
+          "highlights": [
+            "a twenty-page report",
+            "on the bank's foreign bond portfolio"
+          ]
+        },
+        {
+          "sentence": "\"The first line is the ten-year bond yield of a South American government whose debt we hold.",
+          "highlights": [
+            "the ten-year bond yield",
+            "of a South American government",
+            "whose debt we hold"
+          ]
+        },
+        {
+          "sentence": "The second line traces the extreme day-to-day volatility of that country's exchange rate against the US dollar.",
+          "highlights": [
+            "the extreme day-to-day volatility",
+            "of that country's exchange rate",
+            "against the US dollar"
+          ]
+        },
+        {
+          "sentence": "Ngoc's final slide contains three recommendations, each compressed into a single dense phrase: \"a phased reduction of our exposure to bonds with a maturity of over five years\", \"a currency hedge covering the remaining positions\" and \"an independent quarterly review of every borrower's credit rating\".",
+          "highlights": [
+            "a phased reduction of our exposure to bonds with a maturity of over five years",
+            "a currency hedge covering the remaining positions"
+          ]
+        }
+      ],
+      "questionVi": "Câu nào có nghĩa giống cụm \"a phased reduction of our exposure to long-term bonds\"?",
+      "options": [
+        "We will gradually hold fewer long-term bonds.",
+        "We will suddenly sell all our long-term bonds.",
+        "We will buy more long-term bonds in several steps."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Danh từ trung tâm là reduction (giảm), phased = theo từng giai đoạn, tức là giảm dần; exposure to long-term bonds = lượng trái phiếu dài hạn mình đang nắm giữ.",
+      "whenVi": "Dùng trong báo cáo, trang trình chiếu và văn bản tài chính, nơi mỗi đề xuất cần gọn trong một dòng; khi nói với người không chuyên thì tháo cụm ra thành mệnh đề có chủ ngữ và động từ.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không viết"
+      ],
+      "table": [
+        {
+          "subject": "Tính từ ghép có số / gạch nối",
+          "form": "a twenty-page report, the ten-year bond yield",
+          "negative": "a twenty-pages report"
+        },
+        {
+          "subject": "Chuỗi danh từ",
+          "form": "the repayment schedule, a currency hedge",
+          "negative": "the repayments schedule"
+        },
+        {
+          "subject": "Danh từ + cụm giới từ",
+          "form": "the volatility of that country's exchange rate against the dollar; demand for safe assets",
+          "negative": "the demand of safe assets"
+        },
+        {
+          "subject": "Danh từ + phân từ",
+          "form": "sovereign debt issued by smaller economies; a hedge covering the remaining positions",
+          "negative": "sovereign debt issuing by smaller economies"
+        },
+        {
+          "subject": "Danh từ + whose / which / that",
+          "form": "a government whose debt we hold; the bonds that will not be repaid for five years",
+          "negative": "a government which debt we hold"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "a twenty-pages report",
+          "right": "a twenty-page report"
+        },
+        {
+          "wrong": "debt issuing by smaller economies",
+          "right": "debt issued by smaller economies"
+        },
+        {
+          "wrong": "a government which debt we hold",
+          "right": "a government whose debt we hold"
+        }
+      ],
+      "noteVi": "Phân từ V3 (issued, bought) mang nghĩa bị động, V-ing (covering) mang nghĩa chủ động; chỉ dùng whose khi danh từ đứng sau thuộc về danh từ đứng trước (a government whose debt…).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "We hold the debt of a government ___ currency has lost a third of its value.",
+          "answers": [
+            "whose"
+          ],
+          "explanationVi": "Đồng tiền thuộc về chính phủ đó, nên dùng whose + danh từ (currency)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "We bought sovereign debt ___ by smaller developing economies.",
+          "options": [
+            "issued",
+            "issuing",
+            "issues",
+            "to issue"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Nợ được các nền kinh tế phát hành (bị động), nên dùng phân từ V3: issued by…"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mr Lap could not read the risks management report.",
+          "sentence": "Mr Lap could not read the risk management report.",
+          "explanationVi": "Trong chuỗi danh từ, danh từ đứng trước ở số ít: risk management report."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bà ấy trình bày một bản báo cáo hai mươi trang về nợ công.",
+          "sentence": "She presented a twenty-page report on sovereign debt.",
+          "words": [
+            "She",
+            "presented",
+            "a",
+            "twenty-page",
+            "report",
+            "on",
+            "sovereign",
+            "debt.",
+            "pages"
+          ],
+          "explanationVi": "Tính từ ghép (twenty-page) đứng trước danh từ trung tâm (report), cụm giới từ (on sovereign debt) đứng sau; \"pages\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Her message, she warns them, is not a comfortable one.",
+        "tipVi": "Đọc \"she warns them\" nhỏ và nhanh hơn như một lời chen; nhấn not và comfortable /ˈkʌmftəbl/."
+      },
+      {
+        "text": "\"So what do you propose?\" the chairwoman asks.",
+        "tipVi": "Câu hỏi có từ để hỏi: xuống giọng ở propose /prəˈpəʊz/; đọc \"the chairwoman asks\" thấp giọng hơn."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How does a weaker Vietnamese dong affect ordinary people?",
+        "questionVi": "Đồng Việt Nam yếu đi ảnh hưởng thế nào đến người dân bình thường?",
+        "frame": "A sharp depreciation of ___ would make ___."
+      },
+      {
+        "question": "Would you lend money to a friend whose job is not stable? Why or why not?",
+        "questionVi": "Bạn có cho một người bạn có công việc không ổn định vay tiền không? Vì sao?",
+        "frame": "I would / wouldn't lend money to a friend whose ___, because ___."
+      },
+      {
+        "question": "How do you protect your savings against risk?",
+        "questionVi": "Bạn bảo vệ tiền tiết kiệm của mình trước rủi ro bằng cách nào?",
+        "frame": "My main hedge against ___ is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có cụm danh từ phức (vd. the depreciation of… against…, a currency hedge covering…)",
+      "anyOf": [
+        "depreciation of",
+        "reduction of",
+        "issued by",
+        "hedge covering",
+        "currency hedge",
+        "bought from",
+        "six-month",
+        "five-year"
+      ],
+      "outlineVi": [
+        "Nêu rủi ro chính bằng một cụm danh từ phức (the sharp depreciation of… against…).",
+        "Đưa ra đề xuất gọn trong một cụm (a phased reduction of…, a hedge covering…).",
+        "Tháo cụm đó ra thành một câu đơn giản cho người quản lý không chuyên."
+      ],
+      "modelAnswer": "The main risk for our company this year is the sharp depreciation of the Vietnamese dong against the US dollar. Most of the machines bought from our German supplier must be paid for in dollars. My recommendation is a six-month currency hedge covering all payments due before June. In plain words, we should fix the exchange rate now, so that a weaker dong will not make the machines more expensive next year."
+    }
+  },
+  "glosses": [
+    {
+      "text": "portfolio",
+      "lemma": "portfolio",
+      "meaningVi": "danh mục đầu tư",
+      "pos": "noun",
+      "phrase": "the bank's foreign bond portfolio",
+      "phraseVi": "danh mục trái phiếu nước ngoài của ngân hàng",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "price in",
+      "lemma": "price in",
+      "meaningVi": "(thị trường) tính trước vào giá",
+      "pos": "verb",
+      "phrase": "price in a real chance of a default",
+      "phraseVi": "tính vào giá một khả năng vỡ nợ thực sự",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "phased",
+      "lemma": "phased",
+      "meaningVi": "theo từng giai đoạn, từ từ",
+      "pos": "adjective",
+      "phrase": "a phased reduction of our exposure",
+      "phraseVi": "giảm dần mức độ nắm giữ",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "exposure",
+      "lemma": "exposure",
+      "meaningVi": "mức độ chịu rủi ro, lượng tài sản nắm giữ có rủi ro",
+      "pos": "noun",
+      "phrase": "our exposure to bonds",
+      "phraseVi": "lượng trái phiếu chúng ta nắm giữ",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "chairwoman",
+      "lemma": "chairwoman",
+      "meaningVi": "nữ chủ tịch",
+      "pos": "noun",
+      "phrase": "the chairwoman asks",
+      "phraseVi": "bà chủ tịch hỏi",
+      "sentenceIndex": 11
+    }
+  ]
+}

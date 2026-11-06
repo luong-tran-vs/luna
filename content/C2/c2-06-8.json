@@ -1,0 +1,612 @@
+{
+  "content": "Few industries in Vietnam burn as much coal as steel, so it was fitting that a roundtable on fusion energy took place last Friday in Haiphong, a city of ports, factories and furnaces. The question on the table was simple: could fusion ever power heavy industry, and should anyone invest in it now?\n\nFusion works by forcing light atoms to join together, which releases enormous amounts of energy; it is the same process that powers the Sun. To achieve it on Earth, engineers must heat a plasma to more than a hundred million degrees and hold it in place with powerful magnets or lasers. Unlike burning coal, the reaction produces no carbon emissions, and its waste is far less dangerous than that of today's nuclear power stations.\n\nMac Thi Yen, who runs a steel company outside the city, opened with frank optimism. \"Cheap, clean power is bound to transform manufacturing, whether it comes from fusion or from something else,\" she said. \"We have promised to decarbonise by 2050, and frankly, we could hardly meet that target with the technology we have now.\"\n\nNghiem Quang Vu, an investor in renewable energy, was far more sceptical. He reminded the audience that working fusion has been promised for decades. A handful of experiments have released more energy from the fuel than was put into it, he admitted, but no reactor has yet produced more electricity than the whole plant consumes. \"Will anyone commercialise fusion within twenty years?\" he asked. \"It may well happen, but I would not bet my company on it.\" Solar and wind power, in his view, are already cheap, proven and scalable.\n\nYen did not dispute his figures. Instead, she argued that because no single design has won yet, governments might as well fund several reactor prototypes at once rather than wait for a winner. Some designs might well fail, she conceded, but the knowledge they produce would not be wasted. Vu remained unconvinced that such spending was viable for a middle-income country. \"We might as well spend that money on batteries and better transmission lines,\" he replied.\n\nBy the end of the evening, the two executives had agreed on at least one point. Whatever happens to fusion, sustainability will depend on decisions taken this decade, not in some distant future. Yen's company has since announced a small fund for engineering students who want to study plasma physics abroad. Vu says he could hardly refuse when she asked him to sit on its advisory board.",
+  "targetWords": [
+    "fusion",
+    "plasma",
+    "emissions",
+    "decarbonise",
+    "reactor",
+    "commercialise",
+    "scalable",
+    "prototype",
+    "viable",
+    "sustainability"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "fusion",
+        "lemma": "fusion",
+        "meaningVi": "(phản ứng) nhiệt hạch, tổng hợp hạt nhân",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "plasma",
+        "lemma": "plasma",
+        "meaningVi": "plasma (trạng thái vật chất bị ion hoá ở nhiệt độ rất cao)",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "emissions",
+        "lemma": "emissions",
+        "meaningVi": "khí thải",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "decarbonise",
+        "lemma": "decarbonise",
+        "meaningVi": "khử carbon, cắt giảm phát thải carbon",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "reactor",
+        "lemma": "reactor",
+        "meaningVi": "lò phản ứng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "commercialise",
+        "lemma": "commercialise",
+        "meaningVi": "thương mại hoá",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "scalable",
+        "lemma": "scalable",
+        "meaningVi": "có thể mở rộng quy mô",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "prototypes",
+        "lemma": "prototype",
+        "meaningVi": "nguyên mẫu, mẫu thử",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "viable",
+        "lemma": "viable",
+        "meaningVi": "khả thi, có thể tồn tại lâu dài",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "sustainability",
+        "lemma": "sustainability",
+        "meaningVi": "tính bền vững, sự phát triển bền vững",
+        "pos": "noun",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the article mainly about?",
+        "promptVi": "Bài viết chủ yếu nói về điều gì?",
+        "options": [
+          "A debate on whether fusion can power industry and whether to invest in it now",
+          "The opening of Vietnam's first fusion power station",
+          "A new port being built in Haiphong",
+          "Why steel prices are rising"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài tường thuật buổi bàn tròn ở Hải Phòng, nơi hai lãnh đạo doanh nghiệp tranh luận về tương lai của năng lượng nhiệt hạch."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What must engineers do to achieve fusion on Earth?",
+        "promptVi": "Các kỹ sư phải làm gì để tạo ra phản ứng nhiệt hạch trên Trái Đất?",
+        "options": [
+          "Heat a plasma to over a hundred million degrees and hold it with magnets or lasers",
+          "Burn coal at a very high temperature",
+          "Split heavy atoms into smaller ones",
+          "Collect energy directly from the Sun"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Engineers must heat a plasma to more than a hundred million degrees and hold it in place with powerful magnets or lasers.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Yen think governments should do?",
+        "promptVi": "Bà Yến cho rằng các chính phủ nên làm gì?",
+        "options": [
+          "Fund several reactor prototypes at the same time",
+          "Wait until one design wins",
+          "Stop funding solar and wind",
+          "Buy fusion power from other countries"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà nói \"governments might as well fund several reactor prototypes at once rather than wait for a winner.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "A fusion reactor has already produced more electricity than its whole plant uses.",
+        "promptVi": "Đã có lò nhiệt hạch tạo ra nhiều điện hơn lượng điện toàn bộ nhà máy tiêu thụ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"no reactor has yet produced more electricity than the whole plant consumes\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"sceptical\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Nghiem Quang Vu, an investor in renewable energy, was far more sceptical.",
+        "options": [
+          "hoài nghi",
+          "hào hứng",
+          "giận dữ",
+          "mệt mỏi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sceptical = hoài nghi, chưa tin. Ông Vũ không tin nhiệt hạch sẽ sớm thành công."
+      }
+    ],
+    "grammarNote": {
+      "title": "Sắc thái của động từ khuyết thiếu",
+      "bodyVi": "Bài viết dùng modal ghép để thể hiện mức chắc chắn và thái độ. (1) Be bound to + động từ: chắc chắn sẽ: Cheap, clean power is bound to transform manufacturing. (2) Could hardly + động từ: hầu như không thể: we could hardly meet that target; he could hardly refuse. (3) May well / might well + động từ: nhiều khả năng: It may well happen; Some designs might well fail. (4) Might as well + động từ: cứ làm vậy vì không có lựa chọn nào tốt hơn: governments might as well fund several reactor prototypes; We might as well spend that money on batteries. Sau các cụm này là động từ nguyên mẫu không to, riêng bound luôn có to.",
+      "examples": [
+        "\"Cheap, clean power is bound to transform manufacturing, whether it comes from fusion or from something else,\" she said.",
+        "\"We have promised to decarbonise by 2050, and frankly, we could hardly meet that target with the technology we have now.\"",
+        "\"It may well happen, but I would not bet my company on it.\"",
+        "Instead, she argued that because no single design has won yet, governments might as well fund several reactor prototypes at once rather than wait for a winner.",
+        "Some designs might well fail, she conceded, but the knowledge they produce would not be wasted."
+      ]
+    },
+    "writingPrompt": "Should Vietnam spend money on fusion research now, or focus on solar and wind? Write a short paragraph giving your view. Use at least two modal structures (be bound to, may well, might as well, could hardly).",
+    "sentenceTranslations": [
+      "Ở Việt Nam, ít ngành nào đốt nhiều than như ngành thép, nên thật hợp lý khi một buổi bàn tròn về năng lượng nhiệt hạch diễn ra vào thứ Sáu tuần trước ở Hải Phòng, thành phố của bến cảng, nhà máy và lò luyện.",
+      "Câu hỏi được đặt ra rất đơn giản: liệu nhiệt hạch có bao giờ cung cấp được năng lượng cho công nghiệp nặng, và có nên đầu tư vào nó ngay bây giờ không?",
+      "Phản ứng nhiệt hạch hoạt động bằng cách ép các nguyên tử nhẹ kết hợp với nhau, qua đó giải phóng năng lượng khổng lồ; đây cũng chính là quá trình tạo nên năng lượng của Mặt Trời.",
+      "Để làm được điều đó trên Trái Đất, các kỹ sư phải nung một khối plasma lên hơn một trăm triệu độ và giữ nó cố định bằng nam châm cực mạnh hoặc tia laser.",
+      "Khác với đốt than, phản ứng này không tạo ra khí thải carbon, và chất thải của nó ít nguy hiểm hơn nhiều so với chất thải của các nhà máy điện hạt nhân hiện nay.",
+      "Mạc Thị Yến, người điều hành một công ty thép ở ngoại thành, mở đầu với sự lạc quan thẳng thắn.",
+      "Bà nói: \"Điện sạch và rẻ chắc chắn sẽ làm thay đổi ngành sản xuất, dù nó đến từ nhiệt hạch hay từ một nguồn nào khác.",
+      "Chúng tôi đã cam kết khử carbon trước năm 2050, và nói thật, với công nghệ hiện có thì chúng tôi khó mà đạt được mục tiêu đó.\"",
+      "Nghiêm Quang Vũ, một nhà đầu tư vào năng lượng tái tạo, hoài nghi hơn nhiều.",
+      "Ông nhắc khán giả rằng người ta đã hứa hẹn về nhiệt hạch dùng được trong thực tế suốt nhiều thập kỷ.",
+      "Ông thừa nhận rằng một số ít thí nghiệm đã giải phóng từ nhiên liệu nhiều năng lượng hơn lượng đã cấp vào, nhưng chưa có lò phản ứng nào tạo ra nhiều điện hơn lượng điện mà toàn bộ nhà máy tiêu thụ.",
+      "Ông hỏi: \"Liệu có ai thương mại hoá được nhiệt hạch trong vòng hai mươi năm tới không?",
+      "Nhiều khả năng điều đó sẽ xảy ra, nhưng tôi sẽ không đặt cược công ty của mình vào nó.\"",
+      "Theo ông, điện mặt trời và điện gió đã rẻ, đã được kiểm chứng và có thể mở rộng quy mô.",
+      "Bà Yến không phản bác những con số của ông.",
+      "Thay vào đó, bà lập luận rằng vì chưa có thiết kế nào chiếm ưu thế, các chính phủ cứ tài trợ cùng lúc cho nhiều nguyên mẫu lò phản ứng thay vì chờ xem thiết kế nào thắng.",
+      "Bà thừa nhận rằng nhiều khả năng một số thiết kế sẽ thất bại, nhưng kiến thức chúng mang lại sẽ không bị lãng phí.",
+      "Ông Vũ vẫn chưa tin rằng khoản chi như thế là khả thi với một nước thu nhập trung bình.",
+      "Ông đáp: \"Thà ta dùng số tiền đó cho pin lưu trữ và đường dây truyền tải tốt hơn còn hơn.\"",
+      "Đến cuối buổi tối, hai vị lãnh đạo doanh nghiệp đã đồng ý với nhau ít nhất ở một điểm.",
+      "Dù chuyện nhiệt hạch ra sao, sự phát triển bền vững sẽ phụ thuộc vào những quyết định đưa ra trong thập kỷ này, chứ không phải trong một tương lai xa xôi nào đó.",
+      "Từ đó đến nay, công ty của bà Yến đã công bố một quỹ nhỏ dành cho sinh viên kỹ thuật muốn đi du học ngành vật lý plasma.",
+      "Ông Vũ nói khi bà mời ông tham gia ban cố vấn của quỹ, ông khó mà từ chối được."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tranh luận về tương lai của năng lượng nhiệt hạch, thể hiện mức chắc chắn và thái độ bằng be bound to, may well, might as well, could hardly.",
+    "examples": [
+      {
+        "lemma": "fusion",
+        "sentence": "Nuclear fusion is the source of the Sun's energy.",
+        "meaningVi": "Phản ứng tổng hợp hạt nhân là nguồn năng lượng của Mặt Trời."
+      },
+      {
+        "lemma": "plasma",
+        "sentence": "Lightning turns the air around it into plasma for a moment.",
+        "meaningVi": "Tia sét biến không khí xung quanh nó thành plasma trong chốc lát."
+      },
+      {
+        "lemma": "emissions",
+        "sentence": "The new buses have much lower emissions.",
+        "meaningVi": "Những chiếc xe buýt mới có lượng khí thải thấp hơn nhiều."
+      },
+      {
+        "lemma": "decarbonise",
+        "sentence": "Airlines are finding it hard to decarbonise.",
+        "meaningVi": "Các hãng hàng không đang thấy khó khử carbon."
+      },
+      {
+        "lemma": "reactor",
+        "sentence": "The research reactor is used to train young scientists.",
+        "meaningVi": "Lò phản ứng nghiên cứu được dùng để đào tạo các nhà khoa học trẻ."
+      },
+      {
+        "lemma": "commercialise",
+        "sentence": "The start-up hopes to commercialise its battery next year.",
+        "meaningVi": "Công ty khởi nghiệp hy vọng thương mại hoá loại pin của mình vào năm tới."
+      },
+      {
+        "lemma": "scalable",
+        "sentence": "Investors want a business model that is scalable.",
+        "meaningVi": "Nhà đầu tư muốn một mô hình kinh doanh có thể mở rộng quy mô."
+      },
+      {
+        "lemma": "prototype",
+        "sentence": "The students built a prototype of an electric boat.",
+        "meaningVi": "Các sinh viên đã chế tạo một nguyên mẫu thuyền điện."
+      },
+      {
+        "lemma": "viable",
+        "sentence": "Without government support, the project is not viable.",
+        "meaningVi": "Không có sự hỗ trợ của chính phủ, dự án không khả thi."
+      },
+      {
+        "lemma": "sustainability",
+        "sentence": "The company publishes a sustainability report every year.",
+        "meaningVi": "Công ty công bố báo cáo phát triển bền vững hằng năm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Quach Thu",
+        "Ninh Hai"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Did you hear? The boss wants us to replace the old coal furnace next year.",
+          "meaningVi": "Chị nghe chưa? Sếp muốn chúng ta thay lò than cũ vào năm sau."
+        },
+        {
+          "speaker": 0,
+          "text": "With what? Fusion power is bound to take decades.",
+          "meaningVi": "Thay bằng gì? Điện nhiệt hạch chắc chắn còn mất hàng chục năm nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "An electric furnace, running on solar power from the roof.",
+          "meaningVi": "Một lò điện, chạy bằng điện mặt trời từ mái nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Can the roof really provide enough? I could hardly believe it.",
+          "meaningVi": "Mái nhà thật sự cung cấp đủ sao? Tôi khó mà tin được."
+        },
+        {
+          "speaker": 1,
+          "text": "Not all of it, but we may well cut our coal use by a third.",
+          "meaningVi": "Không đủ hết, nhưng nhiều khả năng ta sẽ giảm được một phần ba lượng than."
+        },
+        {
+          "speaker": 0,
+          "text": "That would help with the new export rules too.",
+          "meaningVi": "Điều đó cũng sẽ giúp ta đáp ứng các quy định xuất khẩu mới."
+        },
+        {
+          "speaker": 1,
+          "text": "Exactly. The old furnace keeps breaking down anyway.",
+          "meaningVi": "Chính xác. Đằng nào cái lò cũ cũng hỏng suốt."
+        },
+        {
+          "speaker": 0,
+          "text": "Then we might as well start planning now. Who will lead the project?",
+          "meaningVi": "Vậy thì ta cứ bắt tay lên kế hoạch ngay đi. Ai sẽ phụ trách dự án?"
+        },
+        {
+          "speaker": 1,
+          "text": "You, of course. The boss asked for you by name.",
+          "meaningVi": "Chị chứ ai. Sếp chỉ đích danh chị mà."
+        }
+      ]
+    },
+    "grammarTipVi": "Be bound to + động từ: chắc chắn sẽ (is bound to take decades). Could hardly + động từ: khó mà (I could hardly believe it). May well + động từ: nhiều khả năng (we may well cut…). Might as well + động từ: thôi thì cứ (we might as well start planning now).",
+    "translations": [
+      {
+        "vi": "Nhiều khả năng nhiệt hạch sẽ trở nên khả thi trong vòng hai mươi năm.",
+        "en": "Fusion may well become viable within twenty years.",
+        "distractors": [
+          "becomes",
+          "viability",
+          "during"
+        ],
+        "accepted": [
+          "Within twenty years, fusion may well become viable."
+        ]
+      },
+      {
+        "vi": "Thôi thì các chính phủ cứ tài trợ cho vài nguyên mẫu cùng lúc.",
+        "en": "Governments might as well fund several prototypes at once.",
+        "distractors": [
+          "funds",
+          "prototype",
+          "ones"
+        ]
+      },
+      {
+        "vi": "Lượng khí thải thấp hơn chắc chắn sẽ giúp ích cho hàng xuất khẩu của chúng ta.",
+        "en": "Lower emissions are bound to help our exports.",
+        "distractors": [
+          "bind",
+          "helping",
+          "lowest"
+        ]
+      },
+      {
+        "vi": "Chúng ta khó mà khử carbon được nếu không có năng lượng mới.",
+        "en": "We could hardly decarbonise without new energy.",
+        "distractors": [
+          "decarbonised",
+          "with",
+          "hard"
+        ],
+        "accepted": [
+          "Without new energy, we could hardly decarbonise."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu và Hải nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kế hoạch thay lò than cũ bằng lò điện",
+          "Chuyến đi xem nhà máy nhiệt hạch",
+          "Việc tuyển nhân viên mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hải nói sếp muốn thay lò than cũ, và hai người bàn về lò điện chạy bằng điện mặt trời.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lò mới sẽ chạy bằng gì?",
+        "promptVi": "",
+        "options": [
+          "Điện mặt trời từ mái nhà",
+          "Điện nhiệt hạch",
+          "Than nhập khẩu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hải nói \"An electric furnace, running on solar power from the roof.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Hải, họ có thể giảm lượng than dùng bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Một phần ba",
+          "Một nửa",
+          "Toàn bộ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hải nói \"we may well cut our coal use by a third.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The boss wants Ninh Hai to lead the project.",
+        "promptVi": "Sếp muốn Ninh Hải phụ trách dự án.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, sếp muốn Thu phụ trách: \"You, of course. The boss asked for you by name.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Phản ứng nhiệt hạch hoạt động thế nào và vì sao khó thực hiện? Bà Yến và ông Vũ bất đồng ở điểm nào, và cuối cùng họ đồng ý về điều gì?",
+    "grammarStep": {
+      "titleVi": "Sắc thái của động từ khuyết thiếu",
+      "noticing": [
+        {
+          "sentence": "\"Cheap, clean power is bound to transform manufacturing, whether it comes from fusion or from something else,\" she said.",
+          "highlights": [
+            "is bound to transform"
+          ]
+        },
+        {
+          "sentence": "\"We have promised to decarbonise by 2050, and frankly, we could hardly meet that target with the technology we have now.\"",
+          "highlights": [
+            "could hardly meet"
+          ]
+        },
+        {
+          "sentence": "\"It may well happen, but I would not bet my company on it.\"",
+          "highlights": [
+            "may well happen"
+          ]
+        },
+        {
+          "sentence": "Instead, she argued that because no single design has won yet, governments might as well fund several reactor prototypes at once rather than wait for a winner.",
+          "highlights": [
+            "might as well fund"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: điện sạch chắc chắn sẽ thay đổi ngành sản xuất. Câu nào đúng?",
+      "options": [
+        "Clean power is bound to transform manufacturing.",
+        "Clean power is bound transform manufacturing.",
+        "Clean power might as well transform manufacturing."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Be bound to + động từ = chắc chắn sẽ; không bỏ to. Might as well mang nghĩa \"thôi thì cứ\", không phải dự đoán chắc chắn.",
+      "whenVi": "Hay gặp trong tranh luận kinh doanh và chính sách: người nói cân nhắc điều chắc chắn xảy ra (be bound to), điều nhiều khả năng xảy ra (may well), điều gần như không thể (could hardly) và lựa chọn đành chấp nhận (might as well).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Nghĩa"
+      ],
+      "table": [
+        {
+          "subject": "be bound to + V",
+          "form": "Clean power is bound to transform industry.",
+          "negative": "chắc chắn sẽ"
+        },
+        {
+          "subject": "may / might well + V",
+          "form": "It may well happen.",
+          "negative": "rất có thể"
+        },
+        {
+          "subject": "could / can hardly + V",
+          "form": "We could hardly meet the target.",
+          "negative": "hầu như không thể (không thêm not)"
+        },
+        {
+          "subject": "might / may as well + V",
+          "form": "We might as well fund several designs.",
+          "negative": "thôi thì cứ…, đành vậy"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Some designs might well to fail.",
+          "right": "Some designs might well fail."
+        },
+        {
+          "wrong": "We couldn't hardly meet the target.",
+          "right": "We could hardly meet the target."
+        },
+        {
+          "wrong": "Clean power is bound transform industry.",
+          "right": "Clean power is bound to transform industry."
+        }
+      ],
+      "noteVi": "May well chỉ khả năng cao; might as well chỉ thái độ \"đành vậy, cứ làm đi\". Hai cụm trông giống nhau nhưng nghĩa khác hẳn.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Cheap, clean power is bound ___ transform manufacturing.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "Be bound to + động từ nguyên mẫu."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng (nghĩa: thôi thì cứ…).",
+          "text": "The meeting has been cancelled, so we ___ go home early.",
+          "options": [
+            "might as well",
+            "are bound",
+            "could hardly",
+            "well might"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Might as well + động từ: thôi thì cứ làm vậy vì không còn việc gì tốt hơn."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Some designs might well to fail.",
+          "sentence": "Some designs might well fail.",
+          "explanationVi": "Sau might well là động từ nguyên mẫu không to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nhiều khả năng nhiệt hạch sẽ cung cấp điện cho các nhà máy của chúng ta.",
+          "sentence": "Fusion may well power our factories.",
+          "words": [
+            "Fusion",
+            "may",
+            "well",
+            "power",
+            "our",
+            "factories.",
+            "to"
+          ],
+          "explanationVi": "May well + động từ nguyên mẫu không to: may well power."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Yen did not dispute his figures.",
+        "tipVi": "Nhấn not và figures; dispute /dɪˈspjuːt/."
+      },
+      {
+        "text": "\"It may well happen, but I would not bet my company on it.\"",
+        "tipVi": "Nhấn may well, ngắt hơi trước but; đọc chậm phần not bet my company."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Will fusion power your home one day?",
+        "questionVi": "Một ngày nào đó nhiệt hạch có cung cấp điện cho nhà bạn không?",
+        "frame": "It may well ___, but ___."
+      },
+      {
+        "question": "What is bound to change in how factories use energy?",
+        "questionVi": "Điều gì chắc chắn sẽ thay đổi trong cách các nhà máy dùng năng lượng?",
+        "frame": "___ is bound to ___."
+      },
+      {
+        "question": "If a new technology is uncertain, should we still invest in it?",
+        "questionVi": "Nếu một công nghệ mới còn bấp bênh, ta có nên đầu tư vào nó không?",
+        "frame": "We might as well ___, because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 modal ghép (may well / might well, might as well, could hardly / can hardly, be bound to)",
+      "anyOf": [
+        "may well",
+        "might well",
+        "might as well",
+        "may as well",
+        "could hardly",
+        "can hardly",
+        "bound to"
+      ],
+      "outlineVi": [
+        "Nêu nhu cầu năng lượng sạch cho công nghiệp (be bound to).",
+        "Đánh giá khả năng của nhiệt hạch (may well, could hardly).",
+        "Đề xuất nên đầu tư vào đâu (might as well)."
+      ],
+      "modelAnswer": "Clean energy is bound to become more important for Vietnamese factories, because buyers abroad want products with lower emissions. Fusion may well become a real source of power one day, but nobody knows when. We can hardly afford to wait for it and do nothing in the meantime. Since solar and wind are already cheap, we might as well build more of them now, while a small part of the budget goes to research. That way we will not miss the future, and we will not lose the present either."
+    }
+  },
+  "glosses": [
+    {
+      "text": "furnaces",
+      "lemma": "furnace",
+      "meaningVi": "lò luyện, lò nung",
+      "pos": "noun",
+      "phrase": "a city of ports, factories and furnaces",
+      "phraseVi": "thành phố của bến cảng, nhà máy và lò luyện",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "sceptical",
+      "lemma": "sceptical",
+      "meaningVi": "hoài nghi",
+      "pos": "adjective",
+      "phrase": "was far more sceptical",
+      "phraseVi": "hoài nghi hơn nhiều",
+      "sentenceIndex": 8
+    },
+    {
+      "text": "handful",
+      "lemma": "handful",
+      "meaningVi": "một số ít, một nhúm",
+      "pos": "noun",
+      "phrase": "A handful of experiments",
+      "phraseVi": "một số ít thí nghiệm",
+      "sentenceIndex": 10
+    },
+    {
+      "text": "transmission lines",
+      "lemma": "transmission line",
+      "meaningVi": "đường dây truyền tải điện",
+      "pos": "noun",
+      "phrase": "better transmission lines",
+      "phraseVi": "đường dây truyền tải tốt hơn",
+      "sentenceIndex": 18
+    },
+    {
+      "text": "advisory board",
+      "lemma": "advisory board",
+      "meaningVi": "ban cố vấn",
+      "pos": "noun",
+      "phrase": "sit on its advisory board",
+      "phraseVi": "tham gia ban cố vấn của quỹ",
+      "sentenceIndex": 22
+    }
+  ]
+}

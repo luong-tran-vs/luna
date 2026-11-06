@@ -398,20 +398,30 @@
       "answerIndex": 0,
       "explanationVi": "Hardly đứng đầu câu thì đảo had lên trước chủ ngữ (had the countdown started), và đi với when; than chỉ đi với No sooner.",
       "whenVi": "Dùng trong văn viết trang trọng, báo cáo, bài phân tích hoặc khi nói muốn tạo ấn tượng mạnh. Do/did nhấn mạnh hay dùng khi thừa nhận một ý rồi nêu ý trái lại (I do see …, but …).",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Lưu ý"
+      ],
       "table": [
         {
-          "subject": "Hardly / No sooner",
-          "form": "Hardly had + S + V3 … when … / No sooner had + S + V3 … than …",
-          "negative": "= vừa … thì …"
+          "subject": "Hardly / No sooner had + S + V3",
+          "form": "Hardly had the product launched when the complaints started.",
+          "negative": "= vừa … thì …; Hardly đi với when, No sooner đi với than"
         },
         {
-          "subject": "Not only / Rarely / Only after",
-          "form": "Not only did + S + V …, but S also … / Rarely do + S + V / Only after + V-ing/N + did + S + V",
+          "subject": "Not only / Rarely + trợ động từ + S",
+          "form": "Not only did they cut prices, but they also extended the warranty.",
           "negative": "Trợ động từ đứng trước chủ ngữ, động từ chính ở nguyên mẫu"
         },
         {
+          "subject": "Only after + V-ing / N",
+          "form": "Only after the reviews appeared did the company react.",
+          "negative": "Đảo ở mệnh đề chính, không đảo ngay sau Only after"
+        },
+        {
           "subject": "do / does / did nhấn mạnh",
-          "form": "S + do/does/did + V nguyên mẫu: I do see why it worked.",
+          "form": "I do see why it worked. / Plenty of them did love the products.",
           "negative": "Không chia động từ chính: did love, không phải did loved"
         }
       ],
@@ -432,7 +442,10 @@
           "promptVi": "Điền một từ vào chỗ trống.",
           "text": "Rarely ___ customers forgive a brand that tricks them.",
           "answers": [
-            "do"
+            "do",
+            "will",
+            "would",
+            "can"
           ],
           "explanationVi": "Rarely đứng đầu câu: đảo trợ động từ do lên trước chủ ngữ customers."
         },
@@ -451,14 +464,14 @@
         },
         {
           "kind": "fix",
-          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng, giữ \"Only after\" ở đầu câu.",
           "text": "Only after the meeting I understood the problem.",
           "sentence": "Only after the meeting did I understand the problem.",
           "explanationVi": "Only after … đứng đầu câu thì phải đảo: did I understand."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "promptVi": "Sắp xếp các từ thành câu đúng, có do nhấn mạnh.",
           "text": "Khách hàng thật sự thích giá mới.",
           "sentence": "The customers do like the new prices.",
           "words": [
@@ -503,17 +516,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Not only / Only after / Rarely / Hardly) và 1 câu với do/did nhấn mạnh",
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Not only did/does/is… / Only after… / Only when… / Rarely do… / No sooner had… / Hardly had…)",
       "anyOf": [
-        "not only",
+        "not only did",
+        "not only does",
+        "not only is",
         "only after",
         "only when",
-        "rarely",
-        "hardly",
-        "no sooner",
-        " do ",
-        " did ",
-        " does "
+        "rarely do",
+        "no sooner had",
+        "hardly had"
       ],
       "outlineVi": [
         "Đợt giảm giá hoặc khuyến mãi bạn muốn phân tích.",

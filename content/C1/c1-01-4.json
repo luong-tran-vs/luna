@@ -453,26 +453,31 @@
       "answerIndex": 0,
       "explanationVi": "Phủ định của câu đảo ngữ: Had + chủ ngữ + not + V3 (không rút gọn thành Hadn't ở đầu câu). Mệnh đề chính: would have been + V3.",
       "whenVi": "Dùng khi trình bày kịch bản trong báo cáo khoa học hay hội nghị: giả định một chính sách được áp dụng, hoặc nhìn lại điều đã có thể xảy ra.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu với if"
+      ],
       "table": [
         {
           "subject": "Were + S + to be + V3",
           "form": "Were the ban to be enforced strictly, waste would drop.",
-          "negative": "Were the ban not to be enforced, …"
+          "negative": "If the ban were enforced strictly, …"
         },
         {
-          "subject": "Had + S + V3",
-          "form": "Had the city acted earlier, the river would be cleaner.",
-          "negative": "Had the volunteers not removed the rubbish, …"
+          "subject": "Had + S + (not) + V3",
+          "form": "Had the volunteers not removed the rubbish, the beaches would have closed.",
+          "negative": "If the volunteers hadn't removed the rubbish, …"
         },
         {
           "subject": "Should + S + V",
           "form": "Should the conference ask us, we will recommend a ban.",
-          "negative": "Should the ban not work, …"
+          "negative": "If the conference asks us, …"
         },
         {
           "subject": "But for + danh từ",
           "form": "But for public support, even the best law would fail.",
-          "negative": "(tự nó đã mang nghĩa \"nếu không có\")"
+          "negative": "If it weren't for public support, …"
         }
       ],
       "mistakes": [
@@ -514,7 +519,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "But for the volunteers helped, the beaches would have closed.",
           "sentence": "But for the volunteers, the beaches would have closed.",
-          "explanationVi": "But for đi với danh từ, không đi với cả một mệnh đề."
+          "explanationVi": "But for đi với danh từ, không đi với cả một mệnh đề.",
+          "answers": [
+            "But for the volunteers' help, the beaches would have closed."
+          ]
         },
         {
           "kind": "reorder",
@@ -532,7 +540,10 @@
             "fail.",
             "will"
           ],
-          "explanationVi": "But for + danh từ, rồi would + V; từ \"will\" bị thừa."
+          "explanationVi": "But for + danh từ, rồi would + V; từ \"will\" bị thừa.",
+          "answers": [
+            "The law would fail but for public support."
+          ]
         }
       ]
     },
@@ -564,19 +575,23 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu điều kiện đảo ngữ (Were… to / Had… / Should… / But for…)",
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện đảo ngữ (But for… / Had we/they… + V3 / Had it not been… / Were it not for… / Were we to… / Should you…)",
       "anyOf": [
-        "Were ",
-        "Had ",
-        "Should ",
-        "But for"
+        "but for",
+        "had it not",
+        "were it not",
+        "had we",
+        "had they",
+        "had i",
+        "were we to",
+        "should you"
       ],
       "outlineVi": [
         "Nêu vấn đề ô nhiễm nhựa ở nơi bạn sống.",
         "So sánh hai chính sách bằng Were… to và Should….",
         "Kết luận bằng On the whole và đề xuất kết hợp các biện pháp."
       ],
-      "modelAnswer": "Plastic waste is a serious problem on the beaches near my town. Were the town to ban plastic bags, the amount of rubbish would fall quickly. However, shops would need cheap alternatives. Should the town introduce a deposit scheme instead, people would return bottles, but it would be expensive to run. On the whole, a ban combined with an awareness campaign seems the best solution."
+      "modelAnswer": "Plastic waste is a serious problem on the beaches near my town. Were we to ban plastic bags, the amount of rubbish would fall quickly. However, shops would need cheap alternatives. Should the town introduce a deposit scheme instead, people would return bottles, but it would be expensive to run. On the whole, a ban combined with an awareness campaign seems the best solution."
     }
   },
   "glosses": [

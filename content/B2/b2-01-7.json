@@ -441,21 +441,26 @@
       "answerIndex": 0,
       "explanationVi": "Not only đứng đầu câu: did + they + copy (động từ nguyên mẫu); vế but also giữ trật tự bình thường.",
       "whenVi": "Dùng khi muốn bày tỏ sự ngạc nhiên, ngưỡng mộ một cách mạnh mẽ, ví dụ trong bài đánh giá, bài viết du lịch.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "Không nói"
+      ],
       "table": [
         {
-          "subject": "Never / Seldom + HTHT",
-          "form": "Never have I seen … / Seldom have I felt …",
-          "negative": "have / has + chủ ngữ + V3"
+          "subject": "Never / Seldom + have + S + V3",
+          "form": "Never have I seen such detailed carving in stone.",
+          "negative": "Never I have seen such detailed carving in stone."
         },
         {
-          "subject": "Rarely / Only now + hiện tại đơn",
-          "form": "Rarely do you see … / Only now do I understand …",
-          "negative": "do / does + chủ ngữ + V"
+          "subject": "Rarely / Only now + do + S + V",
+          "form": "Rarely do you see such fine work.",
+          "negative": "Rarely you see such fine work."
         },
         {
-          "subject": "Not only … but also",
-          "form": "Not only did they copy …, but they also created …",
-          "negative": "Chỉ đảo ngữ ở vế Not only."
+          "subject": "Not only + did + S + V",
+          "form": "Not only did they copy Indian styles, but they also created their own.",
+          "negative": "Not only they copied Indian styles, but they also created their own."
         }
       ],
       "mistakes": [
@@ -475,9 +480,10 @@
           "promptVi": "Điền một trợ động từ.",
           "text": "Seldom ___ I felt so close to the past.",
           "answers": [
-            "have"
+            "have",
+            "had"
           ],
-          "explanationVi": "Seldom + have + I + felt."
+          "explanationVi": "Seldom + have / had + I + felt (đảo ngữ hiện tại hoàn thành hoặc quá khứ hoàn thành)."
         },
         {
           "kind": "choice",
@@ -485,7 +491,7 @@
           "text": "Only now ___ I understand why people love this museum.",
           "options": [
             "do",
-            "did",
+            "does",
             "have",
             "am"
           ],
@@ -494,14 +500,14 @@
         },
         {
           "kind": "fix",
-          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "promptVi": "Câu sau có một lỗi đảo ngữ. Hãy viết lại cho đúng, vẫn bắt đầu bằng \"Never\".",
           "text": "Never I have seen such detailed carving.",
           "sentence": "Never have I seen such detailed carving.",
           "explanationVi": "Sau Never đầu câu phải đảo: have I seen."
         },
         {
           "kind": "reorder",
-          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "promptVi": "Sắp xếp thành câu đảo ngữ, bắt đầu bằng \"Rarely\".",
           "text": "Hiếm khi bạn thấy tác phẩm tinh xảo như vậy.",
           "sentence": "Rarely do you see such fine work.",
           "words": [
@@ -546,16 +552,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never have I …, Rarely do you …, Not only … but also …)",
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never have I …, Rarely do you …, Not only are / did …, Only now do …)",
       "anyOf": [
-        "Never have",
-        "Never had",
-        "Rarely",
-        "Seldom",
-        "Not only",
-        "Only now",
-        "Only then",
-        "Not until"
+        "never have i",
+        "rarely do you",
+        "rarely have i",
+        "seldom have i",
+        "not only are",
+        "not only is",
+        "not only did",
+        "only now do"
       ],
       "outlineVi": [
         "Bảo tàng ở đâu, có gì nổi bật.",

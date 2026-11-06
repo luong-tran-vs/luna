@@ -471,26 +471,36 @@
       "answerIndex": 0,
       "explanationVi": "Điều trái với quá khứ: Had + chủ ngữ + V3 (Had the provinces protected). Không dùng Did hay Were với V3 để đảo ngữ trong trường hợp này.",
       "whenVi": "Dùng trong văn viết và bài nói trang trọng (báo cáo, hội thảo, thư công việc) để đưa ra giả định mà không cần \"if\"; nghe chặt chẽ và chuyên nghiệp hơn.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu với if"
+      ],
       "table": [
         {
           "subject": "Should + S + V",
-          "form": "Should sea levels rise, … (= If sea levels rise)",
-          "negative": "Should the plan not work, … "
+          "form": "Should sea levels rise, whole villages could be lost.",
+          "negative": "If sea levels rise, …"
         },
         {
-          "subject": "Were + S + to V / Were + S",
-          "form": "Were the government to fund…, … would… (= If the government funded)",
-          "negative": "Were it not for the charities, … "
+          "subject": "Were + S + to V",
+          "form": "Were the government to fund the programmes, people would stay.",
+          "negative": "If the government funded the programmes, …"
         },
         {
           "subject": "Had + S + V3",
-          "form": "Had the provinces protected…, … would have / would be…",
-          "negative": "Had they not acted, … "
+          "form": "Had the provinces protected the land, farmers would be better off now.",
+          "negative": "If the provinces had protected the land, …"
         },
         {
           "subject": "But for + danh từ",
-          "form": "But for the work of a few charities, … would have…",
-          "negative": "(không có dạng phủ định; bản thân nó đã nghĩa là \"nếu không có\")"
+          "form": "But for the work of a few charities, the villages would have disappeared.",
+          "negative": "If it hadn't been for a few charities, …"
+        },
+        {
+          "subject": "Were it not for + danh từ",
+          "form": "Were it not for the charities, many families would have left.",
+          "negative": "If it weren't for the charities, …"
         }
       ],
       "mistakes": [
@@ -507,7 +517,7 @@
       "exercises": [
         {
           "kind": "fill",
-          "promptVi": "Điền một từ vào chỗ trống.",
+          "promptVi": "Điền một từ để tạo câu điều kiện đảo ngữ.",
           "text": "___ the provinces protected the forests, the coast would be safer today.",
           "answers": [
             "Had"
@@ -532,7 +542,10 @@
           "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
           "text": "Were the government fund training, people might stay.",
           "sentence": "Were the government to fund training, people might stay.",
-          "explanationVi": "Were + chủ ngữ + to V: phải có \"to\" trước fund."
+          "explanationVi": "Were + chủ ngữ + to V: phải có \"to\" trước fund.",
+          "answers": [
+            "Should the government fund training, people might stay."
+          ]
         },
         {
           "kind": "reorder",
@@ -551,7 +564,10 @@
             "disappeared.",
             "if"
           ],
-          "explanationVi": "But for + danh từ, rồi mệnh đề chính would have + V3; từ \"if\" bị thừa."
+          "explanationVi": "But for + danh từ, rồi mệnh đề chính would have + V3; từ \"if\" bị thừa.",
+          "answers": [
+            "The village would have disappeared but for the charities."
+          ]
         }
       ]
     },
@@ -583,19 +599,23 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu điều kiện đảo ngữ (Were… to / Had… V3 / Should… / But for…)",
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện đảo ngữ (But for… / Had we/they… + V3 / Had it not been… / Were it not for… / Were we to… / Should you…)",
       "anyOf": [
-        "Were ",
-        "Had ",
-        "Should ",
-        "But for"
+        "but for",
+        "had it not",
+        "were it not",
+        "had we",
+        "had they",
+        "had i",
+        "were we to",
+        "should you"
       ],
       "outlineVi": [
         "Nêu vấn đề toàn cầu và nó ảnh hưởng đến nước bạn ra sao.",
         "Đưa ra một giả định về quá khứ hoặc tương lai bằng câu đảo ngữ.",
         "Kết luận bằng On the whole hoặc In short và đề xuất một giải pháp."
       ],
-      "modelAnswer": "Rising sea levels are a serious threat to the Mekong Delta. Salt water is ruining rice fields, and many young people have already moved to the cities. Had the government protected the mangrove forests earlier, the coast would be much safer today. Furthermore, should the sea rise another half a metre, millions of people could lose their homes. On the whole, I think we need a solution that supports people both in the delta and in the cities."
+      "modelAnswer": "Rising sea levels are a serious threat to the Mekong Delta. Salt water is ruining rice fields, and many young people have already moved to the cities. Had we protected the mangrove forests earlier, the coast would be much safer today. Furthermore, should the sea rise another half a metre, millions of people could lose their homes. On the whole, I think we need a solution that supports people both in the delta and in the cities."
     }
   },
   "glosses": [

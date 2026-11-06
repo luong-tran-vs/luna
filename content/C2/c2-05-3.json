@@ -1,0 +1,617 @@
+{
+  "content": "Last Thursday evening, nearly two hundred residents crowded into a community hall in Da Nang to hear about one of the most controversial plans the city has seen in years. A developer called Hai Dang Group wants to build a four-hundred-room resort at Bai Rang, a small cove whose waters shelter one of the last healthy coral reefs on this stretch of coast.\n\nThe developer's case is easy to understand. The resort would create around a thousand jobs, and the company has promised a new road and a clinic. \"Ambitious as the plan is, it is exactly what this ward needs,\" said Mr Loc, the deputy chairman of the ward, who opened the meeting. \"Our young people are leaving for Ho Chi Minh City because there is no work here.\"\n\nNot everyone was convinced. Ms Tuyet, a marine biologist who has studied the cove for twelve years, showed photographs of the reef. \"Admittedly, the resort would bring money, but money cannot rebuild a reef,\" she said. \"Coral grows a few centimetres a year at most. Once the ecosystem is damaged by construction and sewage, the loss is irreversible.\"\n\nThe sharpest words came from the fishermen. Mr Sang, whose family has fished at Bai Rang for four generations, said that his livelihood depended on the reef. \"Much as I want jobs for my grandchildren, I don't want them working as waiters beside a dead sea,\" he said, and the hall applauded.\n\nThe developer's representative insisted that the project would be sustainable. \"We will build a conservation centre and limit the number of boats,\" she promised. Ms Tuyet was unimpressed. \"For all its green promises, the plan still puts a sewage pipe two hundred metres from the coral. Companies rationalise damage like this all the time: a little harm now, they say, for a lot of good later.\"\n\nIs there a middle way? Mr Loc, ever the pragmatic official, suggested a smaller resort further inland, away from the water. \"Every decision is a trade-off,\" he said. Mr Sang nodded slowly. \"Be that as it may, some things are a matter of principle, not of price.\"\n\nThe city will make its decision next spring. Hard as it is to predict the outcome, one thing was clear on Thursday: the people of Bai Rang will not stay silent.",
+  "targetWords": [
+    "coral reef",
+    "ecosystem",
+    "irreversible",
+    "sustainable",
+    "conservation",
+    "rationalise",
+    "pragmatic",
+    "trade-off",
+    "principle"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "coral reefs",
+        "lemma": "coral reef",
+        "meaningVi": "rạn san hô",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "ecosystem",
+        "lemma": "ecosystem",
+        "meaningVi": "hệ sinh thái",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "irreversible",
+        "lemma": "irreversible",
+        "meaningVi": "không thể đảo ngược, không thể khôi phục",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "sustainable",
+        "lemma": "sustainable",
+        "meaningVi": "bền vững",
+        "pos": "adjective",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "conservation",
+        "lemma": "conservation",
+        "meaningVi": "sự bảo tồn",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "rationalise",
+        "lemma": "rationalise",
+        "meaningVi": "hợp lý hoá, biện bạch cho (việc sai)",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "pragmatic",
+        "lemma": "pragmatic",
+        "meaningVi": "thực tế, thực dụng",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "trade-off",
+        "lemma": "trade-off",
+        "meaningVi": "sự đánh đổi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "principle",
+        "lemma": "principle",
+        "meaningVi": "nguyên tắc",
+        "pos": "noun",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the article mainly about?",
+        "promptVi": "Bài báo chủ yếu nói về điều gì?",
+        "options": [
+          "A public meeting about a resort that could harm a coral reef",
+          "The opening of a new hotel in Da Nang",
+          "A fishing competition at Bai Rang",
+          "Young people moving to Ho Chi Minh City"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Người dân họp để nghe về kế hoạch xây khu nghỉ dưỡng ở Bãi Rạng, nơi có một rạn san hô khoẻ mạnh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Mr Loc support the plan at first?",
+        "promptVi": "Vì sao lúc đầu ông Lộc ủng hộ kế hoạch?",
+        "options": [
+          "Because he owns land at Bai Rang",
+          "Because young people are leaving the area for lack of work",
+          "Because the reef is already dead",
+          "Because the fishermen asked for it"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Lộc nói \"Our young people are leaving for Ho Chi Minh City because there is no work here.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What worries Ms Tuyet most about the developer's plan?",
+        "promptVi": "Điều gì trong kế hoạch khiến bà Tuyết lo nhất?",
+        "options": [
+          "The number of rooms",
+          "The new road",
+          "A sewage pipe near the coral",
+          "The price of the hotel rooms"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà nói kế hoạch \"still puts a sewage pipe two hundred metres from the coral.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Sang's family has fished at Bai Rang for four generations.",
+        "promptVi": "Gia đình ông Sang đã đánh cá ở Bãi Rạng được bốn đời.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng: \"whose family has fished at Bai Rang for four generations\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"unimpressed\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Ms Tuyet was unimpressed.",
+        "options": [
+          "không bị thuyết phục, không thấy ấn tượng",
+          "rất vui mừng",
+          "sợ hãi",
+          "mệt mỏi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Unimpressed = không thấy ấn tượng, không tin. Bà Tuyết không tin vào lời hứa của chủ đầu tư."
+      }
+    ],
+    "grammarNote": {
+      "title": "Nhượng bộ và nhấn mạnh",
+      "bodyVi": "Trong một cuộc tranh luận công khai, người nói thừa nhận lý lẽ bên kia rồi mới phản bác. (1) Tính từ + as + chủ ngữ + be: Ambitious as the plan is, … ; Hard as it is to predict…, … (dù…). (2) Admittedly, …, but …: Admittedly, the resort would bring money, but… (3) Much as + mệnh đề: Much as I want jobs…, I don't want… (4) For all + cụm danh từ: For all its green promises (dù có bao nhiêu lời hứa xanh). (5) Be that as it may mở đầu câu mới, đáp lại ý vừa được nêu: \"Every decision is a trade-off.\" – \"Be that as it may, …\".",
+      "examples": [
+        "\"Ambitious as the plan is, it is exactly what this ward needs,\" said Mr Loc, the deputy chairman of the ward, who opened the meeting.",
+        "\"Admittedly, the resort would bring money, but money cannot rebuild a reef,\" she said.",
+        "\"Much as I want jobs for my grandchildren, I don't want them working as waiters beside a dead sea,\" he said, and the hall applauded.",
+        "\"For all its green promises, the plan still puts a sewage pipe two hundred metres from the coral.",
+        "\"Be that as it may, some things are a matter of principle, not of price.\"",
+        "Hard as it is to predict the outcome, one thing was clear on Thursday: the people of Bai Rang will not stay silent."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph giving your opinion about a building project that brings jobs but harms nature. Admit the benefits first, using at least two concession structures (Much as…, Ambitious as… is, Admittedly… but, For all…, Be that as it may).",
+    "sentenceTranslations": [
+      "Tối thứ Năm tuần trước, gần hai trăm người dân chen chúc trong một hội trường ở Đà Nẵng để nghe về một trong những kế hoạch gây tranh cãi nhất mà thành phố chứng kiến trong nhiều năm qua.",
+      "Một chủ đầu tư tên là Tập đoàn Hải Đăng muốn xây một khu nghỉ dưỡng bốn trăm phòng ở Bãi Rạng, một vịnh nhỏ mà vùng nước của nó che chở cho một trong những rạn san hô khoẻ mạnh cuối cùng trên dải bờ biển này.",
+      "Lý lẽ của chủ đầu tư rất dễ hiểu.",
+      "Khu nghỉ dưỡng sẽ tạo ra khoảng một nghìn việc làm, và công ty đã hứa xây một con đường mới cùng một trạm y tế.",
+      "Ông Lộc, phó chủ tịch phường, người khai mạc cuộc họp, nói: \"Dù kế hoạch này đầy tham vọng, nó chính là điều phường ta đang cần.",
+      "Thanh niên của chúng ta đang bỏ vào Thành phố Hồ Chí Minh vì ở đây không có việc làm.\"",
+      "Không phải ai cũng bị thuyết phục.",
+      "Bà Tuyết, một nhà sinh vật biển đã nghiên cứu vịnh này mười hai năm, cho mọi người xem ảnh chụp rạn san hô.",
+      "Bà nói: \"Phải thừa nhận là khu nghỉ dưỡng sẽ mang lại tiền, nhưng tiền không thể dựng lại một rạn san hô.",
+      "San hô mỗi năm chỉ lớn được vài xăng-ti-mét là cùng.",
+      "Một khi hệ sinh thái bị việc xây dựng và nước thải phá hỏng, sự mất mát ấy không thể đảo ngược.\"",
+      "Những lời gay gắt nhất đến từ các ngư dân.",
+      "Ông Sang, người có gia đình đánh cá ở Bãi Rạng đã bốn đời, nói rằng sinh kế của ông phụ thuộc vào rạn san hô.",
+      "Ông nói: \"Dù rất muốn các cháu tôi có việc làm, tôi không muốn chúng đi làm bồi bàn bên một vùng biển chết\", và cả hội trường vỗ tay.",
+      "Người đại diện của chủ đầu tư khẳng định dự án sẽ bền vững.",
+      "Bà hứa: \"Chúng tôi sẽ xây một trung tâm bảo tồn và hạn chế số lượng thuyền.\"",
+      "Bà Tuyết không mấy ấn tượng.",
+      "\"Dù hứa hẹn xanh đủ điều, kế hoạch vẫn đặt một đường ống nước thải cách san hô có hai trăm mét.",
+      "Các công ty lúc nào cũng hợp lý hoá kiểu tàn phá này: họ bảo bây giờ hại một chút để sau này được lợi nhiều.\"",
+      "Liệu có con đường trung dung nào không?",
+      "Ông Lộc, vốn là một cán bộ thực tế, đề xuất một khu nghỉ dưỡng nhỏ hơn, lùi sâu vào đất liền, cách xa mặt nước.",
+      "Ông nói: \"Quyết định nào cũng là một sự đánh đổi.\"",
+      "Ông Sang chậm rãi gật đầu.",
+      "\"Dù vậy đi nữa, có những thứ là chuyện nguyên tắc, không phải chuyện giá cả.\"",
+      "Thành phố sẽ đưa ra quyết định vào mùa xuân tới.",
+      "Dù khó đoán được kết quả, có một điều đã rõ vào tối thứ Năm: người dân Bãi Rạng sẽ không im lặng."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể cân nhắc lợi ích kinh tế và cái giá môi trường của một dự án, thừa nhận ý bên kia rồi phản bác bằng Much as…, Ambitious as it is…, For all…, Be that as it may.",
+    "examples": [
+      {
+        "lemma": "coral reef",
+        "sentence": "Divers come from all over the world to see this coral reef.",
+        "meaningVi": "Thợ lặn từ khắp thế giới đến để ngắm rạn san hô này."
+      },
+      {
+        "lemma": "ecosystem",
+        "sentence": "Plastic waste is slowly destroying the river's ecosystem.",
+        "meaningVi": "Rác thải nhựa đang dần phá huỷ hệ sinh thái của dòng sông."
+      },
+      {
+        "lemma": "irreversible",
+        "sentence": "Some damage to the forest may already be irreversible.",
+        "meaningVi": "Một số thiệt hại đối với khu rừng có thể đã không thể khôi phục."
+      },
+      {
+        "lemma": "sustainable",
+        "sentence": "The village wants a more sustainable way of fishing.",
+        "meaningVi": "Ngôi làng muốn có một cách đánh bắt cá bền vững hơn."
+      },
+      {
+        "lemma": "conservation",
+        "sentence": "She works for a wildlife conservation group in the Central Highlands.",
+        "meaningVi": "Cô làm việc cho một nhóm bảo tồn động vật hoang dã ở Tây Nguyên."
+      },
+      {
+        "lemma": "rationalise",
+        "sentence": "People often rationalise bad habits by saying everyone does them.",
+        "meaningVi": "Người ta thường biện bạch cho thói quen xấu bằng cách nói ai cũng làm vậy."
+      },
+      {
+        "lemma": "pragmatic",
+        "sentence": "We need a pragmatic solution, not a perfect one.",
+        "meaningVi": "Chúng ta cần một giải pháp thực tế, không phải một giải pháp hoàn hảo."
+      },
+      {
+        "lemma": "trade-off",
+        "sentence": "Living in the city is a trade-off between salary and fresh air.",
+        "meaningVi": "Sống ở thành phố là sự đánh đổi giữa tiền lương và không khí trong lành."
+      },
+      {
+        "lemma": "principle",
+        "sentence": "He refused the money as a matter of principle.",
+        "meaningVi": "Ông từ chối số tiền ấy vì nguyên tắc."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Mr Sang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mr Sang, I'm writing about the meeting for a student newspaper. Can I ask you a few questions?",
+          "meaningVi": "Bác Sang ơi, cháu đang viết về cuộc họp cho một tờ báo sinh viên. Cháu hỏi bác vài câu được không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Go ahead. Tired as I am, I'm happy to talk about the reef.",
+          "meaningVi": "Cháu cứ hỏi. Dù mệt, bác vẫn vui lòng nói về rạn san hô."
+        },
+        {
+          "speaker": 0,
+          "text": "Are you against any development at all?",
+          "meaningVi": "Bác có phản đối mọi sự phát triển không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. Admittedly, our road is terrible, but a road doesn't need four hundred rooms next to the coral.",
+          "meaningVi": "Không. Phải thừa nhận là đường làng bác tệ thật, nhưng làm đường đâu cần bốn trăm phòng ngay cạnh san hô."
+        },
+        {
+          "speaker": 0,
+          "text": "What did you think of Mr Loc's idea of a smaller resort inland?",
+          "meaningVi": "Bác nghĩ sao về ý tưởng khu nghỉ dưỡng nhỏ hơn lùi vào đất liền của ông Lộc?"
+        },
+        {
+          "speaker": 1,
+          "text": "Much as I disagreed with him at first, that idea makes sense.",
+          "meaningVi": "Dù lúc đầu bác không đồng ý với ông ấy, ý đó cũng hợp lý."
+        },
+        {
+          "speaker": 0,
+          "text": "And the conservation centre the company promised?",
+          "meaningVi": "Còn trung tâm bảo tồn mà công ty đã hứa thì sao ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Nice idea. Be that as it may, a centre can't clean a sewage pipe.",
+          "meaningVi": "Ý tưởng hay đấy. Dù vậy, một trung tâm không làm sạch được đường ống nước thải."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you, Mr Sang. I'll send you the article next week.",
+          "meaningVi": "Cháu cảm ơn bác Sang. Tuần sau cháu sẽ gửi bác bài báo."
+        }
+      ]
+    },
+    "grammarTipVi": "Tính từ + as + chủ ngữ + be: Tired as I am, … Admittedly, …, but … Much as I disagreed with him, … (không thêm but). Be that as it may mở đầu câu mới sau khi đã công nhận ý vừa nói (Nice idea. Be that as it may, …).",
+    "translations": [
+      {
+        "vi": "Một khi rạn san hô chết, thiệt hại là không thể đảo ngược.",
+        "en": "Once the coral reefs die, the damage is irreversible.",
+        "distractors": [
+          "dies",
+          "reversible",
+          "until"
+        ],
+        "accepted": [
+          "The damage is irreversible once the coral reefs die."
+        ]
+      },
+      {
+        "vi": "Dù rất muốn có việc làm, chúng tôi cần một kế hoạch bền vững.",
+        "en": "Much as we want jobs, we need a sustainable plan.",
+        "distractors": [
+          "but",
+          "sustain",
+          "wants"
+        ],
+        "accepted": [
+          "We need a sustainable plan, much as we want jobs."
+        ]
+      },
+      {
+        "vi": "Cả hệ sinh thái phụ thuộc vào rạn san hô.",
+        "en": "The whole ecosystem depends on the reef.",
+        "distractors": [
+          "depend",
+          "in",
+          "whom"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Quyết định nào cũng là một sự đánh đổi.",
+        "en": "Every decision is a trade-off.",
+        "distractors": [
+          "are",
+          "decisions",
+          "trade-offs"
+        ],
+        "accepted": []
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy và ông Sang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Ý kiến của ông Sang về dự án khu nghỉ dưỡng sau cuộc họp",
+          "Giá cá ngoài chợ",
+          "Việc Vy tìm việc ở Đà Nẵng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy viết bài về cuộc họp và hỏi ông Sang nghĩ gì về dự án.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Sang nghĩ gì về ý tưởng của ông Lộc?",
+        "promptVi": "",
+        "options": [
+          "Ý đó hợp lý, dù lúc đầu ông không đồng ý",
+          "Ý đó hoàn toàn vô lý",
+          "Ông chưa nghe ý đó"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói \"Much as I disagreed with him at first, that idea makes sense.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao ông Sang không tin vào trung tâm bảo tồn?",
+        "promptVi": "",
+        "options": [
+          "Vì một trung tâm không làm sạch được đường ống nước thải",
+          "Vì nó quá đắt",
+          "Vì nó ở quá xa làng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói \"a centre can't clean a sewage pipe.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Sang is against all development in his village.",
+        "promptVi": "Ông Sang phản đối mọi sự phát triển ở làng mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Vy hỏi, ông trả lời \"No\" và nói đường làng cần được làm.",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong cuộc họp (ông Lộc, bà Tuyết, ông Sang, đại diện công ty) đưa ra lý lẽ gì? Họ thừa nhận điều gì trước khi phản bác?",
+    "grammarStep": {
+      "titleVi": "Nhượng bộ và nhấn mạnh",
+      "noticing": [
+        {
+          "sentence": "\"Ambitious as the plan is, it is exactly what this ward needs,\" said Mr Loc, the deputy chairman of the ward, who opened the meeting.",
+          "highlights": [
+            "Ambitious as the plan is"
+          ]
+        },
+        {
+          "sentence": "\"Admittedly, the resort would bring money, but money cannot rebuild a reef,\" she said.",
+          "highlights": [
+            "Admittedly",
+            "but"
+          ]
+        },
+        {
+          "sentence": "\"Much as I want jobs for my grandchildren, I don't want them working as waiters beside a dead sea,\" he said, and the hall applauded.",
+          "highlights": [
+            "Much as I want jobs for my grandchildren"
+          ]
+        },
+        {
+          "sentence": "\"For all its green promises, the plan still puts a sewage pipe two hundred metres from the coral.",
+          "highlights": [
+            "For all its green promises"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"Dù hứa hẹn xanh đủ điều, kế hoạch vẫn gây hại cho san hô.\" Câu nào đúng?",
+      "options": [
+        "For all its green promises, the plan still harms the coral.",
+        "For all it promises green, but the plan still harms the coral.",
+        "For its all green promises, the plan still harms the coral."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "For all + cụm danh từ (its green promises), rồi đến mệnh đề chính, không thêm but. For all đứng liền nhau, trước từ hạn định its.",
+      "whenVi": "Dùng trong họp dân, tranh luận chính sách hay bài báo bình luận, khi bạn muốn tỏ ra công bằng với phía bên kia trước khi nêu phản đối.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
+      "table": [
+        {
+          "subject": "Tính từ + as + S + be",
+          "form": "Ambitious as the plan is, it is what we need.",
+          "negative": "Although the plan is ambitious, it is what we need."
+        },
+        {
+          "subject": "Admittedly, …, but …",
+          "form": "Admittedly, it brings money, but money can't rebuild a reef.",
+          "negative": "It's true that it brings money, but money can't rebuild a reef."
+        },
+        {
+          "subject": "Much as + mệnh đề",
+          "form": "Much as I want jobs, I want the reef too.",
+          "negative": "Although I want jobs, I want the reef too."
+        },
+        {
+          "subject": "For all + cụm danh từ",
+          "form": "For all its green promises, the plan harms the coral.",
+          "negative": "Despite its green promises, the plan harms the coral."
+        },
+        {
+          "subject": "Be that as it may, …",
+          "form": "It's a trade-off. Be that as it may, the reef can't be replaced.",
+          "negative": "It's a trade-off. Even so, the reef can't be replaced."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Ambitious as is the plan, it is what we need.",
+          "right": "Ambitious as the plan is, it is what we need."
+        },
+        {
+          "wrong": "For all it has green promises, the plan harms the coral.",
+          "right": "For all its green promises, the plan harms the coral."
+        },
+        {
+          "wrong": "Much as I want jobs, but I want the reef too.",
+          "right": "Much as I want jobs, I want the reef too."
+        }
+      ],
+      "noteVi": "For all đi với cụm danh từ, không đi với mệnh đề. Sau tính từ + as, chủ ngữ đứng trước động từ. Much as và For all đã mang nghĩa nhượng bộ nên vế sau không dùng but.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "For ___ its green promises, the plan still harms the reef.",
+          "answers": [
+            "all"
+          ],
+          "explanationVi": "For all + cụm danh từ = dù có…, mặc dù…"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ the resort would bring money, but money cannot rebuild a reef.",
+          "options": [
+            "Admittedly,",
+            "Much as",
+            "For all",
+            "Be that as it may,"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Admittedly, …, but … : thừa nhận trước rồi phản bác bằng but. Much as và For all không đi với but ở vế sau."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Ambitious as is the plan, it is what we need.",
+          "sentence": "Ambitious as the plan is, it is what we need.",
+          "explanationVi": "Sau tính từ + as, giữ trật tự chủ ngữ + động từ: the plan is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Dù rất muốn có việc làm, tôi không muốn một vùng biển chết.",
+          "sentence": "Much as I want jobs, I don't want a dead sea.",
+          "words": [
+            "Much",
+            "as",
+            "I",
+            "want",
+            "jobs,",
+            "I",
+            "don't",
+            "want",
+            "a",
+            "dead",
+            "sea.",
+            "but"
+          ],
+          "explanationVi": "Much as + mệnh đề, rồi mệnh đề chính; không dùng but nên từ \"but\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Is there a middle way?",
+        "tipVi": "Câu hỏi có/không: lên giọng ở cuối, nhấn vào \"middle way\"."
+      },
+      {
+        "text": "\"Every decision is a trade-off,\" he said.",
+        "tipVi": "Nhấn vào trade-off /ˈtreɪd ɒf/, trọng âm ở \"trade\"; hạ giọng ở \"he said\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a place in your hometown that has changed because of tourism?",
+        "questionVi": "Ở quê bạn có nơi nào đã thay đổi vì du lịch không?",
+        "frame": "Much as tourism has ___, it has also ___."
+      },
+      {
+        "question": "Would you support a project that brings jobs but harms nature?",
+        "questionVi": "Bạn có ủng hộ một dự án mang lại việc làm nhưng gây hại cho thiên nhiên không?",
+        "frame": "Admittedly, ___, but ___."
+      },
+      {
+        "question": "What is one thing you would never trade for money?",
+        "questionVi": "Có điều gì bạn không bao giờ đánh đổi lấy tiền?",
+        "frame": "For all the money in the world, I would never ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc nhượng bộ (Much as… / Admittedly…, but / Be that as it may / Strange as it may seem… / For all its… / Try as I might)",
+      "anyOf": [
+        "much as",
+        "admittedly",
+        "be that as it may",
+        "as it may seem",
+        "as it may sound",
+        "for all its",
+        "for all their",
+        "try as i might"
+      ],
+      "outlineVi": [
+        "Giới thiệu dự án và lợi ích mà nó hứa hẹn.",
+        "Thừa nhận lợi ích (Admittedly…, Much as…), rồi nêu cái giá đối với thiên nhiên và người dân.",
+        "Đề xuất một giải pháp trung dung, có thể dùng Be that as it may."
+      ],
+      "modelAnswer": "A company wants to build a golf course on the hills near my hometown. Admittedly, it would bring jobs and new roads, but it would also use huge amounts of water during the dry season. Much as I want my town to grow, I don't believe a golf course is the answer. For all the company's promises, farmers will be the first to suffer. Development is necessary. Be that as it may, the project should be smaller and use recycled water."
+    }
+  },
+  "glosses": [
+    {
+      "text": "cove",
+      "lemma": "cove",
+      "meaningVi": "vịnh nhỏ, vũng biển nhỏ",
+      "pos": "noun",
+      "phrase": "a small cove whose waters shelter",
+      "phraseVi": "một vịnh nhỏ mà vùng nước của nó che chở",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "sewage",
+      "lemma": "sewage",
+      "meaningVi": "nước thải",
+      "pos": "noun",
+      "phrase": "damaged by construction and sewage",
+      "phraseVi": "bị việc xây dựng và nước thải phá hỏng",
+      "sentenceIndex": 10
+    },
+    {
+      "text": "applauded",
+      "lemma": "applaud",
+      "meaningVi": "vỗ tay hoan nghênh",
+      "pos": "verb",
+      "phrase": "the hall applauded",
+      "phraseVi": "cả hội trường vỗ tay",
+      "sentenceIndex": 13
+    },
+    {
+      "text": "unimpressed",
+      "lemma": "unimpressed",
+      "meaningVi": "không thấy ấn tượng, không bị thuyết phục",
+      "pos": "adjective",
+      "phrase": "Ms Tuyet was unimpressed",
+      "phraseVi": "bà Tuyết không mấy ấn tượng",
+      "sentenceIndex": 16
+    },
+    {
+      "text": "inland",
+      "lemma": "inland",
+      "meaningVi": "sâu vào đất liền",
+      "pos": "adverb",
+      "phrase": "a smaller resort further inland",
+      "phraseVi": "một khu nghỉ dưỡng nhỏ hơn, lùi sâu vào đất liền",
+      "sentenceIndex": 20
+    }
+  ]
+}

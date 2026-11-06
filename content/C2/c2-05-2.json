@@ -1,0 +1,636 @@
+{
+  "content": "In a quiet bookshop café near Hoan Kiem Lake, Professor Diep, who teaches philosophy at a university in Hanoi, is meeting Quan, a software engineer who helped to build a triage system for Hong Ha General Hospital. The system reads patients' records and decides who should be seen first in the emergency department.\n\n\"I'll be honest, I expected a lecture,\" Quan says with a smile. \"Our system has cut waiting times by forty per cent. Isn't that a moral achievement in itself?\"\n\"Impressive as those figures are, numbers alone can't settle an ethical question,\" Diep replies. \"Yours is a very utilitarian argument. Bentham would say that an action is right if it brings the greatest happiness to the greatest number.\"\n\"And what's wrong with that? Hospitals have a limited number of doctors.\"\n\"Nothing, until you ask who pays the price. Admittedly, the algorithm is faster than any nurse, but it learned from old records, and old records carry old prejudice. If poorer patients were overlooked in the past, the machine may learn to overlook them too.\"\n\"We tested for bias, of course. Try as we might, though, we couldn't remove it completely.\"\n\"Then who takes responsibility when a patient is sent home and dies? The doctor, the hospital, or you?\"\nQuan hesitates. He has asked himself that question many times, and he still doesn't have an answer. \"Much as I'd like to say the doctor, I know most of them simply follow the screen.\"\n\"Kant argued that we should always treat people as ends, never merely as means. A patient is not a data point to be optimised. And did these patients ever give their consent for their records to be used?\"\n\"They signed a form on admission. Be that as it may, I doubt anyone read it.\"\n\"So their autonomy was respected only on paper.\"\n\"Fine, but can you justify sending everyone back to long queues just to keep our hands clean? That has consequences too.\"\nDiep laughs and shakes her head. \"Fair enough, and I'm not asking you to switch it off. Useful as the system is, it should advise doctors, not replace their judgement. Let them see why it ranks a patient low, and let them overrule it.\"\nQuan takes out his notebook. \"Would you say that to our board next month?\"",
+  "targetWords": [
+    "moral",
+    "ethical",
+    "utilitarian",
+    "prejudice",
+    "bias",
+    "responsibility",
+    "consent",
+    "autonomy",
+    "justify",
+    "consequence"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "moral",
+        "lemma": "moral",
+        "meaningVi": "thuộc về đạo đức",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "ethical",
+        "lemma": "ethical",
+        "meaningVi": "thuộc về đạo đức, hợp đạo đức",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "utilitarian",
+        "lemma": "utilitarian",
+        "meaningVi": "vị lợi (đặt lợi ích chung lên hàng đầu)",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "prejudice",
+        "lemma": "prejudice",
+        "meaningVi": "định kiến",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "bias",
+        "lemma": "bias",
+        "meaningVi": "sự thiên lệch, thiên vị",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "responsibility",
+        "lemma": "responsibility",
+        "meaningVi": "trách nhiệm",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "consent",
+        "lemma": "consent",
+        "meaningVi": "sự đồng ý, ưng thuận",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "autonomy",
+        "lemma": "autonomy",
+        "meaningVi": "quyền tự quyết, sự tự chủ",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "justify",
+        "lemma": "justify",
+        "meaningVi": "biện minh, chứng minh là đúng",
+        "pos": "verb",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "consequences",
+        "lemma": "consequence",
+        "meaningVi": "hậu quả",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Diep and Quan mainly discussing?",
+        "promptVi": "Bà Diệp và Quân chủ yếu bàn về điều gì?",
+        "options": [
+          "The ethical problems of a computer system that ranks hospital patients",
+          "How to train more nurses for the hospital",
+          "Which philosopher is the most famous",
+          "The price of software in Vietnam"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn về hệ thống phân loại bệnh nhân quyết định \"who should be seen first\" và các vấn đề đạo đức của nó."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why might the algorithm treat poorer patients unfairly?",
+        "promptVi": "Vì sao thuật toán có thể đối xử bất công với bệnh nhân nghèo?",
+        "options": [
+          "Because it was designed by doctors",
+          "Because it learned from old records that carry old prejudice",
+          "Because poorer patients never visit the hospital",
+          "Because it is slower than a nurse"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Diệp nói \"it learned from old records, and old records carry old prejudice.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Diep suggest at the end?",
+        "promptVi": "Cuối cùng bà Diệp đề xuất điều gì?",
+        "options": [
+          "Switching the system off",
+          "Selling the system to other hospitals",
+          "Letting the system advise doctors, who can overrule it",
+          "Asking patients to sign a new form"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà nói \"it should advise doctors, not replace their judgement\" và \"let them overrule it.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan's team managed to remove all bias from the system.",
+        "promptVi": "Nhóm của Quân đã loại bỏ được hoàn toàn sự thiên lệch khỏi hệ thống.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quân nói \"we couldn't remove it completely.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"overrule\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Let them see why it ranks a patient low, and let them overrule it.\"",
+        "options": [
+          "bác bỏ, gạt đi (một quyết định)",
+          "sửa chữa",
+          "làm theo",
+          "giải thích"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Overrule = bác bỏ quyết định của người hay hệ thống khác. Bác sĩ có quyền không làm theo thứ hạng mà máy đưa ra."
+      }
+    ],
+    "grammarNote": {
+      "title": "Nhượng bộ và nhấn mạnh",
+      "bodyVi": "Khi tranh luận ở trình độ C2, ta công nhận điểm mạnh của người kia rồi mới phản bác. (1) Tính từ + as + chủ ngữ + be: Impressive as those figures are, … ; Useful as the system is, … (dù rất…). (2) Admittedly, …, but … thừa nhận trước rồi phản bác. (3) Try as we might, we couldn't… (dù cố mấy cũng không…). (4) Much as I'd like to…, I know… (dù rất muốn…). (5) Be that as it may mở đầu câu mới, nghĩa là \"dù vậy đi nữa\". Nhấn mạnh bằng đảo thành phần: Yours is a very utilitarian argument (đưa \"Yours\" lên đầu để nhấn mạnh).",
+      "examples": [
+        "\"Impressive as those figures are, numbers alone can't settle an ethical question,\" Diep replies.",
+        "Admittedly, the algorithm is faster than any nurse, but it learned from old records, and old records carry old prejudice.",
+        "Try as we might, though, we couldn't remove it completely.\"",
+        "\"Much as I'd like to say the doctor, I know most of them simply follow the screen.\"",
+        "Be that as it may, I doubt anyone read it.\"",
+        "Useful as the system is, it should advise doctors, not replace their judgement."
+      ]
+    },
+    "writingPrompt": "Write a short paragraph about whether computers should help make decisions in hospitals. Admit at least one advantage before you argue, using two or more concession structures (Useful as… is, Much as…, Admittedly… but, Try as we might, Be that as it may).",
+    "sentenceTranslations": [
+      "Trong một quán cà phê sách yên tĩnh gần hồ Hoàn Kiếm, giáo sư Diệp, người dạy triết học ở một trường đại học tại Hà Nội, đang gặp Quân, một kỹ sư phần mềm từng tham gia xây dựng hệ thống phân loại bệnh nhân cho Bệnh viện Đa khoa Hồng Hà.",
+      "Hệ thống này đọc hồ sơ bệnh nhân và quyết định ai được khám trước ở khoa cấp cứu.",
+      "Quân mỉm cười nói: \"Thú thật là tôi tưởng sẽ bị giảng một bài.",
+      "Hệ thống của chúng tôi đã giảm bốn mươi phần trăm thời gian chờ.",
+      "Bản thân điều đó chẳng phải là một thành tựu về mặt đạo đức sao?\"",
+      "Bà Diệp đáp: \"Dù những con số ấy rất ấn tượng, chỉ con số thôi thì không giải quyết được một câu hỏi đạo đức.",
+      "Lập luận của anh rất mang tính vị lợi.",
+      "Bentham hẳn sẽ nói rằng một hành động là đúng nếu nó mang lại hạnh phúc lớn nhất cho nhiều người nhất.\"",
+      "\"Thế thì có gì sai?",
+      "Bệnh viện chỉ có một số bác sĩ nhất định.\"",
+      "\"Chẳng có gì sai, cho đến khi anh hỏi ai là người phải trả giá.",
+      "Phải thừa nhận là thuật toán nhanh hơn bất kỳ y tá nào, nhưng nó học từ hồ sơ cũ, mà hồ sơ cũ thì mang theo định kiến cũ.",
+      "Nếu trước đây bệnh nhân nghèo bị bỏ qua, cỗ máy cũng có thể học cách bỏ qua họ.\"",
+      "\"Tất nhiên là chúng tôi đã kiểm tra thiên lệch.",
+      "Nhưng dù cố đến mấy, chúng tôi cũng không loại bỏ nó hoàn toàn được.\"",
+      "\"Vậy ai chịu trách nhiệm khi một bệnh nhân bị cho về nhà rồi qua đời?",
+      "Bác sĩ, bệnh viện, hay anh?\"",
+      "Quân ngập ngừng.",
+      "Anh đã tự hỏi mình câu đó nhiều lần, và đến giờ vẫn chưa có câu trả lời.",
+      "\"Dù rất muốn nói là bác sĩ, tôi biết phần lớn họ chỉ làm theo màn hình.\"",
+      "\"Kant cho rằng ta phải luôn đối xử với con người như mục đích, không bao giờ chỉ như phương tiện.",
+      "Bệnh nhân không phải là một điểm dữ liệu để tối ưu hoá.",
+      "Mà những bệnh nhân này đã bao giờ đồng ý cho dùng hồ sơ của họ chưa?\"",
+      "\"Họ có ký một mẫu đơn lúc nhập viện.",
+      "Dù vậy đi nữa, tôi ngờ là chẳng ai đọc nó.\"",
+      "\"Vậy quyền tự quyết của họ chỉ được tôn trọng trên giấy.\"",
+      "\"Thôi được, nhưng chị có thể biện minh cho việc bắt mọi người quay lại xếp hàng dài chỉ để giữ cho tay mình sạch không?",
+      "Việc đó cũng có hậu quả chứ.\"",
+      "Bà Diệp bật cười và lắc đầu.",
+      "\"Cũng có lý, và tôi không bảo anh tắt nó đi.",
+      "Dù hệ thống rất hữu ích, nó nên tư vấn cho bác sĩ chứ không thay thế sự phán đoán của họ.",
+      "Hãy để họ thấy vì sao nó xếp một bệnh nhân ở mức thấp, và để họ bác bỏ nó.\"",
+      "Quân lấy sổ ra.",
+      "\"Tháng sau chị có thể nói điều đó trước hội đồng quản trị của chúng tôi không?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về trách nhiệm đạo đức của máy móc trong y tế, công nhận ý người khác rồi phản bác bằng Impressive as…, Admittedly…, Try as we might, Be that as it may.",
+    "examples": [
+      {
+        "lemma": "moral",
+        "sentence": "Doctors have a moral duty to tell patients the truth.",
+        "meaningVi": "Bác sĩ có nghĩa vụ đạo đức phải nói thật với bệnh nhân."
+      },
+      {
+        "lemma": "ethical",
+        "sentence": "Is it ethical to test new medicines on animals?",
+        "meaningVi": "Thử thuốc mới trên động vật có hợp đạo đức không?"
+      },
+      {
+        "lemma": "utilitarian",
+        "sentence": "A utilitarian view judges an action only by its results.",
+        "meaningVi": "Quan điểm vị lợi chỉ đánh giá một hành động qua kết quả của nó."
+      },
+      {
+        "lemma": "prejudice",
+        "sentence": "She faced prejudice because of her accent.",
+        "meaningVi": "Cô ấy gặp phải định kiến vì giọng nói của mình."
+      },
+      {
+        "lemma": "bias",
+        "sentence": "The survey showed a clear bias towards younger workers.",
+        "meaningVi": "Cuộc khảo sát cho thấy sự thiên lệch rõ rệt có lợi cho người lao động trẻ."
+      },
+      {
+        "lemma": "responsibility",
+        "sentence": "The manager took full responsibility for the delay.",
+        "meaningVi": "Người quản lý nhận toàn bộ trách nhiệm về sự chậm trễ."
+      },
+      {
+        "lemma": "consent",
+        "sentence": "Nobody can use your photo without your consent.",
+        "meaningVi": "Không ai được dùng ảnh của bạn khi chưa có sự đồng ý của bạn."
+      },
+      {
+        "lemma": "autonomy",
+        "sentence": "Teenagers often want more autonomy from their parents.",
+        "meaningVi": "Thanh thiếu niên thường muốn tự chủ hơn với bố mẹ."
+      },
+      {
+        "lemma": "justify",
+        "sentence": "How can you justify spending so much on a phone?",
+        "meaningVi": "Làm sao bạn biện minh được cho việc chi nhiều tiền thế cho một cái điện thoại?"
+      },
+      {
+        "lemma": "consequence",
+        "sentence": "He did not think about the consequence of his joke.",
+        "meaningVi": "Anh ấy không nghĩ tới hậu quả của câu đùa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dr Hoa",
+        "Quan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Quan, I'm a doctor in the emergency department. Can I tell you how the system feels from our side?",
+          "meaningVi": "Quân, tôi là bác sĩ khoa cấp cứu. Tôi kể anh nghe hệ thống này từ phía chúng tôi thế nào nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Please do. Painful as it may be, I need to hear it.",
+          "meaningVi": "Chị cứ nói. Dù có thể khó nghe, tôi cần được nghe."
+        },
+        {
+          "speaker": 0,
+          "text": "Admittedly, the queues are shorter, but I often don't know why a patient is ranked low.",
+          "meaningVi": "Phải thừa nhận là hàng chờ ngắn hơn, nhưng tôi thường không biết vì sao một bệnh nhân bị xếp hạng thấp."
+        },
+        {
+          "speaker": 1,
+          "text": "What would help you most?",
+          "meaningVi": "Điều gì sẽ giúp chị nhiều nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "A short reason next to every score. Much as I trust the data, I want to check it.",
+          "meaningVi": "Một lý do ngắn bên cạnh mỗi điểm số. Dù rất tin dữ liệu, tôi vẫn muốn kiểm tra lại."
+        },
+        {
+          "speaker": 1,
+          "text": "We can add that. Would doctors actually use it during a busy night?",
+          "meaningVi": "Chúng tôi thêm được. Nhưng trong một đêm bận rộn, bác sĩ có thật sự dùng nó không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Busy as we are, we'd read one line. We wouldn't read a report.",
+          "meaningVi": "Dù bận đến mấy, chúng tôi vẫn đọc một dòng. Còn cả một bản báo cáo thì không."
+        },
+        {
+          "speaker": 1,
+          "text": "And if you disagree with the score?",
+          "meaningVi": "Còn nếu chị không đồng ý với điểm số thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "Then I want one button to overrule it, and I'll take the responsibility.",
+          "meaningVi": "Thì tôi muốn có một nút để bác bỏ nó, và tôi sẽ chịu trách nhiệm."
+        }
+      ]
+    },
+    "grammarTipVi": "Tính từ + as + chủ ngữ + động từ: Painful as it may be, … ; Busy as we are, … Admittedly, …, but … Much as I trust the data, I want to check it (sau Much as không dùng but).",
+    "translations": [
+      {
+        "vi": "Dù những con số ấy rất ấn tượng, đây vẫn là một câu hỏi đạo đức.",
+        "en": "Impressive as those figures are, this is still an ethical question.",
+        "distractors": [
+          "but",
+          "ethic",
+          "questions"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Ai chịu trách nhiệm khi máy tính mắc sai lầm?",
+        "en": "Who takes responsibility when the computer makes a mistake?",
+        "distractors": [
+          "take",
+          "responsible",
+          "mistakes"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Bệnh nhân chưa bao giờ đồng ý cho dùng hồ sơ của họ.",
+        "en": "The patients never gave consent for their records to be used.",
+        "distractors": [
+          "gived",
+          "consents",
+          "using"
+        ],
+        "accepted": []
+      },
+      {
+        "vi": "Dù cố đến mấy, chúng tôi không thể loại bỏ hết sự thiên lệch.",
+        "en": "Try as we might, we couldn't remove all the bias.",
+        "distractors": [
+          "tried",
+          "biased",
+          "but"
+        ],
+        "accepted": [
+          "Try as we might, we couldn't remove all bias."
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bác sĩ Hoa và Quân nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách làm cho hệ thống phân loại bệnh nhân dễ kiểm tra hơn với bác sĩ",
+          "Lương của bác sĩ khoa cấp cứu",
+          "Việc mua máy tính mới cho bệnh viện"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bác sĩ Hoa kể hệ thống \"feels from our side\" và muốn có lý do bên cạnh mỗi điểm số.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bác sĩ Hoa muốn có thêm gì bên cạnh mỗi điểm số?",
+        "promptVi": "",
+        "options": [
+          "Một lý do ngắn",
+          "Một bản báo cáo dài",
+          "Ảnh của bệnh nhân"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"A short reason next to every score.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nếu không đồng ý với điểm số, bác sĩ Hoa muốn làm gì?",
+        "promptVi": "",
+        "options": [
+          "Bấm một nút để bác bỏ nó và tự chịu trách nhiệm",
+          "Gọi điện cho Quân",
+          "Cho bệnh nhân về nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"I want one button to overrule it, and I'll take the responsibility.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dr Hoa says doctors would read a long report on a busy night.",
+        "promptVi": "Bác sĩ Hoa nói bác sĩ sẽ đọc một bản báo cáo dài trong đêm bận rộn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị nói \"We wouldn't read a report.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Quân đưa ra lý lẽ gì để bảo vệ hệ thống? Bà Diệp dùng những triết gia nào để phản bác, và cuối cùng bà đề xuất gì?",
+    "grammarStep": {
+      "titleVi": "Nhượng bộ và nhấn mạnh",
+      "noticing": [
+        {
+          "sentence": "\"Impressive as those figures are, numbers alone can't settle an ethical question,\" Diep replies.",
+          "highlights": [
+            "Impressive as those figures are"
+          ]
+        },
+        {
+          "sentence": "Admittedly, the algorithm is faster than any nurse, but it learned from old records, and old records carry old prejudice.",
+          "highlights": [
+            "Admittedly",
+            "but"
+          ]
+        },
+        {
+          "sentence": "Try as we might, though, we couldn't remove it completely.\"",
+          "highlights": [
+            "Try as we might"
+          ]
+        },
+        {
+          "sentence": "Useful as the system is, it should advise doctors, not replace their judgement.",
+          "highlights": [
+            "Useful as the system is"
+          ]
+        }
+      ],
+      "questionVi": "Bạn muốn nói: \"Dù hệ thống rất hữu ích, nó không nên thay thế bác sĩ.\" Câu nào đúng?",
+      "options": [
+        "Useful as the system is, it shouldn't replace doctors.",
+        "As useful the system is, it shouldn't replace doctors.",
+        "Useful as is the system, it shouldn't replace doctors."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Tính từ đứng đầu + as + chủ ngữ + động từ (the system is). Không đảo động từ lên trước chủ ngữ, và as đứng sau tính từ.",
+      "whenVi": "Dùng trong tranh luận, bài nghị luận hoặc cuộc họp trang trọng, khi bạn muốn tỏ ra công bằng: công nhận điểm hay của ý kiến bên kia rồi mới nêu giới hạn của nó.",
+      "columns": [
+        "Cấu trúc",
+        "Ví dụ",
+        "= câu thường"
+      ],
+      "table": [
+        {
+          "subject": "Tính từ + as + S + be",
+          "form": "Useful as the system is, it should only advise.",
+          "negative": "Although the system is useful, it should only advise."
+        },
+        {
+          "subject": "Admittedly, …, but …",
+          "form": "Admittedly, it is fast, but it learned old prejudice.",
+          "negative": "It's true that it is fast, but it learned old prejudice."
+        },
+        {
+          "subject": "Động từ + as + S + might",
+          "form": "Try as we might, the bias remained.",
+          "negative": "However hard we tried, the bias remained."
+        },
+        {
+          "subject": "Much as + mệnh đề",
+          "form": "Much as I trust the data, I want to check it.",
+          "negative": "Although I trust the data, I want to check it."
+        },
+        {
+          "subject": "Be that as it may, …",
+          "form": "They signed a form. Be that as it may, nobody read it.",
+          "negative": "They signed a form. Even so, nobody read it."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Try as we might, but we couldn't remove it.",
+          "right": "Try as we might, we couldn't remove it."
+        },
+        {
+          "wrong": "Useful as is the system, it should only advise.",
+          "right": "Useful as the system is, it should only advise."
+        },
+        {
+          "wrong": "Be it as that may, nobody read the form.",
+          "right": "Be that as it may, nobody read the form."
+        }
+      ],
+      "noteVi": "Be that as it may là một cụm cố định, không đổi trật tự từ. Sau tính từ + as, chủ ngữ đứng trước động từ (the system is). Try as + chủ ngữ + might thường đi với vế sau mang nghĩa phủ định hoặc thất bại.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Try as we ___, we couldn't remove the bias completely.",
+          "answers": [
+            "might",
+            "may"
+          ],
+          "explanationVi": "Động từ + as + chủ ngữ + might/may: Try as we might = dù cố đến mấy."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The patients signed a form. ___, I doubt anyone read it.",
+          "options": [
+            "Be that as it may",
+            "Much as",
+            "Try as we might",
+            "Although"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Be that as it may đứng đầu một câu mới để phản bác ý vừa công nhận; Much as và Although phải đi với một mệnh đề."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Impressive as are those figures, they don't settle the question.",
+          "sentence": "Impressive as those figures are, they don't settle the question.",
+          "explanationVi": "Sau tính từ + as, giữ trật tự chủ ngữ + động từ: those figures are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Dù hệ thống rất nhanh, nó vẫn có thể bất công.",
+          "sentence": "Fast as the system is, it can still be unfair.",
+          "words": [
+            "Fast",
+            "as",
+            "the",
+            "system",
+            "is,",
+            "it",
+            "can",
+            "still",
+            "be",
+            "unfair.",
+            "but"
+          ],
+          "explanationVi": "Tính từ + as + chủ ngữ + động từ, rồi mệnh đề chính; từ \"but\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"We tested for bias, of course.",
+        "tipVi": "Nhấn vào bias /ˈbaɪəs/; ngắt nhẹ trước \"of course\" và hạ giọng ở cuối."
+      },
+      {
+        "text": "\"So their autonomy was respected only on paper.\"",
+        "tipVi": "Nhấn vào autonomy /ɔːˈtɒnəmi/ (trọng âm âm thứ hai) và \"only on paper\" với giọng hơi mỉa mai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Would you trust a computer to decide which patient a doctor sees first?",
+        "questionVi": "Bạn có tin để máy tính quyết định bác sĩ khám bệnh nhân nào trước không?",
+        "frame": "Useful as computers are, ___."
+      },
+      {
+        "question": "Do you usually read the forms you sign before giving your consent?",
+        "questionVi": "Bạn có thường đọc các mẫu đơn trước khi ký đồng ý không?",
+        "frame": "Admittedly, I ___, but ___."
+      },
+      {
+        "question": "Who should take responsibility when a machine makes a mistake?",
+        "questionVi": "Khi máy móc mắc lỗi, ai nên chịu trách nhiệm?",
+        "frame": "Much as I'd like to blame ___, I think ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc nhượng bộ (Much as… / Admittedly…, but / Be that as it may / Strange as it may seem… / For all its… / Try as I might)",
+      "anyOf": [
+        "much as",
+        "admittedly",
+        "be that as it may",
+        "as it may seem",
+        "as it may sound",
+        "for all its",
+        "for all their",
+        "try as i might"
+      ],
+      "outlineVi": [
+        "Nêu một việc máy tính đang làm hoặc có thể làm trong bệnh viện.",
+        "Công nhận lợi ích của nó (Useful as… is, Admittedly…), rồi chỉ ra rủi ro như thiên lệch hay sự đồng ý của bệnh nhân.",
+        "Kết luận ai nên có quyết định cuối cùng, có thể dùng Be that as it may."
+      ],
+      "modelAnswer": "Many hospitals now use computers to read X-rays. Admittedly, a machine can check thousands of images without getting tired, but it can also repeat the bias in the data it learned from. Fast as these systems are, they cannot talk to a frightened patient or understand his family's situation. Much as I welcome new technology, I believe a doctor should always make the final decision. Mistakes will happen. Be that as it may, a person, not a program, should take responsibility for them."
+    }
+  },
+  "glosses": [
+    {
+      "text": "triage",
+      "lemma": "triage",
+      "meaningVi": "phân loại bệnh nhân theo mức độ khẩn cấp",
+      "pos": "noun",
+      "phrase": "a triage system",
+      "phraseVi": "một hệ thống phân loại bệnh nhân",
+      "sentenceIndex": 0
+    },
+    {
+      "text": "emergency department",
+      "lemma": "emergency department",
+      "meaningVi": "khoa cấp cứu",
+      "pos": "noun",
+      "phrase": "in the emergency department",
+      "phraseVi": "ở khoa cấp cứu",
+      "sentenceIndex": 1
+    },
+    {
+      "text": "overlooked",
+      "lemma": "overlook",
+      "meaningVi": "bỏ qua, không để ý tới",
+      "pos": "verb",
+      "phrase": "poorer patients were overlooked in the past",
+      "phraseVi": "trước đây bệnh nhân nghèo bị bỏ qua",
+      "sentenceIndex": 12
+    },
+    {
+      "text": "admission",
+      "lemma": "admission",
+      "meaningVi": "việc nhập viện",
+      "pos": "noun",
+      "phrase": "signed a form on admission",
+      "phraseVi": "ký một mẫu đơn lúc nhập viện",
+      "sentenceIndex": 23
+    },
+    {
+      "text": "overrule",
+      "lemma": "overrule",
+      "meaningVi": "bác bỏ, gạt đi (một quyết định)",
+      "pos": "verb",
+      "phrase": "let them overrule it",
+      "phraseVi": "để họ bác bỏ nó",
+      "sentenceIndex": 31
+    }
+  ]
+}

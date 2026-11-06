@@ -453,21 +453,26 @@
       "answerIndex": 0,
       "explanationVi": "Điều trái với quá khứ: If + had + V3 (had built), would have + V3 (wouldn't have flooded).",
       "whenVi": "Dùng khi nhìn lại quá khứ và tưởng tượng một kết quả khác nếu ai đó đã làm khác đi, thường để rút kinh nghiệm hoặc tiếc nuối.",
+      "columns": [
+        "Mệnh đề",
+        "Khẳng định",
+        "Phủ định"
+      ],
       "table": [
         {
-          "subject": "Mệnh đề If",
-          "form": "If + had + V3: If the city had built those drains, …",
-          "negative": "If people hadn't thrown rubbish, …"
+          "subject": "If + had + V3",
+          "form": "If the city had built those drains in 2015, …",
+          "negative": "If people hadn't thrown rubbish into the drains, …"
         },
         {
-          "subject": "Mệnh đề chính",
-          "form": "would have + V3: … we would have saved much more.",
-          "negative": "wouldn't have + V3: … the streets wouldn't have flooded."
+          "subject": "would have + V3",
+          "form": "… we would have saved much more.",
+          "negative": "… the streets wouldn't have flooded so badly."
         },
         {
-          "subject": "Biến thể",
-          "form": "could have / might have + V3",
-          "negative": "If they had kept the ponds, the water might have gone down."
+          "subject": "could / might have + V3",
+          "form": "If they had kept the ponds, the water might have gone down faster.",
+          "negative": "… families might not have lost their furniture."
         }
       ],
       "mistakes": [
@@ -487,9 +492,11 @@
           "promptVi": "Điền một từ vào chỗ trống.",
           "text": "If the planners had listened to the engineers, the city ___ have built the drains.",
           "answers": [
-            "would"
+            "would",
+            "could",
+            "might"
           ],
-          "explanationVi": "Mệnh đề chính loại 3: would have + V3."
+          "explanationVi": "Mệnh đề chính loại 3: would / could / might have + V3."
         },
         {
           "kind": "choice",
@@ -531,7 +538,10 @@
             "more.",
             "will"
           ],
-          "explanationVi": "If + had + V3, would have + V3; từ \"will\" bị thừa."
+          "explanationVi": "If + had + V3, would have + V3; từ \"will\" bị thừa.",
+          "answers": [
+            "We would have saved more if we had spent the money earlier."
+          ]
         }
       ]
     },
@@ -563,12 +573,16 @@
       }
     ],
     "writingHelp": {
-      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 3 (If … had + V3, … would have + V3)",
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 3 (If … had / hadn't + V3, … would have + V3)",
       "anyOf": [
         "would have",
         "wouldn't have",
-        "could have",
-        "might have"
+        "would not have",
+        "if we hadn't",
+        "if they hadn't",
+        "if i hadn't",
+        "if it hadn't",
+        "if he hadn't"
       ],
       "outlineVi": [
         "Vấn đề là gì và xảy ra ở đâu.",
