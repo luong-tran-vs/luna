@@ -124,3 +124,14 @@ func TestPointsThatCannotBeDrawnGetNoPictures(t *testing.T) {
 		t.Fatal("a1-prepositions-place is not drawable")
 	}
 }
+
+// Models sometimes put the choices of a picture exercise in words (seen 2026-11-06).
+func TestPictureChoicesInWordsAreKept(t *testing.T) {
+	t.Parallel()
+	e := pictureExercise("1")
+	e.Options, e.Words = nil, []string{"I am", "She is", "He is"}
+	got := normalizeExercises(exercisesFromAI([]ai.GrammarExercise{e}), "p")[0]
+	if p := exerciseProblems(got); p != nil || len(got.Options) != 3 || got.Words != nil {
+		t.Fatalf("got %+v, problems %v", got, p)
+	}
+}

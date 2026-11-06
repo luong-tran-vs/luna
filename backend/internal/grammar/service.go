@@ -260,6 +260,10 @@ func exercisesFromAI(in []ai.GrammarExercise) []Exercise {
 			Kind: Kind(e.Kind), PromptVi: e.PromptVi, Text: e.Text, Options: e.Options, AnswerIndex: e.AnswerIndex,
 			Answers: e.Answers, Words: e.Words, Sentence: e.Sentence, ExplanationVi: e.ExplanationVi, Picture: e.Picture,
 		}
+		// Models sometimes put the choices of a picture exercise in words (seen 2026-11-06).
+		if out[i].Kind == KindPicture && len(out[i].Options) == 0 && len(out[i].Words) > 0 {
+			out[i].Options = out[i].Words
+		}
 	}
 	return out
 }

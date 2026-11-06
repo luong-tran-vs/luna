@@ -803,3 +803,46 @@ func TestWordMeanings(t *testing.T) {
 		t.Fatalf("no key: %v, calls %d", err, noCalls.Load())
 	}
 }
+
+func TestGrammarPictures(t *testing.T) {
+	t.Parallel()
+
+	answer := `{"practice":[{"kind":"picture","promptVi":"Nhìn ảnh","text":"They ___ students.","picture":"two children with books",` +
+		`"options":["am","is","are"],"answerIndex":2,"explanationVi":"they đi với are"}],"mastery":[]}`
+	wrapped, err := json.Marshal(map[string]any{"candidates": []any{map[string]any{"content": map[string]any{
+		"parts": []any{map[string]any{"text": answer}},
+	}}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var body map[string]any
+	c, _ := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Errorf("decode: %v", err)
+		}
+		_, _ = w.Write(wrapped)
+	})
+	got, err := c.GrammarPictures(t.Context(), ai.GrammarPicturesRequest{
+		Level: "A1", TitleEn: "Verb to be", Practice: 3, Mastery: 1, Existing: []string{"She ___ a teacher."},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got.Practice) != 1 || got.Practice[0].Picture == "" || len(got.Practice[0].Options) != 3 {
+		t.Fatalf("decoded %+v", got)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"exactly 3 for practice and exactly 1", "She ___ a teacher.", "never test a number"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+	// The schema asks for exactly that many picture exercises, each with its options.
+	cfg, _ := body["generationConfig"].(map[string]any)
+	schema, _ := json.Marshal(cfg["responseSchema"])
+	for _, s := range []string{`"minItems":3`, `"maxItems":1`, `"enum":["picture"]`, `"options"`} {
+		if !strings.Contains(string(schema), s) {
+			t.Errorf("schema missing %s: %s", s, schema)
+		}
+	}
+}

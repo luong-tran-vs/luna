@@ -185,24 +185,46 @@ const pictureKindPrompt = `- picture: the learner looks at a picture and picks t
   the answer unmistakably (for example "a small orange cat sleeping under a blue sofa in a living room");
   text is an English sentence about the picture with exactly one blank written "___" (for example "The cat is ___ the sofa.");
   options has 2 to 4 different English options; answerIndex (0 based) is the one the picture shows.
+  The blank and every option are forms or words of the grammar point itself (for the verb to be: am, is, are; for
+  prepositions of place: in, on, under): never test a number, a colour, an article or any word the point is not about.
+  The picture shows what decides the answer (for the verb to be: one person or several, the speaker or someone else).
   Without the picture, more than one option would make a correct sentence: only the picture tells which one is right.
   promptVi asks the learner to look at the picture and choose, for example "Nhìn ảnh, chọn từ đúng.".
-  Leave answers, words and sentence out of a picture exercise.
+  Put the choices in options, never in words; leave answers, words and sentence out of a picture exercise.
 `
 
-var grammarPicturesSchema = map[string]any{
+// pictureExerciseSchema is a picture exercise alone (fixed 2026-11-06: with the schema of every kind,
+// models put the choices in words or left exercises out).
+var pictureExerciseSchema = map[string]any{
 	"type": "OBJECT",
 	"properties": map[string]any{
-		"practice": map[string]any{"type": "ARRAY", "items": grammarExerciseSchema},
-		"mastery":  map[string]any{"type": "ARRAY", "items": grammarExerciseSchema},
+		"kind":          map[string]any{"type": "STRING", "enum": []string{"picture"}},
+		"promptVi":      map[string]any{"type": "STRING"},
+		"text":          map[string]any{"type": "STRING"},
+		"picture":       map[string]any{"type": "STRING"},
+		"options":       map[string]any{"type": "ARRAY", "items": map[string]any{"type": "STRING"}, "minItems": 2, "maxItems": 4},
+		"answerIndex":   map[string]any{"type": "INTEGER"},
+		"explanationVi": map[string]any{"type": "STRING"},
 	},
-	"required": []string{"practice", "mastery"},
+	"required": []string{"kind", "promptVi", "text", "picture", "options", "answerIndex", "explanationVi"},
+}
+
+// grammarPicturesSchema asks for exactly the given numbers of picture exercises.
+func grammarPicturesSchema(practice, mastery int) map[string]any {
+	list := func(n int) map[string]any {
+		return map[string]any{"type": "ARRAY", "items": pictureExerciseSchema, "minItems": n, "maxItems": n}
+	}
+	return map[string]any{
+		"type":       "OBJECT",
+		"properties": map[string]any{"practice": list(practice), "mastery": list(mastery)},
+		"required":   []string{"practice", "mastery"},
+	}
 }
 
 // GrammarPictures writes only the picture exercises of a lesson written without them, in one request
 // (added 2026-11-06), so the lesson gets them without being written again.
 func (c *Client) GrammarPictures(ctx context.Context, req ai.GrammarPicturesRequest) (ai.GrammarPictures, error) {
-	text, err := c.generate(ctx, "grammar_pictures", grammarPicturesPrompt(req), grammarPicturesSchema, 0.5,
+	text, err := c.generate(ctx, "grammar_pictures", grammarPicturesPrompt(req), grammarPicturesSchema(req.Practice, req.Mastery), 0.5,
 		slog.String("level", req.Level), slog.String("point", req.TitleEn))
 	if err != nil {
 		return ai.GrammarPictures{}, err
