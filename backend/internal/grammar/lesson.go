@@ -167,6 +167,11 @@ type LessonSummary struct {
 	Verified    bool
 	UpdatedAt   time.Time
 	PublishedAt time.Time
+	// For a point that can be drawn (added 2026-11-06): Pictures counts its "Nhìn ảnh chọn từ"
+	// exercises, PicturesDrawn those with a picture, and PicturesComplete says both parts have theirs.
+	Pictures         int
+	PicturesDrawn    int
+	PicturesComplete bool
 }
 
 // MasteryPercent is the score of a mastery check that marks a point as mastered.

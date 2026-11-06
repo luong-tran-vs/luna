@@ -99,7 +99,11 @@ describe('GrammarList', () => {
     ...over,
   });
 
-  const setup = async (reports: GrammarReportGroup[] | 'error' = [], existing = lessons) => {
+  const setup = async (
+    reports: GrammarReportGroup[] | 'error' = [],
+    existing = lessons,
+    list = points,
+  ) => {
     TestBed.configureTestingModule({
       imports: [GrammarList],
       providers: [
@@ -112,7 +116,7 @@ describe('GrammarList', () => {
     fixture = TestBed.createComponent(GrammarList);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    flushLevel('A1', points, existing);
+    flushLevel('A1', list, existing);
     flushReports(reports);
     await settle();
   };
@@ -163,6 +167,28 @@ describe('GrammarList', () => {
     it('shows nothing extra for a clean checked lesson', async () => {
       await setup();
       expect(badges('a1-to-be')).toBe('');
+    });
+
+    it('flags the picture exercises of the points that can be drawn (added 2026-11-06)', async () => {
+      const drawable = (id: string, title: string) => ({ ...point(id, title), drawable: true });
+      await setup(
+        [],
+        [
+          summary('a1-to-be', { pictures: 1, picturesComplete: false }),
+          summary('a1-articles', { pictures: 4, picturesDrawn: 2, picturesComplete: true }),
+          summary('a1-this-that', { pictures: 4, picturesDrawn: 4, picturesComplete: true }),
+        ],
+        [
+          drawable('a1-to-be', 'Động từ to be'),
+          drawable('a1-articles', 'Mạo từ'),
+          drawable('a1-this-that', 'This / that'),
+        ],
+      );
+      expect(badges('a1-to-be')).toBe('Thiếu bài nhìn ảnh (1/4)');
+      expect(badges('a1-articles')).toBe('Đủ bài nhìn ảnh · thiếu 2 ảnh');
+      expect(badges('a1-this-that')).toBe('Đủ bài nhìn ảnh · đủ ảnh');
+      expect(row('a1-this-that').querySelector('.done-tag')).not.toBeNull();
+      expect(row('a1-articles').querySelector('.flag-tag')).not.toBeNull();
     });
 
     it('counts open reports per point', async () => {

@@ -9,6 +9,8 @@ import {
   reasonsText,
   GrammarLessonSummary,
   grammarStatusText,
+  PICTURE_MASTERY,
+  PICTURE_PRACTICE,
 } from '../../../core/models/grammar-admin';
 import { Level, LEVELS } from '../../../core/models/lesson';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
@@ -162,6 +164,31 @@ export class GrammarList {
 
   protected lessonOf(p: GrammarPoint): GrammarLessonSummary | null {
     return this.lessons()[p.id] ?? null;
+  }
+
+  /**
+   * The flag of a lesson's "Nhìn ảnh chọn từ" exercises (added 2026-11-06), for a point that can be
+   * drawn: whether they were all added, then whether every one has its picture. ok is false while
+   * something is missing.
+   */
+  protected pictureBadge(
+    p: GrammarPoint,
+    lesson: GrammarLessonSummary,
+  ): { text: string; ok: boolean } | null {
+    if (!p.drawable) {
+      return null;
+    }
+    const total = lesson.pictures ?? 0;
+    if (!lesson.picturesComplete) {
+      return {
+        text: `Thiếu bài nhìn ảnh (${total}/${PICTURE_PRACTICE + PICTURE_MASTERY})`,
+        ok: false,
+      };
+    }
+    const missing = total - (lesson.picturesDrawn ?? 0);
+    return missing > 0
+      ? { text: `Đủ bài nhìn ảnh · thiếu ${missing} ảnh`, ok: false }
+      : { text: 'Đủ bài nhìn ảnh · đủ ảnh', ok: true };
   }
 
   protected errorOf(p: GrammarPoint): string | null {

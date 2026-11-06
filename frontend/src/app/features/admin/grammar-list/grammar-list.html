@@ -84,6 +84,11 @@
                 } @else if (!lesson.checked) {
                   <span class="muted">Chưa kiểm tra</span>
                 }
+                @if (pictureBadge(p, lesson); as b) {
+                  <span class="tag" [class.flag-tag]="!b.ok" [class.done-tag]="b.ok">{{
+                    b.text
+                  }}</span>
+                }
                 @if (reportCount(p) > 0) {
                   <span class="tag flag-tag">{{ reportCount(p) }} báo lỗi</span>
                 }

@@ -55,7 +55,10 @@
           @for (s of sections(); track s.name) {
             <li [attr.data-result]="s.count > 0 ? 'ok' : 'bad'">
               <span class="mk" aria-hidden="true">{{ s.count > 0 ? '✓' : '✕' }}</span>
-              <span><b>{{ s.name }}</b>: {{ s.count }}</span>
+              <span
+                ><b>{{ s.name }}</b
+                >: {{ s.count }}</span
+              >
             </li>
           }
         </ul>

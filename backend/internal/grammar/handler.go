@@ -189,6 +189,10 @@ type summaryJSON struct {
 	Verified    bool       `json:"verified"`
 	UpdatedAt   time.Time  `json:"updatedAt"`
 	PublishedAt *time.Time `json:"publishedAt"`
+	// The "Nhìn ảnh chọn từ" exercises of a point that can be drawn (added 2026-11-06).
+	Pictures         int  `json:"pictures"`
+	PicturesDrawn    int  `json:"picturesDrawn"`
+	PicturesComplete bool `json:"picturesComplete"`
 }
 
 type checkJSON struct {
@@ -290,6 +294,7 @@ func (h *Handler) adminList(w http.ResponseWriter, r *http.Request) {
 		out[i] = summaryJSON{
 			PointID: s.PointID, Status: s.Status, Edited: s.Edited, Imported: s.Imported, Flags: s.Flags, Checked: s.Checked, Verified: s.Verified,
 			UpdatedAt: s.UpdatedAt, PublishedAt: timePtr(s.PublishedAt),
+			Pictures: s.Pictures, PicturesDrawn: s.PicturesDrawn, PicturesComplete: s.PicturesComplete,
 		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string][]summaryJSON{"lessons": out})

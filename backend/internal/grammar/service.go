@@ -96,11 +96,44 @@ func (s *Service) AdminList(ctx context.Context) ([]LessonSummary, error) {
 	}
 	out := make([]LessonSummary, 0, len(all))
 	for _, p := range s.syllabus.All() {
-		if l, ok := byID[p.ID]; ok {
-			out = append(out, l)
+		l, ok := byID[p.ID]
+		if !ok {
+			continue
 		}
+		if p.Drawable {
+			if err := s.countPictures(ctx, &l); err != nil {
+				return nil, err
+			}
+		}
+		out = append(out, l)
 	}
 	return out, nil
+}
+
+// countPictures fills in the picture exercises of a lesson summary and how many are drawn.
+func (s *Service) countPictures(ctx context.Context, sum *LessonSummary) error {
+	l, err := s.lessons.Get(ctx, sum.PointID)
+	if errors.Is(err, ErrNotFound) {
+		return nil
+	}
+	if err != nil {
+		return fmt.Errorf("grammar: get lesson: %w", err)
+	}
+	have, err := s.imageKeys(ctx, sum.PointID)
+	if err != nil {
+		return err
+	}
+	for _, e := range append(append([]Exercise(nil), l.Content.Practice...), l.Content.Mastery...) {
+		if e.Kind != KindPicture {
+			continue
+		}
+		sum.Pictures++
+		if have[PictureKey(e)] {
+			sum.PicturesDrawn++
+		}
+	}
+	sum.PicturesComplete = hasAllPictures(l.Content)
+	return nil
 }
 
 // AdminGet returns the lesson of a point, whatever its status.

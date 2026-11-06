@@ -67,6 +67,11 @@ export interface GrammarLessonSummary {
   checked: boolean;
   /** F21b: the admin confirmed the lesson as checked. */
   verified: boolean;
+  /** The "Nhìn ảnh chọn từ" exercises of a point that can be drawn, and how many have their picture (added 2026-11-06). */
+  pictures?: number;
+  picturesDrawn?: number;
+  /** Practice and mastery both have their picture exercises. */
+  picturesComplete?: boolean;
 }
 
 /** "meaning" (added 2026-10-20): the Vietnamese does not say what the English answer says. */

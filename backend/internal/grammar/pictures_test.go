@@ -269,3 +269,43 @@ func TestPictureRoutes(t *testing.T) {
 		t.Fatalf("stop: %d", rec.Code)
 	}
 }
+
+func TestAdminListCountsPictureExercises(t *testing.T) {
+	t.Parallel()
+	e, store, _ := newImageEnv(t)
+	publishedLesson(t, e, "a1-to-be")
+	publishedLesson(t, e, "a1-articles")
+	summary := func(id string) LessonSummary {
+		t.Helper()
+		list, err := e.svc.AdminList(t.Context())
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, s := range list {
+			if s.PointID == id {
+				return s
+			}
+		}
+		t.Fatalf("%s not listed", id)
+		return LessonSummary{}
+	}
+	if s := summary("a1-to-be"); s.Pictures != 0 || s.PicturesComplete {
+		t.Fatalf("before = %+v", s)
+	}
+	l, _, err := e.svc.AddPictures(t.Context(), "a1-to-be")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if s := summary("a1-to-be"); s.Pictures != 4 || s.PicturesDrawn != 0 || !s.PicturesComplete {
+		t.Fatalf("added = %+v", s)
+	}
+	if err := store.Save(t.Context(), ExampleImage{PointID: "a1-to-be", Key: PictureKey(l.Content.Practice[8]), MIME: "image/jpeg", Data: []byte{1}}); err != nil {
+		t.Fatal(err)
+	}
+	if s := summary("a1-to-be"); s.PicturesDrawn != 1 {
+		t.Fatalf("drawn = %+v", s)
+	}
+	if s := summary("a1-articles"); s.Pictures != 0 || s.PicturesComplete {
+		t.Fatalf("not drawable = %+v", s)
+	}
+}
