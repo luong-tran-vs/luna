@@ -1,0 +1,125 @@
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.title {
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.beats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.beat {
+  display: grid;
+  justify-items: center;
+  padding: var(--space-3) var(--space-1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.beat b {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.beat small {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.beat.on {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.beat.on small {
+  color: inherit;
+}
+
+.lines {
+  display: grid;
+  gap: var(--space-1);
+  max-height: 360px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+  min-height: 40px;
+  padding: var(--space-2);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.line.on {
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.controls,
+.speeds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.chip[aria-pressed='true'] {
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.line:focus-visible,
+.chip:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.actions > * {
+  flex: 1;
+  gap: var(--space-2);
+}

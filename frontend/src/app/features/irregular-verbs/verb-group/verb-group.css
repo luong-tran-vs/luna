@@ -1,0 +1,103 @@
+.verb-group {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+}
+
+.bar-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.cat-says {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.cat {
+  flex: none;
+  width: 56px;
+  height: auto;
+}
+
+.bubble {
+  flex: 1;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--space-1);
+}
+
+.lessons {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lesson {
+  gap: var(--space-1);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.lesson:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.lesson-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.state {
+  flex: none;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.state.done {
+  color: color-mix(in srgb, var(--color-ok) 80%, var(--color-text));
+}
+
+.bases {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.tag {
+  justify-self: start;
+  padding: 1px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.thumbs:empty {
+  display: none;
+}
+
+.thumbs img {
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}

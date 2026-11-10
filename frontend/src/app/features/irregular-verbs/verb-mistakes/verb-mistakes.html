@@ -1,0 +1,138 @@
+<section class="screen verb-mistakes">
+  @switch (stage()) {
+    @case ('list') {
+      <header class="top-bar">
+        <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"
+          ><lu-icon name="arrow-left"
+        /></a>
+        <h1 class="bar-title">Từ hay sai · {{ verbs().length }}</h1>
+      </header>
+
+      @if (loadError()) {
+        <div class="form-alert" role="alert">
+          <p>Không tải được các từ hay sai.</p>
+          <button type="button" class="btn" (click)="load()">Thử lại</button>
+        </div>
+      } @else if (progress()) {
+        @if (verbs().length === 0) {
+          <div class="soft-card empty">
+            <p>Chưa có từ hay sai.</p>
+            <p class="muted">
+              Từ nào bạn gõ sai từ 2 lần trong 14 ngày (ở bài học hay khi ôn) sẽ hiện ở đây để luyện
+              riêng.
+            </p>
+            <a class="btn-primary" routerLink="/irregular-verbs">Về Động từ</a>
+          </div>
+        } @else {
+          <p class="muted intro">
+            Gõ đúng {{ cleanRun }} lần liên tiếp thì từ rời danh sách. Luyện ở đây không đổi lịch
+            ôn.
+          </p>
+          <ul class="list">
+            @for (s of verbs(); track s.verb.base) {
+              @let v = s.verb;
+              @let m = s.mistakes[0];
+              <li class="soft-card item">
+                <div class="item-head">
+                  @if (pictures().get(v.base); as src) {
+                    <img class="thumb" [src]="src" alt="" width="48" height="36" loading="lazy" />
+                  }
+                  <span class="item-title">
+                    <strong lang="en">{{ v.base }}</strong>
+                    <span class="muted">· {{ v.meaningVi }}</span>
+                  </span>
+                  <span class="count">sai {{ s.mistakes.length }} lần</span>
+                </div>
+                <p class="last">
+                  {{ formLabel(m) }}: <s lang="en">{{ m.typed || '(trống)' }}</s> →
+                  <strong lang="en">{{ right(v, m) }}</strong>
+                </p>
+                @if (m.typed) {
+                  <p
+                    class="diff"
+                    lang="en"
+                    [attr.aria-label]="'Bạn gõ ' + m.typed + ', đúng là ' + right(v, m)"
+                  >
+                    @for (p of diff(v, m); track $index) {
+                      <span [class]="'part part-' + p.kind" aria-hidden="true">{{ p.text }}</span>
+                    }
+                  </p>
+                  <p class="legend muted">
+                    <span class="part part-extra">gõ thừa</span>
+                    <span class="part part-missing">thiếu</span>
+                  </p>
+                }
+                @if (pair(v.base); as pr) {
+                  <div class="pair">
+                    <p class="pair-title">Hay lẫn với</p>
+                    <div class="pair-verbs">
+                      @for (pv of pr.verbs; track pv.base) {
+                        <div class="pair-verb" [class.is-this]="pv.base === v.base">
+                          <strong lang="en">{{ pv.base }}</strong>
+                          <span class="muted">{{ pv.meaningVi }}</span>
+                          <span lang="en">{{ pv.forms }}</span>
+                        </div>
+                      }
+                    </div>
+                    <p class="pair-tip">{{ pr.tipVi }}</p>
+                  </div>
+                }
+              </li>
+            }
+          </ul>
+          <div class="bottom-bar">
+            <button type="button" class="btn-primary" (click)="start()">
+              Luyện {{ practiceCount() }} từ hay sai
+            </button>
+          </div>
+        }
+      } @else {
+        <lu-loading label="Đang tải…" />
+      }
+    }
+
+    @case ('practice') {
+      <header class="top-bar">
+        <button type="button" class="round-btn" aria-label="Dừng luyện" (click)="backToList()">
+          <lu-icon name="x" />
+        </button>
+        <h1 class="bar-title">Luyện từ hay sai</h1>
+      </header>
+      <lu-verb-type-round
+        [verbs]="round()"
+        label="Luyện từ hay sai"
+        (finished)="onFinished($event)"
+      />
+    }
+
+    @case ('done') {
+      <section class="soft-card summary" aria-labelledby="mistakes-done">
+        <h1 #heading tabindex="-1" class="summary-title" id="mistakes-done">
+          Gõ đúng {{ rightCount() }}/{{ results().length }} từ
+        </h1>
+        @if (saving()) {
+          <p class="muted" role="status">Đang lưu…</p>
+        } @else if (saveError()) {
+          <p class="form-alert" role="alert">Không lưu được kết quả.</p>
+          <button type="button" class="btn" (click)="send()">Gửi lại</button>
+        }
+      </section>
+      <ul class="list results">
+        @for (r of results(); track r.verb.base) {
+          <li class="row" [class.is-wrong]="!r.right">
+            <span lang="en">{{ forms(r.verb) }}</span>
+            @if (!saving() && !saveError()) {
+              <span class="muted">{{
+                stillStruggling(r.verb.base) ? 'vẫn hay sai' : 'đã rời danh sách'
+              }}</span>
+            }
+          </li>
+        }
+      </ul>
+      <div class="bottom-bar">
+        <button type="button" class="btn" (click)="backToList()">Danh sách từ hay sai</button>
+        <a class="btn-primary" routerLink="/irregular-verbs">Về Động từ</a>
+      </div>
+    }
+  }
+</section>

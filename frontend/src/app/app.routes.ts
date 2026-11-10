@@ -79,6 +79,20 @@ export const routes: Routes = [
           import('./features/irregular-verbs/verb-review/verb-review').then((m) => m.VerbReview),
       },
       {
+        // "Từ hay sai" (added 2026-11-10).
+        path: 'irregular-verbs/mistakes',
+        title: 'Từ hay sai · Luna',
+        loadComponent: () =>
+          import('./features/irregular-verbs/verb-mistakes/verb-mistakes').then((m) => m.VerbMistakes),
+      },
+      {
+        // A group of lessons that change alike, with "Đọc theo nhịp" (added 2026-11-10).
+        path: 'irregular-verbs/groups/:key',
+        title: 'Nhóm động từ · Luna',
+        loadComponent: () =>
+          import('./features/irregular-verbs/verb-group/verb-group').then((m) => m.VerbGroupPage),
+      },
+      {
         path: 'topics/:id/summary',
         title: 'Tổng kết chủ đề · Luna',
         loadComponent: () => import('./features/topic-summary/topic-summary').then((m) => m.TopicSummaryPage),

@@ -1,0 +1,76 @@
+@if (tasks().length) {
+  <section class="soft-card today" aria-labelledby="today-title">
+    <div class="today-head">
+      <span
+        class="ring"
+        role="img"
+        [attr.aria-label]="'Xong ' + done() + ' trên ' + tasks().length + ' việc hôm nay'"
+        [style.--done]="(done() / tasks().length) * 100 + '%'"
+        ><span class="ring-inner">{{ done() }}/{{ tasks().length }}</span></span
+      >
+      <span>
+        <span class="eyebrow">Hôm nay</span>
+        <h2 class="today-title" id="today-title">
+          {{
+            done() === tasks().length
+              ? 'Xong hết việc hôm nay'
+              : 'Còn ' + (tasks().length - done()) + ' việc nữa'
+          }}
+        </h2>
+      </span>
+    </div>
+    <ul class="tasks">
+      @for (t of tasks(); track t.key) {
+        <li>
+          <a class="task" [class.is-done]="t.done" [routerLink]="link(t.key)">
+            <span class="check" aria-hidden="true">
+              @if (t.done) {
+                <lu-icon name="check" />
+              }
+            </span>
+            <span class="task-text"
+              >{{ t.label
+              }}<span class="visually-hidden">{{ t.done ? ', đã xong' : '' }}</span></span
+            >
+            <lu-icon name="chevron-right" />
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
+}
+
+@if (struggling().length) {
+  <a class="soft-card mistakes" routerLink="/irregular-verbs/mistakes">
+    <span class="mistakes-text">
+      <strong>Từ hay sai · {{ struggling().length }}</strong>
+      <span class="muted" lang="en">{{ strugglingBases() }}</span>
+    </span>
+    <span class="btn">Luyện</span>
+  </a>
+}
+
+<section class="map" aria-labelledby="map-title">
+  <h2 class="map-title" id="map-title">
+    Nhóm biến đổi · {{ learnedTotal() }}/{{ verbTotal() }} từ
+  </h2>
+  <ul class="groups">
+    @for (g of groups(); track g.key) {
+      <li>
+        <a
+          class="group"
+          [class]="'group tone-' + g.tone"
+          [routerLink]="['/irregular-verbs/groups', g.key]"
+        >
+          <strong>{{ g.label }}</strong>
+          <span class="group-count"
+            >{{ g.learned }}/{{ g.bases.length }} từ · {{ g.lessons.length }} bài</span
+          >
+          <span class="bar" aria-hidden="true"
+            ><span class="bar-fill" [style.width.%]="g.percent"></span
+          ></span>
+        </a>
+      </li>
+    }
+  </ul>
+</section>

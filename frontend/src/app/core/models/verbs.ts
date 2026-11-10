@@ -11,6 +11,17 @@ export interface VerbProgress {
   dueAt: string | null;
   right: number;
   wrong: number;
+  /** The forms typed wrong lately, oldest first (added 2026-11-10, "Từ hay sai"). */
+  mistakes?: VerbMistake[];
+  /** Typed answers right in a row since the last mistake. */
+  cleanRun?: number;
+}
+
+/** A form of a verb typed wrong. */
+export interface VerbMistake {
+  form: 'past' | 'participle';
+  typed: string;
+  at: string;
 }
 
 export interface VerbProgressList {
@@ -24,4 +35,8 @@ export interface VerbResult {
   /** A self-graded answer of "Ôn nhanh" (added 2026-11-10): right is Nhớ or Hơi nhớ (hard). */
   quick?: boolean;
   hard?: boolean;
+  /** The forms typed wrong, with what was typed (typed answers). */
+  wrong?: { form: 'past' | 'participle'; typed: string }[];
+  /** A typed answer outside a review round (a lesson, "Luyện từ hay sai"): the box stays. */
+  practice?: boolean;
 }

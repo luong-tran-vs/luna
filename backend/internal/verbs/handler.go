@@ -32,12 +32,27 @@ type progressJSON struct {
 	DueAt     *time.Time `json:"dueAt"`
 	Right     int        `json:"right"`
 	Wrong     int        `json:"wrong"`
+	// Mistakes and CleanRun: the forms typed wrong lately and the right answers since (added 2026-11-10).
+	Mistakes []mistakeJSON `json:"mistakes"`
+	CleanRun int           `json:"cleanRun"`
+}
+
+type mistakeJSON struct {
+	Form  string    `json:"form"`
+	Typed string    `json:"typed"`
+	At    time.Time `json:"at"`
 }
 
 func toJSON(list []Progress) []progressJSON {
 	out := make([]progressJSON, len(list))
 	for i, p := range list {
-		out[i] = progressJSON{Base: p.Base, Level: p.Level, Right: p.Right, Wrong: p.Wrong}
+		out[i] = progressJSON{
+			Base: p.Base, Level: p.Level, Right: p.Right, Wrong: p.Wrong, CleanRun: p.CleanRun,
+			Mistakes: make([]mistakeJSON, len(p.Mistakes)),
+		}
+		for j, m := range p.Mistakes {
+			out[i].Mistakes[j] = mistakeJSON(m)
+		}
 		if !p.LearnedAt.IsZero() {
 			at := p.LearnedAt
 			out[i].LearnedAt = &at
@@ -67,6 +82,13 @@ type resultsRequest struct {
 		// Quick and Hard: a self-graded answer of "Ôn nhanh" (added 2026-11-10).
 		Quick bool `json:"quick"`
 		Hard  bool `json:"hard"`
+		// Wrong and Practice: the forms typed wrong, and a typed answer outside a review round
+		// (added 2026-11-10, "Từ hay sai").
+		Wrong []struct {
+			Form  string `json:"form"`
+			Typed string `json:"typed"`
+		} `json:"wrong"`
+		Practice bool `json:"practice"`
 	} `json:"results"`
 }
 
@@ -79,7 +101,10 @@ func (h *Handler) record(w http.ResponseWriter, r *http.Request) {
 	}
 	results := make([]Result, len(req.Results))
 	for i, res := range req.Results {
-		results[i] = Result{Base: res.Base, Right: res.Right, Quick: res.Quick, Hard: res.Hard}
+		results[i] = Result{Base: res.Base, Right: res.Right, Quick: res.Quick, Hard: res.Hard, Practice: res.Practice}
+		for _, m := range res.Wrong {
+			results[i].Wrong = append(results[i].Wrong, Mistake{Form: m.Form, Typed: m.Typed})
+		}
 	}
 	list, err := h.svc.Record(r.Context(), p.UserID, results)
 	if err != nil {

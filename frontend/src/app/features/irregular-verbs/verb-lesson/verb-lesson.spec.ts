@@ -215,6 +215,16 @@ describe('VerbLessonPage', () => {
     await learnAndChoose();
     expect(el.querySelector('.step.is-current')?.textContent).toContain('Gõ');
     await typeAll();
+    // The typing counts for "Từ hay sai" (practice), not for the reviews.
+    const typing = http.expectOne((r) => r.url === '/verbs/results');
+    expect(typing.request.body.results.every((x: { practice?: boolean }) => x.practice)).toBe(true);
+    expect(typing.request.body.results[0]).toEqual({
+      base: lesson.bases[0],
+      right: false,
+      wrong: [{ form: 'participle', typed: 'nope' }],
+      practice: true,
+    });
+    typing.flush({ verbs: [] });
 
     // The verb typed wrong first is not ticked; the others are.
     const checks = Array.from(el.querySelectorAll<HTMLInputElement>('.check input'));
@@ -257,6 +267,16 @@ describe('VerbLessonPage', () => {
     await setup(3, [learned]);
     await learnAndChoose();
     await typeAll();
+    // The typing counts for "Từ hay sai" (practice), not for the reviews.
+    const typing = http.expectOne((r) => r.url === '/verbs/results');
+    expect(typing.request.body.results.every((x: { practice?: boolean }) => x.practice)).toBe(true);
+    expect(typing.request.body.results[0]).toEqual({
+      base: lesson.bases[0],
+      right: false,
+      wrong: [{ form: 'participle', typed: 'nope' }],
+      practice: true,
+    });
+    typing.flush({ verbs: [] });
     const checks = Array.from(el.querySelectorAll<HTMLInputElement>('.check input'));
     expect(checks.map((c) => c.checked)).toEqual([false, true, true]);
     checks[2].click();

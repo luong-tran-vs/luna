@@ -11,6 +11,8 @@ import { VERB_LESSONS } from './verb-lessons.data';
 import { VerbSheet } from './verb-sheet/verb-sheet';
 import { isLearned, learnedIn, modelForms, nextLesson, reviewSummary } from './verb-study.logic';
 import { VerbTable } from './verb-table/verb-table';
+import { VerbPictures } from './verb-pictures.service';
+import { VerbToday } from './verb-today/verb-today';
 
 /** How long the "Đã đánh dấu" note stays, in ms. */
 const NOTE_MS = 6000;
@@ -36,13 +38,16 @@ function savedView(): View {
  */
 @Component({
   selector: 'lu-irregular-verbs',
-  imports: [RouterLink, Icon, VerbFilters, VerbTable, VerbSheet],
+  imports: [RouterLink, Icon, VerbFilters, VerbTable, VerbSheet, VerbToday],
   templateUrl: './irregular-verbs.html',
   styleUrl: './irregular-verbs.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IrregularVerbs {
   private readonly api = inject(VerbsApiService);
+  private readonly pictureList = inject(VerbPictures);
+  /** The picture URL of each verb that has one (added 2026-11-10). */
+  protected readonly pictures = this.pictureList.urls;
 
   protected readonly total = IRREGULAR_VERBS.length;
   protected readonly commonTotal = IRREGULAR_VERBS.filter((v) => v.common).length;
@@ -136,6 +141,7 @@ export class IrregularVerbs {
   });
 
   constructor() {
+    this.pictureList.load();
     this.api.progress().subscribe({
       next: (r) => this.progress.set(new Map(r.verbs.map((v) => [v.base, v]))),
       // The lists are still there; only the counts, the ticks and "Đã học" are missing.

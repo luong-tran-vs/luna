@@ -73,6 +73,12 @@
       </div>
     </section>
 
+    @if (progress(); as p) {
+      <lu-verb-today [progress]="p" [pictures]="pictures()" />
+    }
+
+    <details class="all-lessons">
+      <summary>Tất cả {{ lessonCount }} bài theo thứ tự</summary>
     @for (part of parts(); track part.title) {
       <h2 class="group-title">{{ part.title }} · {{ part.lessons.length }} bài</h2>
       <ol class="path">
@@ -114,6 +120,7 @@
         }
       </ol>
     }
+    </details>
   } @else {
     <lu-verb-filters
       [(query)]="query"

@@ -23,6 +23,7 @@ import { spokenForms } from '../irregular-verbs.logic';
 import { canFlip, dueLabel, learnedVerbs, reviewRound } from '../verb-study.logic';
 import { QuickResult, VerbFlipRound } from '../verb-flip-round/verb-flip-round';
 import { VerbPictures } from '../verb-pictures.service';
+import { typedResult } from '../verb-mistakes.logic';
 import { TypedResult, VerbTypeRound } from '../verb-type-round/verb-type-round';
 
 /**
@@ -154,7 +155,7 @@ export class VerbReview {
   protected send(): void {
     this.saving.set(true);
     this.saveError.set(false);
-    const typed = this.results().map((r) => ({ base: r.verb.base, right: r.right }));
+    const typed = this.results().map((r) => typedResult(r));
     const quick = this.quick().map((q) => ({
       base: q.verb.base,
       right: q.grade !== 'forgot',

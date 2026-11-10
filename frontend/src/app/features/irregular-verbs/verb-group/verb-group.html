@@ -1,0 +1,56 @@
+<section class="screen verb-group">
+  <header class="top-bar">
+    <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"
+      ><lu-icon name="arrow-left"
+    /></a>
+    <h1 class="bar-title">
+      @if (group(); as g) {
+        Nhóm {{ g.label }}
+      } @else {
+        Không có nhóm này
+      }
+    </h1>
+  </header>
+
+  @if (group(); as g) {
+    <div class="cat-says">
+      <img class="cat" ngSrc="images/mascot-cat.png" width="56" height="56" alt="" />
+      <p class="bubble">{{ g.tipVi }}</p>
+    </div>
+
+    <ul class="lessons">
+      @for (l of g.lessons; track l.number) {
+        @let n = learned(l.number);
+        <li>
+          <a class="soft-card lesson" [routerLink]="['/irregular-verbs/lessons', l.number]">
+            <span class="lesson-head">
+              <strong>Bài {{ l.number }} · {{ l.title }}</strong>
+              <span class="state" [class.done]="n === l.bases.length">
+                {{ n === l.bases.length ? 'Đã học' : n > 0 ? n + '/' + l.bases.length : 'Học ›' }}
+              </span>
+            </span>
+            <span class="bases" lang="en">{{ l.bases.join(' · ') }}</span>
+            @if (l.advanced) {
+              <span class="tag">Nâng cao</span>
+            }
+            <span class="thumbs" aria-hidden="true">
+              @for (b of l.bases; track b) {
+                @if (pictures().get(b); as src) {
+                  <img [src]="src" alt="" width="40" height="30" loading="lazy" />
+                }
+              }
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <section class="soft-card">
+      <lu-verb-chant [verbs]="verbs()" />
+    </section>
+  } @else {
+    <p class="soft-card">
+      Không tìm thấy nhóm này. <a routerLink="/irregular-verbs">Về Động từ</a>
+    </p>
+  }
+</section>

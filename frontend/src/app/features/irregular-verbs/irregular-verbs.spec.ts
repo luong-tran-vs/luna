@@ -61,6 +61,7 @@ describe('IrregularVerbs', () => {
     fixture = TestBed.createComponent(IrregularVerbs);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
+    http.expectOne('/verbs/images').flush({ images: [] });
     const req = http.expectOne('/verbs/progress');
     if (verbs) {
       req.flush({ verbs });

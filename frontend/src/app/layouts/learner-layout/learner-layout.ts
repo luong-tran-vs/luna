@@ -46,7 +46,7 @@ export function isFocusPage(path: string): boolean {
   return (
     /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path) ||
     /^\/grammar\/[^/]+$/.test(path) ||
-    /^\/irregular-verbs\/(lessons\/[^/]+|review)$/.test(path) ||
+    /^\/irregular-verbs\/(lessons\/[^/]+|review|mistakes)$/.test(path) ||
     /^\/vocabulary\/talk\/[^/]+$/.test(path)
   );
 }

@@ -108,7 +108,7 @@ describe('VerbReview', () => {
       ),
     ).toEqual([
       { base: 'buy', right: true },
-      { base: 'go', right: false },
+      { base: 'go', right: false, wrong: [{ form: 'participle', typed: 'goed' }] },
     ]);
     req.flush({ verbs: [learned('go', 1), learned('buy', 3)] });
     await settle();

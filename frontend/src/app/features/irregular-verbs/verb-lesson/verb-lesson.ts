@@ -21,6 +21,7 @@ import { VerbCard } from '../verb-card/verb-card';
 import { VERB_LESSONS } from '../verb-lessons.data';
 import { VerbPattern } from '../verb-pattern/verb-pattern';
 import { VerbPictures } from '../verb-pictures.service';
+import { typedResult } from '../verb-mistakes.logic';
 import { VerbSentenceRound } from '../verb-sentence-round/verb-sentence-round';
 import { isLearned, lessonVerbs } from '../verb-study.logic';
 import { VerbSummary } from '../verb-summary/verb-summary';
@@ -163,6 +164,9 @@ export class VerbLessonPage {
 
   protected onTyped(results: TypedResult[]): void {
     this.typed.set(results);
+    // The typing counts for "Từ hay sai" (added 2026-11-10), not for the reviews; a failure only
+    // leaves it uncounted.
+    this.api.record(results.map((r) => typedResult(r, true))).subscribe({ error: () => undefined });
     // Ticked: the verbs typed right, and those already learned.
     this.ticked.set(
       new Set(

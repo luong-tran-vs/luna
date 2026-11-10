@@ -1,0 +1,66 @@
+<h2 class="title" id="chant-title">Đọc theo nhịp</h2>
+@if (!canSpeak) {
+  <p class="muted">Trình duyệt này không có giọng đọc.</p>
+} @else {
+  @if (current(); as c) {
+    <div class="beats" lang="en" aria-hidden="true">
+      @for (f of c.forms; track $index; let i = $index) {
+        <span class="beat" [class.on]="beat() === i">
+          <b>{{ f }}</b
+          ><small lang="vi">V{{ i + 1 }}</small>
+        </span>
+      }
+    </div>
+  }
+  <ol class="lines" aria-labelledby="chant-title">
+    @for (l of lines(); track l.verb.base; let i = $index) {
+      <li>
+        <button
+          type="button"
+          class="line"
+          lang="en"
+          [class.on]="line() === i"
+          [attr.aria-current]="line() === i ? 'true' : null"
+          [attr.aria-label]="l.forms.join(', ') + ', bắt đầu đọc từ dòng này'"
+          (click)="pick(i)"
+        >
+          @for (f of l.forms; track $index) {
+            <span>{{ f }}</span>
+          }
+        </button>
+      </li>
+    }
+  </ol>
+  <div class="controls">
+    <div class="speeds" role="group" aria-label="Tốc độ">
+      @for (s of speeds; track s.value) {
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="speed() === s.value"
+          (click)="speed.set(s.value)"
+        >
+          {{ s.label }}
+        </button>
+      }
+    </div>
+    <button type="button" class="chip" [attr.aria-pressed]="twice()" (click)="toggleTwice()">
+      Lặp ×2
+    </button>
+    <button type="button" class="chip" [attr.aria-pressed]="echo()" (click)="toggleEcho()">
+      Đọc theo
+    </button>
+  </div>
+  @if (echo()) {
+    <p class="hint">Đọc theo: sau mỗi từ có một nhịp trống để bạn đọc to.</p>
+  }
+  <div class="actions">
+    @if (playing()) {
+      <button type="button" class="btn" (click)="pause()"><lu-icon name="pause" /> Tạm dừng</button>
+    } @else {
+      <button type="button" class="btn-primary" (click)="play()">
+        <lu-icon name="play" /> {{ line() > 0 ? 'Đọc tiếp' : 'Đọc cả nhóm' }}
+      </button>
+    }
+  </div>
+}

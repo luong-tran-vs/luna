@@ -25,7 +25,18 @@ type Progress struct {
 	// Right and Wrong count the review answers given.
 	Right     int
 	Wrong     int
+	// Mistakes are the last forms typed wrong, newest last (added 2026-11-10, "Từ hay sai"), at most
+	// MaxMistakes; CleanRun counts the typed answers right in a row since the last one.
+	Mistakes  []Mistake
+	CleanRun  int
 	UpdatedAt time.Time
+}
+
+// Mistake is a form of the verb typed wrong: Form is "past" (V2) or "participle" (V3).
+type Mistake struct {
+	Form  string
+	Typed string
+	At    time.Time
 }
 
 // Learned reports whether the learner confirmed the verb as learned.
@@ -40,6 +51,11 @@ type Result struct {
 	Right bool
 	Quick bool
 	Hard  bool
+	// Wrong lists the forms typed wrong, with what was typed (typed answers only).
+	Wrong []Mistake
+	// Practice marks a typed answer outside a review round: the lesson's typing or "Luyện từ hay
+	// sai". It counts the answer and the mistakes, not the review box.
+	Practice bool
 }
 
 // Repository stores the progress records.
@@ -130,10 +146,14 @@ const HardWait = 2 * 24 * time.Hour
 // ApplyResult returns the record after one answer of a round at now: typed answers as Apply,
 // quick ones as ApplyQuick.
 func ApplyResult(p Progress, r Result, now time.Time) Progress {
-	if r.Quick {
+	switch {
+	case r.Quick:
 		return ApplyQuick(p, r.Right, r.Hard, now)
+	case r.Practice:
+		return recordTyping(applyPractice(p, r, now), r, now)
+	default:
+		return recordTyping(Apply(p, r.Right, now), r, now)
 	}
-	return Apply(p, r.Right, now)
 }
 
 // ApplyQuick returns the record after a self-graded answer at now. "Quên" (not right) counts as a
@@ -159,5 +179,52 @@ func ApplyQuick(p Progress, right, hard bool, now time.Time) Progress {
 		wait = min(Intervals[p.Level-1], HardWait)
 	}
 	p.DueAt = now.Add(wait)
+	return p
+}
+
+// "Từ hay sai" (design/de-xuat-dong-tu.png part 6, added 2026-11-10): the forms a learner types wrong
+// are kept, so the verbs they keep getting wrong can be practised on their own.
+
+// MaxMistakes is how many mistakes a record keeps, the oldest dropped first.
+const MaxMistakes = 10
+
+// MaxTyped bounds what is kept of a typed answer.
+const MaxTyped = 40
+
+// recordTyping keeps a typed answer's mistakes: a wrong one restarts the clean run, a right one
+// lengthens it.
+func recordTyping(p Progress, r Result, now time.Time) Progress {
+	if r.Quick {
+		return p
+	}
+	if r.Right {
+		p.CleanRun++
+		return p
+	}
+	p.CleanRun = 0
+	for _, m := range r.Wrong {
+		if m.Form != "past" && m.Form != "participle" {
+			continue
+		}
+		typed := []rune(m.Typed)
+		if len(typed) > MaxTyped {
+			typed = typed[:MaxTyped]
+		}
+		p.Mistakes = append(p.Mistakes, Mistake{Form: m.Form, Typed: string(typed), At: now})
+	}
+	if n := len(p.Mistakes); n > MaxMistakes {
+		p.Mistakes = append([]Mistake(nil), p.Mistakes[n-MaxMistakes:]...)
+	}
+	return p
+}
+
+// applyPractice counts a typed answer given outside a review round, without moving the review box.
+func applyPractice(p Progress, r Result, now time.Time) Progress {
+	p.UpdatedAt = now
+	if r.Right {
+		p.Right++
+	} else {
+		p.Wrong++
+	}
 	return p
 }

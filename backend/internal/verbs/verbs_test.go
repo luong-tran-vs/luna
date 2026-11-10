@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"slices"
 	"strings"
 	"sync"
@@ -59,7 +60,7 @@ func TestLearnAndUnlearn(t *testing.T) {
 		t.Fatalf("learned = %+v", p)
 	}
 	// Learning again leaves the record as it is.
-	if again := Learn(p, testNow.Add(time.Hour)); again != p {
+	if again := Learn(p, testNow.Add(time.Hour)); !reflect.DeepEqual(again, p) {
 		t.Fatalf("learned twice = %+v", again)
 	}
 	p.Right = 3
@@ -254,5 +255,33 @@ func TestApplyQuick(t *testing.T) {
 	p.DueAt = testNow.Add(day)
 	if got := ApplyQuick(p, true, false, testNow); got.Level != 2 || !got.DueAt.Equal(p.DueAt) || got.Right != 4 {
 		t.Errorf("not due: %+v", got)
+	}
+}
+
+func TestTypedMistakes(t *testing.T) {
+	t.Parallel()
+	p := Learn(Progress{Base: "begin"}, testNow.Add(-48*time.Hour))
+	wrong := Result{Base: "begin", Wrong: []Mistake{{Form: "past", Typed: "begun"}, {Form: "bogus", Typed: "x"}}}
+	p = ApplyResult(p, wrong, testNow)
+	if len(p.Mistakes) != 1 || p.Mistakes[0].Typed != "begun" || !p.Mistakes[0].At.Equal(testNow) || p.CleanRun != 0 || p.Level != 1 {
+		t.Fatalf("after a wrong review = %+v", p)
+	}
+	// Practice counts, keeps mistakes and runs, but leaves the review box and its wait.
+	due := p.DueAt
+	p = ApplyResult(p, Result{Base: "begin", Right: true, Practice: true}, testNow.Add(time.Hour))
+	p = ApplyResult(p, Result{Base: "begin", Right: true, Practice: true}, testNow.Add(2*time.Hour))
+	if p.CleanRun != 2 || !p.DueAt.Equal(due) || p.Right != 2 || p.Wrong != 1 {
+		t.Fatalf("after practice = %+v", p)
+	}
+	// Quick answers do not touch the mistakes.
+	if q := ApplyResult(p, Result{Base: "begin", Quick: true}, testNow); q.CleanRun != 2 || len(q.Mistakes) != 1 {
+		t.Fatalf("quick = %+v", q)
+	}
+	// Only the last MaxMistakes are kept.
+	for i := range MaxMistakes + 3 {
+		p = ApplyResult(p, Result{Base: "begin", Practice: true, Wrong: []Mistake{{Form: "participle", Typed: strings.Repeat("x", i+1)}}}, testNow)
+	}
+	if len(p.Mistakes) != MaxMistakes || p.Mistakes[MaxMistakes-1].Typed != strings.Repeat("x", MaxMistakes+3) {
+		t.Fatalf("kept = %d, last %q", len(p.Mistakes), p.Mistakes[len(p.Mistakes)-1].Typed)
 	}
 }

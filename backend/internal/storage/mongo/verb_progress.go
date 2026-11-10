@@ -23,7 +23,16 @@ type verbProgressDoc struct {
 	DueAt      *time.Time    `bson:"dueAt,omitempty"`
 	RightCount int           `bson:"rightCount"`
 	WrongCount int           `bson:"wrongCount"`
-	UpdatedAt  time.Time     `bson:"updatedAt"`
+	// Mistakes and CleanRun: "Từ hay sai" (added 2026-11-10).
+	Mistakes  []verbMistakeDoc `bson:"mistakes,omitempty"`
+	CleanRun  int              `bson:"cleanRun,omitempty"`
+	UpdatedAt time.Time        `bson:"updatedAt"`
+}
+
+type verbMistakeDoc struct {
+	Form  string    `bson:"form"`
+	Typed string    `bson:"typed"`
+	At    time.Time `bson:"at"`
 }
 
 // VerbProgress implements verbs.Repository on "verb_progress"; the unique (userId, base) index
@@ -57,7 +66,18 @@ func (r *VerbProgress) List(ctx context.Context, userID string) ([]verbs.Progres
 	for i, d := range docs {
 		out[i] = verbs.Progress{
 			UserID: userID, Base: d.Base, Level: d.Level, Right: d.RightCount, Wrong: d.WrongCount,
-			UpdatedAt: d.UpdatedAt.UTC(),
+			CleanRun: d.CleanRun, UpdatedAt: d.UpdatedAt.UTC(),
+		}
+		// learnedAt was neither saved nor read before 2026-11-10, so no verb stayed learned on Mongo. A
+		// verb in a review box was learned (as MySQL migration 031 did): since its last update.
+		switch {
+		case d.LearnedAt != nil:
+			out[i].LearnedAt = d.LearnedAt.UTC()
+		case d.Level > 0:
+			out[i].LearnedAt = d.UpdatedAt.UTC()
+		}
+		for _, m := range d.Mistakes {
+			out[i].Mistakes = append(out[i].Mistakes, verbs.Mistake{Form: m.Form, Typed: m.Typed, At: m.At.UTC()})
 		}
 		if d.DueAt != nil {
 			out[i].DueAt = d.DueAt.UTC()
@@ -79,7 +99,14 @@ func (r *VerbProgress) Save(ctx context.Context, records []verbs.Progress) error
 		}
 		doc := verbProgressDoc{
 			UserID: uid, Base: p.Base, Level: p.Level, RightCount: p.Right, WrongCount: p.Wrong,
-			UpdatedAt: p.UpdatedAt.UTC(),
+			CleanRun: p.CleanRun, UpdatedAt: p.UpdatedAt.UTC(),
+		}
+		if !p.LearnedAt.IsZero() {
+			learned := p.LearnedAt.UTC()
+			doc.LearnedAt = &learned
+		}
+		for _, m := range p.Mistakes {
+			doc.Mistakes = append(doc.Mistakes, verbMistakeDoc{Form: m.Form, Typed: m.Typed, At: m.At.UTC()})
 		}
 		if !p.DueAt.IsZero() {
 			due := p.DueAt.UTC()
