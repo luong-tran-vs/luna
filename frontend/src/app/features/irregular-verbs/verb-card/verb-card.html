@@ -1,0 +1,107 @@
+@let v = verb();
+<div class="faces" role="group" aria-label="Mặt thẻ">
+  <button
+    type="button"
+    class="face"
+    [attr.aria-pressed]="face() === 'word'"
+    (click)="face.set('word')"
+  >
+    Từ
+  </button>
+  <button
+    type="button"
+    class="face"
+    [attr.aria-pressed]="face() === 'use'"
+    (click)="face.set('use')"
+  >
+    Dùng khi nào
+  </button>
+</div>
+
+<section class="soft-card card" [attr.aria-label]="v.base + ', ' + v.meaningVi">
+  @if (face() === 'word') {
+    @if (picture()) {
+      <img
+        class="picture"
+        [src]="picture()"
+        [alt]="'Ảnh minh hoạ ' + v.base"
+        width="480"
+        height="360"
+      />
+    }
+    @if (tag()) {
+      <span class="tag">{{ tag() }}</span>
+    }
+    <p class="head">
+      <strong lang="en">{{ v.base }}</strong> <span class="meaning">· {{ v.meaningVi }}</span>
+    </p>
+    <div class="beats" lang="en">
+      @for (c of cuts(); track $index; let i = $index) {
+        <button
+          type="button"
+          class="beat"
+          [class.on]="beat() === i"
+          [disabled]="!canSpeak"
+          [attr.aria-label]="'V' + (i + 1) + ': ' + forms()[i] + (canSpeak ? ', bấm để nghe' : '')"
+          (click)="say(i)"
+        >
+          <span class="beat-label" lang="vi">V{{ i + 1 }}</span>
+          <span class="beat-word"
+            ><span>{{ c[0] }}</span>
+            @if (c[1]) {
+              <mark [class]="'v' + (i + 1)">{{ c[1] }}</mark>
+            }
+          </span>
+          @if (ipa()[i]) {
+            <span class="ipa">{{ ipa()[i] }}</span>
+          }
+          @if (i > 0 && alternatives()[i - 1]) {
+            <span class="alt">{{ alternatives()[i - 1] }}</span>
+          }
+        </button>
+      }
+    </div>
+    @if (canSpeak) {
+      <button type="button" class="btn listen" (click)="sayAll()">
+        <lu-icon name="volume" /> Nghe cả 3 theo nhịp
+      </button>
+    }
+    @if (mistake()) {
+      <p class="mistake"><span aria-hidden="true">⚠</span> {{ mistake() }}</p>
+    }
+  } @else {
+    <ul class="uses">
+      @for (u of uses(); track u.form) {
+        <li class="use">
+          <span class="when" [class]="'when when-' + u.form">{{ u.label }}</span>
+          <div>
+            <p lang="en" class="use-en">
+              @for (p of parts(u.en); track $index) {
+                @if (p.verb) {
+                  <mark [class]="u.form === 'V3' ? 'v3' : 'v2'">{{ p.text }}</mark>
+                } @else {
+                  {{ p.text }}
+                }
+              }
+            </p>
+            <p class="use-vi">{{ u.vi }}</p>
+          </div>
+          @if (canSpeak) {
+            <button
+              type="button"
+              class="icon-btn"
+              [attr.aria-label]="'Nghe câu: ' + u.en"
+              (click)="listen(u.en)"
+            >
+              <lu-icon name="volume" />
+            </button>
+          }
+        </li>
+      }
+    </ul>
+    <p class="hint">
+      V2 dùng khi việc đã xảy ra (hôm qua, năm ngoái…). V3 đi sau <b>have / has / had</b>, hoặc sau
+      <b>was / were</b> ở câu bị động.
+    </p>
+  }
+</section>

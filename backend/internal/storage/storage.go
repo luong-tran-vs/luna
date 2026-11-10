@@ -98,6 +98,8 @@ type Store interface {
 	GrammarReports() grammar.ReportRepository
 	// GrammarImages keeps the pictures of the grammar examples (added 2026-11-06).
 	GrammarImages() grammar.ImageRepository
+	// VerbImages keeps the pictures of the irregular verbs (added 2026-11-10).
+	VerbImages() verbs.ImageRepository
 
 	// Curricula keeps the course of each level, approved and draft (added 2026-10-23).
 	Curricula() curriculum.Repository

@@ -50,6 +50,11 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./word-bank/word-bank').then((m) => m.WordBank),
   },
   {
+    path: 'verb-images',
+    title: 'Ảnh động từ · Quản trị · Luna',
+    loadComponent: () => import('./verb-images/verb-images').then((m) => m.VerbImages),
+  },
+  {
     path: 'grammar',
     title: 'Ngữ pháp · Quản trị · Luna',
     loadComponent: () => import('./grammar-list/grammar-list').then((m) => m.GrammarList),

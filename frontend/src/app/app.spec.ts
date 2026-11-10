@@ -126,7 +126,7 @@ describe('App', () => {
     // The admin menu is the sidebar, not the header.
     expect(navLinks(harness)).toEqual([]);
     const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar .menu a'));
-    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/curriculum', '/admin/words', '/admin/grammar', '/admin/roadmap', '/admin/accounts', '/admin/ai-usage', '/admin/ai-model', '/admin/appearance']);
+    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/curriculum', '/admin/words', '/admin/verb-images', '/admin/grammar', '/admin/roadmap', '/admin/accounts', '/admin/ai-usage', '/admin/ai-model', '/admin/appearance']);
     const current = () => sidebar().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 

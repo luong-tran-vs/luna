@@ -23,13 +23,33 @@ type goalDoc struct {
 	Status        string        `bson:"status"`
 	EffectiveFrom string        `bson:"effectiveFrom"`
 	StartedAt     time.Time     `bson:"startedAt"`
+	MoreLessons   int           `bson:"moreLessons,omitempty"`
 }
 
 func (d goalDoc) toGoal() progress.Goal {
 	return progress.Goal{
 		ID: d.ID.Hex(), UserID: d.UserID.Hex(), TopicID: d.TopicID.Hex(), Level: d.Level,
 		Status: progress.GoalStatus(d.Status), EffectiveFrom: d.EffectiveFrom, StartedAt: d.StartedAt,
+		MoreLessons: d.MoreLessons,
 	}
+}
+
+// SetMoreLessons records how many held-back lessons the goal of (topicID, level) opened.
+func (r *Goals) SetMoreLessons(ctx context.Context, userID, topicID, level string, n int) error {
+	uid, err := bson.ObjectIDFromHex(userID)
+	if err != nil {
+		return fmt.Errorf("goal user id: %w", err)
+	}
+	tid, err := bson.ObjectIDFromHex(topicID)
+	if err != nil {
+		return progress.ErrTopicNotFound
+	}
+	_, err = r.coll.UpdateOne(ctx, bson.D{{Key: "userId", Value: uid}, {Key: "topicId", Value: tid}, {Key: "level", Value: level}},
+		bson.D{{Key: "$set", Value: bson.D{{Key: "moreLessons", Value: n}}}})
+	if err != nil {
+		return fmt.Errorf("set more lessons: %w", err)
+	}
+	return nil
 }
 
 // Goals implements progress.GoalRepository on "goals".

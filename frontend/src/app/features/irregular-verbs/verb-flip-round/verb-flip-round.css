@@ -1,0 +1,175 @@
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.eyebrow,
+.count {
+  margin: 0;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bar {
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-accent);
+}
+
+.card {
+  justify-items: center;
+  gap: var(--space-2);
+  min-height: 300px;
+  text-align: center;
+}
+
+.retry {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-warn) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--color-warn) 14%, var(--color-surface));
+  border-radius: var(--radius-full);
+}
+
+.picture {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.base {
+  margin: 0;
+  font: var(--text-2xl) var(--font-ui);
+  font-size: 34px;
+}
+
+.meaning,
+.example-vi,
+.ask {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.ask {
+  font: var(--text-sm) var(--font-ui);
+  text-align: center;
+}
+
+.hint {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  border: 1.5px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.forms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.form {
+  display: grid;
+  padding: var(--space-2) var(--space-1);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.form-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.form-word {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+mark {
+  padding: 0 1px;
+  color: var(--color-tone-1);
+  background: var(--color-tone-1-soft);
+  border-radius: 4px;
+}
+
+.example {
+  margin: var(--space-1) 0 0;
+  font-weight: 600;
+}
+
+.example-vi {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.listen {
+  gap: var(--space-2);
+
+  --icon-size: 18px;
+}
+
+.grades {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.grade {
+  display: grid;
+  min-height: 56px;
+  padding: var(--space-2) var(--space-1);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  --tone: var(--color-ok);
+
+  color: color-mix(in srgb, var(--tone) 75%, var(--color-text));
+  background: color-mix(in srgb, var(--tone) 14%, var(--color-surface));
+}
+
+.grade small {
+  font: var(--text-xs) var(--font-ui);
+}
+
+.grade-forgot {
+  --tone: var(--color-bad);
+}
+
+.grade-hard {
+  --tone: var(--color-warn);
+}
+
+.grade:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}

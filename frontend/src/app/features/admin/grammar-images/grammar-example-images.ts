@@ -15,12 +15,7 @@ import { firstValueFrom } from 'rxjs';
 import { serverUrl } from '../../../core/api-url';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { GrammarImageBatch, GrammarLessonAdmin } from '../../../core/models/grammar-admin';
-import {
-  engineLabel,
-  ImageEngine,
-  storedImageEngine,
-  storeImageEngine,
-} from '../../../core/models/word-bank';
+import { engineLabel, ImageEngine } from '../../../core/models/word-bank';
 import { EnginePicker } from '../../../shared/components/engine-picker/engine-picker';
 import { AdminApiService } from '../admin-api.service';
 import { GrammarImageBatchService, pointBatchKey } from './grammar-image-batch.service';
@@ -71,13 +66,15 @@ export class GrammarExampleImages {
   /** Changes when pictures are drawn, so the browser asks for them again under the same URL. */
   private readonly version = signal(Date.now());
 
-  private readonly imageEngine = signal<ImageEngine>(storedImageEngine());
+  /** No engine is chosen at first: the admin picks one each time (asked 2026-11-10). */
+  private readonly imageEngine = signal<ImageEngine | ''>('');
   protected readonly codex = computed(
     () => !!this.lesson().codexImages || !!this.batches.status()?.codexImages,
   );
-  protected readonly engine = computed<ImageEngine>(() =>
-    this.codex() ? this.imageEngine() : 'gemini',
-  );
+  protected readonly engine = computed<ImageEngine | ''>(() => {
+    const e = this.imageEngine();
+    return e === 'codex' && !this.codex() ? '' : e;
+  });
 
   /** The examples, then the picture exercises (added 2026-11-06), each with its picture. */
   protected readonly rows = computed<ExampleRow[]>(() => {
@@ -144,7 +141,6 @@ export class GrammarExampleImages {
 
   protected setEngine(engine: ImageEngine): void {
     this.imageEngine.set(engine);
-    storeImageEngine(engine);
   }
 
   /** Tạo ảnh cho các câu còn thiếu: every example without a picture, one after another. */
@@ -161,6 +157,11 @@ export class GrammarExampleImages {
     if (this.locked()) {
       return;
     }
+    const engine = this.engine();
+    if (engine === '') {
+      this.error.set('Hãy chọn tạo ảnh bằng Gemini hay Codex CLI trước.');
+      return;
+    }
     this.busy.set(busy);
     this.error.set(null);
     this.note.set(null);
@@ -168,7 +169,7 @@ export class GrammarExampleImages {
       const b = await firstValueFrom(
         this.api.startGrammarImageBatch({
           pointIds: [this.lesson().pointId],
-          engine: this.engine(),
+          engine,
           key: this.batchKey(),
           label: `bài “${this.title() || this.lesson().pointId}”`,
           ...extra,

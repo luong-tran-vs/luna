@@ -100,6 +100,28 @@ func (r *Reader) Vocabulary(ctx context.Context, id string) (items []VocabItem, 
 	return items, true, nil
 }
 
+// POS returns the words of a lesson with their part of speech only, as Vocabulary gives it, in
+// one database read: no IPA, pictures or word bank, which the part of speech does not need.
+func (r *Reader) POS(ctx context.Context, id string) ([]VocabItem, error) {
+	l, err := r.lessons.Get(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	if l.AnnotationStatus != StatusDone || len(l.Annotations) == 0 {
+		return []VocabItem{}, nil
+	}
+	items := vocabularyWords(l)
+	for i := range items {
+		item := &items[i]
+		if item.POS == "" {
+			if item.POS, err = dictionaryPOS(ctx, r.dict, item.Lemma, item.Text, item.MeaningVi); err != nil {
+				return nil, fmt.Errorf("lesson: %w", err)
+			}
+		}
+	}
+	return items, nil
+}
+
 // Image returns the picture of one word of a lesson, the lesson's own or else the word bank's, or
 // ErrImageNotFound.
 func (r *Reader) Image(ctx context.Context, id, lemma string) (WordImage, error) {

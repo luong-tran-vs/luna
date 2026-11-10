@@ -234,6 +234,32 @@ func (r *Lessons) Get(ctx context.Context, id string) (lesson.Lesson, error) {
 	return d.toLesson(), nil
 }
 
+// GetMany returns the lessons that exist among ids, whole, in one query.
+func (r *Lessons) GetMany(ctx context.Context, ids []string) ([]lesson.Lesson, error) {
+	oids := make([]bson.ObjectID, 0, len(ids))
+	for _, id := range ids {
+		if oid, err := bson.ObjectIDFromHex(id); err == nil {
+			oids = append(oids, oid)
+		}
+	}
+	if len(oids) == 0 {
+		return nil, nil
+	}
+	cur, err := r.coll.Find(ctx, bson.D{{Key: "_id", Value: bson.D{{Key: "$in", Value: oids}}}})
+	if err != nil {
+		return nil, fmt.Errorf("find lessons: %w", err)
+	}
+	var docs []lessonDoc
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("read lessons: %w", err)
+	}
+	out := make([]lesson.Lesson, len(docs))
+	for i, d := range docs {
+		out[i] = d.toLesson()
+	}
+	return out, nil
+}
+
 // List returns summaries newest first, filtered by level and topic id.
 func (r *Lessons) List(ctx context.Context, f lesson.Filter) ([]lesson.Summary, error) {
 	filter := bson.D{}

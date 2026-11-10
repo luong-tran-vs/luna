@@ -26,12 +26,7 @@ import {
   UPLOAD_TYPES,
 } from '../../../../core/models/generate';
 import { ImageWord, LessonImages as ImageState, SceneBatch } from '../../../../core/models/lesson';
-import {
-  engineLabel,
-  ImageEngine,
-  storedImageEngine,
-  storeImageEngine,
-} from '../../../../core/models/word-bank';
+import { engineLabel, ImageEngine } from '../../../../core/models/word-bank';
 import { AdminApiService } from '../../admin-api.service';
 import { SceneBatchService } from '../../curriculum/scene-batch.service';
 
@@ -80,12 +75,13 @@ export class LessonImages {
   /** The word whose "Dán link ảnh" field is open, or null; one at a time. */
   protected readonly linkFor = signal<string | null>(null);
 
-  /** The engine chosen on this browser, shared with the word bank. */
-  protected readonly imageEngine = signal<ImageEngine>(storedImageEngine());
-  /** What "Sinh ảnh cảnh" draws with: Codex only where the server offers it. */
-  protected readonly engine = computed<ImageEngine>(() =>
-    this.state()?.codexImages ? this.imageEngine() : 'gemini',
-  );
+  /** The engine chosen; none at first: the admin picks one each time (asked 2026-11-10). */
+  protected readonly imageEngine = signal<ImageEngine | ''>('');
+  /** What "Sinh ảnh cảnh" draws with: Codex only where the server offers it; '' while none is chosen. */
+  protected readonly engine = computed<ImageEngine | ''>(() => {
+    const e = this.imageEngine();
+    return e === 'codex' && !this.state()?.codexImages ? '' : e;
+  });
   /** The optional fields are shown on request, or when they already hold a saved value. */
   protected readonly showScene = signal(false);
   protected readonly showStyle = signal(false);
@@ -164,9 +160,7 @@ export class LessonImages {
   }
 
   protected setEngine(value: string): void {
-    const engine: ImageEngine = value === 'codex' ? 'codex' : 'gemini';
-    this.imageEngine.set(engine);
-    storeImageEngine(engine);
+    this.imageEngine.set(value === 'codex' ? 'codex' : 'gemini');
   }
 
   /** A file was chosen for a word: checked here, then scaled down and stored by the server. */
@@ -270,6 +264,10 @@ export class LessonImages {
     }
     const v = this.form.getRawValue();
     const engine = this.engine();
+    if (engine === '') {
+      this.error.set('Hãy chọn tạo ảnh bằng Gemini hay Codex CLI trước.');
+      return;
+    }
     this.busy.set('draw');
     this.error.set(null);
     this.note.set(null);

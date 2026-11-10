@@ -284,6 +284,36 @@ func lessonScanSummary(s lessonRowScanner) (lesson.Summary, error) {
 	return sm, nil
 }
 
+// GetMany returns the lessons that exist among ids, whole, in one query.
+func (r *Lessons) GetMany(ctx context.Context, ids []string) ([]lesson.Lesson, error) {
+	valid := make([]string, 0, len(ids))
+	for _, id := range ids {
+		if lessonValidID(id) {
+			valid = append(valid, id)
+		}
+	}
+	if len(valid) == 0 {
+		return nil, nil
+	}
+	rows, err := r.db.QueryContext(ctx, `SELECT `+lessonCols+` FROM lessons WHERE id IN (`+placeholders(len(valid))+`)`, args(valid)...)
+	if err != nil {
+		return nil, fmt.Errorf("mysql get lessons: %w", err)
+	}
+	defer func() { _ = rows.Close() }()
+	var out []lesson.Lesson
+	for rows.Next() {
+		l, err := lessonScan(rows)
+		if err != nil {
+			return nil, fmt.Errorf("mysql get lessons: %w", err)
+		}
+		out = append(out, l)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("mysql get lessons: %w", err)
+	}
+	return out, nil
+}
+
 // Get returns lesson.ErrNotFound for unknown or malformed ids.
 func (r *Lessons) Get(ctx context.Context, id string) (lesson.Lesson, error) {
 	if !lessonValidID(id) {

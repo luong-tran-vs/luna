@@ -1,0 +1,77 @@
+@if (current(); as v) {
+  <div class="head">
+    <p class="eyebrow">Ôn nhanh</p>
+    <p class="count">{{ index() + 1 }}/{{ queue().length }}</p>
+  </div>
+  <div class="bar" aria-hidden="true">
+    <span class="bar-fill" [style.width.%]="(index() / queue().length) * 100"></span>
+  </div>
+
+  <section class="soft-card card" aria-labelledby="flip-title">
+    @if (isRetry()) {
+      <span class="retry">Hỏi lại</span>
+    }
+    @if (pictures().get(v.base); as src) {
+      <img class="picture" [src]="src" alt="" width="480" height="360" />
+    }
+    <h2 #heading tabindex="-1" class="base" id="flip-title" lang="en">{{ v.base }}</h2>
+    <p class="meaning">{{ v.meaningVi }}</p>
+    @if (!flipped()) {
+      <p class="hint">Nhẩm V2, V3 trong đầu rồi lật thẻ.</p>
+    } @else {
+      <div class="forms" lang="en">
+        @for (c of cuts(); track $index; let i = $index) {
+          <div class="form">
+            <span class="form-label" lang="vi">V{{ i + 1 }}</span>
+            <span class="form-word"
+              ><span>{{ c[0] }}</span>
+              @if (c[1]) {
+                <mark>{{ c[1] }}</mark>
+              }
+            </span>
+          </div>
+        }
+      </div>
+      @if (example(); as ex) {
+        <p class="example" lang="en">
+          @for (p of parts(ex.en, v); track $index) {
+            @if (p.verb) {
+              <mark>{{ p.text }}</mark>
+            } @else {
+              {{ p.text }}
+            }
+          }
+        </p>
+        <p class="example-vi">{{ ex.vi }}</p>
+      }
+    }
+    @if (canSpeak) {
+      <button type="button" class="btn listen" (click)="listen(v)">
+        <lu-icon name="volume" /> Nghe
+      </button>
+    }
+  </section>
+
+  @if (!flipped()) {
+    <div class="bottom-bar">
+      <button type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
+    </div>
+  } @else {
+    <p class="ask" id="grade-label">Bạn nhớ được bao nhiêu?</p>
+    <div class="grades" role="group" aria-labelledby="grade-label">
+      @for (g of grades; track g.grade) {
+        <button
+          type="button"
+          class="grade"
+          [class]="'grade grade-' + g.grade"
+          (click)="grade(g.grade)"
+        >
+          {{ g.label }}
+          @if (waitLabel(v, g.grade); as w) {
+            <small>{{ w }}</small>
+          }
+        </button>
+      }
+    </div>
+  }
+}

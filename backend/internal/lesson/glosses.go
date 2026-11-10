@@ -99,22 +99,12 @@ func (s *Service) QueueMissingGlosses(ctx context.Context) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("lesson: gloss revisions: %w", err)
 	}
-	list, err := s.Lessons.List(ctx, Filter{})
+	list, err := s.Lessons.Annotated(ctx)
 	if err != nil {
-		return 0, fmt.Errorf("lesson: list: %w", err)
+		return 0, fmt.Errorf("lesson: annotated lessons: %w", err)
 	}
 	n := 0
-	for _, sum := range list {
-		if sum.AnnotationStatus != StatusDone {
-			continue
-		}
-		l, err := s.Lessons.Get(ctx, sum.ID)
-		if errors.Is(err, ErrNotFound) {
-			continue
-		}
-		if err != nil {
-			return n, fmt.Errorf("lesson: load: %w", err)
-		}
+	for _, l := range list {
 		if rev, ok := have[l.ID]; ok && rev == l.Revision {
 			continue
 		}

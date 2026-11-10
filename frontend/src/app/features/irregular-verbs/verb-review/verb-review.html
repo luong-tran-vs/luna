@@ -2,7 +2,9 @@
   @switch (stage()) {
     @case ('list') {
       <header class="top-bar">
-        <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"><lu-icon name="x" /></a>
+        <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"
+          ><lu-icon name="x"
+        /></a>
         <h1 class="bar-title">Động từ đã học · {{ learned().length }}</h1>
       </header>
 
@@ -16,7 +18,8 @@
           <div class="soft-card empty">
             <p>Chưa có động từ nào đã học.</p>
             <p class="muted">
-              Học một bài rồi xác nhận "Đã học", hoặc bấm nút ✓ ở bảng động từ để đánh dấu từ bạn đã biết.
+              Học một bài rồi xác nhận "Đã học", hoặc bấm nút ✓ ở bảng động từ để đánh dấu từ bạn đã
+              biết.
             </p>
             <a class="btn-primary" routerLink="/irregular-verbs">Xem các bài</a>
           </div>
@@ -32,16 +35,23 @@
               </h2>
               <span class="muted">
                 @if (due().length > 0) {
-                  Gõ V2, V3 của từng từ
+                  Ôn nhanh: lật thẻ, tự chấm. Ôn kỹ: gõ V2, V3 của từng từ.
                 } @else {
                   Có thể ôn sớm những từ sắp tới hạn
                 }
               </span>
             </span>
-            <button type="button" class="btn-primary" (click)="start()">
-              {{ due().length > 0 ? 'Ôn ngay' : 'Ôn sớm' }}
-            </button>
+            <span class="start-actions">
+              <button type="button" class="btn" (click)="start(true)">Ôn nhanh</button>
+              <button type="button" class="btn-primary" (click)="start()">
+                {{ due().length > 0 ? 'Ôn kỹ' : 'Ôn sớm' }}
+              </button>
+            </span>
           </section>
+          <p class="muted quick-note">
+            Ôn nhanh: từ chưa từng gõ đúng vẫn phải gõ, và chọn "Nhớ" chỉ hẹn ôn lại tối đa 14 ngày;
+            muốn giãn lâu hơn thì ôn kỹ.
+          </p>
 
           @if (due().length > 0) {
             <h2 class="group">Đến hạn · {{ due().length }}</h2>
@@ -65,6 +75,21 @@
       }
     }
 
+    @case ('flip') {
+      <header class="top-bar">
+        <button type="button" class="round-btn" aria-label="Dừng lượt ôn" (click)="backToList()">
+          <lu-icon name="x" />
+        </button>
+        <h1 class="bar-title">Ôn nhanh động từ</h1>
+      </header>
+      <lu-verb-flip-round
+        [verbs]="flipRound()"
+        [progress]="progress() ?? emptyProgress"
+        [pictures]="pictures()"
+        (finished)="onFlipped($event)"
+      />
+    }
+
     @case ('quiz') {
       <header class="top-bar">
         <button type="button" class="round-btn" aria-label="Dừng lượt ôn" (click)="backToList()">
@@ -78,8 +103,10 @@
     @case ('done') {
       <section class="soft-card summary" aria-labelledby="done-title">
         <img class="mascot" ngSrc="images/mascot-cat.png" width="90" height="90" alt="" />
-        <h1 #heading tabindex="-1" class="summary-title" id="done-title">Ôn xong {{ results().length }} từ</h1>
-        <p class="muted">Nhớ {{ rightCount() }}/{{ results().length }}</p>
+        <h1 #heading tabindex="-1" class="summary-title" id="done-title">
+          Ôn xong {{ doneCount() }} từ
+        </h1>
+        <p class="muted">Nhớ {{ rightCount() }}/{{ doneCount() }}</p>
         @if (saving()) {
           <p class="muted" role="status">Đang lưu kết quả…</p>
         } @else if (saveError()) {
@@ -88,6 +115,19 @@
         }
       </section>
 
+      @if (quick().length) {
+        <ul class="verbs results" aria-label="Ôn nhanh">
+          @for (q of quick(); track q.verb.base) {
+            <li class="row" [class.is-wrong]="q.grade === 'forgot'">
+              <span class="row-text">
+                <span class="row-forms" lang="en">{{ forms(q.verb) }}</span>
+                <span class="row-vi">{{ gradeLabel(q.grade) }}</span>
+              </span>
+              <span class="when">{{ nextLabel(q.verb.base) }}</span>
+            </li>
+          }
+        </ul>
+      }
       <ul class="verbs results">
         @for (r of results(); track r.verb.base) {
           <li class="row" [class.is-wrong]="!r.right">
@@ -95,8 +135,9 @@
               <span class="row-forms" lang="en">{{ forms(r.verb) }}</span>
               @if (!r.right) {
                 <span class="row-vi">
-                  Bạn gõ: <span lang="en">{{ r.past || '(trống)' }} · {{ r.participle || '(trống)' }}</span> · vẫn là đã
-                  học
+                  Bạn gõ:
+                  <span lang="en">{{ r.past || '(trống)' }} · {{ r.participle || '(trống)' }}</span>
+                  · vẫn là đã học
                 </span>
               }
             </span>

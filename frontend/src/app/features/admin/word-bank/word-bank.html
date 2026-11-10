@@ -15,11 +15,17 @@
   </header>
 
   <p class="muted">
-    Mỗi từ có một mục dùng chung cho mọi bài: từ nào trong bài chưa có ảnh riêng sẽ hiện ảnh ở đây, và phiên âm ở đây được
-    ưu tiên hơn từ điển (cả khi ôn tập). Ảnh riêng của từng bài vẫn được giữ và ưu tiên.
+    Mỗi từ có một mục dùng chung cho mọi bài: từ nào trong bài chưa có ảnh riêng sẽ hiện ảnh ở đây,
+    và phiên âm ở đây được ưu tiên hơn từ điển (cả khi ôn tập). Ảnh riêng của từng bài vẫn được giữ
+    và ưu tiên.
   </p>
 
-  <form class="card add-form" [formGroup]="form" (ngSubmit)="add()" aria-labelledby="bank-add-heading">
+  <form
+    class="card add-form"
+    [formGroup]="form"
+    (ngSubmit)="add()"
+    aria-labelledby="bank-add-heading"
+  >
     <h2 class="section-title" id="bank-add-heading">Thêm từ</h2>
     <div class="add-fields">
       <div class="field">
@@ -47,18 +53,27 @@
       </div>
       <div class="field">
         <label for="bank-topic">Thêm vào chủ đề</label>
-        <lu-search-select inputId="bank-topic" formControlName="topicId" [options]="addTopicOptions()" />
+        <lu-search-select
+          inputId="bank-topic"
+          formControlName="topicId"
+          [options]="addTopicOptions()"
+        />
       </div>
     </div>
     <p class="field-hint" id="bank-add-hint">
-      Để trống nghĩa hoặc phiên âm thì lấy từ từ điển (nếu có). Chọn chủ đề thì từ cũng được thêm vào danh sách từ
-      của chủ đề đó (cả khi từ đã có trong kho).
+      Để trống nghĩa hoặc phiên âm thì lấy từ từ điển (nếu có). Chọn chủ đề thì từ cũng được thêm
+      vào danh sách từ của chủ đề đó (cả khi từ đã có trong kho).
     </p>
     @if (addError(); as message) {
       <p class="field-error" id="bank-add-error" role="alert">{{ message }}</p>
     }
     <div class="actions">
-      <button type="submit" class="btn btn-primary" [disabled]="adding()" [attr.aria-busy]="adding()">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="adding()"
+        [attr.aria-busy]="adding()"
+      >
         {{ adding() ? 'Đang thêm…' : 'Thêm' }}
       </button>
     </div>
@@ -88,21 +103,30 @@
     </div>
     <div class="field">
       <label for="bank-missing">Lọc</label>
-      <select id="bank-missing" [value]="missing()" (change)="setMissing($any($event.target).value)">
+      <select
+        id="bank-missing"
+        [value]="missing()"
+        (change)="setMissing($any($event.target).value)"
+      >
         @for (o of missingOptions; track o.value) {
           <option [value]="o.value" [selected]="o.value === missing()">{{ o.label }}</option>
         }
       </select>
     </div>
-    @if (codexImages()) {
-      <div class="field">
-        <label for="bank-engine">Sinh ảnh bằng</label>
-        <select id="bank-engine" [value]="imageEngine()" (change)="setEngine($any($event.target).value)">
-          <option value="gemini" [selected]="imageEngine() === 'gemini'">Gemini</option>
-          <option value="codex" [selected]="imageEngine() === 'codex'">Codex CLI (ChatGPT)</option>
-        </select>
-      </div>
-    }
+    <div class="field">
+      <label for="bank-engine">Sinh ảnh bằng</label>
+      <select
+        id="bank-engine"
+        [value]="imageEngine()"
+        (change)="setEngine($any($event.target).value)"
+      >
+        <option value="" [selected]="imageEngine() === ''">Chọn Gemini hay Codex</option>
+        <option value="gemini" [selected]="imageEngine() === 'gemini'">Gemini (API)</option>
+        <option value="codex" [selected]="imageEngine() === 'codex'" [disabled]="!codexImages()">
+          Codex CLI (ChatGPT){{ codexImages() ? '' : ' · máy chủ chưa bật' }}
+        </option>
+      </select>
+    </div>
   </div>
 
   <!-- The colors of the counts next to each topic; a chip also sets the "Lọc" filter. -->
@@ -126,16 +150,29 @@
     @let b = batch();
     @if (b && b.running) {
       <p role="status">
-        Đang sinh ảnh cho <strong>{{ scope(b) }}</strong> bằng {{ batchEngine(b) }}: đã xử lý {{ b.done }}/{{ b.total }} từ,
-        <strong>còn {{ b.total - b.done }} từ</strong> · có ảnh {{ b.saved.length }} · lỗi {{ b.failures.length }}
+        Đang sinh ảnh cho <strong>{{ scope(b) }}</strong> bằng {{ batchEngine(b) }}: đã xử lý
+        {{ b.done }}/{{ b.total }} từ, <strong>còn {{ b.total - b.done }} từ</strong> · có ảnh
+        {{ b.saved.length }} · lỗi {{ b.failures.length }}
       </p>
-      <progress class="batch-progress" [max]="b.total" [value]="b.done" aria-label="Tiến độ sinh ảnh"></progress>
+      <progress
+        class="batch-progress"
+        [max]="b.total"
+        [value]="b.done"
+        aria-label="Tiến độ sinh ảnh"
+      ></progress>
       @if (b.drawing.length) {
-        <p class="muted">Đang vẽ: <span lang="en">{{ b.drawing.join(', ') }}</span></p>
+        <p class="muted">
+          Đang vẽ: <span lang="en">{{ b.drawing.join(', ') }}</span>
+        </p>
       }
       <p class="muted">Máy chủ chạy ngầm, bạn có thể rời trang rồi quay lại xem.</p>
       <div class="actions">
-        <button type="button" class="btn" [disabled]="b.stopping || batchBusy()" (click)="stopBatch()">
+        <button
+          type="button"
+          class="btn"
+          [disabled]="b.stopping || batchBusy()"
+          (click)="stopBatch()"
+        >
           {{ b.stopping ? 'Đang dừng… (chờ từ đang vẽ xong)' : 'Dừng' }}
         </button>
       </div>
@@ -145,18 +182,20 @@
           <p class="field-error" role="alert">Lượt sinh ảnh dừng sớm: {{ b.stopMessage }}</p>
         }
         <p role="status">
-          {{ b.stopped ? 'Đã dừng lượt sinh ảnh' : 'Lượt sinh ảnh đã xong' }} cho <strong>{{ scope(b) }}</strong>: sinh
-          được {{ b.saved.length }}/{{
-            b.total
-          }}
-          ảnh bằng {{ batchEngine(b) }}{{ b.failures.length ? ', ' + b.failures.length + ' từ lỗi' : '' }}.
+          {{ b.stopped ? 'Đã dừng lượt sinh ảnh' : 'Lượt sinh ảnh đã xong' }} cho
+          <strong>{{ scope(b) }}</strong
+          >: sinh được {{ b.saved.length }}/{{ b.total }} ảnh bằng {{ batchEngine(b)
+          }}{{ b.failures.length ? ', ' + b.failures.length + ' từ lỗi' : '' }}.
         </p>
         @if (b.failures.length) {
           <details class="batch-failures">
             <summary>Xem các từ không sinh được ảnh</summary>
             <ul>
               @for (f of b.failures; track f.lemma) {
-                <li><span lang="en">{{ f.lemma }}</span>: {{ f.message }}</li>
+                <li>
+                  <span lang="en">{{ f.lemma }}</span
+                  >: {{ f.message }}
+                </li>
               }
             </ul>
           </details>
@@ -166,8 +205,10 @@
         </div>
       }
       <p class="muted">
-        Tích chọn từ ở danh sách bên dưới, hoặc sinh cho mọi từ thiếu ảnh theo bộ lọc. Máy chủ sinh lần lượt từng từ bằng
-        {{ engineName() }} ở chế độ chạy ngầm (tối đa {{ maxBatch }} từ mỗi lượt), ảnh của từ nào xong thì lưu ngay.
+        Tích chọn từ ở danh sách bên dưới, hoặc sinh cho mọi từ thiếu ảnh theo bộ lọc. Máy chủ sinh
+        lần lượt từng từ bằng
+        {{ engineName() }} ở chế độ chạy ngầm (tối đa {{ maxBatch }} từ mỗi lượt), ảnh của từ nào
+        xong thì lưu ngay.
       </p>
       <div class="actions">
         <label class="pick-all">
@@ -187,7 +228,7 @@
         >
           Sinh ảnh cho {{ selectedCount() }} từ đã chọn
         </button>
-        <button type="button" class="btn" [disabled]="batchBusy()" (click)="confirmingAll.set(true)">
+        <button type="button" class="btn" [disabled]="batchBusy()" (click)="askAll()">
           Sinh ảnh mọi từ thiếu ảnh{{ topicName() ? ' của "' + topicName() + '"' : '' }}
         </button>
         @if (selectedCount()) {
@@ -203,8 +244,8 @@
   @if (canFill() && total() > 0) {
     <div class="card fill-bar">
       <p class="muted">
-        Gửi một lần cho AI mọi từ của chủ đề "{{ topicName() }}" còn thiếu nghĩa hoặc phiên âm; AI chỉ điền phần còn
-        trống, không đổi phần đã có. Có thể sửa lại từng từ sau đó.
+        Gửi một lần cho AI mọi từ của chủ đề "{{ topicName() }}" còn thiếu nghĩa hoặc phiên âm; AI
+        chỉ điền phần còn trống, không đổi phần đã có. Có thể sửa lại từng từ sau đó.
       </p>
       <button
         type="button"
@@ -221,12 +262,14 @@
   @if (hasSuggestions()) {
     <div class="card fill-bar">
       <p class="muted">
-        Phiên âm chuẩn là giọng Mỹ (từ điển CMU). Một số từ có phiên âm ghi kiểu khác hoặc đọc khác bản chuẩn; mỗi từ có
-        gợi ý để nhận riêng, hoặc bấm nút để nhận một lần cho mọi từ như vậy trong kho. Từ nào bạn muốn giữ thì nhận
-        riêng từng từ thay vì nhận cả loạt.
+        Phiên âm chuẩn là giọng Mỹ (từ điển CMU). Một số từ có phiên âm ghi kiểu khác hoặc đọc khác
+        bản chuẩn; mỗi từ có gợi ý để nhận riêng, hoặc bấm nút để nhận một lần cho mọi từ như vậy
+        trong kho. Từ nào bạn muốn giữ thì nhận riêng từng từ thay vì nhận cả loạt.
       </p>
       @if (missing() !== 'ipaCheck') {
-        <button type="button" class="btn" (click)="setMissing('ipaCheck')">Xem các từ cần xem</button>
+        <button type="button" class="btn" (click)="setMissing('ipaCheck')">
+          Xem các từ cần xem
+        </button>
       }
       <button
         type="button"
@@ -252,7 +295,8 @@
     @if (ws.length === 0) {
       <p class="card muted">
         @if (topicFilter() && !search() && !missing()) {
-          Kho chưa có từ nào của chủ đề này. Bấm "Nhập từ các chủ đề" để đưa các từ của chủ đề vào kho.
+          Kho chưa có từ nào của chủ đề này. Bấm "Nhập từ các chủ đề" để đưa các từ của chủ đề vào
+          kho.
         } @else if (search() || missing() || topicFilter()) {
           Không có từ nào khớp.
         } @else {
@@ -277,7 +321,13 @@
       </ul>
       @if (hasMore()) {
         <div class="more">
-          <button type="button" class="btn" [disabled]="loadingMore()" [attr.aria-busy]="loadingMore()" (click)="loadMore()">
+          <button
+            type="button"
+            class="btn"
+            [disabled]="loadingMore()"
+            [attr.aria-busy]="loadingMore()"
+            (click)="loadMore()"
+          >
             {{ loadingMore() ? 'Đang tải…' : 'Xem thêm' }}
           </button>
         </div>

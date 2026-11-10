@@ -16,7 +16,9 @@ describe('VerbReview', () => {
 
   const text = (n: Element | null | undefined) => n?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string) =>
-    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!;
+    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+      text(b).startsWith(label),
+    )!;
   const settle = async () => {
     await new Promise((r) => setTimeout(r));
     await fixture.whenStable();
@@ -39,7 +41,10 @@ describe('VerbReview', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideFakeSpeech(new FakeSpeech()),
-        { provide: ActivatedRoute, useValue: { snapshot: { queryParamMap: convertToParamMap(query) } } },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { queryParamMap: convertToParamMap(query) } },
+        },
       ],
     });
     http = TestBed.inject(HttpTestingController);
@@ -47,6 +52,7 @@ describe('VerbReview', () => {
     el = fixture.nativeElement;
     await fixture.whenStable();
     http.expectOne('/verbs/progress').flush({ verbs });
+    http.expectOne('/verbs/images').flush({ images: [] });
     await settle();
   };
 
@@ -56,7 +62,10 @@ describe('VerbReview', () => {
     await setup([learned('go', -2), learned('cut', 3), { ...learned('see', 0), learnedAt: null }]);
     expect(text(el.querySelector('.bar-title'))).toBe('Động từ đã học · 2');
     expect(text(el.querySelector('.start-title'))).toBe('1 từ đến hạn hôm nay');
-    expect(Array.from(el.querySelectorAll('.group')).map((g) => text(g))).toEqual(['Đến hạn · 1', 'Sắp tới · 1']);
+    expect(Array.from(el.querySelectorAll('.group')).map((g) => text(g))).toEqual([
+      'Đến hạn · 1',
+      'Sắp tới · 1',
+    ]);
     const rows = Array.from(el.querySelectorAll('.row'));
     expect(text(rows[0].querySelector('.row-forms'))).toBe('go · went · gone');
     expect(text(rows[0].querySelector('.when'))).toBe('quá 2 ngày');
@@ -65,7 +74,9 @@ describe('VerbReview', () => {
     rows[1].querySelector<HTMLButtonElement>('.remove')!.click();
     const req = http.expectOne('/verbs/learned');
     expect(req.request.body).toEqual({ bases: ['cut'], learned: false });
-    req.flush({ verbs: [{ base: 'cut', learnedAt: null, level: 0, dueAt: null, right: 0, wrong: 0 }] });
+    req.flush({
+      verbs: [{ base: 'cut', learnedAt: null, level: 0, dueAt: null, right: 0, wrong: 0 }],
+    });
     await settle();
     expect(text(el.querySelector('.bar-title'))).toBe('Động từ đã học · 1');
   });
@@ -92,7 +103,9 @@ describe('VerbReview', () => {
 
     const req = http.expectOne('/verbs/results');
     expect(
-      [...req.request.body.results].sort((a: { base: string }, b: { base: string }) => a.base.localeCompare(b.base)),
+      [...req.request.body.results].sort((a: { base: string }, b: { base: string }) =>
+        a.base.localeCompare(b.base),
+      ),
     ).toEqual([
       { base: 'buy', right: true },
       { base: 'go', right: false },
@@ -104,6 +117,51 @@ describe('VerbReview', () => {
     const wrong = el.querySelector('.row.is-wrong')!;
     expect(text(wrong)).toContain('vẫn là đã học');
     expect(text(wrong.querySelector('.when'))).toBe('hỏi lại ngày mai');
+  });
+
+  it('"Ôn nhanh" flips the cards of verbs typed right before and has the others typed', async () => {
+    await setup([{ ...learned('go', -1), right: 2, level: 2 }, learned('buy', 0)]);
+    button('Ôn nhanh').click();
+    await settle();
+    // go was typed right before: its card is flipped; buy never was, so it is typed after.
+    expect(text(el.querySelector('#flip-title'))).toBe('go');
+    expect(el.querySelector('.forms')).toBeNull();
+    button('Lật thẻ').click();
+    await settle();
+    expect(Array.from(el.querySelectorAll('.form-word')).map((f) => text(f))).toEqual([
+      'go',
+      'went',
+      'gone',
+    ]);
+    expect(Array.from(el.querySelectorAll('.grade')).map((g) => text(g))).toEqual([
+      'Quên hỏi lại',
+      'Hơi nhớ 2 ngày',
+      'Nhớ 7 ngày',
+    ]);
+    button('Nhớ').click();
+    await settle();
+
+    const v = IRREGULAR_VERBS.find((x) => x.base === 'buy')!;
+    expect(text(el.querySelector('#verb-base'))).toBe('buy');
+    const inputs = el.querySelectorAll<HTMLInputElement>('.field input');
+    inputs[0].value = spellings(v.past)[0];
+    inputs[1].value = spellings(v.participle)[0];
+    inputs.forEach((i) => i.dispatchEvent(new Event('input')));
+    await settle();
+    button('Kiểm tra').click();
+    await settle();
+    (button('Câu tiếp theo') ?? button('Xong')).click();
+    await settle();
+
+    const req = http.expectOne('/verbs/results');
+    expect(req.request.body.results).toEqual([
+      { base: 'buy', right: true },
+      { base: 'go', right: true, quick: true, hard: false },
+    ]);
+    req.flush({ verbs: [] });
+    await settle();
+    expect(text(el.querySelector('.summary-title'))).toBe('Ôn xong 2 từ');
+    expect(text(el.querySelector('.summary'))).toContain('Nhớ 2/2');
   });
 
   it('points to the lessons when nothing is learned', async () => {

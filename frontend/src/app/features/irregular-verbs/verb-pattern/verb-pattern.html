@@ -1,0 +1,103 @@
+@let l = lesson();
+@if (stage() === 'rule') {
+  <p class="eyebrow">Quy luật của nhóm</p>
+  <div class="cat-says">
+    <img class="cat" ngSrc="images/mascot-cat.png" width="56" height="56" alt="" />
+    <p class="bubble">{{ l.tipVi }}</p>
+  </div>
+  <section class="soft-card rule" aria-labelledby="rule-title">
+    <h2 class="rule-title" id="rule-title">
+      <span class="tag">{{ l.tag }}</span>
+    </h2>
+    <table class="forms-table" lang="en">
+      <caption class="visually-hidden">
+        Các động từ của bài, phần thay đổi được tô màu
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">V1</th>
+          <th scope="col">V2</th>
+          <th scope="col">V3</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of rows(); track r.verb.base) {
+          <tr>
+            @for (c of r.cells; track $index; let i = $index) {
+              <td>
+                @if (i === 0 && pictures().get(r.verb.base); as src) {
+                  <img class="thumb" [src]="src" alt="" width="32" height="24" loading="lazy" />
+                }
+                @if (i > 0 && hidden(r.verb)) {
+                  <span class="unknown">?</span>
+                } @else {
+                  <span>{{ c[0] }}</span>
+                  @if (c[1]) {
+                    <mark [class]="'v' + (i + 1)">{{ c[1] }}</mark>
+                  }
+                }
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+  <div class="bottom-bar">
+    <button type="button" class="btn-primary" (click)="toGuess()">
+      {{ guessVerb() ? 'Đoán thử một từ' : 'Xem từng từ' }} <lu-icon name="arrow-right" />
+    </button>
+  </div>
+} @else if (question(); as q) {
+  @let v = q.verb;
+  <p class="eyebrow">Đoán thử</p>
+  <section class="soft-card guess" aria-labelledby="guess-title">
+    @if (pictures().get(v.base); as src) {
+      <img class="picture" [src]="src" alt="" width="480" height="360" />
+    }
+    <p class="muted">
+      <span lang="en">{{ v.base }}</span> = {{ v.meaningVi }}
+    </p>
+    <h2 class="guess-title" id="guess-title">
+      Theo quy luật, V2 của <span lang="en">{{ v.base }}</span> là gì?
+    </h2>
+  </section>
+  <ul class="options" aria-label="Các lựa chọn">
+    @for (o of q.options; track o) {
+      <li>
+        <button
+          type="button"
+          class="option"
+          lang="en"
+          [class.is-right]="chosen() !== null && o === q.answer"
+          [class.is-wrong]="chosen() === o && o !== q.answer"
+          [disabled]="chosen() !== null"
+          (click)="choose(o)"
+        >
+          {{ o }}
+        </button>
+      </li>
+    }
+  </ul>
+  <div
+    class="feedback"
+    role="status"
+    [class.ok]="right()"
+    [class.bad]="chosen() !== null && !right()"
+  >
+    @if (chosen() !== null) {
+      <p>
+        <strong>{{ right() ? 'Đúng rồi!' : 'Chưa đúng, không sao.' }}</strong>
+        {{ right() ? 'Bạn vừa tự suy ra một từ mới.' : 'Đây chỉ là đoán thử.' }}
+        <span lang="en">{{ v.base }} – {{ v.past }} – {{ v.participle }}</span>
+      </p>
+    }
+  </div>
+  @if (chosen() !== null) {
+    <div class="bottom-bar">
+      <button type="button" class="btn-primary" (click)="finished.emit()">
+        Xem từng từ · {{ verbs().length }} từ <lu-icon name="arrow-right" />
+      </button>
+    </div>
+  }
+}

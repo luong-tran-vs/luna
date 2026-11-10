@@ -91,6 +91,8 @@ type ImageRepository interface {
 	SaveSettings(ctx context.Context, lessonID string, s ImageSettings) error
 	// Lemmas lists the words of the lesson that have a picture.
 	Lemmas(ctx context.Context, lessonID string) ([]string, error)
+	// WithLemma returns the lessons among lessonIDs that have a picture of lemma, in one query.
+	WithLemma(ctx context.Context, lessonIDs []string, lemma string) (map[string]bool, error)
 	// Get returns ErrImageNotFound when the word has no picture.
 	Get(ctx context.Context, lessonID, lemma string) (WordImage, error)
 	// Save stores a picture, replacing the word's previous one.
@@ -405,18 +407,12 @@ func (s *Service) drawScene(ctx context.Context, l Lesson, drawer ai.ImageProvid
 
 // HasScenes says which of the lessons have their scene picture (for the course page).
 func (s *Service) HasScenes(ctx context.Context, ids []string) (map[string]bool, error) {
-	out := map[string]bool{}
-	if s.ImageStore == nil {
-		return out, nil
+	if s.ImageStore == nil || len(ids) == 0 {
+		return map[string]bool{}, nil
 	}
-	for _, id := range ids {
-		keys, err := s.ImageStore.Lemmas(ctx, id)
-		if err != nil {
-			return nil, fmt.Errorf("lesson: image lemmas: %w", err)
-		}
-		if _, scene := pictureKeys(keys); scene {
-			out[id] = true
-		}
+	out, err := s.ImageStore.WithLemma(ctx, ids, SceneKey)
+	if err != nil {
+		return nil, fmt.Errorf("lesson: scene pictures: %w", err)
 	}
 	return out, nil
 }

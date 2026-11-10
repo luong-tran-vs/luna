@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
@@ -24,13 +33,11 @@ import {
   MAX_BANK_IPA,
   MAX_BANK_LEMMA,
   MAX_BANK_MEANING,
-  storedImageEngine,
-  storeImageEngine,
 } from '../../../core/models/word-bank';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { SearchOption, SearchSelect } from '../../../shared/components/search-select/search-select';
 import { AdminApiService } from '../admin-api.service';
-import { bankMessage } from './bank-message';
+import { bankMessage, NO_ENGINE } from './bank-message';
 import { BankWordRow } from './bank-word-row/bank-word-row';
 import { batchScope, ImageBatchService } from './image-batch.service';
 
@@ -58,7 +65,11 @@ export const MISSING_OPTIONS: readonly { value: BankMissing; label: string }[] =
 ];
 
 /** One color per "Thiếu …" filter: the legend chips and the counts next to each topic. */
-export const MISSING_KINDS: readonly { value: Exclude<BankMissing, '' | 'ipaCheck'>; label: string; color: string }[] = [
+export const MISSING_KINDS: readonly {
+  value: Exclude<BankMissing, '' | 'ipaCheck'>;
+  label: string;
+  color: string;
+}[] = [
   { value: 'image', label: 'Thiếu ảnh', color: 'var(--color-primary)' },
   { value: 'ipa', label: 'Thiếu phiên âm', color: 'var(--color-warn)' },
   { value: 'meaning', label: 'Thiếu nghĩa', color: 'var(--color-bad)' },
@@ -88,7 +99,9 @@ export class WordBank {
   protected readonly topicFilter = signal('');
   /** Every topic, by name, for the filter and the add form; empty until loaded. */
   protected readonly topics = signal<readonly BankTopic[]>([]);
-  private readonly topicItems = computed<SearchOption[]>(() => this.topics().map((t) => ({ value: t.id, label: t.name })));
+  private readonly topicItems = computed<SearchOption[]>(() =>
+    this.topics().map((t) => ({ value: t.id, label: t.name })),
+  );
   protected readonly missingKinds = MISSING_KINDS;
   /** What the bank words of each topic lack, by topic id; empty until loaded or on failure. */
   private readonly missingByTopic = signal<ReadonlyMap<string, BankTopicMissing>>(new Map());
@@ -105,7 +118,10 @@ export class WordBank {
       return badges.length ? { ...t, badges } : t;
     }),
   ]);
-  protected readonly addTopicOptions = computed(() => [{ value: '', label: 'Không chọn' }, ...this.topicItems()]);
+  protected readonly addTopicOptions = computed(() => [
+    { value: '', label: 'Không chọn' },
+    ...this.topicItems(),
+  ]);
   private readonly reloads = signal(0);
 
   protected readonly words = signal<BankWord[] | null>(null);
@@ -113,9 +129,12 @@ export class WordBank {
   protected readonly hasMore = signal(false);
   /** The server can draw with the Codex CLI; the engine choice is shown only then. */
   protected readonly codexImages = signal(false);
-  /** What "Sinh ảnh" draws with, remembered on this browser (added 2026-11-04). */
-  protected readonly imageEngine = signal<ImageEngine>(storedImageEngine());
-  protected readonly rowEngine = computed<ImageEngine>(() => (this.codexImages() ? this.imageEngine() : 'gemini'));
+  /** What "Sinh ảnh" draws with; none at first: the admin picks one each time (asked 2026-11-10). */
+  protected readonly imageEngine = signal<ImageEngine | ''>('');
+  protected readonly rowEngine = computed<ImageEngine | ''>(() => {
+    const e = this.imageEngine();
+    return e === 'codex' && !this.codexImages() ? '' : e;
+  });
   private page = 1;
 
   /** The words ticked for a picture batch, kept across filters and pages. */
@@ -130,16 +149,25 @@ export class WordBank {
   protected readonly batch = this.batches.status;
   protected readonly batchBusy = signal(false);
   protected readonly batchError = signal<string | null>(null);
-  protected readonly batchShown = computed(() => this.batches.running() || this.batches.result() !== null);
-  protected readonly drawingNow = computed(() => new Set(this.batch()?.running ? this.batch()!.drawing : []));
-  protected readonly engineName = computed(() => engineLabel(this.rowEngine()));
+  protected readonly batchShown = computed(
+    () => this.batches.running() || this.batches.result() !== null,
+  );
+  protected readonly drawingNow = computed(
+    () => new Set(this.batch()?.running ? this.batch()!.drawing : []),
+  );
+  protected readonly engineName = computed(() => {
+    const e = this.rowEngine();
+    return e ? engineLabel(e) : '';
+  });
   /** Asking before drawing every missing picture: the count is not known on the page. */
   protected readonly confirmingAll = signal(false);
   protected readonly confirmAllMessage = computed(
     () =>
       `Máy chủ sẽ sinh lần lượt ảnh cho mọi từ thiếu ảnh${this.topicName() ? ` của chủ đề "${this.topicName()}"` : ''}` +
       `${this.search().trim() ? ` khớp "${this.search().trim()}"` : ''}, tối đa ${MAX_BANK_BATCH} từ, bằng ${this.engineName()}.` +
-      (this.rowEngine() === 'gemini' ? ' Gemini tính phí theo từng ảnh.' : ' Mỗi ảnh Codex mất khoảng 1 phút.'),
+      (this.rowEngine() === 'gemini'
+        ? ' Gemini tính phí theo từng ảnh.'
+        : ' Mỗi ảnh Codex mất khoảng 1 phút.'),
   );
 
   protected readonly loadError = signal<string | null>(null);
@@ -156,7 +184,8 @@ export class WordBank {
    */
   protected readonly hasSuggestions = computed(
     () =>
-      (this.missing() === 'ipaCheck' && this.total() > 0) || (this.words() ?? []).some((w) => !!w.ipaSuggestion),
+      (this.missing() === 'ipaCheck' && this.total() > 0) ||
+      (this.words() ?? []).some((w) => !!w.ipaSuggestion),
   );
   /** The topic's words lacking a meaning or an IPA are listed: the AI can fill them in one request. */
   protected readonly canFill = computed(
@@ -256,9 +285,7 @@ export class WordBank {
   }
 
   protected setEngine(value: string): void {
-    const engine: ImageEngine = value === 'codex' ? 'codex' : 'gemini';
-    this.imageEngine.set(engine);
-    storeImageEngine(engine);
+    this.imageEngine.set(value === 'codex' ? 'codex' : value === 'gemini' ? 'gemini' : '');
   }
 
   protected reload(): void {
@@ -447,9 +474,24 @@ export class WordBank {
    * Starts a picture batch on the server: the ticked words, or every word lacking a picture that
    * matches the search and topic filter. It runs in the background; the page follows it.
    */
+  /** "Sinh ảnh mọi từ thiếu ảnh": asks first, once the engine is chosen. */
+  protected askAll(): void {
+    if (this.rowEngine() === '') {
+      this.batchError.set(NO_ENGINE);
+      return;
+    }
+    this.batchError.set(null);
+    this.confirmingAll.set(true);
+  }
+
   protected async startBatch(ticked: boolean): Promise<void> {
     this.confirmingAll.set(false);
     if (this.batchBusy()) {
+      return;
+    }
+    const engine = this.rowEngine();
+    if (engine === '') {
+      this.batchError.set(NO_ENGINE);
       return;
     }
     if (ticked && this.selectedCount() > MAX_BANK_BATCH) {
@@ -460,8 +502,8 @@ export class WordBank {
     this.batchError.set(null);
     try {
       const req = ticked
-        ? { lemmas: [...this.selected()], topicId: this.topicFilter(), engine: this.rowEngine() }
-        : { q: this.search().trim(), topicId: this.topicFilter(), engine: this.rowEngine() };
+        ? { lemmas: [...this.selected()], topicId: this.topicFilter(), engine }
+        : { q: this.search().trim(), topicId: this.topicFilter(), engine };
       const b = await firstValueFrom(this.api.startBankImageBatch(req));
       if (ticked) {
         this.clearSelection();
@@ -509,7 +551,9 @@ export class WordBank {
           ws?.map((x) => {
             const s = saved.get(x.lemma);
             // Only the picture: the saved word carries no topics.
-            return s && s.imageUrl !== x.imageUrl ? { ...x, imageUrl: s.imageUrl, updatedAt: s.updatedAt } : x;
+            return s && s.imageUrl !== x.imageUrl
+              ? { ...x, imageUrl: s.imageUrl, updatedAt: s.updatedAt }
+              : x;
           }) ?? null,
       );
     }
@@ -540,4 +584,3 @@ export class WordBank {
     }
   }
 }
-

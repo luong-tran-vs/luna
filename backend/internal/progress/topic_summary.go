@@ -156,6 +156,22 @@ func (s *StudyService) TopicSummary(ctx context.Context, userID, topicID, level 
 	if err != nil {
 		return TopicSummary{}, fmt.Errorf("progress: completed lessons: %w", err)
 	}
+	// Only the lessons the learner sees count, not those still held back.
+	goals, err := s.d.Goals.List(ctx, userID)
+	if err != nil {
+		return TopicSummary{}, fmt.Errorf("progress: goals: %w", err)
+	}
+	completedIDs := make(map[string]bool, len(completed))
+	for _, p := range completed {
+		completedIDs[p.LessonID] = true
+	}
+	more := 0
+	for _, g := range goals {
+		if g.TopicID == info.ID && g.Level == level {
+			more = g.MoreLessons
+		}
+	}
+	info.LessonIDs = VisibleLessons(info.LessonIDs, more, completedIDs)
 	inTopic := map[string]bool{}
 	for _, id := range info.LessonIDs {
 		inTopic[id] = true

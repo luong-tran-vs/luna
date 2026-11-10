@@ -47,6 +47,9 @@ type Goal struct {
 	// EffectiveFrom is the day (YYYY-MM-DD) the goal was chosen; it takes effect at once.
 	EffectiveFrom string
 	StartedAt     time.Time
+	// MoreLessons is how many of the lessons held back after the first ShownLessons the learner
+	// opened by choosing "Học bài mới" (added 2026-11-09): 0 to MaxMoreLessons.
+	MoreLessons int
 }
 
 // LessonProgress is a learner's progress on one lesson; there is one per lesson ever started.
@@ -118,4 +121,7 @@ var (
 	ErrNotCurrentLesson = errors.New("progress: not the lesson being studied")
 	ErrNotCurrentStep   = errors.New("progress: step already done")
 	ErrLessonLocked     = errors.New("progress: lesson not open yet")
+	// ErrNoMoreLessons: no held-back lesson can be opened (a shown lesson is not done yet, or none
+	// is left).
+	ErrNoMoreLessons = errors.New("progress: no more lessons to open")
 )

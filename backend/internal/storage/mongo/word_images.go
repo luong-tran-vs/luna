@@ -109,6 +109,36 @@ func (r *WordImages) Lemmas(ctx context.Context, lessonID string) ([]string, err
 	return out, nil
 }
 
+// WithLemma returns the lessons among lessonIDs that have a picture of lemma, in one query.
+func (r *WordImages) WithLemma(ctx context.Context, lessonIDs []string, lemma string) (map[string]bool, error) {
+	out := map[string]bool{}
+	oids := make([]bson.ObjectID, 0, len(lessonIDs))
+	for _, id := range lessonIDs {
+		if oid, err := bson.ObjectIDFromHex(id); err == nil {
+			oids = append(oids, oid)
+		}
+	}
+	if len(oids) == 0 {
+		return out, nil
+	}
+	cur, err := r.images.Find(ctx,
+		bson.D{{Key: "lessonId", Value: bson.D{{Key: "$in", Value: oids}}}, {Key: "lemma", Value: lemma}},
+		options.Find().SetProjection(bson.D{{Key: "lessonId", Value: 1}}))
+	if err != nil {
+		return nil, fmt.Errorf("find word images: %w", err)
+	}
+	var docs []struct {
+		LessonID bson.ObjectID `bson:"lessonId"`
+	}
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("decode word images: %w", err)
+	}
+	for _, d := range docs {
+		out[d.LessonID.Hex()] = true
+	}
+	return out, nil
+}
+
 // Get returns lesson.ErrImageNotFound when the word has no picture.
 func (r *WordImages) Get(ctx context.Context, lessonID, lemma string) (lesson.WordImage, error) {
 	lid, err := bson.ObjectIDFromHex(lessonID)

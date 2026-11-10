@@ -32,10 +32,14 @@ type Progress struct {
 func (p Progress) Learned() bool { return !p.LearnedAt.IsZero() }
 
 // Result is one verb of a finished review round: right means both V2 and V3 were right the first
-// time they were asked in the round.
+// time they were asked in the round. Quick marks a verb reviewed by flipping its card and grading
+// oneself ("Ôn nhanh", added 2026-11-10) instead of typing: Right is then "Nhớ" or "Hơi nhớ"
+// (Hard), not right is "Quên".
 type Result struct {
 	Base  string
 	Right bool
+	Quick bool
+	Hard  bool
 }
 
 // Repository stores the progress records.
@@ -109,5 +113,51 @@ func Apply(p Progress, right bool, now time.Time) Progress {
 		p.Level = min(p.Level+1, len(Intervals))
 	}
 	p.DueAt = now.Add(Intervals[p.Level-1])
+	return p
+}
+
+// QuickMaxLevel is the highest box a quick review ("Ôn nhanh") moves a verb to: its wait is
+// QuickMaxWait. Waiting longer takes a typed review, so a learner grading too kindly cannot push a
+// verb far away (added 2026-11-10).
+const QuickMaxLevel = 4
+
+// QuickMaxWait is the longest wait a quick review gives.
+const QuickMaxWait = 14 * 24 * time.Hour
+
+// HardWait is the wait after "Hơi nhớ" in a quick review, when the box's own wait is longer.
+const HardWait = 2 * 24 * time.Hour
+
+// ApplyResult returns the record after one answer of a round at now: typed answers as Apply,
+// quick ones as ApplyQuick.
+func ApplyResult(p Progress, r Result, now time.Time) Progress {
+	if r.Quick {
+		return ApplyQuick(p, r.Right, r.Hard, now)
+	}
+	return Apply(p, r.Right, now)
+}
+
+// ApplyQuick returns the record after a self-graded answer at now. "Quên" (not right) counts as a
+// wrong answer. "Hơi nhớ" (hard) keeps the box and asks again within HardWait. "Nhớ" moves the
+// verb up a box once it is due, but not past QuickMaxLevel, and never waits more than QuickMaxWait.
+// A verb never typed right (Right == 0) does not move up on a quick answer: the frontend has it
+// typed, and this guards against a page that does not.
+func ApplyQuick(p Progress, right, hard bool, now time.Time) Progress {
+	if !right {
+		return Apply(p, false, now)
+	}
+	neverTyped := p.Right == 0
+	p.UpdatedAt = now
+	p.Right++
+	if !p.Learned() || now.Before(p.DueAt) {
+		return p
+	}
+	if !hard && !neverTyped {
+		p.Level = max(p.Level, min(p.Level+1, QuickMaxLevel))
+	}
+	wait := min(Intervals[p.Level-1], QuickMaxWait)
+	if hard || neverTyped {
+		wait = min(Intervals[p.Level-1], HardWait)
+	}
+	p.DueAt = now.Add(wait)
 	return p
 }

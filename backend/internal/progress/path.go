@@ -42,6 +42,9 @@ type PathRoadmap struct {
 	Active           bool
 	Completed        int
 	Lessons          []PathLesson
+	// MoreLessons counts the lessons held back after the visible ones that the learner can still
+	// open, one at a time, once every visible lesson is done (added 2026-11-09).
+	MoreLessons int
 	// Course is the topic's place in the level's course; nil when the level has none or the topic
 	// is not in it.
 	Course *CourseTopic
@@ -97,10 +100,13 @@ func (s *StudyService) Path(ctx context.Context, userID string) (PathView, error
 			})
 		}
 		for _, t := range roadmaps {
+			all := t.LessonIDs
+			t.LessonIDs = VisibleLessons(all, d.moreLessons(t.ID, level), d.done)
 			r := PathRoadmap{
 				TopicID: t.ID, TopicName: t.Name, TopicDescription: t.Description,
-				Active:  m.Active && t.ID == d.goal.TopicID,
-				Lessons: make([]PathLesson, 0, len(t.LessonIDs)),
+				Active:      m.Active && t.ID == d.goal.TopicID,
+				Lessons:     make([]PathLesson, 0, len(t.LessonIDs)),
+				MoreLessons: HeldLessons(all, len(t.LessonIDs)),
 			}
 			if s.d.Course != nil {
 				if c, ok := s.d.Course(ctx, level, t.ID, t.Name); ok {
@@ -137,6 +143,16 @@ func (s *StudyService) Path(ctx context.Context, userID string) (PathView, error
 		}
 	}
 	return out, nil
+}
+
+// moreLessons is how many held-back lessons the learner opened on the roadmap of (topicID, level).
+func (d *day) moreLessons(topicID, level string) int {
+	for _, g := range d.goals {
+		if g.TopicID == topicID && g.Level == level {
+			return g.MoreLessons
+		}
+	}
+	return 0
 }
 
 func hasTopic(roadmaps []TopicInfo, topicID string) bool {

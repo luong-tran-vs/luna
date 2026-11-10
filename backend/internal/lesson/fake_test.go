@@ -34,6 +34,16 @@ func (f *fakeLessons) Create(_ context.Context, l Lesson) (Lesson, error) {
 	return l, nil
 }
 
+func (f *fakeLessons) GetMany(ctx context.Context, ids []string) ([]Lesson, error) {
+	var out []Lesson
+	for _, id := range ids {
+		if l, err := f.Get(ctx, id); err == nil {
+			out = append(out, l)
+		}
+	}
+	return out, nil
+}
+
 func (f *fakeLessons) Get(_ context.Context, id string) (Lesson, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
@@ -529,6 +539,30 @@ func (f *fakeLessons) WithoutPractice(context.Context) ([]RevisionRef, error) {
 	var out []RevisionRef
 	for _, l := range f.byID {
 		if l.AnnotationStatus == StatusDone && l.PracticeStatus == StatusNone {
+			out = append(out, RevisionRef{ID: l.ID, Revision: l.Revision})
+		}
+	}
+	return out, nil
+}
+
+func (f *fakeLessons) WithoutSteps(context.Context) ([]RevisionRef, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []RevisionRef
+	for _, l := range f.byID {
+		if l.PracticeStatus == StatusDone && l.Practice != nil && l.Practice.Steps == nil && len(l.Annotations) > 0 {
+			out = append(out, RevisionRef{ID: l.ID, Revision: l.Revision})
+		}
+	}
+	return out, nil
+}
+
+func (f *fakeLessons) Annotated(context.Context) ([]RevisionRef, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []RevisionRef
+	for _, l := range f.byID {
+		if l.AnnotationStatus == StatusDone {
 			out = append(out, RevisionRef{ID: l.ID, Revision: l.Revision})
 		}
 	}

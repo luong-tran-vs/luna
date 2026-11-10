@@ -1,0 +1,89 @@
+@if (current(); as c) {
+  @let v = c.q.verb;
+  <p class="eyebrow">
+    {{ label() }} <span class="count">{{ index() + 1 }}/{{ questions().length }}</span>
+  </p>
+  <section class="soft-card ask" aria-labelledby="ask-title">
+    @if (c.kind === 'sentence') {
+      <h2 #heading tabindex="-1" class="sentence" id="ask-title" lang="en">
+        @for (p of c.q.before; track $index) {
+          @if (p.signal) {
+            <mark class="signal">{{ p.text }}</mark>
+          } @else {
+            {{ p.text }}
+          }
+        }
+        <span class="blank" [class.is-bad]="chosen() !== null && !right()">{{
+          chosen() ?? '?'
+        }}</span>
+        <span class="visually-hidden" lang="vi"> (chỗ trống)</span>
+        @for (p of c.q.after; track $index) {
+          @if (p.signal) {
+            <mark class="signal">{{ p.text }}</mark>
+          } @else {
+            {{ p.text }}
+          }
+        }
+      </h2>
+      <p class="vi">
+        {{ c.q.vi }} <span class="tag" lang="en">{{ v.base }}</span>
+      </p>
+    } @else {
+      <p class="muted">
+        {{ c.q.form === 'past' ? 'Quá khứ (V2) của' : 'Quá khứ phân từ (V3) của' }}
+      </p>
+      <h2 #heading tabindex="-1" class="base" id="ask-title" lang="en">{{ v.base }}</h2>
+      <p class="muted">{{ v.meaningVi }}</p>
+    }
+  </section>
+  <ul class="options" aria-label="Các lựa chọn">
+    @for (o of c.q.options; track o) {
+      <li>
+        <button
+          type="button"
+          class="option"
+          lang="en"
+          [class.is-right]="chosen() !== null && o === c.q.answer"
+          [class.is-wrong]="chosen() === o && o !== c.q.answer"
+          [disabled]="chosen() !== null"
+          (click)="choose(o)"
+        >
+          {{ o }}
+          @if (chosen() !== null && o === c.q.answer) {
+            <span class="mark" lang="vi">✓ Đúng</span>
+          } @else if (chosen() === o) {
+            <span class="mark" lang="vi">✗ Bạn chọn</span>
+          }
+        </button>
+      </li>
+    }
+  </ul>
+  @if (chosen() === null && c.kind === 'sentence') {
+    <div class="soft-card signs">
+      <p class="muted">Dấu hiệu trong câu</p>
+      <p><b class="v2">V2</b> yesterday, last…, … ago, in 2019</p>
+      <p><b class="v3">V3</b> have / has / had …</p>
+    </div>
+  }
+  <div
+    class="feedback"
+    role="status"
+    [class.ok]="right()"
+    [class.bad]="chosen() !== null && !right()"
+  >
+    @if (chosen() !== null) {
+      <p>
+        <strong>{{ right() ? 'Đúng.' : 'Chưa đúng.' }}</strong> {{ rule(c.q.form) }}
+        <span lang="en">{{ v.base }} – {{ v.past }} – {{ v.participle }}</span>
+      </p>
+    }
+  </div>
+  @if (chosen() !== null) {
+    <div class="bottom-bar">
+      <button type="button" class="btn-primary" (click)="next()">
+        {{ index() + 1 < questions().length ? 'Câu tiếp theo' : 'Sang bước Gõ' }}
+        <lu-icon name="arrow-right" />
+      </button>
+    </div>
+  }
+}

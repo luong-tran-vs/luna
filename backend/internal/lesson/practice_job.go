@@ -100,30 +100,20 @@ func (s *Service) QueueMissingPractice(ctx context.Context) (int, error) {
 // six-step lesson (added 2026-10-22) and returns how many were queued. A lesson whose new practice
 // fails is not queued again here: its status is no longer done (the admin can regenerate it).
 func (s *Service) QueueMissingSteps(ctx context.Context) (int, error) {
-	list, err := s.Lessons.List(ctx, Filter{})
+	refs, err := s.Lessons.WithoutSteps(ctx)
 	if err != nil {
-		return 0, fmt.Errorf("lesson: list lessons: %w", err)
+		return 0, fmt.Errorf("lesson: lessons without steps: %w", err)
 	}
 	queued := 0
-	for _, sum := range list {
-		l, err := s.Lessons.Get(ctx, sum.ID)
-		if errors.Is(err, ErrNotFound) {
-			continue
-		}
-		if err != nil {
-			return queued, fmt.Errorf("lesson: get lesson: %w", err)
-		}
-		if l.PracticeStatus != StatusDone || l.Practice == nil || l.Practice.Steps != nil || len(l.Annotations) == 0 {
-			continue
-		}
-		ok, err := s.Lessons.SetStatus(ctx, l.ID, l.Revision, job.TypePractice, StatusRunning, "")
+	for _, r := range refs {
+		ok, err := s.Lessons.SetStatus(ctx, r.ID, r.Revision, job.TypePractice, StatusRunning, "")
 		if err != nil {
 			return queued, fmt.Errorf("lesson: set practice status: %w", err)
 		}
-		if !ok {
+		if !ok { // edited meanwhile: the new revision gets its own practice
 			continue
 		}
-		if err := s.enqueue(ctx, l.ID, l.Revision, job.TypePractice); err != nil {
+		if err := s.enqueue(ctx, r.ID, r.Revision, job.TypePractice); err != nil {
 			return queued, err
 		}
 		queued++

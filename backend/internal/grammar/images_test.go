@@ -31,6 +31,22 @@ func (f *fakeGrammarImages) Keys(_ context.Context, pointID string) ([]string, e
 	return out, nil
 }
 
+func (f *fakeGrammarImages) KeysOf(_ context.Context, pointIDs []string) (map[string][]string, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	want := map[string]bool{}
+	for _, id := range pointIDs {
+		want[id] = true
+	}
+	out := map[string][]string{}
+	for _, img := range f.images {
+		if want[img.PointID] {
+			out[img.PointID] = append(out[img.PointID], img.Key)
+		}
+	}
+	return out, nil
+}
+
 func (f *fakeGrammarImages) Get(_ context.Context, pointID, key string) (ExampleImage, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()

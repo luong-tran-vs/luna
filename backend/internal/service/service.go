@@ -80,6 +80,8 @@ type Container struct {
 	aiModel  *aimodel.Service
 	grammar  *grammar.Service
 	verbs    *verbs.Service
+	// verbImages keeps and draws the pictures of the irregular verbs (added 2026-11-10).
+	verbImages *verbs.Images
 	progress *progress.Service
 	study    *progress.StudyService
 	export   *export.Service
@@ -112,18 +114,18 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initProgress()
 	c.initTalk()
 	c.initExport()
-
-	c.queueMissingPractice(ctx)
-	c.queueMissingGlosses(ctx)
 	return c, nil
 }
 
-// StartWorker runs the background job worker until ctx is cancelled. The returned function waits
-// for the worker to stop; call it before the database is closed.
+// StartWorker runs the background job worker until ctx is cancelled. It first queues the work
+// older lessons are missing, in the background so the server starts listening without waiting
+// for it. The returned function waits for the worker to stop; call it before the database is closed.
 func (c *Container) StartWorker(ctx context.Context) (wait func()) {
 	done := make(chan struct{})
 	go func() {
 		defer close(done)
+		c.queueMissingPractice(ctx)
+		c.queueMissingGlosses(ctx)
 		c.worker.Run(ctx)
 	}()
 	return func() { <-done }

@@ -22,14 +22,29 @@
 <!-- One row that scrolls sideways: the list, then the four patterns (tap one again to clear it). -->
 <div class="chips">
   <div class="chip-group" role="group" aria-label="Danh sách">
-    <button type="button" class="chip" [attr.aria-pressed]="!commonOnly()" (click)="commonOnly.set(false)">
+    <button
+      type="button"
+      class="chip"
+      [attr.aria-pressed]="!commonOnly()"
+      (click)="commonOnly.set(false)"
+    >
       Tất cả <span class="count">{{ total() }}</span>
     </button>
-    <button type="button" class="chip" [attr.aria-pressed]="commonOnly()" (click)="commonOnly.set(true)">
+    <button
+      type="button"
+      class="chip"
+      [attr.aria-pressed]="commonOnly()"
+      (click)="commonOnly.set(true)"
+    >
       <lu-icon name="flame" /> Thông dụng <span class="count">{{ commonTotal() }}</span>
     </button>
     @if (learnedTotal() !== null) {
-      <button type="button" class="chip" [attr.aria-pressed]="learnedOnly()" (click)="learnedOnly.set(!learnedOnly())">
+      <button
+        type="button"
+        class="chip"
+        [attr.aria-pressed]="learnedOnly()"
+        (click)="learnedOnly.set(!learnedOnly())"
+      >
         <lu-icon name="check" /> Đã học <span class="count">{{ learnedTotal() }}</span>
       </button>
     }

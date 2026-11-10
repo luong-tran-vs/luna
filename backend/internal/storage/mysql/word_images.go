@@ -118,6 +118,38 @@ func (r *WordImages) Lemmas(ctx context.Context, lessonID string) ([]string, err
 	return out, nil
 }
 
+// WithLemma returns the lessons among lessonIDs that have a picture of lemma, in one query.
+func (r *WordImages) WithLemma(ctx context.Context, lessonIDs []string, lemma string) (map[string]bool, error) {
+	out := map[string]bool{}
+	valid := make([]string, 0, len(lessonIDs))
+	for _, id := range lessonIDs {
+		if lessonValidID(id) {
+			valid = append(valid, id)
+		}
+	}
+	if len(valid) == 0 {
+		return out, nil
+	}
+	rows, err := r.db.QueryContext(ctx,
+		`SELECT DISTINCT lesson_id FROM word_images WHERE lemma = ? AND lesson_id IN (`+placeholders(len(valid))+`)`,
+		append([]any{lemma}, args(valid)...)...)
+	if err != nil {
+		return nil, fmt.Errorf("mysql find word images: %w", err)
+	}
+	defer func() { _ = rows.Close() }()
+	for rows.Next() {
+		var id string
+		if err := rows.Scan(&id); err != nil {
+			return nil, fmt.Errorf("mysql read word images: %w", err)
+		}
+		out[id] = true
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("mysql read word images: %w", err)
+	}
+	return out, nil
+}
+
 // Get returns lesson.ErrImageNotFound when the word has no picture.
 func (r *WordImages) Get(ctx context.Context, lessonID, lemma string) (lesson.WordImage, error) {
 	if !lessonValidID(lessonID) {

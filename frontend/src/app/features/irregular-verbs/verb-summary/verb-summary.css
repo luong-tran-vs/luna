@@ -1,0 +1,128 @@
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hides {
+  display: flex;
+  padding: 3px;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.hide {
+  flex: 1;
+  min-height: 36px;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.hide[aria-pressed='true'] {
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  font: var(--text-base) var(--font-ui);
+}
+
+.table th {
+  padding: 0 var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: start;
+}
+
+.table td {
+  height: 44px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-surface);
+  white-space: nowrap;
+}
+
+.table td:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.table td:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.thumb {
+  margin-right: var(--space-1);
+  object-fit: cover;
+  vertical-align: middle;
+  border-radius: var(--radius-sm);
+}
+
+mark {
+  padding: 0 1px;
+  border-radius: 4px;
+}
+
+.v1 {
+  color: var(--color-tone-0);
+  background: var(--color-tone-0-soft);
+}
+
+.v2 {
+  color: var(--color-tone-1);
+  background: var(--color-tone-1-soft);
+}
+
+.v3 {
+  color: var(--color-tone-2);
+  background: var(--color-tone-2-soft);
+}
+
+.cover {
+  width: 100%;
+  min-height: 36px;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-primary-ink);
+  text-align: start;
+  background: var(--color-primary-soft);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.cover:focus-visible,
+.hide:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.checked {
+  padding: 2px var(--space-1);
+  background: color-mix(in srgb, var(--color-ok) 12%, var(--color-surface));
+  border-radius: var(--radius-sm);
+}
+
+.hint {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.bottom-bar .btn {
+  gap: var(--space-2);
+}

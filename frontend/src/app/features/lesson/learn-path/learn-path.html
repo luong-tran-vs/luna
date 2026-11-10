@@ -125,7 +125,20 @@
                         [style.left.%]="(node.x / pathWidth) * 100"
                         [style.top.px]="node.y"
                       >
-                        @if (node.lesson.state === 'done' || node.lesson.state === 'current') {
+                        @if (rv.askMore) {
+                          <button
+                            type="button"
+                            class="bubble-btn"
+                            aria-haspopup="dialog"
+                            [attr.aria-label]="lessonLabel(node)"
+                            [title]="(node.extra ? 'Bài thêm: ' : '') + node.lesson.title"
+                            (click)="asking.set(rv)"
+                          >
+                            <lu-icon name="check" />
+                          </button>
+                        } @else if (
+                          node.lesson.state === 'done' || node.lesson.state === 'current'
+                        ) {
                           <a
                             class="bubble-btn"
                             [routerLink]="['/lessons', node.lesson.id]"
@@ -187,6 +200,12 @@
                   </ol>
                 </div>
               }
+              @if (rv.askMore) {
+                <p class="no-lesson">
+                  Đã học xong chủ đề. Chạm vào một bài để học lại hoặc mở bài mới (còn
+                  {{ r.moreLessons }} bài).
+                </p>
+              }
               @if (rv.moveOn; as mo) {
                 <lu-move-on
                   [moveOn]="mo"
@@ -198,6 +217,16 @@
           }
         </div>
       </section>
+      <lu-more-lessons
+        [open]="asking() !== null"
+        [topicName]="asking()?.roadmap?.topicName ?? ''"
+        [done]="asking()?.roadmap?.lessons?.length ?? 0"
+        [remaining]="asking()?.roadmap?.moreLessons ?? 0"
+        [pending]="pending()"
+        (relearn)="relearn()"
+        (more)="studyMore(m.level)"
+        (closed)="asking.set(null)"
+      />
     } @else {
       <p class="muted" role="status">Không tìm thấy trình độ này.</p>
     }

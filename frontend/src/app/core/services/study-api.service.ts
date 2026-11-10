@@ -9,6 +9,7 @@ import {
   MyLessons,
   PublicTopic,
   SetGoalResult,
+  StudyMoreResult,
   Step,
   TopicSummary,
 } from '../models/study';
@@ -27,6 +28,11 @@ export class StudyApiService {
   }
 
   /** A goal is the roadmap of a topic at one level. */
+  /** "Học bài mới": opens the next held-back lesson of a finished topic and makes it the goal. */
+  studyMore(topicId: string, level: string): Observable<StudyMoreResult> {
+    return this.http.post<StudyMoreResult>('/goals/more', { topicId, level });
+  }
+
   setGoal(topicId: string, level: string): Observable<SetGoalResult> {
     return this.http.post<SetGoalResult>('/goals', { topicId, level });
   }

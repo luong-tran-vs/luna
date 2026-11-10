@@ -1,7 +1,20 @@
 import { IRREGULAR_VERBS, IrregularVerb } from './irregular-verbs.data';
-import { byLetter, filterVerbs, fold, patternOf, spellings, spokenForms } from './irregular-verbs.logic';
+import {
+  byLetter,
+  filterVerbs,
+  fold,
+  patternOf,
+  spellings,
+  spokenForms,
+} from './irregular-verbs.logic';
 
-const verb = (base: string, past: string, participle: string, meaningVi = '', common = false): IrregularVerb => ({
+const verb = (
+  base: string,
+  past: string,
+  participle: string,
+  meaningVi = '',
+  common = false,
+): IrregularVerb => ({
   base,
   past,
   participle,
@@ -24,7 +37,19 @@ describe('irregular verbs data', () => {
 
   it('has the verbs learners need most, with the reference typos fixed', () => {
     const get = (base: string) => IRREGULAR_VERBS.find((v) => v.base === base);
-    for (const base of ['be', 'do', 'have', 'go', 'get', 'make', 'take', 'hold', 'set', 'shut', 'bite']) {
+    for (const base of [
+      'be',
+      'do',
+      'have',
+      'go',
+      'get',
+      'make',
+      'take',
+      'hold',
+      'set',
+      'shut',
+      'bite',
+    ]) {
       expect(get(base)?.common, base).toBe(true);
     }
     expect(get('foresee')?.participle).toBe('foreseen');
@@ -50,8 +75,13 @@ describe('irregular verbs logic', () => {
   });
 
   it('searches the forms by their start and the meaning without Vietnamese marks', () => {
-    const verbs = [verb('go', 'went', 'gone', 'đi'), verb('see', 'saw', 'seen', 'nhìn thấy', true), verb('saw', 'sawed', 'sawn/sawed', 'cưa')];
-    const bases = (q: string, commonOnly = false) => filterVerbs(verbs, { query: q, commonOnly, pattern: null }).map((v) => v.base);
+    const verbs = [
+      verb('go', 'went', 'gone', 'đi'),
+      verb('see', 'saw', 'seen', 'nhìn thấy', true),
+      verb('saw', 'sawed', 'sawn/sawed', 'cưa'),
+    ];
+    const bases = (q: string, commonOnly = false) =>
+      filterVerbs(verbs, { query: q, commonOnly, pattern: null }).map((v) => v.base);
     expect(bases('WENT')).toEqual(['go']);
     expect(bases('di')).toEqual(['go']);
     expect(bases('nhin thay')).toEqual(['see']);
@@ -59,12 +89,18 @@ describe('irregular verbs logic', () => {
     expect(bases('saw')).toEqual(['saw', 'see']);
     expect(bases('sawn')).toEqual(['saw']);
     expect(bases('', true)).toEqual(['see']);
-    expect(filterVerbs(verbs, { query: '', commonOnly: false, pattern: 'ABC' }).map((v) => v.base)).toEqual(['go', 'see', 'saw']);
+    expect(
+      filterVerbs(verbs, { query: '', commonOnly: false, pattern: 'ABC' }).map((v) => v.base),
+    ).toEqual(['go', 'see', 'saw']);
     expect(fold(' Đường ')).toBe('duong');
   });
 
   it('groups by first letter', () => {
-    const groups = byLetter([verb('bear', 'bore', 'borne'), verb('beat', 'beat', 'beaten'), verb('cut', 'cut', 'cut')]);
+    const groups = byLetter([
+      verb('bear', 'bore', 'borne'),
+      verb('beat', 'beat', 'beaten'),
+      verb('cut', 'cut', 'cut'),
+    ]);
     expect(groups.map((g) => [g.letter, g.verbs.length])).toEqual([
       ['B', 2],
       ['C', 1],

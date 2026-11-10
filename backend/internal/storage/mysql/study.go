@@ -107,10 +107,13 @@ func studyValidID(id string) bool {
 
 const studyGoalCols = "id, user_id, topic_id, level, status, effective_from, started_at"
 
+// studyGoalSelect reads a goal: its columns and the held-back lessons it opened (migration 042).
+const studyGoalSelect = studyGoalCols + ", more_lessons"
+
 func studyScanGoal(sc interface{ Scan(...any) error }) (progress.Goal, error) {
 	var g progress.Goal
 	var status string
-	if err := sc.Scan(&g.ID, &g.UserID, &g.TopicID, &g.Level, &status, &g.EffectiveFrom, &g.StartedAt); err != nil {
+	if err := sc.Scan(&g.ID, &g.UserID, &g.TopicID, &g.Level, &status, &g.EffectiveFrom, &g.StartedAt, &g.MoreLessons); err != nil {
 		return progress.Goal{}, err
 	}
 	g.Status = progress.GoalStatus(status)
@@ -120,7 +123,7 @@ func studyScanGoal(sc interface{ Scan(...any) error }) (progress.Goal, error) {
 
 // List returns the user's goals, oldest first.
 func (r *Goals) List(ctx context.Context, userID string) ([]progress.Goal, error) {
-	rows, err := r.db.QueryContext(ctx, "SELECT "+studyGoalCols+" FROM goals WHERE user_id = ? ORDER BY started_at, id", userID)
+	rows, err := r.db.QueryContext(ctx, "SELECT "+studyGoalSelect+" FROM goals WHERE user_id = ? ORDER BY started_at, id", userID)
 	if err != nil {
 		return nil, fmt.Errorf("mysql list goals: %w", err)
 	}
@@ -161,7 +164,7 @@ ON DUPLICATE KEY UPDATE status = new.status, effective_from = new.effective_from
 			return fmt.Errorf("mysql activate goal: %w", err)
 		}
 		var err error
-		g, err = studyScanGoal(tx.QueryRowContext(ctx, "SELECT "+studyGoalCols+" FROM goals WHERE user_id = ? AND topic_id = ? AND level = ?", userID, topicID, level))
+		g, err = studyScanGoal(tx.QueryRowContext(ctx, "SELECT "+studyGoalSelect+" FROM goals WHERE user_id = ? AND topic_id = ? AND level = ?", userID, topicID, level))
 		if err != nil {
 			return fmt.Errorf("mysql read goal: %w", err)
 		}
@@ -171,6 +174,20 @@ ON DUPLICATE KEY UPDATE status = new.status, effective_from = new.effective_from
 		return progress.Goal{}, err
 	}
 	return g, nil
+}
+
+// goalMoreLessonsSchema adds how many held-back lessons each goal opened (added 2026-11-09).
+func goalMoreLessonsSchema() []string {
+	return []string{`ALTER TABLE goals ADD COLUMN more_lessons INT NOT NULL DEFAULT 0`}
+}
+
+// SetMoreLessons records how many held-back lessons the goal of (topicID, level) opened.
+func (r *Goals) SetMoreLessons(ctx context.Context, userID, topicID, level string, n int) error {
+	if _, err := r.db.ExecContext(ctx, "UPDATE goals SET more_lessons = ? WHERE user_id = ? AND topic_id = ? AND level = ?",
+		n, userID, topicID, level); err != nil {
+		return fmt.Errorf("mysql set more lessons: %w", err)
+	}
+	return nil
 }
 
 // --- lesson_progress ---

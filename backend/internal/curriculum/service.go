@@ -60,6 +60,8 @@ type Topics interface {
 	Create(ctx context.Context, in topic.Input) (topic.Summary, error)
 	SetOrder(ctx context.Context, level string, topicIDs []string) ([]topic.Summary, error)
 	Roadmap(ctx context.Context, id, level string) (topic.Roadmap, error)
+	// RoadmapLessons returns the roadmap lessons of each of topics at level, by topic id.
+	RoadmapLessons(ctx context.Context, topics []topic.Topic, level string) (map[string][]topic.LessonRef, error)
 	SetRoadmap(ctx context.Context, id, level string, lessonIDs []string) (topic.Roadmap, error)
 	WordPlan(ctx context.Context, id, level string, count, perLesson int) (topic.TargetPlan, error)
 }
@@ -74,6 +76,8 @@ type Lessons interface {
 	Reimport(ctx context.Context, id string, in lesson.Input, c lesson.ImportContent, dryRun bool) (lesson.Lesson, lesson.ImportReport, error)
 	SetPublished(ctx context.Context, id string, published bool) (lesson.Lesson, error)
 	Get(ctx context.Context, id string) (lesson.Lesson, error)
+	// GetMany returns the lessons that exist among ids, in any order, read in one query.
+	GetMany(ctx context.Context, ids []string) ([]lesson.Lesson, error)
 	Delete(ctx context.Context, id string) error
 }
 
@@ -298,13 +302,43 @@ func (s *Service) Board(ctx context.Context, level string) (Board, error) {
 	if err != nil {
 		return Board{}, err
 	}
-	return s.board(ctx, level, c, true)
+	var in boardInput
+	return s.board(ctx, level, c, true, &in)
+}
+
+// boardInput is what the boards of every level share: the published grammar points and the
+// catalogue, each read once when first needed (the summary builds the board of every level).
+type boardInput struct {
+	published map[string]bool
+	cat       *catalogue
+}
+
+func (in *boardInput) loadPublished(ctx context.Context, s *Service) (map[string]bool, error) {
+	if in.published == nil {
+		p, err := s.published(ctx)
+		if err != nil {
+			return nil, err
+		}
+		in.published = p
+	}
+	return in.published, nil
+}
+
+func (in *boardInput) loadCatalogue(ctx context.Context, s *Service) (catalogue, error) {
+	if in.cat == nil {
+		c, err := s.catalogue(ctx)
+		if err != nil {
+			return catalogue{}, err
+		}
+		in.cat = &c
+	}
+	return *in.cat, nil
 }
 
 // board is the board of course c of level; withChecks runs the checks of every draft lesson (one
 // read each), which the summary does without.
-func (s *Service) board(ctx context.Context, level string, c Course, withChecks bool) (Board, error) {
-	published, err := s.published(ctx)
+func (s *Service) board(ctx context.Context, level string, c Course, withChecks bool, in *boardInput) (Board, error) {
+	published, err := in.loadPublished(ctx, s)
 	if err != nil {
 		return Board{}, err
 	}
@@ -322,9 +356,20 @@ func (s *Service) board(ctx context.Context, level string, c Course, withChecks 
 		return b, nil
 	}
 	b.Warnings = p.Warnings(grammar.Default())
-	cat, err := s.catalogue(ctx)
+	cat, err := in.loadCatalogue(ctx, s)
 	if err != nil {
 		return Board{}, err
+	}
+	// The roadmap lessons of every topic of the plan, in one query.
+	var matched []topic.Topic
+	for _, t := range p.Topics {
+		if f, ok := cat.find(t); ok {
+			matched = append(matched, f)
+		}
+	}
+	roadmaps, err := s.Topics.RoadmapLessons(ctx, matched, level)
+	if err != nil {
+		return Board{}, fmt.Errorf("curriculum: roadmap: %w", err)
 	}
 	b.Applied = b.Status == StatusApproved
 	for _, t := range p.Topics {
@@ -341,11 +386,7 @@ func (s *Service) board(ctx context.Context, level string, c Course, withChecks 
 			if min := targetWords[level]; tv.Words < min {
 				b.Warnings = append(b.Warnings, fmt.Sprintf("Chủ đề “%s” mới có %d từ vựng dùng được ở %s, nên có ít nhất %d để bài sinh ra có từ mục tiêu.", found.Name, tv.Words, level, min))
 			}
-			rm, err := s.Topics.Roadmap(ctx, found.ID, level)
-			if err != nil {
-				return Board{}, fmt.Errorf("curriculum: roadmap: %w", err)
-			}
-			bySlot, tv.Others = fill(t, rm.Lessons)
+			bySlot, tv.Others = fill(t, roadmaps[found.ID])
 		}
 		if !ok || tv.Position != t.Number {
 			b.Applied = false
@@ -356,12 +397,6 @@ func (s *Service) board(ctx context.Context, level string, c Course, withChecks 
 				sv.Lesson = &l
 				if l.Draft {
 					b.Drafts++
-					if withChecks {
-						if full, err := s.Lessons.Get(ctx, l.ID); err == nil {
-							c := Inspect(full)
-							sv.Checks = &c
-						}
-					}
 				} else {
 					b.Published++
 				}
@@ -379,6 +414,7 @@ func (s *Service) board(ctx context.Context, level string, c Course, withChecks 
 	if !withChecks {
 		return b, nil
 	}
+	s.markChecks(ctx, &b)
 	if err := s.markScenes(ctx, &b); err != nil {
 		return Board{}, err
 	}
@@ -767,6 +803,7 @@ type LevelSummary struct {
 // Summary lists the levels that have a course or a draft.
 func (s *Service) Summary(ctx context.Context) ([]LevelSummary, error) {
 	var out []LevelSummary
+	var in boardInput // read once for every level
 	for _, level := range Levels {
 		c, err := s.course(ctx, level)
 		if errors.Is(err, ErrNoPlan) {
@@ -779,7 +816,7 @@ func (s *Service) Summary(ctx context.Context) ([]LevelSummary, error) {
 		if c.Approved != nil {
 			// The board of the approved course, even while a draft is open.
 			c.Draft = nil
-			b, err := s.board(ctx, level, c, false)
+			b, err := s.board(ctx, level, c, false, &in)
 			if err != nil {
 				return nil, err
 			}
@@ -789,6 +826,42 @@ func (s *Service) Summary(ctx context.Context) ([]LevelSummary, error) {
 		out = append(out, sum)
 	}
 	return out, nil
+}
+
+// markChecks runs the checks of every draft lesson of the board, the lessons read in one query. A
+// lesson that cannot be read has no checks, as before.
+func (s *Service) markChecks(ctx context.Context, b *Board) {
+	var ids []string
+	for _, t := range b.Topics {
+		for _, sl := range t.Slots {
+			if sl.Lesson != nil && sl.Lesson.Draft {
+				ids = append(ids, sl.Lesson.ID)
+			}
+		}
+	}
+	if len(ids) == 0 {
+		return
+	}
+	list, err := s.Lessons.GetMany(ctx, ids)
+	if err != nil {
+		return
+	}
+	byID := make(map[string]lesson.Lesson, len(list))
+	for _, l := range list {
+		byID[l.ID] = l
+	}
+	for i := range b.Topics {
+		for j := range b.Topics[i].Slots {
+			sv := &b.Topics[i].Slots[j]
+			if sv.Lesson == nil || !sv.Lesson.Draft {
+				continue
+			}
+			if full, ok := byID[sv.Lesson.ID]; ok {
+				c := Inspect(full)
+				sv.Checks = &c
+			}
+		}
+	}
 }
 
 // markScenes fills b.Scenes with the lessons of the board that have their scene picture.

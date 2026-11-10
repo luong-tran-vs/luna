@@ -109,6 +109,65 @@ describe('LearnPath', () => {
     expect(links[0].getAttribute('aria-label')).toBe('Xem tổng kết chủ đề 2');
   });
 
+  describe('a finished topic with lessons held back', () => {
+    const held = () => {
+      const data = structuredClone(path);
+      data.milestones[0].roadmaps[1] = {
+        ...data.milestones[0].roadmaps[1],
+        completed: 2,
+        moreLessons: 3,
+        lessons: [
+          { id: 's1', title: 'At the market', state: 'done' },
+          { id: 's2', title: 'Prices', state: 'done' },
+        ],
+      };
+      return data;
+    };
+    const dialog = () => el.querySelector('[role="dialog"]');
+    const button = (label: string) =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('[role="dialog"] button')).find(
+        (b) => text(b) === label,
+      )!;
+    const openAsk = async () => {
+      el.querySelector<HTMLButtonElement>('button[aria-label^="Bài 2"]')!.click();
+      await settle();
+    };
+
+    it('asks to study again or open a new lesson instead of opening the lesson', async () => {
+      await setup(held());
+      expect(el.querySelector('a[href="/lessons/s1"]')).toBeNull();
+      await openAsk();
+      expect(text(dialog())).toContain('Học lại hay học bài mới?');
+      expect(text(dialog())).toContain('còn 3 bài mới');
+
+      button('Để sau').click();
+      await settle();
+      expect(dialog()).toBeNull();
+    });
+
+    it('"Học lại" reopens lesson 1', async () => {
+      await setup(held());
+      await openAsk();
+      button('Học lại từ bài 1').click();
+      await settle();
+      expect(TestBed.inject(Router).url).toBe('/lessons/s1');
+    });
+
+    it('"Học bài mới" opens the next held-back lesson', async () => {
+      await setup(held());
+      await openAsk();
+      button('Học bài mới').click();
+      const req = http.expectOne('/goals/more');
+      expect(req.request.body).toEqual({ topicId: 't2', level: 'A1' });
+      req.flush({
+        active: { topicId: 't2', topicName: 'Mua sắm', level: 'A1' },
+        lesson: { id: 's6', title: 'Sales' },
+      });
+      await settle();
+      expect(TestBed.inject(Router).url).toBe('/lessons/s6');
+    });
+  });
+
   it('shows the roadmaps of one part one after another, their lessons as steps', async () => {
     await setup(path);
 

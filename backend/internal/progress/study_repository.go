@@ -10,6 +10,8 @@ type GoalRepository interface {
 	List(ctx context.Context, userID string) ([]Goal, error)
 	// Activate makes the goal of (topicID, level) active (creating it if needed) and pauses the others.
 	Activate(ctx context.Context, userID, topicID, level, effectiveFrom string, now time.Time) (Goal, error)
+	// SetMoreLessons records how many held-back lessons the goal of (topicID, level) opened.
+	SetMoreLessons(ctx context.Context, userID, topicID, level string, n int) error
 }
 
 // ProgressRepository stores lesson progress, one per (user, lesson).

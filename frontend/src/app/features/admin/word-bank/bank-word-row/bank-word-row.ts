@@ -1,12 +1,25 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom, Observable } from 'rxjs';
 
 import { serverUrl } from '../../../../core/api-url';
 import { MAX_UPLOAD_BYTES, UPLOAD_TYPES } from '../../../../core/models/generate';
-import { BankWord, ImageEngine, MAX_BANK_IPA, MAX_BANK_MEANING } from '../../../../core/models/word-bank';
+import {
+  BankWord,
+  ImageEngine,
+  MAX_BANK_IPA,
+  MAX_BANK_MEANING,
+} from '../../../../core/models/word-bank';
 import { AdminApiService } from '../../admin-api.service';
-import { bankMessage } from '../bank-message';
+import { bankMessage, NO_ENGINE } from '../bank-message';
 
 /** What the row is doing; only one action at a time. */
 type Busy = 'save' | 'image' | 'draw' | null;
@@ -29,7 +42,7 @@ export class BankWordRow {
 
   readonly word = input.required<BankWord>();
   /** What "Sinh ảnh" draws with; the page chooses it (Codex only where the server offers it). */
-  readonly engine = input<ImageEngine>('gemini');
+  readonly engine = input<ImageEngine | ''>('');
   /** The word is ticked for a picture batch. */
   readonly selected = input(false);
   readonly selectedChange = output<boolean>();
@@ -48,8 +61,14 @@ export class BankWordRow {
   protected readonly note = signal<{ text: string; error: boolean } | null>(null);
 
   protected readonly form = new FormGroup({
-    meaningVi: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_BANK_MEANING)] }),
-    ipa: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_BANK_IPA)] }),
+    meaningVi: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.maxLength(MAX_BANK_MEANING)],
+    }),
+    ipa: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.maxLength(MAX_BANK_IPA)],
+    }),
   });
 
   protected id(part: string): string {
@@ -80,7 +99,10 @@ export class BankWordRow {
     }
     const v = this.form.getRawValue();
     const ok = await this.run('save', 'Đã lưu.', () =>
-      this.api.updateBankWord(this.word().lemma, { meaningVi: v.meaningVi.trim(), ipa: v.ipa.trim() }),
+      this.api.updateBankWord(this.word().lemma, {
+        meaningVi: v.meaningVi.trim(),
+        ipa: v.ipa.trim(),
+      }),
     );
     if (ok) {
       this.editing.set(false);
@@ -91,7 +113,9 @@ export class BankWordRow {
   protected async acceptSuggestion(): Promise<void> {
     const ipa = this.word().ipaSuggestion;
     if (ipa && this.busy() === null) {
-      await this.run('save', 'Đã thay phiên âm chuẩn.', () => this.api.updateBankWord(this.word().lemma, { ipa }));
+      await this.run('save', 'Đã thay phiên âm chuẩn.', () =>
+        this.api.updateBankWord(this.word().lemma, { ipa }),
+      );
     }
   }
 
@@ -111,7 +135,9 @@ export class BankWordRow {
       this.note.set({ text: 'Ảnh tối đa 5 MB.', error: true });
       return;
     }
-    await this.run('image', 'Đã tải ảnh lên.', () => this.api.uploadBankImage(this.word().lemma, file));
+    await this.run('image', 'Đã tải ảnh lên.', () =>
+      this.api.uploadBankImage(this.word().lemma, file),
+    );
   }
 
   protected toggleLink(): void {
@@ -126,10 +152,17 @@ export class BankWordRow {
       return;
     }
     if (!/^https?:\/\/\S+$/i.test(url)) {
-      this.note.set({ text: 'Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://', error: true });
+      this.note.set({
+        text: 'Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://',
+        error: true,
+      });
       return;
     }
-    if (await this.run('image', 'Đã lấy ảnh từ link.', () => this.api.importBankImage(this.word().lemma, url))) {
+    if (
+      await this.run('image', 'Đã lấy ảnh từ link.', () =>
+        this.api.importBankImage(this.word().lemma, url),
+      )
+    ) {
       this.linkOpen.set(false);
     }
   }
@@ -137,6 +170,10 @@ export class BankWordRow {
   protected async draw(): Promise<void> {
     if (this.busy() === null) {
       const engine = this.engine();
+      if (engine === '') {
+        this.note.set({ text: NO_ENGINE, error: true });
+        return;
+      }
       const done = engine === 'codex' ? 'Đã sinh ảnh bằng Codex CLI.' : 'Đã sinh ảnh bằng AI.';
       await this.run('draw', done, () => this.api.generateBankImage(this.word().lemma, '', engine));
     }

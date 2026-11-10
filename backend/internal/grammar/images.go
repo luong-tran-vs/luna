@@ -58,6 +58,8 @@ type ExampleImage struct {
 type ImageRepository interface {
 	// Keys lists the keys of the point's pictures.
 	Keys(ctx context.Context, pointID string) ([]string, error)
+	// KeysOf lists the keys of the pictures of every point among pointIDs, by point.
+	KeysOf(ctx context.Context, pointIDs []string) (map[string][]string, error)
 	// Get returns ErrImageNotFound when the example has no picture.
 	Get(ctx context.Context, pointID, key string) (ExampleImage, error)
 	// Save stores a picture, replacing the example's previous one.

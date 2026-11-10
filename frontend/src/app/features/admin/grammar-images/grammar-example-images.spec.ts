@@ -55,6 +55,13 @@ describe('GrammarExampleImages', () => {
       text(b).startsWith(label),
     )!;
   const pictured = '/api/admin/grammar-lessons/a1-to-be/images/abc123';
+  const radio = (value: 'gemini' | 'codex') =>
+    el.querySelector<HTMLInputElement>(`input[name="grammar-images-engine"][value="${value}"]`)!;
+  /** Picks what draws: nothing is chosen until the admin does (asked 2026-11-10). */
+  const chooseEngine = async (value: 'gemini' | 'codex') => {
+    radio(value).click();
+    await settle();
+  };
 
   const open = async (images = ['', pictured, ''], status = batch()) => {
     TestBed.configureTestingModule({
@@ -85,6 +92,7 @@ describe('GrammarExampleImages', () => {
 
     let reloaded = 0;
     fixture.componentInstance.reload.subscribe(() => reloaded++);
+    await chooseEngine('gemini');
     button('Tạo 2 ảnh còn thiếu').click();
     await settle();
     const req = http.expectOne((r) => r.url === url && r.method === 'POST');
@@ -125,6 +133,7 @@ describe('GrammarExampleImages', () => {
 
   it('draws one example again, replacing its picture, and removes one', async () => {
     await open();
+    await chooseEngine('gemini');
     button('Vẽ lại').click();
     await settle();
     const req = http.expectOne((r) => r.url === url && r.method === 'POST');
@@ -155,8 +164,52 @@ describe('GrammarExampleImages', () => {
     );
   });
 
+  it('chooses no engine at first, remembers none, and draws nothing until one is chosen', async () => {
+    localStorage.setItem('luna.admin.imageEngine', 'gemini');
+    await open();
+    expect(radio('gemini').checked).toBe(false);
+    expect(radio('codex').checked).toBe(false);
+    expect(el.querySelector('.engine.selected')).toBeNull();
+
+    button('Tạo 2 ảnh còn thiếu').click();
+    await settle();
+    expect(text(el.querySelector('.form-alert'))).toBe(
+      'Hãy chọn tạo ảnh bằng Gemini hay Codex CLI trước.',
+    );
+    button('Vẽ lại').click();
+    await settle();
+    http.expectNone((r) => r.url === url && r.method === 'POST');
+
+    localStorage.removeItem('luna.admin.imageEngine');
+    await chooseEngine('gemini');
+    expect(radio('gemini').checked).toBe(true);
+    expect(localStorage.getItem('luna.admin.imageEngine')).toBeNull();
+  });
+
+  it('draws with Codex when the server offers it, and Codex counts as no choice otherwise', async () => {
+    await open(['', pictured, ''], batch({ codexImages: true }));
+    expect(radio('codex').disabled).toBe(false);
+    await chooseEngine('codex');
+    button('Tạo 2 ảnh còn thiếu').click();
+    await settle();
+    const req = http.expectOne((r) => r.url === url && r.method === 'POST');
+    expect(req.request.body.engine).toBe('codex');
+    // The server no longer offers Codex: the choice no longer stands.
+    req.flush(batch({ codexImages: false }));
+    await settle();
+    expect(radio('codex').disabled).toBe(true);
+    expect(radio('codex').checked).toBe(false);
+    button('Tạo 2 ảnh còn thiếu').click();
+    await settle();
+    expect(text(el.querySelector('.form-alert'))).toBe(
+      'Hãy chọn tạo ảnh bằng Gemini hay Codex CLI trước.',
+    );
+    http.expectNone((r) => r.url === url && r.method === 'POST');
+  });
+
   it('shows why the batch could not start', async () => {
     await open();
+    await chooseEngine('gemini');
     button('Tạo 2 ảnh còn thiếu').click();
     await settle();
     http

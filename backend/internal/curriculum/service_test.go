@@ -65,6 +65,18 @@ func (f *fakeTopics) Roadmap(_ context.Context, id, level string) (topic.Roadmap
 	return rm, nil
 }
 
+func (f *fakeTopics) RoadmapLessons(_ context.Context, topics []topic.Topic, level string) (map[string][]topic.LessonRef, error) {
+	out := map[string][]topic.LessonRef{}
+	for _, t := range topics {
+		list := []topic.LessonRef{}
+		for _, lid := range t.Roadmaps[level] {
+			list = append(list, f.lessons[lid])
+		}
+		out[t.ID] = list
+	}
+	return out, nil
+}
+
 func (f *fakeTopics) SetRoadmap(_ context.Context, id, level string, ids []string) (topic.Roadmap, error) {
 	f.setRoads++
 	f.find(id).Roadmaps[level] = ids
@@ -149,6 +161,16 @@ func (f *fakeLessons) Get(_ context.Context, id string) (lesson.Lesson, error) {
 		return lesson.Lesson{}, lesson.ErrNotFound
 	}
 	return lesson.Lesson{ID: id, Title: r.Title, Level: "A1", TopicID: r.TopicID, Draft: r.Draft, Content: "He is not here. Is she?", GrammarPointID: "a1-to-be"}, nil
+}
+
+func (f *fakeLessons) GetMany(ctx context.Context, ids []string) ([]lesson.Lesson, error) {
+	var out []lesson.Lesson
+	for _, id := range ids {
+		if l, err := f.Get(ctx, id); err == nil {
+			out = append(out, l)
+		}
+	}
+	return out, nil
 }
 
 func (f *fakeLessons) Delete(_ context.Context, id string) error {

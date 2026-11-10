@@ -212,6 +212,8 @@ type LessonRepository interface {
 	Save(ctx context.Context, l Lesson) error
 	// List returns a summary of every lesson that exists, in no particular order.
 	List(ctx context.Context) ([]LessonSummary, error)
+	// Contents returns the content of the lessons that exist among pointIDs, by point.
+	Contents(ctx context.Context, pointIDs []string) (map[string]Content, error)
 	// Delete removes the lesson of a point; ErrNotFound when it has none (added 2026-10-26).
 	Delete(ctx context.Context, pointID string) error
 }

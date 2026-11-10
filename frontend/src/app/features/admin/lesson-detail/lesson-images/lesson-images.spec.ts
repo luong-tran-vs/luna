@@ -268,7 +268,9 @@ describe('LessonImages', () => {
       const codex = radio('codex');
       expect(codex.disabled).toBe(true);
       expect(codex.closest('label')!.textContent).toContain('Máy chủ chưa bật');
-      expect(radio('gemini').checked).toBe(true);
+      // Nothing is chosen at first (asked 2026-11-10).
+      expect(radio('gemini').checked).toBe(false);
+      expect(codex.checked).toBe(false);
     });
 
     const batchUrl = '/admin/lessons/scene-batch';
@@ -295,6 +297,8 @@ describe('LessonImages', () => {
       await openField('+ Mô tả cảnh');
       area('images-scene').value = '  Two friends in a park  ';
       area('images-scene').dispatchEvent(new Event('input'));
+      radio('gemini').click();
+      await fixture.whenStable();
       submit().click();
       await fixture.whenStable();
       const put = expectStart({ sceneDescription: 'Two friends in a park', sceneImageUrl: '' });
@@ -331,13 +335,14 @@ describe('LessonImages', () => {
       expect(text('button[type="submit"]')).toBe('Tạo lại ảnh cảnh');
     });
 
-    it('offers Codex when the server runs it, and remembers the choice', async () => {
+    it('offers Codex when the server runs it, and remembers no choice', async () => {
       await open({ ...base, codexImages: true });
+      expect(el.querySelector('.engine.selected')).toBeNull();
       radio('codex').click();
       await fixture.whenStable();
       expect(radio('codex').checked).toBe(true);
       expect(el.querySelector('.engine.selected')!.textContent).toContain('tài khoản ChatGPT');
-      expect(localStorage.getItem('luna.admin.imageEngine')).toBe('codex');
+      expect(localStorage.getItem('luna.admin.imageEngine')).toBeNull();
       submit().click();
       await fixture.whenStable();
       expectStart({ codexImages: true });
@@ -349,10 +354,33 @@ describe('LessonImages', () => {
       expect(text('button[type="submit"]')).toBe('Codex đang vẽ ngầm… (khoảng 1 phút)');
     });
 
-    it('draws with Gemini when Codex was chosen but this server has none', async () => {
+    it('preselects nothing, even a choice made earlier, and draws nothing without a choice', async () => {
       localStorage.setItem('luna.admin.imageEngine', 'codex');
-      await open(base);
-      expect(radio('gemini').checked).toBe(true);
+      await open({ ...base, codexImages: true });
+      expect(radio('gemini').checked).toBe(false);
+      expect(radio('codex').checked).toBe(false);
+      submit().click();
+      await fixture.whenStable();
+      expect(text('.form-alert')).toBe('Hãy chọn tạo ảnh bằng Gemini hay Codex CLI trước.');
+      http.expectNone((r) => r.url === url && r.method === 'PUT');
+      http.expectNone((r) => r.url === batchUrl && r.method === 'POST');
+    });
+
+    it('counts Codex as no choice when this server has none', async () => {
+      await open({ ...base, codexImages: true });
+      radio('codex').click();
+      await fixture.whenStable();
+      // The server answers again, now without Codex.
+      save().click();
+      await fixture.whenStable();
+      http.expectOne((r) => r.url === url && r.method === 'PUT').flush({ ...base, words: [] });
+      await settle();
+      expect(radio('codex').disabled).toBe(true);
+      expect(radio('codex').checked).toBe(false);
+      submit().click();
+      await fixture.whenStable();
+      expect(text('.form-alert')).toBe('Hãy chọn tạo ảnh bằng Gemini hay Codex CLI trước.');
+      http.expectNone((r) => r.url === url && r.method === 'PUT');
     });
 
     it('shows why the drawing failed once the batch ends', async () => {
@@ -387,6 +415,8 @@ describe('LessonImages', () => {
 
     it('shows why the drawing could not start', async () => {
       await open(base);
+      radio('gemini').click();
+      await fixture.whenStable();
       submit().click();
       await fixture.whenStable();
       expectStart({});

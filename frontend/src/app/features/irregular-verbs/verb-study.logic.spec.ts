@@ -2,12 +2,17 @@ import { VerbProgress } from '../../core/models/verbs';
 import { IRREGULAR_VERBS, IrregularVerb } from './irregular-verbs.data';
 import { spellings } from './irregular-verbs.logic';
 import { VERB_EXAMPLES, VERB_IPA, VERB_LESSONS } from './verb-lessons.data';
+import { VERB_USAGE } from './verb-usage.data';
 import {
+  canFlip,
   changedPart,
   choiceQuestion,
   dueLabel,
   exampleParts,
   gradeForm,
+  quickWaitDays,
+  sentenceQuestion,
+  signalParts,
   isDue,
   learnedIn,
   learnedVerbs,
@@ -64,8 +69,19 @@ describe('verb study logic', () => {
   const lesson = VERB_LESSONS[7]; // -ought: buy, bring, think, fight, catch, teach
 
   it('takes the verbs of a lesson and counts the learned ones', () => {
-    expect(lessonVerbs(lesson).map((v) => v.base)).toEqual(['buy', 'bring', 'think', 'fight', 'catch', 'teach']);
-    const progress = new Map([rec('buy'), rec('think'), rec('fight', { learnedAt: null, level: 0 })]);
+    expect(lessonVerbs(lesson).map((v) => v.base)).toEqual([
+      'buy',
+      'bring',
+      'think',
+      'fight',
+      'catch',
+      'teach',
+    ]);
+    const progress = new Map([
+      rec('buy'),
+      rec('think'),
+      rec('fight', { learnedAt: null, level: 0 }),
+    ]);
     expect(learnedIn(lesson, progress)).toBe(2);
   });
 
@@ -95,9 +111,15 @@ describe('verb study logic', () => {
   });
 
   it('reviews the due verbs, or the soonest ones when none is due', () => {
-    const due = new Map([rec('go', { dueAt: '2026-10-15T08:00:00' }), rec('cut', { dueAt: '2026-10-25T08:00:00' })]);
+    const due = new Map([
+      rec('go', { dueAt: '2026-10-15T08:00:00' }),
+      rec('cut', { dueAt: '2026-10-25T08:00:00' }),
+    ]);
     expect(reviewRound(due, now, 1).map((v) => v.base)).toEqual(['go']);
-    const none = new Map([rec('go', { dueAt: '2026-10-20T08:00:00' }), rec('cut', { dueAt: '2026-10-25T08:00:00' })]);
+    const none = new Map([
+      rec('go', { dueAt: '2026-10-20T08:00:00' }),
+      rec('cut', { dueAt: '2026-10-25T08:00:00' }),
+    ]);
     expect(reviewRound(none, now, 1, 1).map((v) => v.base)).toEqual(['go']);
   });
 
@@ -160,5 +182,65 @@ describe('verb study display helpers', () => {
     ).toEqual(['were', 'been']);
     // Inside another word it is not the verb.
     expect(exampleParts('Abuyer', buy)).toEqual([{ text: 'Abuyer', verb: false }]);
+  });
+});
+
+describe('sentenceQuestion (added 2026-11-10)', () => {
+  const come = IRREGULAR_VERBS.find((v) => v.base === 'come')!;
+
+  it('blanks the form out of the sentence and marks the signal words', () => {
+    const q = sentenceQuestion(
+      come,
+      'past',
+      { en: 'My cousin came to visit last Sunday.', vi: 'x' },
+      1,
+    )!;
+    expect(q.answer).toBe('came');
+    expect(q.before.map((p) => p.text).join('')).toBe('My cousin ');
+    expect(q.after.filter((p) => p.signal).map((p) => p.text)).toEqual(['last Sunday']);
+    expect([...q.options].sort()).toEqual(['came', 'come', 'comed']);
+  });
+
+  it('is null when the sentence does not hold the form', () => {
+    expect(sentenceQuestion(come, 'past', { en: 'I come here.', vi: 'x' }, 1)).toBeNull();
+    expect(sentenceQuestion(come, 'past', undefined, 1)).toBeNull();
+  });
+
+  it('marks have, has and had before a V3', () => {
+    expect(
+      signalParts('She has already gone.')
+        .filter((p) => p.signal)
+        .map((p) => p.text),
+    ).toEqual(['has', 'already']);
+  });
+});
+
+describe('quickWaitDays (added 2026-11-10)', () => {
+  const p = (level: number, right: number) =>
+    ({ base: 'go', learnedAt: 'x', level, dueAt: null, right, wrong: 0 }) as const;
+
+  it('never sends a verb further than 14 days, and keeps a never-typed one close', () => {
+    expect(quickWaitDays(p(2, 3), 'good')).toBe(7);
+    expect(quickWaitDays(p(5, 3), 'good')).toBe(14);
+    expect(quickWaitDays(p(3, 3), 'hard')).toBe(2);
+    expect(quickWaitDays(p(3, 3), 'forgot')).toBe(1);
+    expect(quickWaitDays(p(2, 0), 'good')).toBe(2);
+    expect(canFlip(p(2, 0))).toBe(false);
+  });
+});
+
+describe('VERB_USAGE (added 2026-11-10)', () => {
+  it('has a past and a perfect sentence holding the form for every verb', () => {
+    const broken = IRREGULAR_VERBS.filter((v) => {
+      const u = VERB_USAGE[v.base];
+      return (
+        !u ||
+        !u.mistakeVi ||
+        !sentenceQuestion(v, 'past', u.past, 1) ||
+        !sentenceQuestion(v, 'participle', u.perfect, 1)
+      );
+    }).map((v) => v.base);
+    expect(broken).toEqual([]);
+    expect(Object.keys(VERB_USAGE).length).toBe(IRREGULAR_VERBS.length);
   });
 });

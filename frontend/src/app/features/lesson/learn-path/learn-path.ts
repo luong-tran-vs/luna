@@ -18,6 +18,7 @@ import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
 import { MoveOn, MoveOnCard } from './move-on/move-on';
+import { MoreLessonsDialog } from './more-lessons/more-lessons';
 import { PathBanner } from './path-banner/path-banner';
 import { TopicInfo } from './topic-info/topic-info';
 
@@ -78,6 +79,11 @@ interface RoadmapView {
   /** The trophy after the last lesson; done once every lesson is. */
   finish: Point & { done: boolean };
   height: number;
+  /**
+   * Every lesson shown is done and lessons are held back: tapping a lesson asks to study again or
+   * open a new one instead of opening it.
+   */
+  askMore: boolean;
   /** SVG path data: the whole road, the way already open (solid) and the locked part (dashed). */
   road: string;
   open: string;
@@ -164,6 +170,7 @@ function toRoadmapView(
     number: r.course?.number || index + 1,
     extraLabel,
     moveOn: null,
+    askMore: done && (r.moreLessons ?? 0) > 0,
     start,
     nodes,
     finish,
@@ -227,6 +234,7 @@ function toView(m: Milestone): MilestoneView {
     PathBanner,
     TopicInfo,
     MoveOnCard,
+    MoreLessonsDialog,
   ],
   templateUrl: './learn-path.html',
   styleUrl: './learn-path.css',
@@ -336,6 +344,39 @@ export class LearnPath {
       }
     } catch {
       this.switchError.set('Không chuyển được chủ đề, vui lòng thử lại.');
+    } finally {
+      this.pending.set(false);
+    }
+  }
+
+  /** The finished topic the learner came back to, asked "Học lại hay học bài mới?". */
+  protected readonly asking = signal<RoadmapView | null>(null);
+
+  /** "Học lại": reopens lesson 1 to review; nothing is reset. */
+  protected async relearn(): Promise<void> {
+    const first = this.asking()?.roadmap.lessons[0];
+    this.asking.set(null);
+    if (first) {
+      await this.router.navigate(['/lessons', first.id]);
+    }
+  }
+
+  /** "Học bài mới": opens the next held-back lesson, makes the topic the goal and opens the lesson. */
+  protected async studyMore(level: Level): Promise<void> {
+    const r = this.asking()?.roadmap;
+    if (!r) {
+      return;
+    }
+    this.pending.set(true);
+    this.switchError.set(null);
+    try {
+      const res = await firstValueFrom(this.api.studyMore(r.topicId, level));
+      this.asking.set(null);
+      await this.router.navigate(['/lessons', res.lesson.id]);
+    } catch {
+      this.asking.set(null);
+      this.switchError.set('Không mở được bài mới, vui lòng thử lại.');
+      this.load();
     } finally {
       this.pending.set(false);
     }

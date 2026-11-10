@@ -53,6 +53,17 @@ func (f *fakeGoals) Activate(_ context.Context, userID, topicID, level, effectiv
 	return *g, nil
 }
 
+func (f *fakeGoals) SetMoreLessons(_ context.Context, userID, topicID, level string, n int) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for i := range f.goals {
+		if g := &f.goals[i]; g.UserID == userID && g.TopicID == topicID && g.Level == level {
+			g.MoreLessons = n
+		}
+	}
+	return nil
+}
+
 type fakeProgress struct {
 	mu   sync.Mutex
 	rows map[string]LessonProgress

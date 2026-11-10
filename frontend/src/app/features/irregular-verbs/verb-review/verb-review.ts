@@ -20,7 +20,9 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { newSeed } from '../../lesson/lesson-detail/practice-logic';
 import { IrregularVerb } from '../irregular-verbs.data';
 import { spokenForms } from '../irregular-verbs.logic';
-import { dueLabel, learnedVerbs, reviewRound } from '../verb-study.logic';
+import { canFlip, dueLabel, learnedVerbs, reviewRound } from '../verb-study.logic';
+import { QuickResult, VerbFlipRound } from '../verb-flip-round/verb-flip-round';
+import { VerbPictures } from '../verb-pictures.service';
 import { TypedResult, VerbTypeRound } from '../verb-type-round/verb-type-round';
 
 /**
@@ -31,7 +33,15 @@ import { TypedResult, VerbTypeRound } from '../verb-type-round/verb-type-round';
  */
 @Component({
   selector: 'lu-verb-review',
-  imports: [NgOptimizedImage, NgTemplateOutlet, RouterLink, Icon, Loading, VerbTypeRound],
+  imports: [
+    NgOptimizedImage,
+    NgTemplateOutlet,
+    RouterLink,
+    Icon,
+    Loading,
+    VerbTypeRound,
+    VerbFlipRound,
+  ],
   templateUrl: './verb-review.html',
   styleUrl: './verb-review.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,7 +57,12 @@ export class VerbReview {
   protected readonly canSpeak = this.speech.supported;
   protected readonly progress = signal<ReadonlyMap<string, VerbProgress> | null>(null);
   protected readonly loadError = signal(false);
-  protected readonly stage = signal<'list' | 'quiz' | 'done'>('list');
+  /** flip: "Ôn nhanh" by flipping cards (added 2026-11-10); quiz: typing V2 and V3 ("Ôn kỹ"). */
+  protected readonly stage = signal<'list' | 'flip' | 'quiz' | 'done'>('list');
+  /** The verbs of the round flipped, and those typed (all of them in "Ôn kỹ"). */
+  protected readonly flipRound = signal<IrregularVerb[]>([]);
+  protected readonly quick = signal<QuickResult[]>([]);
+  protected readonly pictures = inject(VerbPictures).urls;
   protected readonly round = signal<IrregularVerb[]>([]);
   protected readonly results = signal<TypedResult[]>([]);
   protected readonly saving = signal(false);
@@ -56,13 +71,21 @@ export class VerbReview {
   protected readonly removing = signal<string | null>(null);
 
   private readonly now = signal(new Date());
-  protected readonly learned = computed(() => learnedVerbs(this.progress() ?? new Map(), this.now()));
+  protected readonly learned = computed(() =>
+    learnedVerbs(this.progress() ?? new Map(), this.now()),
+  );
   protected readonly due = computed(() => this.learned().filter((l) => l.due));
   protected readonly upcoming = computed(() => this.learned().filter((l) => !l.due));
-  protected readonly rightCount = computed(() => this.results().filter((r) => r.right).length);
+  protected readonly rightCount = computed(
+    () =>
+      this.results().filter((r) => r.right).length +
+      this.quick().filter((q) => q.grade !== 'forgot').length,
+  );
+  protected readonly doneCount = computed(() => this.results().length + this.quick().length);
 
   constructor() {
     this.load();
+    inject(VerbPictures).load();
   }
 
   protected load(): void {
@@ -82,19 +105,47 @@ export class VerbReview {
     return dueLabel(p.dueAt, this.now());
   }
 
+  protected readonly emptyProgress: ReadonlyMap<string, VerbProgress> = new Map();
+
+  protected gradeLabel(g: QuickResult['grade']): string {
+    return g === 'forgot' ? 'Quên · vẫn là đã học' : g === 'hard' ? 'Hơi nhớ' : 'Nhớ';
+  }
+
   protected forms(v: IrregularVerb): string {
     return `${v.base} · ${v.past} · ${v.participle}`;
   }
 
-  protected start(): void {
+  /**
+   * Starts a round. "Ôn nhanh" (quick) flips the cards of the verbs typed right before and has the
+   * others typed after; "Ôn kỹ" types them all.
+   */
+  protected start(quick = false): void {
     this.now.set(new Date());
-    this.round.set(reviewRound(this.progress() ?? new Map(), this.now(), newSeed()));
+    const progress = this.progress() ?? new Map();
+    const round = reviewRound(progress, this.now(), newSeed());
+    const flip = quick ? round.filter((v) => canFlip(progress.get(v.base))) : [];
+    this.flipRound.set(flip);
+    this.round.set(round.filter((v) => !flip.includes(v)));
     this.results.set([]);
-    this.stage.set('quiz');
+    this.quick.set([]);
+    this.stage.set(flip.length > 0 ? 'flip' : 'quiz');
+  }
+
+  protected onFlipped(results: QuickResult[]): void {
+    this.quick.set(results);
+    if (this.round().length > 0) {
+      this.stage.set('quiz');
+      return;
+    }
+    this.finish();
   }
 
   protected onFinished(results: TypedResult[]): void {
     this.results.set(results);
+    this.finish();
+  }
+
+  private finish(): void {
     this.stage.set('done');
     this.send();
     afterNextRender(() => this.heading()?.nativeElement.focus(), { injector: this.injector });
@@ -103,7 +154,14 @@ export class VerbReview {
   protected send(): void {
     this.saving.set(true);
     this.saveError.set(false);
-    this.api.record(this.results().map((r) => ({ base: r.verb.base, right: r.right }))).subscribe({
+    const typed = this.results().map((r) => ({ base: r.verb.base, right: r.right }));
+    const quick = this.quick().map((q) => ({
+      base: q.verb.base,
+      right: q.grade !== 'forgot',
+      quick: true,
+      hard: q.grade === 'hard',
+    }));
+    this.api.record([...typed, ...quick]).subscribe({
       next: (r) => {
         this.merge(r.verbs);
         this.now.set(new Date());
@@ -119,7 +177,9 @@ export class VerbReview {
   /** When the verb of a result comes back, once the round is saved. */
   protected nextLabel(base: string): string {
     const p = this.progress()?.get(base);
-    return p && !this.saving() && !this.saveError() ? `hỏi lại ${dueLabel(p.dueAt, this.now())}` : '';
+    return p && !this.saving() && !this.saveError()
+      ? `hỏi lại ${dueLabel(p.dueAt, this.now())}`
+      : '';
   }
 
   protected unlearn(base: string): void {

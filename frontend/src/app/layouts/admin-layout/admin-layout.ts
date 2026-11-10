@@ -11,6 +11,7 @@ import { ImageBatchBanner } from '../../features/admin/word-bank/image-batch-ban
 import { SceneBatchBanner } from '../../features/admin/curriculum/scene-batch-banner';
 import { GrammarImageBatchBanner } from '../../features/admin/grammar-images/grammar-image-batch-banner';
 import { GrammarPictureBatchBanner } from '../../features/admin/grammar-images/grammar-picture-batch-banner';
+import { VerbImageBatchBanner } from '../../features/admin/verb-images/verb-image-batch-banner';
 import { ImageBatchService } from '../../features/admin/word-bank/image-batch.service';
 
 interface AdminLink {
@@ -46,6 +47,12 @@ const ADMIN_LINKS: readonly AdminLink[] = [
     label: 'Từ vựng',
     icon: 'notebook',
     matches: (p) => p.startsWith('/admin/words'),
+  },
+  {
+    path: '/admin/verb-images',
+    label: 'Ảnh động từ',
+    icon: 'cards',
+    matches: (p) => p.startsWith('/admin/verb-images'),
   },
   {
     path: '/admin/grammar',
@@ -101,6 +108,7 @@ const ADMIN_LINKS: readonly AdminLink[] = [
     SceneBatchBanner,
     GrammarImageBatchBanner,
     GrammarPictureBatchBanner,
+    VerbImageBatchBanner,
   ],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',

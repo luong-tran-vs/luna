@@ -82,124 +82,7 @@
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--space-1);
 }
 
-/* --- Làm quen: one card per verb --- */
-
-.flashcard {
-  justify-items: center;
-  text-align: center;
-}
-
-.tag {
-  padding: 2px var(--space-2);
-  font: var(--text-xs) var(--font-ui);
-  font-weight: 700;
-  color: color-mix(in srgb, var(--color-skill-write) 70%, var(--color-text));
-  background: color-mix(in srgb, var(--color-skill-write) 16%, var(--color-surface));
-  border-radius: var(--radius-full);
-}
-
-.meaning {
-  color: var(--color-text-muted);
-}
-
-.forms {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-2);
-  width: 100%;
-}
-
-.form {
-  display: grid;
-  gap: 2px;
-  padding: var(--space-2) var(--space-1);
-  background: var(--color-bg);
-  border-radius: var(--radius-md);
-}
-
-.form-label {
-  font: var(--text-xs) var(--font-ui);
-  font-weight: 700;
-  color: var(--color-text-muted);
-}
-
-.form-word {
-  font: var(--text-lg) var(--font-ui);
-  overflow-wrap: anywhere;
-}
-
-/* The part that changes from the base, coloured with a background (not color alone). */
-.changed {
-  padding: 0 1px;
-  color: color-mix(in srgb, var(--color-skill-write) 70%, var(--color-text));
-  background: color-mix(in srgb, var(--color-skill-write) 18%, var(--color-surface));
-  border-radius: 4px;
-}
-
-.alt {
-  display: block;
-  font: var(--text-xs) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-.example {
-  display: grid;
-  gap: 2px;
-  justify-items: start;
-  width: 100%;
-  padding: var(--space-2) var(--space-3);
-  text-align: start;
-  background: var(--color-bg);
-  border-radius: var(--radius-md);
-}
-
-.example-en {
-  font-weight: 600;
-}
-
-.example-vi,
-.note {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-.small {
-  min-height: 36px;
-  margin-top: var(--space-1);
-  font: var(--text-sm) var(--font-ui);
-
-  --icon-size: 16px;
-}
-
-.dots {
-  display: flex;
-  gap: 6px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background: var(--color-track);
-  border-radius: 50%;
-}
-
-.dot.on {
-  background: var(--color-primary);
-}
-
-.icon-btn {
-  display: inline-grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  color: var(--color-primary-ink);
-  background: var(--color-primary-soft);
-  border: 0;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-}
-
-/* --- Chọn --- */
+/* --- Làm quen: the cards (the screens are child components since 2026-11-10) --- */
 
 .eyebrow {
   display: flex;
@@ -215,81 +98,21 @@
   color: var(--color-primary-ink);
 }
 
-.ask {
-  justify-items: center;
-  gap: var(--space-1);
-  text-align: center;
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
 }
 
-.ask-base {
-  font: var(--text-2xl) var(--font-ui);
-  font-size: 32px;
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-track);
+  border-radius: 50%;
 }
 
-.options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.option {
-  display: grid;
-  width: 100%;
-  min-height: 52px;
-  padding: var(--space-2);
-  font: var(--text-lg) var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-}
-
-.option:disabled {
-  cursor: default;
-}
-
-.option.is-right,
-.option.is-wrong {
-  --tone: var(--color-ok);
-
-  color: color-mix(in srgb, var(--tone) 75%, var(--color-text));
-  background: color-mix(in srgb, var(--tone) 10%, var(--color-surface));
-  border: 2px solid var(--tone);
-}
-
-.option.is-wrong {
-  --tone: var(--color-bad);
-}
-
-.option-mark {
-  font: var(--text-xs) var(--font-ui);
-  font-weight: 700;
-}
-
-.feedback:empty {
-  display: none;
-}
-
-.feedback {
-  padding: var(--space-3) var(--space-4);
-  font: var(--text-sm) var(--font-ui);
-  border-radius: var(--radius-md);
-
-  --tone: var(--color-primary);
-
-  background: color-mix(in srgb, var(--tone) 10%, var(--color-surface));
-}
-
-.feedback.ok {
-  --tone: var(--color-ok);
-}
-
-.feedback.bad {
-  --tone: var(--color-bad);
+.dot.on {
+  background: var(--color-primary);
 }
 
 /* --- Xác nhận đã học --- */
@@ -376,8 +199,6 @@
   outline: none;
 }
 
-.option:focus-visible,
-.icon-btn:focus-visible,
 .check:focus-within {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
@@ -385,20 +206,4 @@
 
 .bottom-bar a {
   gap: var(--space-2);
-}
-
-.ipa {
-  font: var(--text-xs) var(--font-ipa);
-  color: var(--color-text-muted);
-}
-
-.tip {
-  width: 100%;
-  padding: var(--space-2) var(--space-3);
-  font: var(--text-sm) var(--font-ui);
-  text-align: start;
-  color: color-mix(in srgb, var(--color-warn) 60%, var(--color-text));
-  background: color-mix(in srgb, var(--color-warn) 10%, var(--color-surface));
-  border: 1px solid color-mix(in srgb, var(--color-warn) 30%, var(--color-surface));
-  border-radius: var(--radius-md);
 }

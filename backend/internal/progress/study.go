@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"time"
+
+	"golang.org/x/sync/errgroup"
 )
 
 // StepState is how a step shows in the step indicator.
@@ -125,35 +127,53 @@ type day struct {
 }
 
 func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
-	loc, err := s.d.Timezones.Location(ctx, userID)
-	if err != nil {
-		return nil, fmt.Errorf("progress: timezone: %w", err)
-	}
-	d := &day{userID: userID, now: s.d.Now(), loc: loc}
-	if s.d.Members != nil {
-		if d.guest, err = s.d.Members.IsGuest(ctx, userID); err != nil {
-			return nil, fmt.Errorf("progress: role: %w", err)
+	d := &day{userID: userID, now: s.d.Now()}
+	// These four reads do not depend on each other: at once, each into its own field (added
+	// 2026-11-09; one after another they added up their round trips to the database).
+	g, gctx := errgroup.WithContext(ctx)
+	g.Go(func() (err error) {
+		if d.loc, err = s.d.Timezones.Location(gctx, userID); err != nil {
+			return fmt.Errorf("progress: timezone: %w", err)
 		}
+		return nil
+	})
+	if s.d.Members != nil {
+		g.Go(func() (err error) {
+			if d.guest, err = s.d.Members.IsGuest(gctx, userID); err != nil {
+				return fmt.Errorf("progress: role: %w", err)
+			}
+			return nil
+		})
 	}
-	d.today = DayKey(d.now, loc)
-	if d.goals, err = s.d.Goals.List(ctx, userID); err != nil {
-		return nil, fmt.Errorf("progress: goals: %w", err)
+	g.Go(func() (err error) {
+		if d.goals, err = s.d.Goals.List(gctx, userID); err != nil {
+			return fmt.Errorf("progress: goals: %w", err)
+		}
+		return nil
+	})
+	g.Go(func() (err error) {
+		if d.completed, err = s.d.Progress.Completed(gctx, userID); err != nil {
+			return fmt.Errorf("progress: completed lessons: %w", err)
+		}
+		return nil
+	})
+	if err := g.Wait(); err != nil {
+		return nil, err
+	}
+	d.today = DayKey(d.now, d.loc)
+	d.done = make(map[string]bool, len(d.completed))
+	for _, p := range d.completed {
+		d.done[p.LessonID] = true
 	}
 	if g, ok := EffectiveGoal(d.goals); ok {
 		t, err := s.d.Roadmaps.Roadmap(ctx, g.TopicID, g.Level)
 		switch {
 		case err == nil:
+			t.LessonIDs = VisibleLessons(t.LessonIDs, g.MoreLessons, d.done)
 			d.goal, d.topic = &g, &t
 		case !errors.Is(err, ErrTopicNotFound):
 			return nil, fmt.Errorf("progress: roadmap: %w", err)
 		}
-	}
-	if d.completed, err = s.d.Progress.Completed(ctx, userID); err != nil {
-		return nil, fmt.Errorf("progress: completed lessons: %w", err)
-	}
-	d.done = make(map[string]bool, len(d.completed))
-	for _, p := range d.completed {
-		d.done[p.LessonID] = true
 	}
 	var roadmap []string
 	if d.topic != nil {
@@ -206,6 +226,7 @@ func (s *StudyService) Goals(ctx context.Context, userID string) (GoalsView, err
 		if err != nil {
 			return GoalsView{}, fmt.Errorf("progress: roadmap: %w", err)
 		}
+		t.LessonIDs = VisibleLessons(t.LessonIDs, g.MoreLessons, d.done)
 		v := goalView(g, t, d.done)
 		if g.Status == GoalActive {
 			out.Active = &v
@@ -231,7 +252,43 @@ func (s *StudyService) SetGoal(ctx context.Context, userID, topicID, level strin
 	if err != nil {
 		return GoalView{}, fmt.Errorf("progress: activate goal: %w", err)
 	}
+	t.LessonIDs = VisibleLessons(t.LessonIDs, g.MoreLessons, d.done)
 	return goalView(g, t, d.done), nil
+}
+
+// StudyMore is "Học bài mới" (added 2026-11-09): back on a roadmap whose shown lessons are all
+// done, the learner opens the next held-back lesson. The roadmap becomes the goal and the lesson
+// opened is the one to study now. It fails with ErrNoMoreLessons when a shown lesson is not done
+// yet or none is left.
+func (s *StudyService) StudyMore(ctx context.Context, userID, topicID, level string) (GoalView, LessonRef, error) {
+	t, err := s.d.Roadmaps.Roadmap(ctx, topicID, level)
+	if err != nil {
+		return GoalView{}, LessonRef{}, fmt.Errorf("progress: roadmap: %w", err)
+	}
+	d, err := s.load(ctx, userID)
+	if err != nil {
+		return GoalView{}, LessonRef{}, err
+	}
+	visible := VisibleLessons(t.LessonIDs, d.moreLessons(topicID, level), d.done)
+	if !AllCompleted(visible, d.done) || HeldLessons(t.LessonIDs, len(visible)) == 0 {
+		return GoalView{}, LessonRef{}, ErrNoMoreLessons
+	}
+	g, err := s.d.Goals.Activate(ctx, userID, topicID, level, d.today, d.now)
+	if err != nil {
+		return GoalView{}, LessonRef{}, fmt.Errorf("progress: activate goal: %w", err)
+	}
+	// Counted from what is visible, so a lesson completed beyond the shown ones counts as opened.
+	g.MoreLessons = len(visible) + 1 - ShownLessons
+	if err := s.d.Goals.SetMoreLessons(ctx, userID, topicID, level, g.MoreLessons); err != nil {
+		return GoalView{}, LessonRef{}, fmt.Errorf("progress: open more lessons: %w", err)
+	}
+	next := t.LessonIDs[len(visible)]
+	t.LessonIDs = t.LessonIDs[:len(visible)+1]
+	titles, err := s.d.Titles.Titles(ctx, []string{next})
+	if err != nil {
+		return GoalView{}, LessonRef{}, fmt.Errorf("progress: lesson title: %w", err)
+	}
+	return goalView(g, t, d.done), LessonRef{ID: next, Title: titles[next]}, nil
 }
 
 // --- the lesson page ---

@@ -31,7 +31,17 @@ describe('WordBank (F24)', () => {
   };
 
   const noBatch: BankImageBatch = {
-    running: false, stopping: false, stopped: false, engine: '', ticked: false, topics: [], total: 0, done: 0, drawing: [], saved: [], failures: [],
+    running: false,
+    stopping: false,
+    stopped: false,
+    engine: '',
+    ticked: false,
+    topics: [],
+    total: 0,
+    done: 0,
+    drawing: [],
+    saved: [],
+    failures: [],
   };
 
   /** Waits ms (past the search delay when needed), then for Angular. */
@@ -44,6 +54,13 @@ describe('WordBank (F24)', () => {
     Array.from(root.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
       b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label),
     );
+  /** Picks what "Sinh ảnh" draws with: nothing is chosen until the admin does (2026-11-10). */
+  const chooseEngine = async (value: '' | 'gemini' | 'codex') => {
+    const engine = el.querySelector<HTMLSelectElement>('#bank-engine')!;
+    engine.value = value;
+    engine.dispatchEvent(new Event('change'));
+    await settle();
+  };
   const type = (root: ParentNode, selector: string, value: string) => {
     const input = root.querySelector<HTMLInputElement>(selector)!;
     input.value = value;
@@ -59,7 +76,9 @@ describe('WordBank (F24)', () => {
     const box = el.querySelector<HTMLInputElement>(selector)!;
     box.click();
     await fixture.whenStable();
-    const labels = Array.from(el.querySelectorAll(`${selector}-list [role="option"] .label`)).map((o) => o.textContent?.trim());
+    const labels = Array.from(el.querySelectorAll(`${selector}-list [role="option"] .label`)).map(
+      (o) => o.textContent?.trim(),
+    );
     box.dispatchEvent(new Event('blur'));
     await fixture.whenStable();
     return labels;
@@ -75,7 +94,12 @@ describe('WordBank (F24)', () => {
   const expectList = (query: string) =>
     http.expectOne((r) => r.url === '/admin/words' && r.params.toString() === query);
 
-  const open = async (words: BankWord[] = [house, table], hasMore = false, codexImages = false, batch: BankImageBatch = noBatch) => {
+  const open = async (
+    words: BankWord[] = [house, table],
+    hasMore = false,
+    codexImages = false,
+    batch: BankImageBatch = noBatch,
+  ) => {
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptors([errorInterceptor])),
@@ -93,10 +117,17 @@ describe('WordBank (F24)', () => {
       ],
     });
     // "Nhà cửa" lacks all three, "Chào hỏi" nothing.
-    http.expectOne('/admin/words/missing-by-topic').flush({ topics: [{ topicId: 't2', image: 3, ipa: 1, meaning: 2 }] });
+    http
+      .expectOne('/admin/words/missing-by-topic')
+      .flush({ topics: [{ topicId: 't2', image: 3, ipa: 1, meaning: 2 }] });
     http.expectOne('/admin/words/image-batch').flush(batch);
     await settle(350);
-    expectList('page=1').flush({ words, total: words.length + (hasMore ? 1 : 0), hasMore, codexImages });
+    expectList('page=1').flush({
+      words,
+      total: words.length + (hasMore ? 1 : 0),
+      hasMore,
+      codexImages,
+    });
     await settle();
   };
 
@@ -111,17 +142,24 @@ describe('WordBank (F24)', () => {
     const box = el.querySelector<HTMLInputElement>('#bank-topic-filter')!;
     box.click();
     await settle();
-    const option = (id: string) => el.querySelector(`#bank-topic-filter-list [data-value="${id}"]`)!;
+    const option = (id: string) =>
+      el.querySelector(`#bank-topic-filter-list [data-value="${id}"]`)!;
     const badges = Array.from(option('t2').querySelectorAll<HTMLElement>('.badge'));
     expect(badges.map((b) => b.title)).toEqual(['thiếu ảnh', 'thiếu phiên âm', 'thiếu nghĩa']);
     expect(badges.map((b) => b.textContent?.replace(/\s+/g, ' ').trim())).toEqual([
-      ', 3 thiếu ảnh', ', 1 thiếu phiên âm', ', 2 thiếu nghĩa',
+      ', 3 thiếu ảnh',
+      ', 1 thiếu phiên âm',
+      ', 2 thiếu nghĩa',
     ]);
     expect(option('t1').querySelector('.badge')).toBeNull();
     box.dispatchEvent(new Event('blur'));
 
     const chips = Array.from(el.querySelectorAll<HTMLButtonElement>('.legend-chip'));
-    expect(chips.map((c) => c.textContent?.trim())).toEqual(['Thiếu ảnh', 'Thiếu phiên âm', 'Thiếu nghĩa']);
+    expect(chips.map((c) => c.textContent?.trim())).toEqual([
+      'Thiếu ảnh',
+      'Thiếu phiên âm',
+      'Thiếu nghĩa',
+    ]);
     chips[1].click();
     await settle(350);
     expect(chips[1].getAttribute('aria-pressed')).toBe('true');
@@ -207,7 +245,11 @@ describe('WordBank (F24)', () => {
     expect(rows()[0].querySelector('.topics')!.textContent).toContain('Nhà cửa');
     expect(rows()[1].textContent).toContain('Chưa thuộc chủ đề nào');
     // By name.
-    expect(await topicChoices('#bank-topic-filter')).toEqual(['Tất cả chủ đề', 'Chào hỏi', 'Nhà cửa']);
+    expect(await topicChoices('#bank-topic-filter')).toEqual([
+      'Tất cả chủ đề',
+      'Chào hỏi',
+      'Nhà cửa',
+    ]);
 
     await pickTopic('#bank-topic-filter', 't2');
     await settle(350);
@@ -277,7 +319,10 @@ describe('WordBank (F24)', () => {
     button(el, 'Điền nghĩa và phiên âm bằng AI')!.click();
     http
       .expectOne('/admin/words/fill-missing')
-      .flush({ message: 'Đã hết lượt AI, vui lòng thử lại sau.' }, { status: 429, statusText: 'Too Many Requests' });
+      .flush(
+        { message: 'Đã hết lượt AI, vui lòng thử lại sau.' },
+        { status: 429, statusText: 'Too Many Requests' },
+      );
     await settle();
     expect(el.querySelector('.note')!.textContent).toContain('Đã hết lượt AI');
   });
@@ -306,7 +351,9 @@ describe('WordBank (F24)', () => {
     expectList('page=1&missing=ipaCheck').flush({ words: [odd], total: 1, hasMore: false });
     await settle();
     button(el, 'Nhận tất cả gợi ý')!.click();
-    http.expectOne((r) => r.url === '/admin/words/ipa-suggestions/accept' && r.method === 'POST').flush({ updated: 1 });
+    http
+      .expectOne((r) => r.url === '/admin/words/ipa-suggestions/accept' && r.method === 'POST')
+      .flush({ updated: 1 });
     await settle();
     expect(el.querySelector('.note')?.textContent).toContain('Đã thay phiên âm chuẩn cho 1 từ.');
     await settle(350);
@@ -331,7 +378,9 @@ describe('WordBank (F24)', () => {
     await settle();
 
     button(el, 'Nhận tất cả gợi ý')!.click();
-    http.expectOne((r) => r.url === '/admin/words/ipa-suggestions/accept' && r.method === 'POST').flush({ updated: 1 });
+    http
+      .expectOne((r) => r.url === '/admin/words/ipa-suggestions/accept' && r.method === 'POST')
+      .flush({ updated: 1 });
     await settle();
     expect(el.querySelector('.note')?.textContent).toContain('Đã thay phiên âm chuẩn cho 1 từ.');
     await settle(350);
@@ -380,6 +429,7 @@ describe('WordBank (F24)', () => {
       serverUrl('/api/admin/words/table/image?v=2'),
     );
 
+    await chooseEngine('gemini');
     button(rows()[0], 'Sinh ảnh AI')!.click();
     await settle();
     expect(button(rows()[0], 'Đang sinh ảnh…')).toBeDefined();
@@ -400,15 +450,19 @@ describe('WordBank (F24)', () => {
     expect(rows()[0].querySelector('img')).toBeNull();
   });
 
-  it('draws with the Codex CLI when the server offers it, remembering the choice', async () => {
-    localStorage.removeItem('luna.admin.imageEngine');
+  it('draws with the Codex CLI when the server offers it, chosen each time', async () => {
+    localStorage.setItem('luna.admin.imageEngine', 'codex');
     await open([house], false, true);
     const engine = el.querySelector<HTMLSelectElement>('#bank-engine')!;
-    expect(engine.value).toBe('gemini');
-    engine.value = 'codex';
-    engine.dispatchEvent(new Event('change'));
-    await settle();
-    expect(localStorage.getItem('luna.admin.imageEngine')).toBe('codex');
+    // Nothing is preselected, not even a choice made earlier on this browser.
+    expect(engine.value).toBe('');
+    expect(Array.from(engine.options).map((o) => o.textContent?.trim())).toEqual([
+      'Chọn Gemini hay Codex',
+      'Gemini (API)',
+      'Codex CLI (ChatGPT)',
+    ]);
+    expect(engine.options[2].disabled).toBe(false);
+    await chooseEngine('codex');
 
     button(rows()[0], 'Sinh ảnh Codex')!.click();
     await settle();
@@ -421,17 +475,60 @@ describe('WordBank (F24)', () => {
     localStorage.removeItem('luna.admin.imageEngine');
   });
 
-  it('hides the engine choice and draws with Gemini when the server has no Codex', async () => {
-    localStorage.setItem('luna.admin.imageEngine', 'codex');
+  it('draws nothing until the engine is chosen, and remembers no choice', async () => {
+    localStorage.removeItem('luna.admin.imageEngine');
+    await open([house, table], false, true);
+    const bar = el.querySelector('.batch-bar')!;
+    expect(el.querySelector<HTMLSelectElement>('#bank-engine')!.value).toBe('');
+
+    button(rows()[0], 'Sinh ảnh AI')!.click();
+    await settle();
+    expect(rows()[0].querySelector('.row-note')!.textContent).toContain(
+      'Hãy chọn "Sinh ảnh bằng" Gemini hay Codex CLI trước.',
+    );
+
+    rows()[1].querySelector<HTMLInputElement>('.pick input')!.click();
+    await settle();
+    button(bar, 'Sinh ảnh cho 1 từ đã chọn')!.click();
+    await settle();
+    expect(bar.querySelector('[role="alert"]')!.textContent).toContain(
+      'Hãy chọn "Sinh ảnh bằng" Gemini hay Codex CLI trước.',
+    );
+
+    button(bar, 'Sinh ảnh mọi từ thiếu ảnh')!.click();
+    await settle();
+    // No "Bắt đầu" question either: the message says to choose first.
+    expect(el.querySelector('[role="dialog"]')).toBeNull();
+    expect(bar.querySelector('[role="alert"]')!.textContent).toContain(
+      'Hãy chọn "Sinh ảnh bằng" Gemini hay Codex CLI trước.',
+    );
+    http.expectNone((r) => r.url.includes('/image/generate'));
+    http.expectNone((r) => r.method === 'POST' && r.url === '/admin/words/image-batch');
+
+    await chooseEngine('gemini');
+    expect(localStorage.getItem('luna.admin.imageEngine')).toBeNull();
+    // Back to no choice: drawing is refused again.
+    await chooseEngine('');
+    button(rows()[0], 'Sinh ảnh AI')!.click();
+    await settle();
+    http.expectNone((r) => r.url.includes('/image/generate'));
+  });
+
+  it('shows the engine choice with Codex disabled when the server has no Codex', async () => {
     await open([house]);
-    expect(el.querySelector('#bank-engine')).toBeNull();
+    const engine = el.querySelector<HTMLSelectElement>('#bank-engine')!;
+    expect(engine).not.toBeNull();
+    expect(engine.value).toBe('');
+    const codex = Array.from(engine.options).find((o) => o.value === 'codex')!;
+    expect(codex.disabled).toBe(true);
+    expect(codex.textContent).toContain('máy chủ chưa bật');
+    await chooseEngine('gemini');
     button(rows()[0], 'Sinh ảnh AI')!.click();
     await settle();
     const draw = http.expectOne('/admin/words/house/image/generate');
     expect(draw.request.body).toEqual({ style: '', engine: 'gemini' });
     draw.flush(house);
     await settle();
-    localStorage.removeItem('luna.admin.imageEngine');
   });
 
   it('rejects files that are not pictures without calling the server', async () => {
@@ -463,25 +560,46 @@ describe('WordBank (F24)', () => {
     const bar = el.querySelector('.batch-bar')!;
     expect(button(bar, 'Sinh ảnh cho 0 từ đã chọn')!.disabled).toBe(true);
     const pick = (r: Element) => r.querySelector<HTMLInputElement>('.pick input')!;
+    await chooseEngine('gemini');
     pick(rows()[1]).click();
     await settle();
     button(bar, 'Sinh ảnh cho 1 từ đã chọn')!.click();
-    const start = http.expectOne((r) => r.method === 'POST' && r.url === '/admin/words/image-batch');
+    const start = http.expectOne(
+      (r) => r.method === 'POST' && r.url === '/admin/words/image-batch',
+    );
     expect(start.request.body).toEqual({ lemmas: ['table'], topicId: '', engine: 'gemini' });
-    start.flush({ ...noBatch, running: true, ticked: true, engine: 'gemini', total: 1, drawing: ['table'], startedAt: '2026-11-04T10:00:00Z' });
+    start.flush({
+      ...noBatch,
+      running: true,
+      ticked: true,
+      engine: 'gemini',
+      total: 1,
+      drawing: ['table'],
+      startedAt: '2026-11-04T10:00:00Z',
+    });
     await settle();
-    expect(bar.textContent).toContain('Đang sinh ảnh cho 1 từ đã chọn bằng Gemini: đã xử lý 0/1 từ, còn 1 từ');
+    expect(bar.textContent).toContain(
+      'Đang sinh ảnh cho 1 từ đã chọn bằng Gemini: đã xử lý 0/1 từ, còn 1 từ',
+    );
     expect(rows()[1].querySelector('.thumb-empty')!.textContent).toContain('Đang sinh…');
     expect(pick(rows()[1]).checked).toBe(false);
 
     await settle(20);
     const done = { ...table, imageUrl: '/api/admin/words/table/image?v=2' };
     http.expectOne('/admin/words/image-batch').flush({
-      ...noBatch, engine: 'gemini', total: 1, done: 1, saved: [done], startedAt: '2026-11-04T10:00:00Z', finishedAt: '2026-11-04T10:00:20Z',
+      ...noBatch,
+      engine: 'gemini',
+      total: 1,
+      done: 1,
+      saved: [done],
+      startedAt: '2026-11-04T10:00:00Z',
+      finishedAt: '2026-11-04T10:00:20Z',
     });
     await settle(20);
     expect(rows()[1].querySelector('img')!.getAttribute('src')).toBe(serverUrl(done.imageUrl));
-    expect(bar.textContent).toContain('Lượt sinh ảnh đã xong cho mọi từ thiếu ảnh: sinh được 1/1 ảnh bằng Gemini');
+    expect(bar.textContent).toContain(
+      'Lượt sinh ảnh đã xong cho mọi từ thiếu ảnh: sinh được 1/1 ảnh bằng Gemini',
+    );
     button(bar, 'Ẩn kết quả')!.click();
     await settle();
     expect(bar.textContent).not.toContain('Lượt sinh ảnh đã xong');
@@ -489,36 +607,62 @@ describe('WordBank (F24)', () => {
 
   it('draws every word lacking a picture after asking, and shows why a batch stopped early', async () => {
     await open([house, table], false, true);
-    el.querySelector<HTMLSelectElement>('#bank-engine')!.value = 'codex';
-    el.querySelector<HTMLSelectElement>('#bank-engine')!.dispatchEvent(new Event('change'));
-    await settle();
+    await chooseEngine('codex');
     button(el.querySelector('.batch-bar')!, 'Sinh ảnh mọi từ thiếu ảnh')!.click();
     await settle();
     expect(el.textContent).toContain('Mỗi ảnh Codex mất khoảng 1 phút');
     button(el, 'Bắt đầu')!.click();
-    const start = http.expectOne((r) => r.method === 'POST' && r.url === '/admin/words/image-batch');
+    const start = http.expectOne(
+      (r) => r.method === 'POST' && r.url === '/admin/words/image-batch',
+    );
     expect(start.request.body).toEqual({ q: '', topicId: '', engine: 'codex' });
     start.flush({
-      ...noBatch, engine: 'codex', total: 2, done: 1, startedAt: '2026-11-04T10:00:00Z', finishedAt: '2026-11-04T10:00:20Z',
-      failures: [{ lemma: 'table', message: 'Codex CLI không có công cụ tạo ảnh' }], stopMessage: 'Codex CLI không có công cụ tạo ảnh',
+      ...noBatch,
+      engine: 'codex',
+      total: 2,
+      done: 1,
+      startedAt: '2026-11-04T10:00:00Z',
+      finishedAt: '2026-11-04T10:00:20Z',
+      failures: [{ lemma: 'table', message: 'Codex CLI không có công cụ tạo ảnh' }],
+      stopMessage: 'Codex CLI không có công cụ tạo ảnh',
     });
     await settle();
-    expect(el.querySelector('.batch-bar [role="alert"]')!.textContent).toContain('dừng sớm: Codex CLI không có công cụ tạo ảnh');
+    expect(el.querySelector('.batch-bar [role="alert"]')!.textContent).toContain(
+      'dừng sớm: Codex CLI không có công cụ tạo ảnh',
+    );
     expect(el.querySelector('.batch-failures')!.textContent).toContain('table');
-    localStorage.removeItem('luna.admin.imageEngine');
   });
 
   it('follows a batch that was already running when the page opened, and stops it', async () => {
-    await open([house, table], false, false, { ...noBatch, running: true, engine: 'gemini', total: 5, done: 2, drawing: ['table'] });
+    await open([house, table], false, false, {
+      ...noBatch,
+      running: true,
+      engine: 'gemini',
+      total: 5,
+      done: 2,
+      drawing: ['table'],
+    });
     const bar = el.querySelector('.batch-bar')!;
     expect(bar.textContent).toContain('đã xử lý 2/5 từ, còn 3 từ');
     button(bar, 'Dừng')!.click();
     http
       .expectOne((r) => r.url === '/admin/words/image-batch/stop')
-      .flush({ ...noBatch, running: true, stopping: true, engine: 'gemini', total: 5, done: 2, drawing: ['table'] });
+      .flush({
+        ...noBatch,
+        running: true,
+        stopping: true,
+        engine: 'gemini',
+        total: 5,
+        done: 2,
+        drawing: ['table'],
+      });
     await settle();
     expect(button(bar, 'Đang dừng')!.disabled).toBe(true);
-    http.match('/admin/words/image-batch').forEach((r) => r.flush({ ...noBatch, stopped: true, engine: 'gemini', total: 5, done: 3, startedAt: 'x' }));
+    http
+      .match('/admin/words/image-batch')
+      .forEach((r) =>
+        r.flush({ ...noBatch, stopped: true, engine: 'gemini', total: 5, done: 3, startedAt: 'x' }),
+      );
     await settle(20);
     http.match('/admin/words/image-batch').forEach((r) => r.flush({ ...noBatch }));
     expect(bar.textContent).toContain('Đã dừng lượt sinh ảnh');

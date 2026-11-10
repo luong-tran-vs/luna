@@ -1,0 +1,196 @@
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cat-says {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.cat {
+  flex: none;
+  width: 56px;
+  height: auto;
+}
+
+.bubble {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--space-1);
+}
+
+.rule {
+  gap: var(--space-2);
+}
+
+.rule-title {
+  margin: 0;
+  text-align: center;
+}
+
+.tag {
+  padding: 2px var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-skill-write) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--color-skill-write) 16%, var(--color-surface));
+  border-radius: var(--radius-full);
+}
+
+.forms-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  font: var(--text-base) var(--font-ui);
+}
+
+.forms-table th {
+  padding: 0 var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: start;
+}
+
+.forms-table td {
+  padding: var(--space-2);
+  background: var(--color-bg);
+  white-space: nowrap;
+}
+
+.forms-table td:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.forms-table td:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.thumb {
+  margin-right: var(--space-1);
+  object-fit: cover;
+  vertical-align: middle;
+  border-radius: var(--radius-sm);
+}
+
+/* What changes, each form its own colour, with a background (not colour alone). */
+mark {
+  padding: 0 1px;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+.v1 {
+  color: var(--color-tone-0);
+  background: var(--color-tone-0-soft);
+}
+
+.v2 {
+  color: var(--color-tone-1);
+  background: var(--color-tone-1-soft);
+}
+
+.v3 {
+  color: var(--color-tone-2);
+  background: var(--color-tone-2-soft);
+}
+
+.unknown {
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.guess {
+  justify-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.picture {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.guess-title {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-2);
+  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.option.is-right,
+.option.is-wrong {
+  --tone: var(--color-ok);
+
+  color: color-mix(in srgb, var(--tone) 75%, var(--color-text));
+  background: color-mix(in srgb, var(--tone) 10%, var(--color-surface));
+  border: 2px solid var(--tone);
+}
+
+.option.is-wrong {
+  --tone: var(--color-bad);
+}
+
+.feedback:empty {
+  display: none;
+}
+
+.feedback {
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  background: color-mix(in srgb, var(--tone, var(--color-primary)) 10%, var(--color-surface));
+  border-radius: var(--radius-md);
+}
+
+.feedback.ok {
+  --tone: var(--color-ok);
+}
+
+.feedback.bad {
+  --tone: var(--color-warn);
+}

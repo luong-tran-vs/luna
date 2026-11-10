@@ -15,6 +15,12 @@ import (
 // so a stopped database fails fast instead of hanging requests.
 const serverSelectionTimeout = 2 * time.Second
 
+// operationTimeout bounds every database operation (a cursor for its whole reading), unless its
+// context ends sooner (added 2026-11-09). A stalled connection to Atlas once held a request for
+// minutes; it now fails after this and frees its connection. Normal operations take well under a
+// second; the HTTP server gives up on a response after 15 s anyway.
+const operationTimeout = 15 * time.Second
+
 // Client wraps the MongoDB driver client.
 type Client struct {
 	client *mongo.Client
@@ -23,7 +29,7 @@ type Client struct {
 // Connect creates a client for uri. It does not contact the server, so the backend
 // starts even while the database is down; only an invalid URI returns an error.
 func Connect(uri string) (*Client, error) {
-	opts := options.Client().ApplyURI(uri).SetServerSelectionTimeout(serverSelectionTimeout)
+	opts := options.Client().ApplyURI(uri).SetServerSelectionTimeout(serverSelectionTimeout).SetTimeout(operationTimeout)
 	c, err := mongo.Connect(opts)
 	if err != nil {
 		return nil, fmt.Errorf("mongo connect: %w", err)

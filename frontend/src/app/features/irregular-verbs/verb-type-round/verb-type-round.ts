@@ -57,7 +57,10 @@ export class VerbTypeRound {
 
   /** The verbs to ask, a wrong one added again at the end; a new list of verbs starts over. */
   protected readonly queue = linkedSignal(() => [...this.verbs()]);
-  protected readonly index = linkedSignal<IrregularVerb[], number>({ source: this.verbs, computation: () => 0 });
+  protected readonly index = linkedSignal<IrregularVerb[], number>({
+    source: this.verbs,
+    computation: () => 0,
+  });
   private readonly results = linkedSignal<IrregularVerb[], TypedResult[]>({
     source: this.verbs,
     computation: () => [],
@@ -70,7 +73,9 @@ export class VerbTypeRound {
   protected readonly current = computed(() => this.queue()[this.index()] ?? null);
   protected readonly isLast = computed(() => this.index() + 1 >= this.queue().length);
   protected readonly isRetry = computed(() => this.index() >= this.verbs().length);
-  protected readonly canCheck = computed(() => this.past().trim() !== '' && this.participle().trim() !== '');
+  protected readonly canCheck = computed(
+    () => this.past().trim() !== '' && this.participle().trim() !== '',
+  );
   protected readonly right = computed(() => {
     const c = this.checked();
     return !!c && c.past && c.participle;
@@ -105,7 +110,10 @@ export class VerbTypeRound {
     if (!v || this.checked() || !this.canCheck()) {
       return;
     }
-    const result = { past: gradeForm(this.past(), v.past), participle: gradeForm(this.participle(), v.participle) };
+    const result = {
+      past: gradeForm(this.past(), v.past),
+      participle: gradeForm(this.participle(), v.participle),
+    };
     this.checked.set(result);
     if (!this.results().some((r) => r.verb.base === v.base)) {
       const right = result.past && result.participle;

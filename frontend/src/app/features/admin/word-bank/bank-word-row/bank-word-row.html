@@ -26,7 +26,8 @@
     <span class="ipa-suggestion">
       Gợi ý chuẩn: <span class="ipa">{{ w.ipaSuggestion }}</span>
       <button type="button" class="btn" [disabled]="busy() !== null" (click)="acceptSuggestion()">
-        {{ busy() === 'save' ? 'Đang lưu…' : 'Nhận' }}<span class="visually-hidden"> phiên âm gợi ý cho {{ w.lemma }}</span>
+        {{ busy() === 'save' ? 'Đang lưu…' : 'Nhận'
+        }}<span class="visually-hidden"> phiên âm gợi ý cho {{ w.lemma }}</span>
       </button>
     </span>
   }
@@ -54,13 +55,21 @@
     </div>
     <div class="field">
       <label [for]="id('ipa')">Phiên âm (IPA)</label>
-      <input [id]="id('ipa')" type="text" autocomplete="off" class="ipa-input" formControlName="ipa" />
+      <input
+        [id]="id('ipa')"
+        type="text"
+        autocomplete="off"
+        class="ipa-input"
+        formControlName="ipa"
+      />
     </div>
     <div class="row-actions">
       <button type="submit" class="btn btn-primary" [disabled]="busy() !== null">
         {{ busy() === 'save' ? 'Đang lưu…' : 'Lưu' }}
       </button>
-      <button type="button" class="btn" [disabled]="busy() !== null" (click)="cancelEdit()">Huỷ</button>
+      <button type="button" class="btn" [disabled]="busy() !== null" (click)="cancelEdit()">
+        Huỷ
+      </button>
     </div>
   </form>
 } @else {
@@ -90,7 +99,13 @@
     >
       Dán link ảnh<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
     </button>
-    <button type="button" class="btn" [disabled]="busy() !== null || drawing()" [attr.aria-busy]="busy() === 'draw'" (click)="draw()">
+    <button
+      type="button"
+      class="btn"
+      [disabled]="busy() !== null || drawing()"
+      [attr.aria-busy]="busy() === 'draw'"
+      (click)="draw()"
+    >
       {{
         busy() === 'draw'
           ? engine() === 'codex'
@@ -106,7 +121,12 @@
         Xoá ảnh<span class="visually-hidden"> của {{ w.lemma }}</span>
       </button>
     }
-    <button type="button" class="btn btn-danger" [disabled]="busy() !== null" (click)="removeRequested.emit(w)">
+    <button
+      type="button"
+      class="btn btn-danger"
+      [disabled]="busy() !== null"
+      (click)="removeRequested.emit(w)"
+    >
       Xoá từ<span class="visually-hidden"> {{ w.lemma }}</span>
     </button>
   </div>
@@ -131,5 +151,7 @@
 }
 
 @if (note(); as n) {
-  <p class="row-note" [class.field-error]="n.error" [attr.role]="n.error ? 'alert' : 'status'">{{ n.text }}</p>
+  <p class="row-note" [class.field-error]="n.error" [attr.role]="n.error ? 'alert' : 'status'">
+    {{ n.text }}
+  </p>
 }

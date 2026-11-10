@@ -169,7 +169,8 @@ import { ImageEngine } from '../../../core/models/word-bank';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EnginePicker {
-  readonly value = input.required<ImageEngine>();
+  /** The engine chosen; "" when none is chosen yet. */
+  readonly value = input.required<ImageEngine | ''>();
   readonly codexAvailable = input(false);
   readonly disabled = input(false);
   /** The name of the radio group; unique on the page. */

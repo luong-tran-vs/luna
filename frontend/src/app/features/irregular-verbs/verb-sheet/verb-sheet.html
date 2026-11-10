@@ -1,6 +1,12 @@
 @if (verb(); as v) {
   <div class="backdrop" (click)="close()" aria-hidden="true"></div>
-  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" (keydown)="trapTab($event)">
+  <div
+    class="sheet"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sheet-title"
+    (keydown)="trapTab($event)"
+  >
     <span class="grab" aria-hidden="true"></span>
     <div class="head">
       <div class="head-text">
@@ -66,14 +72,18 @@
         </p>
         <p class="example-vi">{{ ex.vi }}</p>
         @if (canSpeak) {
-          <button type="button" class="btn small" (click)="listen(ex.en)"><lu-icon name="volume" /> Nghe câu</button>
+          <button type="button" class="btn small" (click)="listen(ex.en)">
+            <lu-icon name="volume" /> Nghe câu
+          </button>
         }
       </div>
     }
 
     <div class="actions">
       @if (lesson(); as l) {
-        <a class="btn" [routerLink]="['/irregular-verbs/lessons', l.number]">Học bài {{ l.number }}</a>
+        <a class="btn" [routerLink]="['/irregular-verbs/lessons', l.number]"
+          >Học bài {{ l.number }}</a
+        >
       }
       @if (canMark()) {
         <button

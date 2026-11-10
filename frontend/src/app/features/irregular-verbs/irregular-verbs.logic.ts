@@ -8,11 +8,41 @@ import { IrregularVerb } from './irregular-verbs.data';
 export type VerbPattern = 'AAA' | 'ABB' | 'ABA' | 'ABC';
 
 /** Each pattern in plain words for learners ("Không đổi"), with one verb that shows it. */
-export const PATTERNS: readonly { key: VerbPattern; label: string; word: string; example: string; hintVi: string }[] = [
-  { key: 'AAA', label: 'Không đổi', word: 'cut', example: 'cut – cut – cut', hintVi: 'Ba dạng giống hệt nhau.' },
-  { key: 'ABB', label: 'V2 = V3', word: 'buy', example: 'buy – bought – bought', hintVi: 'V2 và V3 giống nhau.' },
-  { key: 'ABA', label: 'V3 như V1', word: 'come', example: 'come – came – come', hintVi: 'V3 giống nguyên mẫu.' },
-  { key: 'ABC', label: 'Đổi cả ba', word: 'go', example: 'go – went – gone', hintVi: 'Ba dạng khác nhau, cần học thuộc.' },
+export const PATTERNS: readonly {
+  key: VerbPattern;
+  label: string;
+  word: string;
+  example: string;
+  hintVi: string;
+}[] = [
+  {
+    key: 'AAA',
+    label: 'Không đổi',
+    word: 'cut',
+    example: 'cut – cut – cut',
+    hintVi: 'Ba dạng giống hệt nhau.',
+  },
+  {
+    key: 'ABB',
+    label: 'V2 = V3',
+    word: 'buy',
+    example: 'buy – bought – bought',
+    hintVi: 'V2 và V3 giống nhau.',
+  },
+  {
+    key: 'ABA',
+    label: 'V3 như V1',
+    word: 'come',
+    example: 'come – came – come',
+    hintVi: 'V3 giống nguyên mẫu.',
+  },
+  {
+    key: 'ABC',
+    label: 'Đổi cả ba',
+    word: 'go',
+    example: 'go – went – gone',
+    hintVi: 'Ba dạng khác nhau, cần học thuộc.',
+  },
 ];
 
 /** The spellings of a form: "burnt/burned" gives ["burnt", "burned"]. */
@@ -79,11 +109,16 @@ export function filterVerbs(verbs: readonly IrregularVerb[], f: VerbFilter): Irr
   // 0: the base is the query, 1: another form is, 2: the rest; the sort keeps the order within each.
   const rank = (v: IrregularVerb) =>
     v.base === q ? 0 : [...spellings(v.past), ...spellings(v.participle)].includes(q) ? 1 : 2;
-  return out.map((v) => ({ v, r: rank(v) })).sort((a, b) => a.r - b.r).map((x) => x.v);
+  return out
+    .map((v) => ({ v, r: rank(v) }))
+    .sort((a, b) => a.r - b.r)
+    .map((x) => x.v);
 }
 
 /** Verbs grouped by first letter, in order. */
-export function byLetter(verbs: readonly IrregularVerb[]): { letter: string; verbs: IrregularVerb[] }[] {
+export function byLetter(
+  verbs: readonly IrregularVerb[],
+): { letter: string; verbs: IrregularVerb[] }[] {
   const groups: { letter: string; verbs: IrregularVerb[] }[] = [];
   for (const v of verbs) {
     const letter = v.base[0].toUpperCase();

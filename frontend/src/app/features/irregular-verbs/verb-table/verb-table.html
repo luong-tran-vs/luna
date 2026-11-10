@@ -1,6 +1,7 @@
 <table class="table">
   <caption class="visually-hidden">
-    Bảng động từ bất quy tắc: nguyên mẫu, quá khứ, quá khứ phân từ và nghĩa. Chạm một dòng để xem chi tiết.
+    Bảng động từ bất quy tắc: nguyên mẫu, quá khứ, quá khứ phân từ và nghĩa. Chạm một dòng để xem
+    chi tiết.
   </caption>
   <thead>
     <tr>
@@ -42,11 +43,17 @@
             }
           </th>
           @for (form of forms; track form) {
-            <td class="form" [class.v2]="form === 'past'" [class.v3]="form === 'participle'" lang="en">
+            <td
+              class="form"
+              [class.v2]="form === 'past'"
+              [class.v3]="form === 'participle'"
+              lang="en"
+            >
               @for (s of spellings(formOf(v, form)); track s; let last = $last) {
                 <span class="spelling">{{ s }}</span>
                 @if (!last) {
-                  <span class="or" aria-hidden="true"> / </span><span class="visually-hidden"> hoặc </span>
+                  <span class="or" aria-hidden="true"> / </span
+                  ><span class="visually-hidden"> hoặc </span>
                 }
               }
             </td>

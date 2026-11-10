@@ -107,7 +107,7 @@ func TestServiceLearnsAndRecords(t *testing.T) {
 	if err != nil || len(got) != 2 || !got[0].Learned() || got[0].Base != "go" || got[1].Base != "see" {
 		t.Fatalf("learned = %+v, %v", got, err)
 	}
-	got, err = svc.Record(t.Context(), "u1", []Result{{"go", false}, {"see", true}, {"go", true}})
+	got, err = svc.Record(t.Context(), "u1", []Result{{Base: "go", Right: false}, {Base: "see", Right: true}, {Base: "go", Right: true}})
 	if err != nil || len(got) != 2 || got[0].Right != 1 || got[0].Wrong != 0 || got[1].Right != 1 {
 		t.Fatalf("records = %+v, %v", got, err)
 	}
@@ -214,11 +214,45 @@ func TestServiceCountsTheStudyDay(t *testing.T) {
 	if _, err := svc.SetLearned(t.Context(), "u1", []string{"go"}, true); err != nil || days.marked != 1 {
 		t.Fatalf("learned: marked %d, %v", days.marked, err)
 	}
-	if _, err := svc.Record(t.Context(), "u1", []Result{{"go", true}}); err != nil || days.marked != 2 {
+	if _, err := svc.Record(t.Context(), "u1", []Result{{Base: "go", Right: true}}); err != nil || days.marked != 2 {
 		t.Fatalf("review round: marked %d, %v", days.marked, err)
 	}
 	// Taking a verb back out of the learned list is not studying.
 	if _, err := svc.SetLearned(t.Context(), "u1", []string{"go"}, false); err != nil || days.marked != 2 {
 		t.Fatalf("unlearned: marked %d, %v", days.marked, err)
+	}
+}
+
+func TestApplyQuick(t *testing.T) {
+	t.Parallel()
+	day := 24 * time.Hour
+	learned := func(level, right int) Progress {
+		return Progress{Base: "go", LearnedAt: testNow.Add(-90 * day), Level: level, DueAt: testNow.Add(-time.Hour), Right: right}
+	}
+	for _, c := range []struct {
+		name        string
+		p           Progress
+		right, hard bool
+		level       int
+		wait        time.Duration
+	}{
+		{"Nhớ moves up a box", learned(2, 3), true, false, 3, 7 * day},
+		{"Nhớ stops at the 14-day box", learned(4, 3), true, false, 4, 14 * day},
+		{"a box higher than that keeps its box but waits 14 days", learned(6, 9), true, false, 6, 14 * day},
+		{"Hơi nhớ keeps the box and comes back within 2 days", learned(3, 3), true, true, 3, 2 * day},
+		{"Hơi nhớ in box 1 keeps its 1-day wait", learned(1, 3), true, true, 1, day},
+		{"Quên goes back to box 1", learned(4, 3), false, false, 1, day},
+		{"never typed right: no move up", learned(2, 0), true, false, 2, 2 * day},
+	} {
+		got := ApplyResult(c.p, Result{Base: "go", Right: c.right, Hard: c.hard, Quick: true}, testNow)
+		if got.Level != c.level || !got.DueAt.Equal(testNow.Add(c.wait)) {
+			t.Errorf("%s: level %d, due in %v", c.name, got.Level, got.DueAt.Sub(testNow))
+		}
+	}
+	// Before it is due a quick answer only counts.
+	p := learned(2, 3)
+	p.DueAt = testNow.Add(day)
+	if got := ApplyQuick(p, true, false, testNow); got.Level != 2 || !got.DueAt.Equal(p.DueAt) || got.Right != 4 {
+		t.Errorf("not due: %+v", got)
 	}
 }

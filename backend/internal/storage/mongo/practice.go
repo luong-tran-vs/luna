@@ -137,17 +137,40 @@ func (r *Lessons) WithoutPractice(ctx context.Context) ([]lesson.RevisionRef, er
 		{Key: "annotationStatus", Value: string(lesson.StatusDone)},
 		{Key: "practiceStatus", Value: bson.D{{Key: "$in", Value: bson.A{nil, string(lesson.StatusNone)}}}},
 	}
+	return r.revisionRefs(ctx, filter, "lessons without practice")
+}
+
+// WithoutSteps lists the lessons with annotations whose practice is done but has no steps: a
+// practice made before the six steps (2026-10-22) is stored without the steps field.
+func (r *Lessons) WithoutSteps(ctx context.Context) ([]lesson.RevisionRef, error) {
+	filter := bson.D{
+		{Key: "practiceStatus", Value: string(lesson.StatusDone)},
+		{Key: "practice", Value: bson.D{{Key: "$type", Value: "object"}}},
+		{Key: "practice.steps", Value: nil}, // missing or null
+		{Key: "annotations.0", Value: bson.D{{Key: "$exists", Value: true}}},
+	}
+	return r.revisionRefs(ctx, filter, "lessons without steps")
+}
+
+// Annotated lists the lessons whose annotations are done, with their current revision.
+func (r *Lessons) Annotated(ctx context.Context) ([]lesson.RevisionRef, error) {
+	filter := bson.D{{Key: "annotationStatus", Value: string(lesson.StatusDone)}}
+	return r.revisionRefs(ctx, filter, "annotated lessons")
+}
+
+// revisionRefs reads only the id and revision of the lessons matching filter.
+func (r *Lessons) revisionRefs(ctx context.Context, filter bson.D, what string) ([]lesson.RevisionRef, error) {
 	opts := options.Find().SetProjection(bson.D{{Key: "_id", Value: 1}, {Key: "revision", Value: 1}})
 	cur, err := r.coll.Find(ctx, filter, opts)
 	if err != nil {
-		return nil, fmt.Errorf("find lessons without practice: %w", err)
+		return nil, fmt.Errorf("find %s: %w", what, err)
 	}
 	var docs []struct {
 		ID       bson.ObjectID `bson:"_id"`
 		Revision int           `bson:"revision"`
 	}
 	if err := cur.All(ctx, &docs); err != nil {
-		return nil, fmt.Errorf("read lessons without practice: %w", err)
+		return nil, fmt.Errorf("read %s: %w", what, err)
 	}
 	out := make([]lesson.RevisionRef, len(docs))
 	for i, d := range docs {

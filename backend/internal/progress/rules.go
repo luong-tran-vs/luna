@@ -48,6 +48,41 @@ func CurrentLesson(goal *Goal, roadmap []string, completed map[string]bool) Stud
 	return StudyState{Kind: StudyNoNewLesson}
 }
 
+// A roadmap shows its first ShownLessons lessons; the next ones (at most MaxMoreLessons) are held
+// back and open one at a time when the learner, back on the topic with every shown lesson done,
+// chooses "Học bài mới" (added 2026-11-09). Lessons after those are never shown.
+const (
+	ShownLessons   = 5
+	MaxMoreLessons = 3
+)
+
+// VisibleLessons is the part of a roadmap the learner sees: the first ShownLessons plus the held-back
+// lessons opened. A lesson completed further on stays visible, with those before it.
+func VisibleLessons(roadmap []string, more int, completed map[string]bool) []string {
+	n := ShownLessons + min(max(more, 0), MaxMoreLessons)
+	for i, id := range roadmap {
+		if completed[id] && i >= n {
+			n = i + 1
+		}
+	}
+	return roadmap[:min(n, len(roadmap))]
+}
+
+// HeldLessons counts the held-back lessons of a roadmap still to open after the visible ones.
+func HeldLessons(roadmap []string, visible int) int {
+	return max(0, min(len(roadmap), ShownLessons+MaxMoreLessons)-visible)
+}
+
+// AllCompleted reports whether every lesson of ids is completed (false for none).
+func AllCompleted(ids []string, completed map[string]bool) bool {
+	for _, id := range ids {
+		if !completed[id] {
+			return false
+		}
+	}
+	return len(ids) > 0
+}
+
 // FreezeEvery is how many study days must pass before another missed day is forgiven.
 const FreezeEvery = 7
 

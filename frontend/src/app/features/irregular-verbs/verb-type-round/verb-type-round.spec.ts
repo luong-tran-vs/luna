@@ -13,7 +13,9 @@ describe('VerbTypeRound', () => {
   const verbs = ['go', 'buy'].map((b) => IRREGULAR_VERBS.find((v) => v.base === b)!);
   const text = (n: Element | null | undefined) => n?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string) =>
-    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!;
+    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+      text(b).startsWith(label),
+    )!;
   const settle = async () => {
     await new Promise((r) => setTimeout(r));
     await fixture.whenStable();
@@ -29,7 +31,10 @@ describe('VerbTypeRound', () => {
 
   beforeEach(async () => {
     speech = new FakeSpeech();
-    TestBed.configureTestingModule({ imports: [VerbTypeRound], providers: [provideFakeSpeech(speech)] });
+    TestBed.configureTestingModule({
+      imports: [VerbTypeRound],
+      providers: [provideFakeSpeech(speech)],
+    });
     fixture = TestBed.createComponent(VerbTypeRound);
     fixture.componentRef.setInput('verbs', verbs);
     fixture.componentRef.setInput('label', 'Bước 3 · Gõ');

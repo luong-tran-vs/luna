@@ -202,6 +202,37 @@ func NewGrammarLessons(db *sql.DB) *GrammarLessons { return &GrammarLessons{db: 
 
 var _ grammar.LessonRepository = (*GrammarLessons)(nil)
 
+// Contents returns the content of the lessons that exist among pointIDs, in one query.
+func (r *GrammarLessons) Contents(ctx context.Context, pointIDs []string) (map[string]grammar.Content, error) {
+	out := map[string]grammar.Content{}
+	if len(pointIDs) == 0 {
+		return out, nil
+	}
+	rows, err := r.db.QueryContext(ctx,
+		`SELECT point_id, content FROM grammar_lessons WHERE point_id IN (`+placeholders(len(pointIDs))+`)`,
+		args(pointIDs)...)
+	if err != nil {
+		return nil, fmt.Errorf("mysql find grammar lesson contents: %w", err)
+	}
+	defer func() { _ = rows.Close() }()
+	for rows.Next() {
+		var id string
+		var raw []byte
+		if err := rows.Scan(&id, &raw); err != nil {
+			return nil, fmt.Errorf("mysql read grammar lesson contents: %w", err)
+		}
+		var c grammarContentJSON
+		if err := fromJSON(raw, &c); err != nil {
+			return nil, err
+		}
+		out[id] = c.toContent()
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("mysql read grammar lesson contents: %w", err)
+	}
+	return out, nil
+}
+
 // Get returns the lesson of a point.
 func (r *GrammarLessons) Get(ctx context.Context, pointID string) (grammar.Lesson, error) {
 	var (

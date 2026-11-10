@@ -55,6 +55,32 @@ func (r *GrammarImages) Keys(ctx context.Context, pointID string) ([]string, err
 	return out, nil
 }
 
+// KeysOf lists the keys of the pictures of every point among pointIDs, in one query.
+func (r *GrammarImages) KeysOf(ctx context.Context, pointIDs []string) (map[string][]string, error) {
+	out := map[string][]string{}
+	if len(pointIDs) == 0 {
+		return out, nil
+	}
+	rows, err := r.db.QueryContext(ctx,
+		`SELECT point_id, image_key FROM grammar_images WHERE point_id IN (`+placeholders(len(pointIDs))+`)`,
+		args(pointIDs)...)
+	if err != nil {
+		return nil, fmt.Errorf("mysql find grammar images: %w", err)
+	}
+	defer func() { _ = rows.Close() }()
+	for rows.Next() {
+		var id, k string
+		if err := rows.Scan(&id, &k); err != nil {
+			return nil, fmt.Errorf("mysql read grammar images: %w", err)
+		}
+		out[id] = append(out[id], k)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("mysql read grammar images: %w", err)
+	}
+	return out, nil
+}
+
 // Get returns grammar.ErrImageNotFound when the example has no picture.
 func (r *GrammarImages) Get(ctx context.Context, pointID, key string) (grammar.ExampleImage, error) {
 	img := grammar.ExampleImage{PointID: pointID, Key: key}

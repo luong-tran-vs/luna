@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"golang.org/x/sync/errgroup"
 )
 
 // StatsView is the stats page (F6): notebook, dictation and lessons over every topic, in a period.
@@ -48,38 +50,59 @@ func (s *StudyService) Stats(ctx context.Context, userID string, period Period) 
 		since = PeriodStart(period, s.d.Now(), loc)
 	}
 	v := StatsView{Period: period}
-	var err error
-	if v.Cards, err = s.d.Reviews.CardCount(ctx, userID, since); err != nil {
-		return StatsView{}, fmt.Errorf("progress: card count: %w", err)
+	// The figures do not depend on each other: read at once, each into its own field (added
+	// 2026-11-09; one after another they added up their round trips to the database).
+	g, gctx := errgroup.WithContext(ctx)
+	g.Go(func() (err error) {
+		if v.Cards, err = s.d.Reviews.CardCount(gctx, userID, since); err != nil {
+			return fmt.Errorf("progress: card count: %w", err)
+		}
+		return nil
+	})
+	g.Go(func() (err error) {
+		v.Dictation, err = s.d.Dictation.Totals(gctx, userID, since)
+		return err
+	})
+	g.Go(func() (err error) {
+		if v.Lessons, err = s.d.Progress.StepCounts(gctx, userID, nil, since); err != nil {
+			return fmt.Errorf("progress: step counts: %w", err)
+		}
+		return nil
+	})
+	if s.d.Quiz != nil {
+		g.Go(func() (err error) {
+			if v.Reading.Answered, v.Reading.Correct, err = s.d.Quiz.Totals(gctx, userID, since); err != nil {
+				return fmt.Errorf("progress: reading totals: %w", err)
+			}
+			return nil
+		})
 	}
-	if v.Dictation, err = s.d.Dictation.Totals(ctx, userID, since); err != nil {
+	if s.d.Writings != nil {
+		g.Go(func() (err error) {
+			if v.Writing.Submitted, v.Writing.AverageScore, err = s.d.Writings.Stats(gctx, userID, since); err != nil {
+				return fmt.Errorf("progress: writing stats: %w", err)
+			}
+			return nil
+		})
+	}
+	if s.d.Grammar != nil {
+		g.Go(func() (err error) {
+			if v.GrammarLessons, err = s.d.Grammar.MasteredCount(gctx, userID, since); err != nil {
+				return fmt.Errorf("progress: grammar stats: %w", err)
+			}
+			return nil
+		})
+	}
+	if err := g.Wait(); err != nil {
 		return StatsView{}, err
 	}
 	if v.Dictation.TotalWords > 0 {
 		rate := float64(v.Dictation.CorrectWords) / float64(v.Dictation.TotalWords)
 		v.Rate = &rate
 	}
-	if v.Lessons, err = s.d.Progress.StepCounts(ctx, userID, nil, since); err != nil {
-		return StatsView{}, fmt.Errorf("progress: step counts: %w", err)
-	}
-	if s.d.Quiz != nil {
-		if v.Reading.Answered, v.Reading.Correct, err = s.d.Quiz.Totals(ctx, userID, since); err != nil {
-			return StatsView{}, fmt.Errorf("progress: reading totals: %w", err)
-		}
-	}
 	if v.Reading.Answered > 0 {
 		rate := float64(v.Reading.Correct) / float64(v.Reading.Answered)
 		v.ReadingRate = &rate
-	}
-	if s.d.Writings != nil {
-		if v.Writing.Submitted, v.Writing.AverageScore, err = s.d.Writings.Stats(ctx, userID, since); err != nil {
-			return StatsView{}, fmt.Errorf("progress: writing stats: %w", err)
-		}
-	}
-	if s.d.Grammar != nil {
-		if v.GrammarLessons, err = s.d.Grammar.MasteredCount(ctx, userID, since); err != nil {
-			return StatsView{}, fmt.Errorf("progress: grammar stats: %w", err)
-		}
 	}
 	return v, nil
 }

@@ -4,7 +4,9 @@ import { BankImageBatch } from '../../../core/models/word-bank';
 import { AdminApiService } from '../admin-api.service';
 
 /** How often, in ms, the admin pages ask how a running picture batch is going (tests shorten it). */
-export const BANK_BATCH_POLL_MS = new InjectionToken<number>('BANK_BATCH_POLL_MS', { factory: () => 3000 });
+export const BANK_BATCH_POLL_MS = new InjectionToken<number>('BANK_BATCH_POLL_MS', {
+  factory: () => 3000,
+});
 
 /** How often, in ms, they look for a batch started elsewhere (another tab) while none runs. */
 export const BANK_BATCH_IDLE_POLL_MS = new InjectionToken<number>('BANK_BATCH_IDLE_POLL_MS', {
@@ -91,7 +93,11 @@ const SCOPE_TOPICS = 3;
  */
 export function batchScope(b: BankImageBatch): string {
   const topic = b.topicName ? ` của chủ đề "${b.topicName}"` : '';
-  let scope = b.ticked ? `${b.total} từ đã chọn${topic}` : topic ? `các từ thiếu ảnh${topic}` : 'mọi từ thiếu ảnh';
+  let scope = b.ticked
+    ? `${b.total} từ đã chọn${topic}`
+    : topic
+      ? `các từ thiếu ảnh${topic}`
+      : 'mọi từ thiếu ảnh';
   if (!b.ticked && b.search) {
     scope += ` khớp "${b.search}"`;
   }

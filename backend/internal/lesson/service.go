@@ -123,6 +123,11 @@ func (s *Service) Get(ctx context.Context, id string) (Lesson, error) {
 	return s.Lessons.Get(ctx, id)
 }
 
+// GetMany returns the lessons that exist among ids, in any order, read in one query.
+func (s *Service) GetMany(ctx context.Context, ids []string) ([]Lesson, error) {
+	return s.Lessons.GetMany(ctx, ids)
+}
+
 // topic returns the topic of a lesson being saved; an unknown topic is a field error.
 func (s *Service) topic(ctx context.Context, id string) (TopicRef, error) {
 	t, err := s.Topics.Get(ctx, id)

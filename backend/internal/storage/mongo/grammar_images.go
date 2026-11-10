@@ -56,6 +56,30 @@ func (r *GrammarImages) Keys(ctx context.Context, pointID string) ([]string, err
 	return out, nil
 }
 
+// KeysOf lists the keys of the pictures of every point among pointIDs, in one query.
+func (r *GrammarImages) KeysOf(ctx context.Context, pointIDs []string) (map[string][]string, error) {
+	out := map[string][]string{}
+	if len(pointIDs) == 0 {
+		return out, nil
+	}
+	cur, err := r.images.Find(ctx, bson.D{{Key: "pointId", Value: bson.D{{Key: "$in", Value: pointIDs}}}},
+		options.Find().SetProjection(bson.D{{Key: "pointId", Value: 1}, {Key: "key", Value: 1}}))
+	if err != nil {
+		return nil, fmt.Errorf("find grammar images: %w", err)
+	}
+	var docs []struct {
+		PointID string `bson:"pointId"`
+		Key     string `bson:"key"`
+	}
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("decode grammar images: %w", err)
+	}
+	for _, d := range docs {
+		out[d.PointID] = append(out[d.PointID], d.Key)
+	}
+	return out, nil
+}
+
 // Get returns grammar.ErrImageNotFound when the example has no picture.
 func (r *GrammarImages) Get(ctx context.Context, pointID, key string) (grammar.ExampleImage, error) {
 	var d grammarImageDoc

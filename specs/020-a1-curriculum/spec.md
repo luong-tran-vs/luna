@@ -194,6 +194,19 @@ riêng để gọi; làm API trước, giao diện nhập bài sau (cùng ngày)
   2026-10-26); bài đã đăng trả 409 `grammar_lesson_published`, phải "Gỡ" (gỡ đăng) trước. Trang Ngữ pháp có nút "Xoá" ở
   bài nháp, hỏi "Xoá bài nháp?" rồi điểm về "Chưa có bài". Tiến độ và báo lỗi của người học ở điểm đó được giữ.
 
+## Yêu cầu: giữ lại 3 bài cuối của chủ đề (mở rộng 2026-11-09)
+
+- **FR-032** Phía người học, mỗi lộ trình (chủ đề + trình độ) **chỉ hiện 5 bài đầu**, dù đã đăng đủ 8 bài hay chưa. Ba bài
+  tiếp theo (bài 6–8) được giữ lại; bài thứ 9 trở đi không bao giờ hiện. Admin vẫn thấy đủ. Mọi chỗ của người học dùng
+  phần nhìn thấy: bài đang học, tiến độ chủ đề (X/5), danh sách bài, trang Học, tổng kết chủ đề. Bài đã học xong nằm sau
+  phần nhìn thấy (học trước khi có quy tắc này) vẫn hiện, kèm các bài trước nó.
+- **FR-033** Khi 5 bài (cùng các bài đã mở thêm) đều xong mà chủ đề còn bài giữ lại, ở trang Học chạm vào một bài của chủ
+  đề đó sẽ hiện hộp thoại "Học lại hay học bài mới?": **Học lại từ bài 1** mở lại bài 1 để ôn (không xoá tiến độ);
+  **Học bài mới** (`POST /api/goals/more` `{topicId, level}`) mở **thêm 1 bài** giữ lại, đặt chủ đề làm mục tiêu và mở
+  bài đó; "Để sau"/Esc đóng. Hỏi tối đa 3 lần (mỗi lần mở 1 bài); hết bài giữ lại thì không hỏi nữa. Số bài đã mở lưu
+  trên mục tiêu (`goals.moreLessons`; MySQL cột `more_lessons`, migration 042). API trả 409 `no_more_lessons` khi còn bài
+  chưa xong hoặc hết bài. `GET /api/lessons/path` thêm `moreLessons` cho mỗi lộ trình.
+
 ## Ngoài phạm vi
 
 - ~~Giáo trình A2 trở lên.~~ Làm trong phần mở rộng 2026-10-23.

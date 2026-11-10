@@ -28,6 +28,7 @@ func NewStudyHandler(svc *StudyService, log *slog.Logger) *StudyHandler {
 func (h *StudyHandler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/goals", requireAuth(http.HandlerFunc(h.goals)))
 	mux.Handle("POST /api/goals", requireAuth(http.HandlerFunc(h.setGoal)))
+	mux.Handle("POST /api/goals/more", requireAuth(http.HandlerFunc(h.studyMore)))
 	mux.Handle("GET /api/lessons/mine", requireAuth(http.HandlerFunc(h.mine)))
 	mux.Handle("GET /api/lessons/path", requireAuth(http.HandlerFunc(h.path)))
 	mux.Handle("GET /api/lessons/{id}/study", requireAuth(h.Guard(http.HandlerFunc(h.study))))
@@ -155,6 +156,8 @@ type pathRoadmapJSON struct {
 	Active           bool             `json:"active"`
 	Completed        int              `json:"completed"`
 	Lessons          []pathLessonJSON `json:"lessons"`
+	// MoreLessons counts the held-back lessons still to open once every lesson shown is done.
+	MoreLessons int `json:"moreLessons"`
 	// Course is null when the topic is not in a fixed course.
 	Course *courseJSON `json:"course"`
 }
@@ -196,7 +199,7 @@ func (h *StudyHandler) path(w http.ResponseWriter, r *http.Request) {
 			}
 			roadmaps[j] = pathRoadmapJSON{
 				TopicID: r.TopicID, TopicName: r.TopicName, TopicDescription: r.TopicDescription,
-				Active: r.Active, Completed: r.Completed, Lessons: lessons,
+				Active: r.Active, Completed: r.Completed, Lessons: lessons, MoreLessons: r.MoreLessons,
 			}
 			if c := r.Course; c != nil {
 				roadmaps[j].Course = &courseJSON{Number: c.Number, CanDoVi: c.CanDoVi, GrammarVi: c.GrammarVi}
@@ -253,6 +256,32 @@ func (h *StudyHandler) setGoal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	httpx.WriteJSON(w, http.StatusOK, setGoalJSON{Active: toGoalJSON(res)})
+}
+
+// studyMore is "Học bài mới": opens the next held-back lesson of a roadmap whose shown lessons are
+// all done, makes the roadmap the goal and answers the lesson to study now.
+func (h *StudyHandler) studyMore(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	var req struct {
+		TopicID string `json:"topicId"`
+		Level   string `json:"level"`
+	}
+	if httpx.DecodeJSON(w, r, &req) != nil {
+		return
+	}
+	if req.TopicID == "" || !slices.Contains(goalLevels, req.Level) {
+		httpx.WriteFieldErrors(w, map[string]string{"topicId": "Vui lòng chọn chủ đề và trình độ"})
+		return
+	}
+	g, next, err := h.svc.StudyMore(r.Context(), p.UserID, req.TopicID, req.Level)
+	if err != nil {
+		h.fail(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, struct {
+		Active goalJSON      `json:"active"`
+		Lesson lessonRefJSON `json:"lesson"`
+	}{toGoalJSON(g), lessonRefJSON{ID: next.ID, Title: next.Title}})
 }
 
 func (h *StudyHandler) study(w http.ResponseWriter, r *http.Request) {
@@ -338,6 +367,8 @@ func (h *StudyHandler) fail(w http.ResponseWriter, r *http.Request, err error) {
 		httpx.WriteError(w, http.StatusConflict, "listen_incomplete", "Hãy kiểm tra hết các câu của bước Nghe")
 	case errors.Is(err, ErrNotCurrentLesson):
 		httpx.WriteError(w, http.StatusConflict, "not_current_lesson", "Bài này không phải bài đang học")
+	case errors.Is(err, ErrNoMoreLessons):
+		httpx.WriteError(w, http.StatusConflict, "no_more_lessons", "Chủ đề này không còn bài mới để mở")
 	case errors.Is(err, ErrNotCurrentStep):
 		httpx.WriteError(w, http.StatusConflict, "not_current_step", "Bước này đã hoàn thành")
 	default:

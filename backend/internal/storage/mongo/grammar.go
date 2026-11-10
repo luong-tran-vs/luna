@@ -275,6 +275,27 @@ func (r *GrammarLessons) List(ctx context.Context) ([]grammar.LessonSummary, err
 	return out, nil
 }
 
+// Contents returns the content of the lessons that exist among pointIDs, in one query.
+func (r *GrammarLessons) Contents(ctx context.Context, pointIDs []string) (map[string]grammar.Content, error) {
+	out := map[string]grammar.Content{}
+	if len(pointIDs) == 0 {
+		return out, nil
+	}
+	cur, err := r.coll.Find(ctx, bson.D{{Key: "pointId", Value: bson.D{{Key: "$in", Value: pointIDs}}}},
+		options.Find().SetProjection(bson.D{{Key: "pointId", Value: 1}, {Key: "content", Value: 1}}))
+	if err != nil {
+		return nil, fmt.Errorf("find grammar lesson contents: %w", err)
+	}
+	var docs []grammarLessonDoc
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("read grammar lesson contents: %w", err)
+	}
+	for _, d := range docs {
+		out[d.PointID] = d.toLesson().Content
+	}
+	return out, nil
+}
+
 // --- grammar_progress (F20) ---
 
 type grammarProgressDoc struct {

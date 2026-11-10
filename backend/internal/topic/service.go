@@ -354,6 +354,39 @@ func (s *Service) Roadmap(ctx context.Context, id, level string) (Roadmap, error
 	return out, nil
 }
 
+// RoadmapLessons returns the lessons of each topic's roadmap at level, by topic id, in order and
+// without the deleted ones, as Roadmap does; the lessons of every topic are read in one query.
+func (s *Service) RoadmapLessons(ctx context.Context, topics []Topic, level string) (map[string][]LessonRef, error) {
+	if err := checkLevel(level, "level"); err != nil {
+		return nil, err
+	}
+	var ids []string
+	for _, t := range topics {
+		ids = append(ids, t.Roadmap(level)...)
+	}
+	byID := map[string]LessonRef{}
+	if len(ids) > 0 {
+		refs, err := s.lessons.Refs(ctx, ids)
+		if err != nil {
+			return nil, fmt.Errorf("topic: roadmap lessons: %w", err)
+		}
+		for _, r := range refs {
+			byID[r.ID] = r
+		}
+	}
+	out := make(map[string][]LessonRef, len(topics))
+	for _, t := range topics {
+		list := []LessonRef{}
+		for _, lid := range t.Roadmap(level) {
+			if r, ok := byID[lid]; ok {
+				list = append(list, r)
+			}
+		}
+		out[t.ID] = list
+	}
+	return out, nil
+}
+
 // SetRoadmap replaces the roadmap of a topic at level. Lessons must be unique, exist and belong
 // to the topic at that level.
 func (s *Service) SetRoadmap(ctx context.Context, id, level string, lessonIDs []string) (Roadmap, error) {

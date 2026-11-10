@@ -57,6 +57,18 @@ func (f *fakeImageStore) Lemmas(_ context.Context, id string) ([]string, error) 
 	return out, nil
 }
 
+func (f *fakeImageStore) WithLemma(_ context.Context, ids []string, lemma string) (map[string]bool, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := map[string]bool{}
+	for _, img := range f.images {
+		if img.Lemma == lemma && slices.Contains(ids, img.LessonID) {
+			out[img.LessonID] = true
+		}
+	}
+	return out, nil
+}
+
 func (f *fakeImageStore) Get(_ context.Context, id, lemma string) (WordImage, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()

@@ -40,14 +40,14 @@ func (s *Service) Record(ctx context.Context, userID string, results []Result) (
 	if err := checkCount("results", len(results)); err != nil {
 		return nil, err
 	}
-	last := make(map[string]bool, len(results))
+	last := make(map[string]Result, len(results))
 	bases := make([]string, 0, len(results))
 	for _, r := range results {
 		bases = append(bases, r.Base)
-		last[r.Base] = r.Right
+		last[r.Base] = r
 	}
 	out, err := s.update(ctx, userID, "results", bases, func(p Progress, now time.Time) Progress {
-		return Apply(p, last[p.Base], now)
+		return ApplyResult(p, last[p.Base], now)
 	})
 	if err != nil {
 		return nil, err

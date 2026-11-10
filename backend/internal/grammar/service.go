@@ -94,36 +94,46 @@ func (s *Service) AdminList(ctx context.Context) ([]LessonSummary, error) {
 	for _, l := range all {
 		byID[l.PointID] = l
 	}
+	// The picture exercises of the drawable points: their contents and drawn pictures are read in
+	// two queries for all of them, not two per point.
+	var drawable []string
+	for _, p := range s.syllabus.All() {
+		if _, ok := byID[p.ID]; ok && p.Drawable {
+			drawable = append(drawable, p.ID)
+		}
+	}
+	contents, err := s.lessons.Contents(ctx, drawable)
+	if err != nil {
+		return nil, fmt.Errorf("grammar: lesson contents: %w", err)
+	}
+	keys := map[string][]string{}
+	if s.images.Store != nil && len(drawable) > 0 {
+		if keys, err = s.images.Store.KeysOf(ctx, drawable); err != nil {
+			return nil, fmt.Errorf("grammar: image keys: %w", err)
+		}
+	}
 	out := make([]LessonSummary, 0, len(all))
 	for _, p := range s.syllabus.All() {
 		l, ok := byID[p.ID]
 		if !ok {
 			continue
 		}
-		if p.Drawable {
-			if err := s.countPictures(ctx, &l); err != nil {
-				return nil, err
-			}
+		if c, ok := contents[p.ID]; ok && p.Drawable {
+			countPictures(&l, c, keys[p.ID])
 		}
 		out = append(out, l)
 	}
 	return out, nil
 }
 
-// countPictures fills in the picture exercises of a lesson summary and how many are drawn.
-func (s *Service) countPictures(ctx context.Context, sum *LessonSummary) error {
-	l, err := s.lessons.Get(ctx, sum.PointID)
-	if errors.Is(err, ErrNotFound) {
-		return nil
+// countPictures fills in the picture exercises of a lesson summary and how many of them are drawn
+// among the point's picture keys.
+func countPictures(sum *LessonSummary, c Content, keys []string) {
+	have := make(map[string]bool, len(keys))
+	for _, k := range keys {
+		have[k] = true
 	}
-	if err != nil {
-		return fmt.Errorf("grammar: get lesson: %w", err)
-	}
-	have, err := s.imageKeys(ctx, sum.PointID)
-	if err != nil {
-		return err
-	}
-	for _, e := range append(append([]Exercise(nil), l.Content.Practice...), l.Content.Mastery...) {
+	for _, e := range append(append([]Exercise(nil), c.Practice...), c.Mastery...) {
 		if e.Kind != KindPicture {
 			continue
 		}
@@ -132,8 +142,7 @@ func (s *Service) countPictures(ctx context.Context, sum *LessonSummary) error {
 			sum.PicturesDrawn++
 		}
 	}
-	sum.PicturesComplete = hasAllPictures(l.Content)
-	return nil
+	sum.PicturesComplete = hasAllPictures(c)
 }
 
 // AdminGet returns the lesson of a point, whatever its status.

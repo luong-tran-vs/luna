@@ -14,14 +14,23 @@
     <h2 class="base" id="verb-base" lang="en">{{ v.base }}</h2>
     <p class="meaning">{{ v.meaningVi }}</p>
     @if (canSpeak) {
-      <button type="button" class="icon-btn" [attr.aria-label]="'Nghe ' + v.base" (click)="listen(v.base)">
+      <button
+        type="button"
+        class="icon-btn"
+        [attr.aria-label]="'Nghe ' + v.base"
+        (click)="listen(v.base)"
+      >
         <lu-icon name="volume" />
       </button>
     }
   </section>
 
   <div class="answers">
-    <label class="field" [class.ok]="checked()?.past === true" [class.bad]="checked()?.past === false">
+    <label
+      class="field"
+      [class.ok]="checked()?.past === true"
+      [class.bad]="checked()?.past === false"
+    >
       <span class="field-label">Quá khứ · V2</span>
       <input
         #pastInput
@@ -39,7 +48,11 @@
         <span class="mark">{{ c.past ? '✓ Đúng' : '✗ Sai' }}</span>
       }
     </label>
-    <label class="field" [class.ok]="checked()?.participle === true" [class.bad]="checked()?.participle === false">
+    <label
+      class="field"
+      [class.ok]="checked()?.participle === true"
+      [class.bad]="checked()?.participle === false"
+    >
       <span class="field-label">Quá khứ phân từ · V3</span>
       <input
         #participleInput
@@ -74,7 +87,9 @@
         <p>{{ v.noteVi }}</p>
       }
       @if (canSpeak) {
-        <button type="button" class="btn listen" (click)="listenForms(v)"><lu-icon name="volume" /> Nghe 3 dạng</button>
+        <button type="button" class="btn listen" (click)="listenForms(v)">
+          <lu-icon name="volume" /> Nghe 3 dạng
+        </button>
       }
     }
   </div>
@@ -85,7 +100,9 @@
         {{ isLast() ? 'Xong' : 'Câu tiếp theo' }} <lu-icon name="arrow-right" />
       </button>
     } @else {
-      <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+      <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">
+        Kiểm tra
+      </button>
     }
   </div>
 }

@@ -102,6 +102,25 @@ func (l lessonVocabulary) Vocabulary(ctx context.Context, id string) ([]vocab.Vo
 	return out, nil
 }
 
+// POS gives the lesson's words with only their part of speech (vocab.LessonPOS).
+func (l lessonVocabulary) POS(ctx context.Context, id string) ([]vocab.VocabItem, error) {
+	items, err := l.reader.POS(ctx, id)
+	if errors.Is(err, lesson.ErrNotFound) {
+		return nil, vocab.ErrLessonNotFound
+	}
+	if err != nil {
+		return nil, fmt.Errorf("lesson parts of speech: %w", err)
+	}
+	out := make([]vocab.VocabItem, len(items))
+	for i, it := range items {
+		out[i] = vocab.VocabItem{
+			Lemma: it.Lemma, Text: it.Text, MeaningVi: it.MeaningVi,
+			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence, POS: it.POS,
+		}
+	}
+	return out, nil
+}
+
 // pronunciations adapts the word bank (F24) and the offline dictionary to vocab.Pronunciations.
 type pronunciations struct {
 	bank *wordbank.Service

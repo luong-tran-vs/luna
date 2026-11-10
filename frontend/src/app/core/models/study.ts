@@ -37,6 +37,12 @@ export interface Goals {
 }
 
 /** Choosing a goal takes effect at once. */
+/** "Học bài mới": the goal and the held-back lesson just opened, to study now. */
+export interface StudyMoreResult {
+  active: GoalView;
+  lesson: LessonRef;
+}
+
 export interface SetGoalResult {
   active: GoalView;
 }
@@ -130,6 +136,11 @@ export interface PathRoadmap {
   active: boolean;
   completed: number;
   lessons: PathLesson[];
+  /**
+   * Lessons held back after the ones shown (only the first 5 show at first): once every lesson shown
+   * is done, coming back to the topic asks to study again or open one of these (added 2026-11-09).
+   */
+  moreLessons?: number;
 }
 
 /** One level ("Phần"): every topic with lessons at that level, one roadmap after another. */

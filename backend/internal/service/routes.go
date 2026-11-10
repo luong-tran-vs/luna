@@ -63,6 +63,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	grammar.NewHandler(c.grammar, log).Register(mux, auth)
 	curriculum.NewHandler(c.curriculum, log).Register(mux, auth)
 	verbs.NewHandler(c.verbs, log).Register(mux, auth)
+	verbs.NewImageHandler(c.verbImages, log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)
 	studyHandler.Register(mux, auth)

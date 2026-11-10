@@ -1,0 +1,246 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Ảnh động từ</h1>
+    <div class="actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!data() || running() || missing().length === 0"
+        (click)="askDrawMissing()"
+      >
+        Sinh ảnh còn thiếu ({{ missing().length }})
+      </button>
+    </div>
+  </header>
+
+  <p class="muted">
+    Mỗi động từ bất quy tắc một ảnh, vẽ theo <strong>nghĩa động từ</strong> và câu ví dụ của từ
+    (ring = reo, không phải chiếc nhẫn). Ảnh hiện trên thẻ ở tab Động từ của người học và lưu riêng,
+    không đè ảnh của Kho từ vựng. Từ nào không vẽ được thì thẻ tự ẩn khung ảnh.
+  </p>
+
+  @if (message(); as m) {
+    <p class="form-alert" role="alert">{{ m }}</p>
+  }
+
+  @if (status(); as b) {
+    @if (b.running || b.total > 0) {
+      <section class="card batch" aria-labelledby="verb-batch-heading">
+        <div class="batch-head">
+          <h2 class="section-title" id="verb-batch-heading">
+            @if (b.running) {
+              {{ b.stopping ? 'Đang dừng' : 'Đang tạo ảnh' }} bằng {{ engineName() }}
+            } @else if (b.stopMessage) {
+              Tạo ảnh dừng sớm
+            } @else if (b.stopped) {
+              Đã dừng tạo ảnh
+            } @else {
+              Đã tạo ảnh xong
+            }
+          </h2>
+          @if (b.running) {
+            <button type="button" class="btn" [disabled]="b.stopping" (click)="stop()">Dừng</button>
+          } @else {
+            <button type="button" class="btn" (click)="batches.hideResult()">Ẩn</button>
+          }
+        </div>
+        <div
+          class="bar"
+          role="progressbar"
+          aria-label="Tiến độ tạo ảnh động từ"
+          aria-valuemin="0"
+          [attr.aria-valuemax]="b.total"
+          [attr.aria-valuenow]="b.done"
+        >
+          <span class="bar-fill" [style.width.%]="percent()"></span>
+        </div>
+        <p class="muted">
+          Xong {{ b.done }}/{{ b.total }} · lưu {{ b.saved.length }} ảnh
+          @if (b.failures.length) {
+            · {{ b.failures.length }} lỗi
+          }
+          @if (b.drawing.length) {
+            · đang vẽ <span lang="en">{{ b.drawing.join(', ') }}</span>
+          }
+        </p>
+        @if (b.stopMessage) {
+          <p class="form-alert">{{ b.stopMessage }}</p>
+        }
+        @if (b.failures.length) {
+          <details class="failures">
+            <summary>Các từ chưa vẽ được ({{ b.failures.length }})</summary>
+            <ul>
+              @for (f of b.failures; track f.base) {
+                <li>
+                  <strong lang="en">{{ f.base }}</strong
+                  >: {{ f.message }}
+                </li>
+              }
+            </ul>
+          </details>
+        }
+      </section>
+    }
+  }
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được danh sách ảnh.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (!data()) {
+    <lu-loading />
+  } @else {
+    <div class="toolbar">
+      <p class="count" role="status">
+        Có ảnh <strong>{{ withImage() }}/{{ total }}</strong> động từ
+      </p>
+      <div class="filters" role="group" aria-label="Lọc động từ">
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="filter() === 'all'"
+          (click)="setFilter('all')"
+        >
+          Tất cả
+        </button>
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="filter() === 'missing'"
+          (click)="setFilter('missing')"
+        >
+          Chưa có ảnh ({{ missing().length }})
+        </button>
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="filter() === 'done'"
+          (click)="setFilter('done')"
+        >
+          Đã có ảnh
+        </button>
+      </div>
+      <label class="search">
+        <span class="visually-hidden">Tìm động từ</span>
+        <input
+          type="search"
+          lang="en"
+          placeholder="Tìm động từ hoặc nghĩa"
+          autocomplete="off"
+          [value]="query()"
+          (input)="onSearch($event)"
+        />
+      </label>
+    </div>
+
+    @for (g of lessons(); track g.lesson.number) {
+      <section class="lesson" [attr.aria-labelledby]="'verb-lesson-' + g.lesson.number">
+        <h2 class="section-title" [id]="'verb-lesson-' + g.lesson.number">
+          Bài {{ g.lesson.number }} · {{ g.lesson.title }}
+          @if (g.lesson.advanced) {
+            <span class="tag">Nâng cao</span>
+          }
+        </h2>
+        <ul class="grid">
+          @for (v of g.verbs; track v.base) {
+            @let url = images().get(v.base);
+            @let b = bank().get(v.base);
+            <li class="verb card" [class.is-missing]="!url">
+              <div class="pic" [attr.aria-busy]="drawing().has(v.base)">
+                @if (url) {
+                  <img
+                    [src]="url"
+                    [alt]="'Ảnh của ' + v.base"
+                    width="480"
+                    height="360"
+                    loading="lazy"
+                  />
+                } @else {
+                  <span class="pic-empty">Chưa có ảnh</span>
+                }
+                @if (drawing().has(v.base)) {
+                  <span class="pic-drawing">Đang vẽ…</span>
+                }
+              </div>
+              <p class="forms" lang="en">
+                <strong>{{ v.base }}</strong> · {{ v.past }} · {{ v.participle }}
+              </p>
+              <p class="meaning">{{ v.meaningVi }}</p>
+              @if (b && !url) {
+                <div class="bank">
+                  <img [src]="b.imageUrl" alt="" width="48" height="36" loading="lazy" />
+                  <span class="bank-text">Kho từ vựng có ảnh "{{ b.meaningVi }}"</span>
+                  <button
+                    type="button"
+                    class="btn small"
+                    [disabled]="busy().has(v.base)"
+                    (click)="useBank(v.base)"
+                  >
+                    Dùng ảnh này<span class="visually-hidden"> cho {{ v.base }}</span>
+                  </button>
+                </div>
+              }
+              <div class="verb-actions">
+                <button
+                  type="button"
+                  class="btn small"
+                  [disabled]="running() || busy().has(v.base)"
+                  (click)="askDraw(v)"
+                >
+                  {{ url ? 'Vẽ lại' : 'Vẽ' }}<span class="visually-hidden"> {{ v.base }}</span>
+                </button>
+                <label class="btn small upload" [class.is-disabled]="busy().has(v.base)">
+                  Tải ảnh<span class="visually-hidden"> cho {{ v.base }}</span>
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/gif"
+                    class="visually-hidden"
+                    [disabled]="busy().has(v.base)"
+                    (change)="upload(v.base, $event)"
+                  />
+                </label>
+                @if (url) {
+                  <button
+                    type="button"
+                    class="btn small btn-danger"
+                    [disabled]="busy().has(v.base)"
+                    (click)="toRemove.set(v.base)"
+                  >
+                    Xoá<span class="visually-hidden"> ảnh {{ v.base }}</span>
+                  </button>
+                }
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+    } @empty {
+      <p class="muted">Không có động từ nào khớp bộ lọc.</p>
+    }
+  }
+</section>
+
+<lu-engine-dialog
+  [open]="toDraw() !== null"
+  [heading]="drawHeading()"
+  [message]="drawMessage()"
+  [codexAvailable]="data()?.codexImages ?? false"
+  [requireChoice]="true"
+  confirmLabel="Tạo ảnh"
+  (confirmed)="draw($event)"
+  (cancelled)="toDraw.set(null)"
+/>
+<lu-confirm-dialog
+  [open]="toRemove() !== null"
+  title="Xoá ảnh động từ?"
+  [message]="
+    'Ảnh của ' +
+    (toRemove() ?? '') +
+    ' sẽ bị xoá; thẻ ở tab Động từ sẽ ẩn khung ảnh cho tới khi có ảnh mới.'
+  "
+  confirmLabel="Xoá ảnh"
+  [danger]="true"
+  (confirmed)="remove()"
+  (cancelled)="toRemove.set(null)"
+/>

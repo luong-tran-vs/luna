@@ -5,8 +5,20 @@
 
   <!-- Learning and looking up are two parts (design/tat-ca-de-xuat.png (mục dong-tu-gon-lai-v2)). -->
   <div class="views" role="group" aria-label="Phần">
-    <button type="button" class="view" [attr.aria-pressed]="view() === 'learn'" (click)="setView('learn')">Học</button>
-    <button type="button" class="view" [attr.aria-pressed]="view() === 'lookup'" (click)="setView('lookup')">
+    <button
+      type="button"
+      class="view"
+      [attr.aria-pressed]="view() === 'learn'"
+      (click)="setView('learn')"
+    >
+      Học
+    </button>
+    <button
+      type="button"
+      class="view"
+      [attr.aria-pressed]="view() === 'lookup'"
+      (click)="setView('lookup')"
+    >
       Tra cứu
     </button>
   </div>
@@ -53,7 +65,9 @@
         >
           Ôn lại
           @if (review().dueToday > 0) {
-            <span class="badge">{{ review().dueToday }}<span class="visually-hidden"> từ đến hạn</span></span>
+            <span class="badge"
+              >{{ review().dueToday }}<span class="visually-hidden"> từ đến hạn</span></span
+            >
           }
         </a>
       </div>

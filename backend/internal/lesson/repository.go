@@ -29,6 +29,8 @@ type Repository interface {
 	Create(ctx context.Context, l Lesson) (Lesson, error)
 	// Get returns ErrNotFound when the lesson does not exist (or the id is malformed).
 	Get(ctx context.Context, id string) (Lesson, error)
+	// GetMany returns the lessons that exist among ids, whole, in any order and in one query.
+	GetMany(ctx context.Context, ids []string) ([]Lesson, error)
 	List(ctx context.Context, f Filter) ([]Summary, error)
 	// Summaries returns the lessons that exist among ids, in any order.
 	Summaries(ctx context.Context, ids []string) ([]Summary, error)
@@ -49,6 +51,11 @@ type Repository interface {
 	// WithoutPractice lists the lessons whose annotations are done but whose practice was never
 	// queued (lessons annotated before F17).
 	WithoutPractice(ctx context.Context) ([]RevisionRef, error)
+	// WithoutSteps lists the lessons with annotations whose practice is done but was made before
+	// the six steps (a practice without Steps).
+	WithoutSteps(ctx context.Context) ([]RevisionRef, error)
+	// Annotated lists the lessons whose annotations are done, with their current revision.
+	Annotated(ctx context.Context) ([]RevisionRef, error)
 	// ReplaceExtras stores admin-edited extras and sets the edited flag; bumpQuiz bumps
 	// QuizVersion (the questions changed).
 	ReplaceExtras(ctx context.Context, id string, extras Extras, bumpQuiz bool) error

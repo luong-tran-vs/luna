@@ -54,6 +54,18 @@ func (f *fakeLessons) List(context.Context) ([]LessonSummary, error) {
 	return out, nil
 }
 
+func (f *fakeLessons) Contents(_ context.Context, pointIDs []string) (map[string]Content, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := map[string]Content{}
+	for _, id := range pointIDs {
+		if l, ok := f.lessons[id]; ok {
+			out[id] = l.Content
+		}
+	}
+	return out, nil
+}
+
 type fakeProgress struct {
 	mu   sync.Mutex
 	recs map[[2]string]Progress

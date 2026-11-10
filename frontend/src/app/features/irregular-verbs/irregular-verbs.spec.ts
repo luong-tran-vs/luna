@@ -15,9 +15,12 @@ describe('IrregularVerbs', () => {
   let speech: FakeSpeech;
   let http: HttpTestingController;
 
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string) =>
-    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label));
+    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+      text(b).startsWith(label),
+    );
   const settle = async () => {
     await new Promise((r) => setTimeout(r));
     await fixture.whenStable();
@@ -47,7 +50,12 @@ describe('IrregularVerbs', () => {
     speech.supported = supported;
     await TestBed.configureTestingModule({
       imports: [IrregularVerbs],
-      providers: [provideFakeSpeech(speech), provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideFakeSpeech(speech),
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(IrregularVerbs);
@@ -73,11 +81,16 @@ describe('IrregularVerbs', () => {
 
   describe('Học', () => {
     it('shows the learned common verbs, the next lesson with its pattern and the way to review', async () => {
-      await render([...VERB_LESSONS[0].bases.map((b) => learned(b)), learned('go', '2000-01-01T00:00:00Z')]);
+      await render([
+        ...VERB_LESSONS[0].bases.map((b) => learned(b)),
+        learned('go', '2000-01-01T00:00:00Z'),
+      ]);
       expect(button('Học')!.getAttribute('aria-pressed')).toBe('true');
       const hero = el.querySelector('.hero')!;
       expect(text(hero.querySelector('.ring-inner'))).toBe('7/104');
-      expect(text(hero.querySelector('.hero-eyebrow'))).toBe(`Học tiếp · Bài 2/${VERB_LESSONS.length}`);
+      expect(text(hero.querySelector('.hero-eyebrow'))).toBe(
+        `Học tiếp · Bài 2/${VERB_LESSONS.length}`,
+      );
       expect(text(hero.querySelector('.hero-title'))).toBe(VERB_LESSONS[1].title);
       expect(text(hero.querySelector('.hero-model'))).toBe('bet → bet → bet');
       const [learn, review] = Array.from(hero.querySelectorAll('a.hero-btn'));
@@ -106,16 +119,22 @@ describe('IrregularVerbs', () => {
         `Thông dụng · ${common.length} bài`,
         `Nâng cao · ${VERB_LESSONS.length - common.length} bài`,
       ]);
-      expect(text(el.querySelector('.hero-eyebrow'))).toBe(`Học tiếp · Bài 19/${VERB_LESSONS.length}`);
+      expect(text(el.querySelector('.hero-eyebrow'))).toBe(
+        `Học tiếp · Bài 19/${VERB_LESSONS.length}`,
+      );
       expect(text(el.querySelector('.ring-inner'))).toBe(`104/${IRREGULAR_VERBS.length}`);
       expect(el.querySelector('.ring')?.getAttribute('aria-label')).toBe('Động từ đã học');
     });
 
     it('starts at lesson 1 with no badge when nothing is learned', async () => {
       await render();
-      expect(text(el.querySelector('.hero-eyebrow'))).toBe(`Học tiếp · Bài 1/${VERB_LESSONS.length}`);
+      expect(text(el.querySelector('.hero-eyebrow'))).toBe(
+        `Học tiếp · Bài 1/${VERB_LESSONS.length}`,
+      );
       expect(el.querySelector('.badge')).toBeNull();
-      expect(el.querySelector('a.hero-btn.review')?.getAttribute('href')).toBe('/irregular-verbs/review');
+      expect(el.querySelector('a.hero-btn.review')?.getAttribute('href')).toBe(
+        '/irregular-verbs/review',
+      );
     });
   });
 
@@ -188,7 +207,11 @@ describe('IrregularVerbs', () => {
       const sheet = el.querySelector('.sheet')!;
       expect(sheet.getAttribute('role')).toBe('dialog');
       expect(text(sheet.querySelector('.title'))).toBe('read');
-      expect(Array.from(sheet.querySelectorAll('.ipa')).map((i) => text(i))).toEqual(['/riːd/', '/red/', '/red/']);
+      expect(Array.from(sheet.querySelectorAll('.ipa')).map((i) => text(i))).toEqual([
+        '/riːd/',
+        '/red/',
+        '/red/',
+      ]);
       expect(text(sheet.querySelector('.tip'))).toContain('/red/');
       expect(text(sheet.querySelector('.verb-mark'))).toBe('read');
       expect(sheet.querySelector('a.btn')?.getAttribute('href')).toBe('/irregular-verbs/lessons/9');

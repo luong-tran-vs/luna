@@ -1023,10 +1023,20 @@ describe('Curriculum', () => {
       expect(text(d.querySelector('.hint'))).toBe('1 bài chưa chú thích xong sẽ bị bỏ qua.');
       // No description fields: the lessons keep their own.
       expect(d.querySelector('textarea')).toBeNull();
+      // Nothing is chosen at first (asked 2026-11-10): "Tạo" waits for a choice.
       const gemini = d.querySelector<HTMLInputElement>('input[value="gemini"]')!;
-      expect(gemini.checked).toBe(true);
+      expect(gemini.checked).toBe(false);
+      expect(d.querySelector<HTMLInputElement>('input:checked')).toBeNull();
       expect(d.querySelector<HTMLInputElement>('input[value="codex"]')!.disabled).toBe(true);
+      expect(button(d, 'Tạo 2 ảnh cảnh').disabled).toBe(true);
+      expect(text(d)).toContain('Chọn Gemini hoặc Codex CLI để tạo ảnh.');
+      button(d, 'Tạo 2 ảnh cảnh').click();
+      await settle();
+      http.expectNone((r) => r.url === '/admin/lessons/scene-batch' && r.method === 'POST');
 
+      gemini.click();
+      await settle();
+      expect(button(d, 'Tạo 2 ảnh cảnh').disabled).toBe(false);
       button(d, 'Tạo 2 ảnh cảnh').click();
       await settle();
       const req = expectStart();
@@ -1117,6 +1127,8 @@ describe('Curriculum', () => {
     it('shows why the batch could not start', async () => {
       await setup();
       sceneButton(1)!.click();
+      await settle();
+      sceneDialog()!.querySelector<HTMLInputElement>('input[value="gemini"]')!.click();
       await settle();
       button(sceneDialog()!, 'Tạo 2 ảnh cảnh').click();
       await settle();

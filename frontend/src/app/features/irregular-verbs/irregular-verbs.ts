@@ -117,8 +117,18 @@ export class IrregularVerbs {
   );
   /** What each pattern chip would show with the other filters as they are. */
   protected readonly counts = computed(() => {
-    const verbs = filterVerbs(IRREGULAR_VERBS, { query: this.query(), commonOnly: this.commonOnly(), pattern: null });
-    const out: Record<VerbPattern | 'all', number> = { all: verbs.length, AAA: 0, ABB: 0, ABA: 0, ABC: 0 };
+    const verbs = filterVerbs(IRREGULAR_VERBS, {
+      query: this.query(),
+      commonOnly: this.commonOnly(),
+      pattern: null,
+    });
+    const out: Record<VerbPattern | 'all', number> = {
+      all: verbs.length,
+      AAA: 0,
+      ABB: 0,
+      ABA: 0,
+      ABC: 0,
+    };
     for (const v of verbs) {
       out[patternOf(v)]++;
     }
@@ -158,7 +168,9 @@ export class IrregularVerbs {
     this.markError.set(false);
     this.api.setLearned([base], learned).subscribe({
       next: (r) => {
-        this.progress.update((m) => new Map([...(m ?? []), ...r.verbs.map((v) => [v.base, v] as const)]));
+        this.progress.update(
+          (m) => new Map([...(m ?? []), ...r.verbs.map((v) => [v.base, v] as const)]),
+        );
         const mark = { base, learned };
         this.lastMark.set(mark);
         // The note goes away by itself unless another verb was marked meanwhile.

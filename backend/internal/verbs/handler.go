@@ -64,6 +64,9 @@ type resultsRequest struct {
 	Results []struct {
 		Base  string `json:"base"`
 		Right bool   `json:"right"`
+		// Quick and Hard: a self-graded answer of "Ôn nhanh" (added 2026-11-10).
+		Quick bool `json:"quick"`
+		Hard  bool `json:"hard"`
 	} `json:"results"`
 }
 
@@ -76,7 +79,7 @@ func (h *Handler) record(w http.ResponseWriter, r *http.Request) {
 	}
 	results := make([]Result, len(req.Results))
 	for i, res := range req.Results {
-		results[i] = Result{Base: res.Base, Right: res.Right}
+		results[i] = Result{Base: res.Base, Right: res.Right, Quick: res.Quick, Hard: res.Hard}
 	}
 	list, err := h.svc.Record(r.Context(), p.UserID, results)
 	if err != nil {

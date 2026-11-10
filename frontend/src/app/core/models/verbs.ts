@@ -21,4 +21,7 @@ export interface VerbProgressList {
 export interface VerbResult {
   base: string;
   right: boolean;
+  /** A self-graded answer of "Ôn nhanh" (added 2026-11-10): right is Nhớ or Hơi nhớ (hard). */
+  quick?: boolean;
+  hard?: boolean;
 }
