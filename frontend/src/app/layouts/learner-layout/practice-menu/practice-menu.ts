@@ -38,8 +38,8 @@ interface Item {
 /**
  * The raised middle button of the tab bar, "Luyện" (design/de-xuat-nut-giua-noi-len.png, option 3,
  * added 2026-11-10): it opens a card over the bar with the lesson to go on with and a grid of the
- * practice sections. Tapping the button again (now ✕), outside the card, Esc or going to a page
- * closes it. A red dot on the button tells there are verbs often typed wrong.
+ * practice sections. Tapping the button again (now ✕), outside the card, Esc or a section (even the
+ * page already shown) closes it. A red dot on the button tells there are verbs often typed wrong.
  */
 @Component({
   selector: 'lu-practice-menu',

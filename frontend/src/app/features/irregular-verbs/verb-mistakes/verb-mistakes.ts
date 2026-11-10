@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  effect,
   ElementRef,
   inject,
   Injector,
@@ -12,6 +14,7 @@ import {
 import { RouterLink } from '@angular/router';
 
 import { VerbMistake, VerbProgress } from '../../../core/models/verbs';
+import { FocusMode } from '../../../core/services/focus-mode.service';
 import { VerbsApiService } from '../../../core/services/verbs-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
@@ -64,6 +67,10 @@ export class VerbMistakes {
   protected readonly rightCount = computed(() => this.results().filter((r) => r.right).length);
 
   constructor() {
+    // The list keeps the tab bar; typing takes the whole screen like a lesson (2026-11-10).
+    const focusMode = inject(FocusMode);
+    effect(() => focusMode.on.set(this.stage() === 'practice'));
+    inject(DestroyRef).onDestroy(() => focusMode.on.set(false));
     this.load();
     inject(VerbPictures).load();
   }

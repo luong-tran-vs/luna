@@ -29,8 +29,10 @@
   box-decoration-break: clone;
 }
 
-.read-sentence:hover {
-  background: color-mix(in srgb, var(--color-primary-soft) 70%, transparent);
+@media (hover: hover) {
+  .read-sentence:hover {
+    background: color-mix(in srgb, var(--color-primary-soft) 70%, transparent);
+  }
 }
 
 .read-sentence:focus-visible {
@@ -116,8 +118,10 @@ button.bubble {
   cursor: pointer;
 }
 
-button.bubble:hover {
-  border-color: var(--color-primary);
+@media (hover: hover) {
+  button.bubble:hover {
+    border-color: var(--color-primary);
+  }
 }
 
 button.bubble:focus-visible {

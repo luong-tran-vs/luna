@@ -41,8 +41,10 @@
   cursor: pointer;
 }
 
-.tab:hover:not(.is-shown) {
-  background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+@media (hover: hover) {
+  .tab:hover:not(.is-shown) {
+    background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  }
 }
 
 .tab.is-right {
@@ -55,11 +57,18 @@
   background: color-mix(in srgb, var(--color-bad) 14%, var(--color-surface));
 }
 
-.tab.is-shown,
-.tab.is-shown:hover {
+.tab.is-shown {
   color: var(--color-on-primary);
   background: var(--color-primary);
   box-shadow: 0 1px 4px rgb(0 0 0 / 0.14);
+}
+
+@media (hover: hover) {
+  .tab.is-shown:hover {
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.14);
+  }
 }
 
 .tab-num {
@@ -144,8 +153,10 @@
   cursor: pointer;
 }
 
-.option:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .option:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .option.picked {
@@ -269,8 +280,10 @@
   cursor: pointer;
 }
 
-.redo:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .redo:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .redo:focus-visible {
@@ -349,8 +362,10 @@
   cursor: pointer;
 }
 
-.score-row:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .score-row:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .mark {

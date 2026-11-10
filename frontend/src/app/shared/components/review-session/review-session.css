@@ -80,8 +80,10 @@
   --icon-size: 20px;
 }
 
-.sound:hover {
-  background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+@media (hover: hover) {
+  .sound:hover {
+    background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+  }
 }
 
 /* Listen mode: one big round button to hear the word again, a slower one under it. */
@@ -135,8 +137,10 @@
   cursor: pointer;
 }
 
-.slow:hover {
-  background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+@media (hover: hover) {
+  .slow:hover {
+    background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+  }
 }
 
 /* Room to spare on these screens: a bigger boy, nearer the middle; the tail follows his hand. */
@@ -310,8 +314,10 @@ lu-asker {
   --rating: var(--color-primary);
 }
 
-.rating:hover:not(:disabled) {
-  filter: brightness(1.08);
+@media (hover: hover) {
+  .rating:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
 }
 
 .rating:disabled {
@@ -353,8 +359,10 @@ lu-asker {
   cursor: pointer;
 }
 
-.btn-forget:hover {
-  background: color-mix(in srgb, var(--color-bad) 8%, var(--color-surface));
+@media (hover: hover) {
+  .btn-forget:hover {
+    background: color-mix(in srgb, var(--color-bad) 8%, var(--color-surface));
+  }
 }
 
 .bottom-bar .btn-primary[aria-disabled='true'] {
@@ -380,8 +388,10 @@ lu-asker {
   background: color-mix(in srgb, var(--color-bad) 85%, var(--color-text));
 }
 
-.btn-next:hover:not(:disabled) {
-  filter: brightness(1.08);
+@media (hover: hover) {
+  .btn-next:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
 }
 
 .btn-next:disabled {

@@ -77,9 +77,14 @@
   border-radius: 4px 4px 0 0;
 }
 
-.bar-slot:hover,
 .bar-slot:focus-visible {
   background: var(--color-primary-soft);
+}
+
+@media (hover: hover) {
+  .bar-slot:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .bar-slot:focus-visible {

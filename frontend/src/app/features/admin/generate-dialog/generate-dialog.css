@@ -183,8 +183,10 @@
   cursor: pointer;
 }
 
-.chip-remove:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+@media (hover: hover) {
+  .chip-remove:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
 }
 
 .chip-remove:focus-visible {

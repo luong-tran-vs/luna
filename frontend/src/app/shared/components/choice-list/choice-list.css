@@ -21,8 +21,10 @@
   cursor: pointer;
 }
 
-.choice:hover:not([aria-disabled='true']) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .choice:hover:not([aria-disabled='true']) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .choice[aria-disabled='true'] {

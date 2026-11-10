@@ -23,7 +23,12 @@ import type { PracticeItem } from '../lesson-detail';
             type="button"
             class="item"
             [class.done]="item.result !== null"
-            [attr.aria-label]="(item.result === null ? 'Làm ' : 'Làm lại ') + item.name + ': ' + (item.result ?? 'chưa làm')"
+            [attr.aria-label]="
+              (item.result === null ? 'Làm ' : 'Làm lại ') +
+              item.name +
+              ': ' +
+              (item.result ?? 'chưa làm')
+            "
             (click)="go.emit(item.key)"
           >
             <span class="mark" aria-hidden="true">
@@ -86,8 +91,10 @@ import type { PracticeItem } from '../lesson-detail';
       border-top: 1px solid var(--color-line);
     }
 
-    .item:hover .name {
-      color: var(--color-primary-ink);
+    @media (hover: hover) {
+      .item:hover .name {
+        color: var(--color-primary-ink);
+      }
     }
 
     .item:focus-visible {

@@ -70,7 +70,7 @@ export function isFocusPage(path: string): boolean {
   return (
     /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path) ||
     /^\/grammar\/[^/]+$/.test(path) ||
-    /^\/irregular-verbs\/(lessons\/[^/]+|review|mistakes|listen)$/.test(path) ||
+    /^\/irregular-verbs\/(lessons\/[^/]+|review|listen)$/.test(path) ||
     /^\/vocabulary\/talk\/[^/]+$/.test(path)
   );
 }
@@ -101,6 +101,10 @@ export class LearnerLayout {
       map(() => this.currentPath()),
     ),
     { initialValue: this.currentPath() },
+  );
+  /** The place (0–4) of the current link tab, -1 when none or Luyện: where the droplet sits. */
+  protected readonly current = computed(() =>
+    TABS.findIndex((t) => !t.practice && t.matches(this.path())),
   );
   protected readonly focus = computed(() => isFocusPage(this.path()) || this.focusMode.on());
   protected readonly dark = computed(() => this.theme.resolved() === 'dark');

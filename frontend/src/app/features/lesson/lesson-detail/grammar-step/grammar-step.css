@@ -69,8 +69,10 @@ ul {
   cursor: pointer;
 }
 
-.say:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .say:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 /* The words to notice: a yellow background and bold, not colour alone. */
@@ -108,8 +110,10 @@ ul {
   flex: 1;
 }
 
-.option:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .option:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .option:disabled {
@@ -283,8 +287,10 @@ ul {
   text-decoration: none;
 }
 
-.full-link:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .full-link:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .link-text {

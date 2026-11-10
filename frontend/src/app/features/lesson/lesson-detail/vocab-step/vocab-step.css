@@ -155,8 +155,10 @@
   color: var(--color-text-muted);
 }
 
-.example-btn:hover lu-icon {
-  color: var(--color-primary-ink);
+@media (hover: hover) {
+  .example-btn:hover lu-icon {
+    color: var(--color-primary-ink);
+  }
 }
 
 .sentence strong {

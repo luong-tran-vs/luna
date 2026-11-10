@@ -89,9 +89,11 @@
   --icon-size: 18px;
 }
 
-.item:hover {
-  color: var(--color-text);
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .item:hover {
+    color: var(--color-text);
+    background: var(--color-primary-soft);
+  }
 }
 
 /* Current section: tinted background, stronger text and a bar, not color alone. */
@@ -125,9 +127,11 @@
   cursor: pointer;
 }
 
-.tool:hover {
-  color: var(--color-text);
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .tool:hover {
+    color: var(--color-text);
+    background: var(--color-primary-soft);
+  }
 }
 
 /* Icon only on narrow screens; the text stays for screen readers. */

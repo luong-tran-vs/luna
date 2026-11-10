@@ -66,8 +66,10 @@
   --icon-size: 16px;
 }
 
-.choice:hover:not([aria-disabled='true']) {
-  border-color: var(--color-primary);
+@media (hover: hover) {
+  .choice:hover:not([aria-disabled='true']) {
+    border-color: var(--color-primary);
+  }
 }
 
 .choice:focus-visible {

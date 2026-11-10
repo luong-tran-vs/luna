@@ -120,8 +120,10 @@
   content: '';
 }
 
-.legend-chip:hover {
-  background: color-mix(in srgb, var(--chip) 24%, transparent);
+@media (hover: hover) {
+  .legend-chip:hover {
+    background: color-mix(in srgb, var(--chip) 24%, transparent);
+  }
 }
 
 /* Chosen filter: thicker border and a stronger tint, not color alone. */

@@ -1,5 +1,6 @@
 /*
- * Phone: a round button raised out of the middle of the tab bar; the card opens above the bar.
+ * Phone: a round droplet of purple glass raised out of the middle of the tab bar; the card, glass too,
+ * opens above the bar (design/de-xuat-thanh-giot-nuoc.png, 2026-11-10).
  * From 1024px: a tab like the others in the top bar; the card drops below it.
  */
 :host {
@@ -34,14 +35,20 @@
   width: 60px;
   height: 60px;
   color: var(--color-on-primary);
-  background: linear-gradient(
-    145deg,
-    color-mix(in srgb, var(--color-primary) 80%, white),
-    var(--color-primary)
-  );
-  border: 5px solid var(--color-bg);
+  /* A droplet: a bright spot up left over clear purple, shaded inside at the bottom. */
+  background:
+    radial-gradient(circle at 32% 26%, rgb(255 255 255 / 0.75) 0 7%, transparent 26%),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--color-primary) 72%, white),
+      var(--color-primary)
+    );
+  border: 1.5px solid rgb(255 255 255 / 0.7);
   border-radius: 50%;
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-primary) 45%, transparent);
+  box-shadow:
+    inset 0 2px 3px rgb(255 255 255 / 0.55),
+    inset 0 -6px 10px rgb(40 20 110 / 0.35),
+    0 10px 22px color-mix(in srgb, var(--color-primary) 45%, transparent);
   transform: translateX(-50%);
   transition: transform 0.2s ease;
 
@@ -51,8 +58,10 @@
 /* On a practice page: a light ring around the button (not color alone: the label is underlined). */
 .is-active .fab {
   box-shadow:
-    0 0 0 4px var(--color-primary-soft),
-    0 8px 20px color-mix(in srgb, var(--color-primary) 45%, transparent);
+    0 0 0 4px var(--glass-edge),
+    inset 0 2px 3px rgb(255 255 255 / 0.55),
+    inset 0 -6px 10px rgb(40 20 110 / 0.35),
+    0 10px 22px color-mix(in srgb, var(--color-primary) 45%, transparent);
 }
 
 .is-active .label {
@@ -60,12 +69,17 @@
   text-underline-offset: 3px;
 }
 
-/* Open: a dark ✕ ringed in white, its shadow neutral over the dimmed page. */
+/* Open: a clear droplet with a purple ✕. */
 .is-open .fab {
-  background: var(--color-text);
-  border-color: var(--color-surface);
-  box-shadow: 0 6px 16px rgb(0 0 0 / 0.3);
-  transform: translateX(-50%) rotate(90deg);
+  color: var(--color-primary-ink);
+  background:
+    radial-gradient(circle at 32% 26%, var(--glass-spark) 0 8%, transparent 30%), var(--glass-bg);
+  box-shadow:
+    var(--glass-inset),
+    inset 0 -6px 10px color-mix(in srgb, var(--color-primary) 18%, transparent),
+    0 10px 22px rgb(34 27 56 / 0.25);
+  -webkit-backdrop-filter: blur(12px) saturate(190%);
+  backdrop-filter: blur(12px) saturate(190%);
 }
 
 /* From 1024px the tab keeps its name while open (Đóng is for the round phone button). */
@@ -98,43 +112,64 @@
   position: fixed;
   inset: 0 0 calc(var(--tabbar-h) - var(--space-2));
   z-index: 1;
-  background: rgb(20 16 36 / 0.45);
-  backdrop-filter: blur(2px);
+  background: rgb(20 16 36 / 0.3);
 }
 
 .panel {
   position: fixed;
   right: var(--space-3);
-  /* Clear of the raised ✕ (28px over the bar), with room for the tail pointing at it. */
+  /* Clear of the raised ✕ (28px over the bar). */
   bottom: calc(var(--tabbar-h) + 36px);
   left: var(--space-3);
   z-index: 2;
   max-width: 440px;
   margin: 0 auto;
   padding: var(--space-4) var(--space-3) var(--space-3);
-  background: var(--color-surface);
-  border-radius: 24px;
-  box-shadow: 0 14px 34px rgb(0 0 0 / 0.25);
-  animation: rise 0.2s ease-out;
+  /* Denser than the bar: the card is read, the page behind only glimpsed. */
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-edge);
+  border-radius: 30px;
+  box-shadow:
+    var(--glass-inset),
+    0 14px 34px rgb(0 0 0 / 0.22);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: blur(24px) saturate(190%);
+  transform-origin: 50% 100%;
+  animation: rise 0.25s cubic-bezier(0.34, 1.3, 0.5, 1);
 }
 
-/* A tail under the card pointing at the ✕ it came from. */
-.panel::after {
+/* The light on the top of the glass card. */
+.panel::before {
   position: absolute;
-  bottom: -7px;
-  left: 50%;
-  width: 16px;
-  height: 16px;
+  inset: 1px 20px auto;
+  height: 60px;
+  pointer-events: none;
   content: '';
-  background: var(--color-surface);
-  border-radius: 3px;
-  transform: translateX(-50%) rotate(45deg);
+  background: linear-gradient(var(--glass-sheen), transparent);
+  border-radius: 30px 30px 50% 50%;
 }
 
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .panel,
+  .is-open .fab {
+    background-color: var(--color-surface);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .panel,
+  .is-open .fab {
+    background-color: var(--color-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* The card swells out of the droplet. */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(24px) scale(0.6);
   }
 }
 
@@ -146,6 +181,13 @@
   .fab {
     transition: none;
   }
+}
+
+/* Over the light of the glass. */
+.panel-title,
+.continue,
+.grid {
+  position: relative;
 }
 
 .panel-title {
@@ -216,12 +258,15 @@
   color: var(--color-text);
   text-align: center;
   text-decoration: none;
-  background: var(--color-bg);
-  border-radius: var(--radius-lg);
+  background: var(--glass-tile);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.5);
 }
 
-.tile:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .tile:hover {
+    background: color-mix(in srgb, var(--color-primary-soft) 70%, transparent);
+  }
 }
 
 .tile-icon {
@@ -292,8 +337,10 @@
     color: var(--color-text-muted);
   }
 
-  .toggle:hover {
-    background: var(--color-primary-soft);
+  @media (hover: hover) {
+    .toggle:hover {
+      background: var(--color-primary-soft);
+    }
   }
 
   .fab,
@@ -363,9 +410,5 @@
     margin: 0;
     transform: translateX(-50%);
     animation: none;
-  }
-
-  .panel::after {
-    display: none;
   }
 }

@@ -184,8 +184,10 @@
   border-style: solid;
 }
 
-.chip-toggle:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .chip-toggle:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .chip-toggle:focus-visible {
@@ -244,8 +246,10 @@
   opacity: 0.8;
 }
 
-.text-field textarea:hover {
-  border-color: var(--color-text-muted);
+@media (hover: hover) {
+  .text-field textarea:hover {
+    border-color: var(--color-text-muted);
+  }
 }
 
 .text-field textarea:focus {

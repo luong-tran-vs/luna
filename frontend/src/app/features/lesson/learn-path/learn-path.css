@@ -284,8 +284,10 @@ button.bubble-btn:disabled {
   cursor: progress;
 }
 
-:is(a, button).bubble-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .bubble-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
 }
 
 :is(a, button).bubble-btn:active:not(:disabled) {

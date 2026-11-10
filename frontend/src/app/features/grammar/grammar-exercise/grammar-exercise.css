@@ -38,8 +38,10 @@
   cursor: pointer;
 }
 
-.option:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .option:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .option:disabled {

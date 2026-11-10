@@ -3,7 +3,7 @@
   <section #panel id="practice-panel" class="panel" aria-labelledby="practice-title">
     <h2 class="panel-title" id="practice-title">Luyện tập</h2>
     @if (lesson(); as l) {
-      <a class="continue" [routerLink]="['/lessons', l.id]">
+      <a class="continue" [routerLink]="['/lessons', l.id]" (click)="close()">
         <span class="continue-icon"><lu-icon name="play" /></span>
         <span class="continue-text">
           <span class="continue-label">Đang học dở</span>
@@ -14,7 +14,7 @@
     <ul class="grid">
       @for (it of items(); track it.link; let i = $index) {
         <li>
-          <a class="tile" [routerLink]="it.link">
+          <a class="tile" [routerLink]="it.link" (click)="close()">
             <span [class]="'tile-icon tone-' + (i % 4)">
               <lu-icon [name]="it.icon" />
             </span>

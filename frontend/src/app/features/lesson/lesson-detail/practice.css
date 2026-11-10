@@ -60,8 +60,10 @@
   cursor: pointer;
 }
 
-.tile:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .tile:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .tile:disabled {
@@ -184,4 +186,3 @@
   width: 48px;
   height: 48px;
 }
-

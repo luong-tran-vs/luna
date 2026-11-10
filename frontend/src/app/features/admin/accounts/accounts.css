@@ -98,8 +98,10 @@
   cursor: pointer;
 }
 
-.chip:hover {
-  background: var(--color-bg);
+@media (hover: hover) {
+  .chip:hover {
+    background: var(--color-bg);
+  }
 }
 
 .chip[aria-pressed='true'] {
@@ -214,9 +216,11 @@
   align-items: center;
 }
 
-.delete:hover:not(:disabled) {
-  color: var(--color-bad);
-  border-color: var(--color-bad);
+@media (hover: hover) {
+  .delete:hover:not(:disabled) {
+    color: var(--color-bad);
+    border-color: var(--color-bad);
+  }
 }
 
 .empty {

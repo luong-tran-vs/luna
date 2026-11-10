@@ -69,8 +69,10 @@ tbody:last-child .verb:last-child > * {
   border-bottom: 0;
 }
 
-.verb:hover > * {
-  background: color-mix(in srgb, var(--color-primary-soft) 45%, transparent);
+@media (hover: hover) {
+  .verb:hover > * {
+    background: color-mix(in srgb, var(--color-primary-soft) 45%, transparent);
+  }
 }
 
 .v1 {

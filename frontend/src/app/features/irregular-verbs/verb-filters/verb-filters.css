@@ -54,9 +54,11 @@
   cursor: pointer;
 }
 
-.clear:hover {
-  color: var(--color-text);
-  background: var(--color-track);
+@media (hover: hover) {
+  .clear:hover {
+    color: var(--color-text);
+    background: var(--color-track);
+  }
 }
 
 /* --- the filters: one row that scrolls sideways --- */
@@ -98,8 +100,10 @@
   --icon-size: 16px;
 }
 
-.chip:hover {
-  border-color: var(--color-primary);
+@media (hover: hover) {
+  .chip:hover {
+    border-color: var(--color-primary);
+  }
 }
 
 .chip:focus-visible {

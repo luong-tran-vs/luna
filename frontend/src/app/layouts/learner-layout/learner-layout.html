@@ -1,6 +1,13 @@
 <header class="bar">
   <a class="brand" routerLink="/">Luna</a>
   <nav class="tabs" aria-label="Menu chính">
+    <!-- Phone: the glass droplet behind the current tab, sliding from tab to tab. -->
+    <span
+      class="droplet"
+      aria-hidden="true"
+      [class.is-shown]="current() >= 0"
+      [style.--at]="current() < 0 ? 0 : current()"
+    ></span>
     @for (tab of tabs; track tab.path) {
       @if (tab.practice) {
         <lu-practice-menu class="practice" [active]="tab.matches(path())" />

@@ -108,8 +108,10 @@
   cursor: default;
 }
 
-.link-btn:hover:not(:disabled) {
-  text-decoration: underline;
+@media (hover: hover) {
+  .link-btn:hover:not(:disabled) {
+    text-decoration: underline;
+  }
 }
 
 .group-heading {
@@ -267,8 +269,10 @@
   transition: border-color var(--motion-fast, 120ms) ease;
 }
 
-.op select:hover {
-  border-color: var(--color-text-muted);
+@media (hover: hover) {
+  .op select:hover {
+    border-color: var(--color-text-muted);
+  }
 }
 
 .op select:focus-visible {

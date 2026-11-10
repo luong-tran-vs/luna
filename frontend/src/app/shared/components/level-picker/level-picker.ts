@@ -105,8 +105,10 @@ export const LEVEL_OPTIONS: readonly LevelOption[] = LEVELS.map((l) => ({
       justify-items: center;
       padding: var(--space-1) var(--space-2);
     }
-    .option:hover:not(:disabled) {
-      border-color: var(--color-primary);
+    @media (hover: hover) {
+      .option:hover:not(:disabled) {
+        border-color: var(--color-primary);
+      }
     }
     .option:disabled {
       cursor: not-allowed;

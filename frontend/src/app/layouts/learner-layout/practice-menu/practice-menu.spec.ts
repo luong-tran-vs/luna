@@ -1,9 +1,13 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { PracticeMenu } from './practice-menu';
+
+@Component({ template: '' })
+class Blank {}
 
 const text = (n: Element | null | undefined) => n?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
 const daysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString();
@@ -17,7 +21,11 @@ describe('PracticeMenu (added 2026-11-10)', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [PracticeMenu],
-      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideRouter([{ path: '**', component: Blank }]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(PracticeMenu);
@@ -102,6 +110,17 @@ describe('PracticeMenu (added 2026-11-10)', () => {
     http.expectOne('/verbs/progress').flush({ verbs: [] });
     http.expectOne('/dashboard').flush({ lesson: null });
     toggle().click();
+    await fixture.whenStable();
+    expect(el.querySelector('.panel')).toBeNull();
+  });
+
+  it('closes when a section is picked, even the page already shown', async () => {
+    toggle().click();
+    await fixture.whenStable();
+    http.expectOne('/verbs/progress').flush({ verbs: [] });
+    http.expectOne('/dashboard').flush({ lesson: null });
+    await fixture.whenStable();
+    el.querySelectorAll<HTMLElement>('.tile')[1].click();
     await fixture.whenStable();
     expect(el.querySelector('.panel')).toBeNull();
   });

@@ -45,8 +45,10 @@
   cursor: pointer;
 }
 
-.chip:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .chip:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .chip[aria-checked='true'] {

@@ -329,8 +329,10 @@
   cursor: pointer;
 }
 
-.tile:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .tile:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .tile.chosen {

@@ -52,8 +52,10 @@ import { PALETTES, PaletteService } from '../../../core/services/palette.service
       cursor: pointer;
     }
 
-    .palette:hover {
-      border-color: var(--color-primary);
+    @media (hover: hover) {
+      .palette:hover {
+        border-color: var(--color-primary);
+      }
     }
 
     .palette input {

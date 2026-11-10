@@ -104,8 +104,10 @@
   transition: transform 0.15s ease;
 }
 
-.action:hover {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .action:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .action.tone-listen {
@@ -154,8 +156,10 @@
   text-decoration: none;
 }
 
-.recent-item:hover {
-  border-color: var(--color-primary);
+@media (hover: hover) {
+  .recent-item:hover {
+    border-color: var(--color-primary);
+  }
 }
 
 .recent-text {
@@ -201,8 +205,10 @@
   border-radius: var(--radius-md);
 }
 
-.todo:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .todo:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 .todo-count {

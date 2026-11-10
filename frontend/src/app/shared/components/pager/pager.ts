@@ -82,8 +82,10 @@ type PageItem = number | 'gap';
         background-color 0.15s ease;
     }
 
-    .num:hover {
-      border-color: var(--color-primary);
+    @media (hover: hover) {
+      .num:hover {
+        border-color: var(--color-primary);
+      }
     }
 
     .num[aria-current='page'] {

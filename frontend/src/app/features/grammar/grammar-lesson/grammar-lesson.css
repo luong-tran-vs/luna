@@ -173,10 +173,16 @@
   cursor: pointer;
 }
 
-.info-step:hover,
 .info-step.is-current {
   font-weight: 600;
   background: var(--color-primary-soft);
+}
+
+@media (hover: hover) {
+  .info-step:hover {
+    font-weight: 600;
+    background: var(--color-primary-soft);
+  }
 }
 
 .info-num,

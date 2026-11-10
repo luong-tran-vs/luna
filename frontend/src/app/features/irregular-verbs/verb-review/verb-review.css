@@ -122,9 +122,11 @@
   --icon-size: 18px;
 }
 
-.remove:hover {
-  color: var(--color-text);
-  background: var(--color-track);
+@media (hover: hover) {
+  .remove:hover {
+    color: var(--color-text);
+    background: var(--color-track);
+  }
 }
 
 .remove:focus-visible {

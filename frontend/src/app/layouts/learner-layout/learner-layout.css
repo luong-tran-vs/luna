@@ -1,12 +1,13 @@
 /*
- * Phone: the tabs are a rounded bar floating over the bottom (hidden while studying a lesson), with
- * the raised Luyện button in the middle (design/de-xuat-nut-giua-noi-len.png, 2026-11-10). --tabbar-h is
+ * Phone: the tabs are a capsule of liquid glass floating over the bottom (hidden while studying a
+ * lesson): the page shows blurred through it, a glass droplet slides behind the current tab, and the
+ * raised Luyện button sits in the middle (design/de-xuat-thanh-giot-nuoc.png, 2026-11-10). --tabbar-h is
  * inherited by the pages so their sticky bottom bars and toasts sit above it.
  * From 1024px: a top bar with the brand and the same tabs; Tôi and
  * a dark mode switch sit on the right. On phones and tablets the switch stays in Tài khoản only.
  */
 :host {
-  --tabbar-h: calc(64px + 2 * var(--space-2) + env(safe-area-inset-bottom, 0px));
+  --tabbar-h: calc(64px + var(--space-3) + var(--space-2) + env(safe-area-inset-bottom, 0px));
 
   display: block;
   min-height: 100dvh;
@@ -20,15 +21,54 @@
 .bar {
   position: fixed;
   right: var(--space-2);
-  bottom: calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   left: var(--space-2);
   z-index: 10;
   max-width: 560px;
   margin: 0 auto;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: 24px;
-  box-shadow: 0 10px 28px rgb(34 27 56 / 0.16);
+  border: 1px solid var(--glass-edge);
+  border-radius: 32px;
+  box-shadow: var(--glass-shadow);
+}
+
+/* The glass itself, on a layer of its own: a blur set on the bar would stop the practice card and
+   the droplet inside it from blurring the page in turn. */
+.bar::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: '';
+  background: var(--glass-bg);
+  border-radius: inherit;
+  box-shadow: var(--glass-inset);
+  -webkit-backdrop-filter: blur(16px) saturate(190%);
+  backdrop-filter: blur(16px) saturate(190%);
+}
+
+/* The light on the upper half of the glass. */
+.bar::before {
+  position: absolute;
+  inset: 1px 14px auto;
+  height: 45%;
+  pointer-events: none;
+  content: '';
+  background: linear-gradient(var(--glass-sheen), transparent);
+  border-radius: 30px 30px 60% 60%;
+}
+
+/* No glass where it cannot blur or where less transparency is asked for: a plain bar. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .bar::after {
+    background: var(--color-surface);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bar::after {
+    background: var(--color-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 
 :host(.focus) .bar {
@@ -44,13 +84,52 @@
 }
 
 .tabs {
+  --mid: 72px;
+  --pad: 4px;
+
+  position: relative;
   display: grid;
   /* The middle column holds the raised round Luyện button. */
-  grid-template-columns: 1fr 1fr 76px 1fr 1fr;
+  grid-template-columns: 1fr 1fr var(--mid) 1fr 1fr;
   height: 64px;
+  padding: 0 var(--pad);
+}
+
+/* The droplet: one of the four link columns wide, moved to the current one (--at, 0–4; the middle
+   column is skipped from the 4th on). It overshoots a little, like water. */
+.droplet {
+  --col: calc((100% - 2 * var(--pad) - var(--mid)) / 4);
+
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: calc(var(--pad) + var(--at) * var(--col) + clamp(0, var(--at) - 2, 1) * var(--mid));
+  width: var(--col);
+  pointer-events: none;
+  background: var(--glass-drop);
+  border-radius: 27px;
+  box-shadow:
+    inset 0 1px 2px rgb(255 255 255 / 0.6),
+    inset 0 -2px 4px color-mix(in srgb, var(--color-primary) 12%, transparent),
+    0 2px 8px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  opacity: 0;
+  transition:
+    left 0.4s cubic-bezier(0.34, 1.4, 0.5, 1),
+    opacity 0.2s ease;
+}
+
+.droplet.is-shown {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .droplet {
+    transition: none;
+  }
 }
 
 .tab {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,18 +164,16 @@
   right: 0;
 }
 
-/* Current tab: ink color, bold label and a soft pill behind the icon (not color alone). */
+/* Current tab: ink color, bold label and the droplet behind it (not color alone). */
 .tab[aria-current='page'] {
   font-weight: 700;
   color: var(--color-primary-ink);
 }
 
-.tab[aria-current='page'] .tab-icon {
-  background: var(--color-primary-soft);
-}
-
-.tab:hover .tab-icon {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .tab:hover {
+    color: var(--color-primary-ink);
+  }
 }
 
 .app-footer {
@@ -122,8 +199,18 @@
     padding: 0 var(--space-5);
     border: 0;
     border-bottom: 1px solid var(--color-line);
+    background: var(--color-surface);
     border-radius: 0;
     box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* The top bar is plain: no glass light, no droplet (the current tab is underlined). */
+  .bar::before,
+  .bar::after,
+  .droplet {
+    display: none;
   }
 
   .brand {
@@ -138,6 +225,7 @@
     flex: 1;
     gap: var(--space-1);
     height: 60px;
+    padding: 0;
   }
 
   .tab {
@@ -155,9 +243,14 @@
     --icon-size: 20px;
   }
 
-  .tab[aria-current='page'] .tab-icon,
-  .tab:hover .tab-icon {
+  .tab[aria-current='page'] .tab-icon {
     background: none;
+  }
+
+  @media (hover: hover) {
+    .tab:hover .tab-icon {
+      background: none;
+    }
   }
 
   /* Current tab underlined, like the admin sidebar marks its current page. */
@@ -165,8 +258,10 @@
     box-shadow: inset 0 -3px 0 var(--color-primary);
   }
 
-  .tab:hover {
-    background: var(--color-primary-soft);
+  @media (hover: hover) {
+    .tab:hover {
+      background: var(--color-primary-soft);
+    }
   }
 
   .tab-icon .dot-badge {
@@ -194,8 +289,10 @@
     --icon-size: 20px;
   }
 
-  .theme-toggle:hover {
-    color: var(--color-primary-ink);
-    background: var(--color-primary-soft);
+  @media (hover: hover) {
+    .theme-toggle:hover {
+      color: var(--color-primary-ink);
+      background: var(--color-primary-soft);
+    }
   }
 }

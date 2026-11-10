@@ -57,8 +57,10 @@
   --icon-size: 14px;
 }
 
-.tile.chosen:hover:not(:disabled) {
-  background: var(--color-primary-ink);
+@media (hover: hover) {
+  .tile.chosen:hover:not(:disabled) {
+    background: var(--color-primary-ink);
+  }
 }
 
 .tile.chosen:disabled {

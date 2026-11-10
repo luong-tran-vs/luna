@@ -93,8 +93,10 @@ import { ImageEngine } from '../../../core/models/word-bank';
         box-shadow 0.15s ease;
     }
 
-    .engine:hover:not(.unavailable) {
-      border-color: var(--color-primary);
+    @media (hover: hover) {
+      .engine:hover:not(.unavailable) {
+        border-color: var(--color-primary);
+      }
     }
 
     .engine.selected {

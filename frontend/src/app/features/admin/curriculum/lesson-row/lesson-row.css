@@ -99,8 +99,10 @@
   cursor: pointer;
 }
 
-.act:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .act:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .act:disabled {
@@ -116,8 +118,10 @@
   color: var(--color-bad);
 }
 
-.act-danger:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
+@media (hover: hover) {
+  .act-danger:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
+  }
 }
 
 .checks-toggle {

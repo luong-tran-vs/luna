@@ -5,6 +5,7 @@ import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/route
 import { of } from 'rxjs';
 
 import { VerbProgress } from '../../../core/models/verbs';
+import { FocusMode } from '../../../core/services/focus-mode.service';
 import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { VerbGroupPage } from '../verb-group/verb-group';
 import { VerbToday } from '../verb-today/verb-today';
@@ -84,8 +85,12 @@ describe('VerbMistakes (added 2026-11-10)', () => {
 
   it('practises them by typing, without touching the reviews', async () => {
     await setup([chooseMistakes]);
+    // The list keeps the tab bar; typing hides it (2026-11-10).
+    const focus = TestBed.inject(FocusMode).on;
+    expect(focus()).toBe(false);
     button('Luyện').click();
     await settle(fixture);
+    expect(focus()).toBe(true);
     const inputs = el.querySelectorAll<HTMLInputElement>('.field input');
     inputs[0].value = 'chose';
     inputs[1].value = 'chosen';
@@ -101,6 +106,7 @@ describe('VerbMistakes (added 2026-11-10)', () => {
     await settle(fixture);
     expect(text(el.querySelector('.summary-title'))).toBe('Gõ đúng 1/1 từ');
     expect(text(el.querySelector('.results'))).toContain('đã rời danh sách');
+    expect(focus()).toBe(false);
   });
 
   it('says how a verb gets on the list when there is none', async () => {

@@ -45,8 +45,10 @@
   cursor: pointer;
 }
 
-.round-btn:hover {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .round-btn:hover {
+    background: var(--color-primary-soft);
+  }
 }
 
 /* Small count on an icon button or a tab (e.g. new writing results). */
@@ -159,9 +161,11 @@
   cursor: pointer;
 }
 
-a.menu-row:hover,
-button.menu-row:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  a.menu-row:hover,
+  button.menu-row:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .menu-row:disabled {
@@ -307,8 +311,10 @@ button.menu-row:hover:not(:disabled) {
   cursor: pointer;
 }
 
-.nav-btn:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+@media (hover: hover) {
+  .nav-btn:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
 }
 
 .nav-btn:disabled {
