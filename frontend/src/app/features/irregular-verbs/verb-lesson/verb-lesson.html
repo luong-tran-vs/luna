@@ -136,6 +136,16 @@
           <p class="muted">
             Những từ đã đánh dấu sẽ được hỏi lại từ ngày mai, ở mục "Ôn lại động từ đã học".
           </p>
+          <!-- From lesson 8 the forms sound unlike their spelling (bought, caught): hear them (2026-11-10). -->
+          @if (l.number >= 8) {
+            <a
+              class="btn listen"
+              routerLink="/irregular-verbs/listen"
+              [queryParams]="{ lesson: l.number }"
+            >
+              <lu-icon name="headphones" /> Luyện nghe các từ vừa học
+            </a>
+          }
         </section>
         <div class="bottom-bar">
           <a class="btn" routerLink="/irregular-verbs">Về Động từ</a>

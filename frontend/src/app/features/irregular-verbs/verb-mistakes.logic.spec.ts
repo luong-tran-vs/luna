@@ -2,7 +2,13 @@ import { VerbProgress } from '../../core/models/verbs';
 import { IRREGULAR_VERBS } from './irregular-verbs.data';
 import { todayTasks, verbGroups } from './verb-groups.logic';
 import { VERB_LESSONS } from './verb-lessons.data';
-import { isStruggling, letterDiff, strugglingVerbs, typedResult } from './verb-mistakes.logic';
+import {
+  isStruggling,
+  letterDiff,
+  strugglingVerbs,
+  typedResult,
+  typoDiff,
+} from './verb-mistakes.logic';
 import { pairOf, VERB_PAIRS } from './verb-pairs.data';
 
 const now = new Date('2026-11-10T10:00:00Z');
@@ -132,8 +138,18 @@ describe('Nhóm and Hôm nay (added 2026-11-10)', () => {
     );
     expect(tasks).toEqual([
       { key: 'review', label: 'Ôn 1 từ đến hạn', done: false },
-      { key: 'lesson', label: 'Học bài 1 · Không đổi (1)', done: true },
+      { key: 'lesson', label: 'Đã học một bài hôm nay', done: true },
       { key: 'mistakes', label: 'Luyện 1 từ hay sai', done: false },
     ]);
+  });
+});
+
+describe('typoDiff (added 2026-11-10)', () => {
+  it('shows the letters only for a near miss', () => {
+    expect(typoDiff('choosen', 'chosen').length).toBeGreaterThan(0);
+    expect(typoDiff('writen', 'written').length).toBeGreaterThan(0);
+    expect(typoDiff('thinked', 'brought')).toEqual([]);
+    expect(typoDiff('buyed', 'bought')).toEqual([]);
+    expect(typoDiff('', 'bought')).toEqual([]);
   });
 });

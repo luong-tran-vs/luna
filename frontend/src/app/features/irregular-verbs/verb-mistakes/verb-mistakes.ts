@@ -18,7 +18,7 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { IrregularVerb } from '../irregular-verbs.data';
 import {
   CLEAN_RUN,
-  letterDiff,
+  typoDiff,
   PRACTICE_SIZE,
   rightForm,
   strugglingVerbs,
@@ -89,7 +89,7 @@ export class VerbMistakes {
   }
 
   protected diff(v: IrregularVerb, m: VerbMistake) {
-    return letterDiff(m.typed, rightForm(v, m));
+    return typoDiff(m.typed, rightForm(v, m));
   }
 
   protected pair(base: string) {
@@ -134,6 +134,12 @@ export class VerbMistakes {
   /** Whether a verb of the round is still "hay sai" once saved. */
   protected stillStruggling(base: string): boolean {
     return this.verbs().some((s) => s.verb.base === base);
+  }
+
+  /** Why a verb stays: "gõ đúng thêm 1 lần nữa" while a clean run is going, else "vẫn hay sai". */
+  protected stayNote(base: string): string {
+    const run = this.progress()?.get(base)?.cleanRun ?? 0;
+    return run > 0 ? `gõ đúng thêm ${CLEAN_RUN - run} lần nữa` : 'vẫn hay sai';
   }
 
   protected backToList(): void {

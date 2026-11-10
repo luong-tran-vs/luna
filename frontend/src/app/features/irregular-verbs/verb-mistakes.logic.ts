@@ -137,3 +137,16 @@ export function letterDiff(typed: string, right: string): LetterPart[] {
   }
   return out;
 }
+
+/**
+ * The letter diff, only when the typed word is a near miss (half the letters or more in common):
+ * "thinked" against "brought" shares one letter, and a diff of it only confuses.
+ */
+export function typoDiff(typed: string, right: string): LetterPart[] {
+  if (!typed) {
+    return [];
+  }
+  const parts = letterDiff(typed, right);
+  const same = parts.filter((p) => p.kind === 'same').reduce((n, p) => n + p.text.length, 0);
+  return same * 2 >= Math.max(typed.length, right.length) ? parts : [];
+}

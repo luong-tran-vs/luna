@@ -10,7 +10,7 @@
           @if (p.signal) {
             <mark class="signal">{{ p.text }}</mark>
           } @else {
-            {{ p.text }}
+            <span>{{ p.text }}</span>
           }
         }
         <span class="blank" [class.is-bad]="chosen() !== null && !right()">{{
@@ -21,7 +21,7 @@
           @if (p.signal) {
             <mark class="signal">{{ p.text }}</mark>
           } @else {
-            {{ p.text }}
+            <span>{{ p.text }}</span>
           }
         }
       </h2>

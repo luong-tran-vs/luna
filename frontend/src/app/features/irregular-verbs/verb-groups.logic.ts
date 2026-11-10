@@ -112,7 +112,12 @@ export function todayTasks(progress: ReadonlyMap<string, VerbProgress>, now: Dat
   if (next || learnedToday) {
     out.push({
       key: 'lesson',
-      label: next ? `Học bài ${next.number} · ${next.title}` : 'Học một bài mới',
+      // Once a lesson is learned today the task is done: naming the next one would read as done too.
+      label: learnedToday
+        ? 'Đã học một bài hôm nay'
+        : next
+          ? `Học bài ${next.number} · ${next.title}`
+          : 'Học một bài mới',
       done: learnedToday,
     });
   }

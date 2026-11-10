@@ -1,0 +1,131 @@
+<section class="screen verb-listen">
+  <header class="top-bar">
+    <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"
+      ><lu-icon name="x"
+    /></a>
+    <h1 class="bar-title">Luyện nghe{{ lesson() ? ' · Bài ' + lesson()!.number : '' }}</h1>
+  </header>
+
+  <div class="tabs" role="group" aria-label="Phần">
+    <button
+      type="button"
+      class="tab"
+      [attr.aria-pressed]="tab() === 'guess'"
+      (click)="tab.set('guess')"
+    >
+      Nghe đoán từ
+    </button>
+    <button
+      type="button"
+      class="tab"
+      [attr.aria-pressed]="tab() === 'sounds'"
+      (click)="tab.set('sounds')"
+    >
+      Đọc khác viết
+    </button>
+  </div>
+
+  @if (!canSpeak) {
+    <p class="soft-card">Trình duyệt này không có giọng đọc, nên chưa luyện nghe được.</p>
+  } @else if (tab() === 'guess') {
+    @if (finished()) {
+      <section class="soft-card done" aria-labelledby="listen-done">
+        <h2 #heading tabindex="-1" class="done-title" id="listen-done">
+          Nghe đúng {{ score() }}/{{ questions().length }} từ
+        </h2>
+        <div class="row-actions">
+          <button type="button" class="btn" (click)="newRound()">Làm lượt khác</button>
+          <a class="btn-primary" routerLink="/irregular-verbs">Về Động từ</a>
+        </div>
+      </section>
+    } @else if (current(); as q) {
+      <p class="count">Câu {{ index() + 1 }}/{{ questions().length }}</p>
+      <section class="soft-card player" aria-labelledby="listen-q">
+        <h2 #heading tabindex="-1" class="visually-hidden" id="listen-q">
+          Câu {{ index() + 1 }}: nghe một dạng V2 hoặc V3
+        </h2>
+        <button type="button" class="play" aria-label="Nghe" (click)="play()">
+          <lu-icon name="play" />
+        </button>
+        <button type="button" class="link" (click)="play(true)">Nghe chậm</button>
+      </section>
+      <p class="ask">Từ bạn vừa nghe là dạng của động từ nào?</p>
+      <ul class="options" aria-label="Các lựa chọn">
+        @for (o of q.options; track o.base) {
+          <li>
+            <button
+              type="button"
+              class="option"
+              [class.is-right]="chosen() !== null && o.base === q.verb.base"
+              [class.is-wrong]="chosen() === o.base && o.base !== q.verb.base"
+              [disabled]="chosen() !== null"
+              (click)="choose(o.base)"
+            >
+              <span lang="en">{{ o.base }}</span
+              ><span class="muted"> · {{ o.meaningVi }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+      <div role="status">
+        @if (chosen() !== null) {
+          <section class="soft-card answer" [class.ok]="right()">
+            <p class="verdict">{{ right() ? '✓ Đúng' : '✗ Chưa đúng' }}</p>
+            <div class="answer-head">
+              <div>
+                <p class="muted">Bạn vừa nghe</p>
+                <p class="word">
+                  <span lang="en">{{ q.word }}</span>
+                  <span class="ipa">{{ ipa(q.verb, formIndex(q)) }}</span>
+                </p>
+                <p class="muted">{{ answer(q) }} · {{ q.verb.meaningVi }}</p>
+              </div>
+              @if (pictures().get(q.verb.base); as src) {
+                <img class="picture" [src]="src" alt="" width="96" height="72" />
+              }
+            </div>
+            <ul class="hear">
+              @for (f of forms(q.verb); track $index; let i = $index) {
+                <li>
+                  <button type="button" class="hear-btn" (click)="say(q.verb, i)">
+                    <lu-icon name="volume" />
+                    <span class="hear-label">V{{ i + 1 }}</span>
+                    <span lang="en">{{ f }}</span>
+                    <span class="ipa">{{ ipa(q.verb, i) }}</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      </div>
+      @if (chosen() !== null) {
+        <div class="bottom-bar">
+          <button type="button" class="btn-primary" (click)="next()">
+            {{ index() + 1 < questions().length ? 'Câu tiếp theo' : 'Xem kết quả' }}
+            <lu-icon name="arrow-right" />
+          </button>
+        </div>
+      }
+    }
+  } @else {
+    <p class="muted">Những dạng đọc khác cách viết. Chạm để nghe; phiên âm giọng Mỹ.</p>
+    <ul class="sounds">
+      @for (s of sounds; track s.base) {
+        <li class="soft-card sound">
+          <p class="sound-tip">{{ s.tipVi }}</p>
+          <div class="sound-forms">
+            @for (it of s.items; track it.index) {
+              <button type="button" class="hear-btn" (click)="say(s.verb, it.index)">
+                <lu-icon name="volume" />
+                <span class="hear-label">V{{ it.index + 1 }}</span>
+                <span lang="en">{{ it.word }}</span>
+                <span class="ipa">{{ it.ipa }}</span>
+              </button>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

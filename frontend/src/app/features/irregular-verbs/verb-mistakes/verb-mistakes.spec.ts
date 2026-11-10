@@ -175,7 +175,7 @@ describe('VerbToday (added 2026-11-10)', () => {
     const el: HTMLElement = fixture.nativeElement;
     expect(Array.from(el.querySelectorAll('.task')).map((t) => text(t))).toEqual([
       'Ôn các từ đến hạn, đã xong',
-      'Học bài 1 · Không đổi (1), đã xong',
+      'Đã học một bài hôm nay, đã xong',
       'Luyện 1 từ hay sai',
     ]);
     expect(text(el.querySelector('.today-title'))).toBe('Còn 1 việc nữa');

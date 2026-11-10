@@ -96,7 +96,8 @@
   min-width: 0;
 }
 
-.mistakes {
+.mistakes,
+.listen {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -104,6 +105,10 @@
   color: var(--color-text);
   text-decoration: none;
   border: 1.5px solid color-mix(in srgb, var(--color-bad) 55%, var(--color-line));
+}
+
+.listen {
+  border: 1px solid var(--color-line);
 }
 
 .mistakes-text {
@@ -175,6 +180,7 @@
 
 .task:focus-visible,
 .mistakes:focus-visible,
+.listen:focus-visible,
 .group:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

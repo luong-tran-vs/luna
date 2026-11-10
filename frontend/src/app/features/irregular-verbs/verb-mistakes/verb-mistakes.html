@@ -38,8 +38,8 @@
                     <img class="thumb" [src]="src" alt="" width="48" height="36" loading="lazy" />
                   }
                   <span class="item-title">
-                    <strong lang="en">{{ v.base }}</strong>
-                    <span class="muted">· {{ v.meaningVi }}</span>
+                    <strong lang="en">{{ v.base }}</strong
+                    ><span class="muted"> · {{ v.meaningVi }}</span>
                   </span>
                   <span class="count">sai {{ s.mistakes.length }} lần</span>
                 </div>
@@ -47,20 +47,22 @@
                   {{ formLabel(m) }}: <s lang="en">{{ m.typed || '(trống)' }}</s> →
                   <strong lang="en">{{ right(v, m) }}</strong>
                 </p>
-                @if (m.typed) {
-                  <p
-                    class="diff"
-                    lang="en"
-                    [attr.aria-label]="'Bạn gõ ' + m.typed + ', đúng là ' + right(v, m)"
-                  >
-                    @for (p of diff(v, m); track $index) {
-                      <span [class]="'part part-' + p.kind" aria-hidden="true">{{ p.text }}</span>
-                    }
-                  </p>
-                  <p class="legend muted">
-                    <span class="part part-extra">gõ thừa</span>
-                    <span class="part part-missing">thiếu</span>
-                  </p>
+                @if (diff(v, m); as parts) {
+                  @if (parts.length) {
+                    <p
+                      class="diff"
+                      lang="en"
+                      [attr.aria-label]="'Bạn gõ ' + m.typed + ', đúng là ' + right(v, m)"
+                    >
+                      @for (p of parts; track $index) {
+                        <span [class]="'part part-' + p.kind" aria-hidden="true">{{ p.text }}</span>
+                      }
+                    </p>
+                    <p class="legend muted">
+                      <span class="part part-extra">gõ thừa</span>
+                      <span class="part part-missing">thiếu</span>
+                    </p>
+                  }
                 }
                 @if (pair(v.base); as pr) {
                   <div class="pair">
@@ -123,7 +125,7 @@
             <span lang="en">{{ forms(r.verb) }}</span>
             @if (!saving() && !saveError()) {
               <span class="muted">{{
-                stillStruggling(r.verb.base) ? 'vẫn hay sai' : 'đã rời danh sách'
+                stillStruggling(r.verb.base) ? stayNote(r.verb.base) : 'đã rời danh sách'
               }}</span>
             }
           </li>

@@ -86,6 +86,13 @@ export const routes: Routes = [
           import('./features/irregular-verbs/verb-mistakes/verb-mistakes').then((m) => m.VerbMistakes),
       },
       {
+        // "Luyện nghe": hear a form and find its verb, and the forms said otherwise (added 2026-11-10).
+        path: 'irregular-verbs/listen',
+        title: 'Luyện nghe động từ · Luna',
+        loadComponent: () =>
+          import('./features/irregular-verbs/verb-listen/verb-listen').then((m) => m.VerbListen),
+      },
+      {
         // A group of lessons that change alike, with "Đọc theo nhịp" (added 2026-11-10).
         path: 'irregular-verbs/groups/:key',
         title: 'Nhóm động từ · Luna',
