@@ -84,7 +84,7 @@
 }
 
 .tabs {
-  --mid: 72px;
+  --mid: 66px;
   --pad: 4px;
 
   position: relative;
@@ -95,15 +95,17 @@
   padding: 0 var(--pad);
 }
 
-/* The droplet: one of the four link columns wide, moved to the current one (--at, 0–4; the middle
-   column is skipped from the 4th on). It overshoots a little, like water. */
+/* The droplet: one of the four link columns wide, moved to the current one (--at, 0–4, 2 being the
+   middle button). From the 4th on (--past = 1) it has passed one column less and the middle one.
+   It overshoots a little, like water. */
 .droplet {
   --col: calc((100% - 2 * var(--pad) - var(--mid)) / 4);
+  --past: clamp(0, var(--at) - 2, 1);
 
   position: absolute;
   top: 5px;
   bottom: 5px;
-  left: calc(var(--pad) + var(--at) * var(--col) + clamp(0, var(--at) - 2, 1) * var(--mid));
+  left: calc(var(--pad) + (var(--at) - var(--past)) * var(--col) + var(--past) * var(--mid));
   width: var(--col);
   pointer-events: none;
   background: var(--glass-drop);
@@ -136,8 +138,10 @@
   justify-content: center;
   gap: 2px;
   min-width: 0;
-  padding: 0 2px;
+  padding: 0;
   font: var(--text-xs) var(--font-ui);
+  /* 12px, a little less on the narrowest phones so "Trang chủ" stays whole. */
+  font-size: clamp(11px, 3.4vw, 12px);
   color: var(--color-text-muted);
   text-decoration: none;
 }
@@ -164,9 +168,10 @@
   right: 0;
 }
 
-/* Current tab: ink color, bold label and the droplet behind it (not color alone). */
+/* Current tab: ink color, a heavier label and the droplet behind it (not color alone). Not full
+   bold: "Trang chủ" in bold no longer fits a phone column. */
 .tab[aria-current='page'] {
-  font-weight: 700;
+  font-weight: 650;
   color: var(--color-primary-ink);
 }
 

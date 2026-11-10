@@ -55,6 +55,15 @@
   --icon-size: 26px;
 }
 
+/* The icon spins half a turn as it turns into ✕, and back on closing. */
+.fab lu-icon {
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+.is-open .fab lu-icon {
+  transform: rotate(180deg);
+}
+
 /* On a practice page: a light ring around the button (not color alone: the label is underlined). */
 .is-active .fab {
   box-shadow:
@@ -178,7 +187,8 @@
     animation: none;
   }
 
-  .fab {
+  .fab,
+  .fab lu-icon {
     transition: none;
   }
 }
