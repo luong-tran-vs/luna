@@ -1,0 +1,58 @@
+@if (open()) {
+  <div class="scrim" aria-hidden="true" (click)="close()"></div>
+  <section #panel id="practice-panel" class="panel" aria-labelledby="practice-title">
+    <h2 class="panel-title" id="practice-title">Luyện tập</h2>
+    @if (lesson(); as l) {
+      <a class="continue" [routerLink]="['/lessons', l.id]">
+        <span class="continue-icon"><lu-icon name="play" /></span>
+        <span class="continue-text">
+          <span class="continue-label">Đang học dở</span>
+          <span class="continue-title" lang="en">{{ l.title }}</span>
+        </span>
+      </a>
+    }
+    <ul class="grid">
+      @for (it of items(); track it.link; let i = $index) {
+        <li>
+          <a class="tile" [routerLink]="it.link">
+            <span [class]="'tile-icon tone-' + (i % 4)">
+              <lu-icon [name]="it.icon" />
+            </span>
+            <span class="tile-label">{{ it.label }}</span>
+            <span class="tile-note">{{ it.note }}</span>
+            @if (it.badge > 0) {
+              <span class="dot-badge" aria-hidden="true">{{ it.badge }}</span>
+            }
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
+}
+<button
+  #toggleBtn
+  type="button"
+  class="toggle"
+  [class.is-open]="open()"
+  [class.is-active]="active()"
+  aria-controls="practice-panel"
+  [attr.aria-expanded]="open()"
+  [attr.aria-current]="active() ? 'page' : null"
+  [attr.aria-label]="
+    open()
+      ? 'Đóng Luyện tập'
+      : struggling() > 0
+        ? 'Luyện tập, ' + struggling() + ' từ hay sai'
+        : 'Luyện tập'
+  "
+  (click)="toggle()"
+>
+  <span class="fab">
+    <lu-icon [name]="open() ? 'x' : 'sparkles'" />
+    @if (struggling() > 0 && !open()) {
+      <span class="fab-dot" aria-hidden="true"></span>
+    }
+  </span>
+  <span class="label" aria-hidden="true">{{ open() ? 'Đóng' : 'Luyện' }}</span>
+  <span class="label-wide" aria-hidden="true">Luyện</span>
+</button>

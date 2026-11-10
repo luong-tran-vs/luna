@@ -1,26 +1,53 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting, TestRequest } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+  TestRequest,
+} from '@angular/common/http/testing';
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
-import { DueCard, PoolMeaning, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
+import {
+  DueCard,
+  PoolMeaning,
+  ReviewContext,
+  ReviewMode,
+  ReviewSummary,
+} from '../../../core/models/vocab';
 import { exampleParts, ReviewSession } from './review-session';
 
 const intervals = { again: 60, hard: 300, good: 600, easy: 8 * 86400 };
 
 function card(id: string, text: string, reps = 0): DueCard {
   return {
-    id, text, lemma: text, ipa: '/ɡəʊ/', meaningVi: `nghĩa của ${text}`, contextSentence: `We ${text} home.`,
-    lessonId: 'l1', source: 'ai', createdAt: '2026-09-28T01:00:00Z', due: '2026-09-29T00:00:00Z', reps, state: 'new',
+    id,
+    text,
+    lemma: text,
+    ipa: '/ɡəʊ/',
+    meaningVi: `nghĩa của ${text}`,
+    contextSentence: `We ${text} home.`,
+    lessonId: 'l1',
+    source: 'ai',
+    createdAt: '2026-09-28T01:00:00Z',
+    due: '2026-09-29T00:00:00Z',
+    reps,
+    state: 'new',
     intervals,
   };
 }
 
 @Component({
   imports: [ReviewSession],
-  template: `<lu-review-session [cards]="cards()" [mode]="mode()" [context]="context()" [pool]="pool()" (finished)="summaries.push($event)" (closed)="closed = closed + 1" />`,
+  template: `<lu-review-session
+    [cards]="cards()"
+    [mode]="mode()"
+    [context]="context()"
+    [pool]="pool()"
+    (finished)="summaries.push($event)"
+    (closed)="closed = closed + 1"
+  />`,
 })
 class Host {
   readonly cards = signal<DueCard[]>([card('c1', 'went'), card('c2', 'gave up')]);
@@ -42,17 +69,24 @@ describe('ReviewSession', () => {
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };
-  const text = (selector: string) => el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (selector: string) =>
+    el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   // By its text or, for an icon or a rating button, its aria-label.
   const button = (label: string) =>
     Array.from(el.querySelectorAll('button')).find(
-      (b) => b.textContent?.replace(/\s+/g, ' ').trim() === label || b.getAttribute('aria-label') === label,
+      (b) =>
+        b.textContent?.replace(/\s+/g, ' ').trim() === label ||
+        b.getAttribute('aria-label') === label,
     );
   const buttonStarting = (label: string) =>
-    Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label));
+    Array.from(el.querySelectorAll('button')).find((b) =>
+      b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label),
+    );
   const expectReview = (id: string): TestRequest => http.expectOne(`/vocab/cards/${id}/review`);
   const keydown = async (key: string) => {
-    el.querySelector('lu-review-session')!.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+    el.querySelector('lu-review-session')!.dispatchEvent(
+      new KeyboardEvent('keydown', { key, bubbles: true }),
+    );
     await settle();
   };
   const input = () => el.querySelector<HTMLInputElement>('#review-answer')!;
@@ -109,7 +143,8 @@ describe('ReviewSession', () => {
       el.querySelector<HTMLButtonElement>('.btn-next')!.click();
       await settle();
     };
-    const options = () => Array.from(el.querySelectorAll('.choice .text')).map((t) => t.textContent?.trim());
+    const options = () =>
+      Array.from(el.querySelectorAll('.choice .text')).map((t) => t.textContent?.trim());
 
     it('asks for the meaning among the others', async () => {
       await setup();
@@ -232,7 +267,10 @@ describe('ReviewSession', () => {
     });
 
     it('shows the translation of the example once answered', async () => {
-      await setup('flip', [{ ...card('c1', 'went'), contextSentenceVi: 'Chúng tôi về nhà.' }, card('c2', 'gave up')]);
+      await setup('flip', [
+        { ...card('c1', 'went'), contextSentenceVi: 'Chúng tôi về nhà.' },
+        card('c2', 'gave up'),
+      ]);
       expect(el.querySelector('.example-vi')).toBeNull();
       await submit('nghĩa của went');
       expect(text('.example-vi')).toBe('Chúng tôi về nhà.');
@@ -252,7 +290,9 @@ describe('ReviewSession', () => {
       await setup();
       await submit('nghĩa của gave up');
       await goOn();
-      expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals: { ...intervals, again: 120 } } });
+      expectReview('c1').flush({
+        card: { ...card('c1', 'went', 1), intervals: { ...intervals, again: 120 } },
+      });
       await settle();
 
       await submit('nghĩa của gave up');
@@ -295,7 +335,10 @@ describe('ReviewSession', () => {
       await setup();
       await submit('nghĩa của gave up');
       await goOn();
-      expectReview('c1').flush({ error: 'internal_error', message: 'x' }, { status: 500, statusText: 'Error' });
+      expectReview('c1').flush(
+        { error: 'internal_error', message: 'x' },
+        { status: 500, statusText: 'Error' },
+      );
       await settle();
       expect(text('.save-error')).toContain('Chưa lưu được kết quả');
       expect(text('.word')).toBe('went');
@@ -318,12 +361,9 @@ describe('ReviewSession', () => {
         button('Lật thẻ')!.click();
         await settle();
         expect(text('.meaning')).toBe('nghĩa của went');
-        expect(['Quên · 1 phút', 'Khó · 5 phút', 'Nhớ · 10 phút', 'Dễ · 8 ngày'].map((l) => !!button(l))).toEqual([
-          true,
-          true,
-          true,
-          true,
-        ]);
+        expect(
+          ['Quên · 1 phút', 'Khó · 5 phút', 'Nhớ · 10 phút', 'Dễ · 8 ngày'].map((l) => !!button(l)),
+        ).toEqual([true, true, true, true]);
       });
 
       it('flips with Space and rates with number keys', async () => {
@@ -444,7 +484,12 @@ describe('ReviewSession', () => {
       expect(buttonStarting('Nhớ')).toBeTruthy();
       button('Dễ · 8 ngày')!.click();
       await settle();
-      expect(expectReview('c1').request.body).toEqual({ rating: 4, mode: 'listen', reps: 0, context: 'free' });
+      expect(expectReview('c1').request.body).toEqual({
+        rating: 4,
+        mode: 'listen',
+        reps: 0,
+        context: 'free',
+      });
     });
 
     it('says wrong and shows the right word', async () => {
@@ -502,7 +547,12 @@ describe('ReviewSession', () => {
       expect(text('.word')).toBe('beautiful');
       buttonStarting('Khó')!.click();
       await settle();
-      expect(expectReview('c1').request.body).toEqual({ rating: 2, mode: 'recall', reps: 0, context: 'free' });
+      expect(expectReview('c1').request.body).toEqual({
+        rating: 2,
+        mode: 'recall',
+        reps: 0,
+        context: 'free',
+      });
     });
 
     it('says wrong for another word', async () => {
@@ -516,10 +566,18 @@ describe('ReviewSession', () => {
 });
 
 describe('exampleParts', () => {
-  const card = (text: string, lemma: string, contextSentence: string) => ({ text, lemma, contextSentence });
+  const card = (text: string, lemma: string, contextSentence: string) => ({
+    text,
+    lemma,
+    contextSentence,
+  });
 
   it('cuts the sentence around the word, ignoring case', () => {
-    expect(exampleParts(card('go home', 'go home', 'Then I Go Home by bus.'))).toEqual(['Then I ', 'Go Home', ' by bus.']);
+    expect(exampleParts(card('go home', 'go home', 'Then I Go Home by bus.'))).toEqual([
+      'Then I ',
+      'Go Home',
+      ' by bus.',
+    ]);
   });
 
   it('falls back to the lemma, then to the whole sentence', () => {

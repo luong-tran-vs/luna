@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { LEVEL_NAMES, LEVELS } from '../../../core/models/lesson';
@@ -12,7 +22,11 @@ export interface LevelOption {
 }
 
 /** A1 → C2 with their Vietnamese names. */
-export const LEVEL_OPTIONS: readonly LevelOption[] = LEVELS.map((l) => ({ value: l, label: l, hint: LEVEL_NAMES[l] }));
+export const LEVEL_OPTIONS: readonly LevelOption[] = LEVELS.map((l) => ({
+  value: l,
+  label: l,
+  hint: LEVEL_NAMES[l],
+}));
 
 /**
  * Picks a CEFR level (or another of the given options) with a row of cards instead of a select:
@@ -83,7 +97,9 @@ export const LEVEL_OPTIONS: readonly LevelOption[] = LEVELS.map((l) => ({ value:
       border: 1px solid var(--color-line);
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
+      transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
     }
     .compact .option {
       justify-items: center;
@@ -127,7 +143,9 @@ export const LEVEL_OPTIONS: readonly LevelOption[] = LEVELS.map((l) => ({ value:
       }
     }
   `,
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LevelPicker), multi: true }],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LevelPicker), multi: true },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelPicker implements ControlValueAccessor {
@@ -151,7 +169,12 @@ export class LevelPicker implements ControlValueAccessor {
   protected readonly disabled = signal(false);
   protected readonly current = computed(() => (this.inForm() ? this.formValue() : this.value()));
   /** The card Tab lands on: the chosen one, else the first. */
-  protected readonly focusIndex = computed(() => Math.max(0, this.options().findIndex((o) => o.value === this.current())));
+  protected readonly focusIndex = computed(() =>
+    Math.max(
+      0,
+      this.options().findIndex((o) => o.value === this.current()),
+    ),
+  );
 
   private onChange: (value: string) => void = () => undefined;
   private onTouched: () => void = () => undefined;

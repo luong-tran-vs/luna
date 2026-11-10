@@ -34,7 +34,8 @@ describe('Pager', () => {
     fixture.componentRef.setInput('pageCount', pageCount);
     await fixture.whenStable();
   };
-  const button = (text: string) => Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text);
+  const button = (text: string) =>
+    Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text);
 
   beforeEach(() => {
     fixture = TestBed.createComponent(Pager);

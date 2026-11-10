@@ -24,7 +24,9 @@
         <a
           class="account-link"
           [routerLink]="link.path"
-          [attr.aria-label]="link.badge ? link.label + ', ' + link.badge + ' ' + (link.badgeLabel ?? 'mới') : null"
+          [attr.aria-label]="
+            link.badge ? link.label + ', ' + link.badge + ' ' + (link.badgeLabel ?? 'mới') : null
+          "
         >
           {{ link.label }}
           @if (link.badge) {
@@ -67,7 +69,9 @@
         <ng-container *ngTemplateOutlet="themeIcon; context: { $implicit: option.value }" />
         <span class="theme-item-label">{{ option.label }}</span>
         @if (current().value === option.value) {
-          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>
         }
       </button>
     }

@@ -9,6 +9,7 @@ import { WritingNotifier } from '../../core/services/writing-notifier.service';
 import { ConnectionStatusBar } from '../../shared/components/connection-status/connection-status';
 import { Icon, IconName } from '../../shared/components/icon/icon';
 import { Toast } from '../../shared/components/toast/toast';
+import { PracticeMenu } from './practice-menu/practice-menu';
 
 interface Tab {
   path: string;
@@ -16,6 +17,8 @@ interface Tab {
   icon: IconName;
   /** Whether a URL path (no query) belongs to this tab. */
   matches: (path: string) => boolean;
+  /** Luyện: the raised middle button opening the practice card (PracticeMenu), not a link. */
+  practice?: boolean;
 }
 
 const TABS: readonly Tab[] = [
@@ -26,16 +29,37 @@ const TABS: readonly Tab[] = [
     icon: 'book',
     matches: (p) => p.startsWith('/lessons') || p === '/goal',
   },
-  { path: '/grammar', label: 'Ngữ pháp', icon: 'grammar', matches: (p) => p.startsWith('/grammar') },
-  { path: '/irregular-verbs', label: 'Động từ', icon: 'table', matches: (p) => p.startsWith('/irregular-verbs') },
-  { path: '/vocabulary/review', label: 'Ôn tập', icon: 'review', matches: (p) => p.startsWith('/vocabulary') },
+  // Luyện: the raised middle button (design/de-xuat-nut-giua-noi-len.png, option 3, 2026-11-10).
+  {
+    path: '',
+    label: 'Luyện',
+    icon: 'sparkles',
+    practice: true,
+    matches: isPracticePath,
+  },
+  {
+    path: '/vocabulary/review',
+    label: 'Ôn tập',
+    icon: 'review',
+    matches: (p) => p.startsWith('/vocabulary') && !isPracticePath(p),
+  },
   {
     path: '/account',
-    label: 'Tài khoản',
+    label: 'Tôi',
     icon: 'user',
-    matches: (p) => ['/account', '/settings', '/stats', '/writings'].some((s) => p === s || p.startsWith(s + '/')),
+    matches: (p) =>
+      ['/account', '/settings', '/stats', '/writings'].some(
+        (s) => p === s || p.startsWith(s + '/'),
+      ),
   },
 ];
+
+/** The pages opened from Luyện: grammar, the irregular verbs and talking with the AI. */
+function isPracticePath(path: string): boolean {
+  return ['/grammar', '/irregular-verbs', '/vocabulary/talk'].some(
+    (s) => path === s || path.startsWith(s + '/'),
+  );
+}
 
 /**
  * Studying a lesson, a grammar point, a verb lesson or a verb review, and talking with the AI, take
@@ -52,13 +76,13 @@ export function isFocusPage(path: string): boolean {
 }
 
 /**
- * Learning area (layout of the client sketch): six tabs, as a bar at the bottom of phones and
- * tablets and at the top from 1024px, where Tài khoản sits on the right next to a dark mode switch.
+ * Learning area (layout of the client sketch): five tabs (Trang chủ first, Tôi last), as a bar at the bottom of phones and
+ * tablets and at the top from 1024px, where Tôi sits on the right next to a dark mode switch.
  * Admins never get here (learnerGuard).
  */
 @Component({
   selector: 'lu-learner-layout',
-  imports: [RouterOutlet, RouterLink, ConnectionStatusBar, Icon, Toast],
+  imports: [RouterOutlet, RouterLink, ConnectionStatusBar, Icon, Toast, PracticeMenu],
   templateUrl: './learner-layout.html',
   styleUrl: './learner-layout.css',
   host: { '[class.focus]': 'focus()' },

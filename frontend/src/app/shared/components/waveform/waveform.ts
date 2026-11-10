@@ -18,7 +18,11 @@ const HEIGHT = 24;
  */
 @Component({
   selector: 'lu-waveform',
-  template: `<svg [attr.viewBox]="'0 0 ' + width() + ' ' + height" preserveAspectRatio="none" focusable="false">
+  template: `<svg
+      [attr.viewBox]="'0 0 ' + width() + ' ' + height"
+      preserveAspectRatio="none"
+      focusable="false"
+    >
       <path class="track" [attr.d]="path()" />
     </svg>
     <svg
@@ -73,7 +77,9 @@ export class Waveform {
   protected readonly width = computed(() => this.bars() * SLOT);
   protected readonly share = computed(() => Math.min(1, Math.max(0, this.progress())));
   /** Hides the part of the played layer not reached yet. */
-  protected readonly clip = computed(() => `inset(0 ${(100 - this.share() * 100).toFixed(2)}% 0 0)`);
+  protected readonly clip = computed(
+    () => `inset(0 ${(100 - this.share() * 100).toFixed(2)}% 0 0)`,
+  );
 
   /** One rectangle per bar, centered vertically. */
   protected readonly path = computed(() =>

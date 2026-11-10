@@ -52,7 +52,9 @@ export function clock(seconds: number): string {
       </span>
     </div>
     <!-- Said once, not on every tick of the time. -->
-    <span class="visually-hidden" role="status">{{ preparing() ? 'Đang chuẩn bị giọng đọc' : '' }}</span>
+    <span class="visually-hidden" role="status">{{
+      preparing() ? 'Đang chuẩn bị giọng đọc' : ''
+    }}</span>
   `,
   styles: `
     :host {

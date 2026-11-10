@@ -1,11 +1,12 @@
 /*
- * Phone: the tabs are a bar fixed to the bottom (hidden while studying a lesson). --tabbar-h is
+ * Phone: the tabs are a rounded bar floating over the bottom (hidden while studying a lesson), with
+ * the raised Luyện button in the middle (design/de-xuat-nut-giua-noi-len.png, 2026-11-10). --tabbar-h is
  * inherited by the pages so their sticky bottom bars and toasts sit above it.
- * From 1024px (six tabs need the room): a top bar with the brand and the same tabs; Tài khoản and
+ * From 1024px: a top bar with the brand and the same tabs; Tôi and
  * a dark mode switch sit on the right. On phones and tablets the switch stays in Tài khoản only.
  */
 :host {
-  --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px));
+  --tabbar-h: calc(64px + 2 * var(--space-2) + env(safe-area-inset-bottom, 0px));
 
   display: block;
   min-height: 100dvh;
@@ -18,13 +19,16 @@
 
 .bar {
   position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  right: var(--space-2);
+  bottom: calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  left: var(--space-2);
   z-index: 10;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  max-width: 560px;
+  margin: 0 auto;
   background: var(--color-surface);
-  border-top: 1px solid var(--color-line);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  box-shadow: 0 10px 28px rgb(34 27 56 / 0.16);
 }
 
 :host(.focus) .bar {
@@ -41,7 +45,8 @@
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  /* The middle column holds the raised round Luyện button. */
+  grid-template-columns: 1fr 1fr 76px 1fr 1fr;
   height: 64px;
 }
 
@@ -54,9 +59,6 @@
   min-width: 0;
   padding: 0 2px;
   font: var(--text-xs) var(--font-ui);
-  /* Six tabs share the phone's width: the longest bold label ("Trang chủ", ~5.2em) must fit a
-     sixth of it, so the size follows the screen (12px from 400px, 10px at most narrow). */
-  font-size: clamp(10px, 3vw, 12px);
   color: var(--color-text-muted);
   text-decoration: none;
 }
@@ -115,9 +117,13 @@
     display: flex;
     align-items: center;
     gap: var(--space-5);
+    max-width: none;
+    margin: 0;
     padding: 0 var(--space-5);
-    border-top: 0;
+    border: 0;
     border-bottom: 1px solid var(--color-line);
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .brand {

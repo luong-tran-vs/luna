@@ -89,7 +89,8 @@ export interface SearchBadge {
               <span class="badges">
                 @for (b of o.badges; track b.label) {
                   <span class="badge" [style.--badge]="b.color" [title]="b.label">
-                    <span class="visually-hidden">, </span>{{ b.text }}<span class="visually-hidden"> {{ b.label }}</span>
+                    <span class="visually-hidden">, </span>{{ b.text
+                    }}<span class="visually-hidden"> {{ b.label }}</span>
                   </span>
                 }
               </span>
@@ -238,7 +239,9 @@ export interface SearchBadge {
       }
     }
   `,
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SearchSelect), multi: true }],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SearchSelect), multi: true },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchSelect implements ControlValueAccessor {
@@ -267,7 +270,9 @@ export class SearchSelect implements ControlValueAccessor {
   protected readonly query = signal('');
   protected readonly active = signal(-1);
   protected readonly listId = computed(() => `${this.inputId()}-list`);
-  protected readonly currentLabel = computed(() => this.options().find((o) => o.value === this.current())?.label ?? '');
+  protected readonly currentLabel = computed(
+    () => this.options().find((o) => o.value === this.current())?.label ?? '',
+  );
 
   writeValue(value: unknown): void {
     this.current.set(typeof value === 'string' ? value : '');
@@ -303,7 +308,12 @@ export class SearchSelect implements ControlValueAccessor {
       return;
     }
     this.query.set('');
-    this.active.set(Math.max(0, this.options().findIndex((o) => o.value === this.current())));
+    this.active.set(
+      Math.max(
+        0,
+        this.options().findIndex((o) => o.value === this.current()),
+      ),
+    );
     this.open.set(true);
   }
 
@@ -370,7 +380,9 @@ export class SearchSelect implements ControlValueAccessor {
   }
 
   private scrollToActive(): void {
-    queueMicrotask(() => document.getElementById(this.optionId(this.active()))?.scrollIntoView?.({ block: 'nearest' }));
+    queueMicrotask(() =>
+      document.getElementById(this.optionId(this.active()))?.scrollIntoView?.({ block: 'nearest' }),
+    );
   }
 }
 

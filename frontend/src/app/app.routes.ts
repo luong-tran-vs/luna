@@ -1,6 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { adminGuard, authGuard, guestGuard, guestMatch, learnerGuard } from './core/guards/auth.guard';
+import {
+  adminGuard,
+  authGuard,
+  guestGuard,
+  guestMatch,
+  learnerGuard,
+} from './core/guards/auth.guard';
 
 /**
  * Three areas, each with its own layout:
@@ -18,7 +24,8 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard, learnerGuard],
-    loadComponent: () => import('./layouts/learner-layout/learner-layout').then((m) => m.LearnerLayout),
+    loadComponent: () =>
+      import('./layouts/learner-layout/learner-layout').then((m) => m.LearnerLayout),
     children: [
       {
         path: '',
@@ -51,17 +58,20 @@ export const routes: Routes = [
       {
         path: 'writings',
         title: 'Bài viết · Luna',
-        loadComponent: () => import('./features/writings/writing-list/writing-list').then((m) => m.WritingList),
+        loadComponent: () =>
+          import('./features/writings/writing-list/writing-list').then((m) => m.WritingList),
       },
       {
         path: 'writings/:id',
         title: 'Bài viết · Luna',
-        loadComponent: () => import('./features/writings/writing-detail/writing-detail').then((m) => m.WritingDetail),
+        loadComponent: () =>
+          import('./features/writings/writing-detail/writing-detail').then((m) => m.WritingDetail),
       },
       {
         path: 'irregular-verbs',
         title: 'Động từ bất quy tắc · Luna',
-        loadComponent: () => import('./features/irregular-verbs/irregular-verbs').then((m) => m.IrregularVerbs),
+        loadComponent: () =>
+          import('./features/irregular-verbs/irregular-verbs').then((m) => m.IrregularVerbs),
       },
       { path: 'irregular-verbs/practice', redirectTo: 'irregular-verbs/review' },
       // The path of lessons is in the tab's "Học" part now.
@@ -70,7 +80,9 @@ export const routes: Routes = [
         path: 'irregular-verbs/lessons/:number',
         title: 'Học động từ · Luna',
         loadComponent: () =>
-          import('./features/irregular-verbs/verb-lesson/verb-lesson').then((m) => m.VerbLessonPage),
+          import('./features/irregular-verbs/verb-lesson/verb-lesson').then(
+            (m) => m.VerbLessonPage,
+          ),
       },
       {
         path: 'irregular-verbs/review',
@@ -83,7 +95,9 @@ export const routes: Routes = [
         path: 'irregular-verbs/mistakes',
         title: 'Từ hay sai · Luna',
         loadComponent: () =>
-          import('./features/irregular-verbs/verb-mistakes/verb-mistakes').then((m) => m.VerbMistakes),
+          import('./features/irregular-verbs/verb-mistakes/verb-mistakes').then(
+            (m) => m.VerbMistakes,
+          ),
       },
       {
         // "Luyện nghe": hear a form and find its verb, and the forms said otherwise (added 2026-11-10).
@@ -102,7 +116,8 @@ export const routes: Routes = [
       {
         path: 'topics/:id/summary',
         title: 'Tổng kết chủ đề · Luna',
-        loadComponent: () => import('./features/topic-summary/topic-summary').then((m) => m.TopicSummaryPage),
+        loadComponent: () =>
+          import('./features/topic-summary/topic-summary').then((m) => m.TopicSummaryPage),
       },
       {
         path: 'stats',
@@ -114,36 +129,42 @@ export const routes: Routes = [
         path: 'grammar',
         title: 'Ngữ pháp · Luna',
         canMatch: [guestMatch],
-        loadComponent: () => import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
+        loadComponent: () =>
+          import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
         data: { title: 'Ngữ pháp' },
       },
       {
         path: 'grammar/:pointId',
         title: 'Ngữ pháp · Luna',
         canMatch: [guestMatch],
-        loadComponent: () => import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
+        loadComponent: () =>
+          import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
         data: { title: 'Ngữ pháp' },
       },
       {
         path: 'grammar',
         title: 'Ngữ pháp · Luna',
-        loadComponent: () => import('./features/grammar/grammar-list/grammar-list').then((m) => m.GrammarList),
+        loadComponent: () =>
+          import('./features/grammar/grammar-list/grammar-list').then((m) => m.GrammarList),
       },
       {
         path: 'grammar/:pointId',
         title: 'Ngữ pháp · Luna',
-        loadComponent: () => import('./features/grammar/grammar-lesson/grammar-lesson').then((m) => m.GrammarLesson),
+        loadComponent: () =>
+          import('./features/grammar/grammar-lesson/grammar-lesson').then((m) => m.GrammarLesson),
       },
       {
         path: 'vocabulary',
-        loadChildren: () => import('./features/vocabulary/vocabulary.routes').then((m) => m.vocabularyRoutes),
+        loadChildren: () =>
+          import('./features/vocabulary/vocabulary.routes').then((m) => m.vocabularyRoutes),
       },
     ],
   },
   // Last: as an empty-path parent it would also match "/" with no child.
   {
     path: '',
-    loadComponent: () => import('./layouts/public-layout/public-layout').then((m) => m.PublicLayout),
+    loadComponent: () =>
+      import('./layouts/public-layout/public-layout').then((m) => m.PublicLayout),
     children: [
       {
         path: 'login',

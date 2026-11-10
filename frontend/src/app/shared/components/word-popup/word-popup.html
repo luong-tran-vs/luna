@@ -8,7 +8,15 @@
     </div>
     <div class="head-actions">
       @if (state().kind !== 'loading') {
-        <button type="button" class="icon-btn" aria-label="Nghe phát âm" [luSpeak]="spoken()" (click)="listen.emit()">▶</button>
+        <button
+          type="button"
+          class="icon-btn"
+          aria-label="Nghe phát âm"
+          [luSpeak]="spoken()"
+          (click)="listen.emit()"
+        >
+          ▶
+        </button>
       }
       <button type="button" class="icon-btn" aria-label="Đóng" (click)="closed.emit()">✕</button>
     </div>
@@ -38,7 +46,9 @@
             <p class="in-lesson-label">Trong bài này</p>
             <p class="in-lesson-meaning">{{ c.meaningVi }}</p>
             @if (c.phrase) {
-              <p class="in-lesson-phrase"><span lang="en">“{{ c.phrase }}”</span> = {{ c.phraseVi }}</p>
+              <p class="in-lesson-phrase">
+                <span lang="en">“{{ c.phrase }}”</span> = {{ c.phraseVi }}
+              </p>
             }
           </div>
           @if (otherLines().length) {
@@ -72,7 +82,12 @@
         @if (saved()) {
           <p class="saved" role="status">✓ Đã có trong sổ</p>
         } @else {
-          <button type="button" class="btn-primary" [disabled]="saving()" (click)="save.emit(undefined)">
+          <button
+            type="button"
+            class="btn-primary"
+            [disabled]="saving()"
+            (click)="save.emit(undefined)"
+          >
             Lưu vào sổ từ
           </button>
         }
@@ -138,6 +153,8 @@
         <p class="field-error" [id]="titleId + '-meaning-error'">{{ message }}</p>
       }
     </div>
-    <button type="button" class="btn-primary" [disabled]="saving()" (click)="saveManual()">Lưu</button>
+    <button type="button" class="btn-primary" [disabled]="saving()" (click)="saveManual()">
+      Lưu
+    </button>
   }
 </ng-template>

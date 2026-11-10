@@ -45,7 +45,10 @@ describe('LearnerLayout', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ThemeService, useValue: { preference, resolved, set: setTheme } },
-        { provide: WritingNotifier, useValue: { unseen: signal(0), toast: signal(null), latest: signal(null) } },
+        {
+          provide: WritingNotifier,
+          useValue: { unseen: signal(0), toast: signal(null), latest: signal(null) },
+        },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(LearnerLayout);
@@ -53,12 +56,18 @@ describe('LearnerLayout', () => {
     await fixture.whenStable();
   });
 
-  it('puts Tài khoản last, marked to sit at the end of the bar', () => {
-    const tabs = Array.from(el.querySelectorAll('.tab'));
-    expect(tabs.map((t) => t.textContent?.trim())).toEqual(['Trang chủ', 'Học', 'Ngữ pháp', 'Động từ', 'Ôn tập', 'Tài khoản']);
-    expect(tabs.filter((t) => t.classList.contains('tab-end')).map((t) => t.getAttribute('href'))).toEqual([
-      '/account',
+  it('puts Trang chủ first and Tôi last, marked to sit at the end of the bar', () => {
+    const tabs = Array.from(el.querySelectorAll('.tab, .toggle'));
+    expect(tabs.map((t) => t.querySelector('.tab-label, .label')?.textContent?.trim())).toEqual([
+      'Trang chủ',
+      'Học',
+      'Luyện',
+      'Ôn tập',
+      'Tôi',
     ]);
+    expect(
+      tabs.filter((t) => t.classList.contains('tab-end')).map((t) => t.getAttribute('href')),
+    ).toEqual(['/account']);
   });
 
   it('hides the tab bar while a page asks for the whole screen (a review session)', async () => {

@@ -2,8 +2,17 @@
   @if (notifier.toast(); as t) {
     <div class="toast" [attr.data-status]="t.status">
       <p class="message">{{ t.message }}</p>
-      <a class="btn" [routerLink]="['/writings', t.writingId]" (click)="notifier.dismissToast()">Xem</a>
-      <button type="button" class="close" aria-label="Đóng thông báo" (click)="notifier.dismissToast()">✕</button>
+      <a class="btn" [routerLink]="['/writings', t.writingId]" (click)="notifier.dismissToast()"
+        >Xem</a
+      >
+      <button
+        type="button"
+        class="close"
+        aria-label="Đóng thông báo"
+        (click)="notifier.dismissToast()"
+      >
+        ✕
+      </button>
     </div>
   }
 </div>

@@ -13,7 +13,8 @@ describe('AppHeader', () => {
 
   const trigger = () => el.querySelector<HTMLButtonElement>('.theme-trigger')!;
   // The menu renders in the CDK overlay container, outside the component element.
-  const items = () => Array.from(document.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]'));
+  const items = () =>
+    Array.from(document.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]'));
   const openMenu = async () => {
     trigger().click();
     await fixture.whenStable();
@@ -38,10 +39,7 @@ describe('AppHeader', () => {
     localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [AppHeader],
-      providers: [
-        provideRouter([]),
-        { provide: AuthService, useValue: authStub },
-      ],
+      providers: [provideRouter([]), { provide: AuthService, useValue: authStub }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppHeader);
@@ -106,7 +104,9 @@ describe('AppHeader', () => {
 
   it('puts the logout button next to the theme button, outside the scrolling nav', async () => {
     await loginAs('member');
-    const logoutButton = Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.includes('Đăng xuất'));
+    const logoutButton = Array.from(el.querySelectorAll('button')).find((b) =>
+      b.textContent?.includes('Đăng xuất'),
+    );
     expect(logoutButton?.closest('.actions')).not.toBeNull();
     expect(logoutButton?.closest('nav')).toBeNull();
   });
@@ -127,7 +127,10 @@ describe('AppHeader', () => {
     it('shows the links given by the layout when logged in', async () => {
       fixture.componentRef.setInput('links', learnerLinks);
       await loginAs('member');
-      const links = Array.from(el.querySelectorAll('nav a')).map((a) => [a.getAttribute('href'), a.textContent?.trim()]);
+      const links = Array.from(el.querySelectorAll('nav a')).map((a) => [
+        a.getAttribute('href'),
+        a.textContent?.trim(),
+      ]);
       expect(links).toEqual([
         ['/lessons', 'Bài học'],
         ['/writings', 'Bài viết'],

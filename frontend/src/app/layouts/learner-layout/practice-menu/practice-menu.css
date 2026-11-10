@@ -1,0 +1,371 @@
+/*
+ * Phone: a round button raised out of the middle of the tab bar; the card opens above the bar.
+ * From 1024px: a tab like the others in the top bar; the card drops below it.
+ */
+:host {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 0 10px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.fab {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  color: var(--color-on-primary);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-primary) 80%, white),
+    var(--color-primary)
+  );
+  border: 5px solid var(--color-bg);
+  border-radius: 50%;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-primary) 45%, transparent);
+  transform: translateX(-50%);
+  transition: transform 0.2s ease;
+
+  --icon-size: 26px;
+}
+
+/* On a practice page: a light ring around the button (not color alone: the label is underlined). */
+.is-active .fab {
+  box-shadow:
+    0 0 0 4px var(--color-primary-soft),
+    0 8px 20px color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+
+.is-active .label {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Open: a dark ✕ ringed in white, its shadow neutral over the dimmed page. */
+.is-open .fab {
+  background: var(--color-text);
+  border-color: var(--color-surface);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 0.3);
+  transform: translateX(-50%) rotate(90deg);
+}
+
+/* From 1024px the tab keeps its name while open (Đóng is for the round phone button). */
+.label-wide {
+  display: none;
+}
+
+.fab-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-bad);
+  border: 2px solid var(--color-surface);
+  border-radius: 50%;
+}
+
+.toggle:focus-visible {
+  outline: none;
+}
+
+.toggle:focus-visible .fab {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Dims the page above the tab bar only: the bar stays bright, its names readable. */
+.scrim {
+  position: fixed;
+  inset: 0 0 calc(var(--tabbar-h) - var(--space-2));
+  z-index: 1;
+  background: rgb(20 16 36 / 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.panel {
+  position: fixed;
+  right: var(--space-3);
+  /* Clear of the raised ✕ (28px over the bar), with room for the tail pointing at it. */
+  bottom: calc(var(--tabbar-h) + 36px);
+  left: var(--space-3);
+  z-index: 2;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-3);
+  background: var(--color-surface);
+  border-radius: 24px;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.25);
+  animation: rise 0.2s ease-out;
+}
+
+/* A tail under the card pointing at the ✕ it came from. */
+.panel::after {
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  content: '';
+  background: var(--color-surface);
+  border-radius: 3px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+
+  .fab {
+    transition: none;
+  }
+}
+
+.panel-title {
+  margin: 0 0 var(--space-3) var(--space-1);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.continue {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  color: var(--color-on-primary);
+  text-decoration: none;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+}
+
+.continue-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: rgb(255 255 255 / 0.2);
+  border-radius: 50%;
+
+  --icon-size: 18px;
+}
+
+.continue-text {
+  display: grid;
+  min-width: 0;
+}
+
+.continue-label {
+  font: var(--text-xs) var(--font-ui);
+  opacity: 0.85;
+}
+
+.continue-title {
+  overflow: hidden;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 96px;
+  padding: var(--space-3) var(--space-1) var(--space-2);
+  color: var(--color-text);
+  text-align: center;
+  text-decoration: none;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.tile:hover {
+  background: var(--color-primary-soft);
+}
+
+.tile-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 2px;
+  color: var(--tone);
+  background: var(--tone-soft);
+  border-radius: 14px;
+
+  --icon-size: 22px;
+}
+
+.tone-0 {
+  --tone: var(--color-tone-0);
+  --tone-soft: var(--color-tone-0-soft);
+}
+
+.tone-1 {
+  --tone: var(--color-tone-1);
+  --tone-soft: var(--color-tone-1-soft);
+}
+
+.tone-2 {
+  --tone: var(--color-tone-2);
+  --tone-soft: var(--color-tone-2-soft);
+}
+
+.tone-3 {
+  --tone: var(--color-tone-3);
+  --tone-soft: var(--color-tone-3-soft);
+}
+
+.tile-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+}
+
+.tile-note {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.tile .dot-badge {
+  top: 6px;
+  right: 10px;
+}
+
+.continue:focus-visible,
+.tile:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1024px) {
+  .toggle {
+    flex-direction: row;
+    gap: var(--space-2);
+    justify-content: center;
+    width: auto;
+    height: 100%;
+    padding: 0 var(--space-3);
+    font: var(--text-sm) var(--font-ui);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .toggle:hover {
+    background: var(--color-primary-soft);
+  }
+
+  .fab,
+  .is-open .fab,
+  .is-active .fab {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto;
+    color: inherit;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    transform: none;
+
+    --icon-size: 20px;
+  }
+
+  .is-active,
+  .is-open {
+    color: var(--color-primary-ink);
+  }
+
+  .is-active {
+    box-shadow: inset 0 -3px 0 var(--color-primary);
+  }
+
+  .is-active .label {
+    text-decoration: none;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .label-wide {
+    display: inline;
+  }
+
+  .fab-dot {
+    top: -4px;
+    right: -6px;
+  }
+
+  .toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+
+  .toggle:focus-visible .fab {
+    outline: none;
+  }
+
+  .scrim {
+    inset: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .panel {
+    top: 68px;
+    right: auto;
+    bottom: auto;
+    left: 50%;
+    width: 440px;
+    margin: 0;
+    transform: translateX(-50%);
+    animation: none;
+  }
+
+  .panel::after {
+    display: none;
+  }
+}

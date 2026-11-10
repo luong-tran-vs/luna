@@ -74,9 +74,9 @@ describe('App', () => {
   // --- separate areas ---
 
   const navLinks = (harness: RouterTestingHarness) =>
-    Array.from((harness.fixture.nativeElement as HTMLElement).querySelectorAll('lu-app-header nav a')).map((a) =>
-      a.getAttribute('href'),
-    );
+    Array.from(
+      (harness.fixture.nativeElement as HTMLElement).querySelectorAll('lu-app-header nav a'),
+    ).map((a) => a.getAttribute('href'));
 
   it('shows learners only the six learning tabs, inside main with the connection footer', async () => {
     loginAs('member');
@@ -86,19 +86,35 @@ describe('App', () => {
     expect(el.querySelector('lu-learner-layout main lu-home')).not.toBeNull();
     expect(el.querySelector('lu-learner-layout footer lu-connection-status')).not.toBeNull();
     expect(el.querySelector('lu-app-header')).toBeNull();
-    const tabs = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-learner-layout .tabs a'));
-    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/lessons', '/grammar', '/irregular-verbs', '/vocabulary/review', '/account']);
-    const current = () => tabs().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
+    const tabs = () =>
+      Array.from(
+        el.querySelectorAll<HTMLElement>(
+          'lu-learner-layout .tabs > a, lu-learner-layout .tabs .toggle',
+        ),
+      );
+    expect(tabs().map((a) => a.getAttribute('href'))).toEqual([
+      '/',
+      '/lessons',
+      null, // Luyện: the raised middle button
+      '/vocabulary/review',
+      '/account',
+    ]);
+    const current = () =>
+      tabs()
+        .filter((a) => a.getAttribute('aria-current') === 'page')
+        .map((a) => a.querySelector('.tab-label, .label')?.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 
     for (const [url, tab] of [
       ['/goal', 'Học'],
       ['/lessons', 'Học'],
-      ['/grammar', 'Ngữ pháp'],
-      ['/grammar/a1-to-be', 'Ngữ pháp'],
+      ['/grammar', 'Luyện'],
+      ['/grammar/a1-to-be', 'Luyện'],
+      ['/irregular-verbs', 'Luyện'],
+      ['/vocabulary/talk', 'Luyện'],
       ['/vocabulary', 'Ôn tập'],
-      ['/settings', 'Tài khoản'],
-      ['/writings', 'Tài khoản'],
+      ['/settings', 'Tôi'],
+      ['/writings', 'Tôi'],
     ]) {
       await harness.navigateByUrl(url);
       expect(current(), url).toEqual([tab]);
@@ -109,7 +125,9 @@ describe('App', () => {
     loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/lessons/l1/listen');
-    const layout = (harness.fixture.nativeElement as HTMLElement).querySelector('lu-learner-layout')!;
+    const layout = (harness.fixture.nativeElement as HTMLElement).querySelector(
+      'lu-learner-layout',
+    )!;
     expect(layout.classList).toContain('focus');
     await harness.navigateByUrl('/lessons');
     expect(layout.classList).not.toContain('focus');
@@ -125,9 +143,26 @@ describe('App', () => {
     expect(el.querySelector('.area')?.textContent?.trim()).toBe('Quản trị');
     // The admin menu is the sidebar, not the header.
     expect(navLinks(harness)).toEqual([]);
-    const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar .menu a'));
-    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/curriculum', '/admin/words', '/admin/verb-images', '/admin/grammar', '/admin/roadmap', '/admin/accounts', '/admin/ai-usage', '/admin/ai-model', '/admin/appearance']);
-    const current = () => sidebar().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
+    const sidebar = () =>
+      Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar .menu a'));
+    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual([
+      '/admin',
+      '/admin/lessons',
+      '/admin/topics',
+      '/admin/curriculum',
+      '/admin/words',
+      '/admin/verb-images',
+      '/admin/grammar',
+      '/admin/roadmap',
+      '/admin/accounts',
+      '/admin/ai-usage',
+      '/admin/ai-model',
+      '/admin/appearance',
+    ]);
+    const current = () =>
+      sidebar()
+        .filter((a) => a.getAttribute('aria-current') === 'page')
+        .map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 
     await harness.navigateByUrl('/admin/lessons');
@@ -141,7 +176,14 @@ describe('App', () => {
   it('sends admins from learning pages to the admin area', async () => {
     loginAs('admin');
     const harness = await RouterTestingHarness.create();
-    for (const url of ['/', '/today', '/vocabulary', '/writings', '/settings', '/lessons/l1/read']) {
+    for (const url of [
+      '/',
+      '/today',
+      '/vocabulary',
+      '/writings',
+      '/settings',
+      '/lessons/l1/read',
+    ]) {
       await harness.navigateByUrl(url);
       expect(TestBed.inject(Router).url, url).toBe('/admin');
     }

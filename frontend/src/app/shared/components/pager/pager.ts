@@ -12,7 +12,9 @@ type PageItem = number | 'gap';
   template: `
     @if (pageCount() > 1) {
       <nav class="pager" [attr.aria-label]="label()">
-        <button type="button" class="btn" [disabled]="page() <= 1" (click)="go(page() - 1)">← Trước</button>
+        <button type="button" class="btn" [disabled]="page() <= 1" (click)="go(page() - 1)">
+          ← Trước
+        </button>
         <ul class="pages">
           @for (p of items(); track $index) {
             <li>
@@ -32,7 +34,14 @@ type PageItem = number | 'gap';
             </li>
           }
         </ul>
-        <button type="button" class="btn" [disabled]="page() >= pageCount()" (click)="go(page() + 1)">Sau →</button>
+        <button
+          type="button"
+          class="btn"
+          [disabled]="page() >= pageCount()"
+          (click)="go(page() + 1)"
+        >
+          Sau →
+        </button>
         @if (summary()) {
           <span class="summary">{{ summary() }}</span>
         }
@@ -68,7 +77,9 @@ type PageItem = number | 'gap';
       border: 1px solid var(--color-line);
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
+      transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
     }
 
     .num:hover {
@@ -126,7 +137,9 @@ export class Pager {
 
 /** The first and last page, the current one with one on each side, and gaps between. */
 export function pageItems(page: number, count: number): PageItem[] {
-  const shown = [...new Set([1, page - 1, page, page + 1, count])].filter((p) => p >= 1 && p <= count).sort((a, b) => a - b);
+  const shown = [...new Set([1, page - 1, page, page + 1, count])]
+    .filter((p) => p >= 1 && p <= count)
+    .sort((a, b) => a - b);
   const items: PageItem[] = [];
   for (const p of shown) {
     const last = items.at(-1);

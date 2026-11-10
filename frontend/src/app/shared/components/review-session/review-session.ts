@@ -17,7 +17,15 @@ import {
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { DueCard, Intervals, PoolMeaning, Rating, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
+import {
+  DueCard,
+  Intervals,
+  PoolMeaning,
+  Rating,
+  ReviewContext,
+  ReviewMode,
+  ReviewSummary,
+} from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { letterHint, matchAnswer } from '../../utils/answer-match';
 import { makeChoices, seedOf } from '../../utils/choices';
@@ -105,7 +113,12 @@ export class ReviewSession {
     }
     const pool: PoolMeaning[] = [...this.cards(), ...this.pool()];
     const same = card.pos ? pool.filter((p) => p.pos === card.pos).map((p) => p.meaningVi) : [];
-    return makeChoices(card.meaningVi, pool.map((p) => p.meaningVi), seedOf(card.id), same);
+    return makeChoices(
+      card.meaningVi,
+      pool.map((p) => p.meaningVi),
+      seedOf(card.id),
+      same,
+    );
   });
   /** Flip mode as a multiple choice question; false when there is nothing to choose between. */
   protected readonly quiz = computed(() => (this.choices()?.options.length ?? 0) >= 2);
@@ -119,7 +132,9 @@ export class ReviewSession {
   protected readonly verdict = signal<'correct' | 'close' | 'wrong' | 'forgot' | null>(null);
   /** Recall mode: the first letter of each word and a blank for each other letter, "l _ _ _". */
   protected readonly letters = computed(() => letterHint(this.current()?.text ?? ''));
-  protected readonly letterCount = computed(() => (this.current()?.text ?? '').replace(/\s/g, '').length);
+  protected readonly letterCount = computed(
+    () => (this.current()?.text ?? '').replace(/\s/g, '').length,
+  );
   /** The rating "Tiếp" saves for a multiple choice answer. */
   protected readonly autoRating = computed<Rating>(() => (this.verdict() === 'correct' ? 3 : 1));
   protected readonly answerError = signal<string | null>(null);
@@ -131,9 +146,16 @@ export class ReviewSession {
   protected readonly askLabel = computed(() => {
     const v = this.reviewing() ? null : this.verdict();
     if (v) {
-      return { correct: '✓ Đúng rồi', close: '≈ Gần đúng', wrong: '✗ Chưa đúng', forgot: 'Nghĩa của từ' }[v];
+      return {
+        correct: '✓ Đúng rồi',
+        close: '≈ Gần đúng',
+        wrong: '✗ Chưa đúng',
+        forgot: 'Nghĩa của từ',
+      }[v];
     }
-    return { listen: 'Nghe và gõ lại từ', recall: 'Gõ từ tiếng Anh', flip: 'Từ này nghĩa là gì?' }[this.mode()];
+    return { listen: 'Nghe và gõ lại từ', recall: 'Gõ từ tiếng Anh', flip: 'Từ này nghĩa là gì?' }[
+      this.mode()
+    ];
   });
   protected readonly tone = computed(() => {
     const v = this.reviewing() ? null : this.verdict();
@@ -289,7 +311,9 @@ export class ReviewSession {
       return;
     }
     if (!this.typed().trim()) {
-      this.answerError.set(this.mode() === 'recall' ? 'Hãy gõ từ tiếng Anh' : 'Hãy gõ từ bạn nghe được');
+      this.answerError.set(
+        this.mode() === 'recall' ? 'Hãy gõ từ tiếng Anh' : 'Hãy gõ từ bạn nghe được',
+      );
       return;
     }
     const match = matchAnswer(this.typed(), card.text);
@@ -319,7 +343,11 @@ export class ReviewSession {
       return;
     }
     if (!this.revealed()) {
-      if (this.mode() === 'flip' && (event.key === ' ' || event.key === 'Enter') && target.tagName !== 'BUTTON') {
+      if (
+        this.mode() === 'flip' &&
+        (event.key === ' ' || event.key === 'Enter') &&
+        target.tagName !== 'BUTTON'
+      ) {
         event.preventDefault();
         this.flip();
       }
@@ -370,7 +398,14 @@ export class ReviewSession {
     this.saving.set(true);
     this.saveError.set(false);
     try {
-      const updated = await firstValueFrom(this.api.review(card.id, { rating, mode: this.mode(), reps: card.reps, context: this.context() }));
+      const updated = await firstValueFrom(
+        this.api.review(card.id, {
+          rating,
+          mode: this.mode(),
+          reps: card.reps,
+          context: this.context(),
+        }),
+      );
       this.counts = { ...this.counts, [rating]: this.counts[rating] + 1 };
       this.reviewed.add(card.id);
       this.given.update((g) => [...g, rating]);
@@ -423,13 +458,16 @@ export class ReviewSession {
   }
 
   private focusAnswer(): void {
-    afterNextRender(() => (this.answer() ?? this.face())?.nativeElement.focus(), { injector: this.injector });
+    afterNextRender(() => (this.answer() ?? this.face())?.nativeElement.focus(), {
+      injector: this.injector,
+    });
   }
-
 }
 
 /** The example sentence of a card as [before, word, after]; null without a sentence. */
-export function exampleParts(card: Pick<DueCard, 'text' | 'lemma' | 'contextSentence'> | null): [string, string, string] | null {
+export function exampleParts(
+  card: Pick<DueCard, 'text' | 'lemma' | 'contextSentence'> | null,
+): [string, string, string] | null {
   const sentence = card?.contextSentence?.trim();
   if (!card || !sentence) {
     return null;

@@ -79,7 +79,9 @@ export class AppHeader {
         return;
       }
       const root = document.documentElement;
-      const observer = new ResizeObserver(() => root.style.setProperty('--header-h', `${host.offsetHeight}px`));
+      const observer = new ResizeObserver(() =>
+        root.style.setProperty('--header-h', `${host.offsetHeight}px`),
+      );
       observer.observe(host);
       destroyRef.onDestroy(() => observer.disconnect());
     });

@@ -19,7 +19,10 @@ describe('ConnectionStatusBar', () => {
   const text = () => region().textContent?.trim() ?? '';
 
   /** Navigates, which triggers a health check, and answers it. */
-  const check = async (url: string, flush: (req: ReturnType<HttpTestingController['expectOne']>) => void) => {
+  const check = async (
+    url: string,
+    flush: (req: ReturnType<HttpTestingController['expectOne']>) => void,
+  ) => {
     await router.navigateByUrl(url);
     flush(controller.expectOne('/health'));
     await fixture.whenStable();
@@ -53,14 +56,21 @@ describe('ConnectionStatusBar', () => {
   });
 
   it('shows "Mất kết nối cơ sở dữ liệu" on 503 with database down', async () => {
-    await check('/', (req) => req.flush({ status: 'degraded', database: 'down' }, { status: 503, statusText: 'Unavailable' }));
+    await check('/', (req) =>
+      req.flush(
+        { status: 'degraded', database: 'down' },
+        { status: 503, statusText: 'Unavailable' },
+      ),
+    );
     expect(text()).toBe('Mất kết nối cơ sở dữ liệu');
   });
 
   it('shows "Không kết nối được máy chủ" on a network error, 502, or a broken body', async () => {
     await check('/', (req) => req.error(new ProgressEvent('error')));
     expect(text()).toBe('Không kết nối được máy chủ');
-    await check('/other', (req) => req.flush('Bad Gateway', { status: 502, statusText: 'Bad Gateway' }));
+    await check('/other', (req) =>
+      req.flush('Bad Gateway', { status: 502, statusText: 'Bad Gateway' }),
+    );
     expect(text()).toBe('Không kết nối được máy chủ');
     await check('/', (req) => req.flush('busy', { status: 503, statusText: 'Unavailable' }));
     expect(text()).toBe('Không kết nối được máy chủ');

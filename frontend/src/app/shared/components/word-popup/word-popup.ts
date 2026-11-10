@@ -15,9 +15,7 @@ import { LookupResult } from '../../../core/models/reading';
 import { SpeakButton } from '../../directives/speak-button';
 
 export type PopupState =
-  | { kind: 'loading' }
-  | { kind: 'result'; result: LookupResult }
-  | { kind: 'not-found' };
+  { kind: 'loading' } | { kind: 'result'; result: LookupResult } | { kind: 'not-found' };
 
 /** Parts of speech of the offline dictionary (english-dictionary.db) and of AI answers. */
 const POS_NAMES: Record<string, string> = {
@@ -37,7 +35,11 @@ const POS_NAMES: Record<string, string> = {
   M: 'số từ',
 };
 
-const SOURCE_LABELS = { ai: 'AI · theo ngữ cảnh', dictionary: 'Từ điển', sentence: 'Bản dịch câu' } as const;
+const SOURCE_LABELS = {
+  ai: 'AI · theo ngữ cảnh',
+  dictionary: 'Từ điển',
+  sentence: 'Bản dịch câu',
+} as const;
 
 export const MAX_MEANING = 200;
 
@@ -108,7 +110,9 @@ export class WordPopup {
   /** The dictionary meanings after the meaning in the lesson, one line per part of speech. */
   protected readonly otherLines = computed(() => this.linesOf(this.result()?.others ?? []));
 
-  private linesOf(meanings: readonly { pos: string; text: string }[]): { pos: string; text: string }[] {
+  private linesOf(
+    meanings: readonly { pos: string; text: string }[],
+  ): { pos: string; text: string }[] {
     const lines: { pos: string; parts: string[] }[] = [];
     for (const m of meanings.slice(0, MAX_MEANINGS)) {
       const text = m.text.trim().replace(/[.;]+$/, '');

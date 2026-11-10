@@ -5,7 +5,9 @@ import { Asker } from './asker';
 
 @Component({
   imports: [Asker],
-  template: `<lu-asker [label]="label()" [tone]="tone()"><p class="q">What time is it?</p></lu-asker>`,
+  template: `<lu-asker [label]="label()" [tone]="tone()"
+    ><p class="q">What time is it?</p></lu-asker
+  >`,
 })
 class Host {
   readonly label = signal('Câu 1/4');

@@ -4,11 +4,22 @@ import { LookupResult } from '../../../core/models/reading';
 import { PopupState, WordPopup } from './word-popup';
 
 const aiResult: LookupResult = {
-  source: 'ai', text: 'went', lemma: 'go', ipa: '/ɡəʊ/', meanings: [{ pos: '', text: 'đã đi' }],
+  source: 'ai',
+  text: 'went',
+  lemma: 'go',
+  ipa: '/ɡəʊ/',
+  meanings: [{ pos: '', text: 'đã đi' }],
 };
 const dictResult: LookupResult = {
-  source: 'dictionary', text: 'park', lemma: 'park', ipa: '/pɑːk/',
-  meanings: [{ pos: 'N', text: 'Công viên.' }, { pos: 'V', text: 'Đỗ xe.' }, { pos: 'X', text: 'Khác.' }],
+  source: 'dictionary',
+  text: 'park',
+  lemma: 'park',
+  ipa: '/pɑːk/',
+  meanings: [
+    { pos: 'N', text: 'Công viên.' },
+    { pos: 'V', text: 'Đỗ xe.' },
+    { pos: 'X', text: 'Khác.' },
+  ],
 };
 
 describe('WordPopup', () => {
@@ -49,16 +60,29 @@ describe('WordPopup', () => {
   });
 
   const lines = () =>
-    Array.from(el.querySelectorAll('.meanings li')).map((li) => li.textContent?.replace(/\s+/g, ' ').trim());
+    Array.from(el.querySelectorAll('.meanings li')).map((li) =>
+      li.textContent?.replace(/\s+/g, ' ').trim(),
+    );
 
   // Added 2026-10-20: the meaning in this lesson first, then a few others from the dictionary.
   it('shows the meaning in the lesson first, with its phrase, then other meanings', async () => {
     await render({
       kind: 'result',
       result: {
-        source: 'ai', text: 'relax', lemma: 'relax', ipa: '/rɪˈlæks/', meanings: [{ pos: '', text: 'thư giãn' }],
-        context: { meaningVi: 'thư giãn', phrase: 'a great way to relax', phraseVi: 'một cách tuyệt vời để thư giãn' },
-        others: [{ pos: 'V', text: 'Làm dịu đi.' }, { pos: 'V', text: 'Nới lỏng.' }],
+        source: 'ai',
+        text: 'relax',
+        lemma: 'relax',
+        ipa: '/rɪˈlæks/',
+        meanings: [{ pos: '', text: 'thư giãn' }],
+        context: {
+          meaningVi: 'thư giãn',
+          phrase: 'a great way to relax',
+          phraseVi: 'một cách tuyệt vời để thư giãn',
+        },
+        others: [
+          { pos: 'V', text: 'Làm dịu đi.' },
+          { pos: 'V', text: 'Nới lỏng.' },
+        ],
       },
     });
     expect(el.querySelector('.in-lesson-label')?.textContent?.trim()).toBe('Trong bài này');
@@ -102,20 +126,28 @@ describe('WordPopup', () => {
         ],
       },
     });
-    expect(lines()).toEqual(['danh từ Sự chạy; chuyến đi; quãng đường đi; TV show', 'động từ Chạy']);
+    expect(lines()).toEqual([
+      'danh từ Sự chạy; chuyến đi; quãng đường đi; TV show',
+      'động từ Chạy',
+    ]);
   });
 
   it('shows the translation of the whole sentence when the selection has no meaning of its own', async () => {
     await render({
       kind: 'result',
       result: {
-        source: 'sentence', text: 'like to run', lemma: 'like to run', ipa: '',
+        source: 'sentence',
+        text: 'like to run',
+        lemma: 'like to run',
+        ipa: '',
         meanings: [{ pos: '', text: 'Tôi thích chạy bộ trong công viên.' }],
       },
     });
     expect(el.querySelector('.source')?.textContent?.trim()).toBe('Bản dịch câu');
     expect(el.textContent).toContain('Nghĩa của cả câu');
-    expect(el.querySelector('.sentence-vi')?.textContent?.trim()).toBe('Tôi thích chạy bộ trong công viên.');
+    expect(el.querySelector('.sentence-vi')?.textContent?.trim()).toBe(
+      'Tôi thích chạy bộ trong công viên.',
+    );
     expect(el.querySelector('.meanings')).toBeNull();
     // The sentence is not the phrase's meaning: the learner types one to save, or asks the AI.
     expect(button('Lưu vào sổ từ')).toBeUndefined();
@@ -178,7 +210,10 @@ describe('WordPopup', () => {
   });
 
   it('shows a save error as an alert', async () => {
-    await render({ kind: 'result', result: aiResult }, { error: 'Không lưu được, vui lòng thử lại.' });
+    await render(
+      { kind: 'result', result: aiResult },
+      { error: 'Không lưu được, vui lòng thử lại.' },
+    );
     expect(el.querySelector('[role="alert"]')?.textContent).toContain('Không lưu được');
   });
 
@@ -203,13 +238,19 @@ describe('WordPopup', () => {
 
   it('says how many AI asks are left in the lesson, and disables "Hỏi AI" at none', async () => {
     await render({ kind: 'not-found' }, { askLeft: 1, askLimit: 2 });
-    expect(el.querySelector('.ask-left')?.textContent?.trim()).toBe('Còn 1/2 lượt hỏi AI trong bài này.');
+    expect(el.querySelector('.ask-left')?.textContent?.trim()).toBe(
+      'Còn 1/2 lượt hỏi AI trong bài này.',
+    );
     expect(button('Hỏi AI')!.disabled).toBe(false);
-    expect(button('Hỏi AI')!.getAttribute('aria-describedby')).toBe(el.querySelector('.ask-left')!.id);
+    expect(button('Hỏi AI')!.getAttribute('aria-describedby')).toBe(
+      el.querySelector('.ask-left')!.id,
+    );
 
     await render({ kind: 'not-found' }, { askLeft: 0, askLimit: 2 });
     expect(button('Hỏi AI')!.disabled).toBe(true);
-    expect(el.querySelector('.ask-left')?.textContent).toContain('Đã dùng hết 2 lượt hỏi AI của bài này.');
+    expect(el.querySelector('.ask-left')?.textContent).toContain(
+      'Đã dùng hết 2 lượt hỏi AI của bài này.',
+    );
 
     // Unlimited (admins) or a word already asked: no note.
     await render({ kind: 'not-found' }, { askLeft: null, askLimit: 2 });
@@ -230,7 +271,10 @@ describe('WordPopup', () => {
     expect(asking.disabled).toBe(true);
     expect(el.querySelector('[role="status"]')?.textContent).toContain('Đang hỏi AI');
 
-    await render({ kind: 'result', result: dictResult }, { askError: 'Đã hết lượt AI, vui lòng thử lại sau.' });
+    await render(
+      { kind: 'result', result: dictResult },
+      { askError: 'Đã hết lượt AI, vui lòng thử lại sau.' },
+    );
     expect(el.querySelector('[role="alert"]')?.textContent).toContain('Đã hết lượt AI');
     // The dictionary meaning stays.
     expect(el.textContent).toContain('Công viên');
