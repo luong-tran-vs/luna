@@ -254,15 +254,16 @@ type sceneBatchLessonJSON struct {
 // sceneBatchJSON is how the scene picture batch is going (added 2026-11-06). done counts the
 // lessons dealt with (saved or failed); skipped ones were never drawn.
 type sceneBatchJSON struct {
-	Running     bool                   `json:"running"`
-	Stopping    bool                   `json:"stopping"`
-	Stopped     bool                   `json:"stopped"`
-	Engine      ImageEngine            `json:"engine"`
-	Key         string                 `json:"key"`
-	Label       string                 `json:"label"`
-	Total       int                    `json:"total"`
-	Done        int                    `json:"done"`
-	Drawing     *sceneBatchLessonJSON  `json:"drawing"`
+	Running  bool        `json:"running"`
+	Stopping bool        `json:"stopping"`
+	Stopped  bool        `json:"stopped"`
+	Engine   ImageEngine `json:"engine"`
+	Key      string      `json:"key"`
+	Label    string      `json:"label"`
+	Total    int         `json:"total"`
+	Done     int         `json:"done"`
+	// Drawing are the lessons being drawn now, [] for none (a list since 2026-11-11).
+	Drawing     []sceneBatchLessonJSON `json:"drawing"`
 	Saved       []sceneBatchLessonJSON `json:"saved"`
 	Failures    []sceneBatchLessonJSON `json:"failures"`
 	Skipped     []sceneBatchLessonJSON `json:"skipped"`
@@ -298,11 +299,8 @@ func batchMessage(err error) string {
 func (h *Handler) sceneBatchJSON(b SceneBatchStatus) sceneBatchJSON {
 	out := sceneBatchJSON{
 		Running: b.Running, Stopping: b.Stopping, Stopped: b.Stopped, Engine: b.Engine, Key: b.Key, Label: b.Label,
-		Total: b.Total, Done: b.Done(), Saved: batchLessons(b.Saved), Failures: batchLessons(b.Failures),
-		Skipped: batchLessons(b.Skipped), CodexImages: h.svc.CodexAvailable(),
-	}
-	if b.Drawing != nil {
-		out.Drawing = &sceneBatchLessonJSON{ID: b.Drawing.ID, Title: b.Drawing.Title}
+		Total: b.Total, Done: b.Done(), Drawing: batchLessons(b.Drawing), Saved: batchLessons(b.Saved),
+		Failures: batchLessons(b.Failures), Skipped: batchLessons(b.Skipped), CodexImages: h.svc.CodexAvailable(),
 	}
 	if b.StopErr != nil {
 		out.StopMessage = batchMessage(b.StopErr)

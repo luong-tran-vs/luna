@@ -5,20 +5,22 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/ai"
 )
 
 // Scene picture batches (added 2026-11-06): from the course page the admin draws the scene picture
-// of every lesson of a topic that has none, one lesson after another, each saved as soon as it is
-// drawn. Like the word bank's picture batch it runs inside this server process, not through the
+// of every lesson of a topic that has none, one lesson after another (CODEX_IMAGE_CONCURRENCY at once
+// with Codex since 2026-11-11, as the word bank does), each saved as soon as it is drawn. Like the word bank's picture batch it runs inside this server process, not through the
 // job queue: the local server and the production one share the queue, and only the local one runs
 // Codex. A batch cut short is simply started again: the lessons that got a picture are skipped.
 
 // MaxSceneBatch is the most lessons one batch takes, so a click cannot run up the bill.
-const MaxSceneBatch = 60
+const MaxSceneBatch = 100
 
 // sceneBatchTimeout bounds the drawing of one scene of a batch.
 const sceneBatchTimeout = 5 * time.Minute
@@ -49,7 +51,7 @@ type SceneBatchLesson struct {
 // SceneBatchStatus is how a batch is going. The zero value means no batch ran since the server started.
 type SceneBatchStatus struct {
 	Running bool
-	// Stopping is true once the admin asked to stop: the lesson being drawn finishes, no new one starts.
+	// Stopping is true once the admin asked to stop: the lessons being drawn finish, no new one starts.
 	Stopping bool
 	Stopped  bool
 	Engine   ImageEngine
@@ -57,8 +59,8 @@ type SceneBatchStatus struct {
 	Label    string
 	// Total counts the lessons to draw (the skipped ones aside).
 	Total int
-	// Drawing is the lesson being drawn now, nil between lessons.
-	Drawing *SceneBatchLesson
+	// Drawing are the lessons being drawn now (several at once with Codex since 2026-11-11).
+	Drawing []SceneBatchLesson
 	Saved   []SceneBatchLesson
 	// Failures are lessons whose drawing failed; Skipped those not drawn at all (not annotated yet).
 	Failures []SceneBatchLesson
@@ -126,6 +128,7 @@ func (s *Service) StartSceneBatch(ctx context.Context, req SceneBatchRequest) (S
 		return SceneBatchStatus{}, &ValidationError{Fields: map[string]string{"lessonIds": msg}}
 	}
 	st.Total = len(todo)
+	workers := s.sceneWorkers(engine)
 
 	s.sceneMu.Lock()
 	defer s.sceneMu.Unlock()
@@ -139,47 +142,46 @@ func (s *Service) StartSceneBatch(ctx context.Context, req SceneBatchRequest) (S
 	run := &sceneRun{status: st, stop: stop}
 	s.sceneRun = run
 	s.Log.InfoContext(ctx, "lesson: scene batch started", slog.String("engine", string(engine)),
-		slog.String("label", st.Label), slog.Int("lessons", len(todo)), slog.Int("skipped", len(st.Skipped)))
-	go s.runSceneBatch(base, feed, run, drawer, engine, todo)
+		slog.String("label", st.Label), slog.Int("lessons", len(todo)), slog.Int("skipped", len(st.Skipped)),
+		slog.Int("at_once", workers))
+	go s.runSceneBatch(base, feed, run, drawer, engine, todo, workers)
 	return run.snapshot(), nil
 }
 
-// runSceneBatch draws the lessons in order, one at a time, until they run out or feed ends.
-func (s *Service) runSceneBatch(ctx, feed context.Context, run *sceneRun, drawer ai.ImageProvider, engine ImageEngine, lessons []Lesson) {
-	for _, l := range lessons {
-		if feed.Err() != nil {
-			break
-		}
-		item := SceneBatchLesson{ID: l.ID, Title: l.Title}
-		s.sceneMu.Lock()
-		run.status.Drawing = &item
-		s.sceneMu.Unlock()
-
-		dctx, cancel := context.WithTimeout(ctx, sceneBatchTimeout)
-		// The lesson is read again: it may have changed since the batch started.
-		err := s.drawBatchScene(dctx, l.ID, drawer, engine)
-		cancel()
-
-		s.sceneMu.Lock()
-		st := &run.status
-		st.Drawing = nil
-		switch {
-		case err == nil:
-			st.Saved = append(st.Saved, item)
-		case endsSceneBatch(err):
-			item.Err = err
-			st.Failures = append(st.Failures, item)
-			if st.StopErr == nil {
-				st.StopErr = err
-			}
-			run.stop()
-		default:
-			s.Log.WarnContext(ctx, "lesson: batch scene failed", slog.String("lesson_id", l.ID), slog.Any("error", err))
-			item.Err = err
-			st.Failures = append(st.Failures, item)
-		}
-		s.sceneMu.Unlock()
+// sceneWorkers is how many scenes a batch draws at once: CodexConcurrency with Codex (added
+// 2026-11-11), one with Gemini.
+func (s *Service) sceneWorkers(engine ImageEngine) int {
+	if engine == EngineCodex {
+		return max(1, s.CodexConcurrency)
 	}
+	return 1
+}
+
+// runSceneBatch hands the lessons out in order to the workers until they run out or feed ends.
+func (s *Service) runSceneBatch(ctx, feed context.Context, run *sceneRun, drawer ai.ImageProvider, engine ImageEngine, lessons []Lesson, workers int) {
+	next := make(chan Lesson)
+	go func() {
+		defer close(next)
+		for _, l := range lessons {
+			select {
+			case next <- l:
+			case <-feed.Done():
+				return
+			}
+		}
+	}()
+	var wg sync.WaitGroup
+	for range workers {
+		wg.Go(func() {
+			for l := range next {
+				if feed.Err() != nil {
+					continue // stopped: let the feeder end
+				}
+				s.drawSceneInBatch(ctx, run, drawer, engine, l)
+			}
+		})
+	}
+	wg.Wait()
 
 	s.sceneMu.Lock()
 	run.stop()
@@ -190,6 +192,38 @@ func (s *Service) runSceneBatch(ctx, feed context.Context, run *sceneRun, drawer
 	s.Log.InfoContext(ctx, "lesson: scene batch finished", slog.String("engine", string(engine)),
 		slog.Int("saved", len(st.Saved)), slog.Int("failed", len(st.Failures)), slog.Int("total", st.Total),
 		slog.Bool("stopped", st.Stopped), slog.Any("stop_error", st.StopErr))
+}
+
+func (s *Service) drawSceneInBatch(ctx context.Context, run *sceneRun, drawer ai.ImageProvider, engine ImageEngine, l Lesson) {
+	item := SceneBatchLesson{ID: l.ID, Title: l.Title}
+	s.sceneMu.Lock()
+	run.status.Drawing = append(run.status.Drawing, item)
+	s.sceneMu.Unlock()
+
+	dctx, cancel := context.WithTimeout(ctx, sceneBatchTimeout)
+	// The lesson is read again: it may have changed since the batch started.
+	err := s.drawBatchScene(dctx, l.ID, drawer, engine)
+	cancel()
+
+	s.sceneMu.Lock()
+	defer s.sceneMu.Unlock()
+	st := &run.status
+	st.Drawing = slices.DeleteFunc(st.Drawing, func(d SceneBatchLesson) bool { return d.ID == l.ID })
+	switch {
+	case err == nil:
+		st.Saved = append(st.Saved, item)
+	case endsSceneBatch(err):
+		item.Err = err
+		st.Failures = append(st.Failures, item)
+		if st.StopErr == nil {
+			st.StopErr = err
+		}
+		run.stop()
+	default:
+		s.Log.WarnContext(ctx, "lesson: batch scene failed", slog.String("lesson_id", l.ID), slog.Any("error", err))
+		item.Err = err
+		st.Failures = append(st.Failures, item)
+	}
 }
 
 func (s *Service) drawBatchScene(ctx context.Context, id string, drawer ai.ImageProvider, engine ImageEngine) error {
@@ -213,7 +247,7 @@ func endsSceneBatch(err error) bool {
 	return false
 }
 
-// StopSceneBatch asks the running batch to stop: the lesson being drawn finishes, no new one starts.
+// StopSceneBatch asks the running batch to stop: the lessons being drawn finish, no new one starts.
 func (s *Service) StopSceneBatch() SceneBatchStatus {
 	s.sceneMu.Lock()
 	defer s.sceneMu.Unlock()
@@ -240,10 +274,7 @@ func (s *Service) SceneBatch() SceneBatchStatus {
 // snapshot copies the status; the caller holds sceneMu.
 func (r *sceneRun) snapshot() SceneBatchStatus {
 	st := r.status
-	if st.Drawing != nil {
-		d := *st.Drawing
-		st.Drawing = &d
-	}
+	st.Drawing = slices.Clone(st.Drawing)
 	st.Saved = append([]SceneBatchLesson(nil), st.Saved...)
 	st.Failures = append([]SceneBatchLesson(nil), st.Failures...)
 	st.Skipped = append([]SceneBatchLesson(nil), st.Skipped...)

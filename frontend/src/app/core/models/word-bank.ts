@@ -102,8 +102,8 @@ export interface BankTopicMissing {
   meaning: number;
 }
 
-/** Most words one picture batch draws (internal/wordbank MaxBatch). */
-export const MAX_BANK_BATCH = 100;
+/** Most pictures one background batch draws (server ai.MaxImageBatch): word bank, verbs, grammar. */
+export const MAX_IMAGE_BATCH = 200;
 
 /**
  * Starts a picture batch (added 2026-11-04): the ticked `lemmas`, or, without any, the words

@@ -29,7 +29,7 @@ import {
   BankWordAdded,
   engineLabel,
   ImageEngine,
-  MAX_BANK_BATCH,
+  MAX_IMAGE_BATCH,
   MAX_BANK_IPA,
   MAX_BANK_LEMMA,
   MAX_BANK_MEANING,
@@ -144,7 +144,7 @@ export class WordBank {
     const ws = this.words() ?? [];
     return ws.length > 0 && ws.every((w) => this.selected().has(w.lemma));
   });
-  protected readonly maxBatch = MAX_BANK_BATCH;
+  protected readonly maxBatch = MAX_IMAGE_BATCH;
   /** The picture batch drawing in the background, or the last one; null until known. */
   protected readonly batch = this.batches.status;
   protected readonly batchBusy = signal(false);
@@ -164,7 +164,7 @@ export class WordBank {
   protected readonly confirmAllMessage = computed(
     () =>
       `Máy chủ sẽ sinh lần lượt ảnh cho mọi từ thiếu ảnh${this.topicName() ? ` của chủ đề "${this.topicName()}"` : ''}` +
-      `${this.search().trim() ? ` khớp "${this.search().trim()}"` : ''}, tối đa ${MAX_BANK_BATCH} từ, bằng ${this.engineName()}.` +
+      `${this.search().trim() ? ` khớp "${this.search().trim()}"` : ''}, tối đa ${MAX_IMAGE_BATCH} từ, bằng ${this.engineName()}.` +
       (this.rowEngine() === 'gemini'
         ? ' Gemini tính phí theo từng ảnh.'
         : ' Mỗi ảnh Codex mất khoảng 1 phút.'),
@@ -494,8 +494,8 @@ export class WordBank {
       this.batchError.set(NO_ENGINE);
       return;
     }
-    if (ticked && this.selectedCount() > MAX_BANK_BATCH) {
-      this.batchError.set(`Mỗi lượt sinh tối đa ${MAX_BANK_BATCH} ảnh. Bỏ bớt từ đã chọn.`);
+    if (ticked && this.selectedCount() > MAX_IMAGE_BATCH) {
+      this.batchError.set(`Mỗi lượt sinh tối đa ${MAX_IMAGE_BATCH} ảnh. Bỏ bớt từ đã chọn.`);
       return;
     }
     this.batchBusy.set(true);

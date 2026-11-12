@@ -82,6 +82,11 @@ type SceneBrief struct {
 	Avoid []string
 }
 
+// MaxImageBatch is the most pictures one background batch draws (word bank, irregular verbs,
+// grammar examples), so a click cannot run up the bill; the rest are drawn by the next batch.
+// Lesson scenes have their own bound (lesson.MaxSceneBatch).
+const MaxImageBatch = 200
+
 // maxSceneText bounds the story sent with a scene request.
 const maxSceneText = 1500
 

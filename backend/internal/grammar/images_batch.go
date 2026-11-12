@@ -5,19 +5,22 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/ai"
 )
 
 // Example picture batches (added 2026-11-06): the admin draws the pictures of a lesson's examples,
-// or of every lesson of a level, one picture after another, each saved as soon as it is drawn. Like
+// or of every lesson of a level, one picture after another (CODEX_IMAGE_CONCURRENCY at once with
+// Codex since 2026-11-11, as the word bank does), each saved as soon as it is drawn. Like
 // the word bank's picture batch it runs inside this server process, not through the job queue: the
 // local server and the production one share the queue, and only the local one runs Codex.
 
-// MaxImageBatch is the most pictures one batch draws, so a click cannot run up the bill.
-const MaxImageBatch = 300
+// MaxImageBatch is the most pictures one batch draws: the bound shared by the picture batches.
+const MaxImageBatch = ai.MaxImageBatch
 
 // imageBatchTimeout bounds the drawing of one picture of a batch.
 const imageBatchTimeout = 5 * time.Minute
@@ -57,8 +60,9 @@ type ImageBatchStatus struct {
 	Label    string
 	Total    int
 	// Points counts the lessons the examples come from.
-	Points   int
-	Drawing  *ImageBatchItem
+	Points int
+	// Drawing are the examples being drawn now (several at once with Codex since 2026-11-11).
+	Drawing  []ImageBatchItem
 	Saved    []ImageBatchItem
 	Failures []ImageBatchItem
 	StopErr  error
@@ -125,9 +129,10 @@ func (s *Service) StartImageBatch(ctx context.Context, req ImageBatchRequest) (I
 		Total: len(items), Points: points, StartedAt: s.now(),
 	}}
 	s.imgRun = run
+	workers := s.imageWorkers(engine)
 	slog.InfoContext(ctx, "grammar: image batch started", slog.String("engine", string(engine)),
-		slog.String("label", run.status.Label), slog.Int("pictures", len(items)))
-	go s.runImageBatch(base, feed, run, drawer, engine, items)
+		slog.String("label", run.status.Label), slog.Int("pictures", len(items)), slog.Int("at_once", workers))
+	go s.runImageBatch(base, feed, run, drawer, engine, items, workers)
 	return run.snapshot(), nil
 }
 
@@ -200,41 +205,40 @@ func pointName(p Point) string {
 	return p.TitleVi
 }
 
-// runImageBatch draws the examples in order, one at a time, until they run out or feed ends.
-func (s *Service) runImageBatch(ctx, feed context.Context, run *imageRun, drawer ai.ImageProvider, engine ImageEngine, items []batchItem) {
-	for _, it := range items {
-		if feed.Err() != nil {
-			break
-		}
-		item := ImageBatchItem{PointID: it.PointID, Key: it.Key, En: it.En}
-		s.imgMu.Lock()
-		run.status.Drawing = &item
-		s.imgMu.Unlock()
-
-		dctx, cancel := context.WithTimeout(ctx, imageBatchTimeout)
-		err := s.drawExample(dctx, drawer, engine, it)
-		cancel()
-
-		s.imgMu.Lock()
-		st := &run.status
-		st.Drawing = nil
-		switch {
-		case err == nil:
-			st.Saved = append(st.Saved, item)
-		case endsImageBatch(err):
-			item.Err = err
-			st.Failures = append(st.Failures, item)
-			if st.StopErr == nil {
-				st.StopErr = err
-			}
-			run.stop()
-		default:
-			slog.WarnContext(ctx, "grammar: batch picture failed", slog.String("point", it.PointID), slog.Any("error", err))
-			item.Err = err
-			st.Failures = append(st.Failures, item)
-		}
-		s.imgMu.Unlock()
+// imageWorkers is how many pictures a batch draws at once: CodexConcurrency with Codex (added
+// 2026-11-11), one with Gemini.
+func (s *Service) imageWorkers(engine ImageEngine) int {
+	if engine == EngineCodex {
+		return max(1, s.images.CodexConcurrency)
 	}
+	return 1
+}
+
+// runImageBatch hands the examples out in order to the workers until they run out or feed ends.
+func (s *Service) runImageBatch(ctx, feed context.Context, run *imageRun, drawer ai.ImageProvider, engine ImageEngine, items []batchItem, workers int) {
+	next := make(chan batchItem)
+	go func() {
+		defer close(next)
+		for _, it := range items {
+			select {
+			case next <- it:
+			case <-feed.Done():
+				return
+			}
+		}
+	}()
+	var wg sync.WaitGroup
+	for range workers {
+		wg.Go(func() {
+			for it := range next {
+				if feed.Err() != nil {
+					continue // stopped: let the feeder end
+				}
+				s.drawInImageBatch(ctx, run, drawer, engine, it)
+			}
+		})
+	}
+	wg.Wait()
 
 	s.imgMu.Lock()
 	run.stop()
@@ -245,6 +249,37 @@ func (s *Service) runImageBatch(ctx, feed context.Context, run *imageRun, drawer
 	slog.InfoContext(ctx, "grammar: image batch finished", slog.String("engine", string(engine)),
 		slog.Int("saved", len(st.Saved)), slog.Int("failed", len(st.Failures)), slog.Int("total", st.Total),
 		slog.Bool("stopped", st.Stopped), slog.Any("stop_error", st.StopErr))
+}
+
+func (s *Service) drawInImageBatch(ctx context.Context, run *imageRun, drawer ai.ImageProvider, engine ImageEngine, it batchItem) {
+	item := ImageBatchItem{PointID: it.PointID, Key: it.Key, En: it.En}
+	s.imgMu.Lock()
+	run.status.Drawing = append(run.status.Drawing, item)
+	s.imgMu.Unlock()
+
+	dctx, cancel := context.WithTimeout(ctx, imageBatchTimeout)
+	err := s.drawExample(dctx, drawer, engine, it)
+	cancel()
+
+	s.imgMu.Lock()
+	defer s.imgMu.Unlock()
+	st := &run.status
+	st.Drawing = slices.DeleteFunc(st.Drawing, func(d ImageBatchItem) bool { return d.PointID == it.PointID && d.Key == it.Key })
+	switch {
+	case err == nil:
+		st.Saved = append(st.Saved, item)
+	case endsImageBatch(err):
+		item.Err = err
+		st.Failures = append(st.Failures, item)
+		if st.StopErr == nil {
+			st.StopErr = err
+		}
+		run.stop()
+	default:
+		slog.WarnContext(ctx, "grammar: batch picture failed", slog.String("point", it.PointID), slog.Any("error", err))
+		item.Err = err
+		st.Failures = append(st.Failures, item)
+	}
 }
 
 // endsImageBatch tells the errors every next picture of the batch would get too.
@@ -260,7 +295,7 @@ func endsImageBatch(err error) bool {
 	return false
 }
 
-// StopImageBatch asks the running batch to stop: the picture being drawn finishes, no new one starts.
+// StopImageBatch asks the running batch to stop: the pictures being drawn finish, no new one starts.
 func (s *Service) StopImageBatch() ImageBatchStatus {
 	s.imgMu.Lock()
 	defer s.imgMu.Unlock()
@@ -287,10 +322,7 @@ func (s *Service) ImageBatch() ImageBatchStatus {
 // snapshot copies the status; the caller holds imgMu.
 func (r *imageRun) snapshot() ImageBatchStatus {
 	st := r.status
-	if st.Drawing != nil {
-		d := *st.Drawing
-		st.Drawing = &d
-	}
+	st.Drawing = slices.Clone(st.Drawing)
 	st.Saved = append([]ImageBatchItem(nil), st.Saved...)
 	st.Failures = append([]ImageBatchItem(nil), st.Failures...)
 	return st

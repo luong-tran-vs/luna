@@ -61,11 +61,11 @@
 
     <ul class="rows">
       @for (r of rows(); track r.index) {
-        <li class="row" [class.drawing]="drawingEn() === r.en">
+        <li class="row" [class.drawing]="drawingEn().has(r.en)">
           <div class="thumb">
             @if (r.image) {
               <img [src]="thumb(r)" crossorigin="use-credentials" [alt]="'Ảnh của câu: ' + r.en" />
-            } @else if (drawingEn() === r.en) {
+            } @else if (drawingEn().has(r.en)) {
               <span class="thumb-empty"
                 ><span class="spinner" aria-hidden="true"></span>Đang vẽ</span
               >

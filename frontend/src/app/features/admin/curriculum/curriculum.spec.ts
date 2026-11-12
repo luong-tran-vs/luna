@@ -116,7 +116,7 @@ const sceneBatch = (extra: Partial<SceneBatch> = {}): SceneBatch => ({
   label: '',
   total: 0,
   done: 0,
-  drawing: null,
+  drawing: [],
   saved: [],
   failures: [],
   skipped: [],
@@ -1053,14 +1053,17 @@ describe('Curriculum', () => {
           key: 'A1-1',
           label: 'chủ đề “Chủ đề 1”',
           total: 2,
-          drawing: { id: 'p1', title: 'Bài p1' },
+          drawing: [
+            { id: 'p1', title: 'Bài p1' },
+            { id: 'o1', title: 'Bài o1' },
+          ],
         }),
       );
       await settle();
       expect(sceneDialog()).toBeNull();
       const status = topicCard(1).querySelector('.scene-batch')!;
       expect(text(status)).toContain(
-        'Máy chủ đang tạo ảnh cảnh ngầm bằng Gemini: xong 0/2 bài · đang vẽ “Bài p1”',
+        'Máy chủ đang tạo ảnh cảnh ngầm bằng Gemini: xong 0/2 bài · đang vẽ “Bài p1”, “Bài o1”',
       );
       expect(text(status)).toContain('Chạy ngầm trên máy chủ: có thể đóng trang hay làm việc khác');
       expect(sceneButton(1)!.disabled).toBe(true);

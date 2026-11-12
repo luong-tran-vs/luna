@@ -226,7 +226,8 @@ export interface GrammarImageBatch {
   total: number;
   points: number;
   done: number;
-  drawing: GrammarImageBatchItem | null;
+  /** The examples being drawn now: several at once with Codex (a list since 2026-11-11). */
+  drawing: GrammarImageBatchItem[];
   saved: GrammarImageBatchItem[];
   failures: GrammarImageBatchItem[];
   stopMessage?: string;

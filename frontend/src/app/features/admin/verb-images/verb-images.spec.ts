@@ -5,6 +5,7 @@ import { provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { VerbImageBatch, VerbImageList } from '../../../core/models/verb-images';
+import { MAX_IMAGE_BATCH } from '../../../core/models/word-bank';
 import { IRREGULAR_VERBS } from '../../irregular-verbs/irregular-verbs.data';
 import { VERB_EXAMPLES } from '../../irregular-verbs/verb-lessons.data';
 import { BATCH_IDLE_POLL_MS, BATCH_POLL_MS } from '../batch-watcher';
@@ -96,6 +97,8 @@ describe('VerbImages', () => {
     const confirm = Array.from(dialog.querySelectorAll<HTMLButtonElement>('button')).find(
       (b) => text(b) === 'Tạo ảnh',
     )!;
+    // One batch draws at most MAX_IMAGE_BATCH verbs; the dialog says the rest wait for the next one.
+    expect(text(dialog)).toContain(`${IRREGULAR_VERBS.length - 1 - MAX_IMAGE_BATCH} động từ còn lại vẽ ở lượt sau`);
     expect(dialog.querySelectorAll('input:checked').length).toBe(0);
     expect(confirm.disabled).toBe(true);
 
@@ -107,14 +110,14 @@ describe('VerbImages', () => {
 
     const req = http.expectOne((r) => r.url === BATCH && r.method === 'POST');
     expect(req.request.body.engine).toBe('codex');
-    expect(req.request.body.items.length).toBe(IRREGULAR_VERBS.length - 1);
-    const go = req.request.body.items.find((i: { base: string }) => i.base === 'go');
-    expect(go).toEqual({
-      base: 'go',
+    expect(req.request.body.items.length).toBe(MAX_IMAGE_BATCH);
+    const first = req.request.body.items[0];
+    expect(first).toEqual({
+      base: first.base,
       meaningVi: expect.any(String),
-      sentence: VERB_EXAMPLES['go'].en,
+      sentence: VERB_EXAMPLES[first.base]?.en ?? '',
     });
-    req.flush(batch({ running: true, engine: 'codex', total: 236, drawing: ['abide'] }));
+    req.flush(batch({ running: true, engine: 'codex', total: MAX_IMAGE_BATCH, drawing: ['abide'] }));
     await settle();
     expect(text(el.querySelector('.batch'))).toContain('Đang tạo ảnh bằng Codex CLI');
   });

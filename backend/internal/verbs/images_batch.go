@@ -19,8 +19,12 @@ import (
 // word bank's batch it runs inside this server process, not through the job queue: the local server
 // and the production one share the queue, and only the local one runs Codex.
 
-// MaxBatch is the most verbs one batch draws: every irregular verb fits in one.
-const MaxBatch = 300
+// MaxBatch is the most verbs one batch draws: the bound shared by the picture batches; the
+// missing verbs beyond it are drawn by the next batch.
+const MaxBatch = ai.MaxImageBatch
+
+// MaxListBases bounds the verbs the admin list looks up in the word bank: every irregular verb fits.
+const MaxListBases = 300
 
 // MaxStyle bounds the admin's picture style.
 const MaxStyle = 500

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { VerbDrawItem, VerbImageList } from '../../../core/models/verb-images';
-import { engineLabel, ImageEngine } from '../../../core/models/word-bank';
+import { engineLabel, ImageEngine, MAX_IMAGE_BATCH } from '../../../core/models/word-bank';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { EngineDialog } from '../../../shared/components/engine-dialog/engine-dialog';
 import { Loading } from '../../../shared/components/loading/loading';
@@ -135,7 +135,11 @@ export class VerbImages {
       const has = this.images().has(list[0].base);
       return `${has ? 'Ảnh đang có sẽ được thay bằng ảnh mới. ' : ''}AI vẽ theo nghĩa động từ "${list[0].meaningVi}" và câu ví dụ của từ.`;
     }
-    return `Máy chủ vẽ lần lượt ${list.length} động từ chưa có ảnh, chạy ngầm, xong ảnh nào lưu ảnh đó. Bạn có thể rời trang.`;
+    const rest = this.missing().length - list.length;
+    return (
+      `Máy chủ vẽ lần lượt ${list.length} động từ chưa có ảnh, chạy ngầm, xong ảnh nào lưu ảnh đó. Bạn có thể rời trang.` +
+      (rest > 0 ? ` Mỗi lượt tối đa ${MAX_IMAGE_BATCH} ảnh: ${rest} động từ còn lại vẽ ở lượt sau.` : '')
+    );
   });
 
   constructor() {
@@ -172,7 +176,8 @@ export class VerbImages {
 
   protected askDrawMissing(): void {
     this.message.set(null);
-    this.toDraw.set(this.missing());
+    // One batch draws at most MAX_IMAGE_BATCH verbs, in lesson-list order; the next click draws the rest.
+    this.toDraw.set(this.missing().slice(0, MAX_IMAGE_BATCH));
   }
 
   protected askDraw(v: IrregularVerb): void {

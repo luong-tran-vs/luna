@@ -209,8 +209,11 @@
                     {{ sb.stopping ? 'Đang dừng tạo ảnh cảnh' : 'Máy chủ đang tạo ảnh cảnh ngầm' }}
                     bằng {{ sceneEngine(sb) }}: xong
                     <strong>{{ sb.done }}/{{ sb.total }}</strong> bài
-                    @if (sb.drawing; as d) {
-                      · đang vẽ “{{ d.title }}”
+                    @if (sb.drawing.length) {
+                      · đang vẽ
+                      @for (d of sb.drawing; track d.id; let last = $last) {
+                        “{{ d.title }}”{{ last ? '' : ',' }}
+                      }
                     }
                     @if (sb.failures.length) {
                       · {{ sb.failures.length }} lỗi

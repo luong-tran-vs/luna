@@ -60,9 +60,12 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
               <span class="dot" aria-hidden="true"></span>
               Máy chủ đang tạo ảnh ví dụ ngầm bằng {{ engineOf(b.engine) }}: xong
               <strong>{{ b.done }}/{{ b.total }}</strong> ảnh của {{ b.points }} bài
-              @if (b.drawing; as d) {
-                · đang vẽ “<span lang="en">{{ d.en }}</span
-                >”
+              @if (b.drawing.length) {
+                · đang vẽ
+                @for (d of b.drawing; track d.pointId + d.key; let last = $last) {
+                  “<span lang="en">{{ d.en }}</span
+                  >”{{ last ? '' : ',' }}
+                }
               }
               @if (b.failures.length) {
                 · {{ b.failures.length }} lỗi

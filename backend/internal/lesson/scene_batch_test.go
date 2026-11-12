@@ -97,8 +97,12 @@ func TestSceneBatchOneAtATimeAndStop(t *testing.T) {
 	if _, err := e.svc.StartSceneBatch(t.Context(), SceneBatchRequest{LessonIDs: []string{a.ID}}); !errors.Is(err, ErrSceneBatchRunning) {
 		t.Fatalf("second batch: %v", err)
 	}
-	for e.svc.SceneBatch().Drawing == nil {
+	for len(e.svc.SceneBatch().Drawing) == 0 {
 		time.Sleep(time.Millisecond)
+	}
+	// Gemini draws one scene at a time.
+	if d := e.svc.SceneBatch().Drawing; len(d) != 1 || d[0].ID != a.ID {
+		t.Fatalf("drawing = %+v", d)
 	}
 	if st := e.svc.StopSceneBatch(); !st.Stopping {
 		t.Fatalf("stop = %+v", st)
@@ -108,6 +112,46 @@ func TestSceneBatchOneAtATimeAndStop(t *testing.T) {
 	// The lesson being drawn finished; the next one never started.
 	if !st.Stopped || len(st.Saved) != 1 || st.Saved[0].ID != a.ID {
 		t.Fatalf("stopped = %+v", st)
+	}
+}
+
+// gateImageAI draws once released, telling each drawing it starts.
+type gateImageAI struct {
+	fakeImageAI
+	started chan struct{}
+	release chan struct{}
+}
+
+func (g *gateImageAI) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Image, error) {
+	g.started <- struct{}{}
+	select {
+	case <-g.release:
+	case <-ctx.Done():
+		return ai.Image{}, ctx.Err()
+	}
+	return g.fakeImageAI.GenerateImage(ctx, req)
+}
+
+func TestSceneBatchWithCodexDrawsSeveralAtOnce(t *testing.T) {
+	t.Parallel()
+	e := newImageEnv(t)
+	a, b, c := e.annotated(t), e.annotated(t), e.annotated(t)
+	gate := &gateImageAI{started: make(chan struct{}, 10), release: make(chan struct{})}
+	e.svc.CodexImageAI, e.svc.CodexConcurrency = gate, 2
+	if _, err := e.svc.StartSceneBatch(t.Context(), SceneBatchRequest{LessonIDs: []string{a.ID, b.ID, c.ID}, Engine: EngineCodex}); err != nil {
+		t.Fatal(err)
+	}
+	<-gate.started
+	<-gate.started
+	if d := e.svc.SceneBatch().Drawing; len(d) != 2 || d[0].ID == d[1].ID || d[0].ID == c.ID || d[1].ID == c.ID {
+		t.Fatalf("drawing at once = %+v", d)
+	}
+	for range 3 {
+		gate.release <- struct{}{}
+	}
+	st := waitSceneBatch(t, e.svc)
+	if len(st.Saved) != 3 || len(st.Drawing) != 0 || st.Engine != EngineCodex {
+		t.Fatalf("finished = %+v", st)
 	}
 }
 

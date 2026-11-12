@@ -19,7 +19,7 @@ const sceneBatch = (extra: Partial<SceneBatch> = {}): SceneBatch => ({
   label: '',
   total: 0,
   done: 0,
-  drawing: null,
+  drawing: [],
   saved: [],
   failures: [],
   skipped: [],
@@ -281,7 +281,7 @@ describe('LessonImages', () => {
         key: 'lesson:l1',
         label: 'bài “Park”',
         total: 1,
-        drawing: { id: 'l1', title: 'Park' },
+        drawing: [{ id: 'l1', title: 'Park' }],
       });
     /** Saves the form (PUT) then starts the background batch of this lesson (POST). */
     const expectStart = (saved: object) => {
@@ -322,7 +322,7 @@ describe('LessonImages', () => {
         sceneBatch({
           ...running(),
           running: false,
-          drawing: null,
+          drawing: [],
           done: 1,
           saved: [{ id: 'l1', title: 'Park' }],
         }),
@@ -390,7 +390,7 @@ describe('LessonImages', () => {
         sceneBatch({
           ...running(),
           running: false,
-          drawing: null,
+          drawing: [],
           done: 1,
           failures: [{ id: 'l1', title: 'Park', message: 'Đã hết lượt AI, vui lòng thử lại sau.' }],
           stopMessage: 'Đã hết lượt AI, vui lòng thử lại sau.',

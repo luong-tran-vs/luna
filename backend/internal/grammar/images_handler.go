@@ -92,16 +92,17 @@ type imageBatchItemJSON struct {
 
 // imageBatchJSON is how the example picture batch is going. done counts the pictures dealt with.
 type imageBatchJSON struct {
-	Running     bool                 `json:"running"`
-	Stopping    bool                 `json:"stopping"`
-	Stopped     bool                 `json:"stopped"`
-	Engine      ImageEngine          `json:"engine"`
-	Key         string               `json:"key"`
-	Label       string               `json:"label"`
-	Total       int                  `json:"total"`
-	Points      int                  `json:"points"`
-	Done        int                  `json:"done"`
-	Drawing     *imageBatchItemJSON  `json:"drawing"`
+	Running  bool        `json:"running"`
+	Stopping bool        `json:"stopping"`
+	Stopped  bool        `json:"stopped"`
+	Engine   ImageEngine `json:"engine"`
+	Key      string      `json:"key"`
+	Label    string      `json:"label"`
+	Total    int         `json:"total"`
+	Points   int         `json:"points"`
+	Done     int         `json:"done"`
+	// Drawing are the examples being drawn now, [] for none (a list since 2026-11-11).
+	Drawing     []imageBatchItemJSON `json:"drawing"`
 	Saved       []imageBatchItemJSON `json:"saved"`
 	Failures    []imageBatchItemJSON `json:"failures"`
 	StopMessage string               `json:"stopMessage,omitempty"`
@@ -124,11 +125,8 @@ func batchItemsJSON(in []ImageBatchItem) []imageBatchItemJSON {
 func (h *Handler) imageBatchJSON(b ImageBatchStatus) imageBatchJSON {
 	out := imageBatchJSON{
 		Running: b.Running, Stopping: b.Stopping, Stopped: b.Stopped, Engine: b.Engine, Key: b.Key, Label: b.Label,
-		Total: b.Total, Points: b.Points, Done: b.Done(), Saved: batchItemsJSON(b.Saved), Failures: batchItemsJSON(b.Failures),
-		CodexImages: h.svc.CodexAvailable(),
-	}
-	if b.Drawing != nil {
-		out.Drawing = &imageBatchItemJSON{PointID: b.Drawing.PointID, Key: b.Drawing.Key, En: b.Drawing.En}
+		Total: b.Total, Points: b.Points, Done: b.Done(), Drawing: batchItemsJSON(b.Drawing), Saved: batchItemsJSON(b.Saved),
+		Failures: batchItemsJSON(b.Failures), CodexImages: h.svc.CodexAvailable(),
 	}
 	if b.StopErr != nil {
 		out.StopMessage = failMessage(b.StopErr)

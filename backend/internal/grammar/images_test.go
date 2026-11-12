@@ -189,6 +189,60 @@ func TestImageBatchDrawsTheMissingExamples(t *testing.T) {
 	}
 }
 
+// gateDrawer draws once released, telling each drawing it starts.
+type gateDrawer struct {
+	fakeDrawer
+	started chan struct{}
+	release chan struct{}
+}
+
+func (g *gateDrawer) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Image, error) {
+	g.started <- struct{}{}
+	select {
+	case <-g.release:
+	case <-ctx.Done():
+		return ai.Image{}, ctx.Err()
+	}
+	return g.fakeDrawer.GenerateImage(ctx, req)
+}
+
+func TestImageBatchDrawsOneAtATimeWithGeminiAndSeveralWithCodex(t *testing.T) {
+	t.Parallel()
+	for _, tt := range []struct {
+		engine ImageEngine
+		atOnce int
+	}{{EngineGemini, 1}, {EngineCodex, 2}} {
+		t.Run(string(tt.engine), func(t *testing.T) {
+			t.Parallel()
+			e, store, _ := newImageEnv(t)
+			gate := &gateDrawer{started: make(chan struct{}, 10), release: make(chan struct{})}
+			e.svc.WithImages(ImageDeps{Store: store, Gemini: gate, Codex: gate, CodexConcurrency: 2})
+			if _, err := e.svc.StartImageBatch(t.Context(), ImageBatchRequest{PointIDs: []string{"a1-to-be"}, Engine: tt.engine}); err != nil {
+				t.Fatal(err)
+			}
+			for range tt.atOnce {
+				<-gate.started
+			}
+			// No more drawing starts until one ends.
+			select {
+			case <-gate.started:
+				t.Fatalf("more than %d drawings at once", tt.atOnce)
+			case <-time.After(30 * time.Millisecond):
+			}
+			if d := e.svc.ImageBatch().Drawing; len(d) != tt.atOnce {
+				t.Fatalf("drawing = %+v", d)
+			}
+			for range 3 {
+				gate.release <- struct{}{}
+			}
+			st := waitImageBatch(t, e.svc)
+			if len(st.Saved) != 3 || len(st.Drawing) != 0 || st.Engine != tt.engine {
+				t.Fatalf("finished = %+v", st)
+			}
+		})
+	}
+}
+
 func TestImageBatchStopsOnQuotaAndRefusesCodexOff(t *testing.T) {
 	t.Parallel()
 	e, _, draw := newImageEnv(t)

@@ -107,9 +107,9 @@ export class GrammarExampleImages {
     const b = this.batches.status();
     return !!b?.running && b.key === this.batchKey();
   });
-  /** The example being drawn now, by its sentence. */
-  protected readonly drawingEn = computed(() =>
-    this.drawingNow() ? (this.batches.status()?.drawing?.en ?? '') : '',
+  /** The examples being drawn now, by their sentence (several at once with Codex). */
+  protected readonly drawingEn = computed(
+    () => new Set(this.drawingNow() ? (this.batches.status()?.drawing ?? []).map((d) => d.en) : []),
   );
   protected readonly batch = computed(() => (this.drawingNow() ? this.batches.status() : null));
   /** Another picture batch runs (one runs at a time). */

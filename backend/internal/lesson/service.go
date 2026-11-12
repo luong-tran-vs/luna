@@ -37,6 +37,9 @@ type Deps struct {
 	// CodexImageAI draws the scene pictures with the Codex CLI when the admin chooses it; nil when
 	// this server does not run Codex (added 2026-11-06).
 	CodexImageAI ai.ImageProvider
+	// CodexConcurrency is how many scenes a batch draws at once with Codex (CODEX_IMAGE_CONCURRENCY,
+	// added 2026-11-11); Gemini draws one at a time.
+	CodexConcurrency int
 	// FetchImage downloads a picture from a link an admin pasted (NewImageFetcher); nil turns links off.
 	FetchImage ImageFetcher
 	// Bank is the shared word bank (F24): the admin picture list shows its picture for a word without

@@ -115,8 +115,8 @@ func (h *ImageHandler) adminList(w http.ResponseWriter, r *http.Request) {
 			bases = append(bases, b)
 		}
 	}
-	if len(bases) > MaxBatch {
-		bases = bases[:MaxBatch]
+	if len(bases) > MaxListBases {
+		bases = bases[:MaxListBases]
 	}
 	bank, err := h.svc.BankPictures(r.Context(), bases)
 	if err != nil {

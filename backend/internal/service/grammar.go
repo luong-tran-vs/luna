@@ -14,7 +14,8 @@ func (c *Container) initGrammar() {
 		grammarLessonCounter{c.lessons}, c.studyDays, time.Now)
 	c.grammar.SetCourse(c.grammarCourse)
 	// Pictures of the examples, drawn with Gemini or the Codex CLI (added 2026-11-06).
-	c.grammar.WithImages(grammar.ImageDeps{Store: c.store.GrammarImages(), Gemini: c.imageAI, Codex: c.codexImageAI})
+	c.grammar.WithImages(grammar.ImageDeps{Store: c.store.GrammarImages(), Gemini: c.imageAI, Codex: c.codexImageAI,
+		CodexConcurrency: c.cfg.CodexImageConcurrency})
 }
 
 // grammarCourse adapts the approved course of a level to the grammar list (A1 since 2026-10-22,

@@ -251,7 +251,8 @@ export interface SceneBatch {
   label: string;
   total: number;
   done: number;
-  drawing: SceneBatchLesson | null;
+  /** The lessons being drawn now: several at once with Codex (a list since 2026-11-11). */
+  drawing: SceneBatchLesson[];
   saved: SceneBatchLesson[];
   failures: SceneBatchLesson[];
   /** Lessons not drawn at all (not annotated yet). */

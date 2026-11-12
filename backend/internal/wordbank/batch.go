@@ -20,8 +20,8 @@ import (
 // and the production one share the queue, and only the local one runs Codex. A batch cut short
 // (the server stopped) is simply started again: the words that got a picture are no longer missing.
 
-// MaxBatch is the most words one batch draws, so a click cannot run up the bill.
-const MaxBatch = 100
+// MaxBatch is the most words one batch draws: the bound shared by the picture batches.
+const MaxBatch = ai.MaxImageBatch
 
 // batchDrawTimeout bounds one picture of a batch.
 const batchDrawTimeout = 5 * time.Minute

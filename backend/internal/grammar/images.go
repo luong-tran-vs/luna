@@ -83,6 +83,9 @@ type ImageDeps struct {
 	// Gemini draws with GEMINI_IMAGE_MODEL; Codex with the Codex CLI, nil when the server runs none.
 	Gemini ai.ImageProvider
 	Codex  ai.ImageProvider
+	// CodexConcurrency is how many pictures a batch draws at once with Codex (CODEX_IMAGE_CONCURRENCY,
+	// added 2026-11-11); Gemini draws one at a time.
+	CodexConcurrency int
 }
 
 // WithImages lets the service keep and draw example pictures.

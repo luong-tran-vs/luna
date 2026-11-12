@@ -17,7 +17,7 @@ const batch = (extra: Partial<GrammarImageBatch> = {}): GrammarImageBatch => ({
   total: 0,
   points: 0,
   done: 0,
-  drawing: null,
+  drawing: [],
   saved: [],
   failures: [],
   codexImages: false,
@@ -108,18 +108,25 @@ describe('GrammarExampleImages', () => {
       key: 'point:a1-to-be',
       label: 'bài “to be”',
       total: 2,
-      drawing: { pointId: 'a1-to-be', key: 'k1', en: 'I am a student.' },
+      // Codex draws two at once; every example being drawn shows it.
+      drawing: [
+        { pointId: 'a1-to-be', key: 'k1', en: 'I am a student.' },
+        { pointId: 'a1-to-be', key: 'k3', en: 'They are friends.' },
+      ],
     });
     req.flush(running);
     await settle();
     expect(text(el.querySelector('.bg-note'))).toContain('Máy chủ đang tạo ảnh ngầm: xong 0/2 ảnh');
-    expect(el.querySelectorAll('.row')[0].textContent).toContain('Đang vẽ');
+    const drawnRows = el.querySelectorAll('.row');
+    expect(drawnRows[0].textContent).toContain('Đang vẽ');
+    expect(drawnRows[1].textContent).not.toContain('Đang vẽ');
+    expect(drawnRows[2].textContent).toContain('Đang vẽ');
 
     // The batch ends: the page is asked to read the lesson again.
     TestBed.inject(GrammarImageBatchService).set({
       ...running,
       running: false,
-      drawing: null,
+      drawing: [],
       done: 2,
       saved: [
         { pointId: 'a1-to-be', key: 'k1', en: 'I am a student.' },
