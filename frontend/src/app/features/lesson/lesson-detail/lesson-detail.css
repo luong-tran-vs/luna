@@ -19,6 +19,8 @@
   display: flex;
   flex-direction: column;
   min-height: calc(100dvh - var(--tabbar-h, 0px));
+  /* The card's own buttons end the page: the same margin under it as over it, no extra scroll. */
+  padding-bottom: var(--space-4);
 }
 
 .practice-page.fill-screen:has(lu-vocab-step.has-picture) > #panel-lesson {
@@ -27,10 +29,10 @@
   flex-direction: column;
 }
 
-/* From 1024px the app's top bar (60px) sits above the page. */
+/* From 1024px the app's top bar (60px and its 1px line) sits above the page. */
 @media (min-width: 1024px) {
   .practice-page.fill-screen:has(lu-vocab-step.has-picture) {
-    min-height: calc(100dvh - 60px);
+    min-height: calc(100dvh - 61px);
   }
 }
 

@@ -455,6 +455,13 @@ export class LessonDetail {
     const key = this.onScreen();
     return !this.overview() && key !== null && key !== 'write';
   });
+  /**
+   * The page keeps room at the bottom for a bar fixed there: the shared one, or a step's own. Not
+   * for the words card, whose buttons sit on the card: the room would only be an empty scroll.
+   */
+  protected readonly barRoom = computed(
+    () => this.showBar() || (this.ownBar() && this.onScreen() !== 'vocab'),
+  );
   /** The words card fills the screen down to the bar, its picture taking the room left: no scroll, no gap. */
   protected readonly fillScreen = computed(
     () =>

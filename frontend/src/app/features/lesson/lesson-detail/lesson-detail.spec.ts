@@ -661,6 +661,8 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('.example .sentence'))).toBe("What's your name?");
       // The card has its own Tiếp theo: no bar at the bottom.
       expect(el.querySelector('.next-bar')).toBeNull();
+      // ... nor room kept for one under the card: it would only scroll to an empty gap.
+      expect(el.querySelector('.practice-page')!.classList).not.toContain('has-next');
     });
 
     it('goes through the words on the card, then to step 2', async () => {
@@ -700,6 +702,8 @@ describe('LessonDetail', () => {
       await next();
       // The practice step's own buttons are the bar: no second one.
       expect(el.querySelector('.next-bar')).toBeNull();
+      // Its bar is fixed at the bottom: the page keeps room for it.
+      expect(el.querySelector('.practice-page')!.classList).toContain('has-next');
       const bar = el.querySelector('lu-dialogue-step .step-nav')!;
       expect(bar.querySelector('[aria-label="Bước trước"]')).not.toBeNull();
       expect(text(bar.querySelector('.finish'))).toBe('Sang bước Điền ô trống');

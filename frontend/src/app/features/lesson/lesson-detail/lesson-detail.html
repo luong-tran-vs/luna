@@ -1,6 +1,6 @@
 <section
   class="screen practice-page"
-  [class.has-next]="lesson() && (showBar() || ownBar())"
+  [class.has-next]="lesson() && barRoom()"
   [class.fill-screen]="fillScreen()"
 >
   @if (loadError(); as message) {
