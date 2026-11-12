@@ -369,6 +369,7 @@ func newEnv() *testEnv {
 		},
 		Titles:         fakeTitles{"lesson1": "A day at the park"},
 		Pronunciations: fakePronunciations{"house": "/haʊs/", "home": "/həʊm/"},
+		Pictures:       fakePictures{"go": "/api/words/go/image?v=1"},
 		Translations: fakeTranslations{"lesson1": {SentenceKey("We went to the park."): "Chúng tôi đã đi công viên."}},
 		Results:        e.results,
 		Now:            e.clock.Now,
@@ -418,4 +419,38 @@ func (f *fakeRepo) Count(_ context.Context, userID string, since *time.Time) (in
 		}
 	}
 	return n, nil
+}
+
+func (f *fakeRepo) CardWords(_ context.Context) ([]CardWord, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	byLemma := map[string]*CardWord{}
+	var order []string
+	for _, x := range f.cards {
+		w, ok := byLemma[x.Lemma]
+		if !ok {
+			w = &CardWord{Lemma: x.Lemma, MeaningVi: x.MeaningVi, IPA: x.IPA}
+			byLemma[x.Lemma] = w
+			order = append(order, x.Lemma)
+		}
+		w.Learners++
+	}
+	out := make([]CardWord, len(order))
+	for i, l := range order {
+		out[i] = *byLemma[l]
+	}
+	return out, nil
+}
+
+// fakePictures are the word bank pictures, by lemma.
+type fakePictures map[string]string
+
+func (f fakePictures) ImageURLs(_ context.Context, lemmas []string) (map[string]string, error) {
+	out := map[string]string{}
+	for _, l := range lemmas {
+		if u, ok := f[l]; ok {
+			out[l] = u
+		}
+	}
+	return out, nil
 }

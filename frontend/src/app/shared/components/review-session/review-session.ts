@@ -35,6 +35,7 @@ import { SpeakButton } from '../../directives/speak-button';
 import { Asker } from '../asker/asker';
 import { ChoiceList } from '../choice-list/choice-list';
 import { Icon } from '../icon/icon';
+import { WordPicture } from '../word-picture/word-picture';
 
 interface RatingButton {
   rating: Rating;
@@ -64,7 +65,7 @@ const SLOW_RATE = 0.6;
  */
 @Component({
   selector: 'lu-review-session',
-  imports: [Asker, ChoiceList, Icon, SpeakButton],
+  imports: [Asker, ChoiceList, Icon, SpeakButton, WordPicture],
   templateUrl: './review-session.html',
   styleUrl: './review-session.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -46,6 +46,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/lessons/scene-batch", admin(h.sceneBatch))
 	mux.Handle("POST /api/admin/lessons/scene-batch", admin(h.startSceneBatch))
 	mux.Handle("POST /api/admin/lessons/scene-batch/stop", admin(h.stopSceneBatch))
+	mux.Handle("POST /api/admin/lessons/scene-images/remove", admin(h.removeScenes))
 	mux.Handle("POST /api/admin/lessons/{id}/check", admin(h.check))
 	mux.Handle("POST /api/admin/lessons/{id}/check/confirm", admin(h.confirmFlag))
 	mux.Handle("POST /api/admin/lessons/{id}/check/verify", admin(h.verify))

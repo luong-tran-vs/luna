@@ -29,6 +29,7 @@ func (c *Container) initVocab() {
 		Vocabulary:     lessonVocabulary{c.reader},
 		Titles:         lessonTitles{c.lessons},
 		Pronunciations: pronunciations{c.wordBank, c.dict},
+		Pictures:       c.wordBank,
 		Translations:   sentenceTranslations{c.lessons},
 		Results:        c.store.LessonResults(),
 		StudyDays:      c.studyDays,

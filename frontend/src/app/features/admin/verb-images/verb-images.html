@@ -23,7 +23,7 @@
     <p class="form-alert" role="alert">{{ m }}</p>
   }
 
-  @if (status(); as b) {
+  @if (shown(); as b) {
     @if (b.running || b.total > 0) {
       <section class="card batch" aria-labelledby="verb-batch-heading">
         <div class="batch-head">

@@ -92,6 +92,9 @@ const SCOPE_TOPICS = 3;
  * `5 từ đã chọn (chủ đề: Chào hỏi, Nhà cửa)`.
  */
 export function batchScope(b: BankImageBatch): string {
+  if (b.cardWords) {
+    return `${b.total} từ trong thẻ ôn của học viên`;
+  }
   const topic = b.topicName ? ` của chủ đề "${b.topicName}"` : '';
   let scope = b.ticked
     ? `${b.total} từ đã chọn${topic}`

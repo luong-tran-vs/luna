@@ -563,6 +563,32 @@ describe('ReviewSession', () => {
       expect(text('.example')).toBe('We went home.');
     });
   });
+
+  describe('word pictures (added 2026-11-12)', () => {
+    const withPicture = (): DueCard[] => [
+      { ...card('c1', 'went'), imageUrl: '/api/words/go/image?v=1' },
+      card('c2', 'gave up'),
+    ];
+    const picture = () => el.querySelector('lu-word-picture img');
+
+    it('shows the picture with the meaning that asks for the word', async () => {
+      await setup('recall', withPicture());
+      expect(picture()?.getAttribute('src')).toContain('/api/words/go/image?v=1');
+    });
+
+    it('keeps it for the answer when the word asks for the meaning', async () => {
+      await setup('flip', withPicture());
+      expect(picture()).toBeNull();
+      button('Quên')!.click();
+      await settle();
+      expect(picture()?.getAttribute('src')).toContain('/api/words/go/image?v=1');
+    });
+
+    it('shows nothing for a word without a picture', async () => {
+      await setup('recall', [card('c2', 'gave up')]);
+      expect(el.querySelector('lu-word-picture')).toBeNull();
+    });
+  });
 });
 
 describe('exampleParts', () => {

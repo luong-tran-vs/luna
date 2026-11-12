@@ -283,4 +283,30 @@ describe('GrammarExampleImages', () => {
     expect(el.querySelector('.row')).toBeNull();
     expect(el.querySelector('lu-engine-picker')).toBeNull();
   });
+
+  // Added 2026-11-12: every picture of the lesson goes at once, to be drawn again.
+  it('removes every picture of the lesson after asking', async () => {
+    await open([pictured, pictured, '']);
+    let reloaded = 0;
+    fixture.componentInstance.reload.subscribe(() => reloaded++);
+    button('Gỡ hết ảnh (2)').click();
+    await settle();
+    const dialog = el.querySelector('[role="alertdialog"]')!;
+    expect(text(dialog)).toContain('2 ảnh sẽ bị gỡ');
+    Array.from(dialog.querySelectorAll<HTMLButtonElement>('button'))
+      .find((b) => text(b) === 'Gỡ 2 ảnh')!
+      .click();
+    await settle();
+    const req = http.expectOne('/admin/grammar-images/remove');
+    expect(req.request.body).toEqual({ pointIds: ['a1-to-be'], dryRun: false });
+    req.flush({ pictures: 2, points: 1 });
+    await settle();
+    expect(reloaded).toBe(1);
+    expect(text(el.querySelector('[role="status"].muted'))).toBe('Đã gỡ 2 ảnh.');
+  });
+
+  it('offers no removal without a picture', async () => {
+    await open(['', '', '']);
+    expect(button('Gỡ hết ảnh')).toBeUndefined();
+  });
 });

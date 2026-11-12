@@ -8,6 +8,7 @@ import (
 
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/topic"
+	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/wordbank"
 )
 
@@ -22,6 +23,7 @@ func (c *Container) initWordBank() {
 		CodexConcurrency: c.cfg.CodexImageConcurrency,
 		MeaningAI:        c.meaningAI,
 		FetchImage:       lesson.NewImageFetcher(),
+		Cards:            cardWords{c.store.Cards()},
 		Now:              time.Now,
 		Log:              c.log,
 	})
@@ -84,4 +86,21 @@ func (b lessonWordBank) Image(ctx context.Context, lemma string) (lesson.WordIma
 		return lesson.WordImage{}, err
 	}
 	return lesson.WordImage{Lemma: img.Lemma, MIME: img.MIME, Data: img.Data, CreatedAt: img.CreatedAt}, nil
+}
+
+// cardWords adapts the cards to wordbank.CardWords: the words learners saved (added 2026-11-12).
+type cardWords struct {
+	repo vocab.Repository
+}
+
+func (c cardWords) CardWords(ctx context.Context) ([]wordbank.CardWord, error) {
+	words, err := c.repo.CardWords(ctx)
+	if err != nil {
+		return nil, err
+	}
+	out := make([]wordbank.CardWord, len(words))
+	for i, w := range words {
+		out[i] = wordbank.CardWord{Lemma: w.Lemma, MeaningVi: w.MeaningVi, IPA: w.IPA, Learners: w.Learners}
+	}
+	return out, nil
 }

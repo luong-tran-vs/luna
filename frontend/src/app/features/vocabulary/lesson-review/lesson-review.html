@@ -149,6 +149,10 @@
                 "
                 [tone]="verdict() === 'correct' ? 'right' : verdict() ? 'wrong' : null"
               >
+                <!-- The picture with the answer only: before, it would give the meaning away (added 2026-11-12). -->
+                @if (verdict() && q.imageUrl) {
+                  <lu-word-picture class="word-picture" [url]="q.imageUrl" />
+                }
                 <p class="word-line">
                   <span class="word" lang="en">{{ q.word }}</span>
                   <button type="button" class="sound" [luSpeak]="q.word" (click)="say(q.word)">
@@ -192,6 +196,10 @@
                 "
                 [tone]="verdict() === 'correct' ? 'right' : verdict() === 'wrong' || verdict() === 'skipped' ? 'wrong' : null"
               >
+                <!-- The picture helps recall the word without spelling it (added 2026-11-12). -->
+                @if (q.imageUrl) {
+                  <lu-word-picture class="word-picture" [url]="q.imageUrl" />
+                }
                 <p class="meaning">{{ q.meaningVi }}</p>
                 @if (verdict()) {
                   <p class="word-line">

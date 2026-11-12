@@ -371,3 +371,26 @@ func (r *Cards) Delete(ctx context.Context, userID, id string) (bool, error) {
 	}
 	return changed(res)
 }
+
+// CardWords lists the lemmas of every learner's cards, the most saved first, then by lemma.
+func (r *Cards) CardWords(ctx context.Context) ([]vocab.CardWord, error) {
+	// A learner has one card of a lemma (cards_user_lemma), so the rows count learners.
+	rows, err := r.db.QueryContext(ctx, `SELECT lemma, MAX(meaning_vi), MAX(ipa), COUNT(*) AS learners
+FROM cards GROUP BY lemma ORDER BY learners DESC, lemma`)
+	if err != nil {
+		return nil, fmt.Errorf("mysql card words: %w", err)
+	}
+	defer func() { _ = rows.Close() }()
+	var out []vocab.CardWord
+	for rows.Next() {
+		var w vocab.CardWord
+		if err := rows.Scan(&w.Lemma, &w.MeaningVi, &w.IPA, &w.Learners); err != nil {
+			return nil, fmt.Errorf("mysql scan card word: %w", err)
+		}
+		out = append(out, w)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("mysql read card words: %w", err)
+	}
+	return out, nil
+}

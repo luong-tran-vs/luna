@@ -16,6 +16,7 @@ import { serverUrl } from '../../../core/api-url';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { GrammarImageBatch, GrammarLessonAdmin } from '../../../core/models/grammar-admin';
 import { engineLabel, ImageEngine } from '../../../core/models/word-bank';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { EnginePicker } from '../../../shared/components/engine-picker/engine-picker';
 import { AdminApiService } from '../admin-api.service';
 import { GrammarImageBatchService, pointBatchKey } from './grammar-image-batch.service';
@@ -41,7 +42,7 @@ interface ExampleRow {
  */
 @Component({
   selector: 'lu-grammar-example-images',
-  imports: [EnginePicker],
+  imports: [ConfirmDialog, EnginePicker],
   templateUrl: './grammar-example-images.html',
   styleUrl: './grammar-example-images.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,6 +62,8 @@ export class GrammarExampleImages {
   readonly reload = output<void>();
 
   protected readonly busy = signal<string | null>(null);
+  /** The "Gỡ hết ảnh" dialog is open. */
+  protected readonly confirmingRemoval = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly note = signal<string | null>(null);
   /** Changes when pictures are drawn, so the browser asks for them again under the same URL. */
@@ -197,6 +200,27 @@ export class GrammarExampleImages {
       this.note.set('Đã xoá ảnh.');
     } catch (err) {
       this.error.set(messageOf(err) ?? 'Không xoá được ảnh, vui lòng thử lại.');
+    } finally {
+      this.busy.set(null);
+    }
+  }
+
+  /** "Gỡ hết ảnh" (added 2026-11-12): every picture of the lesson goes, to be drawn again. */
+  protected async removeAll(): Promise<void> {
+    this.confirmingRemoval.set(false);
+    if (this.locked()) {
+      return;
+    }
+    this.busy.set('remove');
+    this.error.set(null);
+    this.note.set(null);
+    try {
+      const n = await firstValueFrom(this.api.removeGrammarImages([this.lesson().pointId]));
+      this.version.set(Date.now());
+      this.reload.emit();
+      this.note.set(`Đã gỡ ${n.pictures} ảnh.`);
+    } catch (err) {
+      this.error.set(messageOf(err) ?? 'Không gỡ được ảnh, vui lòng thử lại.');
     } finally {
       this.busy.set(null);
     }

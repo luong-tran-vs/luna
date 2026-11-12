@@ -12,6 +12,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { engineLabel, ImageEngine } from '../../../core/models/word-bank';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { EngineDialog } from '../../../shared/components/engine-dialog/engine-dialog';
 import { AdminApiService } from '../admin-api.service';
 import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.service';
@@ -23,7 +24,7 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
  */
 @Component({
   selector: 'lu-grammar-level-images',
-  imports: [EngineDialog, RouterLink],
+  imports: [ConfirmDialog, EngineDialog, RouterLink],
   template: `
     <section class="card level-batch" aria-labelledby="level-images-title">
       <div class="line">
@@ -50,8 +51,19 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
           >
             Tạo ảnh ví dụ {{ level() }}
           </button>
+          <button
+            type="button"
+            class="btn"
+            [disabled]="busy() || pointIds().length === 0 || !!other()"
+            (click)="askRemove()"
+          >
+            Gỡ ảnh ví dụ {{ level() }}
+          </button>
         }
       </div>
+      @if (note(); as n) {
+        <p class="field-hint" role="status">{{ n }}</p>
+      }
 
       @if (mine(); as b) {
         <div class="status" [class.bad]="!b.running && !!b.stopMessage" role="status">
@@ -131,6 +143,21 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
       (confirmed)="start($event)"
       (cancelled)="open.set(false)"
     />
+
+    <lu-confirm-dialog
+      [open]="removal() !== null"
+      [title]="'Gỡ mọi ảnh ví dụ của ngữ pháp ' + level() + '?'"
+      [message]="
+        (removal()?.pictures ?? 0) +
+        ' ảnh của ' +
+        (removal()?.points ?? 0) +
+        ' bài sẽ bị gỡ: ảnh câu ví dụ và ảnh bài “Nhìn ảnh chọn từ” (người học không thấy các bài này cho tới khi tạo lại ảnh). Không hoàn tác được.'
+      "
+      [confirmLabel]="'Gỡ ' + (removal()?.pictures ?? 0) + ' ảnh'"
+      [danger]="true"
+      (confirmed)="remove()"
+      (cancelled)="removal.set(null)"
+    />
   `,
   styleUrl: './grammar-level-batch.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -144,6 +171,9 @@ export class GrammarLevelImages {
   readonly pointIds = input.required<readonly string[]>();
 
   protected readonly open = signal(false);
+  /** The pictures "Gỡ ảnh ví dụ" is about to remove; null while its dialog is closed. */
+  protected readonly removal = signal<{ pictures: number; points: number } | null>(null);
+  protected readonly note = signal<string | null>(null);
   protected readonly busy = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly codex = computed(() => this.batches.status()?.codexImages ?? false);
@@ -190,6 +220,41 @@ export class GrammarLevelImages {
       );
     } catch (err) {
       this.error.set(messageOf(err) ?? 'Không bắt đầu tạo ảnh được, vui lòng thử lại.');
+    } finally {
+      this.busy.set(false);
+    }
+  }
+
+  /** "Gỡ ảnh ví dụ" (added 2026-11-12): counts the pictures first, so the dialog says what goes. */
+  protected async askRemove(): Promise<void> {
+    if (this.busy()) {
+      return;
+    }
+    this.busy.set(true);
+    this.error.set(null);
+    this.note.set(null);
+    try {
+      const n = await firstValueFrom(this.api.removeGrammarImages([...this.pointIds()], true));
+      if (n.pictures === 0) {
+        this.note.set(`Các bài ngữ pháp ${this.level()} chưa có ảnh nào.`);
+      } else {
+        this.removal.set(n);
+      }
+    } catch (err) {
+      this.error.set(messageOf(err) ?? 'Không đếm được ảnh, vui lòng thử lại.');
+    } finally {
+      this.busy.set(false);
+    }
+  }
+
+  protected async remove(): Promise<void> {
+    this.removal.set(null);
+    this.busy.set(true);
+    try {
+      const n = await firstValueFrom(this.api.removeGrammarImages([...this.pointIds()]));
+      this.note.set(`Đã gỡ ${n.pictures} ảnh của ${n.points} bài.`);
+    } catch (err) {
+      this.error.set(messageOf(err) ?? 'Không gỡ được ảnh, vui lòng thử lại.');
     } finally {
       this.busy.set(false);
     }

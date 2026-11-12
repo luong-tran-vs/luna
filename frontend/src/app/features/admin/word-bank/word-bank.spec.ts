@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { serverUrl } from '../../../core/api-url';
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
-import { BankImageBatch, BankWord } from '../../../core/models/word-bank';
+import { BankImageBatch, BankWord, CardWordsSummary } from '../../../core/models/word-bank';
 import { BANK_BATCH_POLL_MS } from './image-batch.service';
 import { WordBank } from './word-bank';
 
@@ -42,6 +42,14 @@ describe('WordBank (F24)', () => {
     drawing: [],
     saved: [],
     failures: [],
+  };
+
+  const noCardWords: CardWordsSummary = {
+    total: 0,
+    withImage: 0,
+    missingCount: 0,
+    missing: [],
+    codexImages: false,
   };
 
   /** Waits ms (past the search delay when needed), then for Angular. */
@@ -122,6 +130,8 @@ describe('WordBank (F24)', () => {
       .flush({ topics: [{ topicId: 't2', image: 3, ipa: 1, meaning: 2 }] });
     http.expectOne('/admin/words/image-batch').flush(batch);
     await settle(350);
+    // "Ảnh cho thẻ ôn" counts the words learners saved (added 2026-11-12).
+    http.match('/admin/words/card-words').forEach((r) => r.flush(noCardWords));
     expectList('page=1').flush({
       words,
       total: words.length + (hasMore ? 1 : 0),
@@ -134,6 +144,8 @@ describe('WordBank (F24)', () => {
   afterEach(() => {
     // Every change of the bank counts again what the topics lack.
     http.match('/admin/words/missing-by-topic').forEach((r) => r.flush({ topics: [] }));
+    // A batch that ends counts the words in the review cards again.
+    http.match('/admin/words/card-words').forEach((r) => r.flush(noCardWords));
     http.verify();
   });
 

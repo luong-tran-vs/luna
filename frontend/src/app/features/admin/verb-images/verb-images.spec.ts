@@ -122,6 +122,20 @@ describe('VerbImages', () => {
     expect(text(el.querySelector('.batch'))).toContain('Đang tạo ảnh bằng Codex CLI');
   });
 
+  it('hides the result of a finished batch', async () => {
+    await setup(
+      list(),
+      batch({ total: 2, done: 2, saved: ['cut', 'go'], startedAt: '2026-11-12T00:00:00Z' }),
+    );
+    // The pictures the batch saved reload the list.
+    http.expectOne((r) => r.url === '/admin/verb-images').flush(list());
+    await settle();
+    expect(text(el.querySelector('.batch'))).toContain('Đã tạo ảnh xong');
+    byText('Ẩn').click();
+    await settle();
+    expect(el.querySelector('.batch')).toBeNull();
+  });
+
   it('copies a word bank picture and removes a picture after asking', async () => {
     await setup();
     byText('Dùng ảnh này').click();

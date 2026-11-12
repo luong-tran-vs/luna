@@ -64,6 +64,7 @@ import {
   BankWordAdded,
   BankWordDetails,
   BankWordInput,
+  CardWordsSummary,
   ImageEngine,
 } from '../../core/models/word-bank';
 import { Account, AccountInput } from '../../core/models/user';
@@ -178,6 +179,11 @@ export class AdminApiService {
 
   stopSceneBatch(): Observable<SceneBatch> {
     return this.http.post<SceneBatch>(`${BASE}/lessons/scene-batch/stop`, {});
+  }
+
+  /** Removes the scene pictures of the given lessons (added 2026-11-12); 409 while a scene batch runs. */
+  removeScenes(lessonIds: string[]): Observable<{ removed: number }> {
+    return this.http.post<{ removed: number }>(`${BASE}/lessons/scene-images/remove`, { lessonIds });
   }
 
   /** Generates the practice again with one AI request (F17); 202 with the lesson. */
@@ -582,6 +588,16 @@ export class AdminApiService {
     return this.http.post<BankImageBatch>(`${BASE}/words/image-batch`, req);
   }
 
+  /** The words learners saved and which have a picture (added 2026-11-12). */
+  cardWords(): Observable<CardWordsSummary> {
+    return this.http.get<CardWordsSummary>(`${BASE}/words/card-words`);
+  }
+
+  /** Draws, in the word bank batch, the pictures the words learners saved lack. */
+  startCardWordsBatch(engine: ImageEngine): Observable<BankImageBatch> {
+    return this.http.post<BankImageBatch>(`${BASE}/words/card-words/image-batch`, { engine });
+  }
+
   /** F24: stops the picture batch: the words being drawn finish, no new one starts. */
   stopBankImageBatch(): Observable<BankImageBatch> {
     return this.http.post<BankImageBatch>(`${BASE}/words/image-batch/stop`, {});
@@ -604,6 +620,20 @@ export class AdminApiService {
   /** Draws the pictures of the given lessons' examples in the background; 409 batch_running. */
   startGrammarImageBatch(req: GrammarImageBatchRequest): Observable<GrammarImageBatch> {
     return this.http.post<GrammarImageBatch>(`${BASE}/grammar-image-batch`, req);
+  }
+
+  /**
+   * Removes every picture of the given grammar lessons, examples and "Nhìn ảnh chọn từ" alike
+   * (added 2026-11-12); with dryRun it only counts them. 409 while an example batch runs.
+   */
+  removeGrammarImages(
+    pointIds: string[],
+    dryRun = false,
+  ): Observable<{ pictures: number; points: number }> {
+    return this.http.post<{ pictures: number; points: number }>(`${BASE}/grammar-images/remove`, {
+      pointIds,
+      dryRun,
+    });
   }
 
   stopGrammarImageBatch(): Observable<GrammarImageBatch> {

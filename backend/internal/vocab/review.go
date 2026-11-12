@@ -47,6 +47,7 @@ func (s *Service) Due(ctx context.Context, userID string, limit int) (DueList, e
 		c.Schedule = effective(c, loc)
 		list.Cards[i] = DueCard{Card: c, Intervals: intervalsFor(c.Schedule, now)}
 	}
+	s.fillPictures(ctx, list.Cards)
 	if next, ok, err := s.repo.NextDue(ctx, userID, now, today); err != nil {
 		return DueList{}, fmt.Errorf("vocab: next due: %w", err)
 	} else if ok {
@@ -180,4 +181,31 @@ func (s *Service) DueBefore(ctx context.Context, userID string, before, createdB
 		return 0, fmt.Errorf("vocab: count due: %w", err)
 	}
 	return n, nil
+}
+
+// fillPictures gives the due cards the word bank picture of their word (added 2026-11-12). The
+// pictures only help: when they cannot be read the cards are shown without.
+func (s *Service) fillPictures(ctx context.Context, cards []DueCard) {
+	if s.pictures == nil || len(cards) == 0 {
+		return
+	}
+	lemmas := make([]string, len(cards))
+	for i, c := range cards {
+		lemmas[i] = pictureLemma(c.Card)
+	}
+	urls, err := s.pictures.ImageURLs(ctx, lemmas)
+	if err != nil {
+		return
+	}
+	for i := range cards {
+		cards[i].ImageURL = urls[lemmas[i]]
+	}
+}
+
+// pictureLemma is the word whose picture a card shows: its base form, else the text saved.
+func pictureLemma(c Card) string {
+	if c.Lemma != "" {
+		return c.Lemma
+	}
+	return c.Text
 }

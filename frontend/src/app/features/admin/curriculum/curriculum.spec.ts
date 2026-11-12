@@ -1143,4 +1143,161 @@ describe('Curriculum', () => {
       expect(alertOf(1)).toBe('Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng.');
     });
   });
+
+  describe('scene pictures of several topics (added 2026-11-12)', () => {
+    /** A course of n topics, each with `lessons` annotated lessons lacking a scene. */
+    const many = (n: number, lessons = 1): CurriculumBoard => ({
+      ...board(),
+      topics: Array.from({ length: n }, (_, i) =>
+        topic(i + 1, `t${i + 1}`, [slot(`a1-0${i + 1}-1`, `Bài ${i + 1}`)], {
+          others: Array.from({ length: lessons }, (_, j) => lesson(`l${i + 1}-${j + 1}`, false)),
+        }),
+      ),
+    });
+    const multiButton = () => el.querySelector<HTMLButtonElement>('.multi-scenes .scene-btn');
+    const sceneDialog = () => el.querySelector('lu-engine-dialog [role="dialog"]');
+    const countSelect = () =>
+      sceneDialog()!.querySelector<HTMLSelectElement>('#multi-scene-count')!;
+    const pickCount = async (value: string) => {
+      countSelect().value = value;
+      countSelect().dispatchEvent(new Event('change'));
+      await settle();
+    };
+    const expectStart = () =>
+      http.expectOne((r) => r.url === '/admin/lessons/scene-batch' && r.method === 'POST');
+
+    it('is offered only when more than one topic lacks scenes', async () => {
+      await setup(many(1));
+      expect(multiButton()).toBeNull();
+    });
+
+    it('draws the first topics chosen in one batch, shown above the topics', async () => {
+      await setup(many(5));
+      expect(text(multiButton())).toBe('Tạo ảnh cảnh nhiều chủ đề (5 chủ đề còn thiếu)');
+      multiButton()!.click();
+      await settle();
+      const d = sceneDialog()!;
+      expect(text(d.querySelector('.title'))).toBe('Tạo ảnh cảnh nhiều chủ đề A1');
+      expect(Array.from(countSelect().options).map((o) => text(o))).toEqual([
+        '3 chủ đề đầu',
+        'Tất cả (5 chủ đề)',
+      ]);
+      expect(text(d.querySelector('.message'))).toContain('3 chủ đề đầu tiên còn thiếu ảnh, 3 bài');
+      await pickCount('0');
+      expect(text(d.querySelector('.message'))).toContain('5 chủ đề đầu tiên còn thiếu ảnh, 5 bài');
+      d.querySelector<HTMLInputElement>('input[value="gemini"]')!.click();
+      await settle();
+      button(d, 'Tạo 5 ảnh cảnh').click();
+      await settle();
+      const req = expectStart();
+      expect(req.request.body).toEqual({
+        lessonIds: ['l1-1', 'l2-1', 'l3-1', 'l4-1', 'l5-1'],
+        engine: 'gemini',
+        key: 'A1-topics',
+        label: '5 chủ đề A1',
+      });
+      req.flush(
+        sceneBatch({
+          running: true,
+          engine: 'gemini',
+          key: 'A1-topics',
+          label: '5 chủ đề A1',
+          total: 5,
+        }),
+      );
+      await settle();
+      const card = el.querySelector('.multi-scenes ~ .scene-batch');
+      expect(text(card)).toContain('Máy chủ đang tạo ảnh cảnh ngầm bằng Gemini: xong 0/5 bài');
+      // The topics show no card of their own, and no batch can start meanwhile.
+      expect(topicCard(1).querySelector('.scene-batch')).toBeNull();
+      expect(multiButton()!.disabled).toBe(true);
+    });
+
+    it('keeps one batch within 100 lessons, the rest for the next one', async () => {
+      await setup(many(3, 40));
+      multiButton()!.click();
+      await settle();
+      await pickCount('0');
+      const d = sceneDialog()!;
+      expect(text(d.querySelector('.message'))).toContain(
+        '2 chủ đề đầu tiên còn thiếu ảnh, 80 bài',
+      );
+      expect(text(d.querySelector('.hint'))).toBe(
+        'Mỗi lượt tối đa 100 bài: 1 chủ đề còn lại vẽ ở lượt sau.',
+      );
+      d.querySelector<HTMLInputElement>('input[value="gemini"]')!.click();
+      await settle();
+      button(d, 'Tạo 80 ảnh cảnh').click();
+      await settle();
+      const req = expectStart();
+      expect(req.request.body.lessonIds.length).toBe(80);
+      req.flush(sceneBatch());
+      await settle();
+    });
+  });
+
+  describe('removing scene pictures (added 2026-11-12)', () => {
+    /** Topic 1: p1 and o1 have their scene; d1 has none. */
+    const withScenes = (): CurriculumBoard => {
+      const b = board();
+      b.topics[0].slots[2].lesson = { ...lesson('p1', false), hasScene: true };
+      b.topics[0].others = [{ ...lesson('o1', true), hasScene: true }];
+      return b;
+    };
+    const removeButton = (n: number) =>
+      topicCard(n).querySelector<HTMLButtonElement>('.topic-head .remove-scenes-btn');
+    const levelButton = () => el.querySelector<HTMLButtonElement>('.multi-scenes .remove-scenes-btn');
+    const expectRemove = () =>
+      http.expectOne(
+        (r) => r.url === '/admin/lessons/scene-images/remove' && r.method === 'POST',
+      );
+
+    it('removes the scenes of a topic after asking, then reads the board again', async () => {
+      await setup(withScenes());
+      expect(text(removeButton(1))).toBe('Gỡ ảnh cảnh (2) của chủ đề Chủ đề 1');
+      expect(removeButton(2)).toBeNull();
+      removeButton(1)!.click();
+      await settle();
+      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ ảnh cảnh của chủ đề “Chủ đề 1”?');
+      expect(text(dialog())).toContain('2 bài sẽ mất ảnh cảnh');
+      button(dialog()!, 'Gỡ 2 ảnh cảnh').click();
+      await settle();
+      const req = expectRemove();
+      expect(req.request.body).toEqual({ lessonIds: ['p1', 'o1'] });
+      req.flush({ removed: 2 });
+      await settle();
+      expectBoard().flush(board());
+      await settle();
+      expect(statusOf(1)).toBe('Đã gỡ 2 ảnh cảnh.');
+      expect(removeButton(1)).toBeNull();
+    });
+
+    it('removes every scene of the level, and says why it could not', async () => {
+      await setup(withScenes());
+      expect(text(levelButton())).toBe('Gỡ mọi ảnh cảnh A1 (2 bài)');
+      levelButton()!.click();
+      await settle();
+      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ mọi ảnh cảnh của A1?');
+      button(dialog()!, 'Gỡ 2 ảnh cảnh').click();
+      await settle();
+      expectRemove().flush(
+        { message: 'Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng rồi gỡ.' },
+        { status: 409, statusText: 'Conflict' },
+      );
+      await settle();
+      expect(text(el.querySelector('.form-alert'))).toBe(
+        'Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng rồi gỡ.',
+      );
+    });
+
+    it('does nothing when cancelled', async () => {
+      await setup(withScenes());
+      removeButton(1)!.click();
+      await settle();
+      button(dialog()!, 'Huỷ').click();
+      await settle();
+      expect(dialog()).toBeNull();
+      http.expectNone((r) => r.url === '/admin/lessons/scene-images/remove');
+    });
+  });
 });

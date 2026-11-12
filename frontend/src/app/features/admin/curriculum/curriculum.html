@@ -132,6 +132,46 @@
       }
     </div>
 
+    @if (sceneTopics().length > 1 || levelScenes().length > 0) {
+      <div class="multi-scenes">
+        @if (sceneTopics().length > 1) {
+          <button
+            type="button"
+            class="btn btn-sm scene-btn"
+            [disabled]="sceneBusy() || scenesRunning()"
+            [attr.title]="
+              scenesRunning() ? 'Đang có một lượt tạo ảnh cảnh chạy, chờ xong hoặc bấm Dừng.' : null
+            "
+            (click)="openMultiScenes($event)"
+          >
+            Tạo ảnh cảnh nhiều chủ đề ({{ sceneTopics().length }} chủ đề còn thiếu)
+          </button>
+        }
+        @if (levelScenes().length > 0) {
+          <button
+            type="button"
+            class="btn btn-sm remove-scenes-btn"
+            [disabled]="sceneBusy() || scenesRunning()"
+            [attr.title]="
+              scenesRunning() ? 'Đang có một lượt tạo ảnh cảnh chạy, chờ xong hoặc bấm Dừng.' : null
+            "
+            (click)="openRemoveScenes(null, $event)"
+          >
+            Gỡ mọi ảnh cảnh {{ level() }} ({{ levelScenes().length }} bài)
+          </button>
+        }
+      </div>
+    }
+    @if (scenesNote(); as n) {
+      <p class="muted" role="status">{{ n }}</p>
+    }
+    @if (multiError(); as m) {
+      <p class="form-alert" role="alert">{{ m }}</p>
+    }
+    @if (multiBatch(); as sb) {
+      <ng-container *ngTemplateOutlet="sceneCard; context: { $implicit: sb }" />
+    }
+
     <ol class="topics">
       @for (v of views(); track v.topic.number) {
         @let t = v.topic;
@@ -198,78 +238,22 @@
                 >
               </button>
             }
+            @if (v.sceneDone.length > 0) {
+              <button
+                type="button"
+                class="btn btn-sm remove-scenes-btn"
+                [disabled]="sceneBusy() || scenesRunning()"
+                (click)="openRemoveScenes(v, $event)"
+              >
+                Gỡ ảnh cảnh ({{ v.sceneDone.length }})<span class="visually-hidden">
+                  của chủ đề {{ t.name }}</span
+                >
+              </button>
+            }
           </div>
 
           @if (sceneBatchOf(t); as sb) {
-            <div class="scene-batch" [class.bad]="!sb.running && !!sb.stopMessage" role="status">
-              @if (sb.running) {
-                <div class="scene-batch-line">
-                  <span class="dot" aria-hidden="true"></span>
-                  <span class="scene-batch-text">
-                    {{ sb.stopping ? 'Đang dừng tạo ảnh cảnh' : 'Máy chủ đang tạo ảnh cảnh ngầm' }}
-                    bằng {{ sceneEngine(sb) }}: xong
-                    <strong>{{ sb.done }}/{{ sb.total }}</strong> bài
-                    @if (sb.drawing.length) {
-                      · đang vẽ
-                      @for (d of sb.drawing; track d.id; let last = $last) {
-                        “{{ d.title }}”{{ last ? '' : ',' }}
-                      }
-                    }
-                    @if (sb.failures.length) {
-                      · {{ sb.failures.length }} lỗi
-                    }
-                  </span>
-                  <button
-                    type="button"
-                    class="btn btn-sm"
-                    [disabled]="sb.stopping || sceneBusy()"
-                    (click)="stopScenes()"
-                  >
-                    {{ sb.stopping ? 'Đang dừng…' : 'Dừng' }}
-                  </button>
-                </div>
-                <progress
-                  class="scene-progress"
-                  [max]="sb.total"
-                  [value]="sb.done"
-                  aria-label="Tiến độ tạo ảnh cảnh"
-                ></progress>
-                <p class="scene-batch-note">
-                  Chạy ngầm trên máy chủ: có thể đóng trang hay làm việc khác, bài nào vẽ xong là
-                  lưu ngay.
-                </p>
-              } @else {
-                <div class="scene-batch-line">
-                  <span class="scene-batch-text">
-                    {{
-                      sb.stopMessage
-                        ? 'Tạo ảnh cảnh dừng sớm: ' + sb.stopMessage
-                        : sb.stopped
-                          ? 'Đã dừng tạo ảnh cảnh.'
-                          : 'Đã tạo ảnh cảnh xong.'
-                    }}
-                    {{ sb.saved.length }}/{{ sb.total }} bài có ảnh mới bằng {{ sceneEngine(sb) }}
-                    @if (sb.failures.length) {
-                      · {{ sb.failures.length }} lỗi
-                    }
-                    @if (sb.skipped.length) {
-                      · bỏ qua {{ sb.skipped.length }} bài chưa chú thích
-                    }
-                  </span>
-                  <button type="button" class="btn btn-sm" (click)="hideScenes()">Ẩn</button>
-                </div>
-                @if (sb.failures.length) {
-                  <ul class="scene-failures">
-                    @for (f of sb.failures; track f.id) {
-                      <li>
-                        <a [routerLink]="['/admin/lessons', f.id]">{{ f.title }}</a
-                        >: {{ f.message }}
-                      </li>
-                    }
-                  </ul>
-                }
-              }
-            </div>
+            <ng-container *ngTemplateOutlet="sceneCard; context: { $implicit: sb }" />
           }
 
           <p class="topic-status" role="status">
@@ -427,6 +411,16 @@
   (cancelled)="cancelRemove()"
 />
 
+<lu-confirm-dialog
+  [open]="sceneRemoval() !== null"
+  [title]="sceneRemovalTitle()"
+  [message]="sceneRemovalMessage()"
+  [confirmLabel]="'Gỡ ' + (sceneRemoval()?.lessons?.length ?? 0) + ' ảnh cảnh'"
+  [danger]="true"
+  (confirmed)="removeScenes()"
+  (cancelled)="cancelRemoveScenes()"
+/>
+
 <lu-engine-dialog
   [open]="sceneTopic() !== null"
   [heading]="'Tạo ảnh cảnh cho chủ đề “' + (sceneTopic()?.topic?.name ?? '') + '”'"
@@ -443,3 +437,96 @@
   (confirmed)="startScenes($event)"
   (cancelled)="cancelScenes()"
 />
+
+<lu-engine-dialog
+  [open]="multiOpen()"
+  [heading]="'Tạo ảnh cảnh nhiều chủ đề ' + level()"
+  [message]="multiMessage()"
+  [note]="multiNote()"
+  [confirmLabel]="'Tạo ' + multiPick().missing + ' ảnh cảnh'"
+  [codexAvailable]="codexImages()"
+  (confirmed)="startMultiScenes($event)"
+  (cancelled)="cancelMultiScenes()"
+>
+  <div class="field multi-count">
+    <label class="label" for="multi-scene-count">Số chủ đề</label>
+    <select id="multi-scene-count" (change)="selectMultiCount($any($event.target).value)">
+      @for (n of multiChoices(); track n) {
+        <option [value]="n" [selected]="multiCount() === n">{{ n }} chủ đề đầu</option>
+      }
+      <option value="0" [selected]="multiCount() === 0">
+        Tất cả ({{ sceneTopics().length }} chủ đề)
+      </option>
+    </select>
+  </div>
+</lu-engine-dialog>
+
+<!-- The progress, then the result, of a scene batch: of a topic, or of several (multiBatch). -->
+<ng-template #sceneCard let-sb>
+  <div class="scene-batch" [class.bad]="!sb.running && !!sb.stopMessage" role="status">
+    @if (sb.running) {
+      <div class="scene-batch-line">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="scene-batch-text">
+          {{ sb.stopping ? 'Đang dừng tạo ảnh cảnh' : 'Máy chủ đang tạo ảnh cảnh ngầm' }}
+          bằng {{ sceneEngine(sb) }}: xong <strong>{{ sb.done }}/{{ sb.total }}</strong> bài
+          @if (sb.drawing.length) {
+            · đang vẽ
+            @for (d of sb.drawing; track d.id; let last = $last) {
+              “{{ d.title }}”{{ last ? '' : ',' }}
+            }
+          }
+          @if (sb.failures.length) {
+            · {{ sb.failures.length }} lỗi
+          }
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm"
+          [disabled]="sb.stopping || sceneBusy()"
+          (click)="stopScenes()"
+        >
+          {{ sb.stopping ? 'Đang dừng…' : 'Dừng' }}
+        </button>
+      </div>
+      <progress
+        class="scene-progress"
+        [max]="sb.total"
+        [value]="sb.done"
+        aria-label="Tiến độ tạo ảnh cảnh"
+      ></progress>
+      <p class="scene-batch-note">
+        Chạy ngầm trên máy chủ: có thể đóng trang hay làm việc khác, bài nào vẽ xong là lưu ngay.
+      </p>
+    } @else {
+      <div class="scene-batch-line">
+        <span class="scene-batch-text">
+          {{
+            sb.stopMessage
+              ? 'Tạo ảnh cảnh dừng sớm: ' + sb.stopMessage
+              : sb.stopped
+                ? 'Đã dừng tạo ảnh cảnh.'
+                : 'Đã tạo ảnh cảnh xong.'
+          }}
+          {{ sb.saved.length }}/{{ sb.total }} bài có ảnh mới bằng {{ sceneEngine(sb) }}
+          @if (sb.failures.length) {
+            · {{ sb.failures.length }} lỗi
+          }
+          @if (sb.skipped.length) {
+            · bỏ qua {{ sb.skipped.length }} bài chưa chú thích
+          }
+        </span>
+        <button type="button" class="btn btn-sm" (click)="hideScenes()">Ẩn</button>
+      </div>
+      @if (sb.failures.length) {
+        <ul class="scene-failures">
+          @for (f of sb.failures; track f.id) {
+            <li>
+              <a [routerLink]="['/admin/lessons', f.id]">{{ f.title }}</a>: {{ f.message }}
+            </li>
+          }
+        </ul>
+      }
+    }
+  </div>
+</ng-template>

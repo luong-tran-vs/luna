@@ -12,6 +12,7 @@ import {
   missedWords,
   partCount,
   Question,
+  RecallQuestion,
   resultAfter,
   scoreText,
   seenLine,
@@ -287,7 +288,11 @@ describe('resultAfter', () => {
 // Added 2026-10-20: Gõ từ, the meaning asks for the word.
 describe('recall questions', () => {
   it('asks the lesson words whose example holds them, with the example cut around the word', () => {
-    const items = [item('desk', 'bàn làm việc'), { ...item('boss', 'sếp'), sentence: 'No word here.' }, item('lamp', '')];
+    const items = [
+      item('desk', 'bàn làm việc'),
+      { ...item('boss', 'sếp'), sentence: 'No word here.' },
+      item('lamp', ''),
+    ];
     const bank = buildBank(items, [], null, [], 7);
     expect(bank.recall).toEqual([
       {
@@ -300,6 +305,7 @@ describe('recall questions', () => {
         before: 'The ',
         inSentence: 'desk',
         after: ' is here.',
+        imageUrl: '',
       },
     ]);
   });
@@ -311,6 +317,37 @@ describe('recall questions', () => {
 
   it('brings a word typed wrong back for review', () => {
     const bank = buildBank([item('desk', 'bàn làm việc')], [], null, [], 7);
-    expect(missedWords([{ question: bank.recall[0], correct: false, given: 'table' }])).toEqual(['desk']);
+    expect(missedWords([{ question: bank.recall[0], correct: false, given: 'table' }])).toEqual([
+      'desk',
+    ]);
+  });
+});
+
+// Added 2026-11-12: the picture of a word comes with its questions.
+describe('word pictures', () => {
+  it("gives the lesson's picture of a word, else the word bank one of its due card", () => {
+    const items = [
+      { ...item('desk', 'bàn làm việc'), imageUrl: '/api/lessons/l1/images/desk' },
+      item('lamp', 'đèn'),
+    ];
+    const lamp: DueCard = {
+      ...due,
+      id: 'c2',
+      text: 'lamp',
+      lemma: 'lamp',
+      meaningVi: 'đèn',
+      imageUrl: '/api/words/lamp/image?v=1',
+    };
+    const bank = buildBank(items, [lamp], null, [], 7);
+    const pictures = Object.fromEntries(
+      (bank.vocab as VocabQuestion[]).map((q) => [q.lemma, q.imageUrl]),
+    );
+    expect(pictures).toEqual({
+      desk: '/api/lessons/l1/images/desk',
+      lamp: '/api/words/lamp/image?v=1',
+    });
+    expect((bank.recall as RecallQuestion[]).find((q) => q.lemma === 'desk')?.imageUrl).toBe(
+      '/api/lessons/l1/images/desk',
+    );
   });
 });

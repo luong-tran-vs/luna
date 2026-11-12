@@ -39,6 +39,8 @@ export interface VocabQuestion {
   sentence: string;
   sentenceVi: string;
   choices: Choices;
+  /** The picture of the word (the lesson's, else the word bank's); '' without one (added 2026-11-12). */
+  imageUrl: string;
   /** The saved card when it is due: the answer rates it. Null for other words. */
   card: DueCard | null;
 }
@@ -58,6 +60,8 @@ export interface RecallQuestion {
   before: string;
   inSentence: string;
   after: string;
+  /** The picture of the word, shown with the meaning; '' without one (added 2026-11-12). */
+  imageUrl: string;
 }
 
 /** A line of the lesson's dialogue with one word missing, the word among others. */
@@ -125,6 +129,7 @@ function vocabQuestions(
     m.trim(),
   );
   const posOf = new Map(items.map((i) => [i.lemma.toLowerCase(), i.pos ?? '']));
+  const pictureOf = new Map(items.map((i) => [i.lemma.toLowerCase(), i.imageUrl ?? '']));
   const samePos = (lemma: string) => {
     const pos = posOf.get(lemma.toLowerCase());
     return pos ? items.filter((i) => i.pos === pos).map((i) => i.meaningVi) : [];
@@ -148,6 +153,7 @@ function vocabQuestions(
       sentenceVi: c.contextSentenceVi ?? '',
       choices: makeChoices(c.meaningVi, meanings, seed ^ seedOf(lemma), samePos(lemma)),
       card: c,
+      imageUrl: pictureOf.get(lemma) || c.imageUrl || '',
     });
   }
   for (const i of shuffled(items, seed)) {
@@ -167,6 +173,7 @@ function vocabQuestions(
       sentenceVi: '',
       choices: makeChoices(i.meaningVi, meanings, seed ^ seedOf(lemma), samePos(lemma)),
       card: null,
+      imageUrl: i.imageUrl ?? '',
     });
   }
   return out;
@@ -196,11 +203,11 @@ function recallQuestions(items: readonly VocabItem[], seed: number): RecallQuest
       before: parts[0],
       inSentence: parts[1],
       after: parts[2],
+      imageUrl: i.imageUrl ?? '',
     });
   }
   return out;
 }
-
 
 function fillQuestions(
   fill: PracticeFill | null,

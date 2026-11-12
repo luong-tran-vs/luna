@@ -42,6 +42,7 @@ import { EnginePicker } from '../engine-picker/engine-picker';
           @if (note()) {
             <p class="hint">{{ note() }}</p>
           }
+          <ng-content />
           <lu-engine-picker
             name="engine-dialog-engine"
             [value]="chosen()"
@@ -155,8 +156,8 @@ export class EngineDialog {
     const items = Array.from(
       this.dialog()?.nativeElement.querySelectorAll<HTMLElement>(
         this.chosen() === ''
-          ? 'input:not(:disabled), button:not(:disabled)'
-          : 'input:checked, button',
+          ? 'select:not(:disabled), input:not(:disabled), button:not(:disabled)'
+          : 'select:not(:disabled), input:checked, button',
       ) ?? [],
     );
     const first = items[0];

@@ -92,6 +92,11 @@ export class VerbImages {
   protected readonly drawing = computed(() => new Set(this.batches.status()?.drawing ?? []));
   protected readonly running = this.batches.running;
   protected readonly status = this.batches.status;
+  /** The batch the page shows: running, or finished and not hidden yet. */
+  protected readonly shown = computed(() => {
+    const b = this.status();
+    return b?.running ? b : this.batches.result();
+  });
   protected readonly engineName = computed(() => {
     const e = this.status()?.engine;
     return e ? engineLabel(e) : '';

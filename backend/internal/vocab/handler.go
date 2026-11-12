@@ -54,6 +54,8 @@ type cardJSON struct {
 	State             string    `json:"state"`
 	// POS is the part of speech of the word in its lesson, absent when unknown.
 	POS string `json:"pos,omitempty"`
+	// ImageURL is the word bank picture of the word, absent when it has none (added 2026-11-12).
+	ImageURL string `json:"imageUrl,omitempty"`
 }
 
 var stateNames = map[State]string{StateNew: "new", StateLearning: "learning", StateReview: "review", StateRelearning: "relearning"}
@@ -63,7 +65,7 @@ func toJSON(c Card) cardJSON {
 	out := cardJSON{
 		ID: c.ID, Text: c.Text, Lemma: c.Lemma, IPA: c.IPA, MeaningVi: c.MeaningVi,
 		ContextSentence: c.ContextSentence, ContextSentenceVi: c.ContextSentenceVi, Source: c.Source, CreatedAt: c.CreatedAt,
-		Due: c.Schedule.Due.UTC(), Reps: c.Schedule.Reps, State: stateNames[c.Schedule.State], POS: c.POS,
+		Due: c.Schedule.Due.UTC(), Reps: c.Schedule.Reps, State: stateNames[c.Schedule.State], POS: c.POS, ImageURL: c.ImageURL,
 	}
 	if c.LessonID != "" {
 		out.LessonID = &c.LessonID

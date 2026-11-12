@@ -317,3 +317,23 @@
 .scene-batch-note {
   color: var(--color-text-muted);
 }
+
+/* "Tạo ảnh cảnh nhiều chủ đề" (added 2026-11-12): one batch over the first topics still missing scenes. */
+.multi-scenes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Their labels are long: on a phone they wrap instead of widening the page (.btn-sm keeps one line). */
+.multi-scenes .btn,
+.topic-head .scene-btn,
+.topic-head .remove-scenes-btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+.multi-count {
+  margin-bottom: var(--space-3);
+}

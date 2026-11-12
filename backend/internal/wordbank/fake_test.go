@@ -229,13 +229,14 @@ type testEnv struct {
 	means  *fakeMeaningAI
 	fetch  map[string][]byte
 	now    time.Time
+	cards  *fakeCards
 }
 
 func newEnv() *testEnv {
 	e := &testEnv{repo: newFakeRepo(), topics: &fakeTopics{lists: []TopicList{
 		{TopicRef: TopicRef{ID: "t1", Name: "Nhà cửa"}, Words: []string{"House", "tablix", "house", ""}},
 		{TopicRef: TopicRef{ID: "t2", Name: "Chào hỏi"}, Words: []string{"good  morning", "House"}},
-	}}, draw: &fakeImageAI{}, means: &fakeMeaningAI{}, fetch: map[string][]byte{}, now: time.Date(2026, 10, 7, 9, 0, 0, 0, time.UTC)}
+	}}, draw: &fakeImageAI{}, means: &fakeMeaningAI{}, fetch: map[string][]byte{}, now: time.Date(2026, 10, 7, 9, 0, 0, 0, time.UTC), cards: &fakeCards{}}
 	e.svc = NewService(Deps{
 		Repo: e.repo,
 		Dict: fakeDict{
@@ -244,6 +245,7 @@ func newEnv() *testEnv {
 			"morning": {Word: "morning", IPA: "/ˈmɔːnɪŋ/", Meanings: []dictionary.Meaning{{Text: "buổi sáng"}}},
 		},
 		Topics:    e.topics,
+		Cards:     e.cards,
 		ImageAI:   e.draw,
 		MeaningAI: e.means,
 		FetchImage: func(_ context.Context, url string) ([]byte, error) {
@@ -273,4 +275,13 @@ func (f *fakeMeaningAI) WordMeanings(_ context.Context, req ai.MeaningsRequest) 
 	defer f.mu.Unlock()
 	f.reqs = append(f.reqs, req)
 	return f.answers, f.err
+}
+
+// fakeCards are the words learners saved.
+type fakeCards struct {
+	words []CardWord
+}
+
+func (f *fakeCards) CardWords(context.Context) ([]CardWord, error) {
+	return slices.Clone(f.words), nil
 }

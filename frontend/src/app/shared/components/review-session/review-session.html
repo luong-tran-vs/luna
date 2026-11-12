@@ -28,6 +28,14 @@
   </header>
 
   <lu-asker [label]="askLabel()" [tone]="tone()">
+    <!--
+      The word bank picture (added 2026-11-12): with the meaning when it asks for the word (it
+      helps recall without spelling it), else only with the answer, since it would give the
+      meaning away.
+    -->
+    @if (card.imageUrl && (shown() || mode() === 'recall')) {
+      <lu-word-picture class="word-picture" [url]="card.imageUrl" />
+    }
     @if (mode() === 'flip' || shown()) {
       <p class="word-line">
         <span class="word" lang="en">{{ card.text }}</span>

@@ -20,6 +20,8 @@ export interface Card {
   state: CardState;
   /** The part of speech of the word in its lesson; absent when unknown (a card typed by hand). */
   pos?: string;
+  /** The word bank picture of the word (added 2026-11-12), given with the due cards; absent without one. */
+  imageUrl?: string;
 }
 
 /** A meaning the review may offer as a wrong option, with the part of speech when known. */

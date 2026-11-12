@@ -46,6 +46,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("POST /api/admin/words/import", admin(h.importTopics))
 	mux.Handle("POST /api/admin/words/fill-missing", admin(h.fillMissing))
 	mux.Handle("POST /api/admin/words/ipa-suggestions/accept", admin(h.acceptIPASuggestions))
+	mux.Handle("GET /api/admin/words/card-words", admin(h.cardWords))
+	mux.Handle("POST /api/admin/words/card-words/image-batch", admin(h.startCardWordsBatch))
 	mux.Handle("GET /api/admin/words/image-batch", admin(h.batch))
 	mux.Handle("POST /api/admin/words/image-batch", admin(h.startBatch))
 	mux.Handle("POST /api/admin/words/image-batch/stop", admin(h.stopBatch))
@@ -56,6 +58,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("DELETE /api/admin/words/{lemma}/image", admin(h.deleteImage))
 	mux.Handle("POST /api/admin/words/{lemma}/image/import", admin(h.importImage))
 	mux.Handle("POST /api/admin/words/{lemma}/image/generate", admin(h.generateImage))
+	// The picture of a word for the learners' review cards (added 2026-11-12).
+	mux.Handle("GET /api/words/{lemma}/image", requireAuth(http.HandlerFunc(h.image)))
 }
 
 type wordJSON struct {
@@ -398,6 +402,7 @@ type batchJSON struct {
 	Stopped     bool               `json:"stopped"`
 	Engine      Engine             `json:"engine"`
 	Ticked      bool               `json:"ticked"`
+	CardWords   bool               `json:"cardWords,omitempty"`
 	TopicName   string             `json:"topicName,omitempty"`
 	Search      string             `json:"search,omitempty"`
 	Topics      []string           `json:"topics"`
@@ -414,7 +419,7 @@ type batchJSON struct {
 func batchToJSON(b BatchStatus) batchJSON {
 	out := batchJSON{
 		Running: b.Running, Stopping: b.Stopping, Stopped: b.Stopped, Engine: b.Engine, Total: b.Total, Done: b.Done(),
-		Ticked: b.Ticked, TopicName: b.TopicName, Search: b.Search, Topics: b.Topics,
+		Ticked: b.Ticked, CardWords: b.CardWords, TopicName: b.TopicName, Search: b.Search, Topics: b.Topics,
 		Drawing: b.Drawing, Saved: make([]wordJSON, len(b.Saved)), Failures: make([]batchFailureJSON, len(b.Failures)),
 	}
 	if out.Drawing == nil {

@@ -132,6 +132,8 @@ export interface BankImageBatch {
   engine: ImageEngine | '';
   /** The admin ticked the words; otherwise they are the words lacking a picture of the filter. */
   ticked: boolean;
+  /** The words learners saved in their review cards (added 2026-11-12). */
+  cardWords?: boolean;
   /** The filter's topic, absent for every topic. */
   topicName?: string;
   /** The filter's search text. */
@@ -149,4 +151,24 @@ export interface BankImageBatch {
   stopMessage?: string;
   startedAt?: string;
   finishedAt?: string;
+}
+
+/** A word learners saved without a picture in the bank (added 2026-11-12). */
+export interface CardWordMissing {
+  lemma: string;
+  meaningVi: string;
+  /** How many learners have a card of it. */
+  learners: number;
+  /** false when the bank lacks the word too: the batch adds it with a learner's meaning. */
+  inBank: boolean;
+}
+
+/** GET /api/admin/words/card-words: the words learners review and their pictures. */
+export interface CardWordsSummary {
+  total: number;
+  withImage: number;
+  missingCount: number;
+  /** The most saved words without a picture, the first 50. */
+  missing: CardWordMissing[];
+  codexImages: boolean;
 }

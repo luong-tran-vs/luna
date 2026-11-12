@@ -34,6 +34,8 @@ type Deps struct {
 	Titles       LessonTitles
 	// Pronunciations fills the missing IPA of due cards; nil leaves them as saved.
 	Pronunciations Pronunciations
+	// Pictures shows the word bank picture of due cards; nil shows none.
+	Pictures Pictures
 	// Translations fills the missing translation of a lesson card's example; nil leaves it empty.
 	Translations SentenceTranslations
 	// Results keeps the score of the latest lesson review of each lesson.
@@ -52,7 +54,8 @@ type Service struct {
 	vocabulary     LessonVocabulary
 	titles         LessonTitles
 	pronunciations Pronunciations
-	translations   SentenceTranslations
+	pictures       Pictures
+	translations  SentenceTranslations
 	results        LessonResultRepository
 	studyDays      StudyDays
 	now            func() time.Time
@@ -62,7 +65,7 @@ type Service struct {
 func NewService(d Deps) *Service {
 	return &Service{
 		repo: d.Repo, logs: d.Logs, lessonExists: d.LessonExists, timezones: d.Timezones,
-		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, translations: d.Translations, results: d.Results,
+		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, pictures: d.Pictures, translations: d.Translations, results: d.Results,
 		studyDays: d.StudyDays, now: d.Now,
 	}
 }

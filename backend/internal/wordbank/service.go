@@ -43,8 +43,10 @@ type Deps struct {
 	MeaningAI ai.MeaningProvider
 	// FetchImage downloads the picture behind a link.
 	FetchImage lesson.ImageFetcher
-	Now        func() time.Time
-	Log        *slog.Logger
+	// Cards gives the words learners saved, for their pictures (added 2026-11-12); nil lists none.
+	Cards CardWords
+	Now   func() time.Time
+	Log   *slog.Logger
 }
 
 // Service manages the word bank (F24). Every method is for admins except Words and Image, which
@@ -58,6 +60,7 @@ type Service struct {
 	codexConcurrency int
 	meaningAI        ai.MeaningProvider
 	fetch            lesson.ImageFetcher
+	cards            CardWords
 	now              func() time.Time
 	log              *slog.Logger
 
@@ -69,7 +72,7 @@ type Service struct {
 // NewService returns a Service.
 func NewService(d Deps) *Service {
 	return &Service{
-		repo: d.Repo, dict: d.Dict, topics: d.Topics, imageAI: d.ImageAI, codexAI: d.CodexImageAI, codexConcurrency: d.CodexConcurrency, meaningAI: d.MeaningAI, fetch: d.FetchImage, now: d.Now, log: d.Log,
+		repo: d.Repo, dict: d.Dict, topics: d.Topics, imageAI: d.ImageAI, codexAI: d.CodexImageAI, codexConcurrency: d.CodexConcurrency, meaningAI: d.MeaningAI, fetch: d.FetchImage, cards: d.Cards, now: d.Now, log: d.Log,
 	}
 }
 

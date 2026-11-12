@@ -267,8 +267,8 @@ describe('GrammarList', () => {
     await setup();
     await click('a1-articles', 'Sinh bằng AI');
     http.expectNone(lessonUrl('a1-articles', 'generate'));
-    expect(text(el.querySelector('lu-confirm-dialog'))).toContain('đã sửa tay');
-    el.querySelector<HTMLButtonElement>('lu-confirm-dialog .btn-primary')!.click();
+    expect(text(el.querySelector('[role="alertdialog"]'))).toContain('đã sửa tay');
+    el.querySelector<HTMLButtonElement>('[role="alertdialog"] .btn-primary')!.click();
     await settle();
     const req = http.expectOne(lessonUrl('a1-articles', 'generate'));
     expect(req.request.body).toEqual({ force: true });
@@ -280,10 +280,10 @@ describe('GrammarList', () => {
   it('does not generate when the confirmation is cancelled', async () => {
     await setup();
     await click('a1-to-be', 'Sinh bằng AI');
-    expect(text(el.querySelector('lu-confirm-dialog'))).toContain('đã đăng');
-    el.querySelector<HTMLButtonElement>('lu-confirm-dialog .btn:not(.btn-primary)')!.click();
+    expect(text(el.querySelector('[role="alertdialog"]'))).toContain('đã đăng');
+    el.querySelector<HTMLButtonElement>('[role="alertdialog"] .btn:not(.btn-primary)')!.click();
     await settle();
-    expect(el.querySelector('lu-confirm-dialog [role="alertdialog"]')).toBeNull();
+    expect(el.querySelector('[role="alertdialog"]')).toBeNull();
   });
 
   for (const [code, error, message] of [

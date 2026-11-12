@@ -24,11 +24,16 @@ export function sceneBatchKey(level: string, topic: number): string {
 
 /** The level a batch key names, '' for a malformed key. */
 export function levelOfKey(key: string): string {
-  const m = /^([A-C][12])-\d+$/.exec(key);
+  const m = /^([A-C][12])-(?:\d+|topics)$/.exec(key);
   return m ? m[1] : '';
 }
 
 /** The lesson a batch key names ("lesson:<id>", the lesson page's batch), '' otherwise. */
 export function lessonOfKey(key: string): string {
   return key.startsWith('lesson:') ? key.slice('lesson:'.length) : '';
+}
+
+/** The key of a batch over several topics of a level ("Tạo ảnh cảnh nhiều chủ đề"), e.g. "A1-topics". */
+export function multiSceneKey(level: string): string {
+  return `${level}-topics`;
 }

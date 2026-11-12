@@ -45,6 +45,16 @@
           {{ busy() === 'all' ? 'Đang gửi…' : 'Tạo ' + missing() + ' ảnh còn thiếu' }}
         </button>
       }
+      @if (!drawingNow() && rows().length - missing() > 0) {
+        <button
+          type="button"
+          class="btn"
+          [disabled]="locked()"
+          (click)="confirmingRemoval.set(true)"
+        >
+          {{ busy() === 'remove' ? 'Đang gỡ…' : 'Gỡ hết ảnh (' + (rows().length - missing()) + ')' }}
+        </button>
+      }
     </div>
     @if (otherBatch(); as o) {
       <p class="field-hint">
@@ -106,3 +116,17 @@
     <p class="muted">Bài chưa có câu ví dụ.</p>
   }
 </section>
+
+<lu-confirm-dialog
+  [open]="confirmingRemoval()"
+  title="Gỡ hết ảnh của bài này?"
+  [message]="
+    rows().length -
+    missing() +
+    ' ảnh sẽ bị gỡ: ảnh câu ví dụ và ảnh bài “Nhìn ảnh chọn từ” (người học không thấy các bài này cho tới khi tạo lại ảnh). Không hoàn tác được.'
+  "
+  [confirmLabel]="'Gỡ ' + (rows().length - missing()) + ' ảnh'"
+  [danger]="true"
+  (confirmed)="removeAll()"
+  (cancelled)="confirmingRemoval.set(false)"
+/>

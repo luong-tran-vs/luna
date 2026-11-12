@@ -41,6 +41,9 @@ type Repository interface {
 	Count(ctx context.Context, userID string, since *time.Time) (int, error)
 	// Delete removes the card; ok is false when it did not exist.
 	Delete(ctx context.Context, userID, id string) (ok bool, err error)
+	// CardWords lists the lemmas of every learner's cards, the most saved first (added 2026-11-12):
+	// the only method not scoped to a user, for the admin.
+	CardWords(ctx context.Context) ([]CardWord, error)
 }
 
 // ReviewLogRepository stores review history.
@@ -67,6 +70,12 @@ type Timezones interface {
 // ErrLessonNotFound when the lesson does not exist.
 type LessonVocabulary interface {
 	Vocabulary(ctx context.Context, lessonID string) ([]VocabItem, error)
+}
+
+// Pictures gives the word bank picture of base forms (added 2026-11-12): the URL by lemma as given,
+// a lemma without a picture left out.
+type Pictures interface {
+	ImageURLs(ctx context.Context, lemmas []string) (map[string]string, error)
 }
 
 // Pronunciations gives the IPA of a base form from the offline dictionary, "" when unknown.

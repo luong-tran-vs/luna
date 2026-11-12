@@ -445,3 +445,34 @@ func (r *Cards) Count(ctx context.Context, userID string, since *time.Time) (int
 	}
 	return int(n), nil
 }
+
+// CardWords lists the lemmas of every learner's cards, the most saved first, then by lemma.
+func (r *Cards) CardWords(ctx context.Context) ([]vocab.CardWord, error) {
+	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
+		{{Key: "$group", Value: bson.D{
+			{Key: "_id", Value: "$lemma"},
+			{Key: "meaningVi", Value: bson.D{{Key: "$max", Value: "$meaningVi"}}},
+			{Key: "ipa", Value: bson.D{{Key: "$max", Value: "$ipa"}}},
+			// A learner has one card of a lemma (unique index), so cards count learners.
+			{Key: "learners", Value: bson.D{{Key: "$sum", Value: 1}}},
+		}}},
+		{{Key: "$sort", Value: bson.D{{Key: "learners", Value: -1}, {Key: "_id", Value: 1}}}},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("aggregate card words: %w", err)
+	}
+	var rows []struct {
+		Lemma     string `bson:"_id"`
+		MeaningVi string `bson:"meaningVi"`
+		IPA       string `bson:"ipa"`
+		Learners  int    `bson:"learners"`
+	}
+	if err := cur.All(ctx, &rows); err != nil {
+		return nil, fmt.Errorf("read card words: %w", err)
+	}
+	out := make([]vocab.CardWord, len(rows))
+	for i, x := range rows {
+		out[i] = vocab.CardWord{Lemma: x.Lemma, MeaningVi: x.MeaningVi, IPA: x.IPA, Learners: x.Learners}
+	}
+	return out, nil
+}

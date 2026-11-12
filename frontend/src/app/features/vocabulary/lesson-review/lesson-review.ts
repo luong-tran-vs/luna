@@ -27,6 +27,7 @@ import { SpeakButton } from '../../../shared/directives/speak-button';
 import { letterHint, matchAnswer } from '../../../shared/utils/answer-match';
 import { intervalLabel } from '../../../shared/utils/interval-label';
 import { ReadingApiService } from '../../lesson/reading-api.service';
+import { WordPicture } from '../../../shared/components/word-picture/word-picture';
 import { settleReviewOffer } from '../../lesson/review-offer';
 import {
   Answer,
@@ -79,7 +80,7 @@ interface Segment {
  */
 @Component({
   selector: 'lu-lesson-review',
-  imports: [Asker, ChoiceList, Icon, Loading, RouterLink, SpeakButton],
+  imports: [Asker, ChoiceList, Icon, Loading, RouterLink, SpeakButton, WordPicture],
   templateUrl: './lesson-review.html',
   styleUrl: './lesson-review.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

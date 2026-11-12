@@ -59,6 +59,18 @@ type Card struct {
 	Schedule          Schedule
 	// POS is the part of speech of the word in its lesson; not stored, filled when cards are read.
 	POS string
+	// ImageURL is the word bank picture of the word (added 2026-11-12), "" when it has none; not
+	// stored, filled for the review.
+	ImageURL string
+}
+
+// CardWord is a word learners saved (added 2026-11-12): one per lemma, with how many learners have a
+// card of it and the meaning and IPA of one of those cards. The admin draws its picture.
+type CardWord struct {
+	Lemma     string
+	MeaningVi string
+	IPA       string
+	Learners  int
 }
 
 // WordRef identifies a saved word for highlighting.

@@ -37,6 +37,8 @@ type BatchRequest struct {
 	TopicID string
 	Engine  Engine
 	Style   string
+	// CardWords marks a batch over the words learners saved (StartCardWordsBatch).
+	CardWords bool
 }
 
 // BatchFailure is a word of the batch that got no picture.
@@ -56,6 +58,8 @@ type BatchStatus struct {
 	// Ticked is true for the words the admin ticked, false for the words lacking a picture that
 	// matched the filter (Search, and the topic).
 	Ticked bool
+	// CardWords is true for a batch over the words learners saved (added 2026-11-12).
+	CardWords bool
 	// TopicName is the topic every word of the batch comes from (the filter's), "" when they
 	// come from several: Topics then names the fewest topics holding them all.
 	TopicName string
@@ -114,7 +118,7 @@ func (s *Service) StartBatch(ctx context.Context, req BatchRequest) (BatchStatus
 	// The batch outlives the request that started it.
 	base := context.WithoutCancel(ctx)
 	feed, stop := context.WithCancel(base)
-	st := BatchStatus{Running: true, Engine: engine, Total: len(lemmas), StartedAt: s.now(), Ticked: len(req.Lemmas) > 0, Topics: scope.topics}
+	st := BatchStatus{Running: true, Engine: engine, Total: len(lemmas), StartedAt: s.now(), Ticked: len(req.Lemmas) > 0, Topics: scope.topics, CardWords: req.CardWords}
 	st.TopicName = scope.topicName
 	if !st.Ticked {
 		st.Search = strings.Join(strings.Fields(req.Search), " ")

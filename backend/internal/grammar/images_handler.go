@@ -19,6 +19,7 @@ func (h *Handler) registerImages(mux *http.ServeMux, admin, learner func(http.Ha
 	mux.Handle("GET /api/admin/grammar-image-batch", admin(h.imageBatch))
 	mux.Handle("POST /api/admin/grammar-image-batch", admin(h.startImageBatch))
 	mux.Handle("POST /api/admin/grammar-image-batch/stop", admin(h.stopImageBatch))
+	mux.Handle("POST /api/admin/grammar-images/remove", admin(h.removeImages))
 	mux.Handle("GET /api/grammar/{pointId}/images/{key}", learner(h.image))
 }
 

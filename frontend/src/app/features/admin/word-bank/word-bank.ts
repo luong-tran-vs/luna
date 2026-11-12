@@ -40,6 +40,7 @@ import { AdminApiService } from '../admin-api.service';
 import { bankMessage, NO_ENGINE } from './bank-message';
 import { BankWordRow } from './bank-word-row/bank-word-row';
 import { batchScope, ImageBatchService } from './image-batch.service';
+import { CardWordPictures } from './card-word-pictures/card-word-pictures';
 
 /** Wait after the last keystroke before searching. */
 const SEARCH_DELAY_MS = 300;
@@ -83,7 +84,7 @@ export const MISSING_KINDS: readonly {
  */
 @Component({
   selector: 'lu-word-bank',
-  imports: [ReactiveFormsModule, BankWordRow, ConfirmDialog, SearchSelect],
+  imports: [ReactiveFormsModule, BankWordRow, CardWordPictures, ConfirmDialog, SearchSelect],
   templateUrl: './word-bank.html',
   styleUrl: './word-bank.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

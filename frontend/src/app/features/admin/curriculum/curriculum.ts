@@ -11,6 +11,7 @@ import {
   untracked,
   WritableSignal,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
 
@@ -35,7 +36,7 @@ import { ProgressBar } from '../../../shared/components/progress-bar/progress-ba
 import { AdminApiService } from '../admin-api.service';
 import { CurriculumDraft } from './curriculum-draft/curriculum-draft';
 import { LessonRow, lessonState, RowState } from './lesson-row/lesson-row';
-import { sceneBatchKey, SceneBatchService } from './scene-batch.service';
+import { multiSceneKey, sceneBatchKey, SceneBatchService } from './scene-batch.service';
 import { EngineDialog } from '../../../shared/components/engine-dialog/engine-dialog';
 
 const LOAD_FAILED = 'Không tải được giáo trình, vui lòng thử lại.';
@@ -46,6 +47,11 @@ const CHECKS_FAILED = 'Không kiểm tra lại được bài, vui lòng thử l�
 const REMOVE_FAILED = 'Không gỡ được bài, vui lòng thử lại.';
 const DRAFT_FAILED = 'AI soạn giáo trình thất bại, vui lòng thử lại.';
 const EDIT_FAILED = 'Không mở được bản nháp, vui lòng thử lại.';
+
+/** The most lessons one scene batch takes (the server's lesson.MaxSceneBatch). */
+const MAX_SCENE_BATCH = 100;
+/** How many topics "Tạo ảnh cảnh nhiều chủ đề" offers to draw at once, besides all. */
+const MULTI_TOPIC_CHOICES = [3, 5, 10];
 
 export type Filter = 'all' | RowState;
 
@@ -87,6 +93,8 @@ interface TopicView {
   /** Lessons without a scene picture: annotated ones the batch draws, the others it skips. */
   sceneMissing: CurriculumLesson[];
   sceneSkipped: CurriculumLesson[];
+  /** Lessons with a scene picture, which "Gỡ ảnh cảnh" removes (added 2026-11-12). */
+  sceneDone: CurriculumLesson[];
 }
 
 /**
@@ -110,6 +118,7 @@ interface TopicView {
     ProgressBar,
     LessonRow,
     EngineDialog,
+    NgTemplateOutlet,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.css',
@@ -310,6 +319,172 @@ export class Curriculum {
 
   protected hideScenes(): void {
     this.scenes.hideResult();
+  }
+
+  /**
+   * What "Gỡ ảnh cảnh" is about to remove (added 2026-11-12): the scene pictures of a topic's
+   * lessons, or of the whole level (topic null); null while the dialog is closed.
+   */
+  protected readonly sceneRemoval = signal<{
+    topic: CurriculumTopic | null;
+    lessons: CurriculumLesson[];
+  } | null>(null);
+  /** The lessons of the level with a scene picture. */
+  protected readonly levelScenes = computed(() => this.views().flatMap((v) => v.sceneDone));
+  /** What the level-wide scene actions said last. */
+  protected readonly scenesNote = signal<string | null>(null);
+  protected readonly sceneRemovalTitle = computed(() => {
+    const r = this.sceneRemoval();
+    return r?.topic
+      ? `Gỡ ảnh cảnh của chủ đề “${r.topic.name}”?`
+      : `Gỡ mọi ảnh cảnh của ${this.level()}?`;
+  });
+  protected readonly sceneRemovalMessage = computed(
+    () =>
+      `${this.sceneRemoval()?.lessons.length ?? 0} bài sẽ mất ảnh cảnh; người học không thấy ảnh cho tới khi tạo lại. Mô tả cảnh và kiểu vẽ của bài được giữ để tạo lại. Không hoàn tác được.`,
+  );
+
+  protected openRemoveScenes(v: TopicView | null, event: Event): void {
+    this.opener = event.currentTarget as HTMLElement;
+    this.notice.set(null);
+    this.scenesNote.set(null);
+    this.multiError.set(null);
+    this.sceneRemoval.set(
+      v ? { topic: v.topic, lessons: v.sceneDone } : { topic: null, lessons: this.levelScenes() },
+    );
+  }
+
+  protected cancelRemoveScenes(): void {
+    this.sceneRemoval.set(null);
+    this.opener?.focus();
+  }
+
+  /** Removes the scene pictures asked for, then reads the board again. */
+  protected async removeScenes(): Promise<void> {
+    const r = this.sceneRemoval();
+    this.sceneRemoval.set(null);
+    if (!r || r.lessons.length === 0 || this.sceneBusy()) {
+      return;
+    }
+    this.sceneBusy.set(true);
+    const say = (kind: 'ok' | 'error', text: string) =>
+      r.topic
+        ? this.notice.set({ topic: r.topic.number, kind, text })
+        : kind === 'ok'
+          ? this.scenesNote.set(text)
+          : this.multiError.set(text);
+    try {
+      const { removed } = await firstValueFrom(this.api.removeScenes(r.lessons.map((l) => l.id)));
+      say('ok', `Đã gỡ ${removed} ảnh cảnh.`);
+      this.load();
+    } catch (err) {
+      say('error', messageOf(err) ?? 'Không gỡ được ảnh cảnh, vui lòng thử lại.');
+    } finally {
+      this.sceneBusy.set(false);
+      this.opener?.focus();
+    }
+  }
+
+  /** The "Tạo ảnh cảnh nhiều chủ đề" dialog is open. */
+  protected readonly multiOpen = signal(false);
+  /** How many topics, from the top, the dialog draws; 0 for all that fit. */
+  protected readonly multiCount = signal(MULTI_TOPIC_CHOICES[0]);
+  protected readonly multiError = signal<string | null>(null);
+  /** The topics with lessons to draw, in course order. */
+  protected readonly sceneTopics = computed(() =>
+    this.views().filter((v) => v.sceneMissing.length > 0),
+  );
+  /** The counts offered: those below the topics left, then "all". */
+  protected readonly multiChoices = computed(() =>
+    MULTI_TOPIC_CHOICES.filter((n) => n < this.sceneTopics().length),
+  );
+  /** The topics the dialog draws: the first ones chosen, within one batch's bound of lessons. */
+  protected readonly multiPick = computed(() => {
+    const all = this.sceneTopics();
+    const want = this.multiCount() || all.length;
+    const picked: TopicView[] = [];
+    let lessons = 0;
+    for (const v of all.slice(0, want)) {
+      const n = v.sceneMissing.length + v.sceneSkipped.length;
+      if (picked.length > 0 && lessons + n > MAX_SCENE_BATCH) {
+        break;
+      }
+      picked.push(v);
+      lessons += n;
+    }
+    return {
+      topics: picked,
+      missing: picked.reduce((s, v) => s + v.sceneMissing.length, 0),
+      skipped: picked.reduce((s, v) => s + v.sceneSkipped.length, 0),
+      cut: Math.min(want, all.length) - picked.length,
+    };
+  });
+  protected readonly multiMessage = computed(() => {
+    const p = this.multiPick();
+    return `${p.topics.length} chủ đề đầu tiên còn thiếu ảnh, ${p.missing} bài chưa có ảnh cảnh. Mỗi bài vẽ riêng như khi tạo theo từng chủ đề, nên chất lượng không đổi.`;
+  });
+  protected readonly multiNote = computed(() => {
+    const p = this.multiPick();
+    const notes: string[] = [];
+    if (p.skipped) {
+      notes.push(`${p.skipped} bài chưa chú thích xong sẽ bị bỏ qua.`);
+    }
+    if (p.cut > 0) {
+      notes.push(`Mỗi lượt tối đa ${MAX_SCENE_BATCH} bài: ${p.cut} chủ đề còn lại vẽ ở lượt sau.`);
+    }
+    return notes.join(' ');
+  });
+  /** The batch over several topics of this level: running, or finished and not hidden yet. */
+  protected readonly multiBatch = computed(() => {
+    const b = this.scenes.status();
+    if (!b || b.key !== multiSceneKey(this.level())) {
+      return null;
+    }
+    return b.running ? b : this.scenes.result();
+  });
+
+  protected openMultiScenes(event: Event): void {
+    this.opener = event.currentTarget as HTMLElement;
+    this.multiError.set(null);
+    this.multiCount.set(this.multiChoices()[0] ?? 0);
+    this.multiOpen.set(true);
+  }
+
+  protected selectMultiCount(value: string): void {
+    this.multiCount.set(Number(value) || 0);
+  }
+
+  protected cancelMultiScenes(): void {
+    this.multiOpen.set(false);
+    this.opener?.focus();
+  }
+
+  /** Starts drawing the scenes of the lessons of the topics picked, in one batch. */
+  protected async startMultiScenes(engine: ImageEngine): Promise<void> {
+    const p = this.multiPick();
+    this.multiOpen.set(false);
+    if (p.topics.length === 0 || this.sceneBusy()) {
+      return;
+    }
+    this.sceneBusy.set(true);
+    try {
+      const b = await firstValueFrom(
+        this.api.startSceneBatch({
+          lessonIds: p.topics.flatMap((v) =>
+            [...v.sceneMissing, ...v.sceneSkipped].map((l) => l.id),
+          ),
+          engine,
+          key: multiSceneKey(this.level()),
+          label: `${p.topics.length} chủ đề ${this.level()}`,
+        }),
+      );
+      this.scenes.set(b);
+    } catch (err) {
+      this.multiError.set(messageOf(err) ?? 'Không bắt đầu tạo ảnh cảnh được, vui lòng thử lại.');
+    } finally {
+      this.sceneBusy.set(false);
+      this.opener?.focus();
+    }
   }
 
   /** Shows another level and keeps it in the address, so a reload stays on it. */
@@ -705,15 +880,19 @@ function messageOf(err: unknown): string | null {
 }
 
 /** The lessons of a topic without a scene picture, split by whether they are annotated. */
+/** The lessons of a topic by scene picture: lacking one (annotated or not), or having one. */
 function scenesOf(t: CurriculumTopic): {
   sceneMissing: CurriculumLesson[];
   sceneSkipped: CurriculumLesson[];
+  sceneDone: CurriculumLesson[];
 } {
-  const lessons = [
+  const all = [
     ...t.slots.map((s) => s.lesson).filter((l): l is CurriculumLesson => l !== null),
     ...t.others,
-  ].filter((l) => !l.hasScene);
+  ];
+  const lessons = all.filter((l) => !l.hasScene);
   return {
+    sceneDone: all.filter((l) => l.hasScene),
     sceneMissing: lessons.filter((l) => l.annotationStatus === 'done'),
     sceneSkipped: lessons.filter((l) => l.annotationStatus !== 'done'),
   };

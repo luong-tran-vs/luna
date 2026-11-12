@@ -329,8 +329,8 @@ describe('GrammarDetail', () => {
     button('Sinh lại bằng AI').click();
     await settle();
     http.expectNone(`${URL}/generate`);
-    expect(text(el.querySelector('lu-confirm-dialog'))).toContain('đã đăng');
-    el.querySelector<HTMLButtonElement>('lu-confirm-dialog .btn-primary')!.click();
+    expect(text(el.querySelector('[role="alertdialog"]'))).toContain('đã đăng');
+    el.querySelector<HTMLButtonElement>('[role="alertdialog"] .btn-primary')!.click();
     await settle();
     const req = http.expectOne(`${URL}/generate`);
     expect(req.request.body).toEqual({ force: true });
@@ -430,7 +430,7 @@ describe('GrammarDetail', () => {
       button('Đăng').click();
       await settle();
       http.expectNone(`${URL}/publish`);
-      const dialog = el.querySelectorAll('lu-confirm-dialog')[1];
+      const dialog = el.querySelector('[role="alertdialog"]')!;
       expect(text(dialog)).toContain('2 câu');
       dialog.querySelector<HTMLButtonElement>('.btn-primary')!.click();
       await settle();
@@ -693,7 +693,7 @@ describe('GrammarDetail', () => {
       await setup();
       await clickIn(exercise('p2'), 'Xoá câu này');
       http.expectNone(`${URL}/exercises/p2`);
-      const dialog = el.querySelectorAll('lu-confirm-dialog')[3];
+      const dialog = el.querySelector('[role="alertdialog"]')!;
       expect(text(dialog)).toContain('còn 1 câu');
       dialog.querySelector<HTMLButtonElement>('.btn-primary')!.click();
       await settle();
@@ -709,7 +709,7 @@ describe('GrammarDetail', () => {
     it('shows the message of the server when deleting goes under the minimum', async () => {
       await setup();
       await clickIn(exercise('p2'), 'Xoá câu này');
-      el.querySelectorAll('lu-confirm-dialog')[3]
+      el.querySelector('[role="alertdialog"]')!
         .querySelector<HTMLButtonElement>('.btn-primary')!
         .click();
       await settle();
@@ -752,7 +752,7 @@ describe('GrammarDetail', () => {
       button('Xác nhận đã kiểm tra xong').click();
       await settle();
       http.expectNone(`${URL}/verify`);
-      const dialog = el.querySelectorAll('lu-confirm-dialog')[2];
+      const dialog = el.querySelector('[role="alertdialog"]')!;
       expect(text(dialog)).toContain('Xác nhận 2 câu còn cờ là đúng?');
       dialog.querySelector<HTMLButtonElement>('.btn-primary')!.click();
       await settle();

@@ -402,3 +402,24 @@ func TestDueGivesThePartOfSpeech(t *testing.T) {
 		t.Fatalf("pos = %v", got)
 	}
 }
+
+func TestDueGivesTheWordBankPicture(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	withPicture := e.dueCard("go", Schedule{Reps: 1})
+	without := e.repo.put(Card{
+		UserID: "u1", Text: "home", Lemma: "home", MeaningVi: "nhà", Source: SourceManual,
+		CreatedAt: e.clock.Now().AddDate(0, 0, -3), Schedule: Schedule{Due: e.clock.Now().Add(-time.Hour), Reps: 1},
+	})
+	list, err := e.svc.Due(t.Context(), "u1", 50)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]string{}
+	for _, c := range list.Cards {
+		got[c.ID] = c.ImageURL
+	}
+	if got[withPicture.ID] != "/api/words/go/image?v=1" || got[without.ID] != "" {
+		t.Fatalf("pictures = %v", got)
+	}
+}
