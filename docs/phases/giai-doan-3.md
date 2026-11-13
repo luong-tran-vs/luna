@@ -334,3 +334,28 @@
 - [ ] Bấm ✓ ở bảng tra đưa từ vào "Ôn lại"; "Hoàn tác" hoặc bỏ đánh dấu thì từ rời khỏi danh sách ôn.
 - [ ] Ôn sai một từ: từ vẫn là đã học và đến hạn ngày mai; ôn đúng nhiều lần trong ngày không đẩy từ lên hộp cao hơn.
 - [ ] Dùng được ở 360px, sáng và tối, bằng bàn phím (Enter sang ô V3, Enter để kiểm tra; ô đánh dấu là checkbox thật).
+
+---
+
+## F26. Trò chơi — vừa chơi vừa học
+
+> Thêm 2026-11-13 theo `design/de-xuat-tro-choi.gif` và `design/de-xuat-tro-choi-2.gif` (người dùng duyệt). Chi tiết ở
+> `specs/021-learning-games/spec.md`.
+
+**Chức năng**
+- Trang **Trò chơi** (`/games`), vào từ ô "Trò chơi" trong thẻ của nút giữa **Luyện**. Màn đang chơi chiếm cả màn hình.
+- 6 trò, làm theo thứ tự: **Ảnh nhanh tay** (60 giây, 4 đáp án, combo) → **Đấu động từ** (gõ V2, V3, 3 mạng) → **Chữ rơi**
+  (chạm chữ theo thứ tự) → **Lật thẻ** (12 thẻ, ảnh ↔ từ) → **Bắn lỗi ngữ pháp** (chạm chữ sai, chọn cách sửa) →
+  **Thử thách hằng ngày** (10 câu rút gọn, 20 giây/câu, chuỗi ngày, chia sẻ kết quả dạng chữ).
+- Dùng nội dung có sẵn (Kho từ, thẻ ôn, động từ, bài tập ngữ pháp); không gọi AI khi chơi. Bắn lỗi có thêm câu do AI soạn khi
+  admin bấm, admin duyệt rồi mới dùng.
+- Chơi sai: thẻ ôn có sẵn đến hạn ngay hôm nay. Chơi đúng không đổi lịch ôn.
+- Chỉ lưu kỷ lục mỗi trò và kết quả thử thách mỗi ngày. Không có bảng xếp hạng giữa người dùng.
+- Khách chơi mọi trò trừ Bắn lỗi.
+
+**Tiêu chí nghiệm thu**
+- [ ] Vào được một lượt chơi từ thanh tab trong 3 lần chạm; mỗi lượt 1–3 phút, chơi được một tay ở 360px, sáng và tối.
+- [ ] Từ chơi sai có trong lượt ôn của chính ngày hôm đó; chơi đúng không đẩy lịch ôn ra xa.
+- [ ] Kỷ lục mỗi trò giống nhau trên mọi máy; lượt bỏ giữa chừng không tính.
+- [ ] Thử thách hằng ngày: chỉ lượt đầu được tính, chuỗi tăng khi chơi liên tiếp, xong thử thách tính là một ngày học.
+- [ ] Khách thấy Bắn lỗi bị khoá; API trả 403 cho khách.
