@@ -1274,10 +1274,10 @@ describe('Curriculum', () => {
 
     it('removes every scene of the level, and says why it could not', async () => {
       await setup(withScenes());
-      expect(text(levelButton())).toBe('Gỡ mọi ảnh cảnh A1 (2 bài)');
+      expect(text(levelButton())).toBe('Gỡ ảnh cảnh các chủ đề A1 (2 bài)');
       levelButton()!.click();
       await settle();
-      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ mọi ảnh cảnh của A1?');
+      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ ảnh cảnh của các chủ đề A1?');
       button(dialog()!, 'Gỡ 2 ảnh cảnh').click();
       await settle();
       expectRemove().flush(
@@ -1288,6 +1288,42 @@ describe('Curriculum', () => {
       expect(text(el.querySelector('.form-alert'))).toBe(
         'Đang có một lượt tạo ảnh cảnh chạy. Chờ xong hoặc bấm Dừng rồi gỡ.',
       );
+    });
+
+    it('lists the topics with scenes, all ticked, and keeps the unticked ones', async () => {
+      const b = withScenes();
+      b.topics[1].others = [{ ...lesson('o2', false), hasScene: true }];
+      await setup(b);
+      levelButton()!.click();
+      await settle();
+      const rows = () => Array.from(dialog()!.querySelectorAll('.remove-topic'));
+      expect(rows().map((r) => text(r))).toEqual([
+        '1. Chủ đề 1, 2 bài',
+        '2. Chủ đề 2, 1 bài',
+      ]);
+      const tick = (i: number) => rows()[i].querySelector<HTMLInputElement>('input')!;
+      expect(tick(0).checked && tick(1).checked).toBe(true);
+      expect(text(dialog())).toContain('3 bài của 2 chủ đề đang tích');
+
+      // Topic 1 keeps its scenes.
+      tick(0).click();
+      await settle();
+      expect(text(dialog())).toContain('1 bài của 1 chủ đề đang tích');
+      // Nothing ticked: nothing to remove.
+      tick(1).click();
+      await settle();
+      expect(button(dialog()!, 'Gỡ 0 ảnh cảnh').disabled).toBe(true);
+      tick(1).click();
+      await settle();
+      button(dialog()!, 'Gỡ 1 ảnh cảnh').click();
+      await settle();
+      const req = expectRemove();
+      expect(req.request.body).toEqual({ lessonIds: ['o2'] });
+      req.flush({ removed: 1 });
+      await settle();
+      expectBoard().flush(board());
+      await settle();
+      expect(text(el)).toContain('Đã gỡ 1 ảnh cảnh.');
     });
 
     it('does nothing when cancelled', async () => {

@@ -91,47 +91,55 @@
   } @else if (!data()) {
     <lu-loading />
   } @else {
-    <div class="toolbar">
-      <p class="count" role="status">
-        Có ảnh <strong>{{ withImage() }}/{{ total }}</strong> động từ
-      </p>
-      <div class="filters" role="group" aria-label="Lọc động từ">
-        <button
-          type="button"
-          class="chip"
-          [attr.aria-pressed]="filter() === 'all'"
-          (click)="setFilter('all')"
-        >
-          Tất cả
-        </button>
-        <button
-          type="button"
-          class="chip"
-          [attr.aria-pressed]="filter() === 'missing'"
-          (click)="setFilter('missing')"
-        >
-          Chưa có ảnh ({{ missing().length }})
-        </button>
-        <button
-          type="button"
-          class="chip"
-          [attr.aria-pressed]="filter() === 'done'"
-          (click)="setFilter('done')"
-        >
-          Đã có ảnh
-        </button>
+    <div class="toolbar card">
+      <div class="toolbar-top">
+        <p class="count" role="status">
+          Có ảnh <strong>{{ withImage() }}/{{ total }}</strong> động từ
+        </p>
+        <span class="count-bar" aria-hidden="true">
+          <span class="count-fill" [style.width.%]="(withImage() / total) * 100"></span>
+        </span>
       </div>
-      <label class="search">
-        <span class="visually-hidden">Tìm động từ</span>
-        <input
-          type="search"
-          lang="en"
-          placeholder="Tìm động từ hoặc nghĩa"
-          autocomplete="off"
-          [value]="query()"
-          (input)="onSearch($event)"
-        />
-      </label>
+      <div class="toolbar-row">
+        <div class="segments" role="group" aria-label="Lọc động từ">
+          @for (f of filters; track f.value) {
+            <button
+              type="button"
+              class="segment"
+              [attr.aria-pressed]="filter() === f.value"
+              (click)="setFilter(f.value)"
+            >
+              {{ f.label }}
+              <span class="segment-count">{{
+                f.value === 'all' ? total : f.value === 'missing' ? missing().length : withImage()
+              }}</span>
+            </button>
+          }
+        </div>
+        <div class="search">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+          <label class="visually-hidden" for="verb-search">Tìm động từ</label>
+          <input
+            #searchBox
+            id="verb-search"
+            type="search"
+            placeholder="Tìm động từ hoặc nghĩa"
+            autocomplete="off"
+            spellcheck="false"
+            [value]="query()"
+            (input)="onSearch($event)"
+            (keydown.escape)="query.set('')"
+          />
+          @if (query()) {
+            <button type="button" class="search-clear" (click)="query.set(''); searchBox.focus()">
+              <span aria-hidden="true">✕</span><span class="visually-hidden">Xoá tìm kiếm</span>
+            </button>
+          }
+        </div>
+      </div>
     </div>
 
     @for (g of lessons(); track g.lesson.number) {

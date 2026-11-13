@@ -76,6 +76,11 @@ export class GrammarList {
     return (this.points() ?? []).filter((p) => p.drawable && !!lessons[p.id]).map((p) => p.id);
   });
 
+  /** The title of each point of the level, by id (the list of "Gỡ ảnh ví dụ"). */
+  protected readonly titles = computed(() =>
+    Object.fromEntries((this.points() ?? []).map((p) => [p.id, p.titleVi])),
+  );
+
   /** F21: open learner reports; a failed load only hides the section. */
   protected readonly reports = signal<GrammarReportGroup[]>([]);
   protected readonly reasons = reasonsText;

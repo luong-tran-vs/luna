@@ -230,6 +230,9 @@ func (h *ImageHandler) batch(w http.ResponseWriter, _ *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, h.batchJSON(h.svc.Batch()))
 }
 
+// maxBatchBodyBytes bounds the body of a verb picture batch.
+const maxBatchBodyBytes = 256 << 10
+
 // startBatch serves POST /api/admin/verb-image-batch with {"items": [{"base", "meaningVi",
 // "sentence"}], "engine": "gemini"|"codex", "style"?}: 202 once the batch runs in the background;
 // 409 while another one runs. The engine is required.
@@ -243,7 +246,9 @@ func (h *ImageHandler) startBatch(w http.ResponseWriter, r *http.Request) {
 		Engine ImageEngine `json:"engine"`
 		Style  string      `json:"style"`
 	}
-	if httpx.DecodeJSON(w, r, &in) != nil {
+	// The body carries each verb's meaning and sentence: 200 of them is well past the 16 KB of
+	// DecodeJSON (fixed 2026-11-13, the "missing" batch got 400 invalid_body).
+	if httpx.DecodeJSONLimit(w, r, &in, maxBatchBodyBytes) != nil {
 		return
 	}
 	items := make([]DrawItem, len(in.Items))

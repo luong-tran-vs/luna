@@ -26,12 +26,15 @@ export class ConfirmDialog {
   readonly confirmLabel = input('Xác nhận');
   readonly cancelLabel = input('Huỷ');
   readonly danger = input(false);
+  /** Turns the confirm button off, e.g. while nothing is ticked (added 2026-11-12). */
+  readonly confirmDisabled = input(false);
 
   readonly confirmed = output<void>();
   readonly cancelled = output<void>();
 
   private readonly cancelButton = viewChild<ElementRef<HTMLButtonElement>>('cancel');
   private readonly confirmButton = viewChild<ElementRef<HTMLButtonElement>>('confirm');
+  private readonly dialog = viewChild<ElementRef<HTMLElement>>('dialog');
 
   constructor() {
     afterRenderEffect(() => {
@@ -47,13 +50,18 @@ export class ConfirmDialog {
     }
   }
 
-  /** Keeps Tab focus on the two buttons while open. */
+  /** Keeps Tab focus inside while open: the buttons, and what a page put in (ticks). */
   protected trapTab(event: KeyboardEvent): void {
     if (event.key !== 'Tab') {
       return;
     }
-    const first = this.cancelButton()?.nativeElement;
-    const last = this.confirmButton()?.nativeElement;
+    const items = Array.from(
+      this.dialog()?.nativeElement.querySelectorAll<HTMLElement>(
+        'input:not(:disabled), select:not(:disabled), button:not(:disabled), a[href]',
+      ) ?? [],
+    );
+    const first = items[0] ?? this.cancelButton()?.nativeElement;
+    const last = items[items.length - 1] ?? this.confirmButton()?.nativeElement;
     const active = document.activeElement;
     if (event.shiftKey && active === first) {
       event.preventDefault();

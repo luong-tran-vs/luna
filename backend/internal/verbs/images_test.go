@@ -278,6 +278,12 @@ func TestImageRoutes(t *testing.T) {
 	if rec := do(admin, "POST", "/api/admin/verb-image-batch", `{"items":[{"base":"see"}]}`); rec.Code != http.StatusBadRequest {
 		t.Fatalf("batch without engine = %d", rec.Code)
 	}
+	// 200 verbs with their meaning and sentence are past 16 KB: the body must still be read.
+	big := `{"items":[` + strings.Repeat(`{"base":"see","meaningVi":"nhìn thấy, trông thấy","sentence":"I can see the mountains from my bedroom window every morning."},`, 199) +
+		`{"base":"see"}]}`
+	if rec := do(admin, "POST", "/api/admin/verb-image-batch", big); len(big) <= 16<<10 || strings.Contains(rec.Body.String(), "invalid_body") {
+		t.Fatalf("big batch body (%d bytes) = %d %s", len(big), rec.Code, rec.Body.String())
+	}
 	if rec := do(admin, "POST", "/api/admin/verb-image-batch", `{"items":[{"base":"see","meaningVi":"nhìn"}],"engine":"gemini"}`); rec.Code != http.StatusAccepted {
 		t.Fatalf("batch = %d", rec.Code)
 	}

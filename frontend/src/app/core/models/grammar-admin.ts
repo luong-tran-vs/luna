@@ -285,3 +285,13 @@ export interface GrammarPictureBatchRequest {
 /** How many picture exercises a lesson of a point that can be drawn has in practice and mastery. */
 export const PICTURE_PRACTICE = 3;
 export const PICTURE_MASTERY = 1;
+
+/**
+ * What removing the pictures of grammar lessons takes away, or would with dryRun (added
+ * 2026-11-12): every picture, of how many lessons, and how many each lesson has.
+ */
+export interface GrammarImagesRemoved {
+  pictures: number;
+  points: number;
+  byPoint: { pointId: string; pictures: number }[];
+}

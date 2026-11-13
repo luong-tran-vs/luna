@@ -89,6 +89,37 @@ describe('VerbImages', () => {
     expect(text(verbCard('swim').querySelector('.bank'))).toContain('Kho từ vựng có ảnh "bơi"');
   });
 
+  it('filters with counted segments and searches with a clear button', async () => {
+    await setup();
+    const total = IRREGULAR_VERBS.length;
+    const segments = Array.from(el.querySelectorAll<HTMLButtonElement>('.segment'));
+    expect(segments.map(text)).toEqual([
+      `Tất cả ${total}`,
+      `Chưa có ảnh ${total - 1}`,
+      'Đã có ảnh 1',
+    ]);
+    expect(segments[0].getAttribute('aria-pressed')).toBe('true');
+
+    segments[2].click();
+    await settle();
+    expect(segments[2].getAttribute('aria-pressed')).toBe('true');
+    expect(Array.from(el.querySelectorAll('.verb .forms strong')).map(text)).toEqual(['cut']);
+
+    segments[0].click();
+    const box = el.querySelector<HTMLInputElement>('#verb-search')!;
+    expect(el.querySelector('.search-clear')).toBeNull();
+    box.value = 'swim';
+    box.dispatchEvent(new Event('input'));
+    await settle();
+    expect(Array.from(el.querySelectorAll('.verb .forms strong')).map(text)).toEqual(['swim']);
+
+    el.querySelector<HTMLButtonElement>('.search-clear')!.click();
+    await settle();
+    expect(box.value).toBe('');
+    expect(document.activeElement).toBe(box);
+    expect(el.querySelectorAll('.verb').length).toBe(total);
+  });
+
   it('makes the admin pick Gemini or Codex before drawing: there is no default', async () => {
     await setup();
     byText('Sinh ảnh còn thiếu').click();

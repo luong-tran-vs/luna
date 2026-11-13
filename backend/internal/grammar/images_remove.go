@@ -20,6 +20,14 @@ const MaxImageRemove = 500
 type ImagesRemoved struct {
 	Pictures int
 	Points   int
+	// ByPoint is how many pictures each lesson has (or had), in the order asked, those without left out.
+	ByPoint []PointPictures
+}
+
+// PointPictures is how many pictures one lesson has.
+type PointPictures struct {
+	PointID  string
+	Pictures int
 }
 
 // RemoveImages removes every picture of the points among pointIDs; with dryRun it only counts
@@ -62,12 +70,13 @@ func (s *Service) RemoveImages(ctx context.Context, pointIDs []string, dryRun bo
 		}
 		out.Pictures += n
 		out.Points++
+		out.ByPoint = append(out.ByPoint, PointPictures{PointID: id, Pictures: n})
 	}
 	return out, nil
 }
 
 // removeImages serves POST /api/admin/grammar-images/remove with {"pointIds", "dryRun"?}:
-// {"pictures", "points"}, what went (or would go); 409 while an example picture batch runs.
+// {"pictures", "points", "byPoint"}, what went (or would go); 409 while an example picture batch runs.
 func (h *Handler) removeImages(w http.ResponseWriter, r *http.Request) {
 	var in struct {
 		PointIDs []string `json:"pointIds"`
@@ -81,5 +90,17 @@ func (h *Handler) removeImages(w http.ResponseWriter, r *http.Request) {
 		h.writeImageError(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusOK, map[string]int{"pictures": out.Pictures, "points": out.Points})
+	type pointJSON struct {
+		PointID  string `json:"pointId"`
+		Pictures int    `json:"pictures"`
+	}
+	byPoint := make([]pointJSON, len(out.ByPoint))
+	for i, p := range out.ByPoint {
+		byPoint[i] = pointJSON{PointID: p.PointID, Pictures: p.Pictures}
+	}
+	httpx.WriteJSON(w, http.StatusOK, struct {
+		Pictures int         `json:"pictures"`
+		Points   int         `json:"points"`
+		ByPoint  []pointJSON `json:"byPoint"`
+	}{out.Pictures, out.Points, byPoint})
 }

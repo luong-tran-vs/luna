@@ -20,6 +20,7 @@ import {
   GrammarExerciseInput,
   GrammarImportResult,
   GrammarImageBatch,
+  GrammarImagesRemoved,
   GrammarImageBatchRequest,
   GrammarPictureBatch,
   GrammarPictureBatchRequest,
@@ -629,8 +630,8 @@ export class AdminApiService {
   removeGrammarImages(
     pointIds: string[],
     dryRun = false,
-  ): Observable<{ pictures: number; points: number }> {
-    return this.http.post<{ pictures: number; points: number }>(`${BASE}/grammar-images/remove`, {
+  ): Observable<GrammarImagesRemoved> {
+    return this.http.post<GrammarImagesRemoved>(`${BASE}/grammar-images/remove`, {
       pointIds,
       dryRun,
     });

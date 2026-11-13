@@ -323,12 +323,25 @@ export class Curriculum {
 
   /**
    * What "Gỡ ảnh cảnh" is about to remove (added 2026-11-12): the scene pictures of a topic's
-   * lessons, or of the whole level (topic null); null while the dialog is closed.
+   * lessons, or of the level's topics (topic null), every one ticked at first; null while closed.
    */
   protected readonly sceneRemoval = signal<{
     topic: CurriculumTopic | null;
-    lessons: CurriculumLesson[];
+    views: TopicView[];
   } | null>(null);
+  /** The topics of the level-wide removal the admin unticked: they keep their scenes. */
+  protected readonly sceneKept = signal<ReadonlySet<number>>(new Set());
+  /** The lessons whose scene goes: those of the ticked topics. */
+  protected readonly removalLessons = computed(() =>
+    (this.sceneRemoval()?.views ?? [])
+      .filter((v) => !this.sceneKept().has(v.topic.number))
+      .flatMap((v) => v.sceneDone),
+  );
+  protected readonly removalTopics = computed(
+    () =>
+      (this.sceneRemoval()?.views ?? []).filter((v) => !this.sceneKept().has(v.topic.number))
+        .length,
+  );
   /** The lessons of the level with a scene picture. */
   protected readonly levelScenes = computed(() => this.views().flatMap((v) => v.sceneDone));
   /** What the level-wide scene actions said last. */
@@ -337,21 +350,38 @@ export class Curriculum {
     const r = this.sceneRemoval();
     return r?.topic
       ? `Gỡ ảnh cảnh của chủ đề “${r.topic.name}”?`
-      : `Gỡ mọi ảnh cảnh của ${this.level()}?`;
+      : `Gỡ ảnh cảnh của các chủ đề ${this.level()}?`;
   });
-  protected readonly sceneRemovalMessage = computed(
-    () =>
-      `${this.sceneRemoval()?.lessons.length ?? 0} bài sẽ mất ảnh cảnh; người học không thấy ảnh cho tới khi tạo lại. Mô tả cảnh và kiểu vẽ của bài được giữ để tạo lại. Không hoàn tác được.`,
-  );
+  protected readonly sceneRemovalMessage = computed(() => {
+    const what = this.sceneRemoval()?.topic
+      ? `${this.removalLessons().length} bài`
+      : `${this.removalLessons().length} bài của ${this.removalTopics()} chủ đề đang tích`;
+    const keep = this.sceneRemoval()?.topic ? '' : ' Bỏ tích chủ đề muốn giữ ảnh.';
+    return `${what} sẽ mất ảnh cảnh; người học không thấy ảnh cho tới khi tạo lại. Mô tả cảnh và kiểu vẽ của bài được giữ để tạo lại. Không hoàn tác được.${keep}`;
+  });
 
   protected openRemoveScenes(v: TopicView | null, event: Event): void {
     this.opener = event.currentTarget as HTMLElement;
     this.notice.set(null);
     this.scenesNote.set(null);
     this.multiError.set(null);
+    this.sceneKept.set(new Set());
     this.sceneRemoval.set(
-      v ? { topic: v.topic, lessons: v.sceneDone } : { topic: null, lessons: this.levelScenes() },
+      v
+        ? { topic: v.topic, views: [v] }
+        : { topic: null, views: this.views().filter((x) => x.sceneDone.length > 0) },
     );
+  }
+
+  /** Ticks or unticks a topic of the level-wide removal. */
+  protected toggleSceneTopic(n: number): void {
+    this.sceneKept.update((s) => {
+      const next = new Set(s);
+      if (!next.delete(n)) {
+        next.add(n);
+      }
+      return next;
+    });
   }
 
   protected cancelRemoveScenes(): void {
@@ -362,8 +392,9 @@ export class Curriculum {
   /** Removes the scene pictures asked for, then reads the board again. */
   protected async removeScenes(): Promise<void> {
     const r = this.sceneRemoval();
+    const lessons = this.removalLessons();
     this.sceneRemoval.set(null);
-    if (!r || r.lessons.length === 0 || this.sceneBusy()) {
+    if (!r || lessons.length === 0 || this.sceneBusy()) {
       return;
     }
     this.sceneBusy.set(true);
@@ -374,7 +405,7 @@ export class Curriculum {
           ? this.scenesNote.set(text)
           : this.multiError.set(text);
     try {
-      const { removed } = await firstValueFrom(this.api.removeScenes(r.lessons.map((l) => l.id)));
+      const { removed } = await firstValueFrom(this.api.removeScenes(lessons.map((l) => l.id)));
       say('ok', `Đã gỡ ${removed} ảnh cảnh.`);
       this.load();
     } catch (err) {

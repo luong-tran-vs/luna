@@ -1,6 +1,7 @@
 @if (open()) {
   <div class="backdrop">
     <div
+      #dialog
       class="dialog"
       role="alertdialog"
       aria-modal="true"
@@ -11,6 +12,8 @@
     >
       <h2 class="title" id="confirm-title">{{ title() }}</h2>
       <p class="message" id="confirm-message">{{ message() }}</p>
+      <!-- What a page adds between the message and the buttons (a list to tick, added 2026-11-12). -->
+      <ng-content />
       <div class="actions">
         <button #cancel type="button" class="btn" (click)="cancelled.emit()">
           {{ cancelLabel() }}
@@ -20,6 +23,7 @@
           type="button"
           class="btn-primary"
           [class.btn-danger]="danger()"
+          [disabled]="confirmDisabled()"
           (click)="confirmed.emit()"
         >
           {{ confirmLabel() }}

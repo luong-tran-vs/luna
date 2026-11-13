@@ -125,6 +125,8 @@ describe('GrammarList', () => {
     // The example picture section follows the background batch (added 2026-11-06).
     http.match((r) => r.url === '/admin/grammar-image-batch');
     http.match((r) => r.url === '/admin/grammar-picture-batch');
+    // It counts the pictures of the level, for its removal button (added 2026-11-12).
+    http.match((r) => r.url === '/admin/grammar-images/remove');
     http.verify();
   });
 

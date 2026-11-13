@@ -29,46 +29,213 @@
   padding-left: var(--space-5);
 }
 
+/* Filter and search (redesigned 2026-11-12): the count with a thin bar, then a segmented
+   control and a search field with an icon and a clear button. */
 .toolbar {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+.toolbar-top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2) var(--space-3);
 }
 
 .count {
   margin: 0;
+  font: var(--text-sm) var(--font-ui);
 }
 
-.filters {
+.count-bar {
+  flex: 1 1 120px;
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.count-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+  transition: width 0.3s;
+}
+
+.toolbar-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
 }
 
-.chip {
-  padding: var(--space-1) var(--space-3);
+.segments {
+  display: flex;
+  max-width: 100%;
+  padding: 4px;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.segment {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 40px;
+  padding: 0 var(--space-3);
   font: var(--text-sm) var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
   border-radius: var(--radius-full);
   cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 }
 
-.chip[aria-pressed='true'] {
+@media (hover: hover) {
+  .segment:hover {
+    color: var(--color-text);
+  }
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.segment[aria-pressed='true'] {
   color: var(--color-primary-ink);
-  background: var(--color-primary-soft);
-  border-color: var(--color-primary);
-  font-weight: 600;
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-text) 18%, transparent);
+}
+
+.segment-count {
+  min-width: 24px;
+  padding: 1px 6px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  text-align: center;
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-full);
+}
+
+.segment[aria-pressed='true'] .segment-count {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
 }
 
 .search {
-  margin-left: auto;
+  position: relative;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-3);
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .search input {
-  min-width: 220px;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) 44px var(--space-2) 40px;
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  transition: border-color 0.15s;
+}
+
+.search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.search input::placeholder {
+  color: var(--color-text-muted);
+}
+
+@media (hover: hover) {
+  .search input:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.search input:focus-visible {
+  border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.search:focus-within .search-icon {
+  stroke: var(--color-primary);
+}
+
+.search-clear {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .search-clear:hover {
+    color: var(--color-text);
+    background: var(--color-track);
+  }
+}
+
+.search-clear:focus-visible {
+  outline: 2px solid var(--color-primary);
+}
+
+/* On a phone the three segments fill the width; the search takes its own row. */
+@media (max-width: 560px) {
+  .segments {
+    width: 100%;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Label over its count, so the three share the width without a scroll. */
+  .segment {
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    min-height: 56px;
+    padding: var(--space-1);
+    white-space: normal;
+    text-align: center;
+    border-radius: var(--radius-md);
+  }
 }
 
 .lesson {

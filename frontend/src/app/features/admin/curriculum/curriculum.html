@@ -157,7 +157,7 @@
             "
             (click)="openRemoveScenes(null, $event)"
           >
-            Gỡ mọi ảnh cảnh {{ level() }} ({{ levelScenes().length }} bài)
+            Gỡ ảnh cảnh các chủ đề {{ level() }} ({{ levelScenes().length }} bài)
           </button>
         }
       </div>
@@ -415,11 +415,34 @@
   [open]="sceneRemoval() !== null"
   [title]="sceneRemovalTitle()"
   [message]="sceneRemovalMessage()"
-  [confirmLabel]="'Gỡ ' + (sceneRemoval()?.lessons?.length ?? 0) + ' ảnh cảnh'"
+  [confirmLabel]="'Gỡ ' + removalLessons().length + ' ảnh cảnh'"
+  [confirmDisabled]="removalLessons().length === 0"
   [danger]="true"
   (confirmed)="removeScenes()"
   (cancelled)="cancelRemoveScenes()"
-/>
+>
+  <!-- The level-wide removal lists its topics, all ticked: untick those that keep their scenes. -->
+  @if (sceneRemoval(); as r) {
+    @if (!r.topic) {
+      <fieldset class="remove-topics">
+        <legend class="visually-hidden">Chủ đề sẽ gỡ ảnh cảnh</legend>
+        @for (v of r.views; track v.topic.number) {
+          <label class="remove-topic">
+            <input
+              type="checkbox"
+              [checked]="!sceneKept().has(v.topic.number)"
+              (change)="toggleSceneTopic(v.topic.number)"
+            />
+            <span class="remove-topic-name">{{ v.topic.number }}. {{ v.topic.name }}</span>
+            <span class="remove-topic-count"
+              ><span class="visually-hidden">, </span>{{ v.sceneDone.length }} bài</span
+            >
+          </label>
+        }
+      </fieldset>
+    }
+  }
+</lu-confirm-dialog>
 
 <lu-engine-dialog
   [open]="sceneTopic() !== null"

@@ -70,6 +70,12 @@ export class VerbImages {
   protected readonly message = signal<string | null>(null);
   protected readonly filter = signal<Filter>('all');
   protected readonly query = signal('');
+  /** The three filter segments; each shows its count. */
+  protected readonly filters: readonly { value: Filter; label: string }[] = [
+    { value: 'all', label: 'Tất cả' },
+    { value: 'missing', label: 'Chưa có ảnh' },
+    { value: 'done', label: 'Đã có ảnh' },
+  ];
   /** Verbs whose upload, copy or removal is under way. */
   protected readonly busy = signal<ReadonlySet<string>>(new Set());
 
