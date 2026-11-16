@@ -34,11 +34,58 @@
 }
 
 .topic-card {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-areas:
+    'order thumb body'
+    'order thumb actions';
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  column-gap: var(--space-4);
+  row-gap: var(--space-3);
+}
+
+/* Without ↑ ↓ (the "Tất cả" list) the picture starts the row. */
+.topic-card:not(:has(.order)) {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'thumb body'
+    'thumb actions';
+}
+
+.topic-card > .order {
+  grid-area: order;
+}
+
+.topic-card > .topic-thumb {
+  grid-area: thumb;
+}
+
+.topic-card > .topic-body {
+  grid-area: body;
+}
+
+.topic-card > .actions {
+  grid-area: actions;
+  justify-content: flex-start;
+}
+
+/* On a phone: ↑ ↓ on their own row, then the picture beside the topic, then the buttons. */
+@media (max-width: 640px) {
+  .topic-card,
+  .topic-card:not(:has(.order)) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'order order'
+      'thumb body'
+      'actions actions';
+    column-gap: var(--space-3);
+  }
+
+  .topic-card > .topic-thumb {
+    align-self: start;
+    width: 96px;
+    height: 54px;
+  }
 }
 
 /* A topic with lessons stands out; one without fades, so the usable ones are seen at a glance. */
@@ -186,12 +233,12 @@
   gap: var(--space-2);
 }
 
-.topic-image {
-  display: grid;
-  grid-template-columns: auto;
-  justify-items: center;
-  gap: 4px;
-  width: 128px;
+.image-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
 }
 
 .topic-thumb {

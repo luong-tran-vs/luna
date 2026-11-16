@@ -106,28 +106,12 @@
                       [attr.aria-label]="'Xuống: ' + t.name" (click)="move(i, 1)">↓</button>
                   </div>
                 }
-                <div class="topic-image">
-                  @if (imageOf().get(t.id); as src) {
-                    <img class="topic-thumb" crossorigin="use-credentials" referrerpolicy="no-referrer" alt=""
-                      loading="lazy" decoding="async" width="128" height="72" [src]="src" />
-                    <span class="image-label has-image">Có ảnh</span>
-                  } @else {
-                    <span class="topic-thumb empty" aria-hidden="true"></span>
-                    <span class="image-label no-image">Chưa có ảnh</span>
-                  }
-                  @if (drawingTopics().has(t.id)) {
-                    <span class="image-label drawing" role="status">Đang vẽ…</span>
-                  } @else {
-                    <button type="button" class="btn image-btn" [disabled]="!!imageBatch()" (click)="askDraw(t)">
-                      {{ imageOf().has(t.id) ? 'Tạo lại ảnh' : 'Tạo ảnh' }}<span class="visually-hidden"> cho {{ t.name }}</span>
-                    </button>
-                  }
-                  @if (imageOf().has(t.id)) {
-                    <button type="button" class="btn image-btn" (click)="removingImage.set(t)">
-                      Xoá ảnh<span class="visually-hidden"> của {{ t.name }}</span>
-                    </button>
-                  }
-                </div>
+                @if (imageOf().get(t.id); as src) {
+                  <img class="topic-thumb" crossorigin="use-credentials" referrerpolicy="no-referrer" alt=""
+                    loading="lazy" decoding="async" width="128" height="72" [src]="src" />
+                } @else {
+                  <span class="topic-thumb empty" aria-hidden="true"></span>
+                }
                 <div class="topic-body">
                   <p class="topic-name">{{ t.name }}</p>
                   @if (t.description) {
@@ -148,6 +132,25 @@
                   <p class="word-counts muted">
                     {{ t.wordCount > 0 ? 'Từ vựng: đã dùng ' + t.usedWordCount + '/' + t.wordCount : 'Chưa có từ vựng' }}
                   </p>
+                  <div class="image-tools">
+                    @if (imageOf().has(t.id)) {
+                      <span class="image-label has-image">Có ảnh</span>
+                    } @else {
+                      <span class="image-label no-image">Chưa có ảnh</span>
+                    }
+                    @if (drawingTopics().has(t.id)) {
+                      <span class="image-label drawing" role="status">Đang vẽ…</span>
+                    } @else {
+                      <button type="button" class="btn image-btn" [disabled]="!!imageBatch()" (click)="askDraw(t)">
+                        {{ imageOf().has(t.id) ? 'Tạo lại ảnh' : 'Tạo ảnh' }}<span class="visually-hidden"> cho {{ t.name }}</span>
+                      </button>
+                    }
+                    @if (imageOf().has(t.id)) {
+                      <button type="button" class="btn image-btn" (click)="removingImage.set(t)">
+                        Xoá ảnh<span class="visually-hidden"> của {{ t.name }}</span>
+                      </button>
+                    }
+                  </div>
                 </div>
                 <div class="actions">
                   <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']">Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a>
