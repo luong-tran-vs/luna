@@ -7,14 +7,36 @@ import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { Topic, TopicLevel } from '../../../core/models/topic';
 import { Topics } from './topics';
 
-const lv = (level: TopicLevel['level'], lessonCount: number, roadmapCount = lessonCount, position = 0): TopicLevel => ({
-  level, lessonCount, roadmapCount, remaining: roadmapCount, warning: roadmapCount < 3, position,
+const lv = (
+  level: TopicLevel['level'],
+  lessonCount: number,
+  roadmapCount = lessonCount,
+  position = 0,
+): TopicLevel => ({
+  level,
+  lessonCount,
+  roadmapCount,
+  remaining: roadmapCount,
+  warning: roadmapCount < 3,
+  position,
 });
 
-function topic(id: string, name: string, levels: TopicLevel[] = [], over: Partial<Topic> = {}): Topic {
+function topic(
+  id: string,
+  name: string,
+  levels: TopicLevel[] = [],
+  over: Partial<Topic> = {},
+): Topic {
   return {
-    id, name, description: '', levels, lessonCount: levels.reduce((n, l) => n + l.lessonCount, 0),
-    createdAt: '2026-09-30T00:00:00Z', wordCount: 0, usedWordCount: 0, ...over,
+    id,
+    name,
+    description: '',
+    levels,
+    lessonCount: levels.reduce((n, l) => n + l.lessonCount, 0),
+    createdAt: '2026-09-30T00:00:00Z',
+    wordCount: 0,
+    usedWordCount: 0,
+    ...over,
   };
 }
 
@@ -34,11 +56,14 @@ describe('Topics', () => {
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string, root: ParentNode = el) =>
     Array.from(root.querySelectorAll('button')).find((b) => text(b) === label);
   const row = (name: string) =>
-    Array.from(el.querySelectorAll('.topic')).find((r) => text(r.querySelector('.topic-name')) === name)!;
+    Array.from(el.querySelectorAll('.topic')).find(
+      (r) => text(r.querySelector('.topic-name')) === name,
+    )!;
   const names = () => Array.from(el.querySelectorAll('.topic-name')).map((n) => text(n));
   const picker = () => Array.from(el.querySelectorAll<HTMLButtonElement>('.level-btn'));
   const type = async (selector: string, value: string) => {
@@ -52,18 +77,34 @@ describe('Topics', () => {
     el.querySelector('form')!.dispatchEvent(new Event('submit'));
     await settle();
   };
-  const expectList = (list: Topic[] = topics) => http.expectOne('/admin/topics').flush({ topics: list });
+  const expectList = (list: Topic[] = topics) =>
+    http.expectOne('/admin/topics').flush({ topics: list });
 
   /** No topic picture batch since the server started. */
   const idleBatch = {
-    running: false, stopping: false, stopped: false, engine: '', total: 0, done: 0,
-    drawing: [], saved: [], failures: [], codexImages: false,
+    running: false,
+    stopping: false,
+    stopped: false,
+    engine: '',
+    total: 0,
+    done: 0,
+    drawing: [],
+    saved: [],
+    failures: [],
+    codexImages: false,
   };
 
-  const setup = async (list: Topic[] = topics, images: { topicId: string; imageUrl: string }[] = []) => {
+  const setup = async (
+    list: Topic[] = topics,
+    images: { topicId: string; imageUrl: string }[] = [],
+  ) => {
     TestBed.configureTestingModule({
       imports: [Topics],
-      providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(Topics);
@@ -80,14 +121,17 @@ describe('Topics', () => {
 
   afterEach(() => http.verify());
 
-
   it('labels which topics have a picture and draws the missing ones in one batch (added 2026-11-16)', async () => {
     await setup(topics, [{ topicId: 't1', imageUrl: '/api/topic-images/t1?v=1' }]);
-    picker().find((b) => text(b).startsWith('Tất cả'))!.click();
+    picker()
+      .find((b) => text(b).startsWith('Tất cả'))!
+      .click();
     await settle();
     expect(text(el.querySelector('.image-bar'))).toContain('Đã có ảnh 1/4 chủ đề');
     expect(text(row('Gia đình').querySelector('.image-label'))).toBe('Có ảnh');
-    expect(row('Gia đình').querySelector('img.topic-thumb')?.getAttribute('src')).toContain('/api/topic-images/t1?v=1');
+    expect(row('Gia đình').querySelector('img.topic-thumb')?.getAttribute('src')).toContain(
+      '/api/topic-images/t1?v=1',
+    );
     expect(text(row('Mua sắm').querySelector('.image-label'))).toBe('Chưa có ảnh');
     expect(text(button('Tạo lại ảnh cho Gia đình'))).toBe('Tạo lại ảnh cho Gia đình');
 
@@ -104,10 +148,14 @@ describe('Topics', () => {
     expect(req.request.body).toEqual({ topicIds: ['t3', 't4', 't2'], engine: 'gemini' });
     req.flush({ ...idleBatch, running: true, engine: 'gemini', total: 3, drawing: ['t3'] });
     await settle();
-    expect(text(el.querySelector('.image-progress'))).toContain('Đang tạo ảnh bằng Gemini: xong 0/3');
+    expect(text(el.querySelector('.image-progress'))).toContain(
+      'Đang tạo ảnh bằng Gemini: xong 0/3',
+    );
     expect(text(row('Công việc').querySelector('.drawing'))).toBe('Đang vẽ…');
     button('Dừng')!.click();
-    http.expectOne('/admin/topic-image-batch/stop').flush({ ...idleBatch, total: 3, done: 1, stopped: true });
+    http
+      .expectOne('/admin/topic-image-batch/stop')
+      .flush({ ...idleBatch, total: 3, done: 1, stopped: true });
     await settle();
   });
 
@@ -135,11 +183,13 @@ describe('Topics', () => {
     await setup(topics, [{ topicId: 't1', imageUrl: '/api/topic-images/t1?v=1' }]);
     button('Xoá ảnh của Gia đình')!.click();
     await settle();
-    const dialog = Array.from(el.querySelectorAll('[role="dialog"], [role="alertdialog"]')).find((d) =>
-      text(d).includes('Xoá ảnh chủ đề?'),
+    const dialog = Array.from(el.querySelectorAll('[role="dialog"], [role="alertdialog"]')).find(
+      (d) => text(d).includes('Xoá ảnh chủ đề?'),
     )!;
     button('Xoá ảnh', dialog)!.click();
-    http.expectOne((r) => r.url === '/admin/topic-images/t1' && r.method === 'DELETE').flush(null, { status: 204, statusText: 'No Content' });
+    http
+      .expectOne((r) => r.url === '/admin/topic-images/t1' && r.method === 'DELETE')
+      .flush(null, { status: 204, statusText: 'No Content' });
     await settle();
     http.expectOne('/admin/topic-images').flush({ images: [], codexImages: false });
     await settle();
@@ -171,9 +221,15 @@ describe('Topics', () => {
     await setup(ordered);
     // Placed topics first, by place; then the others by name.
     expect(names()).toEqual(['Mua sắm', 'Gia đình', 'Âm nhạc']);
-    expect(Array.from(el.querySelectorAll('.order-number')).map((n) => text(n))).toEqual(['1', '2', '3']);
+    expect(Array.from(el.querySelectorAll('.order-number')).map((n) => text(n))).toEqual([
+      '1',
+      '2',
+      '3',
+    ]);
     expect(el.querySelector<HTMLButtonElement>('[aria-label="Lên: Mua sắm"]')!.disabled).toBe(true);
-    expect(el.querySelector<HTMLButtonElement>('[aria-label="Xuống: Âm nhạc"]')!.disabled).toBe(true);
+    expect(el.querySelector<HTMLButtonElement>('[aria-label="Xuống: Âm nhạc"]')!.disabled).toBe(
+      true,
+    );
 
     el.querySelector<HTMLButtonElement>('[aria-label="Lên: Âm nhạc"]')!.click();
     await settle();
@@ -202,16 +258,21 @@ describe('Topics', () => {
     await setup();
     el.querySelector<HTMLButtonElement>('[aria-label="Xuống: Gia đình"]')!.click();
     await settle();
-    http.expectOne((r) => r.url === '/admin/topics/order').flush('down', { status: 500, statusText: 'Error' });
+    http
+      .expectOne((r) => r.url === '/admin/topics/order')
+      .flush('down', { status: 500, statusText: 'Error' });
     await settle();
-    expect(text(el.querySelector('[role="alert"]'))).toBe('Không lưu được thứ tự chủ đề, vui lòng thử lại.');
+    expect(text(el.querySelector('[role="alert"]'))).toBe(
+      'Không lưu được thứ tự chủ đề, vui lòng thử lại.',
+    );
     expect(names()).toEqual(['Gia đình', 'Mua sắm']);
   });
 
   it('counts the lessons of each level of a topic', async () => {
     await setup();
     expect(text(row('Gia đình').querySelector('.description'))).toBe('Người thân');
-    const item = (i: Element) => `${text(i.querySelector('.tag'))} ${text(i.querySelector('.muted'))}`;
+    const item = (i: Element) =>
+      `${text(i.querySelector('.tag'))} ${text(i.querySelector('.muted'))}`;
     expect(Array.from(row('Gia đình').querySelectorAll('.level-count-item')).map(item)).toEqual([
       'A1 4 bài · 2 trong lộ trình',
       'B1 1 bài · 1 trong lộ trình',
@@ -225,7 +286,9 @@ describe('Topics', () => {
     await setup();
     picker()[1].click();
     await settle();
-    const link = Array.from(row('Gia đình').querySelectorAll('a')).find((a) => text(a).startsWith('Sinh bài AI'))!;
+    const link = Array.from(row('Gia đình').querySelectorAll('a')).find((a) =>
+      text(a).startsWith('Sinh bài AI'),
+    )!;
     expect(link.getAttribute('href')).toBe('/admin/roadmap?topicId=t1&level=B1&generate=1');
   });
 
@@ -276,10 +339,12 @@ describe('Topics', () => {
     await settle();
     await type('#topic-name', 'gia đình');
     await submit();
-    http.expectOne('/admin/topics').flush(
-      { error: 'validation_failed', message: 'x', fields: { name: 'Chủ đề này đã có' } },
-      { status: 400, statusText: 'Bad Request' },
-    );
+    http
+      .expectOne('/admin/topics')
+      .flush(
+        { error: 'validation_failed', message: 'x', fields: { name: 'Chủ đề này đã có' } },
+        { status: 400, statusText: 'Bad Request' },
+      );
     await settle();
     expect(text(el.querySelector('#topic-name-error'))).toBe('Chủ đề này đã có');
   });
@@ -310,11 +375,17 @@ describe('Topics', () => {
     button('Xoá', dialog)!.click();
     await settle();
     http.expectOne('/admin/topics/t1').flush(
-      { error: 'topic_in_use', message: 'Chủ đề còn 5 bài, hãy chuyển hoặc xoá bài trước', count: 5 },
+      {
+        error: 'topic_in_use',
+        message: 'Chủ đề còn 5 bài, hãy chuyển hoặc xoá bài trước',
+        count: 5,
+      },
       { status: 409, statusText: 'Conflict' },
     );
     await settle();
-    expect(text(el.querySelector('[role="alert"]'))).toBe('Chủ đề còn 5 bài, hãy chuyển hoặc xoá bài trước');
+    expect(text(el.querySelector('[role="alert"]'))).toBe(
+      'Chủ đề còn 5 bài, hãy chuyển hoặc xoá bài trước',
+    );
 
     picker()[2].click();
     await settle();

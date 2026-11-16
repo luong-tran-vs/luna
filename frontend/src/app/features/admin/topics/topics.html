@@ -1,13 +1,21 @@
-<section class="page">
+<section class="page topics-page">
   <header class="page-header">
     <h1 class="page-title">Chủ đề</h1>
     <div class="actions">
-      <button type="button" class="btn-primary" [disabled]="editing() === 'new'" (click)="startAdd()">Thêm chủ đề</button>
+      <button
+        type="button"
+        class="btn-primary"
+        [disabled]="editing() === 'new'"
+        (click)="startAdd()"
+      >
+        Thêm chủ đề
+      </button>
     </div>
   </header>
 
   <p class="muted">
-    Chủ đề dùng chung cho mọi trình độ. Mỗi trình độ của một chủ đề có lộ trình bài riêng; trình độ chọn ở từng bài.
+    Chủ đề dùng chung cho mọi trình độ. Mỗi trình độ của một chủ đề có lộ trình bài riêng; trình độ
+    chọn ở từng bài.
   </p>
 
   @if (error(); as message) {
@@ -18,22 +26,33 @@
     <form class="card topic-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
       <div class="field">
         <label for="topic-name">Tên chủ đề</label>
-        <input id="topic-name" formControlName="name" [attr.aria-invalid]="!!fieldError('name')"
-          [attr.aria-describedby]="describedBy('name')" />
+        <input
+          id="topic-name"
+          formControlName="name"
+          [attr.aria-invalid]="!!fieldError('name')"
+          [attr.aria-describedby]="describedBy('name')"
+        />
         @if (fieldError('name'); as message) {
           <p class="field-error" id="topic-name-error">{{ message }}</p>
         }
       </div>
       <div class="field">
         <label for="topic-description">Mô tả ngắn (không bắt buộc)</label>
-        <textarea id="topic-description" rows="2" formControlName="description"
-          [attr.aria-invalid]="!!fieldError('description')" [attr.aria-describedby]="describedBy('description')"></textarea>
+        <textarea
+          id="topic-description"
+          rows="2"
+          formControlName="description"
+          [attr.aria-invalid]="!!fieldError('description')"
+          [attr.aria-describedby]="describedBy('description')"
+        ></textarea>
         @if (fieldError('description'); as message) {
           <p class="field-error" id="topic-description-error">{{ message }}</p>
         }
       </div>
       <div class="actions">
-        <button type="submit" class="btn-primary" [disabled]="pending()">{{ editing() === 'new' ? 'Thêm' : 'Lưu' }}</button>
+        <button type="submit" class="btn-primary" [disabled]="pending()">
+          {{ editing() === 'new' ? 'Thêm' : 'Lưu' }}
+        </button>
         <button type="button" class="btn" (click)="cancel()">Huỷ</button>
       </div>
     </form>
@@ -51,34 +70,42 @@
     @if (list.length === 0) {
       <p class="card muted">Chưa có chủ đề nào. Bấm "Thêm chủ đề" để tạo chủ đề đầu tiên.</p>
     } @else {
-    <section class="card image-bar" aria-labelledby="topic-images-heading">
-      <h2 class="image-bar-title" id="topic-images-heading">Ảnh chủ đề</h2>
-      <p class="muted">
-        Mỗi chủ đề một ảnh, hiện ở trang Luyện nói và trang tổng kết chủ đề của người học.
-        Đã có ảnh {{ list.length - missingImages().length }}/{{ list.length }} chủ đề.
-      </p>
-      @if (imageBatch(); as b) {
-        <div class="image-progress" role="status">
-          <span>
-            {{ b.stopping ? 'Đang dừng…' : 'Đang tạo ảnh bằng ' + imageEngine() }}: xong {{ b.done }}/{{ b.total }}
-            @if (b.failures.length) {
-              · {{ b.failures.length }} lỗi
-            }
-          </span>
-          <button type="button" class="btn" [disabled]="b.stopping" (click)="stopImages()">Dừng</button>
-        </div>
-      } @else if (missingImages().length) {
-        <button type="button" class="btn-primary" (click)="askDrawMissing()">
-          Tạo ảnh cho {{ missingImages().length }} chủ đề thiếu ảnh
-        </button>
-      }
-      @if (imageMessage(); as m) {
-        <p class="form-alert" role="alert">{{ m }}</p>
-      }
-    </section>
+      <section class="card image-bar" aria-labelledby="topic-images-heading">
+        <h2 class="image-bar-title" id="topic-images-heading">Ảnh chủ đề</h2>
+        <p class="muted">
+          Mỗi chủ đề một ảnh, hiện ở trang Luyện nói và trang tổng kết chủ đề của người học. Đã có
+          ảnh {{ list.length - missingImages().length }}/{{ list.length }} chủ đề.
+        </p>
+        @if (imageBatch(); as b) {
+          <div class="image-progress" role="status">
+            <span>
+              {{ b.stopping ? 'Đang dừng…' : 'Đang tạo ảnh bằng ' + imageEngine() }}: xong
+              {{ b.done }}/{{ b.total }}
+              @if (b.failures.length) {
+                · {{ b.failures.length }} lỗi
+              }
+            </span>
+            <button type="button" class="btn" [disabled]="b.stopping" (click)="stopImages()">
+              Dừng
+            </button>
+          </div>
+        } @else if (missingImages().length) {
+          <button type="button" class="btn-primary" (click)="askDrawMissing()">
+            Tạo ảnh cho {{ missingImages().length }} chủ đề thiếu ảnh
+          </button>
+        }
+        @if (imageMessage(); as m) {
+          <p class="form-alert" role="alert">{{ m }}</p>
+        }
+      </section>
       <div class="level-picker" role="group" aria-label="Lọc theo trình độ">
         @for (f of filters(); track f.id) {
-          <button type="button" class="level-btn" [attr.aria-pressed]="f.id === shownFilter()" (click)="filter.set(f.id)">
+          <button
+            type="button"
+            class="level-btn"
+            [attr.aria-pressed]="f.id === shownFilter()"
+            (click)="filter.set(f.id)"
+          >
             {{ f.label }} <span class="level-count">{{ f.count }}</span>
           </button>
         }
@@ -86,85 +113,149 @@
       <h2 class="level-heading">{{ heading() }}</h2>
       @if (orderLevel(); as level) {
         <p class="muted order-hint">
-          Người học {{ level }} thấy các chủ đề theo đúng thứ tự này: nên xếp chủ đề dễ, quen thuộc lên trước. Dùng nút
-          ↑ ↓ để đổi thứ tự.
+          Người học {{ level }} thấy các chủ đề theo đúng thứ tự này: nên xếp chủ đề dễ, quen thuộc
+          lên trước. Dùng nút ↑ ↓ để đổi thứ tự.
         </p>
       }
-      <ul class="list">
+      <ul class="list" [class.with-order]="!!orderLevel()">
+        <li class="list-head" aria-hidden="true">
+          @if (orderLevel()) {
+            <span>Thứ tự</span>
+          }
+          <span>Ảnh</span>
+          <span>Chủ đề</span>
+          <span>Bài</span>
+          <span>Từ vựng</span>
+          <span>Ảnh chủ đề</span>
+          <span></span>
+        </li>
         @for (t of shown(); track t.id; let i = $index, first = $first, last = $last) {
-          <li class="topic">
+          <li
+            class="topic"
+            [class.has-lessons]="t.lessonCount > 0"
+            [class.no-lessons]="t.lessonCount === 0"
+          >
             @if (editing() === t.id) {
-              <ng-container [ngTemplateOutlet]="topicForm" />
+              <div class="topic-edit">
+                <ng-container [ngTemplateOutlet]="topicForm" />
+              </div>
             } @else {
-              <div class="card topic-card" [class.has-lessons]="t.lessonCount > 0" [class.no-lessons]="t.lessonCount === 0">
-                @if (orderLevel()) {
-                  <div class="order" role="group" [attr.aria-label]="'Thứ tự của ' + t.name">
-                    <span class="order-number" aria-hidden="true">{{ i + 1 }}</span>
-                    <button type="button" class="btn order-btn" data-move="up" [disabled]="first || ordering()"
-                      [attr.aria-label]="'Lên: ' + t.name" (click)="move(i, -1)">↑</button>
-                    <button type="button" class="btn order-btn" data-move="down" [disabled]="last || ordering()"
-                      [attr.aria-label]="'Xuống: ' + t.name" (click)="move(i, 1)">↓</button>
-                  </div>
-                }
-                @if (imageOf().get(t.id); as src) {
-                  <img class="topic-thumb" crossorigin="use-credentials" referrerpolicy="no-referrer" alt=""
-                    loading="lazy" decoding="async" width="128" height="72" [src]="src" />
-                } @else {
-                  <span class="topic-thumb empty" aria-hidden="true"></span>
-                }
-                <div class="topic-body">
-                  <p class="topic-name">{{ t.name }}</p>
-                  @if (t.description) {
-                    <p class="description muted">{{ t.description }}</p>
-                  }
-                  @if (t.levels.length === 0) {
-                    <p class="counts muted">Chưa có bài</p>
-                  } @else {
-                    <ul class="level-counts" [attr.aria-label]="'Bài theo trình độ của ' + t.name">
-                      @for (l of t.levels; track l.level) {
-                        <li class="level-count-item" [class.current]="l.level === shownFilter()">
-                          <span class="tag">{{ l.level }}</span>
-                          <span class="muted">{{ l.lessonCount }} bài · {{ l.roadmapCount }} trong lộ trình</span>
-                        </li>
-                      }
-                    </ul>
-                  }
-                  <p class="word-counts muted">
-                    {{ t.wordCount > 0 ? 'Từ vựng: đã dùng ' + t.usedWordCount + '/' + t.wordCount : 'Chưa có từ vựng' }}
-                  </p>
-                  <div class="image-tools">
-                    @if (imageOf().has(t.id)) {
-                      <span class="image-label has-image">Có ảnh</span>
-                    } @else {
-                      <span class="image-label no-image">Chưa có ảnh</span>
-                    }
-                    @if (drawingTopics().has(t.id)) {
-                      <span class="image-label drawing" role="status">Đang vẽ…</span>
-                    } @else {
-                      <button type="button" class="btn image-btn" [disabled]="!!imageBatch()" (click)="askDraw(t)">
-                        {{ imageOf().has(t.id) ? 'Tạo lại ảnh' : 'Tạo ảnh' }}<span class="visually-hidden"> cho {{ t.name }}</span>
-                      </button>
-                    }
-                    @if (imageOf().has(t.id)) {
-                      <button type="button" class="btn image-btn" (click)="removingImage.set(t)">
-                        Xoá ảnh<span class="visually-hidden"> của {{ t.name }}</span>
-                      </button>
-                    }
-                  </div>
-                </div>
-                <div class="actions">
-                  <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']">Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a>
-                  <a class="btn" routerLink="/admin/roadmap" [queryParams]="generateParams(t)"
-                    >Sinh bài AI<span class="visually-hidden"> cho {{ t.name }}</span></a
+              @if (orderLevel()) {
+                <div class="order" role="group" [attr.aria-label]="'Thứ tự của ' + t.name">
+                  <span class="order-number" aria-hidden="true">{{ i + 1 }}</span>
+                  <button
+                    type="button"
+                    class="btn order-btn"
+                    data-move="up"
+                    [disabled]="first || ordering()"
+                    [attr.aria-label]="'Lên: ' + t.name"
+                    (click)="move(i, -1)"
                   >
-                  <button type="button" class="btn" (click)="startEdit(t)">Sửa<span class="visually-hidden"> {{ t.name }}</span></button>
-                  <button type="button" class="btn" (click)="deleting.set(t)">Xoá<span class="visually-hidden"> {{ t.name }}</span></button>
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    class="btn order-btn"
+                    data-move="down"
+                    [disabled]="last || ordering()"
+                    [attr.aria-label]="'Xuống: ' + t.name"
+                    (click)="move(i, 1)"
+                  >
+                    ↓
+                  </button>
                 </div>
+              }
+              @if (imageOf().get(t.id); as src) {
+                <img
+                  class="topic-thumb"
+                  crossorigin="use-credentials"
+                  referrerpolicy="no-referrer"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="80"
+                  height="45"
+                  [src]="src"
+                />
+              } @else {
+                <span class="topic-thumb empty" aria-hidden="true"></span>
+              }
+              <div class="topic-main">
+                <p class="topic-name">{{ t.name }}</p>
+                @if (t.description) {
+                  <p class="description muted">{{ t.description }}</p>
+                }
+              </div>
+              <div class="topic-lessons">
+                @if (t.levels.length === 0) {
+                  <p class="counts muted">Chưa có bài</p>
+                } @else {
+                  <ul class="level-counts" [attr.aria-label]="'Bài theo trình độ của ' + t.name">
+                    @for (l of t.levels; track l.level) {
+                      <li class="level-count-item" [class.current]="l.level === shownFilter()">
+                        <span class="tag">{{ l.level }}</span>
+                        <span class="muted"
+                          >{{ l.lessonCount }} bài · {{ l.roadmapCount }} trong lộ trình</span
+                        >
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+              <p class="word-counts muted">
+                @if (t.wordCount > 0) {
+                  <span class="words-label">Từ vựng: </span>đã dùng {{ t.usedWordCount }}/{{
+                    t.wordCount
+                  }}
+                } @else {
+                  Chưa có từ vựng
+                }
+              </p>
+              <div class="image-tools">
+                @if (imageOf().has(t.id)) {
+                  <span class="image-label has-image">Có ảnh</span>
+                } @else {
+                  <span class="image-label no-image">Chưa có ảnh</span>
+                }
+                @if (drawingTopics().has(t.id)) {
+                  <span class="image-label drawing" role="status">Đang vẽ…</span>
+                } @else {
+                  <button
+                    type="button"
+                    class="btn image-btn"
+                    [disabled]="!!imageBatch()"
+                    (click)="askDraw(t)"
+                  >
+                    {{ imageOf().has(t.id) ? 'Tạo lại' : 'Tạo ảnh'
+                    }}<span class="visually-hidden"
+                      >{{ imageOf().has(t.id) ? ' ảnh' : '' }} cho {{ t.name }}</span
+                    >
+                  </button>
+                }
+                @if (imageOf().has(t.id)) {
+                  <button type="button" class="btn image-btn" (click)="removingImage.set(t)">
+                    Xoá ảnh<span class="visually-hidden"> của {{ t.name }}</span>
+                  </button>
+                }
+              </div>
+              <div class="row-actions">
+                <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']"
+                  >Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a
+                >
+                <a class="btn" routerLink="/admin/roadmap" [queryParams]="generateParams(t)"
+                  >Sinh bài AI<span class="visually-hidden"> cho {{ t.name }}</span></a
+                >
+                <button type="button" class="btn" (click)="startEdit(t)">
+                  Sửa<span class="visually-hidden"> {{ t.name }}</span>
+                </button>
+                <button type="button" class="btn" (click)="deleting.set(t)">
+                  Xoá<span class="visually-hidden"> {{ t.name }}</span>
+                </button>
               </div>
             }
           </li>
         } @empty {
-          <li class="card muted">Không có chủ đề nào ở mục này.</li>
+          <li class="topic topic-empty muted">Không có chủ đề nào ở mục này.</li>
         }
       </ul>
     }
@@ -176,7 +267,9 @@
 <lu-confirm-dialog
   [open]="deleting() !== null"
   title="Xoá chủ đề?"
-  [message]="'Chủ đề “' + (deleting()?.name ?? '') + '” sẽ bị xoá. Chỉ xoá được chủ đề không còn bài.'"
+  [message]="
+    'Chủ đề “' + (deleting()?.name ?? '') + '” sẽ bị xoá. Chỉ xoá được chủ đề không còn bài.'
+  "
   confirmLabel="Xoá"
   [danger]="true"
   (confirmed)="confirmDelete()"
@@ -197,7 +290,9 @@
 <lu-confirm-dialog
   [open]="removingImage() !== null"
   title="Xoá ảnh chủ đề?"
-  [message]="'Ảnh của chủ đề “' + (removingImage()?.name ?? '') + '” sẽ bị xoá. Có thể tạo lại sau.'"
+  [message]="
+    'Ảnh của chủ đề “' + (removingImage()?.name ?? '') + '” sẽ bị xoá. Có thể tạo lại sau.'
+  "
   confirmLabel="Xoá ảnh"
   [danger]="true"
   (confirmed)="removeImage()"

@@ -25,87 +25,196 @@
   color: var(--color-primary-ink);
 }
 
+/* The list needs more room than the other admin pages; it folds by its own width. */
+.page.topics-page {
+  max-width: 1280px;
+  container: topics / inline-size;
+}
+
+/* One row per topic, the columns lined up across rows like a table (subgrid). */
 .list {
+  --cols: 80px minmax(180px, 1fr) auto auto auto max-content;
   display: grid;
-  gap: var(--space-2);
+  grid-template-columns: var(--cols);
+  gap: var(--space-2) var(--space-4);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.topic-card {
+.list.with-order {
+  --cols: auto 80px minmax(180px, 1fr) auto auto auto max-content;
+}
+
+.list-head,
+.topic {
   display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr);
-  grid-template-areas:
-    'order thumb body'
-    'order thumb actions';
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
   column-gap: var(--space-4);
-  row-gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
 }
 
-/* Without ↑ ↓ (the "Tất cả" list) the picture starts the row. */
-.topic-card:not(:has(.order)) {
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas:
-    'thumb body'
-    'thumb actions';
+/* Each topic is its own rounded row, with a small gap between rows. */
+.topic {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
 }
 
-.topic-card > .order {
-  grid-area: order;
+.list-head {
+  padding-block: var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
-.topic-card > .topic-thumb {
-  grid-area: thumb;
+/* The edit form and the empty line take the whole row. */
+.topic-edit,
+.topic-empty {
+  grid-column: 1 / -1;
 }
 
-.topic-card > .topic-body {
-  grid-area: body;
+.topic-edit > .topic-form {
+  margin: 0;
 }
 
-.topic-card > .actions {
-  grid-area: actions;
-  justify-content: flex-start;
-}
-
-/* On a phone: ↑ ↓ on their own row, then the picture beside the topic, then the buttons. */
-@media (max-width: 640px) {
-  .topic-card,
-  .topic-card:not(:has(.order)) {
-    grid-template-columns: auto minmax(0, 1fr);
-    grid-template-areas:
-      'order order'
-      'thumb body'
-      'actions actions';
-    column-gap: var(--space-3);
-  }
-
-  .topic-card > .topic-thumb {
-    align-self: start;
-    width: 96px;
-    height: 54px;
-  }
-}
-
-/* A topic with lessons stands out; one without fades, so the usable ones are seen at a glance. */
-.topic-card.has-lessons {
-  border-left: var(--space-1) solid var(--color-ok);
-}
-
-.topic-card.no-lessons {
+/* A topic without lessons fades. */
+.topic.no-lessons {
   background: color-mix(in srgb, var(--color-track) 40%, var(--color-surface));
 }
 
-.topic-card.no-lessons .topic-name {
+.topic.no-lessons .topic-name {
   color: var(--color-text-muted);
 }
 
-.topic-body {
+.topic-main,
+.topic-lessons {
   display: grid;
-  flex: 1;
-  gap: var(--space-1);
+  gap: 2px;
   min-width: 0;
+}
+
+/* A long description is cut at two lines so every row stays short. */
+.topic-main .description {
+  display: -webkit-box;
+  overflow: hidden;
+  font: var(--text-sm) var(--font-ui);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* The column heading says "Từ vựng"; the label shows again when the rows fold. */
+.words-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.topic-lessons,
+.word-counts {
+  font: var(--text-sm) var(--font-ui);
+}
+
+/* Four buttons in two rows of two, so the row stays short. */
+.row-actions {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-content: end;
+  gap: var(--space-1);
+}
+
+.row-actions .btn {
+  white-space: nowrap;
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+}
+
+/* Narrower screens: each topic is still one block, but its parts stack in a short grid. */
+@container topics (max-width: 1060px) {
+  .list,
+  .list.with-order {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .list-head {
+    display: none;
+  }
+
+  .topic {
+    grid-template-columns: 80px minmax(0, 1fr);
+    grid-template-areas:
+      'order order'
+      'thumb main'
+      'thumb lessons'
+      'words words'
+      'image image'
+      'actions actions';
+    row-gap: var(--space-2);
+    column-gap: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .words-label {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+  }
+
+  .topic-main .description {
+    -webkit-line-clamp: unset;
+    line-clamp: none;
+  }
+
+  .topic > .order {
+    grid-area: order;
+  }
+  .topic > .topic-thumb {
+    grid-area: thumb;
+    align-self: start;
+  }
+  .topic > .topic-main {
+    grid-area: main;
+  }
+  .topic > .topic-lessons {
+    grid-area: lessons;
+  }
+  .topic > .word-counts {
+    grid-area: words;
+  }
+  .topic > .image-tools {
+    grid-area: image;
+  }
+  .topic > .row-actions {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .topic:not(:has(> .order)) {
+    grid-template-areas:
+      'thumb main'
+      'thumb lessons'
+      'words words'
+      'image image'
+      'actions actions';
+  }
+
+  .topic > .topic-edit,
+  .topic > .topic-empty {
+    grid-area: auto;
+    grid-column: 1 / -1;
+  }
 }
 
 /* The topic's place among the topics of the level, with ↑ ↓ to move it. */
@@ -128,7 +237,7 @@
 }
 
 .order-btn {
-  min-width: 44px;
+  min-width: 36px;
   padding-inline: var(--space-2);
 }
 
@@ -237,14 +346,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-1);
+  gap: var(--space-1) var(--space-2);
 }
 
 .topic-thumb {
   display: block;
-  width: 128px;
-  height: 72px;
+  width: 80px;
+  height: 45px;
   border-radius: var(--radius-sm);
   object-fit: cover;
   background: var(--color-primary-soft);

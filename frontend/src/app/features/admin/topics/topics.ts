@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -40,7 +48,14 @@ interface FilterOption {
  */
 @Component({
   selector: 'lu-topics',
-  imports: [Loading, ConfirmDialog, EngineDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
+  imports: [
+    Loading,
+    ConfirmDialog,
+    EngineDialog,
+    NgTemplateOutlet,
+    ReactiveFormsModule,
+    RouterLink,
+  ],
   templateUrl: './topics.html',
   styleUrl: './topics.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,7 +72,8 @@ export class Topics {
     const levels = LEVELS.map((level) => ({
       id: level as TopicFilter,
       label: level,
-      count: list.filter((t) => t.levels.some((l) => l.level === level && l.lessonCount > 0)).length,
+      count: list.filter((t) => t.levels.some((l) => l.level === level && l.lessonCount > 0))
+        .length,
     })).filter((f) => f.count > 0);
     return [...levels, { id: 'all', label: 'Tất cả', count: list.length }];
   });
@@ -74,7 +90,9 @@ export class Topics {
     const f = this.shownFilter();
     return f === 'all'
       ? sortTopics(list)
-      : sortTopicsAt(list, f).filter((t) => t.levels.some((l) => l.level === f && l.lessonCount > 0));
+      : sortTopicsAt(list, f).filter((t) =>
+          t.levels.some((l) => l.level === f && l.lessonCount > 0),
+        );
   });
   /** The level being ordered, or null on "Tất cả". */
   protected readonly orderLevel = computed(() => {
@@ -127,7 +145,9 @@ export class Topics {
   protected readonly imageMessage = signal<string | null>(null);
   protected readonly drawHeading = computed(() => {
     const list = this.toDraw() ?? [];
-    return list.length === 1 ? `Tạo ảnh cho chủ đề “${list[0].name}”?` : `Tạo ảnh cho ${list.length} chủ đề?`;
+    return list.length === 1
+      ? `Tạo ảnh cho chủ đề “${list[0].name}”?`
+      : `Tạo ảnh cho ${list.length} chủ đề?`;
   });
   protected readonly drawMessage = computed(() => {
     const list = this.toDraw() ?? [];
@@ -139,7 +159,9 @@ export class Topics {
     const rest = this.missingImages().length - list.length;
     return (
       `Máy chủ vẽ lần lượt ${list.length} chủ đề chưa có ảnh, chạy ngầm, xong ảnh nào lưu ảnh đó. Bạn có thể rời trang.` +
-      (rest > 0 ? ` Mỗi lượt tối đa ${MAX_IMAGE_BATCH} ảnh: ${rest} chủ đề còn lại vẽ ở lượt sau.` : '')
+      (rest > 0
+        ? ` Mỗi lượt tối đa ${MAX_IMAGE_BATCH} ảnh: ${rest} chủ đề còn lại vẽ ở lượt sau.`
+        : '')
     );
   });
 
@@ -170,7 +192,8 @@ export class Topics {
     }
     this.imagesApi.startBatch({ topicIds: list.map((t) => t.id), engine }).subscribe({
       next: (b) => this.batches.set(b),
-      error: (err) => this.imageMessage.set(apiMessage(err, 'Không bắt đầu tạo ảnh được, vui lòng thử lại.')),
+      error: (err) =>
+        this.imageMessage.set(apiMessage(err, 'Không bắt đầu tạo ảnh được, vui lòng thử lại.')),
     });
   }
 
@@ -276,7 +299,9 @@ export class Topics {
     const input = { name: v.name.trim(), description: v.description.trim() };
     this.pending.set(true);
     try {
-      await firstValueFrom(target === 'new' ? this.api.createTopic(input) : this.api.updateTopic(target, input));
+      await firstValueFrom(
+        target === 'new' ? this.api.createTopic(input) : this.api.updateTopic(target, input),
+      );
       this.editing.set(null);
       // A new topic has no lesson yet: only "Tất cả" lists it.
       if (target === 'new') {
@@ -284,7 +309,10 @@ export class Topics {
       }
       this.load();
     } catch (err) {
-      const body = err instanceof ApiError ? (err.body as { message?: string; fields?: Record<string, string> } | null) : null;
+      const body =
+        err instanceof ApiError
+          ? (err.body as { message?: string; fields?: Record<string, string> } | null)
+          : null;
       if (body?.fields) {
         this.serverFields.set(body.fields);
       } else {
