@@ -81,6 +81,13 @@ describe('GrammarExerciseView', () => {
     expect(img?.getAttribute('alt')).toBe('');
   });
 
+  it('shows the scene of a fill or fix sentence above it too', async () => {
+    await setup({ ...fill, hintImageUrl: '/api/grammar/a1-to-be/images/k2' });
+    expect(el.querySelector('img.picture')?.getAttribute('src')).toContain('/images/k2');
+    await setup({ ...fix, hintImageUrl: '/api/grammar/a1-to-be/images/k3' });
+    expect(el.querySelector('img.picture')?.getAttribute('src')).toContain('/images/k3');
+  });
+
   it('gives no hint in a test or once answered', async () => {
     await setup(choice, false);
     expect(buttons().some((b) => text(b) === 'Gợi ý')).toBe(false);

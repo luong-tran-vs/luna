@@ -252,6 +252,7 @@ func learnerContentJSON(d Detail) contentJSON {
 
 type hintPictureJSON struct {
 	ExerciseID string `json:"exerciseId"`
+	Kind       Kind   `json:"kind"`
 	Sentence   string `json:"sentence"`
 	Key        string `json:"key"`
 	ImageURL   string `json:"imageUrl,omitempty"`
@@ -268,7 +269,7 @@ func (h *Handler) hintPictures(w http.ResponseWriter, r *http.Request) {
 	}
 	out := make([]hintPictureJSON, len(list))
 	for i, p := range list {
-		out[i] = hintPictureJSON{ExerciseID: p.ExerciseID, Sentence: p.Sentence, Key: p.Key}
+		out[i] = hintPictureJSON{ExerciseID: p.ExerciseID, Kind: p.Kind, Sentence: p.Sentence, Key: p.Key}
 		if p.Drawn {
 			out[i].ImageURL = imageURL(id, p.Key, true)
 		}

@@ -52,9 +52,10 @@ describe('GrammarHintPictures', () => {
     http.expectOne('/admin/grammar-image-batch').flush(idle);
     http.expectOne('/admin/grammar-lessons/a1-to-be/hint-pictures').flush({
       items: [
-        { exerciseId: 'p1', sentence: 'She is a teacher.', key: 'k1' },
+        { exerciseId: 'p1', kind: 'choice', sentence: 'She is a teacher.', key: 'k1' },
         {
           exerciseId: 'p2',
+          kind: 'fill',
           sentence: 'They are happy.',
           key: 'k2',
           imageUrl: '/api/admin/grammar-lessons/a1-to-be/images/k2',

@@ -12,7 +12,8 @@ func TestHintSentence(t *testing.T) {
 		t.Fatalf("sentence = %q", got)
 	}
 	for name, bad := range map[string]Exercise{
-		"fill":      {Kind: KindFill, Text: "She ___ a teacher.", Options: []string{"is"}},
+		"reorder":   {Kind: KindReorder, Text: "Cô ấy là giáo viên.", Sentence: "She is a teacher."},
+		"fill bare": {Kind: KindFill, Text: "She ___ a teacher."},
 		"no blank":  {Kind: KindChoice, Text: "Pick one.", Options: []string{"am", "is"}, AnswerIndex: 1},
 		"two":       {Kind: KindChoice, Text: "___ ___", Options: []string{"am", "is"}, AnswerIndex: 1},
 		"bad index": {Kind: KindChoice, Text: "She ___.", Options: []string{"am"}, AnswerIndex: 3},
@@ -20,6 +21,12 @@ func TestHintSentence(t *testing.T) {
 		if HintKey(bad) != "" {
 			t.Errorf("%s: has a key", name)
 		}
+	}
+	if got := HintSentence(Exercise{Kind: KindFill, Text: "They ___ happy.", Answers: []string{" are ", "'re"}}); got != "They are happy." {
+		t.Fatalf("fill = %q", got)
+	}
+	if got := HintSentence(Exercise{Kind: KindFix, Text: "He like music.", Sentence: "He likes  music."}); got != "He likes music." {
+		t.Fatalf("fix = %q", got)
 	}
 	other := e
 	other.AnswerIndex = 0

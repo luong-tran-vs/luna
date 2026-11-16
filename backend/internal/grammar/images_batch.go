@@ -119,7 +119,7 @@ func (s *Service) StartImageBatch(ctx context.Context, req ImageBatchRequest) (I
 	if len(items) == 0 {
 		msg := "Mọi câu ví dụ đã có ảnh"
 		if req.Hints {
-			msg = "Mọi câu chọn đáp án ở Luyện tập đã có ảnh"
+			msg = "Mọi câu chọn đáp án, điền từ và sửa lỗi ở Luyện tập đã có ảnh"
 		}
 		return ImageBatchStatus{}, &ValidationError{Fields: map[string]string{"pointIds": msg}}
 	}

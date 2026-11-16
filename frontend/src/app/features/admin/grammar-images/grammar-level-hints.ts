@@ -29,7 +29,7 @@ export function pointHintsKey(pointId: string): string {
 }
 
 /**
- * "Tạo ảnh bài chọn đáp án" for every grammar lesson of a level (added 2026-11-16), on the grammar list: the
+ * "Tạo ảnh câu luyện tập" for every grammar lesson of a level (added 2026-11-16), on the grammar list: the
  * server draws, one after another in the background, the picture of each practice choice exercise
  * that has none: its sentence with the right answer, which the learner sees under "Gợi ý". It
  * shares the example picture batch (one runs at a time) and its banner.
@@ -41,9 +41,9 @@ export function pointHintsKey(pointId: string): string {
     <section class="level-batch" aria-labelledby="level-hints-title">
       <div class="line">
         <div class="text">
-          <h3 class="title" id="level-hints-title">Ảnh bài chọn đáp án</h3>
+          <h3 class="title" id="level-hints-title">Ảnh câu luyện tập</h3>
           <p class="field-hint">
-            Ảnh cảnh của câu đúng, hiện trên câu “chọn đáp án” ở Luyện tập.
+            Ảnh cảnh của câu đúng, hiện trên câu chọn đáp án, điền từ và sửa lỗi ở Luyện tập.
             @if (count(); as c) {
               Đã có {{ c.drawn }}/{{ c.total }} ảnh.
             }
@@ -62,7 +62,7 @@ export function pointHintsKey(pointId: string): string {
             [disabled]="busy() || missing() === 0 || !!other()"
             (click)="open.set(true)"
           >
-            Tạo ảnh<span class="visually-hidden"> bài chọn đáp án {{ level() }}</span
+            Tạo ảnh<span class="visually-hidden"> câu luyện tập {{ level() }}</span
             >{{ missing() ? ' (' + missing() + ' câu)' : '' }}
           </button>
         }
@@ -73,7 +73,7 @@ export function pointHintsKey(pointId: string): string {
           @if (b.running) {
             <p>
               <span class="dot" aria-hidden="true"></span>
-              Máy chủ đang tạo ảnh bài chọn đáp án ngầm bằng {{ engineOf(b.engine) }}: xong
+              Máy chủ đang tạo ảnh câu luyện tập ngầm bằng {{ engineOf(b.engine) }}: xong
               <strong>{{ b.done }}/{{ b.total }}</strong> ảnh của {{ b.points }} bài
               @if (b.failures.length) {
                 · {{ b.failures.length }} lỗi
@@ -82,7 +82,7 @@ export function pointHintsKey(pointId: string): string {
             <progress
               [max]="b.total"
               [value]="b.done"
-              aria-label="Tiến độ tạo ảnh bài chọn đáp án"
+              aria-label="Tiến độ tạo ảnh câu luyện tập"
             ></progress>
             <p class="field-hint">
               Có thể đóng trang hay làm việc khác, ảnh nào vẽ xong là lưu ngay.
@@ -91,10 +91,10 @@ export function pointHintsKey(pointId: string): string {
             <p>
               {{
                 b.stopMessage
-                  ? 'Tạo ảnh bài chọn đáp án dừng sớm: ' + b.stopMessage
+                  ? 'Tạo ảnh câu luyện tập dừng sớm: ' + b.stopMessage
                   : b.stopped
-                    ? 'Đã dừng tạo ảnh bài chọn đáp án.'
-                    : 'Đã tạo ảnh bài chọn đáp án xong.'
+                    ? 'Đã dừng tạo ảnh câu luyện tập.'
+                    : 'Đã tạo ảnh câu luyện tập xong.'
               }}
               {{ b.saved.length }}/{{ b.total }} ảnh mới bằng {{ engineOf(b.engine) }}
               @if (b.failures.length) {
@@ -127,11 +127,11 @@ export function pointHintsKey(pointId: string): string {
 
     <lu-engine-dialog
       [open]="open()"
-      [heading]="'Tạo ảnh bài chọn đáp án cho các bài ngữ pháp ' + level()"
+      [heading]="'Tạo ảnh câu luyện tập cho các bài ngữ pháp ' + level()"
       [message]="
         'Vẽ ' +
         missing() +
-        ' ảnh còn thiếu cho bài “chọn đáp án” ở Luyện tập, lần lượt từng ảnh. Mỗi lượt tối đa ' +
+        ' ảnh còn thiếu cho câu chọn đáp án, điền từ và sửa lỗi ở Luyện tập, lần lượt từng ảnh. Mỗi lượt tối đa ' +
         maxBatch +
         ' ảnh.'
       "
@@ -230,7 +230,7 @@ export class GrammarLevelHints {
             hints: true,
             engine,
             key: levelHintsKey(this.level()),
-            label: `ảnh bài chọn đáp án các bài ngữ pháp ${this.level()}`,
+            label: `ảnh câu luyện tập các bài ngữ pháp ${this.level()}`,
           }),
         ),
       );

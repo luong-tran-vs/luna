@@ -22,9 +22,11 @@ export interface GrammarExercise {
   explanationVi: string;
 }
 
-/** A practice choice exercise of a lesson and its hint picture (added 2026-11-16). */
+/** A practice choice, fill or fix exercise of a lesson and the picture of its right sentence (added 2026-11-16). */
 export interface GrammarHintPicture {
   exerciseId: string;
+  /** "choice", "fill" or "fix" (fill and fix added 2026-11-16). */
+  kind: string;
   sentence: string;
   key: string;
   /** Absent until drawn. */

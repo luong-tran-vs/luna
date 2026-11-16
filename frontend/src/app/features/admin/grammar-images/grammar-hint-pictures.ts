@@ -32,14 +32,15 @@ import { messageOf, pointHintsKey } from './grammar-level-hints';
   template: `
     <section class="card pictures" aria-labelledby="pv-hint-images" [attr.aria-busy]="drawingNow()">
       <div class="head">
-        <h3 class="part-title" id="pv-hint-images">Ảnh bài chọn đáp án</h3>
+        <h3 class="part-title" id="pv-hint-images">Ảnh câu luyện tập</h3>
         @if (items(); as list) {
           <span class="muted">{{ list.length - missing() }}/{{ list.length }} ảnh đã có</span>
         }
       </div>
       <p class="field-hint">
-        Mỗi câu “chọn đáp án” ở Luyện tập có thể có một ảnh vẽ cảnh của câu đúng, hiện ngay trên câu
-        để người học dễ hiểu tình huống. Sửa câu hay đổi đáp án thì cần tạo lại ảnh.
+        Mỗi câu chọn đáp án, điền từ và sửa lỗi ở Luyện tập có thể có một ảnh vẽ cảnh của câu đúng,
+        hiện ngay trên câu để người học dễ hiểu tình huống. Sửa câu hay đổi đáp án thì cần tạo lại
+        ảnh.
       </p>
 
       @if (loadError()) {
@@ -49,7 +50,7 @@ import { messageOf, pointHintsKey } from './grammar-level-hints';
         </div>
       } @else if (items(); as list) {
         @if (list.length === 0) {
-          <p class="muted">Phần Luyện tập chưa có câu “chọn đáp án” nào.</p>
+          <p class="muted">Phần Luyện tập chưa có câu chọn đáp án, điền từ hay sửa lỗi nào.</p>
         } @else {
           <div class="actions">
             @if (drawingNow()) {
@@ -101,7 +102,7 @@ import { messageOf, pointHintsKey } from './grammar-level-hints';
                   }
                 </div>
                 <div class="text">
-                  <span class="ex-tag">Bài tập {{ h.exerciseId }}</span>
+                  <span class="ex-tag">Bài tập {{ h.exerciseId }} · {{ kindLabel(h.kind) }}</span>
                   <span lang="en">{{ h.sentence }}</span>
                 </div>
                 @if (h.imageUrl) {
@@ -135,7 +136,7 @@ import { messageOf, pointHintsKey } from './grammar-level-hints';
 
     <lu-engine-dialog
       [open]="pending() !== null"
-      heading="Tạo ảnh cho bài chọn đáp án"
+      heading="Tạo ảnh câu luyện tập"
       [message]="
         pending()?.keys
           ? 'Vẽ lại ảnh câu của câu này.'
@@ -215,6 +216,10 @@ export class GrammarHintPictures {
       next: (r) => this.items.set(r.items),
       error: () => this.loadError.set(true),
     });
+  }
+
+  protected kindLabel(kind: string): string {
+    return kind === 'fill' ? 'điền từ' : kind === 'fix' ? 'sửa lỗi' : 'chọn đáp án';
   }
 
   protected thumb(h: GrammarHintPicture): string {

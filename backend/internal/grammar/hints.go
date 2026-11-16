@@ -7,26 +7,42 @@ import (
 	"strings"
 )
 
-// Hint pictures (added 2026-11-16): a choice exercise of a lesson's practice may have a picture of
-// its sentence with the right answer filled in, shown above the question so the learner sees the
+// Hint pictures (added 2026-11-16): a choice, fill or fix exercise of a lesson's practice may have a
+// picture of its right sentence, shown above the question so the learner sees the
 // situation. Every point may have them, drawable or not: the picture shows the situation, not the
 // grammar. They are kept with the example pictures (same store, same batch), under a key of their own.
 
 // hintPrefix marks the hint picture keys in the map of picture keys by exercise id.
 const hintPrefix = "hint:"
 
-// HintSentence is the sentence a hint picture shows: the stem of a choice exercise with its one
-// blank filled with the right option; "" for an exercise that has none (not a choice, no single
-// blank, no valid answer).
+// HintSentence is the sentence a hint picture shows, the right sentence of a practice exercise:
+// a choice with its one blank filled with the right option, a fill with its first accepted answer
+// (added 2026-11-16 with the fix), a fix corrected; "" for another kind or an exercise without
+// one (no single blank, no valid answer).
 func HintSentence(e Exercise) string {
-	if e.Kind != KindChoice || strings.Count(e.Text, "___") != 1 || e.AnswerIndex < 0 || e.AnswerIndex >= len(e.Options) {
+	var s string
+	switch e.Kind {
+	case KindChoice:
+		if e.AnswerIndex >= 0 && e.AnswerIndex < len(e.Options) {
+			s = fillBlank(e.Text, e.Options[e.AnswerIndex])
+		}
+	case KindFill:
+		if len(e.Answers) > 0 {
+			s = fillBlank(e.Text, e.Answers[0])
+		}
+	case KindFix:
+		s = e.Sentence
+	}
+	return strings.Join(strings.Fields(s), " ")
+}
+
+// fillBlank is text with its one blank "___" replaced by word; "" without exactly one blank or word.
+func fillBlank(text, word string) string {
+	word = strings.TrimSpace(word)
+	if word == "" || strings.Count(text, "___") != 1 {
 		return ""
 	}
-	right := strings.TrimSpace(e.Options[e.AnswerIndex])
-	if right == "" {
-		return ""
-	}
-	return strings.Join(strings.Fields(strings.Replace(e.Text, "___", right, 1)), " ")
+	return strings.Replace(text, "___", word, 1)
 }
 
 // HintKey is the key of the hint picture of e: it follows the sentence, so a changed stem or
@@ -39,7 +55,7 @@ func HintKey(e Exercise) string {
 	return ExampleKey("hint: " + s)
 }
 
-// hasHintExercises reports whether the practice of c has a choice exercise a hint picture fits.
+// hasHintExercises reports whether the practice of c has an exercise a hint picture fits.
 func hasHintExercises(c Content) bool {
 	for _, e := range c.Practice {
 		if HintKey(e) != "" {
@@ -52,12 +68,13 @@ func hasHintExercises(c Content) bool {
 // HintPicture is a practice choice exercise of a lesson and whether its hint picture is drawn.
 type HintPicture struct {
 	ExerciseID string
+	Kind       Kind
 	Sentence   string
 	Key        string
 	Drawn      bool
 }
 
-// HintPictures lists the practice choice exercises of a point's lesson with whether each has its
+// HintPictures lists the practice exercises of a point's lesson with whether each has its
 // hint picture.
 func (s *Service) HintPictures(ctx context.Context, pointID string) ([]HintPicture, error) {
 	l, err := s.lessons.Get(ctx, pointID)
@@ -74,13 +91,13 @@ func (s *Service) HintPictures(ctx context.Context, pointID string) ([]HintPictu
 	out := []HintPicture{}
 	for _, e := range l.Content.Practice {
 		if k := HintKey(e); k != "" {
-			out = append(out, HintPicture{ExerciseID: e.ID, Sentence: HintSentence(e), Key: k, Drawn: have[k]})
+			out = append(out, HintPicture{ExerciseID: e.ID, Kind: e.Kind, Sentence: HintSentence(e), Key: k, Drawn: have[k]})
 		}
 	}
 	return out, nil
 }
 
-// HintCount is how many practice choice exercises the lessons of some points have, and how many
+// HintCount is how many practice exercises the lessons of some points have, and how many
 // of them have their hint picture.
 type HintCount struct {
 	Total int
