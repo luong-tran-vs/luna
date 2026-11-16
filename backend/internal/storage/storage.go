@@ -29,6 +29,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/topic"
+	"github.com/luongtran/luna/backend/internal/topicimage"
 	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/wordbank"
@@ -106,6 +107,8 @@ type Store interface {
 	GrammarImages() grammar.ImageRepository
 	// VerbImages keeps the pictures of the irregular verbs (added 2026-11-10).
 	VerbImages() verbs.ImageRepository
+	// TopicImages keeps the picture of each topic (added 2026-11-16).
+	TopicImages() topicimage.Repository
 
 	// Curricula keeps the course of each level, approved and draft (added 2026-10-23).
 	Curricula() curriculum.Repository

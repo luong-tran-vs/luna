@@ -27,6 +27,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/storage"
 	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/topic"
+	"github.com/luongtran/luna/backend/internal/topicimage"
 	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/wordbank"
@@ -83,6 +84,8 @@ type Container struct {
 	verbs   *verbs.Service
 	// verbImages keeps and draws the pictures of the irregular verbs (added 2026-11-10).
 	verbImages *verbs.Images
+	// topicImages keeps and draws the picture of each topic (added 2026-11-16).
+	topicImages *topicimage.Service
 	// games are the learner's games (F26).
 	games    *games.Service
 	progress *progress.Service
@@ -114,6 +117,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initGrammar()
 	c.initCurriculum()
 	c.initVerbs()
+	c.initTopicImages()
 	c.initProgress()
 	c.initGames()
 	c.initTalk()

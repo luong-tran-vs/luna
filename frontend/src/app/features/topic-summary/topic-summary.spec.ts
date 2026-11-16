@@ -83,7 +83,11 @@ describe('TopicSummaryPage', () => {
     await fixture.whenStable();
   });
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    // The topic pictures only decorate: a test that does not look at them answers with none.
+    http.match('/topic-images').forEach((r) => r.flush({ images: [] }));
+    http.verify();
+  });
 
   const flush = async (s: TopicSummary) => {
     const req = http.expectOne((r) => r.url === '/topics/t1/summary');
@@ -107,6 +111,34 @@ describe('TopicSummaryPage', () => {
     expect(text('.mistakes')).toContain('Thì');
     expect(el.querySelector('.lessons a')?.getAttribute('href')).toBe('/lessons/l1');
     expect(el.querySelector('.actions a.btn-primary')?.getAttribute('href')).toBe('/goal?completed=1');
+  });
+
+  it("shows the topic's picture at the top", async () => {
+    await flush(summary());
+    http.expectOne('/topic-images').flush({ images: [{ topicId: 't1', imageUrl: '/api/topic-images/t1?v=1', updatedAt: '' }] });
+    await fixture.whenStable();
+    expect(el.querySelector('.hero-picture')?.getAttribute('src')).toContain('/api/topic-images/t1?v=1');
+  });
+
+  it('shows the words learned with their pictures', async () => {
+    await flush(
+      summary({
+        pictures: [
+          { text: 'mother', meaningVi: 'mẹ', imageUrl: '/api/words/mother/image?v=1' },
+          { text: 'father', meaningVi: 'bố', imageUrl: '/api/words/father/image?v=2' },
+        ],
+      }),
+    );
+    const items = el.querySelectorAll('.word-picture');
+    expect(items.length).toBe(2);
+    expect(items[0].querySelector('img')?.getAttribute('src')).toContain('/api/words/mother/image?v=1');
+    expect(items[0].querySelector('.wp-text')?.textContent).toBe('mother');
+    expect(items[1].querySelector('.wp-meaning')?.textContent).toBe('bố');
+  });
+
+  it('leaves the words learned out when none has a picture', async () => {
+    await flush(summary());
+    expect(el.querySelector('#pictures-heading')).toBeNull();
   });
 
   it('says when there is nothing to rate yet', async () => {

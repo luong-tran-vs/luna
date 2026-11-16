@@ -12,6 +12,7 @@ import { SceneBatchBanner } from '../../features/admin/curriculum/scene-batch-ba
 import { GrammarImageBatchBanner } from '../../features/admin/grammar-images/grammar-image-batch-banner';
 import { GrammarPictureBatchBanner } from '../../features/admin/grammar-images/grammar-picture-batch-banner';
 import { VerbImageBatchBanner } from '../../features/admin/verb-images/verb-image-batch-banner';
+import { TopicImageBatchBanner } from '../../features/admin/topic-images/topic-image-batch-banner';
 import { ImageBatchService } from '../../features/admin/word-bank/image-batch.service';
 
 interface AdminLink {
@@ -109,6 +110,7 @@ const ADMIN_LINKS: readonly AdminLink[] = [
     GrammarImageBatchBanner,
     GrammarPictureBatchBanner,
     VerbImageBatchBanner,
+    TopicImageBatchBanner,
   ],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',

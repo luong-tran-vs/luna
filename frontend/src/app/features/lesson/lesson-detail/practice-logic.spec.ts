@@ -1,5 +1,6 @@
 import { PracticeView } from '../../../core/models/practice';
 import {
+  picturesOf,
   checkFill,
   checkTranslation,
   clock,
@@ -223,5 +224,20 @@ describe('practice logic', () => {
     it('does not break on punctuation in a word', () => {
       expect(wordsIn('Nothing here.', [{ lemma: 'a.b(c)', text: 'a.b(c)' }])).toEqual([]);
     });
+  });
+});
+
+describe('picturesOf', () => {
+  it('gives the pictures of the lesson words the text uses, once each, in lesson order', () => {
+    const words = [
+      { lemma: 'give up', text: 'gave up', imageUrl: '/api/words/give%20up/image?v=1' },
+      { lemma: 'park', text: 'park', imageUrl: '/api/words/park/image?v=1' },
+      { lemma: 'sunny', text: 'sunny' },
+    ];
+    expect(picturesOf('He gave up. The park, the park, sunny', words)).toEqual([
+      expect.stringContaining('/api/words/give%20up/image?v=1'),
+      expect.stringContaining('/api/words/park/image?v=1'),
+    ]);
+    expect(picturesOf('Parking is hard.', words)).toEqual([]);
   });
 });

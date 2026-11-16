@@ -112,6 +112,25 @@ describe('Notebook', () => {
     expect(text(el.querySelector('.card-item .example-vi'))).toBe('Chúng tôi đã đi.');
   });
 
+  it('shows the word bank picture beside a card that has one', async () => {
+    await setup({
+      ...page1,
+      cards: [
+        { ...card('c1', 'went', '2026-09-30'), imageUrl: '/api/words/go/image?v=1' },
+        card('c2', 'home', '2026-09-30'),
+      ],
+    });
+    const items = el.querySelectorAll('.card-item');
+    const img = items[0].querySelector<HTMLImageElement>('img.thumb')!;
+    expect(img.getAttribute('src')).toContain('/api/words/go/image?v=1');
+    expect(img.alt).toBe('');
+    expect(items[1].querySelector('img.thumb')).toBeNull();
+    // A picture that fails to load is dropped.
+    img.dispatchEvent(new Event('error'));
+    await settle();
+    expect(el.querySelector('img.thumb')).toBeNull();
+  });
+
   it('loads more and merges a day split across pages', async () => {
     await setup();
     button('Xem thêm')!.click();

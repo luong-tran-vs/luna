@@ -1,3 +1,4 @@
+import { serverUrl } from '../../../core/api-url';
 import { Level } from '../../../core/models/lesson';
 import { FillBlank, PracticeView } from '../../../core/models/practice';
 
@@ -176,4 +177,17 @@ export function clock(seconds: number): string {
   const s = Math.max(0, Math.floor(seconds));
   const pad = (n: number) => String(n).padStart(2, '0');
   return `${pad(Math.floor(s / 60))}:${pad(s % 60)}`;
+}
+
+/**
+ * The pictures of the lesson words that `text` uses (added 2026-11-16), as server URLs in the
+ * lesson's order: the hint by pictures of the Fill and Translate steps.
+ */
+export function picturesOf(
+  text: string,
+  words: readonly { lemma: string; text: string; imageUrl?: string }[],
+): string[] {
+  const pictured = words.filter((w) => !!w.imageUrl);
+  const used = new Set(wordsIn(text, pictured));
+  return [...new Set(pictured.filter((w) => used.has(w.lemma)).map((w) => serverUrl(w.imageUrl!)))];
 }

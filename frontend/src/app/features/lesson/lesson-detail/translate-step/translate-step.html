@@ -30,6 +30,9 @@
       </button>
     }
   </lu-asker>
+  @if (result() === null) {
+    <lu-picture-hint class="picture-hint" [urls]="hintPictures()" />
+  }
 
   <div class="soft-card built">
     <div class="bank-head">

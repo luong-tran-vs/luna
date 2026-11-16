@@ -134,6 +134,30 @@
               }
             </ul>
           }
+          @if (picturedExamples().length) {
+            <h3 class="sub">Ví dụ có tranh</h3>
+            <ul class="pictured">
+              @for (e of picturedExamples(); track $index) {
+                <li class="pictured-item">
+                  <img
+                    class="pictured-img"
+                    crossorigin="use-credentials"
+                    referrerpolicy="no-referrer"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="160"
+                    height="120"
+                    [src]="e.image"
+                  />
+                  <p class="pictured-en" lang="en">{{ e.en }}</p>
+                  @if (e.vi) {
+                    <p class="pictured-vi">{{ e.vi }}</p>
+                  }
+                </li>
+              }
+            </ul>
+          }
           @if (c.noteVi) {
             <p class="muted">{{ c.noteVi }}</p>
           }

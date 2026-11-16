@@ -71,6 +71,20 @@
                 (cancelled)="editingId.set(null)"
               />
             } @else {
+              @if (c.imageUrl && !brokenPictures().has(c.id)) {
+                <img
+                  class="thumb"
+                  crossorigin="use-credentials"
+                  referrerpolicy="no-referrer"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="64"
+                  height="48"
+                  [src]="serverUrl(c.imageUrl)"
+                  (error)="pictureFailed(c.id)"
+                />
+              }
               <div class="card-main">
                 <p class="word-line">
                   <span class="word" lang="en">{{ c.text }}</span>

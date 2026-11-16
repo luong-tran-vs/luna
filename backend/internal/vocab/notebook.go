@@ -51,7 +51,27 @@ func (s *Service) List(ctx context.Context, userID string, q ListQuery) (Page, e
 		c.Schedule = effective(c, loc)
 		page.Cards[i] = DayCard{Card: c, Day: dayOf(c.CreatedAt, loc)}
 	}
+	s.fillDayPictures(ctx, page.Cards)
 	return page, nil
+}
+
+// fillDayPictures gives the notebook's cards the word bank picture of their word (added
+// 2026-11-16), as the review does; without them the cards are shown as before.
+func (s *Service) fillDayPictures(ctx context.Context, cards []DayCard) {
+	if s.pictures == nil || len(cards) == 0 {
+		return
+	}
+	lemmas := make([]string, len(cards))
+	for i, c := range cards {
+		lemmas[i] = pictureLemma(c.Card)
+	}
+	urls, err := s.pictures.ImageURLs(ctx, lemmas)
+	if err != nil {
+		return
+	}
+	for i := range cards {
+		cards[i].ImageURL = urls[lemmas[i]]
+	}
 }
 
 // Lessons lists the lessons that still exist and have cards in userID's notebook, by title,
@@ -143,4 +163,52 @@ func (s *Service) Count(ctx context.Context, userID string, since *time.Time) (i
 		return 0, fmt.Errorf("vocab: count cards: %w", err)
 	}
 	return n, nil
+}
+
+// PictureWord is a word of the notebook with its word bank picture.
+type PictureWord struct {
+	Text      string
+	MeaningVi string
+	ImageURL  string
+}
+
+// lessonPicturesScan bounds the cards read from each lesson for LessonPictures.
+const lessonPicturesScan = 100
+
+// LessonPictures lists, at most limit, the words userID saved from lessonIDs whose word has a word
+// bank picture, one per word, lesson by lesson (added 2026-11-16, the topic summary's "Từ đã học").
+func (s *Service) LessonPictures(ctx context.Context, userID string, lessonIDs []string, limit int) ([]PictureWord, error) {
+	out := []PictureWord{}
+	if s.pictures == nil || limit <= 0 {
+		return out, nil
+	}
+	var cards []Card
+	for _, id := range lessonIDs {
+		cs, _, err := s.repo.List(ctx, userID, ListQuery{LessonID: id}, lessonPicturesScan, 0)
+		if err != nil {
+			return nil, fmt.Errorf("vocab: list lesson cards: %w", err)
+		}
+		cards = append(cards, cs...)
+	}
+	lemmas := make([]string, len(cards))
+	for i, c := range cards {
+		lemmas[i] = pictureLemma(c)
+	}
+	urls, err := s.pictures.ImageURLs(ctx, lemmas)
+	if err != nil {
+		return nil, fmt.Errorf("vocab: pictures: %w", err)
+	}
+	seen := map[string]bool{}
+	for i, c := range cards {
+		u := urls[lemmas[i]]
+		if u == "" || seen[lemmas[i]] {
+			continue
+		}
+		seen[lemmas[i]] = true
+		out = append(out, PictureWord{Text: c.Text, MeaningVi: c.MeaningVi, ImageURL: u})
+		if len(out) == limit {
+			break
+		}
+	}
+	return out, nil
 }

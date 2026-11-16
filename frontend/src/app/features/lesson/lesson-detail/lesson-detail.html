@@ -304,6 +304,7 @@
                 [speakers]="practice()?.dialogue?.speakers ?? []"
                 [turnTexts]="turnTexts()"
                 [grammarTip]="practice()!.grammarTipVi"
+                [words]="words()"
                 (readAloud)="play($event)"
                 (checked)="onFillChecked($event)"
                 (missed)="sendMisses($event)"
@@ -318,6 +319,7 @@
                 [tiles]="translationTiles()[translateIndex()]"
                 [index]="translateIndex()"
                 [count]="practice()!.translations.length"
+                [words]="words()"
                 (readAloud)="play($event)"
                 (checked)="onTranslationChecked(translateIndex(), $event)"
                 (redone)="onTranslationRedone(translateIndex())"
@@ -447,6 +449,7 @@
                   mode="study"
                   [help]="practice()?.steps?.writing ?? null"
                   [targetWords]="targetWords()"
+                  [sceneUrl]="l.sceneImageUrl ?? ''"
                   (completed)="complete('write')"
                   (skipped)="skipWrite()"
                 />

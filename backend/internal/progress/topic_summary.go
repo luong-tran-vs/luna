@@ -40,6 +40,8 @@ type MistakeCount struct {
 
 // Records are the learner's results over some lessons.
 type Records struct {
+	// Pictures are some words saved from the lessons that have a word bank picture (added 2026-11-16).
+	Pictures []SummaryPicture
 	// Words counts the cards saved from the lessons; Remembered those in the review stage.
 	Words      int
 	Remembered int
@@ -108,6 +110,8 @@ type TopicSummary struct {
 	Days       int
 	Words      int
 	Remembered int
+	// Pictures are words saved from the lessons done, with their picture: "Từ đã học" (added 2026-11-16).
+	Pictures []SummaryPicture
 	// Skills are the scores recorded, in a fixed order; a skill with nothing recorded is left out.
 	Skills         []SkillScore
 	WritingAverage float64
@@ -229,6 +233,7 @@ func (s *StudyService) TopicSummary(ctx context.Context, userID, topicID, level 
 		}
 	}
 	sum.Words, sum.Remembered, sum.Mistakes = rec.Words, rec.Remembered, rec.Mistakes
+	sum.Pictures = rec.Pictures
 	if sum.Mistakes == nil {
 		sum.Mistakes = []MistakeCount{}
 	}
@@ -260,3 +265,13 @@ func (s *StudyService) TopicSummary(ctx context.Context, userID, topicID, level 
 	}
 	return sum, nil
 }
+
+// SummaryPicture is a word saved from a lesson of the topic, with its word bank picture.
+type SummaryPicture struct {
+	Text      string
+	MeaningVi string
+	ImageURL  string
+}
+
+// MaxSummaryPictures bounds the words shown with their picture on the topic summary.
+const MaxSummaryPictures = 12

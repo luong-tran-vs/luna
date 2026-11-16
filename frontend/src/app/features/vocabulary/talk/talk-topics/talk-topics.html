@@ -24,6 +24,19 @@
       <ul class="topics" aria-label="Chủ đề đã học">
         @for (t of list; track t.id) {
           <li class="soft-card topic">
+            @if (images().get(t.id); as src) {
+              <img
+                class="topic-picture"
+                crossorigin="use-credentials"
+                referrerpolicy="no-referrer"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                width="640"
+                height="360"
+                [src]="src"
+              />
+            }
             <div class="topic-head">
               <span class="level">{{ t.level }}</span>&ngsp;
               <h2 class="topic-name">{{ t.name }}</h2>

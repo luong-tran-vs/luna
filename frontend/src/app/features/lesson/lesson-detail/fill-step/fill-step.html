@@ -87,6 +87,9 @@
         </button>
       }
       </lu-asker>
+      @if (!lineChecked()) {
+        <lu-picture-hint class="picture-hint" [urls]="hintPictures()" />
+      }
 
       @if (!lineChecked()) {
         <h3 class="visually-hidden" id="fill-bank-heading">Ngân hàng từ</h3>

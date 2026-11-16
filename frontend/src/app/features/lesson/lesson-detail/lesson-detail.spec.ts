@@ -99,6 +99,7 @@ class WritingStub {
   readonly mode = input<string | null>(null);
   readonly help = input<unknown>(null);
   readonly targetWords = input<string[]>([]);
+  readonly sceneUrl = input('');
   readonly completed = output<void>();
   readonly skipped = output<void>();
 }

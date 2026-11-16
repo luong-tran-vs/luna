@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,12 @@ import { sortTopics, sortTopicsAt, Topic } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
+import { serverUrl } from '../../../core/api-url';
+import { TopicImageList } from '../../../core/models/topic-images';
+import { engineLabel, ImageEngine, MAX_IMAGE_BATCH } from '../../../core/models/word-bank';
+import { EngineDialog } from '../../../shared/components/engine-dialog/engine-dialog';
+import { TopicImageBatchService } from '../topic-images/topic-image-batch.service';
+import { TopicImagesApiService } from '../topic-images/topic-images-api.service';
 
 type FieldName = 'name' | 'description';
 
@@ -34,7 +40,7 @@ interface FilterOption {
  */
 @Component({
   selector: 'lu-topics',
-  imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
+  imports: [Loading, ConfirmDialog, EngineDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
   templateUrl: './topics.html',
   styleUrl: './topics.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -89,6 +95,104 @@ export class Topics {
   protected readonly submitted = signal(false);
   protected readonly serverFields = signal<Partial<Record<FieldName, string>>>({});
 
+  // --- Topic pictures (added 2026-11-16): one banner per topic, drawn one at a time or for every
+  // topic lacking one, in a background batch. ---
+  private readonly imagesApi = inject(TopicImagesApiService);
+  private readonly batches = inject(TopicImageBatchService);
+  protected readonly images = signal<TopicImageList | null>(null);
+  /** The picture URL of each topic that has one. */
+  protected readonly imageOf = computed(() => {
+    const m = new Map<string, string>();
+    for (const im of this.images()?.images ?? []) {
+      m.set(im.topicId, serverUrl(im.imageUrl));
+    }
+    return m;
+  });
+  /** Every topic without a picture, by name. */
+  protected readonly missingImages = computed(() =>
+    sortTopics(this.topics() ?? []).filter((t) => !this.imageOf().has(t.id)),
+  );
+  protected readonly imageBatch = computed(() => {
+    const b = this.batches.status();
+    return b?.running ? b : null;
+  });
+  protected readonly drawingTopics = computed(() => new Set(this.batches.status()?.drawing ?? []));
+  protected readonly imageEngine = computed(() => {
+    const e = this.batches.status()?.engine;
+    return e ? engineLabel(e) : '';
+  });
+  /** The topics the engine dialog is about to draw; null while it is closed. */
+  protected readonly toDraw = signal<Topic[] | null>(null);
+  protected readonly removingImage = signal<Topic | null>(null);
+  protected readonly imageMessage = signal<string | null>(null);
+  protected readonly drawHeading = computed(() => {
+    const list = this.toDraw() ?? [];
+    return list.length === 1 ? `Tạo ảnh cho chủ đề “${list[0].name}”?` : `Tạo ảnh cho ${list.length} chủ đề?`;
+  });
+  protected readonly drawMessage = computed(() => {
+    const list = this.toDraw() ?? [];
+    if (list.length === 1) {
+      return this.imageOf().has(list[0].id)
+        ? 'Ảnh mới thay ảnh đang có. Máy chủ vẽ ngầm, bạn có thể rời trang.'
+        : 'Máy chủ vẽ ngầm, xong thì ảnh hiện ở đây. Bạn có thể rời trang.';
+    }
+    const rest = this.missingImages().length - list.length;
+    return (
+      `Máy chủ vẽ lần lượt ${list.length} chủ đề chưa có ảnh, chạy ngầm, xong ảnh nào lưu ảnh đó. Bạn có thể rời trang.` +
+      (rest > 0 ? ` Mỗi lượt tối đa ${MAX_IMAGE_BATCH} ảnh: ${rest} chủ đề còn lại vẽ ở lượt sau.` : '')
+    );
+  });
+
+  private loadImages(): void {
+    this.imagesApi.list().subscribe({
+      next: (d) => this.images.set(d),
+      // Without the list the topics show no picture; the rest of the page still works.
+      error: () => this.images.set({ images: [] }),
+    });
+  }
+
+  protected askDrawMissing(): void {
+    this.imageMessage.set(null);
+    this.toDraw.set(this.missingImages().slice(0, MAX_IMAGE_BATCH));
+  }
+
+  protected askDraw(t: Topic): void {
+    this.imageMessage.set(null);
+    this.toDraw.set([t]);
+  }
+
+  /** Starts the batch with the engine the admin picked in the dialog. */
+  protected drawImages(engine: ImageEngine): void {
+    const list = this.toDraw() ?? [];
+    this.toDraw.set(null);
+    if (list.length === 0) {
+      return;
+    }
+    this.imagesApi.startBatch({ topicIds: list.map((t) => t.id), engine }).subscribe({
+      next: (b) => this.batches.set(b),
+      error: (err) => this.imageMessage.set(apiMessage(err, 'Không bắt đầu tạo ảnh được, vui lòng thử lại.')),
+    });
+  }
+
+  protected stopImages(): void {
+    this.imagesApi.stopBatch().subscribe({
+      next: (b) => this.batches.set(b),
+      error: () => this.imageMessage.set('Không dừng được, vui lòng thử lại.'),
+    });
+  }
+
+  protected removeImage(): void {
+    const t = this.removingImage();
+    this.removingImage.set(null);
+    if (!t) {
+      return;
+    }
+    this.imagesApi.remove(t.id).subscribe({
+      next: () => this.loadImages(),
+      error: () => this.imageMessage.set(`Không xoá được ảnh của “${t.name}”, vui lòng thử lại.`),
+    });
+  }
+
   protected readonly form = inject(NonNullableFormBuilder).group({
     name: ['', [Validators.required, Validators.maxLength(60)]],
     description: ['', Validators.maxLength(200)],
@@ -96,6 +200,17 @@ export class Topics {
 
   constructor() {
     this.load();
+    this.loadImages();
+    inject(DestroyRef).onDestroy(this.batches.watch());
+    // A picture saved by the batch shows at once: reload the pictures when the batch saves one more.
+    let saved = -1;
+    effect(() => {
+      const n = this.batches.status()?.saved.length ?? 0;
+      if (saved >= 0 && n !== saved) {
+        this.loadImages();
+      }
+      saved = n;
+    });
   }
 
   private load(): void {
@@ -227,4 +342,19 @@ export class Topics {
       this.error.set(body?.message ?? 'Không xoá được chủ đề, vui lòng thử lại.');
     }
   }
+}
+
+/** The server's message of a failed request (a field error first), else fallback. */
+function apiMessage(err: unknown, fallback: string): string {
+  if (err instanceof ApiError && err.kind === 'http') {
+    const body = err.body as { message?: unknown; fields?: Record<string, string> } | null;
+    const field = Object.values(body?.fields ?? {})[0];
+    if (field) {
+      return field;
+    }
+    if (typeof body?.message === 'string' && body.message) {
+      return body.message;
+    }
+  }
+  return fallback;
 }

@@ -49,6 +49,13 @@ func (t topicRecords) Records(ctx context.Context, userID string, lessonIDs []st
 		return out, err
 	}
 	out.Writings, out.WritingAverage = graded, avg
+	pictures, err := t.vocab.LessonPictures(ctx, userID, lessonIDs, progress.MaxSummaryPictures)
+	if err != nil {
+		return out, fmt.Errorf("lesson pictures: %w", err)
+	}
+	for _, p := range pictures {
+		out.Pictures = append(out.Pictures, progress.SummaryPicture(p))
+	}
 	for _, m := range mistakes {
 		out.Mistakes = append(out.Mistakes, progress.MistakeCount{Type: m.Type, Count: m.Count})
 	}

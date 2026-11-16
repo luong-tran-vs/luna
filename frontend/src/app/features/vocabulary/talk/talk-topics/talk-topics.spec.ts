@@ -4,6 +4,7 @@ import { of, throwError } from 'rxjs';
 
 import { ApiError } from '../../../../core/interceptors/error-interceptor';
 import { TalkApiService } from '../../../../core/services/talk-api.service';
+import { TopicImagesService } from '../../../../core/services/topic-images.service';
 import { TalkTopics } from './talk-topics';
 
 describe('TalkTopics', () => {
@@ -44,7 +45,11 @@ describe('TalkTopics', () => {
       ]),
     );
     TestBed.configureTestingModule({
-      providers: [provideRouter([]), { provide: TalkApiService, useValue: api }],
+      providers: [
+        provideRouter([]),
+        { provide: TalkApiService, useValue: api },
+        { provide: TopicImagesService, useValue: { all: () => of(new Map([['music', '/api/topic-images/music?v=1']])) } },
+      ],
     });
     fixture = TestBed.createComponent(TalkTopics);
     el = fixture.nativeElement as HTMLElement;
@@ -58,6 +63,13 @@ describe('TalkTopics', () => {
     expect(topics[0]).toContain('Đã học 2 bài · Đã luyện 1 lần');
     expect(topics[1]).toContain('Đã học 1 bài');
     expect(text(el.querySelector('.menu-list'))).toContain('4 lượt · 2 lỗi cần sửa');
+  });
+
+  it("shows a topic's picture when it has one", async () => {
+    await setup();
+    const cards = el.querySelectorAll('.topic');
+    expect(cards[0].querySelector('img.topic-picture')?.getAttribute('src')).toBe('/api/topic-images/music?v=1');
+    expect(cards[1].querySelector('img.topic-picture')).toBeNull();
   });
 
   it('starts a conversation and opens it', async () => {

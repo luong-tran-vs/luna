@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 
 import { GrammarNote } from '../../../../core/models/lesson';
@@ -95,9 +97,15 @@ describe('GrammarStep', () => {
     await fixture.whenStable();
   };
 
-  const render = async (inputs: Record<string, unknown>) => {
+  /**
+   * Renders the step. With a grammar point, the grammar section's lesson of the point (for its
+   * pictured examples) is answered with `grammar`, or 404 when none is given.
+   */
+  const render = async (inputs: Record<string, unknown>, grammar?: object) => {
     speech = new FakeSpeech();
-    TestBed.configureTestingModule({ providers: [provideFakeSpeech(speech), provideRouter([])] });
+    TestBed.configureTestingModule({
+      providers: [provideFakeSpeech(speech), provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+    });
     fixture = TestBed.createComponent(GrammarStep);
     for (const [k, v] of Object.entries(inputs)) {
       fixture.componentRef.setInput(k, v);
@@ -106,6 +114,14 @@ describe('GrammarStep', () => {
     backs = 0;
     fixture.componentInstance.done.subscribe(() => done++);
     fixture.componentInstance.back.subscribe(() => backs++);
+    fixture.detectChanges();
+    for (const req of TestBed.inject(HttpTestingController).match((r) => r.url.startsWith('/grammar/'))) {
+      if (grammar) {
+        req.flush(grammar);
+      } else {
+        req.flush({ error: 'not found' }, { status: 404, statusText: 'Not Found' });
+      }
+    }
     await fixture.whenStable();
     el = fixture.nativeElement;
   };
@@ -166,6 +182,39 @@ describe('GrammarStep', () => {
     expect(backs).toBe(0);
     await click(backBtn()!);
     expect(backs).toBe(1);
+  });
+
+
+  it('shows the pictured examples of the point from the grammar section under the rule', async () => {
+    await render(
+      { content, grammarPointId: 'a1-present-simple' },
+      {
+        point: {},
+        content: {
+          examples: [
+            { en: 'She plays tennis.', vi: 'Cô ấy chơi quần vợt.' },
+            { en: 'He reads.', vi: 'Anh ấy đọc.' },
+            { en: 'They swim.', vi: 'Họ bơi.' },
+          ],
+        },
+        progress: {},
+        exampleImages: ['/api/grammar/x/0.jpg', '', '/api/grammar/x/2.jpg'],
+        lessonCount: 1,
+      },
+    );
+    await click(main());
+    const items = el.querySelectorAll('.pictured-item');
+    expect(items.length).toBe(2);
+    expect(text(items[0].querySelector('.pictured-en'))).toBe('She plays tennis.');
+    expect(text(items[0].querySelector('.pictured-vi'))).toBe('Cô ấy chơi quần vợt.');
+    expect(items[1].querySelector('img')!.getAttribute('src')).toContain('/api/grammar/x/2.jpg');
+  });
+
+  it('shows no pictured examples when the point has no published lesson', async () => {
+    await render({ content, grammarPointId: 'p1' });
+    await click(main());
+    expect(el.querySelector('.tag')?.textContent).toContain('Quy tắc');
+    expect(el.querySelector('.pictured')).toBeNull();
   });
 
   const heads = () => Array.from(el.querySelectorAll('.rule-table th')).map((th) => text(th));

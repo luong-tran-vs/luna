@@ -216,6 +216,13 @@ học "A2 · Gia đình" ở bài thứ 1. Khởi động phiên bản mới: c�
 - **FR-020** *(sửa 2026-10-07)*: Người đã đăng nhập PHẢI đọc được, với một trình độ, danh sách chủ đề có lộ trình ở trình độ đó kèm
   số bài trong lộ trình (để L cho người học chọn), không thấy mô tả nội bộ nào khác.
 - **FR-021**: Mọi trang của F14 PHẢI dùng được ở 360px, bằng bàn phím, sáng và tối (nguyên tắc IV).
+- **FR-022** *(thêm 2026-11-16)*: Mỗi chủ đề có một ảnh đại diện (dùng chung mọi trình độ, khung 16:9), hiện ở trang Luyện nói với
+  AI và đầu trang tổng kết chủ đề. Trang Chủ đề của admin có mục "Ảnh chủ đề" (đếm số chủ đề đã có ảnh, nút "Tạo ảnh cho N chủ đề
+  thiếu ảnh"), mỗi thẻ chủ đề có nhãn "Có ảnh"/"Chưa có ảnh", nút "Tạo ảnh"/"Tạo lại ảnh" và "Xoá ảnh". AI chỉ vẽ khi admin bấm,
+  chọn Gemini hoặc Codex mỗi lần; vẽ ngầm theo lượt (tối đa 200), có banner tiến độ trên mọi trang admin và nút Dừng. Ảnh vẽ từ
+  tên, mô tả và vài từ vựng của chủ đề. API: `GET /api/topic-images`, `GET /api/topic-images/{id}`, admin
+  `GET /api/admin/topic-images`, `DELETE /api/admin/topic-images/{id}`, `GET|POST /api/admin/topic-image-batch`,
+  `POST /api/admin/topic-image-batch/stop`. Lưu ở Mongo `topic_images` (DB ảnh), MySQL migration `046_topic_images`.
 
 ### Key Entities
 

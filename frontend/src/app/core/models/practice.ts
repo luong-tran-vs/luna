@@ -129,6 +129,8 @@ export interface SpeakQuestion {
   questionVi: string;
   /** An answer frame with "___" for the learner's own words; may be ''. */
   frame: string;
+  /** A picture to talk about (added 2026-11-16): the lesson's scene for "Describe the picture"; absent otherwise. */
+  imageUrl?: string;
 }
 
 /** What the Writing step shows next to its prompt. */

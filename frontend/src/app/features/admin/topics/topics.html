@@ -51,6 +51,31 @@
     @if (list.length === 0) {
       <p class="card muted">Chưa có chủ đề nào. Bấm "Thêm chủ đề" để tạo chủ đề đầu tiên.</p>
     } @else {
+    <section class="card image-bar" aria-labelledby="topic-images-heading">
+      <h2 class="image-bar-title" id="topic-images-heading">Ảnh chủ đề</h2>
+      <p class="muted">
+        Mỗi chủ đề một ảnh, hiện ở trang Luyện nói và trang tổng kết chủ đề của người học.
+        Đã có ảnh {{ list.length - missingImages().length }}/{{ list.length }} chủ đề.
+      </p>
+      @if (imageBatch(); as b) {
+        <div class="image-progress" role="status">
+          <span>
+            {{ b.stopping ? 'Đang dừng…' : 'Đang tạo ảnh bằng ' + imageEngine() }}: xong {{ b.done }}/{{ b.total }}
+            @if (b.failures.length) {
+              · {{ b.failures.length }} lỗi
+            }
+          </span>
+          <button type="button" class="btn" [disabled]="b.stopping" (click)="stopImages()">Dừng</button>
+        </div>
+      } @else if (missingImages().length) {
+        <button type="button" class="btn-primary" (click)="askDrawMissing()">
+          Tạo ảnh cho {{ missingImages().length }} chủ đề thiếu ảnh
+        </button>
+      }
+      @if (imageMessage(); as m) {
+        <p class="form-alert" role="alert">{{ m }}</p>
+      }
+    </section>
       <div class="level-picker" role="group" aria-label="Lọc theo trình độ">
         @for (f of filters(); track f.id) {
           <button type="button" class="level-btn" [attr.aria-pressed]="f.id === shownFilter()" (click)="filter.set(f.id)">
@@ -81,6 +106,28 @@
                       [attr.aria-label]="'Xuống: ' + t.name" (click)="move(i, 1)">↓</button>
                   </div>
                 }
+                <div class="topic-image">
+                  @if (imageOf().get(t.id); as src) {
+                    <img class="topic-thumb" crossorigin="use-credentials" referrerpolicy="no-referrer" alt=""
+                      loading="lazy" decoding="async" width="128" height="72" [src]="src" />
+                    <span class="image-label has-image">Có ảnh</span>
+                  } @else {
+                    <span class="topic-thumb empty" aria-hidden="true"></span>
+                    <span class="image-label no-image">Chưa có ảnh</span>
+                  }
+                  @if (drawingTopics().has(t.id)) {
+                    <span class="image-label drawing" role="status">Đang vẽ…</span>
+                  } @else {
+                    <button type="button" class="btn image-btn" [disabled]="!!imageBatch()" (click)="askDraw(t)">
+                      {{ imageOf().has(t.id) ? 'Tạo lại ảnh' : 'Tạo ảnh' }}<span class="visually-hidden"> cho {{ t.name }}</span>
+                    </button>
+                  }
+                  @if (imageOf().has(t.id)) {
+                    <button type="button" class="btn image-btn" (click)="removingImage.set(t)">
+                      Xoá ảnh<span class="visually-hidden"> của {{ t.name }}</span>
+                    </button>
+                  }
+                </div>
                 <div class="topic-body">
                   <p class="topic-name">{{ t.name }}</p>
                   @if (t.description) {
@@ -131,4 +178,25 @@
   [danger]="true"
   (confirmed)="confirmDelete()"
   (cancelled)="deleting.set(null)"
+/>
+
+<lu-engine-dialog
+  [open]="toDraw() !== null"
+  [heading]="drawHeading()"
+  [message]="drawMessage()"
+  [codexAvailable]="images()?.codexImages ?? false"
+  [requireChoice]="true"
+  confirmLabel="Tạo ảnh"
+  (confirmed)="drawImages($event)"
+  (cancelled)="toDraw.set(null)"
+/>
+
+<lu-confirm-dialog
+  [open]="removingImage() !== null"
+  title="Xoá ảnh chủ đề?"
+  [message]="'Ảnh của chủ đề “' + (removingImage()?.name ?? '') + '” sẽ bị xoá. Có thể tạo lại sau.'"
+  confirmLabel="Xoá ảnh"
+  [danger]="true"
+  (confirmed)="removeImage()"
+  (cancelled)="removingImage.set(null)"
 />

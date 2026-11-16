@@ -70,6 +70,7 @@ func migrations() []migration {
 		{ID: "043_verb_images", Stmts: verbImagesSchema()},
 		{ID: "044_verb_mistakes", Stmts: verbMistakesSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "045_games", Stmts: gamesSchema()},
+		{ID: "046_topic_images", Stmts: topicImagesSchema()},
 	}
 }
 

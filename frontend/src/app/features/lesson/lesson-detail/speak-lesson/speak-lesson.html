@@ -108,6 +108,18 @@
         @if (q.questionVi) {
           <p class="muted q-vi">{{ q.questionVi }}</p>
         }
+        @if (q.imageUrl) {
+          <img
+            class="talk-picture"
+            crossorigin="use-credentials"
+            referrerpolicy="no-referrer"
+            alt="Bức tranh của bài"
+            decoding="async"
+            width="640"
+            height="360"
+            [src]="q.imageUrl"
+          />
+        }
         @if (frame().length) {
           <div class="frame">
             <p class="frame-title">Khung gợi ý</p>

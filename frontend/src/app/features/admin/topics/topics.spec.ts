@@ -54,7 +54,13 @@ describe('Topics', () => {
   };
   const expectList = (list: Topic[] = topics) => http.expectOne('/admin/topics').flush({ topics: list });
 
-  const setup = async (list: Topic[] = topics) => {
+  /** No topic picture batch since the server started. */
+  const idleBatch = {
+    running: false, stopping: false, stopped: false, engine: '', total: 0, done: 0,
+    drawing: [], saved: [], failures: [], codexImages: false,
+  };
+
+  const setup = async (list: Topic[] = topics, images: { topicId: string; imageUrl: string }[] = []) => {
     TestBed.configureTestingModule({
       imports: [Topics],
       providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
@@ -64,11 +70,81 @@ describe('Topics', () => {
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     expectList(list);
+    http.expectOne('/admin/topic-images').flush({
+      images: images.map((i) => ({ ...i, updatedAt: '2026-11-16T00:00:00Z' })),
+      codexImages: false,
+    });
+    http.expectOne('/admin/topic-image-batch').flush(idleBatch);
     await settle();
   };
 
   afterEach(() => http.verify());
 
+
+  it('labels which topics have a picture and draws the missing ones in one batch (added 2026-11-16)', async () => {
+    await setup(topics, [{ topicId: 't1', imageUrl: '/api/topic-images/t1?v=1' }]);
+    picker().find((b) => text(b).startsWith('Tất cả'))!.click();
+    await settle();
+    expect(text(el.querySelector('.image-bar'))).toContain('Đã có ảnh 1/4 chủ đề');
+    expect(text(row('Gia đình').querySelector('.image-label'))).toBe('Có ảnh');
+    expect(row('Gia đình').querySelector('img.topic-thumb')?.getAttribute('src')).toContain('/api/topic-images/t1?v=1');
+    expect(text(row('Mua sắm').querySelector('.image-label'))).toBe('Chưa có ảnh');
+    expect(text(button('Tạo lại ảnh cho Gia đình'))).toBe('Tạo lại ảnh cho Gia đình');
+
+    button('Tạo ảnh cho 3 chủ đề thiếu ảnh')!.click();
+    await settle();
+    const dialog = el.querySelector('[role="dialog"]')!;
+    expect(text(dialog)).toContain('Tạo ảnh cho 3 chủ đề?');
+    dialog.querySelector<HTMLInputElement>('input[value="gemini"]')!.click();
+    await settle();
+    button('Tạo ảnh', dialog)!.click();
+    await settle();
+    const req = http.expectOne((r) => r.url === '/admin/topic-image-batch' && r.method === 'POST');
+    // The missing topics, by name.
+    expect(req.request.body).toEqual({ topicIds: ['t3', 't4', 't2'], engine: 'gemini' });
+    req.flush({ ...idleBatch, running: true, engine: 'gemini', total: 3, drawing: ['t3'] });
+    await settle();
+    expect(text(el.querySelector('.image-progress'))).toContain('Đang tạo ảnh bằng Gemini: xong 0/3');
+    expect(text(row('Công việc').querySelector('.drawing'))).toBe('Đang vẽ…');
+    button('Dừng')!.click();
+    http.expectOne('/admin/topic-image-batch/stop').flush({ ...idleBatch, total: 3, done: 1, stopped: true });
+    await settle();
+  });
+
+  it('draws one topic again and removes a picture after confirmation', async () => {
+    await setup(topics, [{ topicId: 't1', imageUrl: '/api/topic-images/t1?v=1' }]);
+    button('Tạo lại ảnh cho Gia đình')!.click();
+    await settle();
+    const dialog = el.querySelector('[role="dialog"]')!;
+    expect(text(dialog)).toContain('Ảnh mới thay ảnh đang có');
+    dialog.querySelector<HTMLInputElement>('input[value="gemini"]')!.click();
+    await settle();
+    button('Tạo ảnh', dialog)!.click();
+    await settle();
+    const req = http.expectOne((r) => r.url === '/admin/topic-image-batch' && r.method === 'POST');
+    expect(req.request.body.topicIds).toEqual(['t1']);
+    req.flush({ ...idleBatch, total: 1, done: 1, saved: ['t1'] });
+    await settle();
+    http.expectOne('/admin/topic-images').flush({ images: [], codexImages: false });
+    await settle();
+
+    expect(button('Xoá ảnh của Gia đình')).toBeUndefined();
+  });
+
+  it('removes a topic picture after confirmation', async () => {
+    await setup(topics, [{ topicId: 't1', imageUrl: '/api/topic-images/t1?v=1' }]);
+    button('Xoá ảnh của Gia đình')!.click();
+    await settle();
+    const dialog = Array.from(el.querySelectorAll('[role="dialog"], [role="alertdialog"]')).find((d) =>
+      text(d).includes('Xoá ảnh chủ đề?'),
+    )!;
+    button('Xoá ảnh', dialog)!.click();
+    http.expectOne((r) => r.url === '/admin/topic-images/t1' && r.method === 'DELETE').flush(null, { status: 204, statusText: 'No Content' });
+    await settle();
+    http.expectOne('/admin/topic-images').flush({ images: [], codexImages: false });
+    await settle();
+    expect(text(row('Gia đình').querySelector('.image-label'))).toBe('Chưa có ảnh');
+  });
   it('lists the topics with lessons at one level, the first level by default, or every topic', async () => {
     await setup();
     expect(picker().map((b) => text(b))).toEqual(['A1 2', 'B1 2', 'Tất cả 4']);

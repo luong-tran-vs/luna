@@ -191,6 +191,8 @@ thẻ trùng. Mở bài chưa có chú thích thấy "Chưa có danh sách từ 
 - **FR-030** *(thêm 2026-10-20)*: Ôn theo bài ("Ôn bài này" / "Ôn lại") có thêm phần "Gõ từ" (tối đa 4 câu) giữa Từ vựng và Điền từ,
   cách hỏi như FR-028; từ gõ sai được đưa lại vào ôn tập như các phần khác, không chấm thẻ đến hạn. Phần Từ vựng ở đây cũng chỉ hiện câu
   ví dụ sau khi trả lời (đáp án nhiễu cùng loại từ ở phần này đã có từ trước). Gợi ý chữ cái hiện chữ đầu của từng từ, cách nhau "/".
+- **FR-031** *(thêm 2026-11-16)*: Sổ từ hiện ảnh nhỏ của từ (ảnh kho từ, như thẻ ôn) cạnh mỗi thẻ có ảnh; `GET /api/vocab/cards`
+  trả `imageUrl` cho mỗi thẻ có ảnh. Ảnh không tải được thì thẻ hiện như cũ.
 
 ### Key Entities
 

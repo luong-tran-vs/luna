@@ -57,7 +57,7 @@ describe('Writing', () => {
   const setup = async (
     v: LessonWriting,
     mode: 'study' | 'review' | null = 'study',
-    extra: { help?: WritingHelp | null; targetWords?: string[] } = {},
+    extra: { help?: WritingHelp | null; targetWords?: string[]; sceneUrl?: string } = {},
   ) => {
     vi.useFakeTimers();
     notifier.submitted.mockClear();
@@ -78,6 +78,7 @@ describe('Writing', () => {
     fixture.componentRef.setInput('mode', mode);
     fixture.componentRef.setInput('help', extra.help ?? null);
     fixture.componentRef.setInput('targetWords', extra.targetWords ?? []);
+    fixture.componentRef.setInput('sceneUrl', extra.sceneUrl ?? '');
     completed = 0;
     fixture.componentInstance.completed.subscribe(() => completed++);
     el = fixture.nativeElement;
@@ -100,6 +101,13 @@ describe('Writing', () => {
     TestBed.resetTestingModule();
     await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }));
     expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')).toBeNull();
+  });
+
+  it("shows the lesson's scene under the prompt while writing", async () => {
+    await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }), 'study', {
+      sceneUrl: '/api/lessons/l1/scene?v=1',
+    });
+    expect(el.querySelector('.prompt-scene img')?.getAttribute('src')).toContain('/api/lessons/l1/scene?v=1');
   });
 
   it('shows the prompt, the suggested length and the word count', async () => {

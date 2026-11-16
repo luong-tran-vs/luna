@@ -207,3 +207,16 @@ export function fallbackQuestions(
   });
   return out;
 }
+
+/**
+ * The last question of the Speaking step on a lesson with a scene picture (added 2026-11-16): the
+ * learner describes the picture, a usual speaking task, with a frame to start from.
+ */
+export function describePicture(imageUrl: string): SpeakQuestion {
+  return {
+    question: 'Describe the picture. What can you see?',
+    questionVi: 'Hãy tả bức tranh. Bạn thấy những gì?',
+    frame: 'In the picture, I can see ___.\nThey are ___.',
+    imageUrl,
+  };
+}

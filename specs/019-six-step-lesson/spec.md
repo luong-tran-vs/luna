@@ -30,10 +30,16 @@ cả 6 (Viết vẫn bỏ qua được). Chi tiết từng bước ở `docs/mvp
 - **FR-006** Bài sinh mới có đoạn về người khác (he/she), câu phủ định.
 - **FR-007** Chấm bài viết trả `mistakes` (gốc, sửa, loại, ghi chú); lỗi xếp đúng tiêu chí; `GET /api/writings/mistakes` cộng
   dồn theo loại (bỏ other, spelling). MySQL: migration `034_writing_mistakes`.
-- **FR-008** `POST /api/lessons/{id}/speak/check`: 1–3 câu trả lời, 1 request AI, tối đa 5 lần mỗi người mỗi bài mỗi ngày
+- **FR-008** `POST /api/lessons/{id}/speak/check`: 1–4 câu trả lời *(sửa 2026-11-16: thêm câu tả tranh, FR-011)*, 1 request AI, tối đa 5 lần mỗi người mỗi bài mỗi ngày
   (admin không giới hạn; lần AI lỗi không bị trừ).
 - **FR-009** Bước Từ vựng không còn nút "Đã học": mọi từ trừ từ "Đã biết" vào ôn tập khi xong bước; từ nhớ sai đến hạn ngay.
 - **FR-010** Luyện thêm (Hội thoại, Điền ô trống, Dịch câu) mở sau bước Đọc.
+- **FR-011** *(thêm 2026-11-16)* Ảnh giúp học tường minh hơn, dùng lại ảnh đã có (không tốn lượt vẽ AI):
+  - Bước Ngữ pháp, thẻ Quy tắc: "Ví dụ có tranh" — tối đa 3 câu ví dụ có ảnh của cùng điểm ngữ pháp ở phần Ngữ pháp
+    (`GET /api/grammar/{id}`); điểm chưa đăng bài hoặc chưa có ảnh thì không hiện.
+  - Điền ô trống và Dịch câu: nút "Gợi ý bằng ảnh" hiện ảnh của các từ của bài mà câu cần; ẩn khi đã kiểm tra câu.
+  - Bước Nói: bài có ảnh cảnh thì thêm câu cuối "Describe the picture. What can you see?" kèm ảnh cảnh và khung gợi ý.
+  - Bước Viết: ảnh cảnh của bài hiện dưới đề viết khi đang viết.
 
 ## Ngoài phạm vi
 

@@ -245,6 +245,9 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
   - loại lỗi viết hay gặp nhất (dẫn tới trang bài viết).
   Trang cũng PHẢI liệt kê các loại lỗi viết của chủ đề, nhiều nhất trước, bỏ "khác" và chính tả như trang lỗi hay gặp.
 - **FR-028**: Tổng kết KHÔNG gọi AI: mọi số liệu lấy từ kết quả đã lưu theo bài, nên trang mở ngay và không tốn lượt Gemini.
+- **FR-029** *(thêm 2026-11-16)*: Trang tổng kết có "Từ đã học": tối đa 12 từ người học đã lưu từ các bài đã học xong của chủ đề (như ô "từ đã lưu") mà có ảnh
+  trong kho từ (ảnh, từ, nghĩa); `GET /api/topics/{id}/summary` trả `pictures`. Không từ nào có ảnh thì không hiện mục này.
+  Đầu trang hiện ảnh chủ đề nếu chủ đề có ảnh (spec 007 FR-022).
 
 ### Key Entities
 

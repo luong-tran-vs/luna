@@ -9,6 +9,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { serverUrl } from '../../../core/api-url';
 import { Card, DayCard, LessonCounts } from '../../../core/models/vocab';
 import { SpeechService } from '../../../core/services/speech.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
@@ -62,6 +63,9 @@ export class Notebook {
   protected readonly actionError = signal<string | null>(null);
   /** The card whose "⋯" menu is open. */
   protected readonly menuId = signal<string | null>(null);
+  /** Cards whose picture did not load: shown without one (added 2026-11-16). */
+  protected readonly brokenPictures = signal<ReadonlySet<string>>(new Set());
+  protected readonly serverUrl = serverUrl;
 
   protected readonly filtered = computed(() => this.q().trim() !== '' || this.lessonId() !== '');
   protected readonly groups = computed<DayGroup[]>(() => {
@@ -196,5 +200,9 @@ export class Notebook {
       },
       error: () => this.actionError.set(`Không xoá được “${card.text}”, vui lòng thử lại.`),
     });
+  }
+
+  protected pictureFailed(id: string): void {
+    this.brokenPictures.update((s) => new Set(s).add(id));
   }
 }

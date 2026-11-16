@@ -37,6 +37,7 @@ import { FrequentMistakes } from '../../writings/frequent-mistakes/frequent-mist
 import { containsAny, containsWord, pickWords, segments } from './checklist';
 import { loadErrorMessage } from '../load-error';
 import { Loading } from '../../../shared/components/loading/loading';
+import { SceneImage } from '../../../shared/components/scene-image/scene-image';
 
 /** Delay after the last keystroke before the draft is saved (khối 2: 1 s). */
 const DRAFT_DELAY = 1000;
@@ -52,7 +53,7 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
  */
 @Component({
   selector: 'lu-writing',
-  imports: [Loading, Icon, RouterLink, Corrections, FrequentMistakes],
+  imports: [Loading, Icon, RouterLink, Corrections, FrequentMistakes, SceneImage],
   templateUrl: './writing.html',
   styleUrl: './writing.css',
   host: { '[class.standalone]': 'mode() === null' },
@@ -71,6 +72,8 @@ export class Writing implements OnInit {
   readonly help = input<WritingHelp | null>(null);
   /** The lesson's words (texts and lemmas), checked off and underlined as they are used. */
   readonly targetWords = input<string[]>([]);
+  /** The lesson's scene picture, shown under the prompt for ideas (added 2026-11-16); '' for none. */
+  readonly sceneUrl = input('');
   /** Emitted once the writing is submitted (the page then completes the step). */
   readonly completed = output<void>();
   /** Emitted when the learner skips writing (lesson page only; it then finishes the lesson). */

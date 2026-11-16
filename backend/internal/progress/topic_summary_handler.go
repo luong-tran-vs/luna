@@ -25,24 +25,31 @@ type mistakeCountJSON struct {
 	Count int    `json:"count"`
 }
 
+type summaryPictureJSON struct {
+	Text      string `json:"text"`
+	MeaningVi string `json:"meaningVi"`
+	ImageURL  string `json:"imageUrl"`
+}
+
 type topicSummaryJSON struct {
-	TopicID        string              `json:"topicId"`
-	TopicName      string              `json:"topicName"`
-	Level          string              `json:"level"`
-	CanDoVi        string              `json:"canDoVi"`
-	GrammarVi      []string            `json:"grammarVi"`
-	Lessons        []summaryLessonJSON `json:"lessons"`
-	Completed      int                 `json:"completed"`
-	StartedAt      *time.Time          `json:"startedAt"`
-	FinishedAt     *time.Time          `json:"finishedAt"`
-	Days           int                 `json:"days"`
-	Words          int                 `json:"words"`
-	Remembered     int                 `json:"remembered"`
-	Skills         []skillJSON         `json:"skills"`
-	WritingAverage float64             `json:"writingAverage"`
-	Mistakes       []mistakeCountJSON  `json:"mistakes"`
-	Overall        int                 `json:"overall"`
-	Rating         string              `json:"rating"`
+	TopicID        string               `json:"topicId"`
+	TopicName      string               `json:"topicName"`
+	Level          string               `json:"level"`
+	CanDoVi        string               `json:"canDoVi"`
+	GrammarVi      []string             `json:"grammarVi"`
+	Lessons        []summaryLessonJSON  `json:"lessons"`
+	Completed      int                  `json:"completed"`
+	StartedAt      *time.Time           `json:"startedAt"`
+	FinishedAt     *time.Time           `json:"finishedAt"`
+	Days           int                  `json:"days"`
+	Words          int                  `json:"words"`
+	Remembered     int                  `json:"remembered"`
+	Pictures       []summaryPictureJSON `json:"pictures"`
+	Skills         []skillJSON          `json:"skills"`
+	WritingAverage float64              `json:"writingAverage"`
+	Mistakes       []mistakeCountJSON   `json:"mistakes"`
+	Overall        int                  `json:"overall"`
+	Rating         string               `json:"rating"`
 }
 
 func timeOrNil(t time.Time) *time.Time {
@@ -67,6 +74,7 @@ func (h *StudyHandler) topicSummary(w http.ResponseWriter, r *http.Request) {
 		Words: v.Words, Remembered: v.Remembered, Skills: make([]skillJSON, len(v.Skills)),
 		WritingAverage: v.WritingAverage, Mistakes: make([]mistakeCountJSON, len(v.Mistakes)),
 		Overall: v.Overall, Rating: string(v.Rating),
+		Pictures: make([]summaryPictureJSON, len(v.Pictures)),
 	}
 	if out.GrammarVi == nil {
 		out.GrammarVi = []string{}
@@ -76,6 +84,9 @@ func (h *StudyHandler) topicSummary(w http.ResponseWriter, r *http.Request) {
 	}
 	for i, s := range v.Skills {
 		out.Skills[i] = skillJSON(s)
+	}
+	for i, p := range v.Pictures {
+		out.Pictures[i] = summaryPictureJSON(p)
 	}
 	for i, m := range v.Mistakes {
 		out.Mistakes[i] = mistakeCountJSON(m)

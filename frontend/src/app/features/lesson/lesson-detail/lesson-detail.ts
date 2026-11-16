@@ -14,7 +14,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, firstValueFrom, forkJoin, Observable, of, Subscription } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { PracticeView } from '../../../core/models/practice';
+import { serverUrl } from '../../../core/api-url';
+import { PracticeView, SpeakQuestion } from '../../../core/models/practice';
 import { ReadingLesson } from '../../../core/models/reading';
 import { CompletedLesson, LessonRef, LessonStudy, Step, STEP_LABELS, STEPS } from '../../../core/models/study';
 import { LessonVocabulary } from '../../../core/models/vocab';
@@ -49,7 +50,7 @@ import { PracticeList } from './practice-list/practice-list';
 import { PracticeSummary } from './practice-summary/practice-summary';
 import { ReadingText } from './reading-text/reading-text';
 import { SpeakStep } from './speak-step/speak-step';
-import { fallbackQuestions, fallbackReadAloud } from './speak-lesson/speak-fallback';
+import { describePicture, fallbackQuestions, fallbackReadAloud } from './speak-lesson/speak-fallback';
 import { TranslateStep } from './translate-step/translate-step';
 import { VocabResult, VocabStep } from './vocab-step/vocab-step';
 import { Loading } from '../../../shared/components/loading/loading';
@@ -275,10 +276,15 @@ export class LessonDetail {
     const sentences = (this.lesson()?.sentences ?? []).map((s) => s.text);
     return fallbackReadAloud([...turns, ...sentences], this.words());
   });
-  /** The Speaking step's questions: the AI's, else the dialogue's questions to "you" (older lessons). */
-  protected readonly speakQuestions = computed(() => {
+  /**
+   * The Speaking step's questions: the AI's, else the dialogue's questions to "you" (older lessons),
+   * then "Describe the picture" on the lesson's scene when it has one (added 2026-11-16).
+   */
+  protected readonly speakQuestions = computed((): SpeakQuestion[] => {
     const given = this.practice()?.steps?.speakQuestions ?? [];
-    return given.length > 0 ? given : fallbackQuestions(this.practice()?.dialogue?.turns ?? [], this.words());
+    const questions = given.length > 0 ? given : fallbackQuestions(this.practice()?.dialogue?.turns ?? [], this.words());
+    const scene = this.lesson()?.sceneImageUrl;
+    return scene ? [...questions, describePicture(serverUrl(scene))] : questions;
   });
   /**
    * Sentences to repeat in the Speaking practice: those chosen for the lesson's Speaking step, else the

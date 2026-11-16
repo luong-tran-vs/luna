@@ -423,3 +423,44 @@ func TestDueGivesTheWordBankPicture(t *testing.T) {
 		t.Fatalf("pictures = %v", got)
 	}
 }
+
+func TestNotebookGivesTheWordBankPicture(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	withPicture := e.dueCard("go", Schedule{Reps: 1})
+	without := e.repo.put(Card{
+		UserID: "u1", Text: "home", Lemma: "home", MeaningVi: "nhà", Source: SourceManual,
+		CreatedAt: e.clock.Now().AddDate(0, 0, -3), Schedule: Schedule{Due: e.clock.Now().Add(-time.Hour), Reps: 1},
+	})
+	page, err := e.svc.List(t.Context(), "u1", ListQuery{Page: 1})
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]string{}
+	for _, c := range page.Cards {
+		got[c.ID] = c.ImageURL
+	}
+	if got[withPicture.ID] != "/api/words/go/image?v=1" || got[without.ID] != "" {
+		t.Fatalf("pictures = %v", got)
+	}
+}
+
+func TestLessonPictures(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	e.dueCard("go", Schedule{Reps: 1})   // lesson1, has a picture
+	e.dueCard("home", Schedule{Reps: 1}) // lesson1, no picture
+	e.repo.put(Card{UserID: "u1", Text: "went", Lemma: "go", MeaningVi: "đã đi", LessonID: "lesson1", Source: SourceAI})
+	e.repo.put(Card{UserID: "u1", Text: "go", Lemma: "go", LessonID: "lesson9", Source: SourceAI})
+	got, err := e.svc.LessonPictures(t.Context(), "u1", []string{"lesson1"}, 12)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// One entry per word, only words with a picture.
+	if len(got) != 1 || got[0].ImageURL != "/api/words/go/image?v=1" {
+		t.Fatalf("pictures = %+v", got)
+	}
+	if got, _ := e.svc.LessonPictures(t.Context(), "u1", []string{"lesson1"}, 0); len(got) != 0 {
+		t.Fatalf("limit 0 = %+v", got)
+	}
+}

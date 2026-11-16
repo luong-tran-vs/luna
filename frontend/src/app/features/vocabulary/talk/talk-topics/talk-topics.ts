@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { TalkSummary, TalkTopic } from '../../../../core/models/talk';
 import { TalkApiService } from '../../../../core/services/talk-api.service';
+import { TopicImagesService } from '../../../../core/services/topic-images.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { Loading } from '../../../../shared/components/loading/loading';
 import { talkError } from '../talk-error';
@@ -28,6 +30,8 @@ export class TalkTopics {
   private readonly router = inject(Router);
 
   /** Null while loading. */
+  /** The picture of each topic that has one (added 2026-11-16). */
+  protected readonly images = toSignal(inject(TopicImagesService).all(), { initialValue: new Map<string, string>() });
   protected readonly topics = signal<TalkTopic[] | null>(null);
   protected readonly history = signal<TalkSummary[]>([]);
   protected readonly loadError = signal(false);

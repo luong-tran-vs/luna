@@ -13,7 +13,8 @@ import { PracticeFill } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Asker } from '../../../../shared/components/asker/asker';
 import { Icon } from '../../../../shared/components/icon/icon';
-import { checkFill, missedBlanks, Score } from '../practice-logic';
+import { checkFill, missedBlanks, picturesOf, Score } from '../practice-logic';
+import { PictureHint } from '../../../../shared/components/picture-hint/picture-hint';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
 
 type Part = { kind: 'text'; text: string } | { kind: 'blank'; index: number };
@@ -27,7 +28,7 @@ const key = (word: string) => word.trim().toLowerCase();
  */
 @Component({
   selector: 'lu-fill-step',
-  imports: [Asker, Icon, SpeakButton],
+  imports: [Asker, Icon, PictureHint, SpeakButton],
   templateUrl: './fill-step.html',
   styleUrls: ['../practice.css', './fill-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +45,8 @@ export class FillStep {
   /** Full text of each dialogue turn, to read aloud. */
   readonly turnTexts = input<string[]>([]);
   readonly grammarTip = input('');
+  /** The lesson's words with their pictures, for the hint by pictures (added 2026-11-16). */
+  readonly words = input<readonly { lemma: string; text: string; imageUrl?: string }[]>([]);
   /** The button after the last line, e.g. "Sang bước Nghe" or "Xong, về bài học". */
   readonly finishLabel = input('Hoàn thành');
   /** Whether the bar shows ← to the step before. */
@@ -80,6 +83,15 @@ export class FillStep {
   /** The line on screen. */
   protected readonly shown = linkedSignal({ source: this.fill, computation: () => 0 });
   protected readonly turn = computed(() => this.turns()[this.shown()] ?? null);
+  /** The pictures of the words the blanks of the line on screen need. */
+  protected readonly hintPictures = computed(() => {
+    const t = this.turn();
+    if (!t) {
+      return [];
+    }
+    const answers = t.blanks.map((i) => this.fill().blanks[i]?.answer ?? '');
+    return picturesOf(answers.join(' · '), this.words());
+  });
   protected readonly isLast = computed(() => this.shown() >= this.turns().length - 1);
 
   /** What the learner typed in each blank (updated 2026-10-02: the blanks are text inputs). */

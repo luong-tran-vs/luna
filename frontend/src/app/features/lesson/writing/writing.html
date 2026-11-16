@@ -20,6 +20,9 @@
         }
       </div>
       <p class="prompt-text" lang="en">{{ v.prompt }}</p>
+      @if (editable()) {
+        <lu-scene-image class="prompt-scene" [url]="sceneUrl()" />
+      }
 
       @if (editable()) {
         @if (wordChecks().length || grammarLabel() || suggestion()) {

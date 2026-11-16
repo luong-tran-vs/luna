@@ -10,6 +10,7 @@ import { RecognizerState, SpeechRecognizerService } from '../../../../core/stt/s
 import { Recorder, RECORDING, Recording } from '../../../../core/stt/voice-recorder';
 
 import { frameLines, markSentence, previewMarks, SpeakLesson } from './speak-lesson';
+import { describePicture } from './speak-fallback';
 
 /** A recorder that finishes when the spec says so. */
 class FakeRecorder implements Recorder {
@@ -253,6 +254,19 @@ describe('SpeakLesson', () => {
     expect(text('#speak-heading')).toBe('Xong phần nói');
     expect(text('.answers li')).toContain('(Chưa trả lời)');
     http.expectNone('/lessons/L1/speak/check');
+  });
+
+  it('shows the picture of a "Describe the picture" question', async () => {
+    await setup([QUESTIONS[0], describePicture('/api/lessons/L1/scene?v=2')]);
+    await click(main());
+    await click(main());
+    expect(el.querySelector('.talk-picture')).toBeNull();
+    await click(main());
+    expect(text('.q')).toBe('Describe the picture. What can you see?');
+    const img = el.querySelector<HTMLImageElement>('.talk-picture')!;
+    expect(img.getAttribute('src')).toBe('/api/lessons/L1/scene?v=2');
+    expect(img.alt).toBe('Bức tranh của bài');
+    expect(text('.frame')).toContain('In the picture, I can see');
   });
 
   it('without a microphone, the answer is typed', async () => {

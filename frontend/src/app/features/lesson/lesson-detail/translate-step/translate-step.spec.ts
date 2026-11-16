@@ -62,6 +62,18 @@ describe('TranslateStep', () => {
     await fixture.whenStable();
   };
 
+
+  it('offers the pictures of the lesson words of the answer as a hint, until checked', async () => {
+    await render();
+    fixture.componentRef.setInput('words', [
+      { lemma: 'meet', text: 'meet', imageUrl: '/api/words/meet/image?v=1' },
+      { lemma: 'glad', text: 'glad', imageUrl: '/api/words/glad/image?v=1' },
+    ]);
+    await fixture.whenStable();
+    await click(named('Gợi ý bằng ảnh'));
+    const srcs = Array.from(el.querySelectorAll('.picture-hint img')).map((i) => i.getAttribute('src'));
+    expect(srcs).toEqual([expect.stringContaining('/api/words/meet/image?v=1')]);
+  });
   it('shows the sentence, its position, an empty answer and the bank', async () => {
     await render();
     expect(text(el.querySelector('lu-asker .counter'))).toBe('Câu 1/4 · Tiếng Việt');

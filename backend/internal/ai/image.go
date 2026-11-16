@@ -21,6 +21,9 @@ type ImageRequest struct {
 	// Example, when set, asks for the picture of an example sentence of a grammar lesson (added
 	// 2026-11-06): Word, MeaningVi, Sentence and Scene are then ignored.
 	Example *ExampleBrief
+	// Topic, when set, asks for the banner of a topic of the course (added 2026-11-16): Word, MeaningVi,
+	// Sentence, Scene and Example are then ignored.
+	Topic *TopicBrief
 }
 
 // ExampleBrief describes the picture of one example sentence of a grammar lesson: the situation
@@ -95,7 +98,7 @@ const maxSceneAvoid = 12
 
 // ImageAspect is the aspect ratio of the picture: a wide banner for a scene, 4:3 for a word card.
 func ImageAspect(req ImageRequest) string {
-	if req.Scene != nil {
+	if req.Scene != nil || req.Topic != nil {
 		return "16:9"
 	}
 	return "4:3"
@@ -158,11 +161,17 @@ const characterStyle = "Any person is drawn in the same simple character style: 
 // the pictures clear and alike. Instructions are stated positively where possible: image models
 // tend to draw what a long list of "no ..." names. Every image provider sends it.
 func ImagePrompt(req ImageRequest) string {
+	if req.Topic != nil {
+		return topicPrompt(*req.Topic, req.Style)
+	}
 	if req.Scene != nil {
 		return scenePrompt(*req.Scene, req.Style)
 	}
 	if req.Example != nil {
 		return examplePrompt(*req.Example, req.Style)
+	}
+	if numeral, ok := NumberWord(req.Word); ok {
+		return numberPrompt(req.Word, numeral, req.Style)
 	}
 	style := imageStyle(req.Style)
 	meaning := strings.TrimSpace(req.MeaningVi)

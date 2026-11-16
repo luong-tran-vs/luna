@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { SummarySkill, SummarySkillScore, TopicRating, TopicSummary } from '../../core/models/study';
 import { formatScore, MISTAKE_LABELS, MistakeType } from '../../core/models/writing';
+import { serverUrl } from '../../core/api-url';
 import { StudyApiService } from '../../core/services/study-api.service';
+import { TopicImagesService } from '../../core/services/topic-images.service';
 import { Icon } from '../../shared/components/icon/icon';
 import { Loading } from '../../shared/components/loading/loading';
 import { ProgressRing } from '../../shared/components/progress-ring/progress-ring';
@@ -105,6 +108,9 @@ export function advice(s: TopicSummary): Advice[] {
 export class TopicSummaryPage {
   private readonly api = inject(StudyApiService);
   private readonly route = inject(ActivatedRoute);
+  protected readonly serverUrl = serverUrl;
+  /** The picture of each topic (added 2026-11-16): the hero shows this topic's. */
+  protected readonly images = toSignal(inject(TopicImagesService).all(), { initialValue: new Map<string, string>() });
 
   protected readonly summary = signal<TopicSummary | null>(null);
   protected readonly loadError = signal(false);

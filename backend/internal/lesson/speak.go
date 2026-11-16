@@ -13,12 +13,14 @@ import (
 	"github.com/luongtran/luna/backend/internal/ai"
 )
 
-// The check of the Speaking step (added 2026-10-22): the learner answers up to three questions
+// The check of the Speaking step (added 2026-10-22): the learner answers up to four questions
 // aloud, the browser recognises the speech, and one AI request corrects the answers.
 
 // Limits of a speaking check.
 const (
-	maxSpeakAnswers = speakQuestionsCount
+	// One more than the questions: the page adds "Describe the picture" on a lesson with a scene
+	// picture (added 2026-11-16).
+	maxSpeakAnswers = speakQuestionsCount + 1
 	maxSpeakText    = 300
 	// SpeakChecksPerDay is how many checks one learner may ask for in one lesson a day; admins have
 	// no limit.

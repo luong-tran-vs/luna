@@ -121,7 +121,8 @@ func TestCheckSpeakingErrors(t *testing.T) {
 		err      error
 	}{
 		{name: "no answers", answers: nil, field: "answers"},
-		{name: "four answers", answers: said(4), field: "answers"},
+		// Three questions and "Describe the picture" at most.
+		{name: "five answers", answers: said(5), field: "answers"},
 		{name: "long answer", answers: []ai.SpeakAnswer{{Question: "Q?", Said: strings.Repeat("a", maxSpeakText+1)}}, field: "answers.0"},
 		{name: "long question", answers: []ai.SpeakAnswer{{Question: strings.Repeat("q", maxSpeakText+1), Said: "Hi."}}, field: "answers.0"},
 		{name: "missing lesson", lessonID: "missing", answers: said(1), err: ErrNotFound},

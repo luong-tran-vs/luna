@@ -12,7 +12,8 @@ import { PracticeTranslation } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Asker } from '../../../../shared/components/asker/asker';
 import { Icon } from '../../../../shared/components/icon/icon';
-import { checkTranslation } from '../practice-logic';
+import { checkTranslation, picturesOf } from '../practice-logic';
+import { PictureHint } from '../../../../shared/components/picture-hint/picture-hint';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
 
 /**
@@ -22,7 +23,7 @@ import { SpeakButton } from '../../../../shared/directives/speak-button';
  */
 @Component({
   selector: 'lu-translate-step',
-  imports: [Asker, Icon, SpeakButton],
+  imports: [Asker, Icon, PictureHint, SpeakButton],
   templateUrl: './translate-step.html',
   styleUrls: ['../practice.css', './translate-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +45,10 @@ export class TranslateStep {
   /** Position of the sentence (from 0) and number of sentences. */
   readonly index = input(0);
   readonly count = input(1);
+  /** The lesson's words with their pictures, for the hint by pictures (added 2026-11-16). */
+  readonly words = input<readonly { lemma: string; text: string; imageUrl?: string }[]>([]);
+  /** The pictures of the lesson words the answer uses. */
+  protected readonly hintPictures = computed(() => picturesOf(this.translation().answer.join(' '), this.words()));
 
   /** Text to read aloud with the browser's voice. */
   readonly readAloud = output<string>();

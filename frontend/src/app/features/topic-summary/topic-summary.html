@@ -11,6 +11,18 @@
     </div>
   } @else if (summary(); as s) {
     <section class="soft-card hero" aria-labelledby="topic-heading">
+      @if (images().get(s.topicId); as src) {
+        <img
+          class="hero-picture"
+          crossorigin="use-credentials"
+          referrerpolicy="no-referrer"
+          alt=""
+          decoding="async"
+          width="640"
+          height="360"
+          [src]="src"
+        />
+      }
       <p class="eyebrow">{{ s.level }} · Đã học {{ s.completed }}/{{ s.lessons.length }} bài</p>
       <h2 class="topic-name" id="topic-heading">{{ s.topicName }}</h2>
       @if (finished()) {
@@ -100,6 +112,30 @@
         <p class="muted">Bạn đã làm tốt mọi phần. Có thể sang chủ đề tiếp theo!</p>
       }
     </section>
+
+    @if (s.pictures?.length) {
+      <section class="soft-card" aria-labelledby="pictures-heading">
+        <h2 class="section-title" id="pictures-heading">Từ đã học</h2>
+        <ul class="word-pictures">
+          @for (p of s.pictures; track p.text) {
+            <li class="word-picture">
+              <img
+                crossorigin="use-credentials"
+                referrerpolicy="no-referrer"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                width="120"
+                height="90"
+                [src]="serverUrl(p.imageUrl)"
+              />
+              <span class="wp-text" lang="en">{{ p.text }}</span>
+              <span class="wp-meaning">{{ p.meaningVi }}</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
 
     @if (s.grammarVi.length) {
       <section class="soft-card" aria-labelledby="grammar-heading">

@@ -193,6 +193,8 @@ export interface TopicSummary {
   /** Words saved to the notebook from the topic's lessons, and those remembered. */
   words: number;
   remembered: number;
+  /** Words saved from the lessons that have a word bank picture, at most 12 (added 2026-11-16); missing from an older server. */
+  pictures?: { text: string; meaningVi: string; imageUrl: string }[];
   skills: SummarySkillScore[];
   /** Average score of the graded writings, out of 5 (0 when none). */
   writingAverage: number;

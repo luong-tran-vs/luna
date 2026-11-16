@@ -9,15 +9,23 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { catchError, of } from 'rxjs';
+
+import { serverUrl } from '../../../../core/api-url';
 
 import { GrammarExercise } from '../../../../core/models/grammar-study';
 import { GrammarNote } from '../../../../core/models/lesson';
 import { GrammarStepContent } from '../../../../core/models/practice';
+import { GrammarApiService } from '../../../../core/services/grammar-api.service';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
 import { GrammarExerciseView } from '../../../grammar/grammar-exercise/grammar-exercise';
+
+/** How many pictured examples of the grammar section the rule shows. */
+const MAX_PICTURED_EXAMPLES = 3;
 
 /** A piece of a noticing sentence; `mark` pieces are the words to notice. */
 export interface MarkedPart {
@@ -84,6 +92,28 @@ const DEFAULT_COLUMNS: readonly string[] = ['Chủ ngữ', 'Khẳng định', 'P
 export class GrammarStep {
   private readonly speech = inject(SpeechService);
   protected readonly canSpeak = this.speech.supported;
+
+  private readonly grammarApi = inject(GrammarApiService);
+  /**
+   * The examples of the point that have a picture in the grammar section (added 2026-11-16), at most
+   * three, shown under the rule; none while loading, for a point without a published lesson, or on
+   * an error.
+   */
+  private readonly pointDetail = rxResource({
+    params: () => this.grammarPointId() || undefined,
+    stream: ({ params }) => this.grammarApi.get(params).pipe(catchError(() => of(null))),
+  });
+  protected readonly picturedExamples = computed(() => {
+    const d = this.pointDetail.hasValue() ? this.pointDetail.value() : null;
+    if (!d) {
+      return [];
+    }
+    const images = d.exampleImages ?? [];
+    return d.content.examples
+      .map((e, k) => ({ en: e.en, vi: e.vi, image: images[k] ? serverUrl(images[k]) : '' }))
+      .filter((e) => e.image)
+      .slice(0, MAX_PICTURED_EXAMPLES);
+  });
 
   /** null for a lesson whose practice was made before the six steps. */
   readonly content = input<GrammarStepContent | null>(null);

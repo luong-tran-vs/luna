@@ -93,6 +93,22 @@ describe('FillStep', () => {
     await fixture.whenStable();
   };
 
+
+  it('offers the pictures of the words the line needs as a hint, until the line is checked', async () => {
+    await render();
+    fixture.componentRef.setInput('words', [
+      { lemma: 'name', text: 'name', imageUrl: '/api/words/name/image?v=1' },
+      { lemma: 'meet', text: 'meet', imageUrl: '/api/words/meet/image?v=1' },
+      { lemma: 'from', text: 'from' },
+    ]);
+    await fixture.whenStable();
+    expect(el.querySelector('.picture-hint img')).toBeNull();
+    await click(button('Gợi ý bằng ảnh')!);
+    const imgs = Array.from(el.querySelectorAll<HTMLImageElement>('.picture-hint img'));
+    // The first line has the blanks "name" and "Minh": only "name" has a picture.
+    expect(imgs.map((i) => i.getAttribute('src'))).toEqual([expect.stringContaining('/api/words/name/image?v=1')]);
+    expect(imgs[0].alt).toBe('');
+  });
   it('shows one line at a time with its speaker, a text input per blank (no word bank) and the meaning', async () => {
     await render();
     expect(el.querySelectorAll('.turn')).toHaveLength(1);
