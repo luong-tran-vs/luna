@@ -49,6 +49,9 @@ type Deps struct {
 	// nil turns glosses off (added 2026-10-20).
 	Glosses GlossRepository
 	GlossAI ai.GlossProvider
+	// Vocab gets the words of each lesson once its annotations are saved, for its topic's list and
+	// the word bank (added 2026-11-16); nil keeps them in the lesson only.
+	Vocab VocabSink
 }
 
 // Service implements lesson management and the background work on lessons.
@@ -381,6 +384,7 @@ func (s *Service) UpdateAnnotations(ctx context.Context, id string, items []Anno
 		return Lesson{}, fmt.Errorf("lesson: save annotations: %w", err)
 	}
 	s.keepReview(ctx, l, AreaAnnotation, annotationKeys(l.Annotations), annotationKeys(out))
+	s.shareWords(ctx, l, out)
 	return s.Lessons.Get(ctx, id)
 }
 
@@ -434,6 +438,7 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if !saved {
 		return nil
 	}
+	s.shareWords(ctx, l, anns)
 	// SaveAnnotations dropped the practice of the old annotations; write a new one (F17).
 	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypePractice); err != nil {
 		return err

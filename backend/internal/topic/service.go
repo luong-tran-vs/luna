@@ -26,6 +26,19 @@ type Service struct {
 	lessons Lessons
 	ai      WordSuggester
 	now     func() time.Time
+	// onWords is given the words SetWords and SuggestWords put in a list, so the word bank holds
+	// them too (added 2026-11-16); nil does nothing.
+	onWords func(ctx context.Context, words []string)
+}
+
+// OnWords sets what is told the words an admin or the AI puts in a topic's list (see onWords).
+func (s *Service) OnWords(f func(ctx context.Context, words []string)) { s.onWords = f }
+
+// wordsAdded tells onWords about words, when it is set and there are some.
+func (s *Service) wordsAdded(ctx context.Context, words []string) {
+	if s.onWords != nil && len(words) > 0 {
+		s.onWords(ctx, words)
+	}
 }
 
 // NewService returns a Service.

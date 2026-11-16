@@ -61,8 +61,10 @@ type Service struct {
 	meaningAI        ai.MeaningProvider
 	fetch            lesson.ImageFetcher
 	cards            CardWords
-	now              func() time.Time
-	log              *slog.Logger
+	// lessons gives the words of the lessons to Sync; nil syncs the topics' lists only.
+	lessons LessonWords
+	now     func() time.Time
+	log     *slog.Logger
 
 	// batchMu guards batch, the picture batch running or last run (added 2026-11-04).
 	batchMu sync.Mutex
@@ -456,33 +458,70 @@ func (s *Service) Import(ctx context.Context) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("wordbank: topic words: %w", err)
 	}
-	seen := map[string]bool{}
-	var lemmas []string
+	var words []NewWord
 	for _, t := range topics {
 		for _, lemma := range lemmasOf(t) {
-			if seen[lemma] || utf8.RuneCountInString(lemma) > MaxLemma {
-				continue
-			}
-			seen[lemma] = true
+			words = append(words, NewWord{Lemma: lemma})
+		}
+	}
+	return s.AddWords(ctx, words)
+}
+
+// NewWord is a word given to the bank from elsewhere: a topic's list or a lesson, whose meaning in
+// the lesson, if any, stands in for a meaning the dictionary lacks.
+type NewWord struct {
+	Lemma     string
+	MeaningVi string
+}
+
+// AddWords adds the words not in the bank yet, with the dictionary's IPA and meaning, and gives a
+// word of the bank without a meaning the one it comes with (added 2026-11-16). Words longer than
+// MaxLemma are skipped. It returns how many it added.
+func (s *Service) AddWords(ctx context.Context, words []NewWord) (int, error) {
+	meaning := map[string]string{}
+	var lemmas []string
+	for _, nw := range words {
+		lemma := Normalize(nw.Lemma)
+		if lemma == "" || utf8.RuneCountInString(lemma) > MaxLemma {
+			continue
+		}
+		m, ok := meaning[lemma]
+		if !ok {
 			lemmas = append(lemmas, lemma)
 		}
+		if m == "" {
+			meaning[lemma] = cutMeaning(strings.TrimSpace(nw.MeaningVi))
+		}
+	}
+	if len(lemmas) == 0 {
+		return 0, nil
 	}
 	have, err := s.repo.Find(ctx, lemmas)
 	if err != nil {
 		return 0, fmt.Errorf("wordbank: find: %w", err)
 	}
-	for _, w := range have {
-		seen[w.Lemma] = false
-	}
 	now := s.now()
+	inBank := make(map[string]bool, len(have))
+	for _, w := range have {
+		inBank[w.Lemma] = true
+		if w.MeaningVi == "" && meaning[w.Lemma] != "" {
+			w.MeaningVi, w.UpdatedAt = meaning[w.Lemma], now
+			if err := s.repo.Update(ctx, w); err != nil && !errors.Is(err, ErrNotFound) {
+				return 0, fmt.Errorf("wordbank: update: %w", err)
+			}
+		}
+	}
 	var add []Word
 	for _, lemma := range lemmas {
-		if !seen[lemma] {
+		if inBank[lemma] {
 			continue
 		}
 		w, err := s.fill(ctx, Word{Lemma: lemma, CreatedAt: now, UpdatedAt: now})
 		if err != nil {
 			return 0, err
+		}
+		if w.MeaningVi == "" {
+			w.MeaningVi = meaning[lemma]
 		}
 		add = append(add, w)
 	}
@@ -494,6 +533,55 @@ func (s *Service) Import(ctx context.Context) (int, error) {
 		return 0, fmt.Errorf("wordbank: insert: %w", err)
 	}
 	return n, nil
+}
+
+// cutMeaning keeps at most MaxMeaning characters of a meaning.
+func cutMeaning(m string) string {
+	if utf8.RuneCountInString(m) > MaxMeaning {
+		return string([]rune(m)[:MaxMeaning])
+	}
+	return m
+}
+
+// LessonWords shares the words of every lesson with the topics' lists and the bank
+// (lesson.Service.ShareAllWords), returning how many joined the topics' lists.
+type LessonWords interface {
+	ShareAllWords(ctx context.Context) (int, error)
+}
+
+// SetLessons sets where Sync takes the lessons' words from; the lessons are built after the bank.
+func (s *Service) SetLessons(l LessonWords) { s.lessons = l }
+
+// Synced tells what Sync did.
+type Synced struct {
+	// TopicWords is how many lesson words joined the topics' lists, Added how many words joined the bank.
+	TopicWords int
+	Added      int
+}
+
+// Sync puts the words of every lesson in their topics' lists (and the bank), then every topic word
+// missing from the bank in it ("Đồng bộ từ vựng", added 2026-11-16).
+func (s *Service) Sync(ctx context.Context) (Synced, error) {
+	var out Synced
+	// The lessons put words in the bank themselves: count the bank before and after.
+	_, before, err := s.repo.List(ctx, ListQuery{Limit: 1})
+	if err != nil {
+		return out, fmt.Errorf("wordbank: count: %w", err)
+	}
+	if s.lessons != nil {
+		if out.TopicWords, err = s.lessons.ShareAllWords(ctx); err != nil {
+			return out, err
+		}
+	}
+	if _, err := s.Import(ctx); err != nil {
+		return out, err
+	}
+	_, after, err := s.repo.List(ctx, ListQuery{Limit: 1})
+	if err != nil {
+		return out, fmt.Errorf("wordbank: count: %w", err)
+	}
+	out.Added = max(0, after-before)
+	return out, nil
 }
 
 // UploadImage stores a picture chosen by an admin (JPEG, PNG or GIF, at most

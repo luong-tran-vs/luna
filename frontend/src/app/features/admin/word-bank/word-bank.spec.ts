@@ -9,6 +9,8 @@ import { BANK_BATCH_POLL_MS } from './image-batch.service';
 import { WordBank } from './word-bank';
 
 describe('WordBank (F24)', () => {
+  // A hidden batch result is remembered in localStorage (2026-11-16): start each test without one.
+  beforeEach(() => localStorage.clear());
   let fixture: ComponentFixture<WordBank>;
   let el: HTMLElement;
   let http: HttpTestingController;
@@ -401,14 +403,16 @@ describe('WordBank (F24)', () => {
     expect(button(el, 'Nhận tất cả gợi ý')).toBeUndefined();
   });
 
-  it('imports the topic words', async () => {
+  it('syncs the lesson and topic words', async () => {
     await open();
-    button(el, 'Nhập từ các chủ đề')!.click();
-    http.expectOne('/admin/words/import').flush({ added: 3 });
+    button(el, 'Đồng bộ từ vựng')!.click();
+    http.expectOne('/admin/words/import').flush({ added: 3, topicWords: 12 });
     await settle(350);
     expectList('page=1').flush({ words: [house, table], total: 5, hasMore: false });
     await settle();
-    expect(el.querySelector('.note')!.textContent).toContain('Đã thêm 3 từ từ các chủ đề.');
+    expect(el.querySelector('.note')!.textContent).toContain(
+      'Đã đồng bộ: thêm 12 từ của các bài vào danh sách từ chủ đề, 3 từ vào kho.',
+    );
   });
 
   it('edits the meaning and IPA of a word', async () => {

@@ -657,3 +657,13 @@ func (s *StudyService) CanOpen(ctx context.Context, userID string, isAdmin bool,
 	}
 	return d.state.LessonID == lessonID, nil
 }
+
+// CurrentLesson is the lesson the learner is to study now, "" when there is none (added 2026-11-16,
+// F26): the games take a new learner's words from it.
+func (s *StudyService) CurrentLesson(ctx context.Context, userID string) (string, error) {
+	d, err := s.load(ctx, userID)
+	if err != nil {
+		return "", err
+	}
+	return d.state.LessonID, nil
+}

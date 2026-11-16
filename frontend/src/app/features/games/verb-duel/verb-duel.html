@@ -1,0 +1,148 @@
+<lu-game-shell
+  title="Đấu động từ"
+  [running]="phase() === 'playing'"
+  (paused)="pause()"
+  (resumed)="resume()"
+  (quit)="quit()"
+>
+  <div pills class="pill-row">
+    @if (phase() === 'playing') {
+      <span class="game-pill" [attr.aria-label]="'Còn ' + state().lives + ' mạng'">
+        <span class="hearts" aria-hidden="true">
+          @for (h of hearts(); track $index) {
+            <span [class.is-lost]="!h">{{ h ? '❤' : '♡' }}</span>
+          }
+        </span>
+      </span>
+      <span class="game-pill">Chuỗi {{ state().streak }}</span>
+      <span class="game-pill" [attr.aria-label]="'Kỷ lục ' + (best() ?? 0)">
+        <span aria-hidden="true">🏆 {{ best() ?? 0 }}</span>
+      </span>
+    } @else {
+      <h1 class="game-name">Đấu động từ</h1>
+    }
+  </div>
+
+  @switch (phase()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('error') {
+      <div class="soft-card note" role="alert">
+        <p>Không tải được lượt chơi.</p>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Thử lại</button>
+        <a class="link-btn" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('done') {
+      <lu-game-result
+        heading="Hết mạng!"
+        unit="động từ liền"
+        [score]="state().score"
+        [right]="state().right"
+        [wrong]="state().wrong"
+        [best]="best()"
+        [newBest]="newBest()"
+        [missed]="missed()"
+        [offline]="offline()"
+        (again)="load()"
+      />
+    }
+    @case ('playing') {
+      @if (verb(); as v) {
+        <div class="play">
+          <div class="verb soft-card">
+            @if (picture(); as src) {
+              <img class="verb-img" crossorigin="use-credentials" referrerpolicy="no-referrer" [src]="src" alt="" />
+            }
+            <p class="base" lang="en">{{ v.base }}</p>
+            <p class="meaning">{{ v.meaningVi }}</p>
+          </div>
+
+          <form class="answers" (submit)="$event.preventDefault(); check()">
+            <div class="boxes">
+              <div class="box">
+                <label class="box-label" for="duel-past">
+                  V2
+                  @if (checked(); as c) {
+                    <span [class.mark-ok]="c.past" [class.mark-bad]="!c.past">
+                      <span aria-hidden="true">{{ c.past ? '✓' : '✗' }}</span>
+                      {{ c.past ? 'đúng' : 'sai' }}
+                    </span>
+                  }
+                </label>
+                <input
+                  #pastBox
+                  id="duel-past"
+                  class="box-input"
+                  type="text"
+                  lang="en"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  autocomplete="off"
+                  spellcheck="false"
+                  enterkeyhint="next"
+                  [class.is-right]="checked()?.past === true"
+                  [class.is-wrong]="checked()?.past === false"
+                  [readOnly]="checked() !== null"
+                  [value]="typedPast()"
+                  (input)="setPast($event)"
+                  (focus)="reveal($event)"
+                  (keydown.enter)="onPastEnter($event)"
+                />
+              </div>
+              <div class="box">
+                <label class="box-label" for="duel-participle">
+                  V3
+                  @if (checked(); as c) {
+                    <span [class.mark-ok]="c.participle" [class.mark-bad]="!c.participle">
+                      <span aria-hidden="true">{{ c.participle ? '✓' : '✗' }}</span>
+                      {{ c.participle ? 'đúng' : 'sai' }}
+                    </span>
+                  }
+                </label>
+                <input
+                  #participleBox
+                  id="duel-participle"
+                  class="box-input"
+                  type="text"
+                  lang="en"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  autocomplete="off"
+                  spellcheck="false"
+                  enterkeyhint="done"
+                  [class.is-right]="checked()?.participle === true"
+                  [class.is-wrong]="checked()?.participle === false"
+                  [readOnly]="checked() !== null"
+                  [value]="typedParticiple()"
+                  (input)="setParticiple($event)"
+                  (focus)="reveal($event)"
+                  (keydown.enter)="onParticipleEnter($event)"
+                />
+              </div>
+            </div>
+
+            @if (checked(); as c) {
+              @if (allRight()) {
+                <p class="verdict mark-ok"><span aria-hidden="true">✓</span> Đúng cả hai!</p>
+              } @else {
+                <p class="solution">
+                  <span class="solution-label">Đáp án:</span>
+                  <span lang="en">{{ answerText(v) }}</span>
+                </p>
+              }
+              <button type="button" class="btn-primary btn-block" (click)="advance()">
+                {{ state().lives > 0 ? 'Tiếp' : 'Xem kết quả' }}
+              </button>
+            } @else {
+              <button type="submit" class="btn-primary btn-block">Kiểm tra</button>
+            }
+            <p class="hint">Gõ xong V2 nhấn Enter để sang V3 · Sai một ô mất 1 mạng</p>
+          </form>
+        </div>
+      }
+    }
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announce() }}</p>
+</lu-game-shell>

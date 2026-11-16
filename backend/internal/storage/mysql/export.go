@@ -38,6 +38,8 @@ var exportOrder = map[string]string{
 	export.CollGrammarProgress:  "point_id",
 	export.CollVerbProgress:     "base",
 	export.CollTalkSessions:     "created_at, id",
+	export.CollGameBests:        "game",
+	export.CollDailyChallenges:  "day",
 }
 
 // exportBools are the TINYINT(1) columns that are flags; they are exported as true/false.

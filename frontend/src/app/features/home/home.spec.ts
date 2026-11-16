@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { Dashboard, Stats } from '../../core/models/dashboard';
+import { DailyStatus } from '../../core/models/games';
 import { GoalView, PublicTopic } from '../../core/models/study';
 import { User } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
@@ -87,6 +88,16 @@ describe('Home', () => {
       .expectOne((r) => r.url === '/vocab/review/due')
       .flush({ cards: [], total, nextDue: null });
 
+  /** The games list, read for today's challenge card; null makes the request fail. */
+  const flushGames = (daily: DailyStatus | null = { day: '2026-11-13', done: false, streak: 0 }) => {
+    const req = controller.expectOne('/games');
+    if (daily) {
+      req.flush({ games: [], daily });
+    } else {
+      req.flush('down', { status: 500, statusText: 'Error' });
+    }
+  };
+
   const open = async (data: Dashboard, figures: Stats = stats(), due = 0) => {
     fixture = TestBed.createComponent(Home);
     el = fixture.nativeElement as HTMLElement;
@@ -95,6 +106,7 @@ describe('Home', () => {
     controller.expectOne('/stats').flush(figures);
     flushWeek();
     flushDue(due);
+    flushGames();
     await fixture.whenStable();
   };
 
@@ -162,6 +174,7 @@ describe('Home', () => {
     controller.expectOne('/stats').flush('down', { status: 500, statusText: 'Error' });
     flushWeek();
     flushDue();
+    flushGames();
     await fixture.whenStable();
     expect(text(el.querySelector('.words .tile-value'))).toBe('—');
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
@@ -226,6 +239,7 @@ describe('Home', () => {
     controller.expectOne('/stats').flush(stats());
     flushWeek();
     flushDue();
+    flushGames();
     await fixture.whenStable();
     expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được màn hình chính.');
 
@@ -234,6 +248,7 @@ describe('Home', () => {
     controller.expectOne('/stats').flush(stats());
     flushWeek();
     flushDue();
+    flushGames();
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')).toBeNull();
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
@@ -289,6 +304,7 @@ describe('Home', () => {
     controller.expectOne('/stats').flush(stats());
     flushWeek();
     flushDue();
+    flushGames();
     await fixture.whenStable();
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
   });
@@ -330,6 +346,7 @@ describe('Home', () => {
     controller.expectOne('/stats').flush(stats());
     flushWeek();
     flushDue();
+    flushGames();
     await fixture.whenStable();
     expect(text(el.querySelector('.lesson-title'))).toBe('At the park');
     expect(link('Tiếp tục: Nghe')?.getAttribute('href')).toBe('/lessons/l2');
@@ -364,8 +381,46 @@ describe('Home', () => {
     controller.expectOne('/stats').flush(stats());
     flushWeek(null);
     flushDue();
+    flushGames();
     await fixture.whenStable();
     expect(el.querySelector('.week')).toBeNull();
+    expect(link('Tiếp tục: Nghe')).not.toBeNull();
+  });
+
+  // --- F26: today's challenge ---
+
+  const openWithDaily = async (daily: DailyStatus | null) => {
+    fixture = TestBed.createComponent(Home);
+    el = fixture.nativeElement as HTMLElement;
+    await fixture.whenStable();
+    controller.expectOne('/dashboard').flush(studying());
+    controller.expectOne('/stats').flush(stats());
+    flushWeek();
+    flushDue();
+    flushGames(daily);
+    await fixture.whenStable();
+  };
+
+  it('offers today\'s challenge with one tap when it is not played yet', async () => {
+    await openWithDaily({ day: '2026-11-13', done: false, streak: 0 });
+    const card = el.querySelector('a.daily')!;
+    expect(card.getAttribute('href')).toBe('/games/daily');
+    expect(text(card)).toContain('Thử thách hằng ngày');
+    expect(text(card)).toContain('Bắt đầu');
+    expect(text(card)).not.toContain('Đã xong');
+  });
+
+  it('says the challenge is done, with the streak', async () => {
+    await openWithDaily({ day: '2026-11-13', done: true, streak: 12 });
+    const card = el.querySelector('a.daily')!;
+    expect(text(card)).toContain('Đã xong');
+    expect(text(card)).toContain('12 ngày');
+    expect(text(card)).not.toContain('Bắt đầu');
+  });
+
+  it('hides the challenge card when the games cannot be read', async () => {
+    await openWithDaily(null);
+    expect(el.querySelector('.daily')).toBeNull();
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
   });
 

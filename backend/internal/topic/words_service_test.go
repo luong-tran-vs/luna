@@ -1,6 +1,7 @@
 package topic
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"slices"
@@ -269,5 +270,77 @@ func TestAddWord(t *testing.T) {
 	}
 	if err := e.svc.AddWord(t.Context(), "nope", "aunt"); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("unknown topic: %v", err)
+	}
+}
+
+func TestAddLessonWords(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	id := e.familyTopic(t)
+	var told []string
+	e.svc.OnWords(func(_ context.Context, words []string) { told = append(told, words...) })
+
+	// "again" (A1) and "negotiate" (B1) rank below C1 in CEFR-J: everyday words for a C1 lesson.
+	held, added, err := e.svc.AddLessonWords(t.Context(), id, "C1", nil,
+		[]string{"family", "again", "inheritance", "café", "Inheritance", "negotiate", "sibling rivalry"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if added != 2 || !slices.Equal(held, []string{"Family", "inheritance", "sibling rivalry"}) {
+		t.Fatalf("held = %v, added = %d", held, added)
+	}
+	got, _ := e.svc.Words(t.Context(), id)
+	if len(got) != 5 || got[0].Level != "" || got[3] != (WordUse{Text: "inheritance", Level: "C1"}) || got[4].Text != "sibling rivalry" {
+		t.Fatalf("words = %+v", got)
+	}
+	// The caller puts lesson words in the bank itself.
+	if len(told) != 0 {
+		t.Fatalf("told = %v", told)
+	}
+	if _, _, err := e.svc.AddLessonWords(t.Context(), id, "Z9", nil, []string{"x"}); err == nil {
+		t.Fatal("bad level accepted")
+	}
+}
+
+func TestOnWords(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	id := e.create(t, "Nhà").ID
+	var told []string
+	e.svc.OnWords(func(_ context.Context, words []string) { told = append(told, words...) })
+	if _, err := e.svc.SetWords(t.Context(), id, []Word{{Text: "House"}, {Text: "  roof "}}); err != nil {
+		t.Fatal(err)
+	}
+	if !slices.Equal(told, []string{"House", "roof"}) {
+		t.Fatalf("told = %v", told)
+	}
+}
+
+func TestAddLessonWordsFillsUpToLessonFill(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	id := e.create(t, "Thể thao").ID
+	// 27 words usable at A2 (one B1 word does not count), so three more are taken.
+	words := []Word{{Text: "Win", Level: "B1"}}
+	for i := range LessonFill - 3 {
+		words = append(words, Word{Text: "word" + string(rune('a'+i/26)) + string(rune('a'+i%26)), Level: "A1"})
+	}
+	if _, err := e.svc.SetWords(t.Context(), id, words); err != nil {
+		t.Fatal(err)
+	}
+	// racket is A2 (the lesson's level) so it goes first; tennis (A1) is below A2; the unknown words
+	// follow in order; negotiate (B1) comes last and does not fit.
+	held, added, err := e.svc.AddLessonWords(t.Context(), id, "A2", nil,
+		[]string{"negotiate", "shuttlecock", "tennis", "racket", "deuce", "backhand drive", "win"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if added != 3 || !slices.Equal(held, []string{"Win", "racket", "shuttlecock", "deuce"}) {
+		t.Fatalf("held = %v, added = %d", held, added)
+	}
+	// A full list takes no more annotated words, but always the lessons' target words, even everyday ones.
+	held, added, err = e.svc.AddLessonWords(t.Context(), id, "A2", []string{"tennis", "Racket"}, []string{"backhand drive"})
+	if err != nil || added != 1 || !slices.Equal(held, []string{"tennis", "racket"}) {
+		t.Fatalf("targets: held = %v, added = %d, %v", held, added, err)
 	}
 }

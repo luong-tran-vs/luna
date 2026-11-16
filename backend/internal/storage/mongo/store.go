@@ -14,6 +14,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/curriculum"
 	"github.com/luongtran/luna/backend/internal/export"
+	"github.com/luongtran/luna/backend/internal/games"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/job"
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -115,6 +116,11 @@ func (s *Store) Cards() vocab.Repository                        { return NewCard
 func (s *Store) ReviewLogs() vocab.ReviewLogRepository          { return NewReviewLogs(s.db) }
 func (s *Store) LessonResults() vocab.LessonResultRepository    { return NewLessonResults(s.db) }
 func (s *Store) VerbProgress() verbs.Repository                 { return NewVerbProgress(s.db) }
+
+// GameBests, DailyChallenges and GrammarSpotItems keep the games (F26).
+func (s *Store) GameBests() games.BestRepository                { return NewGameBests(s.db) }
+func (s *Store) DailyChallenges() games.DailyRepository         { return NewDailyChallenges(s.db) }
+func (s *Store) GrammarSpotItems() games.SpotRepository         { return NewGrammarSpotItems(s.db) }
 func (s *Store) LessonGlosses() lesson.GlossRepository          { return NewLessonGlosses(s.db) }
 func (s *Store) DictationResults() progress.DictationRepository { return NewDictationResults(s.db) }
 func (s *Store) Goals() progress.GoalRepository                 { return NewGoals(s.db) }

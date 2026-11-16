@@ -35,7 +35,10 @@ func (c *Container) initLesson() {
 		// Meaning in context of every word, for the reading popup (added 2026-10-20).
 		Glosses: c.store.LessonGlosses(),
 		GlossAI: c.glossAI,
+		// The words of each lesson join its topic's list and the word bank (added 2026-11-16).
+		Vocab: lessonVocab{topics: c.topic, bank: c.wordBank},
 	})
+	c.wordBank.SetLessons(c.lesson)
 }
 
 // initReader builds the learner-facing lesson reader: text, vocabulary lookups, comprehension

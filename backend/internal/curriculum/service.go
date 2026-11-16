@@ -384,7 +384,7 @@ func (s *Service) board(ctx context.Context, level string, c Course, withChecks 
 				}
 			}
 			if min := targetWords[level]; tv.Words < min {
-				b.Warnings = append(b.Warnings, fmt.Sprintf("Chủ đề “%s” mới có %d từ vựng dùng được ở %s, nên có ít nhất %d để bài sinh ra có từ mục tiêu.", found.Name, tv.Words, level, min))
+				b.Warnings = append(b.Warnings, fmt.Sprintf("Chủ đề “%s” mới có %d từ vựng dùng được ở %s, nên có ít nhất %d để bài sinh ra có từ mục tiêu. Bài đã có chú thích thì bấm “Đồng bộ từ vựng” ở trang Từ vựng để đưa từ của bài vào chủ đề.", found.Name, tv.Words, level, min))
 			}
 			bySlot, tv.Others = fill(t, roadmaps[found.ID])
 		}

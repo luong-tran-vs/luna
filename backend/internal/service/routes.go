@@ -8,6 +8,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/aimodel"
 	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/export"
+	"github.com/luongtran/luna/backend/internal/games"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/health"
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -64,6 +65,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	curriculum.NewHandler(c.curriculum, log).Register(mux, auth)
 	verbs.NewHandler(c.verbs, log).Register(mux, auth)
 	verbs.NewImageHandler(c.verbImages, log).Register(mux, auth)
+	games.NewHandler(c.games, log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)
 	studyHandler.Register(mux, auth)

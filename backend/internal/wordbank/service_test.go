@@ -1,6 +1,7 @@
 package wordbank
 
 import (
+	"context"
 	"errors"
 	"slices"
 	"strings"
@@ -408,5 +409,61 @@ func TestGenerateImageWithCodex(t *testing.T) {
 	codex.err = ai.ErrNoImageTool
 	if _, err := e.svc.GenerateImage(t.Context(), "house", "", EngineCodex); !errors.Is(err, ai.ErrNoImageTool) {
 		t.Fatalf("no image tool: %v", err)
+	}
+}
+
+func TestAddWords(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "tablix"}); err != nil {
+		t.Fatal(err)
+	}
+	n, err := e.svc.AddWords(t.Context(), []NewWord{
+		{Lemma: "House", MeaningVi: "nhà trong bài"}, // the dictionary's meaning wins
+		{Lemma: "leverage", MeaningVi: "tận dụng"},   // unknown to the dictionary
+		{Lemma: "LEVERAGE"},
+		{Lemma: "tablix", MeaningVi: "bảng"}, // in the bank without a meaning: gets one
+		{Lemma: "  "},
+	})
+	if err != nil || n != 2 {
+		t.Fatalf("added = %d, %v", n, err)
+	}
+	for lemma, want := range map[string]string{"house": "ngôi nhà; nhà ở", "leverage": "tận dụng", "tablix": "bảng"} {
+		if w, _ := e.svc.Get(t.Context(), lemma); w.MeaningVi != want {
+			t.Fatalf("%s = %+v, want %q", lemma, w, want)
+		}
+	}
+	// A meaning the bank has is kept.
+	if _, err := e.svc.AddWords(t.Context(), []NewWord{{Lemma: "leverage", MeaningVi: "đòn bẩy"}}); err != nil {
+		t.Fatal(err)
+	}
+	if w, _ := e.svc.Get(t.Context(), "leverage"); w.MeaningVi != "tận dụng" {
+		t.Fatalf("kept = %+v", w)
+	}
+}
+
+type fakeLessonWords struct {
+	bank  *Service
+	calls int
+}
+
+func (f *fakeLessonWords) ShareAllWords(ctx context.Context) (int, error) {
+	f.calls++
+	_, err := f.bank.AddWords(ctx, []NewWord{{Lemma: "negotiate", MeaningVi: "đàm phán"}})
+	return 1, err
+}
+
+func TestSync(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	l := &fakeLessonWords{bank: e.svc}
+	e.svc.SetLessons(l)
+	res, err := e.svc.Sync(t.Context())
+	// negotiate from the lessons, then house, tablix and good morning from the topics.
+	if err != nil || l.calls != 1 || res != (Synced{TopicWords: 1, Added: 4}) {
+		t.Fatalf("sync = %+v, %v (calls %d)", res, err, l.calls)
+	}
+	if w, _ := e.svc.Get(t.Context(), "negotiate"); w.MeaningVi != "đàm phán" {
+		t.Fatalf("lesson word = %+v", w)
 	}
 }

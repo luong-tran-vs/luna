@@ -1,0 +1,221 @@
+<section class="card spots" aria-labelledby="spots-title">
+  <h2 class="section-title" id="spots-title">Câu Bắn lỗi</h2>
+  <p class="muted">
+    Câu cho trò “Bắn lỗi ngữ pháp”, lấy từ bài tập đã đăng của điểm này và các câu soạn thêm. Câu
+    nháp chỉ vào trò chơi sau khi được duyệt.
+  </p>
+
+  @if (counts(); as c) {
+    <p class="spot-sum">
+      <strong>Tổng: {{ c.total }} câu</strong>
+      @if (c.total < enough) {
+        <span class="spot-low"
+          ><span aria-hidden="true">⚠ </span>dưới {{ enough }} câu, nên soạn thêm</span
+        >
+      }
+    </p>
+    <ul class="spot-sources">
+      <li>Bài chọn đáp án: <strong>{{ c.choice }}</strong></li>
+      <li>Bài sửa lỗi: <strong>{{ c.fix }}</strong></li>
+      <li>Câu soạn thêm đã duyệt: <strong>{{ c.spot }}</strong></li>
+      <li>Câu nháp chờ duyệt: <strong>{{ c.draft }}</strong></li>
+    </ul>
+  } @else {
+    <p class="muted spot-none">Chưa có bài đã đăng nên trò chơi chưa lấy câu từ điểm này.</p>
+  }
+
+  <div class="actions">
+    <button
+      type="button"
+      class="btn"
+      [disabled]="busy() !== null || !published()"
+      (click)="generate()"
+    >
+      {{ busy() === 'generate' ? 'Đang soạn…' : 'Nhờ AI soạn thêm' }}
+    </button>
+  </div>
+  @if (!published()) {
+    <p class="field-hint">Đăng bài trước rồi mới nhờ AI soạn câu.</p>
+  }
+
+  <p class="visually-hidden" role="status">{{ note() }}</p>
+  @if (note()) {
+    <p class="banner-note spot-note" aria-hidden="true">{{ note() }}</p>
+  }
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <span>Không tải được câu soạn thêm.</span>
+      <button type="button" class="btn" (click)="loadItems()">Thử lại</button>
+    </div>
+  } @else if (items(); as list) {
+    @if (list.length === 0) {
+      <p class="muted">Chưa có câu soạn thêm.</p>
+    } @else {
+      <h3 class="part-title">Câu soạn thêm ({{ list.length }})</h3>
+      <ol class="spot-list">
+        @for (item of list; track item.id) {
+          <li class="spot-item" [attr.data-spot]="item.id">
+            @if (editing() === item.id) {
+              <form class="spot-form" [formGroup]="form" (ngSubmit)="save(item)" novalidate>
+                <div class="field">
+                  <label [for]="'spot-sentence-' + item.id">Câu sai</label>
+                  <input
+                    [id]="'spot-sentence-' + item.id"
+                    lang="en"
+                    formControlName="sentence"
+                    [attr.aria-invalid]="!!editFields().sentence"
+                    [attr.aria-describedby]="'spot-sentence-err-' + item.id"
+                  />
+                  <p class="field-error-slot" [id]="'spot-sentence-err-' + item.id">
+                    @if (editFields().sentence; as m) {
+                      <span class="field-error">{{ m }}</span>
+                    }
+                  </p>
+                </div>
+                <div class="field-row">
+                  <div class="field">
+                    <label [for]="'spot-wrong-' + item.id">Chỗ sai</label>
+                    <input
+                      [id]="'spot-wrong-' + item.id"
+                      lang="en"
+                      formControlName="wrong"
+                      [attr.aria-invalid]="!!editFields().wrong"
+                      [attr.aria-describedby]="'spot-wrong-err-' + item.id"
+                    />
+                    <p class="field-error-slot" [id]="'spot-wrong-err-' + item.id">
+                      @if (editFields().wrong; as m) {
+                        <span class="field-error">{{ m }}</span>
+                      }
+                    </p>
+                  </div>
+                  <div class="field">
+                    <label [for]="'spot-right-' + item.id">Chữ đúng</label>
+                    <input
+                      [id]="'spot-right-' + item.id"
+                      lang="en"
+                      formControlName="right"
+                      [attr.aria-invalid]="!!editFields().right"
+                      [attr.aria-describedby]="'spot-right-err-' + item.id"
+                    />
+                    <p class="field-error-slot" [id]="'spot-right-err-' + item.id">
+                      @if (editFields().right; as m) {
+                        <span class="field-error">{{ m }}</span>
+                      }
+                    </p>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field">
+                    <label [for]="'spot-d0-' + item.id">Chữ nhiễu 1</label>
+                    <input
+                      [id]="'spot-d0-' + item.id"
+                      lang="en"
+                      formControlName="d0"
+                      [attr.aria-invalid]="!!editFields().distractors"
+                      [attr.aria-describedby]="'spot-d-err-' + item.id"
+                    />
+                  </div>
+                  <div class="field">
+                    <label [for]="'spot-d1-' + item.id">Chữ nhiễu 2</label>
+                    <input
+                      [id]="'spot-d1-' + item.id"
+                      lang="en"
+                      formControlName="d1"
+                      [attr.aria-invalid]="!!editFields().distractors"
+                      [attr.aria-describedby]="'spot-d-err-' + item.id"
+                    />
+                  </div>
+                </div>
+                <p class="field-error-slot" [id]="'spot-d-err-' + item.id">
+                  @if (editFields().distractors; as m) {
+                    <span class="field-error">{{ m }}</span>
+                  }
+                </p>
+                <div class="field">
+                  <label [for]="'spot-rule-' + item.id">Quy tắc ngắn</label>
+                  <input
+                    [id]="'spot-rule-' + item.id"
+                    formControlName="ruleVi"
+                    [attr.aria-invalid]="!!editFields().ruleVi"
+                    [attr.aria-describedby]="'spot-rule-err-' + item.id"
+                  />
+                  <p class="field-error-slot" [id]="'spot-rule-err-' + item.id">
+                    @if (editFields().ruleVi; as m) {
+                      <span class="field-error">{{ m }}</span>
+                    }
+                  </p>
+                </div>
+                @if (editError(); as message) {
+                  <p class="form-alert" role="alert">{{ message }}</p>
+                }
+                <div class="actions">
+                  <button type="submit" class="btn-primary" [disabled]="busy() !== null">
+                    {{ busy() === item.id ? 'Đang lưu…' : 'Lưu câu' }}
+                  </button>
+                  <button type="button" class="btn" (click)="cancelEdit()">Huỷ sửa</button>
+                </div>
+              </form>
+            } @else {
+              <p class="spot-head">
+                <span class="tag" [class.draft-tag]="item.status === 'draft'">{{
+                  item.status === 'draft' ? 'Nháp' : 'Đã duyệt'
+                }}</span>
+                <span class="spot-sentence" lang="en">{{ item.sentence }}</span>
+              </p>
+              <p class="muted">
+                Sửa “<span lang="en">{{ item.wrong }}</span>” thành “<strong lang="en">{{
+                  item.right
+                }}</strong
+                >” · nhiễu: <span lang="en">{{ item.distractors.join(', ') }}</span>
+              </p>
+              <p class="spot-rule">{{ item.ruleVi }}</p>
+              <div class="actions">
+                @if (item.status === 'draft') {
+                  <button
+                    type="button"
+                    class="btn"
+                    [disabled]="busy() !== null"
+                    (click)="approve(item)"
+                  >
+                    {{ busy() === item.id ? 'Đang duyệt…' : 'Duyệt'
+                    }}<span class="visually-hidden"> câu {{ item.sentence }}</span>
+                  </button>
+                }
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="busy() !== null"
+                  (click)="startEdit(item)"
+                >
+                  Sửa<span class="visually-hidden"> câu {{ item.sentence }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-delete"
+                  [disabled]="busy() !== null"
+                  (click)="askDelete(item)"
+                >
+                  Xoá<span class="visually-hidden"> câu {{ item.sentence }}</span>
+                </button>
+              </div>
+            }
+          </li>
+        }
+      </ol>
+    }
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá câu Bắn lỗi?"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá câu"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

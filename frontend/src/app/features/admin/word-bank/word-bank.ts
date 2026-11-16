@@ -376,7 +376,7 @@ export class WordBank {
     }
   }
 
-  /** Adds every topic word that is not in the bank yet. */
+  /** Puts the words of every lesson in their topic's list, then every topic word in the bank. */
   protected async importTopics(): Promise<void> {
     if (this.importing()) {
       return;
@@ -384,15 +384,24 @@ export class WordBank {
     this.importing.set(true);
     this.note.set(null);
     try {
-      const added = await firstValueFrom(this.api.importBankWords());
+      const { added, topicWords } = await firstValueFrom(this.api.syncBankWords());
+      const parts: string[] = [];
+      if (topicWords) {
+        parts.push(`${topicWords} từ của các bài vào danh sách từ chủ đề`);
+      }
+      if (added) {
+        parts.push(`${added} từ vào kho`);
+      }
       this.note.set(
-        added ? `Đã thêm ${added} từ từ các chủ đề.` : 'Mọi từ của các chủ đề đã có trong kho.',
+        parts.length
+          ? `Đã đồng bộ: thêm ${parts.join(', ')}.`
+          : 'Đã đồng bộ: từ của các bài và các chủ đề đều đã có trong kho.',
       );
       if (added) {
         this.reload();
       }
     } catch (err) {
-      this.note.set(bankMessage(err) ?? 'Không nhập được, vui lòng thử lại.');
+      this.note.set(bankMessage(err) ?? 'Không đồng bộ được, vui lòng thử lại.');
     } finally {
       this.importing.set(false);
     }

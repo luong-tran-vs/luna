@@ -1,0 +1,89 @@
+:host {
+  display: block;
+}
+
+.game {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: var(--space-3);
+  max-width: 640px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: var(--space-3) var(--page-x) var(--space-4);
+}
+
+.game-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+}
+
+.pills {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.time-bar {
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.time-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+  transform-origin: left center;
+  transition: transform 0.2s linear;
+}
+
+.time-fill.is-empty {
+  transform: scaleX(0);
+}
+
+.game-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgb(0 0 0 / 0.45);
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 41;
+  width: min(360px, calc(100vw - 2 * var(--page-x)));
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.dialog-title {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.dialog-text {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-fill {
+    transition: none;
+  }
+}

@@ -1,0 +1,163 @@
+<lu-game-shell
+  title="Bắn lỗi ngữ pháp"
+  [running]="phase() === 'playing'"
+  [progress]="phase() === 'playing' ? progress() : null"
+  (paused)="pause()"
+  (resumed)="resume()"
+  (quit)="quit()"
+>
+  <div pills class="pill-row">
+    @if (phase() === 'playing') {
+      <span class="game-pill">Câu {{ state().index + 1 }}/{{ state().questions.length }}</span>
+      <span class="game-pill lives" [attr.aria-label]="'Còn ' + state().lives + ' mạng'">
+        @for (i of lifeSlots; track i) {
+          <span aria-hidden="true" [class.lost]="i >= state().lives">{{
+            i < state().lives ? '❤' : '♡'
+          }}</span>
+        }
+      </span>
+      <span class="game-pill" [attr.aria-label]="'Điểm ' + state().score">{{
+        format(state().score)
+      }}</span>
+    } @else {
+      <h1 class="game-name">Bắn lỗi ngữ pháp</h1>
+    }
+  </div>
+
+  @switch (phase()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('empty') {
+      <div class="soft-card note">
+        <p>Chưa đủ câu ngữ pháp cho trò này. Học thêm vài bài ngữ pháp rồi quay lại nhé.</p>
+        <a class="btn-primary btn-block" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('members') {
+      <div class="soft-card note">
+        <p>Chỉ dành cho thành viên.</p>
+        <a class="btn-primary btn-block" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('error') {
+      <div class="soft-card note" role="alert">
+        <p>Không tải được lượt chơi.</p>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Thử lại</button>
+      </div>
+    }
+    @case ('done') {
+      <lu-game-result
+        [heading]="state().lives <= 0 ? 'Hết mạng!' : 'Xong lượt!'"
+        [score]="state().score"
+        [right]="state().right"
+        [wrong]="state().wrong"
+        [best]="best()"
+        [newBest]="newBest()"
+        [missed]="missed()"
+        [offline]="offline()"
+        (again)="load()"
+      />
+    }
+    @case ('playing') {
+      @if (question(); as q) {
+        <div class="play">
+          <div class="sentence soft-card" #card tabindex="-1" aria-labelledby="spot-ask">
+            <p class="ask" id="spot-ask">
+              Câu {{ state().index + 1 }}: chạm vào chữ sai, hoặc bấm “Không có lỗi”
+            </p>
+            <p class="words" lang="en">
+              @for (p of pieces(); track $index) {
+                @if (p.space) {
+                  {{ ' ' }}
+                }
+                @switch (p.kind) {
+                  @case ('mark') {
+                    <span class="mark" [class.struck]="p.struck">{{ p.text }}</span>
+                  }
+                  @case ('fix') {
+                    <span class="token is-fix"
+                      ><span aria-hidden="true">✓ </span
+                      ><span class="visually-hidden" lang="vi">sửa thành </span>{{ p.text }}</span
+                    >
+                  }
+                  @default {
+                    <button
+                      type="button"
+                      class="token"
+                      [class.struck]="p.struck"
+                      [class.tapped]="p.tapped"
+                      [disabled]="state().stage !== 'ask'"
+                      (click)="tap(p.index)"
+                    >
+                      {{ p.text
+                      }}@if (p.struck) {
+                        <span class="visually-hidden" lang="vi"> (chữ sai)</span>
+                      }
+                      @if (p.tapped) {
+                        <span aria-hidden="true"> ✗</span>
+                      }
+                    </button>
+                  }
+                }
+              }
+            </p>
+          </div>
+
+          <div class="bottom">
+            @switch (state().stage) {
+              @case ('ask') {
+                <button type="button" class="btn-primary btn-block clean-btn" (click)="noMistake()">
+                  Không có lỗi
+                </button>
+              }
+              @case ('fix') {
+                <div
+                  class="sheet soft-card"
+                  #sheet
+                  role="group"
+                  aria-labelledby="spot-fix-title"
+                >
+                  <p class="sheet-title" id="spot-fix-title">
+                    Sửa “<span lang="en">{{ mistake() }}</span>” thành:
+                  </p>
+                  <div class="fixes">
+                    @for (o of q.options; track $index) {
+                      <button type="button" class="game-option" lang="en" (click)="choose($index)">
+                        {{ o }}
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+              @case ('shown') {
+                <div class="rule soft-card" [class.is-right]="right()" [class.is-wrong]="!right()">
+                  <p class="verdict">
+                    <span aria-hidden="true">{{ right() ? '✓' : '✗' }}</span> {{ heading() }}
+                  </p>
+                  @if (q.wrong && !right()) {
+                    <p class="answer">
+                      Sửa “<span lang="en">{{ mistake() }}</span>” thành “<strong lang="en">{{
+                        fix()
+                      }}</strong
+                      >”.
+                    </p>
+                  }
+                  @if (state().stage === 'shown' && state().chosen !== null && !right()) {
+                    <p class="muted">Bạn chọn “<span lang="en">{{ q.options[state().chosen!] }}</span>”.</p>
+                  }
+                  <span class="topic">{{ q.topicVi }}</span>
+                  <p class="rule-text"><span aria-hidden="true">💡 </span>{{ q.ruleVi }}</p>
+                  <button type="button" class="btn-primary btn-block" #next (click)="goOn()">
+                    {{ last() ? 'Xem kết quả' : 'Tiếp' }}
+                  </button>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announce() }}</p>
+</lu-game-shell>

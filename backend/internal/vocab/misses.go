@@ -84,3 +84,73 @@ func (s *Service) PracticeMisses(ctx context.Context, userID, lessonID string, w
 	}
 	return res, nil
 }
+
+// MaxGameMisses bounds the words of one game round brought back to the review queue (F26).
+const MaxGameMisses = 60
+
+// GameMisses brings the words a learner got wrong in a game (F26) back to the review queue: a
+// saved card due later becomes due now, its FSRS state kept, like a saved card in PracticeMisses.
+// A word without a card is skipped (a game never creates cards); each lemma counts once. It
+// returns how many cards were brought forward.
+func (s *Service) GameMisses(ctx context.Context, userID string, lemmas []string) (int, error) {
+	if len(lemmas) > MaxGameMisses {
+		return 0, &ValidationError{Fields: map[string]string{"wrongWords": fmt.Sprintf("Tối đa %d từ mỗi lượt", MaxGameMisses)}}
+	}
+	if len(lemmas) == 0 {
+		return 0, nil
+	}
+	loc, err := s.location(ctx, userID)
+	if err != nil {
+		return 0, err
+	}
+	now := s.now()
+	done := map[string]bool{}
+	moved := 0
+	for _, w := range lemmas {
+		lemma := strings.ToLower(collapse(w))
+		if lemma == "" || done[lemma] {
+			continue
+		}
+		done[lemma] = true
+		c, err := s.repo.FindByLemma(ctx, userID, lemma)
+		if errors.Is(err, ErrNotFound) {
+			continue
+		}
+		if err != nil {
+			return moved, fmt.Errorf("vocab: find card: %w", err)
+		}
+		sched := effective(c, loc)
+		if !sched.Due.After(now) {
+			continue
+		}
+		sched.Due = now
+		updated, err := s.repo.UpdateSchedule(ctx, userID, c.ID, sched.Reps, sched)
+		if err != nil {
+			return moved, fmt.Errorf("vocab: update schedule: %w", err)
+		}
+		if updated {
+			moved++
+		}
+	}
+	return moved, nil
+}
+
+// maxGameCards bounds the cards read to build a game round (F26).
+const maxGameCards = 5000
+
+// GameCards returns the learner's cards for the games (F26), newest first, each with the schedule
+// it is reviewed on (a card saved before F5 gets its first due day).
+func (s *Service) GameCards(ctx context.Context, userID string) ([]Card, error) {
+	loc, err := s.location(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+	cards, _, err := s.repo.List(ctx, userID, ListQuery{}, maxGameCards, 0)
+	if err != nil {
+		return nil, fmt.Errorf("vocab: list cards: %w", err)
+	}
+	for i := range cards {
+		cards[i].Schedule = effective(cards[i], loc)
+	}
+	return cards, nil
+}

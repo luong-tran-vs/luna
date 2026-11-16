@@ -247,6 +247,7 @@ func (s *Service) fillImport(ctx context.Context, l Lesson, anns []Annotation, e
 			return fmt.Errorf("lesson: save glosses: %w", err)
 		}
 	}
+	s.shareWords(ctx, l, anns)
 	return nil
 }
 

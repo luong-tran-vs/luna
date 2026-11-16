@@ -1,0 +1,188 @@
+.pill-row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.game-name {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.note {
+  margin-top: var(--space-4);
+}
+
+.note p {
+  margin: 0;
+}
+
+/* 3 × 4 cards that fit the screen's height, so a 360px phone never scrolls. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: var(--space-2);
+  width: min(100%, 420px);
+  height: min(calc(100dvh - 140px), 560px);
+  min-height: 320px;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  perspective: 800px;
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+}
+
+.card.is-up .card-inner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-1);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  backface-visibility: hidden;
+}
+
+.back {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-card);
+}
+
+.back-mark {
+  font: var(--text-xl) var(--font-ui);
+  opacity: 0.6;
+}
+
+.front {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  transform: rotateY(180deg);
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.card-text {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.card-text.is-meaning {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.mark {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-surface);
+  border-radius: var(--radius-full);
+}
+
+.mark.is-ok {
+  background: var(--color-ok);
+}
+
+.mark.is-bad {
+  background: var(--color-bad);
+}
+
+.card.is-matched {
+  cursor: default;
+  animation: matched-fade 0.4s ease 0.6s forwards;
+}
+
+.card.is-matched .front {
+  border-color: var(--color-ok);
+}
+
+.card.is-wrong .front {
+  border-color: var(--color-bad);
+}
+
+.card.is-wrong {
+  animation: shake 0.35s ease 0.3s;
+}
+
+@keyframes matched-fade {
+  to {
+    opacity: 0.55;
+  }
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+.hint {
+  margin: var(--space-3) 0 0;
+  text-align: center;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* Less motion (FR-009): the faces just swap, nothing shakes, matched cards fade at once. */
+@media (prefers-reduced-motion: reduce) {
+  .card-inner {
+    transition: none;
+  }
+
+  .card.is-wrong {
+    animation: none;
+  }
+
+  .card.is-matched {
+    animation: none;
+    opacity: 0.55;
+  }
+}

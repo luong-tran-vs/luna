@@ -10,6 +10,7 @@ import { BatchWatcher } from '../batch-watcher';
  */
 @Injectable({ providedIn: 'root' })
 export class SceneBatchService extends BatchWatcher<SceneBatch> {
+  protected readonly hideKey = 'luna.admin.hiddenBatch.scenes';
   private readonly api = inject(AdminApiService);
 
   protected fetch() {

@@ -1,0 +1,106 @@
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.part-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}
+
+.spot-sum {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+/* Under 10 sentences: the ⚠ and the words say it, the colour only adds to them. */
+.spot-low {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-bad);
+}
+
+.spot-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  list-style: none;
+}
+
+.banner-note {
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: var(--space-1) solid var(--color-ok);
+  border-radius: var(--radius-md);
+}
+
+.form-alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.spot-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spot-item {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.spot-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.spot-sentence {
+  font-weight: 600;
+}
+
+.draft-tag {
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+}
+
+.spot-rule {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.btn-delete:not(:disabled) {
+  color: var(--color-bad);
+}
+
+.spot-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-2);
+}
+
+.field-error-slot {
+  margin: 0;
+}
+
+.field-error-slot:empty {
+  display: none;
+}

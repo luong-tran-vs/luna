@@ -103,6 +103,11 @@ Mỗi từ có tối đa một ảnh: tải lên, lấy từ link, sinh bằng A
   kiểu khác (nhiều biến thể, ɹ, ɑʊ…) hoặc đọc khác bản chuẩn; bộ lọc "Phiên âm cần xem" (`missing=ipaCheck`) chỉ hiện các từ
   đó; mỗi từ có nút "Nhận", và `POST /api/admin/words/ipa-suggestions/accept` nhận mọi gợi ý một lần (`{"updated": n}`).
   Thẻ ôn lưu từ bài mà phiên âm ghi kiểu khác được thay bằng bản chuẩn khi lấy ra; thẻ người học tự gõ giữ nguyên.
+- **FR-009** *(thêm 2026-11-16)*: Từ vựng đồng bộ ba nơi: bài → danh sách từ chủ đề → kho. Từ admin lưu hoặc AI gợi ý vào danh
+  sách từ chủ đề tự vào kho; từ vựng của bài tự vào danh sách từ chủ đề (spec 017 FR-018a) và vào kho, nghĩa trong bài điền chỗ
+  từ điển thiếu (cả từ đã có trong kho mà chưa có nghĩa; nghĩa đã có thì giữ). Nút "Nhập từ các chủ đề" đổi thành "Đồng bộ từ
+  vựng": `POST /api/admin/words/import` chạy lại cho mọi bài đã chú thích (gộp theo chủ đề và trình độ) rồi đưa mọi từ của chủ
+  đề vào kho, trả `{"added": số từ mới trong kho, "topicWords": số từ của bài mới vào danh sách chủ đề}`.
 
 ### Key Entities
 
@@ -111,5 +116,5 @@ Mỗi từ có tối đa một ảnh: tải lên, lấy từ link, sinh bằng A
 
 ## Assumptions
 
-- Kho chỉ nhập từ các chủ đề; từ trong bài mà không thuộc chủ đề nào được thêm tay.
+- Kho chỉ nhập từ các chủ đề *(sửa 2026-11-16: từ vựng của bài vào danh sách chủ đề trước, xem FR-009)*; từ khác được thêm tay.
 - Nghĩa trong kho là nghĩa chung để quản lý; bài học vẫn dùng nghĩa theo ngữ cảnh do AI chú thích.

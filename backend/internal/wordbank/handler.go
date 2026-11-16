@@ -203,14 +203,16 @@ func (h *Handler) add(w http.ResponseWriter, r *http.Request) {
 	httpx.WriteJSON(w, status, out)
 }
 
-// importTopics serves POST /api/admin/words/import: adds the topic words missing from the bank.
+// importTopics serves POST /api/admin/words/import ("Đồng bộ từ vựng", 2026-11-16): puts the words
+// of every lesson in their topics' lists, then the topic words missing from the bank in it, and
+// answers {"added": words new to the bank, "topicWords": lesson words new to the topics' lists}.
 func (h *Handler) importTopics(w http.ResponseWriter, r *http.Request) {
-	n, err := h.svc.Import(r.Context())
+	res, err := h.svc.Sync(r.Context())
 	if err != nil {
 		h.writeError(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusOK, map[string]int{"added": n})
+	httpx.WriteJSON(w, http.StatusOK, map[string]int{"added": res.Added, "topicWords": res.TopicWords})
 }
 
 // fillMissing serves POST /api/admin/words/fill-missing with {"topicId"}: one AI request for what

@@ -1,0 +1,191 @@
+.pill-row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.game-name {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.hearts {
+  color: var(--color-bad);
+  letter-spacing: 2px;
+}
+
+.note {
+  margin-top: var(--space-4);
+}
+
+.note p {
+  margin: 0;
+}
+
+.play {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.meaning {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+}
+
+.ask {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.meaning-vi {
+  margin: 0;
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.feedback {
+  min-height: 1.25rem;
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-bad);
+}
+
+/* The falling area: its height is also how far a letter falls. */
+.area {
+  --fall-h: clamp(220px, calc(100dvh - 400px), 480px);
+  position: relative;
+  height: var(--fall-h);
+  overflow: hidden;
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.drop {
+  position: absolute;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transform: translateY(-3.5rem);
+  animation-name: drop-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+
+.drop.is-wrong {
+  color: var(--color-bad);
+  border-color: var(--color-bad);
+  background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
+}
+
+.area.is-paused .drop {
+  animation-play-state: paused;
+}
+
+@keyframes drop-fall {
+  from {
+    transform: translateY(-3.5rem);
+  }
+  to {
+    transform: translateY(calc(var(--fall-h) + 0.5rem));
+  }
+}
+
+.solved {
+  position: absolute;
+  inset: var(--space-3);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  animation: solved-in 0.25s ease-out both;
+}
+
+.solved-img {
+  width: min(100%, 160px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.solved-word {
+  margin: 0;
+  font: var(--text-2xl) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-ok);
+}
+
+.solved-gain {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+@keyframes solved-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.boxes {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.box {
+  display: grid;
+  flex: 0 1 2.75rem;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 1;
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px dashed var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.box.is-filled {
+  color: var(--color-primary-ink);
+  border-style: solid;
+  border-color: var(--color-primary);
+}
+
+/* Less motion: letters move in steps, no pop-in. */
+@media (prefers-reduced-motion: reduce) {
+  .drop {
+    animation-timing-function: steps(8, end);
+  }
+
+  .solved {
+    animation: none;
+  }
+}

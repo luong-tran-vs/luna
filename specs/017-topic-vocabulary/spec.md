@@ -187,6 +187,13 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 - **FR-017**: Khi số chú thích vượt giới hạn hiện có, từ của chủ đề MUST được ưu tiên giữ.
 - **FR-018**: Từ của chủ đề có trong bài mà AI bỏ sót MUST được thêm vào danh sách từ vựng của bài với nghĩa từ từ điển của app; từ điển
   không có nghĩa thì bỏ qua từ đó.
+- **FR-018a** *(thêm 2026-11-16)*: Mỗi khi chú thích của bài được lưu (AI chú thích xong, nhập/nhập lại bài, admin sửa chú thích),
+  từ vựng của bài MUST được đưa vào cuối danh sách từ của chủ đề với trình độ của bài, nếu chưa có (không phân biệt hoa thường)
+  và còn chỗ (tối đa 300); từ không hợp lệ bị bỏ qua, từ đã có giữ trình độ cũ. **Từ mục tiêu** của bài luôn được đưa vào. Các từ
+  chú thích khác chỉ để bù khi chủ đề có dưới 30 từ dùng được ở trình độ đó, thêm đến đủ 30; bỏ từ mà CEFR-J xếp thấp hơn trình
+  độ bài, ưu tiên từ đúng trình độ, rồi từ CEFR-J không có, rồi từ cao hơn (tránh đưa từ thông dụng như "again" thành từ mục
+  tiêu của bài sau). Các từ đã vào danh sách cũng vào kho từ (F24, spec 018 FR-009). Làm theo kiểu cố gắng: lỗi chỉ ghi log,
+  không làm hỏng việc lưu bài.
 
 **Chung**
 

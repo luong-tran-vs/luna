@@ -1,0 +1,109 @@
+.result {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.head {
+  justify-items: center;
+  text-align: center;
+}
+
+.trophy {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  color: var(--color-tone-2);
+  background: var(--color-tone-2-soft);
+  border-radius: var(--radius-full);
+  --icon-size: 28px;
+}
+
+.title,
+.score,
+.muted,
+.counts,
+.badge-best {
+  margin: 0;
+}
+
+.title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.score-value {
+  font: var(--text-2xl) var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary-ink);
+}
+
+.score-unit,
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.badge-best {
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-tone-2);
+  background: var(--color-tone-2-soft);
+  border-radius: var(--radius-full);
+}
+
+.counts {
+  display: flex;
+  gap: var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.ok {
+  color: var(--color-ok);
+}
+
+.bad {
+  color: var(--color-bad);
+}
+
+.missed {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.missed li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.missed-text {
+  font-weight: 600;
+}
+
+.missed-detail {
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Focus lands on the title when the screen shows; it is not a control, so no ring. */
+.title:focus {
+  outline: none;
+}

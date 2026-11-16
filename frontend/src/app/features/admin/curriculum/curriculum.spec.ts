@@ -125,6 +125,7 @@ const sceneBatch = (extra: Partial<SceneBatch> = {}): SceneBatch => ({
 });
 
 describe('Curriculum', () => {
+  beforeEach(() => localStorage.clear()); // hidden batch results (2026-11-16)
   let fixture: ComponentFixture<Curriculum>;
   let el: HTMLElement;
   let http: HttpTestingController;

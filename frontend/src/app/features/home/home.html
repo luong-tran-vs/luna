@@ -137,6 +137,28 @@
       }
     }
 
+    <!-- Today's challenge (F26): one tap into it; hidden when the games list cannot be read. -->
+    @if (daily(); as c) {
+      <a class="soft-card daily" [class.done]="c.done" routerLink="/games/daily">
+        <span class="icon-chip" [class.tone-accent]="!c.done"><lu-icon name="trophy" /></span>
+        <span class="review-text">
+          <span class="review-title">Thử thách hằng ngày</span>
+          <span class="muted">
+            @if (c.streak > 0) {
+              <span aria-hidden="true">🔥</span> Chuỗi {{ c.streak }} ngày
+            } @else {
+              10 câu · khoảng 2 phút
+            }
+          </span>
+        </span>
+        @if (c.done) {
+          <span class="daily-done"><span aria-hidden="true">✓</span> Đã xong</span>
+        } @else {
+          <span class="btn review-btn" aria-hidden="true">Bắt đầu</span>
+        }
+      </a>
+    }
+
     <!-- One card for reviewing: today's cards, with tomorrow's on a second line. -->
     <a class="soft-card review" [class.due]="dueToday() > 0" routerLink="/vocabulary/review">
       <span class="icon-chip" [class.tone-accent]="dueToday() > 0"><lu-icon name="cards" /></span>

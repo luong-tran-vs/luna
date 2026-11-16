@@ -16,6 +16,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/export"
+	"github.com/luongtran/luna/backend/internal/games"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/job"
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -77,11 +78,13 @@ type Container struct {
 	// aiUsage keeps the AI requests for the admin usage page.
 	aiUsage *aiusage.Service
 	// aiModel is the text model the admin chose.
-	aiModel  *aimodel.Service
-	grammar  *grammar.Service
-	verbs    *verbs.Service
+	aiModel *aimodel.Service
+	grammar *grammar.Service
+	verbs   *verbs.Service
 	// verbImages keeps and draws the pictures of the irregular verbs (added 2026-11-10).
 	verbImages *verbs.Images
+	// games are the learner's games (F26).
+	games    *games.Service
 	progress *progress.Service
 	study    *progress.StudyService
 	export   *export.Service
@@ -112,6 +115,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initCurriculum()
 	c.initVerbs()
 	c.initProgress()
+	c.initGames()
 	c.initTalk()
 	c.initExport()
 	return c, nil

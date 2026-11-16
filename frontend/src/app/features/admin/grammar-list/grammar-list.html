@@ -55,6 +55,14 @@
     <p class="summary" id="grammar-summary">
       {{ published() }}/{{ list.length }} điểm đã đăng ở trình độ {{ level() }}
     </p>
+    @if (spotLevel(); as s) {
+      <p class="spot-summary muted">
+        Câu Bắn lỗi ở {{ level() }}: {{ s.total }}
+        @if (s.low > 0) {
+          · <span class="spot-low">{{ s.low }} điểm dưới 10 câu ⚠</span>
+        }
+      </p>
+    }
     <lu-grammar-level-pictures [level]="level()" [pointIds]="lessonIds()" />
     <lu-grammar-level-images [level]="level()" [pointIds]="lessonIds()" [titles]="titles()" />
     <ul class="list" aria-describedby="grammar-summary">
@@ -73,6 +81,22 @@
             <p class="point-status">
               <span class="status-label">Trạng thái:</span>
               <strong class="status">{{ statusText(lessonOf(p)) }}</strong>
+            </p>
+            <p class="point-status spot-count">
+              Câu Bắn lỗi:
+              @if (spotOf(p); as s) {
+                <strong class="spot-total" [class.spot-low]="s.low"
+                  >{{ s.total }}@if (s.low) {
+                    <span aria-hidden="true"> ⚠</span
+                    ><span class="visually-hidden"> (dưới 10 câu)</span>
+                  }</strong
+                >
+              } @else {
+                <span class="spot-total muted" title="Chưa có bài đã đăng"
+                  ><span aria-hidden="true">—</span
+                  ><span class="visually-hidden"> chưa có bài đã đăng</span></span
+                >
+              }
             </p>
             @if (lessonOf(p); as lesson) {
               <p class="badges">

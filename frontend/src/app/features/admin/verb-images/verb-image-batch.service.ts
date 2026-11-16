@@ -7,6 +7,7 @@ import { VerbImagesApiService } from './verb-images-api.service';
 /** The batch drawing the verb pictures in the background (added 2026-11-10). */
 @Injectable({ providedIn: 'root' })
 export class VerbImageBatchService extends BatchWatcher<VerbImageBatch> {
+  protected readonly hideKey = 'luna.admin.hiddenBatch.verbImages';
   private readonly api = inject(VerbImagesApiService);
 
   protected fetch() {

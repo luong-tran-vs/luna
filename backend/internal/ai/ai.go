@@ -139,6 +139,8 @@ type Provider interface {
 	ReviewLesson(ctx context.Context, req ReviewRequest) (ReviewResult, error)
 	// SuggestFix proposes a corrected version of one item the lesson check flagged (F22).
 	SuggestFix(ctx context.Context, req FixRequest) (FixResult, error)
+	// GrammarSpotItems writes sentences of the "Bắn lỗi" game for one grammar point in one request (F26).
+	GrammarSpotItems(ctx context.Context, req GrammarSpotRequest) ([]GrammarSpotItem, error)
 }
 
 var (

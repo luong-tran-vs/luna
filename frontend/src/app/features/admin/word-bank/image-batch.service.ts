@@ -2,6 +2,7 @@ import { computed, inject, Injectable, InjectionToken, signal } from '@angular/c
 
 import { BankImageBatch } from '../../../core/models/word-bank';
 import { AdminApiService } from '../admin-api.service';
+import { HiddenBatch } from '../batch-watcher';
 
 /** How often, in ms, the admin pages ask how a running picture batch is going (tests shorten it). */
 export const BANK_BATCH_POLL_MS = new InjectionToken<number>('BANK_BATCH_POLL_MS', {
@@ -27,12 +28,12 @@ export class ImageBatchService {
   /** The running, or last, batch; null until known. */
   readonly status = signal<BankImageBatch | null>(null);
   readonly running = computed(() => this.status()?.running ?? false);
-  /** The admin hid the result of the batch started then. */
-  private readonly hiddenAt = signal<string | null>(null);
+  /** The admin hid the result of the batch started then, kept across reloads (2026-11-16). */
+  private readonly hiddenAt = new HiddenBatch(() => 'luna.admin.hiddenBatch.wordImages');
   /** A finished batch whose result is still to be shown. */
   readonly result = computed(() => {
     const b = this.status();
-    return b && !b.running && b.total > 0 && b.startedAt !== this.hiddenAt() ? b : null;
+    return b && !b.running && b.total > 0 && b.startedAt !== this.hiddenAt.get() ? b : null;
   });
 
   private watchers = 0;

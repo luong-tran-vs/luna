@@ -522,10 +522,13 @@ export class AdminApiService {
     return this.http.post<AiModelTest>(`${BASE}/ai-model/test`, { model });
   }
 
-  importBankWords(): Observable<number> {
-    return this.http
-      .post<{ added: number }>(`${BASE}/words/import`, null)
-      .pipe(map((r) => r.added));
+  /**
+   * "Đồng bộ từ vựng" (2026-11-16): the words of every lesson join their topic's list, then every
+   * topic word joins the bank. `added` counts the words new to the bank, `topicWords` the lesson
+   * words new to the topics' lists.
+   */
+  syncBankWords(): Observable<{ added: number; topicWords: number }> {
+    return this.http.post<{ added: number; topicWords: number }>(`${BASE}/words/import`, null);
   }
 
   /**

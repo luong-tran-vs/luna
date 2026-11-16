@@ -9,6 +9,44 @@ export const BATCH_IDLE_POLL_MS = new InjectionToken<number>('BATCH_IDLE_POLL_MS
   factory: () => 30000,
 });
 
+/**
+ * Remembers, in this browser, the batch (by its start time) whose finished result the admin hid, so
+ * reloading the page keeps it hidden (added 2026-11-16). The key is read lazily, once a subclass has
+ * set it; storage that throws (private mode) only forgets across reloads.
+ */
+export class HiddenBatch {
+  /** undefined until hidden in this page, then the start time hidden. */
+  private readonly value = signal<string | null | undefined>(undefined);
+
+  constructor(private readonly key: () => string) {}
+
+  /** The start time of the hidden batch, null when none. */
+  get(): string | null {
+    const v = this.value();
+    if (v !== undefined) {
+      return v;
+    }
+    try {
+      return globalThis.localStorage?.getItem(this.key()) ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  set(startedAt: string | null): void {
+    this.value.set(startedAt);
+    try {
+      if (startedAt) {
+        globalThis.localStorage?.setItem(this.key(), startedAt);
+      } else {
+        globalThis.localStorage?.removeItem(this.key());
+      }
+    } catch {
+      // Hidden for this page only.
+    }
+  }
+}
+
 /** What every background picture batch tells about itself. */
 export interface BatchStatus {
   running: boolean;
@@ -28,12 +66,14 @@ export abstract class BatchWatcher<T extends BatchStatus> {
   /** The running, or last, batch; null until known. */
   readonly status = signal<T | null>(null);
   readonly running = computed(() => this.status()?.running ?? false);
-  /** The admin hid the result of the batch started then. */
-  private readonly hiddenAt = signal<string | null>(null);
+  /** The localStorage key remembering the hidden result of this kind of batch. */
+  protected abstract readonly hideKey: string;
+  /** The admin hid the result of the batch started then, kept across reloads. */
+  private readonly hiddenAt = new HiddenBatch(() => this.hideKey);
   /** A finished batch whose result is still to be shown. */
   readonly result = computed(() => {
     const b = this.status();
-    return b && !b.running && b.total > 0 && b.startedAt !== this.hiddenAt() ? b : null;
+    return b && !b.running && b.total > 0 && b.startedAt !== this.hiddenAt.get() ? b : null;
   });
 
   private watchers = 0;
@@ -70,7 +110,6 @@ export abstract class BatchWatcher<T extends BatchStatus> {
   hideResult(): void {
     this.hiddenAt.set(this.status()?.startedAt ?? null);
   }
-
   private refresh(): void {
     this.fetch().subscribe({
       next: (b) => this.set(b),

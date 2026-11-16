@@ -1,0 +1,106 @@
+<lu-game-shell
+  title="Chữ rơi"
+  [running]="phase() === 'playing'"
+  (paused)="pause()"
+  (resumed)="resume()"
+  (quit)="quit()"
+>
+  <div pills class="pill-row">
+    @if (phase() === 'playing') {
+      <span class="game-pill">Màn {{ level() }}</span>
+      <span class="game-pill hearts" [attr.aria-label]="'Còn ' + state().lives + ' mạng'">
+        <span aria-hidden="true">{{ hearts() }}</span>
+      </span>
+      <span class="game-pill" [attr.aria-label]="'Điểm ' + state().score">{{
+        format(state().score)
+      }}</span>
+    } @else {
+      <h1 class="game-name">Chữ rơi</h1>
+    }
+  </div>
+
+  @switch (phase()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('empty') {
+      <div class="soft-card note">
+        <p>Học thêm vài bài để mở trò này: cần vài từ đã học dài 3–8 chữ cái.</p>
+        <a class="btn-primary btn-block" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('error') {
+      <div class="soft-card note" role="alert">
+        <p>Không tải được lượt chơi.</p>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Thử lại</button>
+      </div>
+    }
+    @case ('done') {
+      <lu-game-result
+        [heading]="heading()"
+        [score]="state().score"
+        [right]="state().spelt"
+        [wrong]="state().missed.length"
+        [extra]="extra()"
+        [best]="best()"
+        [newBest]="newBest()"
+        [missed]="missed()"
+        [offline]="offline()"
+        (again)="load()"
+      />
+    }
+    @case ('playing') {
+      @if (word(); as w) {
+        <div class="play">
+          <div class="meaning soft-card">
+            <p class="ask">Ghép từ có nghĩa</p>
+            <p class="meaning-vi">{{ w.meaningVi }}</p>
+            <p class="feedback">
+              @if (feedback()) {
+                <span aria-hidden="true">✗</span> {{ feedback() }}
+              }
+            </p>
+          </div>
+
+          <div class="area" [class.is-paused]="paused()">
+            @if (state().solved) {
+              <div class="solved soft-card">
+                @if (w.imageUrl) {
+                  <img class="solved-img" crossorigin="use-credentials" referrerpolicy="no-referrer" [src]="imageUrl(w)" alt="" />
+                }
+                <p class="solved-word" lang="en">
+                  {{ w.lemma }} <span aria-hidden="true">✓</span>
+                </p>
+                <p class="solved-gain">+{{ state().gained }} điểm</p>
+              </div>
+            } @else {
+              @for (d of state().drops; track d.id) {
+                <button
+                  type="button"
+                  class="drop"
+                  lang="en"
+                  [attr.aria-label]="'Chữ ' + d.letter"
+                  [class.is-wrong]="state().wrongId === d.id"
+                  [style.left]="left(d.x)"
+                  [style.animation-duration.ms]="d.duration"
+                  [style.animation-delay.ms]="d.delay"
+                  (click)="tap(d.id)"
+                  (animationend)="fell(d.id)"
+                >
+                  {{ d.letter }}
+                </button>
+              }
+            }
+          </div>
+
+          <div class="boxes" role="img" [attr.aria-label]="boxesLabel()">
+            @for (c of boxes(); track $index) {
+              <span class="box" lang="en" [class.is-filled]="c !== ''">{{ c }}</span>
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announce() }}</p>
+</lu-game-shell>

@@ -41,6 +41,7 @@ frontend/src/
 │   │   ├── lesson/           ← L: review/, reading/ (F3), listening/ (F4)
 │   │   ├── vocabulary/       ← F5
 │   │   ├── home/             ← F6
+│   │   ├── games/            ← F26: trang /games, shared/ (khung chơi, đồng hồ, điểm, màn kết quả), mỗi trò một thư mục
 │   │   └── settings/         ← F12, F13
 │   ├── app.routes.ts
 │   └── app.config.ts
@@ -72,6 +73,7 @@ backend/
 │   ├── dictionary/           ← F3: tra từ điển SQLite
 │   ├── ai/                   ← interface Provider + gemini/, openrouter/, ollama/
 │   ├── grammar/              ← F19–F21: giáo trình ngữ pháp (syllabus.json nhúng), bài ngữ pháp, bài tập, tiến độ người học, kiểm tra AI, báo lỗi
+│   ├── games/                ← F26: trò chơi — dựng lượt từ thẻ ôn/Kho từ/ngữ pháp, kỷ lục, thử thách hằng ngày, câu Bắn lỗi AI soạn
 │   ├── wordmatch/            ← F18: khớp từ, cụm từ trong văn bản
 │   ├── job/                  ← chạy nền: chú thích AI, phần luyện tập, chấm bài viết (trạng thái đang chạy/xong/lỗi)
 │   ├── storage/              ← Store (abstract factory) + Registry chọn CSDL theo DB_DRIVER

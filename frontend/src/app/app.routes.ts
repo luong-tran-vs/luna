@@ -124,6 +124,25 @@ export const routes: Routes = [
         title: 'Lộ trình & Tiến độ · Luna',
         loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
       },
+      // Games (F26): the list, then each game full screen; "Bắn lỗi" is for members.
+      {
+        path: 'games',
+        title: 'Trò chơi · Luna',
+        loadComponent: () => import('./features/games/games').then((m) => m.Games),
+      },
+      {
+        path: 'games/grammar',
+        title: 'Bắn lỗi ngữ pháp · Luna',
+        canMatch: [guestMatch],
+        loadComponent: () =>
+          import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
+        data: { title: 'Bắn lỗi ngữ pháp' },
+      },
+      {
+        path: 'games/:game',
+        title: 'Trò chơi · Luna',
+        loadComponent: () => import('./features/games/game-host').then((m) => m.GameHost),
+      },
       // Grammar is for members (F20): guests see the members-only page instead.
       {
         path: 'grammar',

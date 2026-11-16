@@ -285,3 +285,57 @@ func TestTypedMistakes(t *testing.T) {
 		t.Fatalf("kept = %d, last %q", len(p.Mistakes), p.Mistakes[len(p.Mistakes)-1].Typed)
 	}
 }
+
+func TestApplyGame(t *testing.T) {
+	t.Parallel()
+	learned := Progress{Base: "run", LearnedAt: testNow.Add(-72 * time.Hour), Level: 3, DueAt: testNow.Add(5 * 24 * time.Hour), Right: 4}
+
+	// Wrong in a game: due now, box kept, the mistake kept.
+	wrong := ApplyResult(learned, Result{Base: "run", Game: true, Wrong: []Mistake{{Form: "past", Typed: "runned"}}}, testNow)
+	if !wrong.DueAt.Equal(testNow) || wrong.Level != 3 || wrong.Wrong != 1 || wrong.Right != 4 ||
+		len(wrong.Mistakes) != 1 || wrong.Mistakes[0].Typed != "runned" || wrong.CleanRun != 0 {
+		t.Fatalf("wrong = %+v", wrong)
+	}
+	// Right in a game: only counted.
+	right := ApplyResult(learned, Result{Base: "run", Right: true, Game: true}, testNow)
+	if !right.DueAt.Equal(learned.DueAt) || right.Level != 3 || right.Right != 5 || right.CleanRun != 1 {
+		t.Fatalf("right = %+v", right)
+	}
+	// An overdue verb keeps its due time.
+	over := learned
+	over.DueAt = testNow.Add(-time.Hour)
+	if got := ApplyResult(over, Result{Base: "run", Game: true}, testNow); !got.DueAt.Equal(over.DueAt) {
+		t.Fatalf("overdue = %+v", got)
+	}
+	// A verb not learned is only counted.
+	if got := ApplyResult(Progress{Base: "go"}, Result{Base: "go", Game: true}, testNow); got.Learned() || !got.DueAt.IsZero() || got.Wrong != 1 {
+		t.Fatalf("not learned = %+v", got)
+	}
+}
+
+func TestRecordGameDoesNotCountTheStudyDay(t *testing.T) {
+	t.Parallel()
+	repo := newFakeRepo()
+	days := &countDays{}
+	svc := NewService(repo, days, func() time.Time { return testNow })
+	if err := svc.RecordGame(t.Context(), "u1", []Result{
+		{Base: "run", Wrong: []Mistake{{Form: "past", Typed: "runned"}}},
+		{Base: "run", Wrong: []Mistake{{Form: "participle", Typed: "ran"}}},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	list, _ := svc.List(t.Context(), "u1")
+	if len(list) != 1 || list[0].Wrong != 1 || len(list[0].Mistakes) != 2 {
+		t.Fatalf("list = %+v", list)
+	}
+	if days.n != 0 {
+		t.Fatalf("study days = %d", days.n)
+	}
+	if err := svc.RecordGame(t.Context(), "u1", nil); err != nil {
+		t.Fatal(err)
+	}
+}
+
+type countDays struct{ n int }
+
+func (c *countDays) MarkStudied(context.Context, string) error { c.n++; return nil }

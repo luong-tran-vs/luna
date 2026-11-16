@@ -127,7 +127,34 @@ describe('GrammarList', () => {
     http.match((r) => r.url === '/admin/grammar-picture-batch');
     // It counts the pictures of the level, for its removal button (added 2026-11-12).
     http.match((r) => r.url === '/admin/grammar-images/remove');
+    // F26: the "Bắn lỗi" counts, flushed only by the test about them.
+    http.match((r) => r.url === '/admin/games/spot-counts');
     http.verify();
+  });
+
+  it('shows the "Bắn lỗi" sentences of each point, flagging those under 10 in words', async () => {
+    await setup();
+    const spot = (pointId: string, total: number) => ({
+      pointId,
+      level: 'A1',
+      titleVi: pointId,
+      choice: total,
+      fix: 0,
+      spot: 0,
+      draft: 0,
+      total,
+    });
+    http
+      .expectOne('/admin/games/spot-counts')
+      .flush({ points: [spot('a1-to-be', 12), spot('a1-articles', 6)] });
+    await settle();
+    const count = (id: string) => text(row(id).querySelector('.spot-count'));
+    expect(count('a1-to-be')).toBe('Câu Bắn lỗi: 12');
+    expect(count('a1-articles')).toBe('Câu Bắn lỗi: 6 ⚠ (dưới 10 câu)');
+    expect(count('a1-this-that')).toBe('Câu Bắn lỗi: — chưa có bài đã đăng');
+    expect(text(el.querySelector('.spot-summary'))).toBe(
+      'Câu Bắn lỗi ở A1: 18 · 1 điểm dưới 10 câu ⚠',
+    );
   });
 
   it('shows the state of each point in words, with the published count', async () => {

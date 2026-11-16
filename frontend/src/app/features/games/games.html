@@ -1,0 +1,62 @@
+<section class="screen games">
+  <header class="screen-bar">
+    <h1 class="screen-title">Trò chơi</h1>
+  </header>
+  <p class="intro">Vừa chơi vừa học: mỗi lượt 1–3 phút, từ chơi sai sẽ quay lại lịch ôn.</p>
+
+  @if (loading() && !data()) {
+    <lu-loading />
+  } @else if (failed()) {
+    <div class="soft-card" role="alert">
+      <p class="muted">Không tải được danh sách trò chơi.</p>
+      <button type="button" class="btn-primary" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (data(); as d) {
+    <a class="daily soft-card" routerLink="/games/daily">
+      <span class="daily-icon" aria-hidden="true"><lu-icon name="calendar" /></span>
+      <span class="daily-text">
+        <span class="daily-title">Thử thách hằng ngày</span>
+        <span class="daily-note">
+          {{ d.daily.done ? 'Đã xong hôm nay' : '10 câu · khoảng 2 phút' }}
+          @if (d.daily.streak > 0) {
+            · <span aria-hidden="true">🔥</span> {{ d.daily.streak }} ngày
+          }
+        </span>
+      </span>
+      <span class="daily-cta">{{ d.daily.done ? 'Xem' : 'Bắt đầu' }}</span>
+    </a>
+
+    <ul class="list">
+      @for (g of games(); track g.id) {
+        <li>
+          @if (g.locked) {
+            <div class="game soft-card is-locked" [attr.aria-label]="info[g.id].name + ', chỉ dành cho thành viên'">
+              <span class="game-icon" aria-hidden="true"><lu-icon name="lock" /></span>
+              <span class="game-text">
+                <span class="game-name">{{ info[g.id].name }}</span>
+                <span class="game-line">Chỉ dành cho thành viên</span>
+              </span>
+            </div>
+          } @else {
+            <a class="game soft-card" [routerLink]="['/games', g.id]">
+              <span class="game-icon" aria-hidden="true"><lu-icon [name]="info[g.id].icon" /></span>
+              <span class="game-text">
+                <span class="game-name">{{ info[g.id].name }}</span>
+                <span class="game-line">{{ info[g.id].line }}</span>
+                <span class="game-meta">
+                  1–3 phút ·
+                  @if (g.best > 0) {
+                    Kỷ lục {{ format(g.best) }} {{ info[g.id].bestUnit }}
+                  } @else {
+                    Chưa có kỷ lục
+                  }
+                </span>
+              </span>
+              <lu-icon class="chev" name="play" />
+            </a>
+          }
+        </li>
+      }
+    </ul>
+  }
+</section>

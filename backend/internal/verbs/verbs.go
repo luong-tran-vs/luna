@@ -56,6 +56,10 @@ type Result struct {
 	// Practice marks a typed answer outside a review round: the lesson's typing or "Luyện từ hay
 	// sai". It counts the answer and the mistakes, not the review box.
 	Practice bool
+	// Game marks an answer given in a game (F26, "Đấu động từ"): a wrong one is counted, its
+	// mistakes kept, and a learned verb due later becomes due now without changing its box; a right
+	// one is only counted, so playing never pushes a review further away.
+	Game bool
 }
 
 // Repository stores the progress records.
@@ -151,6 +155,8 @@ func ApplyResult(p Progress, r Result, now time.Time) Progress {
 		return ApplyQuick(p, r.Right, r.Hard, now)
 	case r.Practice:
 		return recordTyping(applyPractice(p, r, now), r, now)
+	case r.Game:
+		return recordTyping(applyGame(p, r, now), r, now)
 	default:
 		return recordTyping(Apply(p, r.Right, now), r, now)
 	}
@@ -225,6 +231,16 @@ func applyPractice(p Progress, r Result, now time.Time) Progress {
 		p.Right++
 	} else {
 		p.Wrong++
+	}
+	return p
+}
+
+// applyGame counts a game answer (F26): a wrong one brings a learned verb due later back to now,
+// its box kept.
+func applyGame(p Progress, r Result, now time.Time) Progress {
+	p = applyPractice(p, r, now)
+	if !r.Right && p.Learned() && p.DueAt.After(now) {
+		p.DueAt = now
 	}
 	return p
 }

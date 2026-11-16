@@ -1,0 +1,50 @@
+<section class="result" aria-labelledby="game-result-title">
+  <div class="soft-card head">
+    <span class="trophy" aria-hidden="true"><lu-icon name="trophy" /></span>
+    <h2 #title tabindex="-1" class="title" id="game-result-title">{{ heading() }}</h2>
+    <p class="score">
+      <span class="score-value">{{ format(score()) }}</span>
+      <span class="score-unit">{{ unit() }}</span>
+    </p>
+    @if (newBest()) {
+      <p class="badge-best" role="status">🏆 Kỷ lục mới!</p>
+    } @else if (best() !== null) {
+      <p class="muted">Kỷ lục: {{ format(best()!) }}</p>
+    }
+    @if (right() !== null) {
+      <p class="counts">
+        <span class="ok">✓ {{ right() }} đúng</span>
+        <span class="bad">✗ {{ wrong() }} sai</span>
+      </p>
+    }
+    @if (extra()) {
+      <p class="muted">{{ extra() }}</p>
+    }
+  </div>
+
+  @if (offline()) {
+    <p class="form-alert" role="status">
+      Chưa gửi được kết quả vì mất mạng. Kết quả đã lưu trên máy và sẽ gửi khi bạn mở lại Trò chơi.
+    </p>
+  }
+
+  @if (missed().length) {
+    <section class="soft-card" aria-labelledby="missed-title">
+      <h3 class="section-title" id="missed-title">Cần ôn lại</h3>
+      <ul class="missed">
+        @for (m of missed(); track m.text) {
+          <li>
+            <span class="missed-text" lang="en">{{ m.text }}</span>
+            <span class="missed-detail">{{ m.detail }}</span>
+          </li>
+        }
+      </ul>
+      <p class="muted">Từ đã có trong lịch ôn sẽ đến hạn ngay hôm nay.</p>
+    </section>
+  }
+
+  <div class="actions">
+    <button type="button" class="btn-primary btn-block" (click)="again.emit()">Chơi lại</button>
+    <a class="link-btn" routerLink="/games">Về danh sách trò</a>
+  </div>
+</section>

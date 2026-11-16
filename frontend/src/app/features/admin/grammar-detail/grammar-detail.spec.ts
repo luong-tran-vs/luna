@@ -130,6 +130,8 @@ describe('GrammarDetail', () => {
   afterEach(() => {
     // The example picture section follows the background batch (added 2026-11-06).
     http.match((r) => r.url === '/admin/grammar-image-batch');
+    // F26: the "Bắn lỗi" block loads its own counts and sentences (grammar-spots.spec.ts).
+    http.match((r) => r.url === '/admin/games/spot-counts' || r.url === '/admin/games/spot-items');
     http.verify();
   });
 

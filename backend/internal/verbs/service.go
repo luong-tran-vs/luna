@@ -58,6 +58,33 @@ func (s *Service) Record(ctx context.Context, userID string, results []Result) (
 	return out, nil
 }
 
+// RecordGame applies the answers of a game round (F26) as Result.Game, without counting a study
+// day: only the daily challenge counts one, and it does so itself. A verb listed twice keeps every
+// mistake and is right only when every answer was.
+func (s *Service) RecordGame(ctx context.Context, userID string, results []Result) error {
+	if len(results) == 0 {
+		return nil
+	}
+	if err := checkCount("wrongVerbs", len(results)); err != nil {
+		return err
+	}
+	last := make(map[string]Result, len(results))
+	bases := make([]string, 0, len(results))
+	for _, r := range results {
+		r.Game, r.Practice, r.Quick = true, false, false
+		bases = append(bases, r.Base)
+		if prev, ok := last[r.Base]; ok {
+			r.Wrong = append(prev.Wrong, r.Wrong...)
+			r.Right = prev.Right && r.Right
+		}
+		last[r.Base] = r
+	}
+	_, err := s.update(ctx, userID, "wrongVerbs", bases, func(p Progress, now time.Time) Progress {
+		return ApplyResult(p, last[p.Base], now)
+	})
+	return err
+}
+
 // SetLearned marks the verbs as learned (the learner's "Đã học"), or no longer learned, and
 // returns their records.
 func (s *Service) SetLearned(ctx context.Context, userID string, bases []string, learned bool) ([]Progress, error) {

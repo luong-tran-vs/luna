@@ -1,0 +1,39 @@
+<section class="game" [attr.aria-label]="title()">
+  <header class="game-top">
+    <button type="button" class="round-btn close" aria-label="Thoát lượt chơi" (click)="askQuit()">
+      <lu-icon name="x" />
+    </button>
+    <div class="pills"><ng-content select="[pills]" /></div>
+  </header>
+  @if (progress(); as p) {
+    <div class="time-bar" aria-hidden="true">
+      <span class="time-fill" [style.transform]="'scaleX(' + p + ')'"></span>
+    </div>
+  } @else if (progress() === 0) {
+    <div class="time-bar" aria-hidden="true"><span class="time-fill is-empty"></span></div>
+  }
+  <div class="game-body"><ng-content /></div>
+
+  @if (overlay(); as o) {
+    <div class="scrim" aria-hidden="true"></div>
+    <div
+      #dialog
+      class="dialog soft-card"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="game-dialog-title"
+      (keydown.escape)="resume()"
+    >
+      <h2 class="dialog-title" id="game-dialog-title">
+        {{ o === 'pause' ? 'Tạm dừng' : 'Thoát lượt này?' }}
+      </h2>
+      @if (o === 'quit') {
+        <p class="dialog-text">{{ quitNote() }}</p>
+      }
+      <button type="button" class="btn-primary btn-block" (click)="resume()">
+        {{ o === 'pause' ? 'Tiếp tục' : 'Chơi tiếp' }}
+      </button>
+      <button type="button" class="link-btn" (click)="leave()">Thoát</button>
+    </div>
+  }
+</section>

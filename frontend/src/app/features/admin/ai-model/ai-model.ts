@@ -114,6 +114,7 @@ export const OP_ADVICE: Readonly<Record<string, { provider: 'gemini' | 'groq'; w
   grammar_lesson: { provider: 'gemini', why: 'bài ngữ pháp cần chính xác' },
   grammar_pictures: { provider: 'gemini', why: 'bài nhìn ảnh cần chính xác' },
   grammar_solve: { provider: 'gemini', why: 'giải bài tập cần chính xác' },
+  grammar_spot: { provider: 'gemini', why: 'câu sai phải đúng một lỗi' },
   suggest_words: { provider: 'gemini', why: 'chọn từ đúng trình độ' },
   word_meanings: { provider: 'gemini', why: 'điền nhiều từ một lần, chạy lâu được' },
 };

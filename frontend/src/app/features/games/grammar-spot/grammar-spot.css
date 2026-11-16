@@ -1,0 +1,194 @@
+.pill-row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.game-name {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.lives {
+  gap: 2px;
+  color: var(--color-bad);
+}
+
+.lives .lost {
+  color: var(--color-text-muted);
+}
+
+.note {
+  margin-top: var(--space-4);
+}
+
+.note p {
+  margin: 0;
+}
+
+.play {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: calc(100dvh - 140px);
+}
+
+.sentence {
+  display: grid;
+  gap: var(--space-3);
+  outline-offset: 2px;
+}
+
+.ask {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.words {
+  margin: 0;
+  font: var(--text-xl) var(--font-ui);
+  line-height: 2.2;
+}
+
+.token {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  padding: 0 var(--space-1);
+  font: inherit;
+  line-height: 1.2;
+  color: var(--color-text);
+  vertical-align: middle;
+  background: none;
+  border: 0;
+  border-bottom: 2px dashed var(--color-line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.token:not(:disabled):hover {
+  background: var(--color-primary-soft);
+}
+
+.token:disabled {
+  cursor: default;
+}
+
+.token.struck,
+.mark.struck {
+  color: var(--color-bad);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  border-bottom-color: var(--color-bad);
+}
+
+.token.tapped {
+  color: var(--color-bad);
+  border: 2px solid var(--color-bad);
+}
+
+.token.is-fix {
+  font-weight: 700;
+  color: var(--color-ok);
+  border-bottom: 2px solid var(--color-ok);
+  cursor: default;
+}
+
+.bottom {
+  display: grid;
+}
+
+.clean-btn {
+  min-height: 52px;
+}
+
+.sheet,
+.rule {
+  display: grid;
+  gap: var(--space-3);
+  animation: slide-up 0.25s ease-out both;
+}
+
+.sheet-title,
+.verdict,
+.answer,
+.rule-text,
+.muted {
+  margin: 0;
+}
+
+.sheet-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.fixes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: var(--space-2);
+}
+
+.rule.is-right {
+  border-left: var(--space-1) solid var(--color-ok);
+}
+
+.rule.is-wrong {
+  border-left: var(--space-1) solid var(--color-bad);
+}
+
+.verdict {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.rule.is-right .verdict {
+  color: var(--color-ok);
+}
+
+.rule.is-wrong .verdict {
+  color: var(--color-bad);
+}
+
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.topic {
+  justify-self: start;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-full);
+}
+
+.rule-text {
+  font: var(--text-base) var(--font-ui);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .rule {
+    animation: none;
+  }
+}

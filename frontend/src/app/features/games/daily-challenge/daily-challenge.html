@@ -1,0 +1,323 @@
+<lu-game-shell
+  title="Thử thách hằng ngày"
+  quitNote="Lượt này chưa được tính. Bạn có thể làm lại thử thách hôm nay."
+  [running]="phase() === 'playing'"
+  [progress]="phase() === 'playing' ? progress() : null"
+  (paused)="pause()"
+  (resumed)="resume()"
+  (quit)="quit()"
+>
+  <div pills class="pill-row">
+    @if (phase() === 'playing') {
+      <span class="game-pill">Câu {{ index() + 1 }}/{{ count }}</span>
+      <span class="game-pill" [attr.aria-label]="'Còn ' + timeLabel()">
+        <span aria-hidden="true">⏱ {{ timeLabel() }}</span>
+      </span>
+      <span class="game-pill" [attr.aria-label]="'Điểm ' + state().score">{{ format(state().score) }}</span>
+    } @else if (view()) {
+      <span class="game-pill">{{ dayText() }}</span>
+      <span class="game-pill" [attr.aria-label]="'Chuỗi ' + streak() + ' ngày'">
+        <span aria-hidden="true">🔥 {{ streak() }} ngày</span>
+      </span>
+    } @else {
+      <span class="game-name">Thử thách hằng ngày</span>
+    }
+  </div>
+
+  @switch (phase()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('error') {
+      <div class="soft-card note" role="alert">
+        <p>Không tải được thử thách hôm nay.</p>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Thử lại</button>
+      </div>
+    }
+    @case ('start') {
+      <div class="panel">
+        <span class="trophy" aria-hidden="true">🏆</span>
+        <h1 class="heading">Thử thách hôm nay</h1>
+        <p class="muted">{{ count }} câu · khoảng 2 phút</p>
+        <ol class="week" aria-label="Các ngày trong tuần">
+          @for (d of week(); track d.label) {
+            <li class="day">
+              <span
+                class="day-mark"
+                [class.is-played]="d.played"
+                [class.is-today]="d.today && !d.played"
+                aria-hidden="true"
+                >{{ d.played ? '✓' : d.today ? '?' : '' }}</span
+              >
+              <span class="day-label" aria-hidden="true">{{ d.label }}</span>
+              <span class="visually-hidden">{{ d.name }}</span>
+            </li>
+          }
+        </ol>
+        <p class="muted small">Mỗi câu 20 giây, trả lời càng nhanh càng nhiều điểm.</p>
+        <button type="button" class="btn-primary btn-block big" (click)="begin()">Bắt đầu</button>
+        <a class="link-btn" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('sending') {
+      @if (sendError()) {
+        <div class="soft-card note" role="alert">
+          <p>Không gửi được kết quả. Kiểm tra mạng rồi thử lại.</p>
+          <button type="button" class="btn-primary btn-block" (click)="send()">Thử lại</button>
+        </div>
+      } @else {
+        <lu-loading />
+      }
+    }
+    @case ('result') {
+      @if (outcome(); as o) {
+        <div class="panel">
+          <span class="trophy" aria-hidden="true">🏆</span>
+          <h1 class="heading">{{ o.practice ? 'Xong lượt luyện tập' : 'Kết quả hôm nay' }}</h1>
+          @if (o.practice) {
+            <p class="muted small">Lượt luyện tập không đổi điểm và chuỗi đã tính.</p>
+          }
+          <p class="score">
+            <span class="score-value">{{ format(o.score) }}</span> điểm · {{ rightCount() }}/{{ o.answers.length }} câu
+            đúng
+          </p>
+          <ol class="squares" aria-label="Từng câu">
+            @for (a of o.answers; track $index) {
+              <li class="square" [class.is-right]="a" [class.is-wrong]="!a">
+                <span aria-hidden="true">{{ a ? '✓' : '✗' }}</span>
+                <span class="visually-hidden">Câu {{ $index + 1 }}: {{ a ? 'đúng' : 'sai' }}</span>
+              </li>
+            }
+          </ol>
+          <p class="streak-line"><span aria-hidden="true">🔥</span> Chuỗi {{ o.streak }} ngày</p>
+
+          <dl class="compare soft-card">
+            <div>
+              <dt>Hôm qua</dt>
+              <dd>{{ compareText(o.compare.yesterday) }}</dd>
+            </div>
+            <div>
+              <dt>TB 7 ngày</dt>
+              <dd>{{ compareText(o.compare.avg7) }}</dd>
+            </div>
+            <div>
+              <dt>Kỷ lục</dt>
+              <dd>{{ compareText(o.compare.best || null) }}</dd>
+            </div>
+          </dl>
+
+          @if (o.missed) {
+            <p class="muted small">Câu sai đã thêm vào lịch ôn.</p>
+          }
+
+          @if (!o.practice) {
+            <button type="button" class="btn-primary btn-block" (click)="copyShare()">
+              <span aria-hidden="true">↗</span> Chia sẻ kết quả
+            </button>
+            @if (copied()) {
+              <p class="copied" role="status">Đã sao chép</p>
+            }
+            @if (showShareText()) {
+              <label class="share-box">
+                <span class="muted small">Chép đoạn này để chia sẻ</span>
+                <textarea class="share-text" readonly rows="2" [value]="share()"></textarea>
+              </label>
+            }
+          }
+          <button type="button" class="btn btn-block" (click)="begin()">Chơi lại để luyện</button>
+          <a class="link-btn" routerLink="/games">Về danh sách trò</a>
+        </div>
+      }
+    }
+    @case ('playing') {
+      <ol class="dots" aria-label="Tiến độ">
+        @for (d of dots(); track $index) {
+          <li
+            class="dot"
+            [class.is-right]="d.status === 'right'"
+            [class.is-wrong]="d.status === 'wrong'"
+            [class.is-current]="d.status === 'current'"
+          >
+            <span aria-hidden="true">{{ d.status === 'right' ? '✓' : d.status === 'wrong' ? '✗' : '' }}</span>
+            <span class="visually-hidden">{{ d.name }}</span>
+          </li>
+        }
+      </ol>
+
+      @if (question(); as q) {
+        <div class="play">
+          @switch (q.kind) {
+            @case ('picture') {
+              @if (q.picture; as p) {
+                <div class="picture soft-card">
+                  <img class="picture-img" crossorigin="use-credentials" referrerpolicy="no-referrer" [src]="imageUrl(p.imageUrl)" alt="Ảnh câu hỏi" />
+                </div>
+                <p class="ask" id="daily-ask">Đây là gì?</p>
+                <div class="grid" role="group" aria-labelledby="daily-ask">
+                  @for (o of p.options; track $index) {
+                    <button
+                      type="button"
+                      class="game-option"
+                      lang="en"
+                      [class.is-right]="answered() && $index === p.answer"
+                      [class.is-wrong]="chosen() === $index && $index !== p.answer"
+                      [disabled]="answered() !== null"
+                      (click)="choose($index)"
+                    >
+                      @if (answered() && $index === p.answer) {
+                        <span aria-hidden="true">✓</span>
+                      } @else if (chosen() === $index) {
+                        <span aria-hidden="true">✗</span>
+                      }
+                      {{ o }}
+                    </button>
+                  }
+                </div>
+              }
+            }
+            @case ('verb') {
+              @if (verb(); as v) {
+                <div class="soft-card verb">
+                  <p class="ask">Gõ V2 và V3 của động từ</p>
+                  <p class="verb-base" lang="en">{{ v.base }}</p>
+                  <p class="muted">{{ v.meaningVi }}</p>
+                </div>
+                <form class="verb-form" (submit)="checkVerb($event)">
+                  <label class="field">
+                    <span class="field-label">V2 (quá khứ)</span>
+                    <input
+                      #v2Input
+                      class="input"
+                      lang="en"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      autocorrect="off"
+                      spellcheck="false"
+                      [value]="v2()"
+                      [disabled]="answered() !== null"
+                      [class.is-right]="answered() && v2Right()"
+                      [class.is-wrong]="answered() && !v2Right()"
+                      (input)="typeV2($event)"
+                      (keydown.enter)="v2Enter($event)"
+                    />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">V3 (quá khứ phân từ)</span>
+                    <input
+                      #v3Input
+                      class="input"
+                      lang="en"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      autocorrect="off"
+                      spellcheck="false"
+                      [value]="v3()"
+                      [disabled]="answered() !== null"
+                      [class.is-right]="answered() && v3Right()"
+                      [class.is-wrong]="answered() && !v3Right()"
+                      (input)="typeV3($event)"
+                    />
+                  </label>
+                  @if (answered() === null) {
+                    <button type="submit" class="btn-primary btn-block">Kiểm tra</button>
+                  } @else if (!v2Right() || !v3Right()) {
+                    <p class="reveal" lang="en">
+                      <span aria-hidden="true">✓</span> {{ v.base }} – {{ v.past }} – {{ v.participle }}
+                    </p>
+                  }
+                </form>
+              }
+            }
+            @case ('letters') {
+              @if (q.letters; as w) {
+                <div class="soft-card spell">
+                  <p class="ask">Ghép chữ</p>
+                  <p class="spell-meaning">{{ w.meaningVi }}</p>
+                  <div class="boxes" lang="en" aria-label="Các chữ đã ghép">
+                    @for (b of boxes(); track $index) {
+                      <span class="box" [class.is-shown]="b.shown">{{ b.ch }}</span>
+                    }
+                  </div>
+                </div>
+                <div class="tiles" role="group" aria-label="Chạm các chữ theo thứ tự">
+                  @for (t of tiles(); track t.id) {
+                    <button
+                      type="button"
+                      class="game-option tile"
+                      lang="en"
+                      [disabled]="answered() !== null || isPlaced(t)"
+                      (click)="tap(t)"
+                    >
+                      {{ t.ch }}
+                    </button>
+                  }
+                </div>
+              }
+            }
+            @case ('grammar') {
+              @if (q.grammar; as g) {
+                <div class="soft-card spot">
+                  <p class="ask">Chạm vào phần sai, hoặc chọn "Không có lỗi"</p>
+                  <p class="tokens" lang="en">
+                    @for (t of g.tokens; track $index) {
+                      <button
+                        type="button"
+                        class="token"
+                        [class.is-picked]="tapped() === $index"
+                        [class.is-wrong]="isWrongToken($index)"
+                        [disabled]="answered() !== null || tapped() !== null"
+                        (click)="tapToken($index)"
+                      >
+                        {{ t }}
+                      </button>
+                    }
+                  </p>
+                </div>
+                @if (tapped() !== null && answered() === null) {
+                  <p class="ask" id="daily-fix">Sửa thành</p>
+                  <div class="grid" role="group" aria-labelledby="daily-fix">
+                    @for (o of g.options; track $index) {
+                      <button type="button" class="game-option" lang="en" (click)="pickOption($index)">{{ o }}</button>
+                    }
+                  </div>
+                } @else if (answered() === null) {
+                  <button type="button" class="btn btn-block" (click)="noError()">Không có lỗi</button>
+                } @else {
+                  <div class="soft-card rule">
+                    @if (g.wrong) {
+                      <p lang="en"><span aria-hidden="true">✓</span> {{ fixed() }}</p>
+                    } @else {
+                      <p>Câu này không có lỗi.</p>
+                    }
+                    @if (g.ruleVi) {
+                      <p class="muted small">{{ g.ruleVi }}</p>
+                    }
+                  </div>
+                }
+              }
+            }
+          }
+
+          @if (answered(); as a) {
+            <div class="feedback">
+              <p class="verdict" [class.is-right]="a.right" [class.is-wrong]="!a.right">
+                <span aria-hidden="true">{{ a.right ? '✓' : '✗' }}</span>
+                {{ a.right ? 'Đúng rồi!' : a.timedOut ? 'Hết giờ' : 'Chưa đúng' }}
+                @if (q.kind === 'picture' && !a.right && q.picture) {
+                  · <span lang="en">{{ q.picture.options[q.picture.answer] }}</span>
+                }
+                @if (q.kind === 'letters' && !a.right && q.letters) {
+                  · <span lang="en">{{ q.letters.lemma }}</span>
+                }
+              </p>
+              <button #nextBtn type="button" class="btn-primary btn-block" (click)="next()">
+                {{ index() + 1 >= count ? 'Xem kết quả' : 'Câu tiếp' }}
+              </button>
+            </div>
+          }
+        </div>
+      }
+    }
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announce() }}</p>
+</lu-game-shell>

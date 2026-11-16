@@ -92,3 +92,40 @@ func TestPracticeMissesEndpoint(t *testing.T) {
 		t.Fatalf("anonymous: %d", rec.Code)
 	}
 }
+
+func TestGameMisses(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	now := e.clock.Now()
+	later := e.repo.put(Card{
+		UserID: "u1", Text: "bicycle", Lemma: "bicycle", MeaningVi: "xe đạp", Source: SourceAI, CreatedAt: now.AddDate(0, 0, -10),
+		Schedule: Schedule{Due: now.AddDate(0, 0, 1), Stability: 4.5, Reps: 2, State: StateReview},
+	})
+	overdue := e.repo.put(Card{
+		UserID: "u1", Text: "apple", Lemma: "apple", MeaningVi: "quả táo", Source: SourceAI, CreatedAt: now.AddDate(0, 0, -10),
+		Schedule: Schedule{Due: now.Add(-time.Hour), Stability: 2, Reps: 1, State: StateReview},
+	})
+
+	n, err := e.svc.GameMisses(t.Context(), "u1", []string{"Bicycle", " bicycle ", "apple", "unknown"})
+	if err != nil || n != 1 {
+		t.Fatalf("GameMisses = %d, %v", n, err)
+	}
+	c, _ := e.repo.Get(t.Context(), "u1", later.ID)
+	if !c.Schedule.Due.Equal(now) || c.Schedule.Stability != 4.5 || c.Schedule.Reps != 2 || c.Schedule.State != StateReview {
+		t.Fatalf("brought forward = %+v", c.Schedule)
+	}
+	o, _ := e.repo.Get(t.Context(), "u1", overdue.ID)
+	if !o.Schedule.Due.Equal(now.Add(-time.Hour)) {
+		t.Fatalf("overdue card moved: %+v", o.Schedule)
+	}
+	if _, err := e.repo.FindByLemma(t.Context(), "u1", "unknown"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("a card was created for an unknown word: %v", err)
+	}
+	if n, err := e.svc.GameMisses(t.Context(), "u1", nil); n != 0 || err != nil {
+		t.Fatalf("empty = %d, %v", n, err)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.GameMisses(t.Context(), "u1", make([]string, 61)); !errors.As(err, &verr) {
+		t.Fatalf("61 words: %v", err)
+	}
+}

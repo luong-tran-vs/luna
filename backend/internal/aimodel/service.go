@@ -49,7 +49,7 @@ var Ops = []string{
 	"explain", "talk", "talk_review", "speak_check", "grade",
 	"generate", "annotate", "practice", "glosses", "lesson_review", "lesson_fix", "lesson_simplify",
 	"curriculum_draft", "curriculum_draft_topic", "grammar_lesson", "grammar_pictures", "grammar_solve",
-	"suggest_words", "word_meanings",
+	"suggest_words", "word_meanings", "grammar_spot",
 }
 
 var (

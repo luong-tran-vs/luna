@@ -9,7 +9,7 @@
         [attr.aria-busy]="importing()"
         (click)="importTopics()"
       >
-        {{ importing() ? 'Đang nhập…' : 'Nhập từ các chủ đề' }}
+        {{ importing() ? 'Đang đồng bộ…' : 'Đồng bộ từ vựng' }}
       </button>
     </div>
   </header>
@@ -297,12 +297,12 @@
     @if (ws.length === 0) {
       <p class="card muted">
         @if (topicFilter() && !search() && !missing()) {
-          Kho chưa có từ nào của chủ đề này. Bấm "Nhập từ các chủ đề" để đưa các từ của chủ đề vào
+          Kho chưa có từ nào của chủ đề này. Bấm "Đồng bộ từ vựng" để đưa các từ của chủ đề vào
           kho.
         } @else if (search() || missing() || topicFilter()) {
           Không có từ nào khớp.
         } @else {
-          Kho chưa có từ nào. Thêm từ ở trên hoặc bấm "Nhập từ các chủ đề".
+          Kho chưa có từ nào. Thêm từ ở trên hoặc bấm "Đồng bộ từ vựng".
         }
       </p>
     } @else {

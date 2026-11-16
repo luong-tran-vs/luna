@@ -21,6 +21,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/curriculum"
 	"github.com/luongtran/luna/backend/internal/export"
+	"github.com/luongtran/luna/backend/internal/games"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/job"
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -85,6 +86,11 @@ type Store interface {
 
 	// VerbProgress keeps which irregular verbs each learner knows and when each is asked again.
 	VerbProgress() verbs.Repository
+	// GameBests, DailyChallenges and GrammarSpotItems keep the games: personal bests, daily challenge
+	// results and the extra "Bắn lỗi" sentences (F26).
+	GameBests() games.BestRepository
+	DailyChallenges() games.DailyRepository
+	GrammarSpotItems() games.SpotRepository
 	// LessonGlosses keeps the meaning in context of every word of each lesson (added 2026-10-20).
 	LessonGlosses() lesson.GlossRepository
 

@@ -1,0 +1,94 @@
+<lu-game-shell
+  title="Lật thẻ ghi nhớ"
+  [running]="phase() === 'playing'"
+  (paused)="pause()"
+  (resumed)="resume()"
+  (quit)="quit()"
+>
+  <div pills class="pill-row">
+    @if (phase() === 'playing') {
+      <span class="game-pill" [attr.aria-label]="'Thời gian ' + timeLabel()">
+        <span aria-hidden="true">⏱ {{ timeLabel() }}</span>
+      </span>
+      <span class="game-pill">Lượt {{ state().moves }}</span>
+      <span class="game-pill">Cặp {{ pairs() }}/{{ total() }}</span>
+    } @else {
+      <h1 class="game-name">Lật thẻ ghi nhớ</h1>
+    }
+  </div>
+
+  @switch (phase()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('empty') {
+      <div class="soft-card note">
+        <p>Học thêm vài bài để mở trò này: cần ít nhất 6 từ đã học.</p>
+        <a class="btn-primary btn-block" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('forbidden') {
+      <div class="soft-card note">
+        <p>Bạn chưa mở bài này.</p>
+        <a class="btn-primary btn-block" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('error') {
+      <div class="soft-card note" role="alert">
+        <p>Không tải được lượt chơi.</p>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Thử lại</button>
+      </div>
+    }
+    @case ('done') {
+      <lu-game-result
+        heading="Xong!"
+        [score]="score()"
+        [extra]="extra()"
+        [best]="best()"
+        [newBest]="newBest()"
+        [offline]="offline()"
+        (again)="load()"
+      />
+    }
+    @case ('playing') {
+      <div class="board" role="group" aria-label="Lưới thẻ">
+        @for (c of state().cards; track $index) {
+          <button
+            type="button"
+            class="card"
+            [class.is-up]="up($index)"
+            [class.is-matched]="state().matched[$index]"
+            [class.is-wrong]="wrong($index)"
+            [attr.aria-label]="label(c, $index)"
+            [attr.aria-disabled]="state().matched[$index] ? 'true' : null"
+            (click)="flip($index)"
+          >
+            <span class="card-inner" aria-hidden="true">
+              <span class="face back"><span class="back-mark">?</span></span>
+              <span class="face front">
+                @switch (c.face) {
+                  @case ('image') {
+                    <img class="card-img" crossorigin="use-credentials" referrerpolicy="no-referrer" [src]="imageUrl(c)" alt="Ảnh" />
+                  }
+                  @case ('word') {
+                    <span class="card-text" lang="en">{{ c.text }}</span>
+                  }
+                  @default {
+                    <span class="card-text is-meaning">{{ c.text }}</span>
+                  }
+                }
+                @if (state().matched[$index]) {
+                  <span class="mark is-ok">✓</span>
+                } @else if (wrong($index)) {
+                  <span class="mark is-bad">✗</span>
+                }
+              </span>
+            </span>
+          </button>
+        }
+      </div>
+      <p class="hint">Lật 2 thẻ để tìm cặp từ và ảnh (hoặc nghĩa)</p>
+    }
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announce() }}</p>
+</lu-game-shell>

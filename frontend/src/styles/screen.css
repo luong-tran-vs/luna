@@ -378,3 +378,53 @@
   border: 0;
   cursor: pointer;
 }
+
+/* A rounded pill of a game's top row (⏱ 0:44, 🔥 x2, 1.200; F26). */
+.game-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  white-space: nowrap;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+}
+
+/* A big answer button of a game, in the lower half of the screen (≥ 44px). */
+.game-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 56px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.game-option.is-right {
+  color: var(--color-ok);
+  border-color: var(--color-ok);
+  background: color-mix(in srgb, var(--color-ok) 10%, var(--color-surface));
+}
+
+.game-option.is-wrong {
+  color: var(--color-bad);
+  border-color: var(--color-bad);
+  background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
+}
+
+.game-option:disabled {
+  cursor: default;
+}

@@ -89,6 +89,8 @@ type resultsRequest struct {
 			Typed string `json:"typed"`
 		} `json:"wrong"`
 		Practice bool `json:"practice"`
+		// Game: an answer given in a game (F26).
+		Game bool `json:"game"`
 	} `json:"results"`
 }
 
@@ -101,7 +103,7 @@ func (h *Handler) record(w http.ResponseWriter, r *http.Request) {
 	}
 	results := make([]Result, len(req.Results))
 	for i, res := range req.Results {
-		results[i] = Result{Base: res.Base, Right: res.Right, Quick: res.Quick, Hard: res.Hard, Practice: res.Practice}
+		results[i] = Result{Base: res.Base, Right: res.Right, Quick: res.Quick, Hard: res.Hard, Practice: res.Practice, Game: res.Game}
 		for _, m := range res.Wrong {
 			results[i].Wrong = append(results[i].Wrong, Mistake{Form: m.Form, Typed: m.Typed})
 		}

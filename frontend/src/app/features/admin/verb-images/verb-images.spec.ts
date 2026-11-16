@@ -37,6 +37,7 @@ const list = (over: Partial<VerbImageList> = {}): VerbImageList => ({
 });
 
 describe('VerbImages', () => {
+  beforeEach(() => localStorage.clear()); // hidden batch results (2026-11-16)
   let fixture: ComponentFixture<VerbImages>;
   let el: HTMLElement;
   let http: HttpTestingController;

@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
+	"strings"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -27,6 +29,48 @@ func (c *Container) initWordBank() {
 		Now:              time.Now,
 		Log:              c.log,
 	})
+	// Words an admin or the AI puts in a topic's list join the bank too (added 2026-11-16).
+	c.topic.OnWords(func(ctx context.Context, words []string) {
+		add := make([]wordbank.NewWord, len(words))
+		for i, w := range words {
+			add[i] = wordbank.NewWord{Lemma: w}
+		}
+		if _, err := c.wordBank.AddWords(ctx, add); err != nil {
+			c.log.WarnContext(ctx, "wordbank: add topic words", slog.Any("error", err))
+		}
+	})
+}
+
+// lessonVocab adapts topic.Service and wordbank.Service to lesson.VocabSink: the words of a lesson
+// join its topic's list with the lesson's level, and the bank with their meaning in the lesson.
+type lessonVocab struct {
+	topics *topic.Service
+	bank   *wordbank.Service
+}
+
+func (v lessonVocab) LessonWords(ctx context.Context, topicID string, level lesson.Level, words []lesson.LessonWord) (int, error) {
+	var targets, others []string
+	meaning := make(map[string]string, len(words))
+	for _, w := range words {
+		if w.Target {
+			targets = append(targets, w.Lemma)
+		} else {
+			others = append(others, w.Lemma)
+		}
+		meaning[strings.ToLower(w.Lemma)] = w.MeaningVi
+	}
+	held, added, err := v.topics.AddLessonWords(ctx, topicID, string(level), targets, others)
+	if err != nil {
+		return 0, fmt.Errorf("topic words: %w", err)
+	}
+	add := make([]wordbank.NewWord, len(held))
+	for i, w := range held {
+		add[i] = wordbank.NewWord{Lemma: w, MeaningVi: meaning[strings.ToLower(w)]}
+	}
+	if _, err := v.bank.AddWords(ctx, add); err != nil {
+		return added, fmt.Errorf("word bank: %w", err)
+	}
+	return added, nil
 }
 
 // topicWords adapts topic.Service to wordbank.TopicWords.

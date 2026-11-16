@@ -10,6 +10,7 @@ import { BatchWatcher } from '../batch-watcher';
  */
 @Injectable({ providedIn: 'root' })
 export class GrammarImageBatchService extends BatchWatcher<GrammarImageBatch> {
+  protected readonly hideKey = 'luna.admin.hiddenBatch.grammarImages';
   private readonly api = inject(AdminApiService);
 
   protected fetch() {

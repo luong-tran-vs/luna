@@ -101,6 +101,7 @@ export class PracticeMenu {
         badge: struggling,
       },
       { label: 'Trò chuyện', icon: 'chat', link: '/vocabulary/talk', note: 'với AI', badge: 0 },
+      { label: 'Trò chơi', icon: 'trophy', link: '/games', note: 'Vừa chơi vừa học', badge: 0 },
       { label: 'Tiến độ', icon: 'chart', link: '/stats', note: 'Thống kê', badge: 0 },
     ];
   });

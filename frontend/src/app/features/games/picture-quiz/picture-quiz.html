@@ -1,0 +1,90 @@
+<lu-game-shell
+  title="Ảnh nhanh tay"
+  [running]="phase() === 'playing'"
+  [progress]="phase() === 'playing' ? progress() : null"
+  (paused)="pause()"
+  (resumed)="resume()"
+  (quit)="quit()"
+>
+  <div pills class="pill-row">
+    @if (phase() === 'playing') {
+      <span class="game-pill"><span aria-hidden="true">⏱</span>{{ timeLabel() }}</span>
+      <span class="game-pill" [attr.aria-label]="'Combo x' + state().combo">
+        <span aria-hidden="true">🔥 x{{ state().combo }}</span>
+      </span>
+      <span class="game-pill" [attr.aria-label]="'Điểm ' + state().score">{{
+        format(state().score)
+      }}</span>
+    } @else {
+      <h1 class="game-name">Ảnh nhanh tay</h1>
+    }
+  </div>
+
+  @switch (phase()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('empty') {
+      <div class="soft-card note">
+        <p>Học thêm vài bài để mở trò này: cần ít nhất 4 từ đã học có ảnh.</p>
+        <a class="btn-primary btn-block" routerLink="/games">Về danh sách trò</a>
+      </div>
+    }
+    @case ('error') {
+      <div class="soft-card note" role="alert">
+        <p>Không tải được lượt chơi.</p>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Thử lại</button>
+      </div>
+    }
+    @case ('done') {
+      <lu-game-result
+        [heading]="endHeading()"
+        [score]="state().score"
+        [right]="state().right"
+        [wrong]="state().wrong"
+        [best]="best()"
+        [newBest]="newBest()"
+        [missed]="missed()"
+        [offline]="offline()"
+        (again)="load()"
+      />
+    }
+    @case ('playing') {
+      @if (question(); as q) {
+        <div class="play">
+          <div class="picture soft-card">
+            <img class="picture-img" crossorigin="use-credentials" referrerpolicy="no-referrer" [src]="imageUrl(q)" alt="Ảnh câu hỏi" />
+            @if (state().gained > 0) {
+              <span class="gain" aria-hidden="true">+{{ state().gained }}</span>
+            }
+          </div>
+          <div class="answers">
+            <p class="ask" id="picture-ask">Đây là gì?</p>
+            <div class="grid" role="group" aria-labelledby="picture-ask">
+              @for (o of q.options; track $index) {
+                <button
+                  type="button"
+                  class="game-option"
+                  lang="en"
+                  [class.is-right]="state().chosen !== null && $index === q.answer"
+                  [class.is-wrong]="state().chosen === $index && $index !== q.answer"
+                  [disabled]="state().chosen !== null"
+                  (click)="choose($index)"
+                >
+                  @if (state().chosen !== null && $index === q.answer) {
+                    <span aria-hidden="true">✓</span>
+                  } @else if (state().chosen === $index) {
+                    <span aria-hidden="true">✗</span>
+                  }
+                  {{ o }}
+                </button>
+              }
+            </div>
+            <p class="hint">Câu {{ state().index + 1 }} · Từ sai sẽ quay lại lịch ôn</p>
+          </div>
+        </div>
+      }
+    }
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announce() }}</p>
+</lu-game-shell>

@@ -238,6 +238,9 @@
             @if (practiceItems().length) {
               <lu-practice-list heading="Luyện thêm (tuỳ chọn)" [items]="practiceItems()" (go)="openStep($event)" />
             }
+            <a class="link-btn memory-link" routerLink="/games/memory" [queryParams]="{ lessonId: id() }"
+              >Chơi Lật thẻ với từ của bài này</a
+            >
             <button type="button" class="btn btn-block" (click)="relearnAsk.set(true)">
               <lu-icon name="review" /> Học lại bài này
             </button>

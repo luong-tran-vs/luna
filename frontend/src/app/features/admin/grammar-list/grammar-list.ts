@@ -12,7 +12,9 @@ import {
   PICTURE_MASTERY,
   PICTURE_PRACTICE,
 } from '../../../core/models/grammar-admin';
+import { SpotCount } from '../../../core/models/games';
 import { Level, LEVELS } from '../../../core/models/lesson';
+import { GamesApiService } from '../../../core/services/games-api.service';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { Loading } from '../../../shared/components/loading/loading';
 import { AdminApiService } from '../admin-api.service';
@@ -23,6 +25,8 @@ import { GrammarLevelPictures } from '../grammar-images/grammar-level-pictures';
 
 const GENERATE_FAILED = 'Sinh bài thất bại, vui lòng thử lại.';
 const ACTION_FAILED = 'Không thực hiện được, vui lòng thử lại.';
+/** A point with fewer "Bắn lỗi" sentences is flagged (FR-026a). */
+const SPOT_ENOUGH = 10;
 
 /** F20: the curriculum by level with the state of each point's grammar lesson and its actions. */
 @Component({
@@ -92,11 +96,40 @@ export class GrammarList {
     return counts;
   });
 
+  /** F26: the "Bắn lỗi" sentences of each published point (FR-026a); a failed load shows "—". */
+  private readonly games = inject(GamesApiService);
+  private readonly spotCounts = signal<Record<string, SpotCount>>({});
+
   private loadSeq = 0;
 
   constructor() {
     this.load();
     this.loadReports();
+    this.loadSpotCounts();
+  }
+
+  private loadSpotCounts(): void {
+    this.games.spotCounts().subscribe({
+      next: (r) => this.spotCounts.set(Object.fromEntries(r.points.map((c) => [c.pointId, c]))),
+      error: () => this.spotCounts.set({}),
+    });
+  }
+
+  /** The level's "Bắn lỗi" sentences and how many published points have under 10. */
+  protected readonly spotLevel = computed(() => {
+    const list = Object.values(this.spotCounts()).filter((c) => c.level === this.level());
+    return list.length
+      ? {
+          total: list.reduce((n, c) => n + c.total, 0),
+          low: list.filter((c) => c.total < SPOT_ENOUGH).length,
+        }
+      : null;
+  });
+
+  /** The point's "Bắn lỗi" count: null without a published lesson; low under 10 sentences. */
+  protected spotOf(p: GrammarPoint): { total: number; low: boolean } | null {
+    const c = this.spotCounts()[p.id];
+    return c ? { total: c.total, low: c.total < SPOT_ENOUGH } : null;
   }
 
   private loadReports(): void {

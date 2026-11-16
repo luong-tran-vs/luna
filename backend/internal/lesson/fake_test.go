@@ -648,3 +648,7 @@ func (f *fakeAI) SuggestFix(_ context.Context, req ai.FixRequest) (ai.FixResult,
 func (f *fakeAI) GrammarPictures(context.Context, ai.GrammarPicturesRequest) (ai.GrammarPictures, error) {
 	return ai.GrammarPictures{}, ai.ErrNotConfigured
 }
+
+func (f *fakeAI) GrammarSpotItems(context.Context, ai.GrammarSpotRequest) ([]ai.GrammarSpotItem, error) {
+	return nil, ai.ErrNotConfigured
+}

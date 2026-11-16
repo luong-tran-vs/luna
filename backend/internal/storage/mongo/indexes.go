@@ -99,6 +99,29 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 		return fmt.Errorf("verb_progress index: %w", err)
 	}
 
+	// Games (F26): one best per game and one daily challenge result per day of each learner, and the
+	// extra "Bắn lỗi" sentences by point.
+	_, err = db.Collection(export.CollGameBests).Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "userId", Value: 1}, {Key: "game", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("game_bests index: %w", err)
+	}
+	_, err = db.Collection(export.CollDailyChallenges).Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "userId", Value: 1}, {Key: "day", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("daily_challenges index: %w", err)
+	}
+	_, err = db.Collection(collGrammarSpotItems).Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys: bson.D{{Key: "pointId", Value: 1}, {Key: "status", Value: 1}},
+	})
+	if err != nil {
+		return fmt.Errorf("grammar_spot_items index: %w", err)
+	}
+
 	// Daily flow (L).
 	_, err = db.Collection("goals").Indexes().CreateMany(ctx, []mongo.IndexModel{
 		// One goal per roadmap: a topic at one level.

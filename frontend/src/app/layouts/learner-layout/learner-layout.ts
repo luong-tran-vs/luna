@@ -54,9 +54,9 @@ const TABS: readonly Tab[] = [
   },
 ];
 
-/** The pages opened from Luyện: grammar, the irregular verbs and talking with the AI. */
+/** The pages opened from Luyện: grammar, the irregular verbs, talking with the AI and the games. */
 function isPracticePath(path: string): boolean {
-  return ['/grammar', '/irregular-verbs', '/vocabulary/talk'].some(
+  return ['/grammar', '/irregular-verbs', '/vocabulary/talk', '/games'].some(
     (s) => path === s || path.startsWith(s + '/'),
   );
 }
@@ -71,7 +71,8 @@ export function isFocusPage(path: string): boolean {
     /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path) ||
     /^\/grammar\/[^/]+$/.test(path) ||
     /^\/irregular-verbs\/(lessons\/[^/]+|review|listen)$/.test(path) ||
-    /^\/vocabulary\/talk\/[^/]+$/.test(path)
+    /^\/vocabulary\/talk\/[^/]+$/.test(path) ||
+    /^\/games\/[^/]+$/.test(path)
   );
 }
 

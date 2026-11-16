@@ -5,10 +5,12 @@ import { RouterLink } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { accuracyOf, Dashboard, Stats } from '../../core/models/dashboard';
+import { DailyStatus } from '../../core/models/games';
 import { GoalView, Goals, PublicTopic } from '../../core/models/study';
 import { formatScore } from '../../core/models/writing';
 import { AuthService } from '../../core/services/auth.service';
 import { DashboardApiService } from '../../core/services/dashboard-api.service';
+import { GamesApiService } from '../../core/services/games-api.service';
 import { StudyApiService } from '../../core/services/study-api.service';
 import { VocabApiService } from '../../core/services/vocab-api.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
@@ -67,6 +69,7 @@ export class Home {
   private readonly auth = inject(AuthService);
   private readonly vocab = inject(VocabApiService);
   private readonly study = inject(StudyApiService);
+  private readonly games = inject(GamesApiService);
   protected readonly notifier = inject(WritingNotifier);
 
   protected readonly data = signal<Dashboard | null>(null);
@@ -79,6 +82,8 @@ export class Home {
     return w ? weekSummary(w) : '';
   });
   protected readonly loadError = signal(false);
+  /** Today's challenge for its card (F26, FR-032); the card is hidden without it. */
+  protected readonly daily = signal<DailyStatus | null>(null);
   /** Cards due now; the page works without it (0). */
   protected readonly dueToday = signal(0);
   protected readonly dueMinutes = computed(() => Math.max(1, Math.ceil((this.dueToday() * 20) / 60)));
@@ -186,6 +191,10 @@ export class Home {
       .due(1)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({ next: (list) => this.dueToday.set(list.total), error: () => undefined });
+    this.games
+      .list()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({ next: (g) => this.daily.set(g.daily), error: () => this.daily.set(null) });
   }
 
   /** Looks for the topic to suggest once the goal's is finished; without it the card offers the list. */

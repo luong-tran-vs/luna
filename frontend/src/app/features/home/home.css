@@ -124,7 +124,8 @@
 }
 
 .review,
-.week {
+.week,
+.daily {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -205,4 +206,12 @@
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
   color: var(--color-primary-ink);
+}
+
+/* Today's challenge (F26): "Bắt đầu", or "Đã xong" once played. */
+.daily-done {
+  flex: none;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-ok);
 }

@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/cefr"
 )
 
 // fillCoverage sets WordCount and UsedWordCount of topics with words, reading the lessons of
@@ -64,6 +65,7 @@ func (s *Service) SetWords(ctx context.Context, id string, words []Word) ([]Word
 	if err != nil {
 		return nil, fmt.Errorf("topic: set words: %w", err)
 	}
+	s.wordsAdded(ctx, Texts(clean))
 	return s.coverage(ctx, t)
 }
 
@@ -177,6 +179,7 @@ func (s *Service) SuggestWords(ctx context.Context, id, level string, count int)
 	if err != nil {
 		return nil, nil, fmt.Errorf("topic: set words: %w", err)
 	}
+	s.wordsAdded(ctx, added)
 	uses, err := s.coverage(ctx, updated)
 	if err != nil {
 		return nil, nil, err
@@ -211,4 +214,100 @@ func (s *Service) AddWord(ctx context.Context, id, text string) error {
 		return fmt.Errorf("topic: set words: %w", err)
 	}
 	return nil
+}
+
+// LessonFill is how many words usable at a level a topic's list is filled up to from the words of
+// its lessons of that level; a list that has them takes none (added 2026-11-16).
+const LessonFill = 30
+
+// AddLessonWords puts the words of the topic's lessons of level in its list (added 2026-11-16,
+// tightened the same day: the AI annotates everyday words too). The lessons' target words, chosen
+// for them, are all appended with level when new (ignoring case). The other annotated words only
+// fill a list that has fewer than LessonFill words usable at level, up to LessonFill: the new ones
+// the CEFR-J list does not rank below level, those of level first, then the ones it does not know,
+// then those above. MaxWords bounds both; words the list does not accept are skipped and words
+// already there keep their level. It returns the given words the list now holds, as written in it,
+// and how many were added. It does not call onWords: the caller puts the words in the word bank
+// with the meanings it has.
+func (s *Service) AddLessonWords(ctx context.Context, id, level string, targets, others []string) ([]string, int, error) {
+	if !ValidLevel(level) {
+		return nil, 0, &ValidationError{Fields: map[string]string{"level": "Vui lòng chọn trình độ từ A1 đến C2"}}
+	}
+	t, err := s.repo.Get(ctx, id)
+	if err != nil {
+		return nil, 0, err
+	}
+	have := make(map[string]string, len(t.Words))
+	fit := 0
+	for _, w := range t.Words {
+		have[strings.ToLower(w.Text)] = w.Text
+		if w.FitsLevel(level) {
+			fit++
+		}
+	}
+	words := slices.Clone(t.Words)
+	held, added := []string{}, 0
+	seen := map[string]bool{}
+	// take returns the cleaned new word, or "" when it is invalid, seen or already in the list.
+	take := func(raw string) string {
+		w, msg := cleanWord(raw)
+		key := strings.ToLower(w)
+		if msg != "" || seen[key] {
+			return ""
+		}
+		seen[key] = true
+		if text, ok := have[key]; ok {
+			held = append(held, text)
+			return ""
+		}
+		return w
+	}
+	push := func(w string) {
+		words = append(words, Word{Text: w, Level: level})
+		have[strings.ToLower(w)] = w
+		held = append(held, w)
+		fit++
+		added++
+	}
+	for _, raw := range targets {
+		if w := take(raw); w != "" && len(words) < MaxWords {
+			push(w)
+		}
+	}
+	type candidate struct {
+		text string
+		rank int // 0 at level, 1 unknown to CEFR-J, 2 above
+	}
+	var cands []candidate
+	for _, raw := range others {
+		w := take(raw)
+		if w == "" {
+			continue
+		}
+		c := candidate{text: w, rank: 1}
+		if l, ok := cefr.Level(strings.ToLower(w)); ok {
+			switch r := cefr.Rank(l); {
+			case r < cefr.Rank(level):
+				continue // an everyday word for this level
+			case r == cefr.Rank(level):
+				c.rank = 0
+			default:
+				c.rank = 2
+			}
+		}
+		cands = append(cands, c)
+	}
+	slices.SortStableFunc(cands, func(a, b candidate) int { return a.rank - b.rank })
+	for _, c := range cands {
+		if fit >= LessonFill || len(words) >= MaxWords {
+			break
+		}
+		push(c.text)
+	}
+	if added > 0 {
+		if _, err := s.repo.SetWords(ctx, id, words); err != nil {
+			return nil, 0, fmt.Errorf("topic: set words: %w", err)
+		}
+	}
+	return held, added, nil
 }

@@ -1,0 +1,183 @@
+.pill-row {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.game-name {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.hearts {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--color-bad);
+}
+
+.hearts .is-lost {
+  color: var(--color-text-muted);
+}
+
+.note {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.note p {
+  margin: 0;
+}
+
+.play {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: calc(100dvh - 140px);
+}
+
+.verb {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+}
+
+.verb-img {
+  width: min(100%, 200px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.base {
+  margin: 0;
+  font: var(--text-2xl) var(--font-ui);
+  overflow-wrap: anywhere;
+}
+
+.meaning {
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.answers {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.box {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.box-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.box-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
+  scroll-margin: var(--space-6);
+}
+
+.box-input:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.box-input.is-right {
+  border-color: var(--color-ok);
+  background: color-mix(in srgb, var(--color-ok) 10%, var(--color-surface));
+}
+
+.box-input.is-wrong {
+  border-color: var(--color-bad);
+  background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
+}
+
+.mark-ok {
+  color: var(--color-ok);
+}
+
+.mark-bad {
+  color: var(--color-bad);
+}
+
+.verdict,
+.solution {
+  margin: 0;
+  padding: var(--space-3);
+  text-align: center;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  border-radius: var(--radius-md);
+}
+
+.verdict {
+  background: color-mix(in srgb, var(--color-ok) 10%, var(--color-surface));
+  animation: pop 0.25s ease-out both;
+}
+
+.solution {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
+  border: 1px solid var(--color-bad);
+}
+
+.solution-label {
+  color: var(--color-bad);
+  margin-right: var(--space-1);
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verdict {
+    animation: none;
+  }
+}

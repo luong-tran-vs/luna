@@ -51,7 +51,7 @@ func TestWordsAPI(t *testing.T) {
 		!strings.Contains(rec.Body.String(), "đã có trong kho") {
 		t.Fatalf("duplicate = %d %s", rec.Code, rec.Body)
 	}
-	if rec = do(mux, http.MethodPost, "/api/admin/words/import", ``); rec.Code != http.StatusOK || rec.Body.String() != "{\"added\":2}\n" {
+	if rec = do(mux, http.MethodPost, "/api/admin/words/import", ``); rec.Code != http.StatusOK || rec.Body.String() != "{\"added\":2,\"topicWords\":0}\n" {
 		t.Fatalf("import = %d %s", rec.Code, rec.Body)
 	}
 

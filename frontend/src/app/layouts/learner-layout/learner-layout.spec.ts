@@ -22,6 +22,8 @@ describe('isFocusPage', () => {
     expect(isFocusPage('/irregular-verbs')).toBe(false);
     expect(isFocusPage('/vocabulary/talk/s1')).toBe(true);
     expect(isFocusPage('/vocabulary/talk')).toBe(false);
+    expect(isFocusPage('/games/picture')).toBe(true);
+    expect(isFocusPage('/games')).toBe(false);
     expect(isFocusPage('/')).toBe(false);
   });
 });
