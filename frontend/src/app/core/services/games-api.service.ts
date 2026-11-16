@@ -17,6 +17,8 @@ import {
   PictureRound,
   SpotCounts,
   SpotGenerateReply,
+  SpotImportItem,
+  SpotImportReply,
   SpotItem,
   SpotItemEdit,
   VerbMiss,
@@ -165,6 +167,27 @@ export class GamesApiService {
 
   generateSpots(pointId: string): Observable<SpotGenerateReply> {
     return this.http.post<SpotGenerateReply>('/admin/games/spot-items/generate', { pointId });
+  }
+
+  /** Approves every draft of the points at once (all points when pointIds is omitted). */
+  approveSpotDrafts(pointIds?: string[]): Observable<{ approved: number }> {
+    return this.http.post<{ approved: number }>(
+      '/admin/games/spot-items/approve-drafts',
+      pointIds ? { pointIds } : {},
+    );
+  }
+
+  /** Sentences written outside the AI; dryRun only checks them. */
+  importSpots(
+    pointId: string,
+    items: SpotImportItem[],
+    dryRun: boolean,
+  ): Observable<SpotImportReply> {
+    return this.http.post<SpotImportReply>('/admin/games/spot-items/import', {
+      pointId,
+      items,
+      dryRun,
+    });
   }
 
   updateSpot(id: string, edit: SpotItemEdit): Observable<{ item: SpotItem }> {

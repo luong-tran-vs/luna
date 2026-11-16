@@ -361,3 +361,25 @@ func (r *GrammarSpotItems) Delete(ctx context.Context, id string) error {
 	}
 	return nil
 }
+
+// ApproveDrafts approves every draft of the points (all when pointIDs is nil).
+func (r *GrammarSpotItems) ApproveDrafts(ctx context.Context, pointIDs []string, now time.Time) (int, error) {
+	query := `UPDATE grammar_spot_items SET status = ?, updated_at = ? WHERE status = ?`
+	params := []any{string(games.SpotApproved), utc(now), string(games.SpotDraft)}
+	if pointIDs != nil {
+		if len(pointIDs) == 0 {
+			return 0, nil
+		}
+		query += ` AND point_id IN (` + placeholders(len(pointIDs)) + `)`
+		params = append(params, args(pointIDs)...)
+	}
+	res, err := r.db.ExecContext(ctx, query, params...)
+	if err != nil {
+		return 0, fmt.Errorf("mysql approve spot drafts: %w", err)
+	}
+	n, err := res.RowsAffected()
+	if err != nil {
+		return 0, fmt.Errorf("mysql approve spot drafts: %w", err)
+	}
+	return int(n), nil
+}

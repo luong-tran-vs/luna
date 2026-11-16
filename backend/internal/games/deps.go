@@ -40,6 +40,9 @@ type SpotRepository interface {
 	Update(ctx context.Context, it SpotItem) error
 	// Delete removes the item; ErrNotFound for an unknown id.
 	Delete(ctx context.Context, id string) error
+	// ApproveDrafts approves every draft of the points (all points when pointIDs is nil) and
+	// returns how many it approved.
+	ApproveDrafts(ctx context.Context, pointIDs []string, now time.Time) (int, error)
 }
 
 // Card is a word of the learner's notebook as the games see it.

@@ -130,6 +130,8 @@ chuyển `wrongVerbs` sang `verbs.Service.Record` với `Game: true`.
 | `GET /api/admin/games/spot-counts` | `{ "points": [ { "pointId", "level", "choice", "fix", "spot", "draft", "total" } ] }` — mỗi điểm đã đăng, đếm câu dùng được theo nguồn (FR-026a). `total < 10` thì giao diện đánh dấu |
 | `GET /api/admin/games/spot-items?pointId=` | danh sách câu (nháp + đã duyệt) của một điểm |
 | `POST /api/admin/games/spot-items/generate` | `{ "pointId" }` → 1 request AI, `{ "created": [...], "dropped": 2 }`. `404` điểm không có bài đã đăng; lỗi AI (chưa cấu hình, sai khoá, hết hạn mức) trả cùng mã như `POST /api/admin/grammar-lessons/{pointId}/generate` |
+| `POST /api/admin/games/spot-items/import` | `{ "pointId", "items": [{ sentence, wrong, right, distractors, ruleVi }], "dryRun"? }` (hoặc `?dryRun=true`), tối đa 50 câu → `{ "dryRun", "created": [...], "kept", "dropped", "reports": [{ index, sentence, kept, duplicate?, fields? }] }`; dry run không lưu. `400` khi rỗng hoặc quá 50 câu; `404` điểm không có bài đã đăng (FR-026c) |
+| `POST /api/admin/games/spot-items/approve-drafts` | `{ "pointIds"? }` → duyệt mọi câu nháp của các điểm (thiếu `pointIds`: mọi điểm), `{ "approved": 12 }` (FR-026d) |
 | `PUT /api/admin/games/spot-items/{id}` | sửa `{ sentence, wrong, right, distractors, ruleVi }`; `400` khi không qua `ValidateSpot` |
 | `POST /api/admin/games/spot-items/{id}/approve` | nháp → đã duyệt |
 | `DELETE /api/admin/games/spot-items/{id}` | xoá |

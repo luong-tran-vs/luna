@@ -201,3 +201,29 @@ export interface SpotGenerateReply {
   created: SpotItem[];
   dropped: number;
 }
+
+/** Admin: a "Bắn lỗi" sentence written outside the AI, in the shape the AI returns. */
+export interface SpotImportItem {
+  sentence: string;
+  wrong: string;
+  right: string;
+  distractors: string[];
+  ruleVi: string;
+}
+
+/** Admin: what became of one imported sentence. */
+export interface SpotImportReport {
+  index: number;
+  sentence: string;
+  kept: boolean;
+  duplicate?: boolean;
+  fields?: Record<string, string>;
+}
+
+export interface SpotImportReply {
+  dryRun: boolean;
+  created: SpotItem[];
+  kept: number;
+  dropped: number;
+  reports: SpotImportReport[];
+}

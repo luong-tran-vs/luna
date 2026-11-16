@@ -365,3 +365,18 @@ func (r *GrammarSpotItems) Delete(ctx context.Context, id string) error {
 	}
 	return nil
 }
+
+// ApproveDrafts approves every draft of the points (all when pointIDs is nil).
+func (r *GrammarSpotItems) ApproveDrafts(ctx context.Context, pointIDs []string, now time.Time) (int, error) {
+	filter := bson.D{{Key: "status", Value: string(games.SpotDraft)}}
+	if pointIDs != nil {
+		filter = append(filter, bson.E{Key: "pointId", Value: bson.D{{Key: "$in", Value: pointIDs}}})
+	}
+	res, err := r.coll.UpdateMany(ctx, filter, bson.D{{Key: "$set", Value: bson.D{
+		{Key: "status", Value: string(games.SpotApproved)}, {Key: "updatedAt", Value: now.UTC()},
+	}}})
+	if err != nil {
+		return 0, fmt.Errorf("approve spot drafts: %w", err)
+	}
+	return int(res.ModifiedCount), nil
+}

@@ -42,6 +42,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/games/spot-counts", admin(h.spotCounts))
 	mux.Handle("GET /api/admin/games/spot-items", admin(h.spotItems))
 	mux.Handle("POST /api/admin/games/spot-items/generate", admin(h.generateSpots))
+	mux.Handle("POST /api/admin/games/spot-items/import", admin(h.importSpots))
+	mux.Handle("POST /api/admin/games/spot-items/approve-drafts", admin(h.approveDrafts))
 	mux.Handle("PUT /api/admin/games/spot-items/{id}", admin(h.updateSpot))
 	mux.Handle("POST /api/admin/games/spot-items/{id}/approve", admin(h.approveSpot))
 	mux.Handle("DELETE /api/admin/games/spot-items/{id}", admin(h.deleteSpot))
@@ -454,6 +456,60 @@ func (h *Handler) generateSpots(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{"created": toSpotItemsJSON(res.Created), "dropped": res.Dropped})
+}
+
+type spotImportReportJSON struct {
+	Index     int               `json:"index"`
+	Sentence  string            `json:"sentence"`
+	Kept      bool              `json:"kept"`
+	Duplicate bool              `json:"duplicate,omitempty"`
+	Fields    map[string]string `json:"fields,omitempty"`
+}
+
+// importSpots saves sentences written outside the AI (an admin pasting JSON, or Claude), in the
+// shape the AI returns; ?dryRun=true only checks them.
+func (h *Handler) importSpots(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		PointID string               `json:"pointId"`
+		Items   []ai.GrammarSpotItem `json:"items"`
+		DryRun  bool                 `json:"dryRun"`
+	}
+	if httpx.DecodeJSON(w, r, &req) != nil {
+		return
+	}
+	if req.PointID == "" {
+		httpx.WriteFieldErrors(w, map[string]string{"pointId": "Cần điểm ngữ pháp"})
+		return
+	}
+	dryRun := req.DryRun || r.URL.Query().Get("dryRun") == "true"
+	res, err := h.svc.ImportSpots(r.Context(), req.PointID, req.Items, dryRun)
+	if err != nil {
+		h.fail(w, r, err)
+		return
+	}
+	reports := make([]spotImportReportJSON, len(res.Reports))
+	for i, rep := range res.Reports {
+		reports[i] = spotImportReportJSON(rep)
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{
+		"dryRun": dryRun, "created": toSpotItemsJSON(res.Created), "kept": res.Kept, "dropped": res.Dropped, "reports": reports,
+	})
+}
+
+// approveDrafts approves every draft of the given points at once ("pointIds" missing: all points).
+func (h *Handler) approveDrafts(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		PointIDs []string `json:"pointIds"`
+	}
+	if httpx.DecodeJSON(w, r, &req) != nil {
+		return
+	}
+	n, err := h.svc.ApproveDrafts(r.Context(), req.PointIDs)
+	if err != nil {
+		h.fail(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"approved": n})
 }
 
 func (h *Handler) updateSpot(w http.ResponseWriter, r *http.Request) {

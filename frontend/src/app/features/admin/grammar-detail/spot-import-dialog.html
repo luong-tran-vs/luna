@@ -1,0 +1,72 @@
+@if (open()) {
+  <div class="backdrop">
+    <div
+      #dialog
+      class="dialog wide"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="spot-import-title"
+      (keydown)="onKeydown($event)"
+    >
+      <header class="head">
+        <div>
+          <h2 class="title" id="spot-import-title" tabindex="-1">Nhập câu Bắn lỗi</h2>
+          <p class="sub">
+            JSON là một mảng câu (hoặc <code>{{ '{' }} "items": [ … ] {{ '}' }}</code
+            >), cùng khuôn với câu AI soạn, tối đa 50 câu mỗi lần. Câu hợp lệ và chưa có sẽ vào
+            nháp.
+          </p>
+        </div>
+        <button type="button" class="close" aria-label="Đóng" (click)="closed.emit()">×</button>
+      </header>
+
+      <details class="sample">
+        <summary>Xem mẫu JSON</summary>
+        <pre lang="en"><code>{{ sample }}</code></pre>
+      </details>
+
+      <lu-json-source
+        idPrefix="spot-import"
+        [(text)]="text"
+        [invalid]="!!parseError()"
+        [describedBy]="parseError() ? 'spot-import-parse' : null"
+      />
+
+      @if (parseError()) {
+        <p class="form-alert" id="spot-import-parse" role="alert">{{ parseError() }}</p>
+      }
+      @if (failure()) {
+        <p class="form-alert" role="alert">{{ failure() }}</p>
+      }
+
+      <p class="status" role="status">{{ status() }}</p>
+
+      @if (reports().length > 0) {
+        <ol class="reports" aria-label="Kết quả kiểm tra">
+          @for (r of reports(); track r.index) {
+            <li [attr.data-result]="r.kept ? 'ok' : 'bad'">
+              <span class="mk" aria-hidden="true">{{ r.kept ? '✓' : '✕' }}</span>
+              <span>
+                <span lang="en">{{ r.sentence || '(trống)' }}</span>
+                @if (!r.kept) {
+                  <span class="visually-hidden">: bị bỏ, </span>
+                  <span class="reason">{{ r.reason }}</span>
+                }
+              </span>
+            </li>
+          }
+        </ol>
+      }
+
+      <div class="actions">
+        <button type="button" class="btn" (click)="closed.emit()">Huỷ</button>
+        <button type="button" class="btn" [disabled]="checking() || saving()" (click)="check()">
+          {{ reports().length > 0 ? 'Kiểm tra lại' : 'Kiểm tra' }}
+        </button>
+        <button type="button" class="btn-primary" [disabled]="!canSave()" (click)="save()">
+          Lưu câu hợp lệ thành nháp
+        </button>
+      </div>
+    </div>
+  </div>
+}

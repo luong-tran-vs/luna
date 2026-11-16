@@ -1,12 +1,21 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { SpotCount, SpotItem } from '../../../core/models/games';
+import { SpotCount, SpotImportReply, SpotItem } from '../../../core/models/games';
 import { GamesApiService } from '../../../core/services/games-api.service';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { grammarFailure } from '../grammar-errors';
+import { SpotImportDialog } from './spot-import-dialog';
 
 const GENERATE_FAILED = 'AI chưa soạn được câu, vui lòng thử lại.';
 const ACTION_FAILED = 'Không thực hiện được, vui lòng thử lại.';
@@ -24,7 +33,7 @@ type EditField = (typeof EDIT_FIELDS)[number];
  */
 @Component({
   selector: 'lu-grammar-spots',
-  imports: [ConfirmDialog, ReactiveFormsModule],
+  imports: [ConfirmDialog, ReactiveFormsModule, SpotImportDialog],
   templateUrl: './grammar-spots.html',
   styleUrl: './grammar-spots.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +54,8 @@ export class GrammarSpots implements OnInit {
   protected readonly note = signal('');
   protected readonly error = signal<string | null>(null);
   protected readonly deleting = signal<SpotItem | null>(null);
+  /** The import dialog is open. */
+  protected readonly importing = signal(false);
 
   protected readonly editing = signal<string | null>(null);
   protected readonly editError = signal<string | null>(null);
@@ -95,6 +106,40 @@ export class GrammarSpots implements OnInit {
     } finally {
       this.busy.set(null);
     }
+  }
+
+  /** The drafts of the list, approved at once by "Duyệt hết" (added 2026-11-16). */
+  protected readonly draftCount = computed(
+    () => (this.items() ?? []).filter((i) => i.status === 'draft').length,
+  );
+
+  protected async approveAll(): Promise<void> {
+    if (this.busy() || this.draftCount() === 0) {
+      return;
+    }
+    this.busy.set('approve-all');
+    this.error.set(null);
+    this.note.set('');
+    try {
+      const r = await firstValueFrom(this.api.approveSpotDrafts([this.pointId()]));
+      this.items.update((list) =>
+        (list ?? []).map((i) => (i.status === 'draft' ? { ...i, status: 'approved' } : i)),
+      );
+      this.note.set(`Đã duyệt ${r.approved} câu.`);
+      this.loadCounts();
+    } catch (err) {
+      this.error.set(grammarFailure(err, ACTION_FAILED).message);
+    } finally {
+      this.busy.set(null);
+    }
+  }
+
+  protected imported(r: SpotImportReply): void {
+    this.importing.set(false);
+    this.items.update((list) => [...r.created, ...(list ?? [])]);
+    this.error.set(null);
+    this.note.set(`Đã nhập ${r.created.length} câu thành nháp, bỏ ${r.dropped} câu.`);
+    this.loadCounts();
   }
 
   protected async approve(item: SpotItem): Promise<void> {
@@ -188,7 +233,8 @@ export class GrammarSpots implements OnInit {
   private async run(
     item: SpotItem,
     call: () => Promise<void>,
-    fail: (err: unknown) => void = (err) => this.error.set(grammarFailure(err, ACTION_FAILED).message),
+    fail: (err: unknown) => void = (err) =>
+      this.error.set(grammarFailure(err, ACTION_FAILED).message),
   ): Promise<void> {
     if (this.busy()) {
       return;
@@ -222,7 +268,9 @@ function fieldsOf(err: unknown): Partial<Record<EditField, string>> {
   }
   const out: Partial<Record<EditField, string>> = {};
   for (const [key, text] of Object.entries(raw as Record<string, unknown>)) {
-    const field = EDIT_FIELDS.find((f) => key === f || key.startsWith(f + '.') || key.startsWith(f + '['));
+    const field = EDIT_FIELDS.find(
+      (f) => key === f || key.startsWith(f + '.') || key.startsWith(f + '['),
+    );
     if (field) {
       out[field] = String(text);
     }

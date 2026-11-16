@@ -115,21 +115,77 @@ export class GrammarList {
     });
   }
 
-  /** The level's "Bắn lỗi" sentences and how many published points have under 10. */
+  /** The level's "Bắn lỗi" sentences, drafts, and how many published points have under 10. */
   protected readonly spotLevel = computed(() => {
     const list = Object.values(this.spotCounts()).filter((c) => c.level === this.level());
     return list.length
       ? {
           total: list.reduce((n, c) => n + c.total, 0),
+          draft: list.reduce((n, c) => n + c.draft, 0),
           low: list.filter((c) => c.total < SPOT_ENOUGH).length,
+          pointIds: list.filter((c) => c.draft > 0).map((c) => c.pointId),
         }
       : null;
   });
 
   /** The point's "Bắn lỗi" count: null without a published lesson; low under 10 sentences. */
-  protected spotOf(p: GrammarPoint): { total: number; low: boolean } | null {
+  protected spotOf(p: GrammarPoint): { total: number; draft: number; low: boolean } | null {
     const c = this.spotCounts()[p.id];
-    return c ? { total: c.total, low: c.total < SPOT_ENOUGH } : null;
+    return c ? { total: c.total, draft: c.draft, low: c.total < SPOT_ENOUGH } : null;
+  }
+
+  /** "Duyệt nhanh" (added 2026-11-16): the drafts waiting for the admin's confirmation. */
+  protected readonly approvingDrafts = signal<{
+    pointIds: string[];
+    count: number;
+    label: string;
+  } | null>(null);
+  /** 'level', or the point whose drafts are being approved. */
+  protected readonly spotBusy = signal<string | null>(null);
+
+  protected askApproveLevel(): void {
+    const s = this.spotLevel();
+    if (s && s.draft > 0 && !this.spotBusy()) {
+      this.approvingDrafts.set({
+        pointIds: s.pointIds,
+        count: s.draft,
+        label: `trình độ ${this.level()}`,
+      });
+    }
+  }
+
+  protected askApprovePoint(p: GrammarPoint): void {
+    const c = this.spotCounts()[p.id];
+    if (c && c.draft > 0 && !this.spotBusy()) {
+      this.approvingDrafts.set({ pointIds: [p.id], count: c.draft, label: `“${p.titleVi}”` });
+    }
+  }
+
+  protected approveDraftsMessage(): string {
+    const a = this.approvingDrafts();
+    return a
+      ? `Duyệt ${a.count} câu Bắn lỗi nháp của ${a.label}? Câu đã duyệt vào trò chơi ngay; vẫn sửa hoặc xoá được ở trang từng điểm.`
+      : '';
+  }
+
+  protected async confirmApproveDrafts(): Promise<void> {
+    const a = this.approvingDrafts();
+    this.approvingDrafts.set(null);
+    if (!a) {
+      return;
+    }
+    this.spotBusy.set(a.pointIds.length === 1 ? a.pointIds[0] : 'level');
+    this.note.set('');
+    this.rowError.set(null);
+    try {
+      const r = await firstValueFrom(this.games.approveSpotDrafts(a.pointIds));
+      this.note.set(`Đã duyệt ${r.approved} câu Bắn lỗi của ${a.label}.`);
+      this.loadSpotCounts();
+    } catch (err) {
+      this.note.set(grammarFailure(err, ACTION_FAILED).message);
+    } finally {
+      this.spotBusy.set(null);
+    }
   }
 
   private loadReports(): void {

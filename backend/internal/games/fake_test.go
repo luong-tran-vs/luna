@@ -391,3 +391,16 @@ func call(t *testing.T, mux http.Handler, method, path, token, body string) *htt
 	mux.ServeHTTP(rec, req)
 	return rec
 }
+
+func (f *fakeSpots) ApproveDrafts(_ context.Context, pointIDs []string, now time.Time) (int, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	n := 0
+	for i := range f.items {
+		if f.items[i].Status == SpotDraft && (pointIDs == nil || slices.Contains(pointIDs, f.items[i].PointID)) {
+			f.items[i].Status, f.items[i].UpdatedAt = SpotApproved, now
+			n++
+		}
+	}
+	return n, nil
+}

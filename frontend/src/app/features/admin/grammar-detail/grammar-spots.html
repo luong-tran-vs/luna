@@ -15,10 +15,18 @@
       }
     </p>
     <ul class="spot-sources">
-      <li>Bài chọn đáp án: <strong>{{ c.choice }}</strong></li>
-      <li>Bài sửa lỗi: <strong>{{ c.fix }}</strong></li>
-      <li>Câu soạn thêm đã duyệt: <strong>{{ c.spot }}</strong></li>
-      <li>Câu nháp chờ duyệt: <strong>{{ c.draft }}</strong></li>
+      <li>
+        Bài chọn đáp án: <strong>{{ c.choice }}</strong>
+      </li>
+      <li>
+        Bài sửa lỗi: <strong>{{ c.fix }}</strong>
+      </li>
+      <li>
+        Câu soạn thêm đã duyệt: <strong>{{ c.spot }}</strong>
+      </li>
+      <li>
+        Câu nháp chờ duyệt: <strong>{{ c.draft }}</strong>
+      </li>
     </ul>
   } @else {
     <p class="muted spot-none">Chưa có bài đã đăng nên trò chơi chưa lấy câu từ điểm này.</p>
@@ -33,9 +41,22 @@
     >
       {{ busy() === 'generate' ? 'Đang soạn…' : 'Nhờ AI soạn thêm' }}
     </button>
+    <button
+      type="button"
+      class="btn"
+      [disabled]="busy() !== null || !published()"
+      (click)="importing.set(true)"
+    >
+      Nhập câu
+    </button>
+    @if (draftCount() > 0) {
+      <button type="button" class="btn" [disabled]="busy() !== null" (click)="approveAll()">
+        {{ busy() === 'approve-all' ? 'Đang duyệt…' : 'Duyệt hết ' + draftCount() + ' câu nháp' }}
+      </button>
+    }
   </div>
   @if (!published()) {
-    <p class="field-hint">Đăng bài trước rồi mới nhờ AI soạn câu.</p>
+    <p class="field-hint">Đăng bài trước rồi mới soạn hoặc nhập câu.</p>
   }
 
   <p class="visually-hidden" role="status">{{ note() }}</p>
@@ -167,9 +188,8 @@
                 <span class="spot-sentence" lang="en">{{ item.sentence }}</span>
               </p>
               <p class="muted">
-                Sửa “<span lang="en">{{ item.wrong }}</span>” thành “<strong lang="en">{{
-                  item.right
-                }}</strong
+                Sửa “<span lang="en">{{ item.wrong }}</span
+                >” thành “<strong lang="en">{{ item.right }}</strong
                 >” · nhiễu: <span lang="en">{{ item.distractors.join(', ') }}</span>
               </p>
               <p class="spot-rule">{{ item.ruleVi }}</p>
@@ -209,6 +229,13 @@
     }
   }
 </section>
+
+<lu-spot-import-dialog
+  [open]="importing()"
+  [pointId]="pointId()"
+  (saved)="imported($event)"
+  (closed)="importing.set(false)"
+/>
 
 <lu-confirm-dialog
   [open]="deleting() !== null"

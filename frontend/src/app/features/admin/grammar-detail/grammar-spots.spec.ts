@@ -130,9 +130,23 @@ describe('GrammarSpots', () => {
     expect(text(el)).toContain('Chưa có câu soạn thêm.');
   });
 
+  it('approves every draft at once', async () => {
+    await setup();
+    button('Duyệt hết').click();
+    await settle();
+    const req = http.expectOne('/admin/games/spot-items/approve-drafts');
+    expect(req.request.body).toEqual({ pointIds: ['a1-to-be'] });
+    req.flush({ approved: 1 });
+    await settle();
+    flushCounts([count()]);
+    await settle();
+    expect(text(el.querySelector('[data-spot="s1"] .tag'))).toBe('Đã duyệt');
+    expect(button('Duyệt hết')).toBeUndefined();
+  });
+
   it('approves a draft', async () => {
     await setup();
-    button('Duyệt').click();
+    button('Duyệt', el.querySelector('[data-spot="s1"]')!).click();
     await settle();
     http
       .expectOne('/admin/games/spot-items/s1/approve')

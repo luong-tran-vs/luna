@@ -61,6 +61,17 @@
         @if (s.low > 0) {
           · <span class="spot-low">{{ s.low }} điểm dưới 10 câu ⚠</span>
         }
+        @if (s.draft > 0) {
+          · {{ s.draft }} câu nháp chờ duyệt
+          <button
+            type="button"
+            class="btn spot-approve"
+            [disabled]="spotBusy() !== null"
+            (click)="askApproveLevel()"
+          >
+            {{ spotBusy() === 'level' ? 'Đang duyệt…' : 'Duyệt nhanh cả ' + level() }}
+          </button>
+        }
       </p>
     }
     <lu-grammar-level-pictures [level]="level()" [pointIds]="lessonIds()" />
@@ -86,11 +97,24 @@
               Câu Bắn lỗi:
               @if (spotOf(p); as s) {
                 <strong class="spot-total" [class.spot-low]="s.low"
-                  >{{ s.total }}@if (s.low) {
+                  >{{ s.total }}
+                  @if (s.low) {
                     <span aria-hidden="true"> ⚠</span
                     ><span class="visually-hidden"> (dưới 10 câu)</span>
-                  }</strong
-                >
+                  }
+                </strong>
+                @if (s.draft > 0) {
+                  <span class="muted">· {{ s.draft }} nháp</span>
+                  <button
+                    type="button"
+                    class="btn spot-approve"
+                    [disabled]="spotBusy() !== null"
+                    (click)="askApprovePoint(p)"
+                  >
+                    {{ spotBusy() === p.id ? 'Đang duyệt…' : 'Duyệt nhanh'
+                    }}<span class="visually-hidden"> câu Bắn lỗi nháp của {{ p.titleVi }}</span>
+                  </button>
+                }
               } @else {
                 <span class="spot-total muted" title="Chưa có bài đã đăng"
                   ><span aria-hidden="true">—</span
@@ -185,6 +209,15 @@
   [pointTitle]="importing()?.titleVi ?? ''"
   (saved)="imported($event)"
   (closed)="cancelImport()"
+/>
+
+<lu-confirm-dialog
+  [open]="approvingDrafts() !== null"
+  title="Duyệt nhanh câu Bắn lỗi?"
+  [message]="approveDraftsMessage()"
+  confirmLabel="Duyệt hết"
+  (confirmed)="confirmApproveDrafts()"
+  (cancelled)="approvingDrafts.set(null)"
 />
 
 <lu-confirm-dialog

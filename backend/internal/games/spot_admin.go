@@ -156,24 +156,9 @@ func (s *Service) GenerateSpots(ctx context.Context, pointID string) (GenerateRe
 	if p == nil {
 		return GenerateResult{}, ErrNotFound
 	}
-	existing, err := s.d.Spots.ListByPoint(ctx, pointID)
+	seen, known, err := s.knownSpots(ctx, *p)
 	if err != nil {
-		return GenerateResult{}, fmt.Errorf("games: spot items: %w", err)
-	}
-	seen := map[string]bool{}
-	var known []string
-	addKnown := func(sentence string) {
-		k := normalize(sentence)
-		if k != "" && !seen[k] {
-			seen[k] = true
-			known = append(known, sentence)
-		}
-	}
-	for _, it := range existing {
-		addKnown(fixedSentence(it.Sentence, it.Wrong, it.Right))
-	}
-	for _, r := range candidatesOf(*p, nil, s.newRand()).right {
-		addKnown(joinTokens(r.q.Tokens))
+		return GenerateResult{}, err
 	}
 
 	actx, cancel := context.WithTimeout(ctx, spotGenerateTimeout)
@@ -192,13 +177,7 @@ func (s *Service) GenerateSpots(ctx context.Context, pointID string) (GenerateRe
 			res.Dropped++
 			continue
 		}
-		it := SpotItem{
-			PointID: pointID, Level: p.Level, Sentence: strings.TrimSpace(g.Sentence), Wrong: strings.TrimSpace(g.Wrong),
-			Right: strings.TrimSpace(g.Right), RuleVi: strings.TrimSpace(g.RuleVi), Status: SpotDraft, CreatedAt: now, UpdatedAt: now,
-		}
-		for _, d := range g.Distractors {
-			it.Distractors = append(it.Distractors, strings.TrimSpace(d))
-		}
+		it := spotFromAI(pointID, p.Level, g, now)
 		fixed := fixedSentence(it.Sentence, it.Wrong, it.Right)
 		if len(ValidateSpot(it)) > 0 || seen[fixed] {
 			res.Dropped++
@@ -214,6 +193,118 @@ func (s *Service) GenerateSpots(ctx context.Context, pointID string) (GenerateRe
 	}
 	if res.Created == nil {
 		res.Created = []SpotItem{}
+	}
+	return res, nil
+}
+
+// knownSpots are the right sentences a point already has (its extra sentences once fixed and the
+// right sentences of its lesson), keyed for spotting duplicates and listed for the AI.
+func (s *Service) knownSpots(ctx context.Context, p PointSource) (map[string]bool, []string, error) {
+	existing, err := s.d.Spots.ListByPoint(ctx, p.PointID)
+	if err != nil {
+		return nil, nil, fmt.Errorf("games: spot items: %w", err)
+	}
+	seen := map[string]bool{}
+	var known []string
+	addKnown := func(sentence string) {
+		k := normalize(sentence)
+		if k != "" && !seen[k] {
+			seen[k] = true
+			known = append(known, sentence)
+		}
+	}
+	for _, it := range existing {
+		addKnown(fixedSentence(it.Sentence, it.Wrong, it.Right))
+	}
+	for _, r := range candidatesOf(p, nil, s.newRand()).right {
+		addKnown(joinTokens(r.q.Tokens))
+	}
+	return seen, known, nil
+}
+
+// spotFromAI turns a sentence in the AI's shape into a trimmed draft of a point.
+func spotFromAI(pointID, level string, g ai.GrammarSpotItem, now time.Time) SpotItem {
+	it := SpotItem{
+		PointID: pointID, Level: level, Sentence: strings.TrimSpace(g.Sentence), Wrong: strings.TrimSpace(g.Wrong),
+		Right: strings.TrimSpace(g.Right), RuleVi: strings.TrimSpace(g.RuleVi), Status: SpotDraft, CreatedAt: now, UpdatedAt: now,
+	}
+	for _, d := range g.Distractors {
+		it.Distractors = append(it.Distractors, strings.TrimSpace(d))
+	}
+	return it
+}
+
+// maxSpotImport bounds the sentences of one import.
+const maxSpotImport = 50
+
+// SpotImportReport says what became of one imported sentence: kept, a duplicate, or the fields
+// that failed ValidateSpot.
+type SpotImportReport struct {
+	Index     int
+	Sentence  string
+	Kept      bool
+	Duplicate bool
+	Fields    map[string]string
+}
+
+// ImportResult is what one import gave: the drafts saved (none on a dry run) and a report per
+// sentence.
+type ImportResult struct {
+	Created []SpotItem
+	Kept    int
+	Dropped int
+	Reports []SpotImportReport
+}
+
+// ImportSpots keeps the sentences an admin (or Claude) wrote for a published point, in the shape
+// the AI returns, that pass ValidateSpot and are not already there, as drafts — GenerateSpots
+// without the AI. dryRun checks without saving.
+func (s *Service) ImportSpots(ctx context.Context, pointID string, items []ai.GrammarSpotItem, dryRun bool) (ImportResult, error) {
+	switch {
+	case len(items) == 0:
+		return ImportResult{}, &ValidationError{Fields: map[string]string{"items": "Cần ít nhất 1 câu"}}
+	case len(items) > maxSpotImport:
+		return ImportResult{}, &ValidationError{Fields: map[string]string{"items": fmt.Sprintf("Mỗi lần nhập tối đa %d câu", maxSpotImport)}}
+	}
+	sources, err := s.d.Grammar.PublishedSources(ctx)
+	if err != nil {
+		return ImportResult{}, fmt.Errorf("games: grammar sources: %w", err)
+	}
+	p := sourceByID(sources, pointID)
+	if p == nil {
+		return ImportResult{}, ErrNotFound
+	}
+	seen, _, err := s.knownSpots(ctx, *p)
+	if err != nil {
+		return ImportResult{}, err
+	}
+	now := s.d.Now().UTC()
+	res := ImportResult{Created: []SpotItem{}, Reports: []SpotImportReport{}}
+	var keep []SpotItem
+	for i, g := range items {
+		it := spotFromAI(pointID, p.Level, g, now)
+		rep := SpotImportReport{Index: i, Sentence: it.Sentence}
+		fixed := fixedSentence(it.Sentence, it.Wrong, it.Right)
+		if f := ValidateSpot(it); len(f) > 0 {
+			rep.Fields = f
+		} else if seen[fixed] {
+			rep.Duplicate = true
+		} else {
+			rep.Kept = true
+			seen[fixed] = true
+			keep = append(keep, it)
+		}
+		if rep.Kept {
+			res.Kept++
+		} else {
+			res.Dropped++
+		}
+		res.Reports = append(res.Reports, rep)
+	}
+	if !dryRun && len(keep) > 0 {
+		if res.Created, err = s.d.Spots.Create(ctx, keep); err != nil {
+			return ImportResult{}, fmt.Errorf("games: save spot items: %w", err)
+		}
 	}
 	return res, nil
 }
@@ -267,4 +358,14 @@ func (s *Service) ApproveSpot(ctx context.Context, id string) (SpotItem, error) 
 // DeleteSpot removes an extra sentence.
 func (s *Service) DeleteSpot(ctx context.Context, id string) error {
 	return s.d.Spots.Delete(ctx, id)
+}
+
+// ApproveDrafts makes every draft of the points playable at once (all points when pointIDs is
+// nil) and returns how many it approved; the admin reviews the list instead of each sentence.
+func (s *Service) ApproveDrafts(ctx context.Context, pointIDs []string) (int, error) {
+	n, err := s.d.Spots.ApproveDrafts(ctx, pointIDs, s.d.Now().UTC())
+	if err != nil {
+		return 0, fmt.Errorf("games: approve spot drafts: %w", err)
+	}
+	return n, nil
 }

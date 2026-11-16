@@ -114,3 +114,62 @@ func TestGenerateSpotsErrors(t *testing.T) {
 		t.Fatalf("saved = %+v", e.spots.items)
 	}
 }
+
+func TestImportSpots(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.grammar.sources = []PointSource{presentSimple()}
+	items := []ai.GrammarSpotItem{
+		{Sentence: " My dog eat bones. ", Wrong: "eat", Right: "eats", Distractors: []string{"eating", "ate"}, RuleVi: "Chủ ngữ số ít + V-s."},
+		{Sentence: "Tom like milk.", Wrong: "loves", Right: "likes", Distractors: []string{"liking", "liked"}, RuleVi: "r"},
+		{Sentence: "He play football.", Wrong: "play", Right: "plays", Distractors: []string{"playing", "played"}, RuleVi: "r"},
+		{Sentence: "My dog eat bones.", Wrong: "eat", Right: "eats", Distractors: []string{"eaten", "ate"}, RuleVi: "r"},
+	}
+	dry, err := e.svc.ImportSpots(t.Context(), "a1-present-simple", items, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if dry.Kept != 1 || dry.Dropped != 3 || len(dry.Created) != 0 || len(e.spots.items) != 0 {
+		t.Fatalf("dry run = %+v", dry)
+	}
+	if r := dry.Reports; !r[0].Kept || r[1].Fields["wrong"] == "" || !r[2].Duplicate || !r[3].Duplicate {
+		t.Fatalf("reports = %+v", r)
+	}
+	res, err := e.svc.ImportSpots(t.Context(), "a1-present-simple", items, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Created) != 1 || res.Created[0].Status != SpotDraft || res.Created[0].Sentence != "My dog eat bones." || res.Created[0].Level != "A1" {
+		t.Fatalf("result = %+v", res)
+	}
+	// Importing again finds the saved sentence.
+	again, _ := e.svc.ImportSpots(t.Context(), "a1-present-simple", items[:1], false)
+	if again.Kept != 0 || !again.Reports[0].Duplicate {
+		t.Fatalf("again = %+v", again)
+	}
+	if _, err := e.svc.ImportSpots(t.Context(), "zz", items, false); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("unknown point: %v", err)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.ImportSpots(t.Context(), "a1-present-simple", nil, false); !errors.As(err, &verr) {
+		t.Fatalf("no items: %v", err)
+	}
+}
+
+func TestApproveDrafts(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.spots.items = []SpotItem{
+		{ID: "a", PointID: "p1", Status: SpotDraft}, {ID: "b", PointID: "p1", Status: SpotApproved},
+		{ID: "c", PointID: "p2", Status: SpotDraft}, {ID: "d", PointID: "p3", Status: SpotDraft},
+	}
+	if n, err := e.svc.ApproveDrafts(t.Context(), []string{"p1", "p2"}); err != nil || n != 2 {
+		t.Fatalf("approve p1,p2 = %d, %v", n, err)
+	}
+	if e.spots.items[3].Status != SpotDraft {
+		t.Fatalf("p3 approved: %+v", e.spots.items[3])
+	}
+	if n, _ := e.svc.ApproveDrafts(t.Context(), nil); n != 1 {
+		t.Fatalf("approve all = %d", n)
+	}
+}

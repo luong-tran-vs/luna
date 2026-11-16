@@ -304,6 +304,13 @@ lượt đầu tiên được tính.
   tối đa 10 câu nháp. Mỗi câu gồm câu sai, chỗ sai, chữ đúng, 2 chữ nhiễu, quy tắc ngắn tiếng Việt. Câu nháp chỉ dùng
   trong trò chơi sau khi admin duyệt; admin sửa hoặc xoá được từng câu. Hệ thống tự loại câu nháp có chỗ sai không nằm
   trong câu, chữ đúng trùng chữ sai, hoặc chữ nhiễu trùng chữ đúng.
+- **FR-026c** (thêm 2026-11-16): Bên cạnh nút "Nhờ AI soạn thêm", admin MUST nhập được câu Bắn lỗi soạn ngoài app
+  (admin hoặc Claude soạn) bằng nút "Nhập câu": dán hoặc chọn file JSON là mảng câu cùng khuôn AI trả về (tối đa 50
+  câu mỗi lần), bấm Kiểm tra để server soát từng câu (cùng kiểm tra FR-026b và loại câu trùng) mà không lưu, rồi lưu
+  các câu hợp lệ thành nháp. Câu Claude soạn lưu trong `content/spots/<LEVEL>/<pointId>.json`.
+- **FR-026d** (thêm 2026-11-16): Admin MUST duyệt nhanh được mọi câu Bắn lỗi nháp một lần, không phải duyệt từng câu: nút
+  "Duyệt nhanh cả <trình độ>" ở dòng tổng của trang danh sách ngữ pháp, "Duyệt nhanh" ở từng điểm trong danh sách, và
+  "Duyệt hết N câu nháp" ở trang chi tiết điểm. Hai nút ở trang danh sách hỏi xác nhận trước.
 
 **P6 — Thử thách hằng ngày**
 
