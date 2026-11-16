@@ -35,7 +35,10 @@ type ImageBatchRequest struct {
 	Keys []string
 	// Replace draws the examples that have a picture too, replacing it; without it they are left out.
 	Replace bool
-	Engine  ImageEngine
+	// Hints draws the hint pictures of the practice choice exercises (added 2026-11-16) instead of
+	// the examples and picture exercises; every point has them, drawable or not.
+	Hints  bool
+	Engine ImageEngine
 	// Key and Label tell the pages what the batch is for: a point ("point:<id>", `bài "…"`) or a
 	// level ("level:A1", "các bài ngữ pháp A1").
 	Key   string
@@ -103,12 +106,22 @@ func (s *Service) StartImageBatch(ctx context.Context, req ImageBatchRequest) (I
 	if engine == "" {
 		engine = EngineGemini
 	}
-	items, points, err := s.batchItems(ctx, req)
+	var items []batchItem
+	var points int
+	if req.Hints {
+		items, points, err = s.hintBatchItems(ctx, req)
+	} else {
+		items, points, err = s.batchItems(ctx, req)
+	}
 	if err != nil {
 		return ImageBatchStatus{}, err
 	}
 	if len(items) == 0 {
-		return ImageBatchStatus{}, &ValidationError{Fields: map[string]string{"pointIds": "Mọi câu ví dụ đã có ảnh"}}
+		msg := "Mọi câu ví dụ đã có ảnh"
+		if req.Hints {
+			msg = "Mọi câu chọn đáp án ở Luyện tập đã có ảnh"
+		}
+		return ImageBatchStatus{}, &ValidationError{Fields: map[string]string{"pointIds": msg}}
 	}
 	if len(items) > MaxImageBatch {
 		return ImageBatchStatus{}, &ValidationError{Fields: map[string]string{

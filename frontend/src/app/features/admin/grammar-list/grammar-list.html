@@ -74,8 +74,12 @@
         }
       </p>
     }
-    <lu-grammar-level-pictures [level]="level()" [pointIds]="lessonIds()" />
-    <lu-grammar-level-images [level]="level()" [pointIds]="lessonIds()" [titles]="titles()" />
+    <lu-grammar-level-media
+      [level]="level()"
+      [drawableIds]="lessonIds()"
+      [lessonIds]="allLessonIds()"
+      [titles]="titles()"
+    />
     <ul class="list" aria-describedby="grammar-summary">
       @for (p of list; track p.id) {
         <li class="card point" [attr.data-point]="p.id">

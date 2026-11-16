@@ -213,3 +213,51 @@
   background: var(--color-primary-soft);
   border-radius: var(--radius-lg);
 }
+
+/* "Gợi ý" while practising (added 2026-11-16). */
+.hint-row {
+  display: flex;
+}
+
+.hint-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hint-box {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+.hint-title {
+  font-weight: 600;
+}
+
+.hint-rules {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: var(--space-4);
+}
+
+.hint-label {
+  margin-right: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+/* The option "Gợi ý" crossed out: struck through and faded; the "Đã loại" text says it too. */
+.option.is-removed {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  background: color-mix(in srgb, var(--color-track) 40%, var(--color-surface));
+  cursor: default;
+}
+
+.option.is-removed .tag-text {
+  text-decoration: none;
+}

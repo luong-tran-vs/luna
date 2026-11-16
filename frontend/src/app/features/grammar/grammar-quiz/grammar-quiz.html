@@ -29,7 +29,9 @@
       <p class="score">Đúng {{ correct() }}/{{ total() }} câu</p>
       @if (kind() === 'mastery') {
         @if (result()?.passed) {
-          <p class="muted">Điểm này đã được đánh dấu nắm vững. Bạn có thể làm lại bất cứ lúc nào để ôn.</p>
+          <p class="muted">
+            Điểm này đã được đánh dấu nắm vững. Bạn có thể làm lại bất cứ lúc nào để ôn.
+          </p>
         }
       } @else {
         <p class="muted">Điểm luyện tập không ảnh hưởng đến việc nắm vững.</p>
@@ -53,7 +55,8 @@
           </button>
         }
         <button type="button" class="btn" (click)="restart()">
-          <lu-icon name="review" /> {{ kind() === 'mastery' ? 'Làm bài kiểm tra lại' : 'Luyện lại cả bài' }}
+          <lu-icon name="review" />
+          {{ kind() === 'mastery' ? 'Làm bài kiểm tra lại' : 'Luyện lại cả bài' }}
         </button>
       </div>
     </section>
@@ -88,9 +91,13 @@
                 <p class="muted">{{ r.exercise.promptVi }}</p>
               }
               <p class="review-q" lang="en">{{ r.exercise.text }}</p>
-              <p>Bạn trả lời: <strong lang="en">{{ r.given || '(bỏ trống)' }}</strong></p>
+              <p>
+                Bạn trả lời: <strong lang="en">{{ r.given || '(bỏ trống)' }}</strong>
+              </p>
               @if (!r.correct) {
-                <p>Đáp án đúng: <strong lang="en">{{ r.right }}</strong></p>
+                <p>
+                  Đáp án đúng: <strong lang="en">{{ r.right }}</strong>
+                </p>
               }
               <p>{{ r.exercise.explanationVi }}</p>
               <lu-report-exercise [pointId]="pointId()" [exerciseId]="r.exercise.id" />
@@ -123,7 +130,10 @@
         [attr.aria-valuemax]="total()"
         [attr.aria-valuenow]="index() + (answeredCurrent() ? 1 : 0)"
       >
-        <span class="fill" [style.width.%]="((index() + (answeredCurrent() ? 1 : 0)) / total()) * 100"></span>
+        <span
+          class="fill"
+          [style.width.%]="((index() + (answeredCurrent() ? 1 : 0)) / total()) * 100"
+        ></span>
       </div>
     </div>
 
@@ -146,6 +156,7 @@
       <lu-grammar-exercise
         [exercise]="ex"
         [reveal]="reveal()"
+        [rules]="rules()"
         [pointId]="pointId()"
         [inlineCheck]="false"
         (given)="onGiven($event)"
@@ -163,7 +174,12 @@
     } @else if (ex.kind !== 'choice') {
       @let view = exerciseView();
       <div class="bottom-bar">
-        <button type="button" class="btn-primary" [disabled]="!view?.canCheck()" (click)="view?.check()">
+        <button
+          type="button"
+          class="btn-primary"
+          [disabled]="!view?.canCheck()"
+          (click)="view?.check()"
+        >
           Kiểm tra
         </button>
       </div>

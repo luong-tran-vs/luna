@@ -132,6 +132,8 @@ describe('GrammarDetail', () => {
     http.match((r) => r.url === '/admin/grammar-image-batch');
     // F26: the "Bắn lỗi" block loads its own counts and sentences (grammar-spots.spec.ts).
     http.match((r) => r.url === '/admin/games/spot-counts' || r.url === '/admin/games/spot-items');
+    // The pictures of the choice exercises load their own list (added 2026-11-16).
+    http.match((r) => r.url.endsWith('/hint-pictures'));
     http.verify();
   });
 

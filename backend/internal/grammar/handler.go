@@ -75,6 +75,8 @@ type exerciseJSON struct {
 	// "" until drawn (added 2026-11-06).
 	Picture  string `json:"picture,omitempty"`
 	ImageURL string `json:"imageUrl,omitempty"`
+	// HintImageURL is the hint picture of a practice choice exercise, "" until drawn (added 2026-11-16).
+	HintImageURL string `json:"hintImageUrl,omitempty"`
 }
 
 type structureJSON struct {

@@ -29,14 +29,12 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
   selector: 'lu-grammar-level-images',
   imports: [ConfirmDialog, EngineDialog, RouterLink],
   template: `
-    <section class="card level-batch" aria-labelledby="level-images-title">
+    <section class="level-batch" aria-labelledby="level-images-title">
       <div class="line">
         <div class="text">
-          <h2 class="title" id="level-images-title">Ảnh ví dụ</h2>
+          <h3 class="title" id="level-images-title">Ảnh ví dụ</h3>
           <p class="field-hint">
-            Vẽ ảnh còn thiếu (câu ví dụ và bài “Nhìn ảnh chọn từ”) của {{ pointIds().length }} bài
-            ngữ pháp {{ level() }} vẽ được (có nhãn “Vẽ được”), lần lượt từng ảnh, chạy ngầm trên
-            máy chủ.
+            Ảnh câu ví dụ và bài “Nhìn ảnh chọn từ” của {{ pointIds().length }} bài vẽ được.
           </p>
         </div>
         @if (mine(); as b) {
@@ -52,7 +50,7 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
             [disabled]="busy() || pointIds().length === 0 || !!other()"
             (click)="open.set(true)"
           >
-            Tạo ảnh ví dụ {{ level() }}
+            Tạo ảnh<span class="visually-hidden"> ví dụ {{ level() }}</span>
           </button>
           <button
             type="button"
@@ -63,7 +61,8 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
             "
             (click)="askRemove()"
           >
-            Gỡ ảnh ví dụ {{ level() }}{{ pictureCount() ? ' (' + pictureCount() + ' ảnh)' : '' }}
+            Gỡ ảnh<span class="visually-hidden"> ví dụ {{ level() }}</span
+            >{{ pictureCount() ? ' (' + pictureCount() + ' ảnh)' : '' }}
           </button>
         }
       </div>
@@ -116,8 +115,7 @@ import { GrammarImageBatchService, levelBatchKey } from './grammar-image-batch.s
               <ul class="failures">
                 @for (f of b.failures; track f.pointId + f.key) {
                   <li>
-                    <a [routerLink]="['/admin/grammar', f.pointId]" lang="en">{{ f.en }}</a
-                    >:
+                    <a [routerLink]="['/admin/grammar', f.pointId]" lang="en">{{ f.en }}</a>:
                     {{ f.message }}
                   </li>
                 }

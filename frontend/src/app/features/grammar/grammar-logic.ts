@@ -598,3 +598,18 @@ export function splitLines(parts: readonly SentencePart[]): SentencePart[][] {
   }
   return lines.filter((l) => l.length > 0);
 }
+
+/**
+ * The option the "Gợi ý" of a practice choice crosses out (added 2026-11-16): one wrong option,
+ * picked by the seed so it stays the same while the exercise is shown; null when crossing one out
+ * would leave a single option (fewer than 3) or the answer is unknown.
+ */
+export function hintRemovedOption(e: GrammarExercise, seed: number): number | null {
+  const n = e.options?.length ?? 0;
+  const answer = e.answerIndex;
+  if (n < 3 || answer === undefined || answer < 0 || answer >= n) {
+    return null;
+  }
+  const wrong = Array.from({ length: n }, (_, i) => i).filter((i) => i !== answer);
+  return wrong[Math.abs(Math.trunc(seed)) % wrong.length];
+}

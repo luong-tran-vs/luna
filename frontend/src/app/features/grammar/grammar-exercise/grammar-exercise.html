@@ -6,6 +6,9 @@
 
   @if (e.kind === 'picture' && pictureSrc()) {
     <img class="picture" [src]="pictureSrc()" crossorigin="use-credentials" alt="Ảnh của bài tập" />
+  } @else if (sceneSrc()) {
+    <!-- The scene of a choice sentence, always shown (added 2026-11-16); decorative, the text says it all. -->
+    <img class="picture" [src]="sceneSrc()" crossorigin="use-credentials" alt="" />
   }
 
   @switch (e.kind === 'picture' ? 'choice' : e.kind) {
@@ -19,14 +22,18 @@
               class="option"
               lang="en"
               [class.is-chosen]="chosen() === o.index"
+              [class.is-removed]="removedOption() === o.index && !isDone()"
               [class.is-right]="isDone() && reveal() && e.answerIndex === o.index"
               [class.is-wrong]="
                 isDone() && reveal() && chosen() === o.index && e.answerIndex !== o.index
               "
-              [disabled]="isDone()"
+              [disabled]="isDone() || removedOption() === o.index"
               (click)="choose(o.index)"
             >
               <span>{{ o.text }}</span>
+              @if (removedOption() === o.index && !isDone()) {
+                <span class="tag-text" lang="vi">Đã loại</span>
+              }
               @if (isDone() && reveal() && e.answerIndex === o.index) {
                 <span class="tag-text" lang="vi"><lu-icon name="check" /> Đáp án đúng</span>
               } @else if (isDone() && reveal() && chosen() === o.index) {
@@ -171,5 +178,33 @@
 
   @if (result() !== null && reveal() && pointId()) {
     <lu-report-exercise [pointId]="pointId()" [exerciseId]="e.id" />
+  }
+
+  @if (canHint()) {
+    <div class="hint-row">
+      <button type="button" class="btn hint-btn" (click)="showHint()">
+        <lu-icon name="bulb" /> Gợi ý
+      </button>
+    </div>
+  }
+  @if (hintShown() && !isDone()) {
+    <div class="hint-box" role="status">
+      @if (removedOption() !== null) {
+        <p>Đã loại bớt một đáp án sai.</p>
+      }
+      @if (hintRules().length > 0) {
+        <p class="hint-title">Công thức của bài:</p>
+        <ul class="hint-rules">
+          @for (r of hintRules(); track $index) {
+            <li>
+              @if (r.label) {
+                <span class="hint-label">{{ r.label }}:</span>
+              }
+              <span lang="en">{{ r.pattern }}</span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
   }
 </div>

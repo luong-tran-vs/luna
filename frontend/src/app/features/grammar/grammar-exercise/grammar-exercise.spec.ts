@@ -57,6 +57,39 @@ describe('GrammarExerciseView', () => {
 
   beforeEach(() => TestBed.configureTestingModule({ imports: [GrammarExerciseView] }));
 
+  it('"Gợi ý" crosses out one wrong option and shows the patterns while practising', async () => {
+    await setup(choice);
+    fixture.componentRef.setInput('rules', [
+      { label: 'Khẳng định', pattern: 'He/She/It + is', example: '' },
+    ]);
+    await fixture.whenStable();
+    byText('Gợi ý').click();
+    await fixture.whenStable();
+    const removed = el.querySelectorAll<HTMLButtonElement>('.option.is-removed');
+    expect(removed.length).toBe(1);
+    expect(removed[0].disabled).toBe(true);
+    expect(text(removed[0]).endsWith('Đã loại')).toBe(true);
+    expect(text(removed[0]).startsWith('is')).toBe(false);
+    expect(text(el.querySelector('.hint-box'))).toContain('He/She/It + is');
+    expect(buttons().some((b) => text(b) === 'Gợi ý')).toBe(false);
+  });
+
+  it('shows the scene of a choice sentence above it, without a hint', async () => {
+    await setup({ ...choice, hintImageUrl: '/api/grammar/a1-to-be/images/k1' });
+    const img = el.querySelector<HTMLImageElement>('img.picture');
+    expect(img?.getAttribute('src')).toContain('/api/grammar/a1-to-be/images/k1');
+    expect(img?.getAttribute('alt')).toBe('');
+  });
+
+  it('gives no hint in a test or once answered', async () => {
+    await setup(choice, false);
+    expect(buttons().some((b) => text(b) === 'Gợi ý')).toBe(false);
+    await setup(choice);
+    byText('is').click();
+    await fixture.whenStable();
+    expect(buttons().some((b) => text(b) === 'Gợi ý')).toBe(false);
+  });
+
   it('grades a choice at once and says Đúng with the explanation', async () => {
     await setup(choice);
     expect(text(el.querySelector('.prompt'))).toBe('Chọn đáp án đúng');

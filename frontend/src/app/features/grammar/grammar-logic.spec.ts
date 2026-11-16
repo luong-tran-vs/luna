@@ -5,6 +5,7 @@ import {
   gradeFill,
   gradeFix,
   gradeReorder,
+  hintRemovedOption,
   missingToPass,
   patternParts,
   patternRows,
@@ -47,7 +48,11 @@ describe('grammar logic', () => {
   });
 
   it('does not take a full negative before the subject of a question tag', () => {
-    const tag = ex({ kind: 'fill', text: 'They went to the party, ___ they?', answers: ["didn't"] });
+    const tag = ex({
+      kind: 'fill',
+      text: 'They went to the party, ___ they?',
+      answers: ["didn't"],
+    });
     expect(gradeFill(tag, 'didn’t')).toBe(true);
     expect(gradeFill(tag, 'did not')).toBe(false);
     const can = ex({ kind: 'fill', text: 'You can swim, ___ you?', answers: ["can't"] });
@@ -78,7 +83,12 @@ describe('grammar logic', () => {
 
   // Added 2026-10-20.
   it('grades a fix against the correction and the other accepted ones', () => {
-    const e = ex({ kind: 'fix', text: 'She are a teacher.', sentence: 'She is a teacher.', answers: ["She's a teacher."] });
+    const e = ex({
+      kind: 'fix',
+      text: 'She are a teacher.',
+      sentence: 'She is a teacher.',
+      answers: ["She's a teacher."],
+    });
     expect(gradeFix(e, '  she is a  TEACHER ')).toBe(true);
     expect(gradeFix(e, 'She’s a teacher!')).toBe(true);
     expect(gradeFix(e, 'She are a teacher.')).toBe(false);
@@ -94,7 +104,14 @@ describe('grammar logic', () => {
     expect(gradeReorder(e, ['She', 'is', 'a'])).toBe(false);
     // Fixed 2026-10-20: the tiles often have no full stop.
     expect(gradeReorder(e, ['She', 'is', 'a', 'teacher'])).toBe(true);
-    expect(gradeReorder(ex({ kind: 'reorder', sentence: 'Is she a teacher?' }), ['is', 'she', 'a', 'teacher'])).toBe(true);
+    expect(
+      gradeReorder(ex({ kind: 'reorder', sentence: 'Is she a teacher?' }), [
+        'is',
+        'she',
+        'a',
+        'teacher',
+      ]),
+    ).toBe(true);
   });
 
   // Added 2026-11-02.
@@ -107,19 +124,33 @@ describe('grammar logic', () => {
     const fix = ex({ kind: 'fix', text: 'He are a doctor.', sentence: "He's a doctor." });
     expect(gradeFix(fix, 'He is a doctor.')).toBe(true);
     expect(gradeFix(fix, 'He was a doctor.')).toBe(false);
-    const would = ex({ kind: 'fix', text: 'If I knew, I will have called.', sentence: 'If I had known, I would have called.' });
+    const would = ex({
+      kind: 'fix',
+      text: 'If I knew, I will have called.',
+      sentence: 'If I had known, I would have called.',
+    });
     expect(gradeFix(would, "If I'd known, I'd have called.")).toBe(true);
-    expect(gradeFix(ex({ kind: 'fix', text: 'I am agree.', sentence: 'I agree.' }), "I'm agree.")).toBe(false);
+    expect(
+      gradeFix(ex({ kind: 'fix', text: 'I am agree.', sentence: 'I agree.' }), "I'm agree."),
+    ).toBe(false);
   });
 
   it('does not count commas in a typed sentence', () => {
-    const e = ex({ kind: 'fix', text: 'She likes cats because she does not like dogs.', sentence: 'She likes cats but she does not like dogs.' });
+    const e = ex({
+      kind: 'fix',
+      text: 'She likes cats because she does not like dogs.',
+      sentence: 'She likes cats but she does not like dogs.',
+    });
     expect(gradeFix(e, "She likes cats, but she doesn't like dogs.")).toBe(true);
     expect(gradeFix(e, 'She likes cats, because she does not like dogs.')).toBe(false);
   });
 
   it('grades a reorder against the other accepted orders too', () => {
-    const e = ex({ kind: 'reorder', sentence: 'Walk across the road carefully.', answers: ['Walk carefully across the road.'] });
+    const e = ex({
+      kind: 'reorder',
+      sentence: 'Walk across the road carefully.',
+      answers: ['Walk carefully across the road.'],
+    });
     expect(gradeReorder(e, ['Walk', 'carefully', 'across', 'the', 'road'])).toBe(true);
     expect(gradeReorder(e, ['Walk', 'across', 'the', 'road', 'carefully'])).toBe(true);
     expect(gradeReorder(e, ['Carefully', 'walk', 'across', 'the', 'road'])).toBe(false);
@@ -131,7 +162,9 @@ describe('grammar logic', () => {
     expect(out.map((o) => options[o.index])).toEqual(out.map((o) => o.text));
     expect(out.map((o) => o.index).sort()).toEqual([0, 1, 2, 3]);
     expect(shuffleOptions(options, 3)).toEqual(out);
-    const firsts = new Set(Array.from({ length: 20 }, (_, s) => shuffleOptions(options, s)[0].index));
+    const firsts = new Set(
+      Array.from({ length: 20 }, (_, s) => shuffleOptions(options, s)[0].index),
+    );
     expect(firsts.size).toBeGreaterThan(1);
   });
 
@@ -188,7 +221,11 @@ describe('grammar logic', () => {
 
   it('colours a piece by its role: subjects alike, "be" and helping verbs alike', () => {
     const [rows] = patternRows(['I + am / he, she, it + is / you, we, they + are + ...']);
-    expect(rows.map((r) => r.parts.map((p) => p.tone))).toEqual([[0, 1], [0, 1], [0, 1, 2]]);
+    expect(rows.map((r) => r.parts.map((p) => p.tone))).toEqual([
+      [0, 1],
+      [0, 1],
+      [0, 1, 2],
+    ]);
     const [question] = patternRows(["Isn't + he, she, it ...?"]);
     expect(question[0].parts.map((p) => p.tone)).toEqual([1, 0]);
   });
@@ -227,7 +264,9 @@ describe('grammar logic', () => {
     ];
 
     it('colours the marked words like the pieces of the pattern', () => {
-      expect(sentenceParts('She is reading a book.', '{1:She} {2:is} {3:reading} a book.', parts)).toEqual([
+      expect(
+        sentenceParts('She is reading a book.', '{1:She} {2:is} {3:reading} a book.', parts),
+      ).toEqual([
         { text: 'She', tone: 0 },
         { text: ' ', tone: null },
         { text: 'is', tone: 1 },
@@ -241,13 +280,18 @@ describe('grammar logic', () => {
       const plain = [{ text: 'She is here.', tone: null }];
       expect(sentenceParts('She is here.', undefined, parts)).toEqual(plain);
       expect(sentenceParts('She is here.', '{1:He} {2:is} here.', parts)).toEqual(plain);
-      expect(sentenceParts('She is here.', 'She {9:is} here.', parts)[1]).toEqual({ text: 'is', tone: null });
+      expect(sentenceParts('She is here.', 'She {9:is} here.', parts)[1]).toEqual({
+        text: 'is',
+        tone: null,
+      });
     });
   });
 
   describe('line breaks', () => {
     it('puts the answer of a question on its own line, across coloured runs', () => {
-      expect(breakAnswerText("Was Tom at the party? – No, he wasn't.")).toBe("Was Tom at the party?\nNo, he wasn't.");
+      expect(breakAnswerText("Was Tom at the party? – No, he wasn't.")).toBe(
+        "Was Tom at the party?\nNo, he wasn't.",
+      );
       expect(breakAnswerText('Họ có mua xe không? - Không.')).toBe('Họ có mua xe không?\nKhông.');
       expect(
         breakAnswer([
@@ -272,7 +316,11 @@ describe('grammar logic', () => {
       const [rows] = patternRows([
         "Am + I ...? / Is + he, she, it ...? / Are + you, we, they ...? -> Yes, I am. / No, I'm not. hoặc Yes, he is. / No, he isn't.",
       ]);
-      expect(rows.map((r) => (r.answer ? `→ ${r.parts[0].text}` : r.parts.map((p) => p.text).join(' | ')))).toEqual([
+      expect(
+        rows.map((r) =>
+          r.answer ? `→ ${r.parts[0].text}` : r.parts.map((p) => p.text).join(' | '),
+        ),
+      ).toEqual([
         'Am | I ...?',
         '→ Yes, I am.',
         "→ No, I'm not.",
@@ -295,7 +343,11 @@ describe('grammar logic', () => {
     it('keeps short choices and "hoặc" inside a piece on one line', () => {
       const [rows] = patternRows(['S + am / is / are + danh từ hoặc tính từ']);
       expect(rows).toHaveLength(1);
-      expect(rows[0].parts.map((p) => p.text)).toEqual(['S', 'am / is / are', 'danh từ hoặc tính từ']);
+      expect(rows[0].parts.map((p) => p.text)).toEqual([
+        'S',
+        'am / is / are',
+        'danh từ hoặc tính từ',
+      ]);
     });
 
     const lines = (pattern: string) =>
@@ -354,12 +406,22 @@ describe('grammar logic', () => {
     });
 
     it('numbers the pieces for the marks line after line, without the answers', () => {
-      expect(patternParts(['Am + I …? / Is + he …? -> Yes, I am.'])[0].map((p) => p.text)).toEqual(['Am', 'I …?', 'Is', 'he …?']);
+      expect(patternParts(['Am + I …? / Is + he …? -> Yes, I am.'])[0].map((p) => p.text)).toEqual([
+        'Am',
+        'I …?',
+        'Is',
+        'he …?',
+      ]);
     });
   });
 
   describe('guessStructure', () => {
-    const labels = ['Thể khẳng định', 'Thể phủ định', 'Câu hỏi Yes/No và câu trả lời ngắn', 'Câu hỏi có từ để hỏi'];
+    const labels = [
+      'Thể khẳng định',
+      'Thể phủ định',
+      'Câu hỏi Yes/No và câu trả lời ngắn',
+      'Câu hỏi có từ để hỏi',
+    ];
 
     it('places an example under the structure its form shows', () => {
       expect(guessStructure('I am a new student.', labels)).toBe(1);
@@ -367,7 +429,9 @@ describe('grammar logic', () => {
       expect(guessStructure("She isn't here.", labels)).toBe(2);
       expect(guessStructure("Are you twenty? – No, I'm not.", labels)).toBe(3);
       expect(guessStructure('Where is the doctor?', labels)).toBe(4);
-      expect(guessStructure('Where is it?', ['Khẳng định', 'Câu hỏi Yes/No', 'Câu hỏi có từ hỏi'])).toBe(3);
+      expect(
+        guessStructure('Where is it?', ['Khẳng định', 'Câu hỏi Yes/No', 'Câu hỏi có từ hỏi']),
+      ).toBe(3);
     });
 
     it('gives 0 when no label fits', () => {
@@ -386,7 +450,13 @@ describe('grammar logic', () => {
         { text: 'is', tone: 1 },
         { text: 'not', tone: 2 },
       ];
-      expect(tones(autoMark('She is not tired. This is it.', parts))).toEqual(['She:0', 'is:1', 'not:2', 'is:1', 'it:0']);
+      expect(tones(autoMark('She is not tired. This is it.', parts))).toEqual([
+        'She:0',
+        'is:1',
+        'not:2',
+        'is:1',
+        'it:0',
+      ]);
     });
 
     it('takes the question words for "Wh-word" and leaves stand-ins such as S or V-ing alone', () => {
@@ -397,7 +467,9 @@ describe('grammar logic', () => {
         { text: 'V-ing', tone: 3 },
       ];
       expect(tones(autoMark('Where are you going?', parts))).toEqual(['Where:0', 'are:1']);
-      expect(autoMark('Hi there.', [{ text: 'S', tone: 0 }])).toEqual([{ text: 'Hi there.', tone: null }]);
+      expect(autoMark('Hi there.', [{ text: 'S', tone: 0 }])).toEqual([
+        { text: 'Hi there.', tone: null },
+      ]);
     });
   });
 
@@ -418,5 +490,26 @@ describe('grammar logic', () => {
         { text: "'m", tone: 1 },
       ],
     ]);
+  });
+});
+
+describe('hintRemovedOption', () => {
+  const e = {
+    id: 'x',
+    kind: 'choice' as const,
+    options: ['a', 'b', 'c'],
+    answerIndex: 1,
+    explanationVi: '',
+  };
+  it('picks a wrong option by the seed', () => {
+    for (const seed of [0, 1, 2, 7, 12345]) {
+      const i = hintRemovedOption(e, seed);
+      expect(i === 0 || i === 2).toBe(true);
+      expect(hintRemovedOption(e, seed)).toBe(i);
+    }
+  });
+  it('crosses nothing out with fewer than 3 options or no answer', () => {
+    expect(hintRemovedOption({ ...e, options: ['a', 'b'] }, 1)).toBeNull();
+    expect(hintRemovedOption({ ...e, answerIndex: undefined }, 1)).toBeNull();
   });
 });

@@ -127,6 +127,7 @@ describe('GrammarList', () => {
     http.match((r) => r.url === '/admin/grammar-picture-batch');
     // It counts the pictures of the level, for its removal button (added 2026-11-12).
     http.match((r) => r.url === '/admin/grammar-images/remove');
+    http.match((r) => r.url === '/admin/grammar-hint-pictures/count');
     // F26: the "Bắn lỗi" counts, flushed only by the test about them.
     http.match((r) => r.url === '/admin/games/spot-counts');
     http.verify();

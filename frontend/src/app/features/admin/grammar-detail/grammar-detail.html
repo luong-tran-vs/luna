@@ -641,6 +641,12 @@
             />
           </section>
 
+          <lu-grammar-hint-pictures
+            [pointId]="l.pointId"
+            [title]="point()?.titleVi ?? ''"
+            (reload)="reloadImages()"
+          />
+
           <section class="card" aria-labelledby="pv-mastery">
             <h3 class="part-title" id="pv-mastery">
               Bài kiểm tra ({{ l.content.mastery.length }})

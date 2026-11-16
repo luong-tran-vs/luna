@@ -30,6 +30,7 @@ import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm
 import { Loading } from '../../../shared/components/loading/loading';
 import { AdminApiService } from '../admin-api.service';
 import { GrammarExampleImages } from '../grammar-images/grammar-example-images';
+import { GrammarHintPictures } from '../grammar-images/grammar-hint-pictures';
 import { grammarFailure } from '../grammar-errors';
 import { GrammarSpots } from './grammar-spots';
 import { patternRows } from '../../grammar/grammar-logic';
@@ -95,6 +96,7 @@ export function formatContent(content: GrammarContent): string {
     ReactiveFormsModule,
     RouterLink,
     GrammarExampleImages,
+    GrammarHintPictures,
     GrammarSpots,
   ],
   templateUrl: './grammar-detail.html',

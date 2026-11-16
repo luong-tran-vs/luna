@@ -13,7 +13,12 @@ import {
   viewChild,
 } from '@angular/core';
 
-import { AttemptKind, AttemptResult, GrammarExercise } from '../../../core/models/grammar-study';
+import {
+  AttemptKind,
+  AttemptResult,
+  GrammarExercise,
+  GrammarStructure,
+} from '../../../core/models/grammar-study';
 import { GrammarApiService } from '../../../core/services/grammar-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { ProgressRing } from '../../../shared/components/progress-ring/progress-ring';
@@ -50,6 +55,8 @@ export class GrammarQuiz {
   readonly pointId = input.required<string>();
   readonly kind = input.required<AttemptKind>();
   readonly exercises = input.required<GrammarExercise[]>();
+  /** The point's patterns, for the "Gợi ý" of a practice exercise (added 2026-11-16). */
+  readonly rules = input<GrammarStructure[]>([]);
   /** Ids of the practice exercises answered wrong last time (offered as a quick redo). */
   readonly weak = input<string[]>([]);
   /** The step's name shown before "Câu x/y", e.g. "Bước 3 · Luyện tập". */
@@ -78,7 +85,9 @@ export class GrammarQuiz {
     return ids ? this.exercises().filter((e) => ids.includes(e.id)) : this.exercises();
   });
   protected readonly current = computed(() => this.items()[this.index()] ?? null);
-  protected readonly finished = computed(() => this.items().length > 0 && this.index() >= this.items().length);
+  protected readonly finished = computed(
+    () => this.items().length > 0 && this.index() >= this.items().length,
+  );
   protected readonly answeredCurrent = computed(() => this.outcomes().length > this.index());
   protected readonly isLast = computed(() => this.index() + 1 >= this.items().length);
   protected readonly reveal = computed(() => this.kind() === 'practice');
@@ -86,7 +95,11 @@ export class GrammarQuiz {
   protected readonly correct = computed(() => this.outcomes().filter((o) => o.correct).length);
   protected readonly total = computed(() => this.items().length);
   protected readonly score = computed(() => percent(this.correct(), this.total()));
-  protected readonly wrongIds = computed(() => this.outcomes().filter((o) => !o.correct).map((o) => o.id));
+  protected readonly wrongIds = computed(() =>
+    this.outcomes()
+      .filter((o) => !o.correct)
+      .map((o) => o.id),
+  );
   protected readonly missing = computed(() => missingToPass(this.correct(), this.total()));
   /** Weak exercises still in this set, offered before a round starts. */
   protected readonly weakIds = computed(() =>
@@ -95,7 +108,11 @@ export class GrammarQuiz {
       .map((e) => e.id),
   );
   protected readonly canRetryWeak = computed(
-    () => this.kind() === 'practice' && this.weakIds().length > 0 && this.subset() === null && !this.started(),
+    () =>
+      this.kind() === 'practice' &&
+      this.weakIds().length > 0 &&
+      this.subset() === null &&
+      !this.started(),
   );
   protected readonly started = computed(() => this.index() > 0 || this.outcomes().length > 0);
 
@@ -108,7 +125,15 @@ export class GrammarQuiz {
     const rows = this.items().flatMap((exercise, i) => {
       const o = outcomes[i];
       return o
-        ? [{ exercise, correct: o.correct, given: o.given ?? '', right: correctAnswerText(exercise), number: i + 1 }]
+        ? [
+            {
+              exercise,
+              correct: o.correct,
+              given: o.given ?? '',
+              right: correctAnswerText(exercise),
+              number: i + 1,
+            },
+          ]
         : [];
     });
     return [...rows.filter((r) => !r.correct), ...rows.filter((r) => r.correct)];

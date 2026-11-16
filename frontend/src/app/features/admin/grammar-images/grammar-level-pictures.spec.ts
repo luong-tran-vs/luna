@@ -62,7 +62,7 @@ describe('GrammarLevelPictures', () => {
 
   it('starts the batch of the level in the background and shows how it goes', async () => {
     await setup();
-    expect(text(el)).toContain('3 bài “Nhìn ảnh chọn từ” ở Luyện tập và 1 bài ở Kiểm tra');
+    expect(text(el)).toContain('3 ở Luyện tập, 1 ở Kiểm tra');
     expect(text(button())).toBe('Thêm bài nhìn ảnh A1');
     button().click();
     await settle();

@@ -21,6 +21,7 @@ import {
   GrammarImportResult,
   GrammarImageBatch,
   GrammarImagesRemoved,
+  GrammarHintPicture,
   GrammarImageBatchRequest,
   GrammarPictureBatch,
   GrammarPictureBatchRequest,
@@ -184,7 +185,9 @@ export class AdminApiService {
 
   /** Removes the scene pictures of the given lessons (added 2026-11-12); 409 while a scene batch runs. */
   removeScenes(lessonIds: string[]): Observable<{ removed: number }> {
-    return this.http.post<{ removed: number }>(`${BASE}/lessons/scene-images/remove`, { lessonIds });
+    return this.http.post<{ removed: number }>(`${BASE}/lessons/scene-images/remove`, {
+      lessonIds,
+    });
   }
 
   /** Generates the practice again with one AI request (F17); 202 with the lesson. */
@@ -630,13 +633,24 @@ export class AdminApiService {
    * Removes every picture of the given grammar lessons, examples and "Nhìn ảnh chọn từ" alike
    * (added 2026-11-12); with dryRun it only counts them. 409 while an example batch runs.
    */
-  removeGrammarImages(
-    pointIds: string[],
-    dryRun = false,
-  ): Observable<GrammarImagesRemoved> {
+  removeGrammarImages(pointIds: string[], dryRun = false): Observable<GrammarImagesRemoved> {
     return this.http.post<GrammarImagesRemoved>(`${BASE}/grammar-images/remove`, {
       pointIds,
       dryRun,
+    });
+  }
+
+  /** The practice choice exercises of a lesson with their hint pictures (added 2026-11-16). */
+  grammarHintPictures(pointId: string): Observable<{ items: GrammarHintPicture[] }> {
+    return this.http.get<{ items: GrammarHintPicture[] }>(
+      `${BASE}/grammar-lessons/${encodeURIComponent(pointId)}/hint-pictures`,
+    );
+  }
+
+  /** How many practice choice exercises the lessons have, and how many have a hint picture. */
+  countGrammarHintPictures(pointIds: string[]): Observable<{ total: number; drawn: number }> {
+    return this.http.post<{ total: number; drawn: number }>(`${BASE}/grammar-hint-pictures/count`, {
+      pointIds,
     });
   }
 

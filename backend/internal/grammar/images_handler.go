@@ -20,6 +20,8 @@ func (h *Handler) registerImages(mux *http.ServeMux, admin, learner func(http.Ha
 	mux.Handle("POST /api/admin/grammar-image-batch", admin(h.startImageBatch))
 	mux.Handle("POST /api/admin/grammar-image-batch/stop", admin(h.stopImageBatch))
 	mux.Handle("POST /api/admin/grammar-images/remove", admin(h.removeImages))
+	mux.Handle("GET /api/admin/grammar-lessons/{pointId}/hint-pictures", admin(h.hintPictures))
+	mux.Handle("POST /api/admin/grammar-hint-pictures/count", admin(h.countHintPictures))
 	mux.Handle("GET /api/grammar/{pointId}/images/{key}", learner(h.image))
 }
 
@@ -153,6 +155,7 @@ func (h *Handler) startImageBatch(w http.ResponseWriter, r *http.Request) {
 		PointIDs []string    `json:"pointIds"`
 		Keys     []string    `json:"keys"`
 		Replace  bool        `json:"replace"`
+		Hints    bool        `json:"hints"`
 		Engine   ImageEngine `json:"engine"`
 		Key      string      `json:"key"`
 		Label    string      `json:"label"`
@@ -161,7 +164,7 @@ func (h *Handler) startImageBatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	st, err := h.svc.StartImageBatch(r.Context(), ImageBatchRequest{
-		PointIDs: in.PointIDs, Keys: in.Keys, Replace: in.Replace, Engine: in.Engine, Key: in.Key, Label: in.Label,
+		PointIDs: in.PointIDs, Keys: in.Keys, Replace: in.Replace, Hints: in.Hints, Engine: in.Engine, Key: in.Key, Label: in.Label,
 	})
 	if err != nil {
 		h.writeImageError(w, r, err)
@@ -233,6 +236,9 @@ func setPictureURLs(c *contentJSON, pointID string, keys map[string]string, admi
 			if k := keys[list[i].ID]; k != "" {
 				list[i].ImageURL = imageURL(pointID, k, admin)
 			}
+			if k := keys[hintPrefix+list[i].ID]; k != "" {
+				list[i].HintImageURL = imageURL(pointID, k, admin)
+			}
 		}
 	}
 }
@@ -242,4 +248,47 @@ func learnerContentJSON(d Detail) contentJSON {
 	c := toContentJSON(d.Content)
 	setPictureURLs(&c, d.Point.ID, d.Pictures, false)
 	return c
+}
+
+type hintPictureJSON struct {
+	ExerciseID string `json:"exerciseId"`
+	Sentence   string `json:"sentence"`
+	Key        string `json:"key"`
+	ImageURL   string `json:"imageUrl,omitempty"`
+}
+
+// hintPictures serves GET /api/admin/grammar-lessons/{pointId}/hint-pictures: the practice choice
+// exercises of the lesson with their hint pictures (added 2026-11-16).
+func (h *Handler) hintPictures(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("pointId")
+	list, err := h.svc.HintPictures(r.Context(), id)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	out := make([]hintPictureJSON, len(list))
+	for i, p := range list {
+		out[i] = hintPictureJSON{ExerciseID: p.ExerciseID, Sentence: p.Sentence, Key: p.Key}
+		if p.Drawn {
+			out[i].ImageURL = imageURL(id, p.Key, true)
+		}
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"items": out})
+}
+
+// countHintPictures serves POST /api/admin/grammar-hint-pictures/count with {"pointIds"}:
+// {"total", "drawn"} over their lessons (added 2026-11-16).
+func (h *Handler) countHintPictures(w http.ResponseWriter, r *http.Request) {
+	var in struct {
+		PointIDs []string `json:"pointIds"`
+	}
+	if httpx.DecodeJSON(w, r, &in) != nil {
+		return
+	}
+	c, err := h.svc.CountHintPictures(r.Context(), in.PointIDs)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"total": c.Total, "drawn": c.Drawn})
 }

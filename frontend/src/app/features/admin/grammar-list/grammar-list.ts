@@ -20,8 +20,7 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { AdminApiService } from '../admin-api.service';
 import { grammarFailure } from '../grammar-errors';
 import { GrammarImportDialog } from './import-dialog/import-dialog';
-import { GrammarLevelImages } from '../grammar-images/grammar-level-images';
-import { GrammarLevelPictures } from '../grammar-images/grammar-level-pictures';
+import { GrammarLevelMedia } from '../grammar-images/grammar-level-media';
 
 const GENERATE_FAILED = 'Sinh bài thất bại, vui lòng thử lại.';
 const ACTION_FAILED = 'Không thực hiện được, vui lòng thử lại.';
@@ -31,14 +30,7 @@ const SPOT_ENOUGH = 10;
 /** F20: the curriculum by level with the state of each point's grammar lesson and its actions. */
 @Component({
   selector: 'lu-grammar-list',
-  imports: [
-    Loading,
-    ConfirmDialog,
-    RouterLink,
-    GrammarImportDialog,
-    GrammarLevelImages,
-    GrammarLevelPictures,
-  ],
+  imports: [Loading, ConfirmDialog, RouterLink, GrammarImportDialog, GrammarLevelMedia],
   templateUrl: './grammar-list.html',
   styleUrl: './grammar-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,6 +70,12 @@ export class GrammarList {
     const lessons = this.lessons();
     // Only the points that can be drawn get pictures (added 2026-11-06).
     return (this.points() ?? []).filter((p) => p.drawable && !!lessons[p.id]).map((p) => p.id);
+  });
+
+  /** Every point of the level that has a lesson: the hint pictures are for all of them (added 2026-11-16). */
+  protected readonly allLessonIds = computed(() => {
+    const lessons = this.lessons();
+    return (this.points() ?? []).filter((p) => !!lessons[p.id]).map((p) => p.id);
   });
 
   /** The title of each point of the level, by id (the list of "Gỡ ảnh ví dụ"). */

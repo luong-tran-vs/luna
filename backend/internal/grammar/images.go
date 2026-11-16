@@ -233,15 +233,22 @@ func PictureKey(e Exercise) string { return ExampleKey("picture: " + e.Picture) 
 
 // learnerContent is c as a learner gets it (added 2026-11-06): a picture exercise is kept only once
 // its picture is drawn, and without its description, which would tell the answer. pictures gives
-// the key of the picture of each picture exercise kept, by exercise id.
+// the key of the picture of each picture exercise kept, by exercise id, and the hint picture of each
+// practice choice exercise drawn, by "hint:" + exercise id.
 func (s *Service) learnerContent(ctx context.Context, pointID string, c Content) (out Content, pictures map[string]string, err error) {
 	pictures = map[string]string{}
-	if !hasPictureExercises(c) {
+	if !hasPictureExercises(c) && !hasHintExercises(c) {
 		return c, pictures, nil
 	}
 	have, err := s.imageKeys(ctx, pointID)
 	if err != nil {
 		return Content{}, nil, err
+	}
+	// The hint picture of each practice choice exercise that has it, under "hint:<id>" (added 2026-11-16).
+	for _, e := range c.Practice {
+		if k := HintKey(e); k != "" && have[k] {
+			pictures[hintPrefix+e.ID] = k
+		}
 	}
 	keep := func(in []Exercise) []Exercise {
 		kept := make([]Exercise, 0, len(in))

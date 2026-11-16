@@ -49,6 +49,8 @@ export interface GrammarExercise {
   words?: string[];
   /** The picture of a picture exercise (added 2026-11-06): the learner picks the option it shows. */
   imageUrl?: string;
+  /** The picture "Gợi ý" shows on a practice choice exercise, once drawn (added 2026-11-16). */
+  hintImageUrl?: string;
   explanationVi: string;
 }
 

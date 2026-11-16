@@ -17,7 +17,18 @@ export interface GrammarExercise {
   /** A picture exercise (added 2026-11-06): what its picture shows, in English, and the picture once drawn. */
   picture?: string;
   imageUrl?: string;
+  /** The hint picture of a practice choice exercise, once drawn (added 2026-11-16). */
+  hintImageUrl?: string;
   explanationVi: string;
+}
+
+/** A practice choice exercise of a lesson and its hint picture (added 2026-11-16). */
+export interface GrammarHintPicture {
+  exerciseId: string;
+  sentence: string;
+  key: string;
+  /** Absent until drawn. */
+  imageUrl?: string;
 }
 
 export interface GrammarStructure {
@@ -242,6 +253,8 @@ export interface GrammarImageBatchRequest {
   keys?: string[];
   /** Draw the examples that have a picture too, replacing it. */
   replace?: boolean;
+  /** Draw the hint pictures of the practice choice exercises instead (added 2026-11-16). */
+  hints?: boolean;
   engine: ImageEngine;
   key: string;
   label: string;

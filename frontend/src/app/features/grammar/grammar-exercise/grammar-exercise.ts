@@ -12,7 +12,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { serverUrl } from '../../../core/api-url';
-import { GrammarExercise } from '../../../core/models/grammar-study';
+import { GrammarExercise, GrammarStructure } from '../../../core/models/grammar-study';
 import { Icon } from '../../../shared/components/icon/icon';
 import { newSeed } from '../../lesson/lesson-detail/practice-logic';
 import {
@@ -21,6 +21,7 @@ import {
   gradeFill,
   gradeFix,
   gradeReorder,
+  hintRemovedOption,
   shuffleOptions,
   shuffleWords,
   splitBlank,
@@ -47,6 +48,8 @@ export class GrammarExerciseView {
   readonly pointId = input('');
   /** Whether a fill or reorder has its own Kiểm tra button; off when the page's bar calls check(). */
   readonly inlineCheck = input(true);
+  /** The point's patterns, shown by "Gợi ý" while practising (added 2026-11-16). */
+  readonly rules = input<GrammarStructure[]>([]);
   readonly answered = output<boolean>();
   /** What the learner answered, as text; emitted just before `answered`. */
   readonly given = output<string>();
@@ -69,6 +72,11 @@ export class GrammarExerciseView {
     source: this.exercise,
     computation: () => newSeed(),
   });
+  /** "Gợi ý" was opened for this exercise. */
+  protected readonly hintShown = linkedSignal<GrammarExercise, boolean>({
+    source: this.exercise,
+    computation: () => false,
+  });
 
   protected readonly typed = new FormControl('', { nonNullable: true });
   private readonly typedValue = toSignal(this.typed.valueChanges, { initialValue: '' });
@@ -83,6 +91,34 @@ export class GrammarExerciseView {
   protected readonly isDone = computed(() => this.result() !== null);
   /** The right answer as text, shown after a wrong one. */
   protected readonly correctText = computed(() => correctAnswerText(this.exercise()));
+  /** The wrong option "Gợi ý" crosses out on a choice, null when there is none to cross out. */
+  protected readonly removedOption = computed(() =>
+    this.hintShown() ? hintRemovedOption(this.exercise(), this.seed()) : null,
+  );
+  /**
+   * "Gợi ý" (added 2026-11-16) shows only while practising (a test shows no result, so no hint) and
+   * before the answer: on a choice it crosses out one wrong option and shows the point's patterns;
+   * on a fill only the patterns, so it needs some.
+   */
+  protected readonly canHint = computed(() => {
+    if (!this.reveal() || this.isDone() || this.hintShown()) {
+      return false;
+    }
+    const e = this.exercise();
+    const choice = e.kind === 'choice' || e.kind === 'picture';
+    return (
+      (choice && hintRemovedOption(e, 0) !== null) ||
+      ((choice || e.kind === 'fill') && this.rules().length > 0)
+    );
+  });
+  /** The point's patterns shown under the exercise once "Gợi ý" is open. */
+  protected readonly hintRules = computed(() => (this.hintShown() ? this.rules() : []));
+
+  /** The picture of the scene of a practice choice sentence, shown above it (added 2026-11-16). */
+  protected readonly sceneSrc = computed(() => {
+    const u = this.exercise().hintImageUrl;
+    return u ? serverUrl(u) : '';
+  });
   /** The picture of a picture exercise (added 2026-11-06). */
   protected readonly pictureSrc = computed(() => {
     const u = this.exercise().imageUrl;
@@ -120,8 +156,14 @@ export class GrammarExerciseView {
     });
   }
 
+  protected showHint(): void {
+    if (this.canHint()) {
+      this.hintShown.set(true);
+    }
+  }
+
   protected choose(index: number): void {
-    if (this.isDone()) {
+    if (this.isDone() || index === this.removedOption()) {
       return;
     }
     this.chosen.set(index);

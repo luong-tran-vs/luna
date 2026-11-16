@@ -25,15 +25,13 @@ import { GrammarPictureBatchService } from './grammar-picture-batch.service';
   selector: 'lu-grammar-level-pictures',
   imports: [RouterLink],
   template: `
-    <section class="card level-batch" aria-labelledby="level-pictures-title">
+    <section class="level-batch" aria-labelledby="level-pictures-title">
       <div class="line">
         <div class="text">
-          <h2 class="title" id="level-pictures-title">Bài nhìn ảnh</h2>
+          <h3 class="title" id="level-pictures-title">Bài nhìn ảnh</h3>
           <p class="field-hint">
-            Thêm cho đủ {{ practice }} bài “Nhìn ảnh chọn từ” ở Luyện tập và {{ mastery }} bài ở
-            Kiểm tra vào {{ pointIds().length }} bài ngữ pháp {{ level() }} vẽ được, lần lượt từng
-            bài, chạy ngầm trên máy chủ. Phần còn lại của bài giữ nguyên. Thêm xong thì tạo ảnh ví
-            dụ để người học thấy các bài này.
+            Thêm bài “Nhìn ảnh chọn từ” ({{ practice }} ở Luyện tập, {{ mastery }} ở Kiểm tra) cho
+            {{ pointIds().length }} bài vẽ được. Thêm xong thì tạo ảnh ví dụ.
           </p>
         </div>
         @if (mine(); as b) {
@@ -49,7 +47,8 @@ import { GrammarPictureBatchService } from './grammar-picture-batch.service';
             [disabled]="busy() || pointIds().length === 0 || !!other()"
             (click)="start()"
           >
-            {{ busy() ? 'Đang gửi…' : 'Thêm bài nhìn ảnh ' + level() }}
+            {{ busy() ? 'Đang gửi…' : 'Thêm bài nhìn ảnh'
+            }}<span class="visually-hidden"> {{ level() }}</span>
           </button>
         }
       </div>
@@ -95,8 +94,7 @@ import { GrammarPictureBatchService } from './grammar-picture-batch.service';
               <ul class="failures">
                 @for (f of b.failures; track f.pointId) {
                   <li>
-                    <a [routerLink]="['/admin/grammar', f.pointId]">{{ f.title }}</a
-                    >:
+                    <a [routerLink]="['/admin/grammar', f.pointId]">{{ f.title }}</a>:
                     {{ f.message }}
                   </li>
                 }
