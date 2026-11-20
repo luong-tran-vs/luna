@@ -138,7 +138,7 @@ func (c *Client) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Ima
 	start := c.now()
 	stdout, stderr, runErr := c.run(ctx, dir, c.bin, c.args(dir), prompt(req, name))
 	ev := parseEvents(stdout)
-	c.record(ctx, start, ev, runErr)
+	c.record(ctx, ai.ImageOp(req), start, ev, runErr)
 
 	if err := classify(ctx, runErr, ev, stderr); err != nil {
 		c.log.WarnContext(ctx, "codex: draw picture failed", slog.Int("word_chars", len(req.Word)),
@@ -177,7 +177,7 @@ func prompt(req ai.ImageRequest, name string) string {
 		"If the image_gen tool is not available to you, reply with only " + noImageTool + " and stop."
 }
 
-func (c *Client) record(ctx context.Context, start time.Time, ev events, runErr error) {
+func (c *Client) record(ctx context.Context, op string, start time.Time, ev events, runErr error) {
 	if c.usage == nil {
 		return
 	}
@@ -190,7 +190,7 @@ func (c *Client) record(ctx context.Context, start time.Time, ev events, runErr 
 		status = 0
 	}
 	c.usage.RecordUsage(ctx, ai.Usage{
-		At: start, Model: model, Op: "image", Status: status,
+		At: start, Model: model, Op: op, Status: status,
 		PromptTokens: ev.inputTokens, OutputTokens: ev.outputTokens, ThoughtTokens: ev.reasoningTokens,
 		TotalTokens: ev.inputTokens + ev.outputTokens, Duration: c.now().Sub(start),
 	})

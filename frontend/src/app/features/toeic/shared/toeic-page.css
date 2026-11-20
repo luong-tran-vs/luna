@@ -1,0 +1,113 @@
+/* Shared blocks of the TOEIC learner pages (F27). Tokens only. */
+
+.toeic-page {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--page-x) var(--space-6);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.head-title {
+  flex: 1 1 240px;
+  min-width: 0;
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+}
+
+.box {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.box-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.chip.ok {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-ok) 18%, transparent);
+}
+
+.chip.warn {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-warn) 22%, transparent);
+}
+
+.chip.bad {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-bad) 15%, transparent);
+}
+
+.hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-primary-ink);
+}
+
+.state-msg {
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Outcome cells: ✓ ✗ – beside the colour. */
+.qcell {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 36px;
+  padding: 0 var(--space-1);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.qcell[data-state='right'] {
+  background: color-mix(in srgb, var(--color-ok) 22%, transparent);
+  border-color: var(--color-ok);
+}
+
+.qcell[data-state='wrong'] {
+  background: color-mix(in srgb, var(--color-bad) 18%, transparent);
+  border-color: var(--color-bad);
+}

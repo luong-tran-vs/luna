@@ -153,6 +153,7 @@ describe('App', () => {
       '/admin/words',
       '/admin/verb-images',
       '/admin/grammar',
+      '/admin/toeic',
       '/admin/roadmap',
       '/admin/accounts',
       '/admin/ai-usage',

@@ -54,9 +54,9 @@ const TABS: readonly Tab[] = [
   },
 ];
 
-/** The pages opened from Luyện: grammar, the irregular verbs, talking with the AI and the games. */
+/** The pages opened from Luyện: grammar, the irregular verbs, talking with the AI, the games and TOEIC. */
 function isPracticePath(path: string): boolean {
-  return ['/grammar', '/irregular-verbs', '/vocabulary/talk', '/games'].some(
+  return ['/grammar', '/irregular-verbs', '/vocabulary/talk', '/games', '/toeic'].some(
     (s) => path === s || path.startsWith(s + '/'),
   );
 }
@@ -72,7 +72,9 @@ export function isFocusPage(path: string): boolean {
     /^\/grammar\/[^/]+$/.test(path) ||
     /^\/irregular-verbs\/(lessons\/[^/]+|review|listen)$/.test(path) ||
     /^\/vocabulary\/talk\/[^/]+$/.test(path) ||
-    /^\/games\/[^/]+$/.test(path)
+    /^\/games\/[^/]+$/.test(path) ||
+    // The TOEIC exam room (F27): its own top bar, answer sheet and submit bar.
+    /^\/toeic\/attempts\/[^/]+$/.test(path)
   );
 }
 

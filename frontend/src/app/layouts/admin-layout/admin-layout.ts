@@ -62,6 +62,12 @@ const ADMIN_LINKS: readonly AdminLink[] = [
     matches: (p) => p.startsWith('/admin/grammar'),
   },
   {
+    path: '/admin/toeic',
+    label: 'TOEIC',
+    icon: 'target',
+    matches: (p) => p.startsWith('/admin/toeic'),
+  },
+  {
     path: '/admin/roadmap',
     label: 'Lộ trình',
     icon: 'route',

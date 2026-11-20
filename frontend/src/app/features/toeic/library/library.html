@@ -1,0 +1,107 @@
+<div class="toeic-page">
+  <header class="head">
+    <h1 class="head-title">Luyện thi TOEIC</h1>
+    <span class="chip">Nghe – Đọc</span>
+  </header>
+
+  <lu-toeic-tabs active="tests" [mistakes]="data()?.mistakes ?? null" [guest]="data()?.guest ?? false" />
+
+  @if (error()) {
+    <div class="box" role="alert">
+      <p>Không tải được danh sách đề. Kiểm tra mạng rồi thử lại.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (data(); as d) {
+    <div class="layout">
+      <section class="tests" aria-labelledby="tests-title">
+        <h2 class="sr-only" id="tests-title">Đề thi</h2>
+        @if (tests().length === 0) {
+          <p class="box state-msg">Chưa có đề. Đề mới sẽ hiện ở đây khi được đăng.</p>
+        } @else {
+          <ul class="grid">
+            @for (t of tests(); track t.key) {
+              <li class="card-test" [class.locked]="t.locked">
+                <h3 class="test-title">{{ t.title }}</h3>
+                <p class="test-meta">
+                  <lu-icon name="clock" /> {{ t.minutes }} phút · {{ t.parts }} phần · {{ t.questions }} câu
+                </p>
+                <p class="test-kind">
+                  <span class="chip">{{ kind(t) }}</span>
+                  @if (!t.complete) {
+                    <span class="chip warn">Phần Đọc</span>
+                  }
+                </p>
+                @if (t.locked) {
+                  <p class="state"><lu-icon name="lock" /> Chỉ dành cho thành viên</p>
+                  <span class="btn go" aria-disabled="true">Đã khoá</span>
+                } @else {
+                  @switch (t.state.status) {
+                    @case ('in_progress') {
+                      <p class="state doing">Đang làm · câu {{ t.state.position }}</p>
+                      <a class="btn-primary go" [routerLink]="['/toeic/attempts', t.state.attemptId]">Làm tiếp</a>
+                    }
+                    @case ('submitted') {
+                      <p class="state done">
+                        ✓ Đã làm · {{ result(t) }}
+                        @if (date(t.state.at)) {
+                          <span class="muted">({{ date(t.state.at) }})</span>
+                        }
+                      </p>
+                      <a class="btn go" [routerLink]="['/toeic/tests', t.key]">Chi tiết</a>
+                    }
+                    @default {
+                      <p class="state">Chưa làm</p>
+                      <a class="btn go" [routerLink]="['/toeic/tests', t.key]">Chi tiết</a>
+                    }
+                  }
+                }
+              </li>
+            }
+            <li class="card-test soon">
+              <h3 class="test-title">Đề ngẫu nhiên</h3>
+              <p class="test-meta">50 hoặc 100 câu đủ 7 Part, ưu tiên câu bạn chưa làm</p>
+              <span class="btn go" aria-disabled="true">Sắp có</span>
+            </li>
+          </ul>
+        }
+      </section>
+
+      <aside class="side" aria-label="Mục tiêu và kết quả">
+        <section class="box">
+          <h2 class="box-title">Mục tiêu</h2>
+          @if (d.goal; as g) {
+            <p class="big">{{ g.target }}</p>
+            @if (g.daysLeft !== null) {
+              <p class="muted">Còn {{ g.daysLeft }} ngày tới ngày thi</p>
+            }
+          } @else {
+            <p class="muted">Đặt điểm mục tiêu và ngày thi sẽ có ở đợt sau.</p>
+          }
+          @if (d.latest; as l) {
+            <p>
+              Điểm ước tính gần nhất: <b>{{ l.total }}</b>
+              <span class="muted">(L {{ l.listening }} · R {{ l.reading }})</span>
+            </p>
+          }
+        </section>
+        <section class="box">
+          <h2 class="box-title">Làm gần đây</h2>
+          @if (d.recent.length === 0) {
+            <p class="muted">Chưa có lần làm nào.</p>
+          } @else {
+            <ul class="recent">
+              @for (r of d.recent; track r.attemptId) {
+                <li>
+                  <a [routerLink]="['/toeic/attempts', r.attemptId, 'result']">{{ r.title }}</a>
+                  <span class="muted">{{ r.correct }}/{{ r.total }} · {{ date(r.at) }}</span>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+      </aside>
+    </div>
+  } @else {
+    <p class="state-msg" role="status">Đang tải…</p>
+  }
+</div>

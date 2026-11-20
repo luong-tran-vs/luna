@@ -1,0 +1,161 @@
+<div class="page wide-page">
+  <nav class="crumbs" aria-label="Đường dẫn">
+    <a routerLink="/admin/toeic">TOEIC</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">{{ test()?.title ?? 'Đề' }}</span>
+  </nav>
+  @if (test(); as t) {
+    <header class="page-header">
+      <div>
+        <h1 class="page-title">{{ t.title }}</h1>
+        <p class="muted">
+          <code>{{ t.key }}</code> · {{ kind() }} · thứ tự {{ t.order }} ·
+          {{ statusLabel(t.status) }}
+        </p>
+      </div>
+      <div class="actions">
+        @if (t.status === 'published') {
+          <button type="button" class="btn" [disabled]="busy()" (click)="setStatus('hidden')">
+            Ẩn đề
+          </button>
+        } @else {
+          <button type="button" class="btn" (click)="startEdit()">Sửa JSON</button>
+          <button
+            type="button"
+            class="btn-primary"
+            [disabled]="busy() || !t.check.ready"
+            (click)="setStatus('published')"
+          >
+            Đăng đề
+          </button>
+        }
+      </div>
+    </header>
+    @if (error()) {
+      <p class="form-alert" role="alert">{{ error() }}</p>
+    }
+
+    <section class="card" aria-labelledby="check-title">
+      <h2 class="section-title" id="check-title">Kiểm tra đề</h2>
+      <ul class="parts">
+        @for (p of t.check.parts; track p.part) {
+          <li [attr.data-ok]="p.have === p.need" [class.empty]="p.have === 0">
+            <b>Part {{ p.part }}</b>
+            <span>{{ names[p.part] }}</span>
+            <span
+              >{{ p.have }}/{{ p.need }} câu
+              {{ p.have === p.need ? '✓' : p.have === 0 ? '' : '✕' }}</span
+            >
+          </li>
+        }
+      </ul>
+      <p class="muted">
+        {{ t.check.docs }} văn bản · {{ t.check.graphics }} biểu đồ · phần Nghe ≈
+        {{ t.check.listeningMinutes }} phút ·
+        {{ t.check.complete ? 'đủ 7 Part' : 'chưa đủ 7 Part (luyện tập được phần đã có)' }}
+      </p>
+      @if (t.status !== 'published') {
+        @if (t.check.ready) {
+          <p class="ok-line">✓ Sẵn sàng đăng</p>
+        } @else {
+          <div class="banner-warning">
+            Chưa đăng được:
+            <ul>
+              @for (r of reasons(); track r) {
+                <li>{{ r }}</li>
+              }
+            </ul>
+          </div>
+        }
+      }
+    </section>
+
+    @if (part1Keys().length > 0) {
+      <section class="card" aria-labelledby="photos-title">
+        <h2 class="section-title" id="photos-title">
+          Ảnh Part 1 ({{ part1Keys().length - t.check.missingPhotos.length }}/{{
+            part1Keys().length
+          }})
+        </h2>
+        <lu-toeic-photo-panel
+          [testKey]="t.key"
+          [groupKeys]="part1Keys()"
+          [missing]="t.check.missingPhotos.length"
+          (changed)="reload()"
+        />
+      </section>
+    }
+
+    <section class="card" aria-labelledby="groups-title">
+      <h2 class="section-title" id="groups-title">Các cụm ({{ t.groups.length }})</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Mã cụm</th>
+              <th scope="col">Part</th>
+              <th scope="col">Câu</th>
+              <th scope="col">Nội dung</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col"><span class="sr-only">Thao tác</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (g of t.groupRows ?? []; track g.key) {
+              <tr>
+                <td data-label="Mã cụm">
+                  <code>{{ g.key }}</code>
+                </td>
+                <td data-label="Part">{{ g.part }}</td>
+                <td data-label="Câu">{{ g.questions }}</td>
+                <td class="title-cell" data-label="Nội dung" lang="en">{{ g.title }}</td>
+                <td data-label="Trạng thái">
+                  <span class="tag" [attr.data-status]="g.status">{{ statusLabel(g.status) }}</span>
+                </td>
+                <td data-label="">
+                  <button type="button" class="btn small" (click)="preview.set(g.key)">
+                    Xem trước
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  } @else if (error()) {
+    <p class="form-alert" role="alert">{{ error() }}</p>
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</div>
+
+@if (preview(); as key) {
+  <lu-toeic-group-preview [key]="key" (closed)="preview.set(null)" />
+}
+@if (editing()) {
+  <div class="backdrop">
+    <div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="toeic-edit-title">
+      <h2 class="title" id="toeic-edit-title">Sửa đề (JSON)</h2>
+      <lu-json-source idPrefix="toeic-edit" [(text)]="text" [invalid]="!!editError()" />
+      @if (editError()) {
+        <div class="form-alert" role="alert">
+          {{ editError() }}
+          @if (editFields().length > 0) {
+            <ul>
+              @for (f of editFields(); track f.key) {
+                <li>
+                  <code>{{ f.key }}</code>: {{ f.text }}
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
+      <div class="actions">
+        <button type="button" class="btn" (click)="editing.set(false)">Huỷ</button>
+        <button type="button" class="btn-primary" (click)="saveEdit()">Lưu</button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,153 @@
+<div class="toeic-page narrow">
+  <nav class="crumbs">
+    <a [routerLink]="['/toeic/attempts', id(), 'result']">← Kết quả</a>
+  </nav>
+
+  @if (error()) {
+    <p class="form-alert" role="alert">{{ error() }}</p>
+  } @else if (data(); as d) {
+    <header class="box">
+      <h1 class="head-title">Đáp án chi tiết · Câu {{ d.question.number }}</h1>
+      <p class="tags">
+        <span class="chip">Part {{ d.group.part }} · {{ names[d.group.part] }}</span>
+        @for (t of d.question.tags; track t.tag) {
+          @if (t.grammarPointId) {
+            <a class="chip" [routerLink]="['/grammar', t.grammarPointId]">#{{ t.labelVi }} · học ngữ pháp</a>
+          } @else {
+            <span class="chip">#{{ t.labelVi }}</span>
+          }
+        }
+      </p>
+      <p class="verdict" [attr.data-state]="d.question.state">{{ summary() }}</p>
+    </header>
+
+    @if (d.group.docs?.length) {
+      <section class="docs" aria-label="Văn bản">
+        <div class="doc-tools">
+          <button type="button" class="btn" [attr.aria-pressed]="translated()" (click)="translated.set(!translated())">
+            {{ translated() ? 'Ẩn bản dịch' : 'Hiện bản dịch' }}
+          </button>
+        </div>
+        @for (doc of d.group.docs; track $index) {
+          <lu-toeic-doc
+            [doc]="doc"
+            [groupKey]="d.group.key"
+            [docIndex]="$index"
+            [blankNumbers]="blankNumbers()"
+            [activeBlank]="d.question.no"
+            [evidence]="d.question.evidence"
+            [showTranslation]="translated()"
+          />
+        }
+      </section>
+    }
+    @if (image(); as src) {
+      <img class="photo" crossorigin="use-credentials" [src]="src" alt="Ảnh của câu hỏi" />
+    }
+    @if (d.group.graphic; as gr) {
+      <lu-toeic-graphic [graphic]="gr" />
+    }
+    @if (replay(); as pl) {
+      <section class="box listen" aria-label="Nghe lại">
+        <div class="doc-tools">
+          @if (pl.playing()) {
+            <button type="button" class="btn-primary" (click)="pl.pause()">⏸ Dừng</button>
+          } @else {
+            <button type="button" class="btn-primary" (click)="pl.play(0)">▶ Nghe lại cả cụm</button>
+          }
+          @if (d.group.script?.length) {
+            <button type="button" class="btn" [attr.aria-pressed]="translated()" (click)="translated.set(!translated())">
+              {{ translated() ? 'Ẩn bản dịch' : 'Hiện bản dịch' }}
+            </button>
+          }
+        </div>
+        @if (pl.error()) {
+          <p class="form-alert" role="alert">Trình duyệt chưa phát được âm thanh. Bấm lại để nghe.</p>
+        }
+        @if (d.group.script?.length) {
+          <h2 class="box-title">Lời thoại</h2>
+          <ol class="transcript">
+            @for (t of d.group.script; track $index) {
+              <li
+                class="turn"
+                [class.now-reading]="pl.playing() && pl.segment()?.kind === 'turn' && pl.segment()?.text === t.text"
+                [class.evidence]="evidenceTurns().has($index)"
+              >
+                <span class="who">{{ speakerLabel(t.speaker) }} · {{ accentLabel(t.accent) }}</span>
+                <span lang="en">{{ t.text }}</span>
+                @if (translated() && t.translateVi) {
+                  <span class="vi">{{ t.translateVi }}</span>
+                }
+                @if (evidenceTurns().has($index)) {
+                  <span class="ev-note">Câu {{ d.question.number }}: chứa đáp án</span>
+                }
+              </li>
+            }
+          </ol>
+        }
+      </section>
+    }
+
+    <section class="box">
+      <lu-toeic-question
+        [question]="d.question"
+        [chosen]="d.question.chosen >= 0 ? d.question.chosen : null"
+        [answer]="d.question.answer"
+        [readonly]="true"
+      />
+      @if (d.question.translateVi) {
+        <p class="translation"><b>Dịch:</b> {{ d.question.translateVi }}</p>
+      }
+    </section>
+
+    <section class="box">
+      <h2 class="box-title">Giải thích</h2>
+      <p class="explain">{{ d.question.explainVi }}</p>
+    </section>
+
+    @if (d.question.vocab.length > 0) {
+      <section class="box">
+        <h2 class="box-title">Từ vựng</h2>
+        <ul class="vocab">
+          @for (v of d.question.vocab; track v.word) {
+            <li>
+              <span>
+                <b lang="en">{{ v.word }}</b>
+                @if (v.ipa) {
+                  <span class="ipa">{{ v.ipa }}</span>
+                }
+                – {{ v.meaningVi }}
+              </span>
+              @switch (saved()[v.word]) {
+                @case ('done') {
+                  <span class="chip ok" role="status">✓ Đã thêm</span>
+                }
+                @case ('saving') {
+                  <span class="muted" role="status">Đang thêm…</span>
+                }
+                @default {
+                  <button type="button" class="btn" (click)="addWord(v)">
+                    {{ saved()[v.word] === 'error' ? 'Thử lại' : '+ Sổ từ' }}
+                  </button>
+                }
+              }
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    <nav class="pager" aria-label="Câu khác">
+      @if (d.prev) {
+        <a class="btn" [routerLink]="['/toeic/attempts', id(), 'q', d.prev]">← Câu trước</a>
+      } @else {
+        <span></span>
+      }
+      @if (d.next) {
+        <a class="btn" [routerLink]="['/toeic/attempts', id(), 'q', d.next]">Câu sau →</a>
+      }
+    </nav>
+  } @else {
+    <p class="state-msg" role="status">Đang tải…</p>
+  }
+</div>

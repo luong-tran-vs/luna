@@ -1,0 +1,258 @@
+{
+  "groups": [
+    {
+      "key": "p6-s01-01",
+      "part": 6,
+      "level": 600,
+      "docs": [
+        {
+          "kind": "email",
+          "meta": [
+            { "k": "To", "v": "Oscar Delgado <o.delgado@mailpoint.net>" },
+            { "k": "From", "v": "Hannah Pirelli, Customer Care <care@brightwaterlinens.com>" },
+            { "k": "Subject", "v": "Your recent order" },
+            { "k": "Date", "v": "March 12" }
+          ],
+          "body": [
+            { "kind": "p", "text": "Thank you for contacting Brightwater Linens about order #47215. We are sorry that the bath towels you received were not the color you [[1]]. You requested navy blue, but a set in light gray was delivered instead." },
+            { "kind": "p", "text": "Our warehouse team has confirmed that the error occurred during packing. [[2]] A replacement set in navy blue was sent to your address this morning by express delivery, so it should arrive within two business days." },
+            { "kind": "p", "text": "You do not need to send the original towels back. [[3]], please keep them or donate them to a local charity. In addition, we have added a 15 percent discount to your account, [[4]] will be applied automatically to your next order." },
+            { "kind": "p", "text": "We value your business and hope to serve you again soon." }
+          ],
+          "translateVi": "Gửi: Oscar Delgado. Từ: Hannah Pirelli, Chăm sóc khách hàng. Tiêu đề: Đơn hàng gần đây của quý khách. Ngày: 12 tháng 3.\n\nCảm ơn quý khách đã liên hệ với Brightwater Linens về đơn hàng số 47215. Chúng tôi rất tiếc vì bộ khăn tắm quý khách nhận được không đúng màu quý khách đã đặt. Quý khách yêu cầu màu xanh navy, nhưng chúng tôi lại giao một bộ màu xám nhạt.\n\nBộ phận kho đã xác nhận lỗi xảy ra trong khâu đóng gói. Chúng tôi xin lỗi vì sai sót này và đã tiến hành khắc phục. Một bộ thay thế màu xanh navy đã được gửi chuyển phát nhanh đến địa chỉ của quý khách sáng nay, nên sẽ đến trong vòng hai ngày làm việc.\n\nQuý khách không cần gửi trả bộ khăn ban đầu. Thay vào đó, xin quý khách cứ giữ lại hoặc tặng cho một tổ chức từ thiện tại địa phương. Ngoài ra, chúng tôi đã thêm mức giảm giá 15% vào tài khoản của quý khách, mức giảm này sẽ được tự động áp dụng cho đơn hàng tiếp theo.\n\nChúng tôi trân trọng sự ủng hộ của quý khách và mong được phục vụ quý khách lần sau."
+        }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "options": ["ordering", "ordered", "will order", "orders"],
+          "answer": 1,
+          "tags": ["verb-tense"],
+          "evidence": [ { "doc": 0, "block": 0, "turn": 0, "text": "You requested navy blue, but a set in light gray was delivered instead." } ],
+          "explainVi": "Khách đã đặt hàng xong và đã nhận hàng (the towels you received, You requested … was delivered) nên việc đặt hàng là chuyện trong quá khứ → thì quá khứ đơn ordered (B). (A) ordering là V-ing, không đứng một mình sau chủ ngữ you làm động từ chính. (C) will order là tương lai, mâu thuẫn vì đơn đã giao. (D) orders là hiện tại đơn, chỉ thói quen, không hợp với một đơn hàng cụ thể đã qua. Bẫy: chỉ nhìn câu có chỗ trống thì dễ chọn hiện tại; phải dựa vào ngữ cảnh received/requested ở các câu xung quanh.",
+          "vocab": [ { "word": "replacement", "ipa": "/rɪˈpleɪsmənt/", "meaningVi": "hàng thay thế, sự thay thế" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Which sentence best fits the blank?",
+          "options": [
+            "Our towels are made from 100 percent organic cotton.",
+            "Please return the replacement within 30 days.",
+            "We are pleased that you enjoyed your purchase.",
+            "We apologize for this mistake and have already taken steps to correct it."
+          ],
+          "answer": 3,
+          "tags": ["sentence-insert"],
+          "evidence": [
+            { "doc": 0, "block": 1, "turn": 0, "text": "the error occurred during packing" },
+            { "doc": 0, "block": 1, "turn": 0, "text": "A replacement set in navy blue was sent to your address this morning" }
+          ],
+          "explainVi": "Câu trước nói lỗi xảy ra khi đóng gói, câu sau nói đã gửi bộ thay thế → cần một câu xin lỗi và báo đã khắc phục để nối hai ý: (D). (A) nói về chất liệu khăn, lạc đề. (B) bảo khách trả lại hàng thay thế, vô lý vì hàng thay thế chưa đến và chính email nói không cần gửi trả. (C) nói khách hài lòng, trái với việc khách đang phàn nàn. Bẫy: (B) có từ replacement lặp lại trong bài nhưng sai nghĩa."
+        },
+        {
+          "no": 3,
+          "options": ["Instead", "Otherwise", "Similarly", "Nevertheless"],
+          "answer": 0,
+          "tags": ["conjunction"],
+          "evidence": [ { "doc": 0, "block": 2, "turn": 0, "text": "You do not need to send the original towels back." } ],
+          "explainVi": "Câu trước: không cần gửi trả khăn; câu sau: hãy giữ lại hoặc đem tặng → đưa ra lựa chọn thay cho việc gửi trả, dùng Instead (thay vào đó) (A). (B) Otherwise (nếu không thì) chỉ hậu quả, không hợp. (C) Similarly (tương tự) dùng khi nêu ý giống ý trước. (D) Nevertheless (tuy nhiên, dù vậy) chỉ sự tương phản, nhưng hai câu không đối lập nhau. Bẫy: Nevertheless trông trang trọng, hay bị chọn bừa.",
+          "vocab": [ { "word": "donate", "ipa": "/ˈdoʊneɪt/", "meaningVi": "quyên tặng" } ]
+        },
+        {
+          "no": 4,
+          "options": ["who", "what", "which", "where"],
+          "answer": 2,
+          "tags": ["relative"],
+          "evidence": [ { "doc": 0, "block": 2, "turn": 0, "text": "we have added a 15 percent discount to your account" } ],
+          "explainVi": "Chỗ trống mở mệnh đề quan hệ sau dấu phẩy, bổ nghĩa cho vật (a 15 percent discount) và làm chủ ngữ của will be applied → which (C). (A) who chỉ dùng cho người. (B) what không đứng sau danh từ và không dùng sau dấu phẩy để bổ nghĩa. (D) where thay cho nơi chốn và không làm chủ ngữ. Bẫy: danh từ gần nhất là your account nên dễ nghĩ tới where, nhưng thứ được áp dụng là khoản giảm giá."
+        }
+      ]
+    },
+    {
+      "key": "p6-s01-02",
+      "part": 6,
+      "level": 600,
+      "docs": [
+        {
+          "kind": "memo",
+          "title": "New Expense Reporting System",
+          "meta": [
+            { "k": "To", "v": "All Sales Staff" },
+            { "k": "From", "v": "Gregory Tan, Office Manager" },
+            { "k": "Subject", "v": "Claimly expense system" },
+            { "k": "Date", "v": "June 4" }
+          ],
+          "body": [
+            { "kind": "p", "text": "Starting on July 1, all travel expenses must be submitted through Claimly, our new online reporting system. Paper forms will no longer be [[1]] by the Accounting Department after that date." },
+            { "kind": "p", "text": "The system allows you to photograph each receipt with your phone, and the amount is then entered [[2]]. Managers will be able to review and approve claims much faster than before." },
+            { "kind": "p", "text": "To help everyone get used to Claimly, we will hold two training sessions next week: one on Tuesday at 10 A.M. and another on Thursday at 3 P.M. [[3]]" },
+            { "kind": "p", "text": "Please sign up for one of the sessions [[4]] June 7 by adding your name to the list on the staff portal. If you have any questions, contact Ms. Ruiz in Accounting at extension 312." }
+          ],
+          "translateVi": "Gửi: Toàn bộ nhân viên kinh doanh. Từ: Gregory Tan, Quản lý văn phòng. Tiêu đề: Hệ thống chi phí Claimly. Ngày: 4 tháng 6.\n\nHệ thống báo cáo chi phí mới\n\nBắt đầu từ ngày 1 tháng 7, mọi chi phí công tác phải được nộp qua Claimly, hệ thống báo cáo trực tuyến mới của chúng ta. Sau ngày đó, Phòng Kế toán sẽ không còn nhận biểu mẫu giấy nữa.\n\nHệ thống cho phép bạn chụp ảnh từng hoá đơn bằng điện thoại, sau đó số tiền sẽ được nhập tự động. Quản lý sẽ có thể xem xét và duyệt các khoản yêu cầu thanh toán nhanh hơn trước rất nhiều.\n\nĐể giúp mọi người làm quen với Claimly, chúng tôi sẽ tổ chức hai buổi đào tạo vào tuần tới: một buổi vào thứ Ba lúc 10 giờ sáng và một buổi vào thứ Năm lúc 3 giờ chiều. Mỗi buổi kéo dài khoảng một tiếng và diễn ra tại Phòng 204.\n\nVui lòng đăng ký một trong hai buổi trước ngày 7 tháng 6 bằng cách điền tên vào danh sách trên cổng thông tin nhân viên. Nếu có thắc mắc, hãy liên hệ cô Ruiz ở Phòng Kế toán, số máy lẻ 312."
+        }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "options": ["accept", "accepting", "accepted", "acceptance"],
+          "answer": 2,
+          "tags": ["verb-form"],
+          "evidence": [ { "doc": 0, "block": 0, "turn": 0, "text": "by the Accounting Department" } ],
+          "explainVi": "Chủ ngữ Paper forms là thứ được nhận, phía sau có by the Accounting Department (tác nhân) → câu bị động be + V3: will no longer be accepted (C). (A) accept là nguyên mẫu, không đứng sau be. (B) accepting tạo thì tiếp diễn chủ động, nghĩa là biểu mẫu tự đi nhận, vô lý. (D) acceptance là danh từ, be acceptance không có nghĩa. Bẫy: thấy be liền chọn V-ing mà quên kiểm tra chủ động hay bị động.",
+          "vocab": [ { "word": "submit", "ipa": "/səbˈmɪt/", "meaningVi": "nộp" } ]
+        },
+        {
+          "no": 2,
+          "options": ["automatically", "automatic", "automation", "automate"],
+          "answer": 0,
+          "tags": ["word-form"],
+          "evidence": [ { "doc": 0, "block": 1, "turn": 0, "text": "the amount is then entered" } ],
+          "explainVi": "Chỗ trống đứng cuối câu, bổ nghĩa cho động từ bị động is entered → cần trạng từ: automatically (được nhập tự động) (A). (B) automatic là tính từ, phải đứng trước danh từ hoặc sau linking verb. (C) automation là danh từ (sự tự động hoá). (D) automate là động từ. Bẫy: sau is entered dễ tưởng cần tính từ như sau động từ to be, nhưng entered đã là động từ chính.",
+          "vocab": [ { "word": "receipt", "ipa": "/rɪˈsiːt/", "meaningVi": "hoá đơn, biên lai" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "Which sentence best fits the blank?",
+          "options": [
+            "Thank you for attending last week's training.",
+            "Paper forms will be available at the front desk.",
+            "The new system was introduced last year.",
+            "Each session will last about one hour and take place in Room 204."
+          ],
+          "answer": 3,
+          "tags": ["sentence-insert"],
+          "evidence": [ { "doc": 0, "block": 2, "turn": 0, "text": "we will hold two training sessions next week" } ],
+          "explainVi": "Đoạn văn đang giới thiệu hai buổi đào tạo tuần tới → câu bổ sung chi tiết về các buổi đó (thời lượng, phòng) là hợp lý nhất: (D). (A) cảm ơn đã dự buổi đào tạo tuần trước, sai thời gian vì buổi đào tạo là tuần tới. (B) mâu thuẫn với việc biểu mẫu giấy sẽ không được nhận nữa. (C) nói hệ thống ra mắt năm ngoái, trái với Starting on July 1 và our new online reporting system. Bẫy: (A) có từ training lặp lại trong bài."
+        },
+        {
+          "no": 4,
+          "options": ["until", "by", "since", "during"],
+          "answer": 1,
+          "tags": ["preposition"],
+          "evidence": [ { "doc": 0, "block": 3, "turn": 0, "text": "Please sign up for one of the sessions" } ],
+          "explainVi": "June 7 là hạn chót của một việc làm một lần (đăng ký) → by + mốc thời gian = trước/chậm nhất vào (B). (A) until dùng cho hành động kéo dài liên tục đến một mốc (stay until, wait until), không dùng cho việc hoàn thành trước hạn. (C) since đi với thì hoàn thành và mốc trong quá khứ. (D) during đi với một khoảng thời gian (during the meeting), không đi với một ngày làm hạn chót. Bẫy: by và until đều dịch là 'đến', nhưng chỉ by dùng cho hạn chót."
+        }
+      ]
+    },
+    {
+      "key": "p6-s01-03",
+      "part": 6,
+      "level": 750,
+      "docs": [
+        {
+          "kind": "notice",
+          "title": "Water Shut-Off Notice",
+          "body": [
+            { "kind": "p", "text": "To all residents of Maple Court Apartments: The water supply to the building will be shut off on Wednesday, October 15, from 9 A.M. to 4 P.M. This interruption is necessary so that plumbers can [[1]] the old pipes in the basement with new ones." },
+            { "kind": "p", "text": "[[2]] the work is expected to be finished on schedule, delays are possible if further problems are found. Any changes to the schedule will be posted by the elevators." },
+            { "kind": "p", "text": "We recommend that residents store enough water for drinking and cooking before the shut-off begins. [[3]] Residents with special needs should contact the management office in advance so that arrangements can be made." },
+            { "kind": "p", "text": "We apologize for the inconvenience and thank you for your [[4]] while this important work is carried out. **Maple Court Management Office**" }
+          ],
+          "translateVi": "Thông báo cắt nước\n\nGửi toàn thể cư dân chung cư Maple Court: Nguồn nước của toà nhà sẽ bị cắt vào thứ Tư, ngày 15 tháng 10, từ 9 giờ sáng đến 4 giờ chiều. Việc gián đoạn này là cần thiết để thợ sửa ống nước có thể thay các đường ống cũ dưới tầng hầm bằng ống mới.\n\nMặc dù công việc dự kiến hoàn thành đúng tiến độ, vẫn có thể bị chậm trễ nếu phát hiện thêm sự cố. Mọi thay đổi về lịch sẽ được dán thông báo cạnh thang máy.\n\nChúng tôi khuyên cư dân trữ đủ nước để uống và nấu ăn trước khi việc cắt nước bắt đầu. Nước đóng chai cũng sẽ có sẵn ở sảnh suốt cả ngày. Cư dân có nhu cầu đặc biệt nên liên hệ trước với văn phòng quản lý để được sắp xếp.\n\nChúng tôi xin lỗi vì sự bất tiện và cảm ơn sự kiên nhẫn của quý cư dân trong thời gian tiến hành công việc quan trọng này. Văn phòng Quản lý Maple Court."
+        }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "options": ["retain", "refer", "reserve", "replace"],
+          "answer": 3,
+          "tags": ["vocabulary", "collocation"],
+          "evidence": [ { "doc": 0, "block": 0, "turn": 0, "text": "the old pipes in the basement with new ones" } ],
+          "explainVi": "Cấu trúc replace A with B = thay A bằng B; phía sau có the old pipes … with new ones nên chỉ replace hợp nghĩa và hợp cấu trúc (D). (A) retain (giữ lại) ngược nghĩa: giữ ống cũ thì không cần cắt nước, và không đi với with new ones. (B) refer phải đi với to (refer to). (C) reserve (đặt trước, dành riêng) không hợp với đường ống. Bẫy: bốn từ đều bắt đầu bằng re-, phải nhìn cụm with new ones phía sau.",
+          "vocab": [ { "word": "plumber", "ipa": "/ˈplʌmər/", "meaningVi": "thợ sửa ống nước" } ]
+        },
+        {
+          "no": 2,
+          "options": ["Because", "Although", "Unless", "Whether"],
+          "answer": 1,
+          "tags": ["conjunction"],
+          "evidence": [ { "doc": 0, "block": 1, "turn": 0, "text": "delays are possible if further problems are found" } ],
+          "explainVi": "Hai vế trái ngược nhau: dự kiến xong đúng hạn >< vẫn có thể chậm trễ → liên từ nhượng bộ Although (mặc dù) (B). (A) Because chỉ nguyên nhân: 'vì dự kiến xong đúng hạn nên có thể chậm' là vô lý. (C) Unless (trừ khi) tạo nghĩa 'trừ khi dự kiến xong đúng hạn', không hợp. (D) Whether (dù … hay không) cần đi với or not / or và không hợp nghĩa. Bẫy: Because thường được chọn theo phản xạ khi thấy hai mệnh đề."
+        },
+        {
+          "no": 3,
+          "prompt": "Which sentence best fits the blank?",
+          "options": [
+            "The new pipes were installed at no cost last month.",
+            "The swimming pool will reopen after the holiday weekend.",
+            "Bottled water will also be available in the lobby throughout the day.",
+            "Hot water is now available on every floor of the building."
+          ],
+          "answer": 2,
+          "tags": ["sentence-insert"],
+          "evidence": [ { "doc": 0, "block": 2, "turn": 0, "text": "We recommend that residents store enough water for drinking and cooking before the shut-off begins." } ],
+          "explainVi": "Câu trước khuyên cư dân trữ nước; câu cần điền bổ sung thêm một nguồn nước khác trong ngày cắt nước — chữ also nối ý rất tự nhiên: (C). (A) nói ống mới đã lắp tháng trước, mâu thuẫn vì việc thay ống diễn ra vào ngày 15 tháng 10. (B) về hồ bơi, lạc đề. (D) nói hiện có nước nóng ở mọi tầng, trái với thông báo cắt nước. Bẫy: (A) và (D) đều nhắc tới ống nước/nước nên trông liên quan, nhưng sai thời gian hoặc trái nội dung."
+        },
+        {
+          "no": 4,
+          "options": ["patience", "patient", "patiently", "patients"],
+          "answer": 0,
+          "tags": ["word-form"],
+          "evidence": [ { "doc": 0, "block": 3, "turn": 0, "text": "We apologize for the inconvenience" } ],
+          "explainVi": "Sau tính từ sở hữu your cần một danh từ; thank you for your patience (cảm ơn sự kiên nhẫn) là câu quen thuộc khi xin lỗi vì bất tiện (A). (B) patient là tính từ (kiên nhẫn) hoặc danh từ 'bệnh nhân'. (C) patiently là trạng từ, không đứng sau your. (D) patients là danh từ số nhiều nghĩa 'các bệnh nhân', sai nghĩa. Bẫy: patients phát âm gần giống patience và cũng là danh từ, nhưng nghĩa là bệnh nhân.",
+          "vocab": [ { "word": "inconvenience", "ipa": "/ˌɪnkənˈviːniəns/", "meaningVi": "sự bất tiện" } ]
+        }
+      ]
+    },
+    {
+      "key": "p6-s01-04",
+      "part": 6,
+      "level": 750,
+      "docs": [
+        {
+          "kind": "article",
+          "title": "Golden Crust Bakery to Open Second Shop",
+          "body": [
+            { "kind": "p", "text": "HARBORVIEW (August 20) — Golden Crust Bakery, a family-owned business on Elm Street, will open a second shop next month in the Riverside Shopping Center. Clara Benning and her brother Paul opened the bakery in 2004, and after twenty years of steady growth, the siblings say [[1]] are ready to expand." },
+            { "kind": "p", "text": "The new location will be nearly three times [[2]] than the original shop, giving the bakers room for more ovens and a wider selection of breads and pastries. The Elm Street shop will remain open." },
+            { "kind": "p", "text": "In addition to the usual menu, the Riverside shop will offer a café area with seating for 40 customers. [[3]] Ms. Benning hopes the café will attract shoppers who want a short break during the day." },
+            { "kind": "p", "text": "Golden Crust is currently hiring ten new employees and will [[4]] a grand opening celebration on September 14, with free samples for the first 100 visitors." }
+          ],
+          "translateVi": "Tiệm bánh Golden Crust sắp mở cửa hàng thứ hai\n\nHARBORVIEW (20 tháng 8) — Tiệm bánh Golden Crust, một cơ sở kinh doanh gia đình trên phố Elm, sẽ mở cửa hàng thứ hai vào tháng tới tại Trung tâm mua sắm Riverside. Clara Benning và người anh em Paul mở tiệm bánh từ năm 2004, và sau hai mươi năm phát triển ổn định, hai chị em cho biết họ đã sẵn sàng mở rộng.\n\nĐịa điểm mới sẽ rộng gần gấp ba lần cửa hàng ban đầu, giúp các thợ làm bánh có chỗ đặt thêm lò nướng và làm được nhiều loại bánh mì, bánh ngọt hơn. Cửa hàng trên phố Elm vẫn tiếp tục mở cửa.\n\nNgoài thực đơn thường lệ, cửa hàng Riverside sẽ có khu cà phê với chỗ ngồi cho 40 khách. Tại đây cũng sẽ phục vụ các bữa trưa nhẹ như súp và bánh mì kẹp. Cô Benning hy vọng khu cà phê sẽ thu hút những người đi mua sắm muốn nghỉ ngơi một chút trong ngày.\n\nGolden Crust hiện đang tuyển mười nhân viên mới và sẽ tổ chức lễ khai trương vào ngày 14 tháng 9, tặng bánh dùng thử miễn phí cho 100 khách đầu tiên."
+        }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "options": ["they", "them", "their", "themselves"],
+          "answer": 0,
+          "tags": ["pronoun"],
+          "evidence": [ { "doc": 0, "block": 0, "turn": 0, "text": "the siblings say" } ],
+          "explainVi": "Sau say là một mệnh đề (that được lược bỏ): [chủ ngữ] are ready to expand. Chỗ trống cần đại từ chủ ngữ số nhiều thay cho the siblings → they (A). (B) them là tân ngữ, không làm chủ ngữ cho are. (C) their là tính từ sở hữu, phải đi kèm danh từ. (D) themselves là đại từ phản thân, không đứng ở vị trí chủ ngữ. Bẫy: đứng ngay sau động từ say nên dễ tưởng cần tân ngữ them."
+        },
+        {
+          "no": 2,
+          "options": ["large", "largest", "larger", "largely"],
+          "answer": 2,
+          "tags": ["comparison"],
+          "evidence": [ { "doc": 0, "block": 1, "turn": 0, "text": "than the original shop" } ],
+          "explainVi": "Có than phía sau → cần so sánh hơn: three times larger than (lớn gấp ba lần) (C). (A) large là dạng nguyên, không đi với than. (B) largest là so sánh nhất, đi với the và không đi với than. (D) largely là trạng từ (phần lớn, chủ yếu), không làm bổ ngữ sau be. Bẫy: three times … dễ làm nhớ tới cấu trúc three times as large as, nhưng ở đây đã có than nên phải dùng larger.",
+          "vocab": [ { "word": "pastry", "ipa": "/ˈpeɪstri/", "meaningVi": "bánh ngọt (bột nướng)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "Which sentence best fits the blank?",
+          "options": [
+            "The original shop closed permanently last year.",
+            "Light lunches such as soups and sandwiches will also be served there.",
+            "Customers have complained about the café's high prices.",
+            "Most of the bakery's bread is sold to restaurants."
+          ],
+          "answer": 1,
+          "tags": ["sentence-insert"],
+          "evidence": [ { "doc": 0, "block": 2, "turn": 0, "text": "the Riverside shop will offer a café area with seating for 40 customers" } ],
+          "explainVi": "Câu trước giới thiệu khu cà phê của cửa hàng mới; câu điền tiếp tục mô tả những gì sẽ phục vụ ở đó (there = khu cà phê), dùng tương lai will be served cho đúng với cửa hàng chưa mở: (B). (A) mâu thuẫn với The Elm Street shop will remain open. (C) khách phàn nàn về giá của khu cà phê là vô lý vì khu cà phê chưa mở cửa (next month). (D) nói về việc bán bánh cho nhà hàng, không liên quan đến khu cà phê và câu sau. Bẫy: (C) có từ café lặp lại trong bài nhưng sai về thời gian."
+        },
+        {
+          "no": 4,
+          "options": ["make", "do", "take", "hold"],
+          "answer": 3,
+          "tags": ["collocation"],
+          "evidence": [ { "doc": 0, "block": 3, "turn": 0, "text": "a grand opening celebration on September 14" } ],
+          "explainVi": "Cụm cố định hold a celebration/event/meeting = tổ chức một sự kiện (D). (A) make và (B) do không đi với celebration theo nghĩa tổ chức sự kiện. (C) take a celebration không có nghĩa (take dùng trong take place, take part in). Bẫy: tiếng Việt nói 'làm lễ khai trương' nên dễ chọn make hoặc do.",
+          "vocab": [ { "word": "grand opening", "ipa": "/ˌɡrænd ˈoʊpənɪŋ/", "meaningVi": "lễ khai trương" } ]
+        }
+      ]
+    }
+  ]
+}

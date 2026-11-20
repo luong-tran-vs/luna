@@ -16,6 +16,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/progress"
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/talk"
+	"github.com/luongtran/luna/backend/internal/toeic"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/topicimage"
 	"github.com/luongtran/luna/backend/internal/verbs"
@@ -68,6 +69,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	verbs.NewImageHandler(c.verbImages, log).Register(mux, auth)
 	topicimage.NewHandler(c.topicImages, log).Register(mux, auth)
 	games.NewHandler(c.games, log).Register(mux, auth)
+	toeic.NewHandler(c.toeic, log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)
 	studyHandler.Register(mux, auth)

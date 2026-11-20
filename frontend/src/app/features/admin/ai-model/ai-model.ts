@@ -115,6 +115,7 @@ export const OP_ADVICE: Readonly<Record<string, { provider: 'gemini' | 'groq'; w
   grammar_pictures: { provider: 'gemini', why: 'bài nhìn ảnh cần chính xác' },
   grammar_solve: { provider: 'gemini', why: 'giải bài tập cần chính xác' },
   grammar_spot: { provider: 'gemini', why: 'câu sai phải đúng một lỗi' },
+  toeic_groups: { provider: 'gemini', why: 'mặc định gemini-3.6-flash: đúng định dạng, giải thích bám bài (3.5-flash-lite hay bịa, 3.8 quá chậm)' },
   suggest_words: { provider: 'gemini', why: 'chọn từ đúng trình độ' },
   word_meanings: { provider: 'gemini', why: 'điền nhiều từ một lần, chạy lâu được' },
 };

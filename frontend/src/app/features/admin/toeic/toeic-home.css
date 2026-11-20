@@ -1,0 +1,200 @@
+/* TOEIC admin home: the tests as cards, then the group bank in numbers. */
+
+.tests-section,
+.bank-section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The whole card opens the test: the title link stretches over it. */
+.test-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.15s;
+}
+
+.test-card:hover,
+.test-card:focus-within {
+  border-color: var(--color-primary);
+}
+
+.test-meta {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: space-between;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.test-title {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.test-link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.test-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.test-link:focus-visible {
+  outline: none;
+}
+
+.test-card:has(.test-link:focus-visible) {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.test-card .muted,
+.bank .muted {
+  margin: 0;
+}
+
+.bar {
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: 999px;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+}
+
+.part-chips {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.part-chips li {
+  padding: 2px 0;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.part-chips li[data-state='ok'] {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-ok) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-ok) 45%, transparent);
+}
+
+.part-chips li[data-state='some'] {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-bad) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-bad) 45%, transparent);
+}
+
+.ok-line,
+.bad-line {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.ok-line {
+  font-weight: 700;
+  color: var(--color-ok);
+}
+
+.bad-line {
+  color: var(--color-text-muted);
+}
+
+.open-hint {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}
+
+.new-card {
+  display: grid;
+  gap: var(--space-2);
+  min-height: 220px;
+}
+
+.new-btn {
+  display: grid;
+  place-content: center;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+  cursor: pointer;
+  background: transparent;
+  border: 2px dashed var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.new-btn:hover,
+.new-btn:focus-visible {
+  color: var(--color-primary-ink);
+  border-color: var(--color-primary);
+}
+
+.bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.bank-count {
+  display: grid;
+}
+
+.bank-count b {
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 800;
+  color: var(--color-primary-ink);
+}
+
+.bank-text {
+  display: grid;
+  flex: 1 1 320px;
+  gap: var(--space-1);
+}
+
+.bank-text a {
+  color: var(--color-primary-ink);
+}
+
+@media (max-width: 719px) {
+  .new-card {
+    min-height: 0;
+  }
+}

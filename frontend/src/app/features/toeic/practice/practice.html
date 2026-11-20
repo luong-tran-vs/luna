@@ -1,0 +1,37 @@
+<div class="toeic-page">
+  <header class="head">
+    <h1 class="head-title">Luyện thi TOEIC</h1>
+  </header>
+  <lu-toeic-tabs active="practice" [mistakes]="data()?.mistakes ?? null" [guest]="data()?.guest ?? false" />
+
+  <p class="muted">Chọn một Part và số câu. Câu lấy từ mọi đề đã đăng, câu bạn chưa làm được ưu tiên. Nộp bài mới chấm.</p>
+  @if (error()) {
+    <p class="form-alert" role="alert">{{ error() }}</p>
+  }
+
+  <ul class="parts">
+    @for (p of parts; track p) {
+      <li class="box part" [class.off]="!ready(p) || locked(p)">
+        <h2 class="box-title">Part {{ p }} · {{ names[p] }}</h2>
+        @if (locked(p)) {
+          <p class="muted">🔒 Chỉ dành cho thành viên</p>
+        } @else if (!ready(p)) {
+          <p class="muted">Chưa có câu đã đăng</p>
+        } @else {
+          <p class="muted">{{ data()?.partCounts?.[p] ?? 0 }} câu đã đăng</p>
+          <div class="row">
+            <label class="sr-only" [attr.for]="'count-' + p">Số {{ unit(p) }} của Part {{ p }}</label>
+            <select [id]="'count-' + p" (change)="pick(p, $event)">
+              @for (n of counts[p]; track n) {
+                <option [value]="n" [selected]="count(p) === n">{{ n }} {{ unit(p) }}</option>
+              }
+            </select>
+            <button type="button" class="btn-primary" [disabled]="starting() !== null" (click)="start(p)">
+              {{ starting() === p ? 'Đang mở…' : 'Luyện' }}
+            </button>
+          </div>
+        }
+      </li>
+    }
+  </ul>
+</div>

@@ -1,0 +1,134 @@
+<div class="toeic-page narrow">
+  <nav class="crumbs"><a routerLink="/toeic">← Luyện thi TOEIC</a></nav>
+
+  @if (error()) {
+    <p class="form-alert" role="alert">{{ error() }}</p>
+  } @else if (data(); as d) {
+    <header class="box">
+      <h1 class="head-title">{{ d.title }}</h1>
+      <p class="muted">
+        {{ kind() }} · ⏱ {{ d.minutes }} phút · {{ d.parts.length }} phần · {{ d.questions }} câu hỏi
+      </p>
+      @if (d.inProgress) {
+        <p class="doing">
+          Bạn đang có bài làm dở.
+          <a class="btn-primary" [routerLink]="['/toeic/attempts', d.inProgress]">Làm tiếp</a>
+        </p>
+      }
+    </header>
+
+    @if (d.locked) {
+      <p class="box" role="status">🔒 Đề này chỉ dành cho thành viên. Khách làm được Mini Test đầu tiên và luyện Part 1, 2, 5.</p>
+    } @else {
+      <div class="tabs" role="tablist" aria-label="Cách làm đề">
+        <button type="button" role="tab" class="tab" [class.on]="tab() === 'practice'" [attr.aria-selected]="tab() === 'practice'" (click)="tab.set('practice')">Luyện tập</button>
+        <button type="button" role="tab" class="tab" [class.on]="tab() === 'full'" [attr.aria-selected]="tab() === 'full'" (click)="tab.set('full')">Làm full test</button>
+        <button type="button" role="tab" class="tab" [class.on]="tab() === 'results'" [attr.aria-selected]="tab() === 'results'" (click)="tab.set('results')">Kết quả · {{ d.attempts.length }}</button>
+      </div>
+
+      @switch (tab()) {
+        @case ('practice') {
+          <section class="box" role="tabpanel" aria-label="Luyện tập">
+            <p class="tip">
+              💡 Luyện tập từng phần, chọn mức thời gian phù hợp với bạn. Bài được chấm khi bạn nộp.
+            </p>
+            <fieldset class="parts">
+              <legend class="box-title">Chọn phần thi bạn muốn làm</legend>
+              @for (p of allParts; track p) {
+                @if (partsById().get(p); as info) {
+                  <label class="part-row">
+                    <input type="checkbox" [checked]="picked().includes(p)" (change)="toggle(p)" />
+                    <span class="part-main">
+                      <b>Part {{ p }}</b> – {{ names[p] }} ({{ info.questions }} câu)
+                      <span class="hashtags">
+                        @for (t of info.tags; track t) {
+                          <span>#{{ t }}</span>
+                        }
+                      </span>
+                    </span>
+                  </label>
+                } @else {
+                  <div class="part-row soon">
+                    <input type="checkbox" disabled [attr.aria-label]="'Part ' + p + ' chưa có trong đề'" />
+                    <span class="part-main"><b>Part {{ p }}</b> – {{ names[p] }} <span class="chip">đề chưa có</span></span>
+                  </div>
+                }
+              }
+            </fieldset>
+            <div class="limit">
+              <label for="limit">Giới hạn thời gian</label>
+              <select id="limit" (change)="setLimit($event)">
+                <option value="suggested" [selected]="limit() === null">
+                  {{ suggested() }} phút (gợi ý cho {{ pickedQuestions() }} câu)
+                </option>
+                @for (m of limits; track m) {
+                  <option [value]="m" [selected]="limit() === m">
+                    {{ m === 0 ? 'Không giới hạn' : m + ' phút' }}
+                  </option>
+                }
+              </select>
+            </div>
+            @if (startError()) {
+              <p class="form-alert" role="alert">{{ startError() }}</p>
+            }
+            <button
+              type="button"
+              class="btn-primary start"
+              [disabled]="picked().length === 0 || starting()"
+              (click)="start()"
+            >
+              {{ starting() ? 'Đang mở…' : 'Luyện tập' }}
+            </button>
+          </section>
+        }
+        @case ('full') {
+          <section class="box" role="tabpanel" aria-label="Làm full test">
+            <p class="banner-warning">
+              Làm full test như thi thật (phần Nghe rồi phần Đọc, không tạm dừng) sẽ có khi phần Nghe xong.
+              Hiện bạn có thể luyện tập phần Đọc ở tab Luyện tập.
+            </p>
+          </section>
+        }
+        @case ('results') {
+          <section class="box" role="tabpanel" aria-label="Kết quả">
+            @if (d.attempts.length === 0) {
+              <p class="muted">Bạn chưa làm đề này.</p>
+            } @else {
+              <ul class="attempts">
+                @for (a of d.attempts; track a.id) {
+                  <li>
+                    <a [routerLink]="['/toeic/attempts', a.id, 'result']">
+                      {{ date(a.submittedAt) }} · {{ a.mode === 'test' ? 'Full test' : 'Luyện tập' }} ·
+                      {{ partsLabel(a.parts) }}
+                    </a>
+                    <span>
+                      @if (a.scaled !== null) {
+                        <b>{{ a.scaled }}</b> điểm ·
+                      }
+                      {{ a.correct }}/{{ a.total }} câu · {{ duration(a.durationMs) }}
+                      @if (a.retake) {
+                        <span class="chip">làm lại</span>
+                      }
+                    </span>
+                  </li>
+                }
+              </ul>
+            }
+          </section>
+        }
+      }
+    }
+  } @else {
+    <p class="state-msg" role="status">Đang tải…</p>
+  }
+</div>
+
+<lu-confirm-dialog
+  [open]="busyId() !== null"
+  title="Làm tiếp bài dở?"
+  message="Bạn đang có một bài làm dở của đề này. Mỗi đề chỉ có một bài làm dở: làm tiếp bài đó, nộp xong mới bắt đầu lượt mới."
+  confirmLabel="Làm tiếp"
+  cancelLabel="Để sau"
+  (confirmed)="resume()"
+  (cancelled)="busyId.set(null)"
+/>

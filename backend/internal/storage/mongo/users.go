@@ -163,6 +163,7 @@ var userData = []string{
 	export.CollStudyDays, export.CollDictationResults, export.CollReadingAnswers, export.CollWritings,
 	export.CollGrammarProgress, "ask_usage", collLessonResults, export.CollVerbProgress,
 	export.CollTalkSessions, export.CollGameBests, export.CollDailyChallenges,
+	export.CollToeicAttempts, export.CollToeicMistakes, export.CollToeicGoals,
 }
 
 // Delete removes an account and its documents. MongoDB runs without transactions: the sessions go

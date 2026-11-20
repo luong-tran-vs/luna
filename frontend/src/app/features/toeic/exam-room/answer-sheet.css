@@ -1,0 +1,62 @@
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.part-title {
+  margin-bottom: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+}
+
+.row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  padding: 2px var(--space-1);
+  border-radius: var(--radius-sm);
+}
+
+.row.current {
+  background: var(--color-primary-soft);
+}
+
+.num {
+  min-width: 52px;
+  min-height: 44px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.num span {
+  margin-left: 2px;
+  color: var(--color-warn);
+}
+
+.bubbles {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.bubble {
+  width: 44px;
+  height: 44px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.bubble[aria-checked='true'] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}

@@ -49,7 +49,7 @@ func (c *Client) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Ima
 	if err != nil {
 		return ai.Image{}, fmt.Errorf("gemini: encode image request: %w", err)
 	}
-	raw, err := c.post(ctx, c.modelFor(ctx, "image"), "image", body, maxImageResponse, []slog.Attr{slog.Int("word_chars", len(req.Word))})
+	raw, err := c.post(ctx, c.modelFor(ctx, "image"), ai.ImageOp(req), body, maxImageResponse, []slog.Attr{slog.Int("word_chars", len(req.Word))})
 	if err != nil {
 		return ai.Image{}, err
 	}

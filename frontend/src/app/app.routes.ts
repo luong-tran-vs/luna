@@ -172,6 +172,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/grammar/grammar-lesson/grammar-lesson').then((m) => m.GrammarLesson),
       },
+      // TOEIC Listening & Reading practice (F27).
+      {
+        path: 'toeic',
+        loadChildren: () => import('./features/toeic/toeic.routes').then((m) => m.toeicRoutes),
+      },
       {
         path: 'vocabulary',
         loadChildren: () =>

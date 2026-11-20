@@ -1,0 +1,132 @@
+<div class="toeic-page">
+  @if (error()) {
+    <p class="form-alert" role="alert">{{ error() }}</p>
+    <a class="btn" routerLink="/toeic">Về Luyện thi TOEIC</a>
+  } @else if (data(); as d) {
+    <header class="head">
+      <h1 class="head-title">
+        Kết quả: {{ d.title }}
+        @if (d.retake) {
+          <span class="chip">làm lại</span>
+        }
+      </h1>
+      <a class="btn" [routerLink]="back()">Xem đề</a>
+      @if (canRetry()) {
+        <button type="button" class="btn-primary" [disabled]="retrying()" (click)="retry()">
+          Làm lại các câu sai ({{ toRetry() }})
+        </button>
+      }
+    </header>
+    @if (retryError()) {
+      <p class="form-alert" role="alert">{{ retryError() }}</p>
+    }
+
+    <section class="cards" aria-label="Tóm tắt">
+      <div class="box summary">
+        <p>Kết quả làm bài <b>{{ d.correct }}/{{ d.questions }}</b></p>
+        <p>Độ chính xác <b>{{ percent(d.accuracy) }}</b></p>
+        <p>Thời gian <b>{{ duration(d.durationMs) }}</b></p>
+      </div>
+      <div class="box stat right"><span class="sign" aria-hidden="true">✓</span><b>{{ d.correct }}</b><span>Trả lời đúng</span></div>
+      <div class="box stat wrong"><span class="sign" aria-hidden="true">✗</span><b>{{ d.wrong }}</b><span>Trả lời sai</span></div>
+      <div class="box stat"><span class="sign" aria-hidden="true">–</span><b>{{ d.skipped }}</b><span>Bỏ qua</span></div>
+      @if (d.listening; as l) {
+        <div class="box stat score"><span>Listening</span><b>{{ l.scaled }}</b><span>{{ l.correct }}/{{ l.total }} · ước tính</span></div>
+      }
+      @if (d.reading; as r) {
+        <div class="box stat score"><span>Reading</span><b>{{ r.scaled }}</b><span>{{ r.correct }}/{{ r.total }} · ước tính</span></div>
+      }
+      @if (d.total !== null) {
+        <div class="box stat score total">
+          <span>Tổng · ước tính</span><b>{{ d.total }}</b>
+          @if (d.goal !== null) {
+            <span>Mục tiêu {{ d.goal }}</span>
+          }
+        </div>
+      }
+    </section>
+    @if (d.total === null) {
+      <p class="muted">Lượt luyện vài Part chỉ tính số câu đúng và độ chính xác, không quy đổi điểm thang 990.</p>
+    }
+
+    <div class="layout">
+      <section class="box" aria-labelledby="types-title">
+        <h2 class="box-title" id="types-title">Phân loại câu hỏi</h2>
+        @if (d.byPart.length > 1) {
+          <div class="ptabs" role="tablist" aria-label="Part">
+            @for (p of d.byPart; track p.part) {
+              <button
+                type="button"
+                role="tab"
+                class="ptab"
+                [class.on]="tagPart()?.part === p.part"
+                [attr.aria-selected]="tagPart()?.part === p.part"
+                (click)="partTab.set(p.part)"
+              >
+                Part {{ p.part }}
+              </button>
+            }
+          </div>
+        }
+        @if (tagPart(); as tp) {
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Part {{ tp.part }} – {{ names[tp.part] }}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Dạng câu</th>
+                  <th scope="col">Đúng</th>
+                  <th scope="col">Sai</th>
+                  <th scope="col">Bỏ qua</th>
+                  <th scope="col">Chính xác</th>
+                  <th scope="col">Câu hỏi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (t of tp.tags; track t.tag) {
+                  <tr>
+                    <th scope="row">#{{ t.labelVi }}</th>
+                    <td>{{ t.right }}</td>
+                    <td>{{ t.wrong }}</td>
+                    <td>{{ t.skipped }}</td>
+                    <td>{{ rowAccuracy(t.right, t.wrong, t.skipped) }}</td>
+                    <td class="cells">
+                      @for (q of t.questions; track q.id) {
+                        <a
+                          class="qcell"
+                          [attr.data-state]="q.state"
+                          [routerLink]="['/toeic/attempts', d.id, 'q', q.id]"
+                          [attr.aria-label]="'Câu ' + q.number + ', ' + label(q.state)"
+                          >{{ q.number }} {{ mark(q.state) }}</a
+                        >
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </section>
+
+      <section class="box answers" aria-labelledby="answers-title">
+        <h2 class="box-title" id="answers-title">Đáp án</h2>
+        <p class="muted">Đáp án đúng : bạn chọn</p>
+        <ol class="answer-list">
+          @for (a of d.answers; track a.id) {
+            <li [attr.data-state]="a.state">
+              <span class="n">{{ a.number }}</span>
+              <span>
+                <b>{{ a.correct }}</b> : {{ a.chosen || 'bỏ qua' }}
+                <span class="sign" [attr.aria-label]="label(a.state)">{{ mark(a.state) }}</span>
+              </span>
+              <a [routerLink]="['/toeic/attempts', d.id, 'q', a.id]">chi tiết</a>
+            </li>
+          }
+        </ol>
+      </section>
+    </div>
+  } @else {
+    <p class="state-msg" role="status">Đang tải kết quả…</p>
+  }
+</div>

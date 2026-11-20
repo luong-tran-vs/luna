@@ -110,3 +110,15 @@ func TestPromptBackgroundAndStyle(t *testing.T) {
 		t.Errorf("Vietnamese background not noticed:\n%s", vi)
 	}
 }
+
+func TestDocPicturePromptShowsTheSituationOfAnEmail(t *testing.T) {
+	t.Parallel()
+	ad := docPicturePrompt(DocPictureBrief{Kind: "ad", Title: "Summer sale", Text: "Half price on all chairs."})
+	mail := docPicturePrompt(DocPictureBrief{Kind: "email", Title: "My order", Text: "Where is my chair?"})
+	if !strings.Contains(ad, "main product") || strings.Contains(ad, "situation") {
+		t.Fatalf("ad prompt = %s", ad)
+	}
+	if !strings.Contains(mail, "situation the text is about") || !strings.Contains(mail, "Do not show the document") {
+		t.Fatalf("email prompt = %s", mail)
+	}
+}

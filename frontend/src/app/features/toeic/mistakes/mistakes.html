@@ -1,0 +1,105 @@
+<div class="toeic-page">
+  <header class="head">
+    <h1 class="head-title">Luyện thi TOEIC</h1>
+  </header>
+  <lu-toeic-tabs active="mistakes" [mistakes]="guest() ? null : total()" [guest]="guest()" />
+
+  @if (guest()) {
+    <p class="box" role="status">🔒 Sổ câu sai chỉ dành cho thành viên.</p>
+  } @else if (round(); as r) {
+    <section class="box round" aria-live="polite">
+      @if (finished()) {
+        <h2 class="box-title">Xong lượt làm lại</h2>
+        <p>{{ r.length }} câu · {{ left() }} câu đã ra khỏi sổ.</p>
+        <button type="button" class="btn-primary" (click)="close()">Về sổ câu sai</button>
+      } @else if (item(); as it) {
+        <header class="round-head">
+          <span class="muted">Câu {{ index() + 1 }}/{{ r.length }} · Part {{ it.group.part }}</span>
+          <button type="button" class="btn" (click)="close()">Dừng</button>
+        </header>
+        @if (image(it.group.imageUrl); as src) {
+          <img class="photo" crossorigin="use-credentials" [src]="src" alt="Ảnh của câu hỏi" />
+        }
+        @for (d of it.group.docs ?? []; track $index) {
+          <lu-toeic-doc
+            [doc]="d"
+            [groupKey]="it.group.key"
+            [docIndex]="$index"
+            [blankNumbers]="blanks(it)"
+            [activeBlank]="it.group.questions[0].no"
+            [evidence]="reply()?.evidence ?? []"
+          />
+        }
+        <lu-toeic-question
+          [question]="it.group.questions[0]"
+          [chosen]="choice()"
+          [readonly]="reply() !== null"
+          [answer]="reply()?.answer ?? null"
+          (selected)="answer($event)"
+        />
+        @if (reply(); as rep) {
+          <div class="verdict" [attr.data-right]="rep.right">
+            <p class="verdict-title">
+              {{ rep.right ? '✓ Đúng' : '✗ Sai · đáp án ' + letterOf(rep.answer) }}
+              @if (rep.removed) {
+                · Ra khỏi sổ
+              } @else {
+                · Đúng liền {{ dots(rep.streak) }}
+              }
+            </p>
+            @if (rep.translateVi) {
+              <p class="small"><b>Dịch:</b> {{ rep.translateVi }}</p>
+            }
+            <p class="small">{{ rep.explainVi }}</p>
+          </div>
+          <button type="button" class="btn-primary next" (click)="next()">
+            {{ index() + 1 < r.length ? 'Câu tiếp' : 'Xong' }}
+          </button>
+        }
+      }
+    </section>
+  } @else {
+    <div class="filters" role="group" aria-label="Lọc theo Part">
+      <button type="button" class="filter" [class.on]="part() === null" [attr.aria-pressed]="part() === null" (click)="filter(null)">
+        Tất cả · {{ total() }}
+      </button>
+      @for (p of parts; track p) {
+        @if (count(p) > 0) {
+          <button type="button" class="filter" [class.on]="part() === p" [attr.aria-pressed]="part() === p" (click)="filter(p)">
+            Part {{ p }} · {{ count(p) }}
+          </button>
+        }
+      }
+    </div>
+    @if (error()) {
+      <p class="form-alert" role="alert">{{ error() }}</p>
+    }
+    @if (view(); as v) {
+      @if (v.items.length === 0) {
+        <p class="box state-msg">Sổ đang trống. Câu làm sai hoặc bỏ qua sau khi nộp bài sẽ vào đây.</p>
+      } @else {
+        <div class="actions-row">
+          <p class="muted">Làm đúng {{ v.need }} lần liên tiếp thì câu ra khỏi sổ.</p>
+          <button type="button" class="btn-primary" (click)="startRound()">Làm lại {{ v.items.length < 10 ? v.items.length : 10 }} câu</button>
+        </div>
+        <ul class="items">
+          @for (m of v.items; track m.questionId) {
+            <li class="box item">
+              <p class="prompt" lang="en">{{ m.prompt }}</p>
+              <p class="meta">
+                <span class="chip">Part {{ m.part }}</span>
+                @for (t of m.tags; track t) {
+                  <span class="hashtags">#{{ t }}</span>
+                }
+                <span class="streak" [attr.aria-label]="'Đúng liền ' + m.streak + '/' + v.need">Đúng liền {{ dots(m.streak) }}</span>
+              </p>
+            </li>
+          }
+        </ul>
+      }
+    } @else if (!error()) {
+      <p class="state-msg" role="status">Đang tải…</p>
+    }
+  }
+  <a class="muted back" routerLink="/toeic">← Về thư viện đề</a>
+</div>

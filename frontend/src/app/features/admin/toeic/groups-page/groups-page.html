@@ -1,0 +1,270 @@
+<div class="page wide-page">
+  <nav class="crumbs" aria-label="Đường dẫn">
+    <a routerLink="/admin/toeic">TOEIC</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">Kho cụm câu</span>
+  </nav>
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Kho cụm câu</h1>
+      <p class="muted">Mọi cụm đã nhập: dùng để ghép đề và cho người học luyện theo Part.</p>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" (click)="drafting.set(true)">Nhờ AI soạn</button>
+      <button type="button" class="btn-primary" (click)="importing.set(true)">Nhập JSON</button>
+    </div>
+  </header>
+
+  <lu-toeic-bank-pictures (changed)="load()" />
+
+  <section class="card" id="groups-list" aria-label="Danh sách cụm câu">
+    <div class="row-head">
+      <label>
+        Part
+        <select (change)="setPart($event)">
+          <option value="">Tất cả</option>
+          @for (p of parts; track p) {
+            <option [value]="p">Part {{ p }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Mức
+        <select (change)="setLevel($event)">
+          <option value="" [selected]="level() === null">Tất cả</option>
+          @for (l of levels; track l) {
+            <option [value]="l" [selected]="level() === l">{{ l }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Trạng thái
+        <select (change)="setStatus($event)">
+          <option value="">Tất cả</option>
+          <option value="draft" [selected]="status() === 'draft'">Nháp</option>
+          <option value="published" [selected]="status() === 'published'">Đã đăng</option>
+          <option value="hidden" [selected]="status() === 'hidden'">Ẩn</option>
+        </select>
+      </label>
+      <label>
+        Nguồn
+        <select (change)="setSource($event)">
+          <option value="" [selected]="source() === ''">Tất cả</option>
+          <option value="ai" [selected]="source() === 'ai'">AI soạn</option>
+          <option value="file" [selected]="source() === 'file'">Tự nhập (file JSON)</option>
+        </select>
+      </label>
+      <label>
+        Thuộc đề
+        <select (change)="setTest($event)">
+          <option value="" [selected]="test() === ''">Tất cả</option>
+          <option [value]="noTest" [selected]="test() === noTest">Chưa thuộc đề nào</option>
+          @for (t of tests(); track t.key) {
+            <option [value]="t.key" [selected]="test() === t.key">{{ t.title }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Sắp xếp
+        <select (change)="setSort($event)">
+          <option value="" [selected]="sort() === ''">Theo Part và mã cụm</option>
+          <option value="asc" [selected]="sort() === 'asc'">Mức tăng dần (450 → 900)</option>
+          <option value="desc" [selected]="sort() === 'desc'">Mức giảm dần (900 → 450)</option>
+        </select>
+      </label>
+      <label>
+        Mỗi trang
+        <select (change)="setPageSize($event)">
+          @for (s of pageSizes; track s) {
+            <option [value]="s" [selected]="pageSize() === s">{{ s }} cụm</option>
+          }
+        </select>
+      </label>
+      <span class="grow"></span>
+      @if (shown(); as list) {
+        <span class="muted" role="status">{{ list.length }} cụm</span>
+      }
+      @if (drafts().length > 0) {
+        <button
+          type="button"
+          class="btn small"
+          [disabled]="busy() !== null"
+          (click)="publishDrafts()"
+        >
+          Đăng {{ drafts().length }} cụm nháp theo bộ lọc
+        </button>
+      }
+    </div>
+    @if (selectedShown().length > 0) {
+      <div class="selection-bar">
+        <span role="status"
+          ><b>Đã chọn {{ selectedShown().length }} cụm</b></span
+        >
+        <button
+          type="button"
+          class="btn small btn-danger"
+          [disabled]="busy() !== null"
+          (click)="askDelete(selectedShown())"
+        >
+          Xoá {{ selectedShown().length }} cụm đã chọn…
+        </button>
+        <button type="button" class="btn small" (click)="clearSelection()">Bỏ chọn</button>
+      </div>
+    }
+    @if (deleteReport(); as rep) {
+      <div class="delete-report" role="status">
+        <p>
+          <b>Đã xoá {{ rep.deleted.length }} cụm.</b>
+          @if (rep.blocked.length) {
+            Giữ lại {{ rep.blocked.length }} cụm đang được dùng:
+          }
+          @if (rep.missing.length) {
+            {{ rep.missing.length }} cụm không còn trong kho.
+          }
+        </p>
+        @if (rep.blocked.length) {
+          <ul>
+            @for (b of rep.blocked; track b.key) {
+              <li>
+                <code>{{ b.key }}</code> — {{ b.reason }}
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    }
+    @if (error()) {
+      <p class="form-alert" role="alert">{{ error() }}</p>
+    }
+    @if (shown(); as list) {
+      @if (list.length === 0) {
+        <p class="muted">{{ emptyText() }}</p>
+      } @else {
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" class="pick">
+                  <input
+                    type="checkbox"
+                    aria-label="Chọn mọi cụm của trang này"
+                    [checked]="pageAllSelected()"
+                    [indeterminate]="pageSomeSelected()"
+                    (change)="togglePage()"
+                  />
+                </th>
+                <th scope="col">Mã cụm</th>
+                <th scope="col">Part</th>
+                <th scope="col">Câu</th>
+                <th scope="col">Mức</th>
+                <th scope="col">Nội dung</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Ảnh</th>
+                <th scope="col">Thuộc đề</th>
+                <th scope="col"><span class="sr-only">Thao tác</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (g of pageGroups(); track g.key) {
+                <tr [class.picked]="selected().has(g.key)">
+                  <td class="pick" data-label="">
+                    <input
+                      type="checkbox"
+                      [attr.aria-label]="'Chọn cụm ' + g.key"
+                      [checked]="selected().has(g.key)"
+                      (change)="toggle(g.key)"
+                    />
+                  </td>
+                  <td data-label="Mã cụm">
+                    <code>{{ g.key }}</code>
+                    @if (g.source === 'ai') {
+                      <span class="tag ai" title="Do AI soạn">AI</span>
+                    }
+                  </td>
+                  <td data-label="Part">{{ g.part }}</td>
+                  <td data-label="Câu">{{ g.questions }}</td>
+                  <td data-label="Mức">{{ g.level }}</td>
+                  <td class="title-cell" data-label="Nội dung" lang="en">{{ g.title }}</td>
+                  <td data-label="Trạng thái">
+                    <span class="tag" [attr.data-status]="g.status">{{
+                      statusLabel(g.status)
+                    }}</span>
+                  </td>
+                  <td data-label="Ảnh">{{ pictureLabel(g) }}</td>
+                  <td data-label="Thuộc đề">
+                    @for (k of g.tests; track k; let last = $last) {
+                      <a [routerLink]="['/admin/toeic/tests', k]">{{ k }}</a>{{ last ? '' : ', ' }}
+                    } @empty {
+                      —
+                    }
+                  </td>
+                  <td class="ops" data-label="">
+                    <button type="button" class="btn small" (click)="preview.set(g.key)">
+                      Xem trước
+                    </button>
+                    @if (g.status === 'published') {
+                      <button
+                        type="button"
+                        class="btn small"
+                        [disabled]="busy() !== null"
+                        (click)="setGroupStatus(g, 'hidden')"
+                      >
+                        Ẩn
+                      </button>
+                    } @else {
+                      <button
+                        type="button"
+                        class="btn small"
+                        [disabled]="busy() !== null"
+                        (click)="setGroupStatus(g, 'published')"
+                      >
+                        Đăng
+                      </button>
+                    }
+                    <button
+                      type="button"
+                      class="btn small danger-text"
+                      [disabled]="busy() !== null"
+                      [attr.aria-label]="'Xoá cụm ' + g.key"
+                      (click)="askDelete([g.key])"
+                    >
+                      Xoá
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <lu-pager
+          [page]="currentPage()"
+          [pageCount]="pageCount()"
+          label="Phân trang kho cụm câu"
+          [summary]="pageSummary()"
+          (pageChange)="goToPage($event)"
+        />
+      }
+    } @else {
+      <p class="muted" role="status">Đang tải…</p>
+    }
+  </section>
+</div>
+
+@if (importing()) {
+  <lu-toeic-import-dialog (closed)="importClosed($event)" />
+}
+@if (preview(); as key) {
+  <lu-toeic-group-preview [key]="key" (closed)="previewClosed()" />
+}
+@if (drafting()) {
+  <lu-toeic-draft-dialog (closed)="draftClosed($event)" />
+}
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  [title]="(deleting()?.length ?? 0) > 1 ? 'Xoá ' + deleting()?.length + ' cụm?' : 'Xoá cụm này?'"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

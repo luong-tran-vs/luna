@@ -24,6 +24,11 @@ type ImageRequest struct {
 	// Topic, when set, asks for the banner of a topic of the course (added 2026-11-16): Word, MeaningVi,
 	// Sentence, Scene and Example are then ignored.
 	Topic *TopicBrief
+	// Photo, when set, asks for a TOEIC Part 1 photo (F27): every other field is then ignored.
+	Photo *PhotoBrief
+	// DocPicture, when set, asks for the picture of a TOEIC Part 6/7 text (F27): every other field is
+	// then ignored.
+	DocPicture *DocPictureBrief
 }
 
 // ExampleBrief describes the picture of one example sentence of a grammar lesson: the situation
@@ -161,6 +166,12 @@ const characterStyle = "Any person is drawn in the same simple character style: 
 // the pictures clear and alike. Instructions are stated positively where possible: image models
 // tend to draw what a long list of "no ..." names. Every image provider sends it.
 func ImagePrompt(req ImageRequest) string {
+	if req.Photo != nil {
+		return photoPrompt(*req.Photo)
+	}
+	if req.DocPicture != nil {
+		return docPicturePrompt(*req.DocPicture)
+	}
 	if req.Topic != nil {
 		return topicPrompt(*req.Topic, req.Style)
 	}

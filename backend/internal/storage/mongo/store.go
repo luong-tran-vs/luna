@@ -22,6 +22,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/storage"
+	"github.com/luongtran/luna/backend/internal/toeic"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/topicimage"
 	"github.com/luongtran/luna/backend/internal/verbs"
@@ -141,6 +142,15 @@ func (s *Store) VerbImages() verbs.ImageRepository { return NewVerbImages(s.imag
 
 // TopicImages keeps the picture of each topic beside the other pictures (added 2026-11-16).
 func (s *Store) TopicImages() topicimage.Repository { return NewTopicImages(s.imagesDB) }
+
+// ToeicGroups, ToeicTests, ToeicAttempts, ToeicMistakes and ToeicGoals keep the TOEIC practice (F27);
+// its pictures stay beside the other pictures.
+func (s *Store) ToeicGroups() toeic.GroupRepository     { return NewToeicGroups(s.db) }
+func (s *Store) ToeicImages() toeic.ImageRepository     { return NewToeicImages(s.imagesDB) }
+func (s *Store) ToeicTests() toeic.TestRepository       { return NewToeicTests(s.db) }
+func (s *Store) ToeicAttempts() toeic.AttemptRepository { return NewToeicAttempts(s.db) }
+func (s *Store) ToeicMistakes() toeic.MistakeRepository { return NewToeicMistakes(s.db) }
+func (s *Store) ToeicGoals() toeic.GoalRepository       { return NewToeicGoals(s.db) }
 
 // Curricula keeps the course of each level (added 2026-10-23).
 func (s *Store) Curricula() curriculum.Repository { return NewCurricula(s.db) }

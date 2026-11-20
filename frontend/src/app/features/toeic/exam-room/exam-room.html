@@ -1,0 +1,178 @@
+@if (loadError()) {
+  <div class="room-msg">
+    <p class="form-alert" role="alert">{{ loadError() }}</p>
+    <button type="button" class="btn-primary" (click)="exit()">Về Luyện thi TOEIC</button>
+  </div>
+} @else if (view(); as v) {
+  <header class="topbar">
+    <div class="titles">
+      <h1 class="title">{{ v.title }}</h1>
+      <p class="sub">{{ answeredCount() }}/{{ questions().length }} câu đã làm</p>
+    </div>
+    <p class="clock clock-top" [class.low]="lowTime()" aria-hidden="true">⏱ {{ clockText() }}</p>
+    <button type="button" class="btn exit" (click)="exit()">Thoát</button>
+  </header>
+
+  <nav class="part-tabs" aria-label="Các Part">
+    @for (t of partTabs(); track t.part) {
+      <button
+        type="button"
+        class="part-tab"
+        [class.on]="t.on"
+        [attr.aria-current]="t.on ? 'true' : null"
+        (click)="go(t.first)"
+      >
+        Part {{ t.part }} <span class="part-name">· {{ t.name }}</span>
+      </button>
+    }
+  </nav>
+
+  @if (player(); as pl) {
+    <div class="listen">
+      <lu-toeic-listening-bar [player]="pl" [practice]="practice()" [numbers]="groupNumbers()" />
+    </div>
+  }
+
+  <div class="layout">
+    <main class="main" [class.split]="withDocs()">
+      @if (withDocs()) {
+        <section class="docs" aria-label="Văn bản">
+          @for (g of pageGroups(); track g.key) {
+            @if (g.questions[0]; as q0) {
+              <p class="refer">
+                Questions {{ q0.number }}
+                @if (g.questions.length > 1) {
+                  – {{ g.questions[g.questions.length - 1].number }}
+                }
+                refer to the following text{{ (g.docs?.length ?? 0) > 1 ? 's' : '' }}.
+              </p>
+            }
+            @for (d of g.docs ?? []; track $index) {
+              <lu-toeic-doc
+                [doc]="d"
+                [groupKey]="g.key"
+                [docIndex]="$index"
+                [blankNumbers]="blankNumbers(g)"
+                [activeBlank]="activeBlank(g)"
+                [highlights]="highlights()"
+                [highlightable]="true"
+                (highlightChange)="editHighlight($event)"
+              />
+            }
+          }
+        </section>
+      }
+      <section class="questions" aria-label="Câu hỏi">
+        @for (g of pageGroups(); track g.key) {
+          @if (image(g.imageUrl); as src) {
+            <a class="photo-link" [href]="src" target="_blank" rel="noopener" aria-label="Mở ảnh lớn">
+              <img class="photo" crossorigin="use-credentials" [src]="src" [alt]="'Ảnh câu ' + groupNumbers()[g.key]" />
+            </a>
+          }
+          @if (g.part <= 4 && g.part >= 3 && g.questions[0]; as q0) {
+            <p class="refer">
+              Questions {{ q0.number }}–{{ g.questions[g.questions.length - 1].number }} refer to the following
+              {{ g.part === 3 ? 'conversation' : 'talk' }}{{ g.graphic ? ' and graphic' : '' }}.
+            </p>
+          }
+          @if (g.graphic; as gr) {
+            <lu-toeic-graphic [graphic]="gr" />
+          }
+          @for (q of g.questions; track q.id) {
+            <lu-toeic-question
+              [question]="shown(g, q)"
+              [hideText]="g.part <= 2"
+              [chosen]="chosenOf(q.id)"
+              [flagged]="flagged(q.id)"
+              [current]="q.id === current()?.id"
+              (selected)="choose(q.id, $event)"
+              (flagToggled)="flag(q.id)"
+            />
+          }
+        }
+        <div class="pager">
+          <button type="button" class="btn" [disabled]="pageIndex() === 0" (click)="move(-1)">
+            ← Trước
+          </button>
+          <span class="muted">Trang {{ pageIndex() + 1 }}/{{ pages().length }}</span>
+          <button
+            type="button"
+            class="btn"
+            [disabled]="pageIndex() >= pages().length - 1"
+            (click)="move(1)"
+          >
+            Sau →
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="side" aria-label="Thời gian và bảng câu">
+      <div class="side-card">
+        <p class="side-label">Thời gian còn lại</p>
+        <p class="clock big" [class.low]="lowTime()">{{ clockText() }}</p>
+        <button
+          type="button"
+          class="btn-primary submit"
+          [disabled]="submitting()"
+          (click)="askSubmit()"
+        >
+          {{ submitting() ? 'Đang nộp…' : 'NỘP BÀI' }}
+        </button>
+        <p class="hint">Khôi phục / lưu bài làm: tự động mỗi 5 giây</p>
+      </div>
+      <lu-toeic-grid [questions]="questions()" [state]="state()" (picked)="go($event)" />
+    </aside>
+  </div>
+
+  <div class="bottombar">
+    <button
+      type="button"
+      class="btn"
+      aria-controls="answer-sheet"
+      [attr.aria-expanded]="sheetOpen()"
+      (click)="sheetOpen.set(!sheetOpen())"
+    >
+      ☰ Bảng câu
+    </button>
+    <button type="button" class="btn-primary" [disabled]="submitting()" (click)="askSubmit()">
+      {{ submitting() ? 'Đang nộp…' : 'Nộp bài' }}
+    </button>
+  </div>
+
+  @if (sheetOpen()) {
+    <div class="sheet-scrim" aria-hidden="true" (click)="sheetOpen.set(false)"></div>
+    <section id="answer-sheet" class="sheet" aria-label="Phiếu trả lời">
+      <header class="sheet-head">
+        <h2 class="sheet-title">Phiếu trả lời</h2>
+        <button type="button" class="btn" (click)="sheetOpen.set(false)">Đóng</button>
+      </header>
+      <lu-toeic-answer-sheet
+        [questions]="questions()"
+        [state]="state()"
+        (picked)="go($event)"
+        (chosen)="choose($event.id, $event.choice)"
+      />
+    </section>
+  }
+
+  @if (submitError()) {
+    <p class="form-alert floating" role="alert">{{ submitError() }}</p>
+  }
+  <p class="sr-only" aria-live="polite">{{ announce() }} {{ saveNote() }}</p>
+  @if (saveNote()) {
+    <p class="save-note" aria-hidden="true">{{ saveNote() }}</p>
+  }
+
+  <lu-confirm-dialog
+    [open]="confirming()"
+    title="Nộp bài?"
+    [message]="confirmMessage()"
+    confirmLabel="Vẫn nộp bài"
+    cancelLabel="Làm tiếp"
+    (confirmed)="submit(false)"
+    (cancelled)="confirming.set(false)"
+  />
+} @else {
+  <p class="room-msg muted" role="status">Đang mở bài làm…</p>
+}

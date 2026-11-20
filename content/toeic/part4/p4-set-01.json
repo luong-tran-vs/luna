@@ -1,0 +1,987 @@
+{
+  "groups": [
+    {
+      "key": "p4-s01-01",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "Good afternoon, shoppers, and thank you for choosing Greenfield Market.", "translateVi": "Xin chào quý khách, cảm ơn quý khách đã chọn Greenfield Market." },
+        { "speaker": "w", "accent": "us", "text": "We'd like to remind you that our bakery department is now open until nine o'clock every evening, two hours later than before.", "translateVi": "Chúng tôi xin nhắc quý khách rằng quầy bánh mì hiện mở cửa đến 9 giờ mỗi tối, muộn hơn trước hai tiếng." },
+        { "speaker": "w", "accent": "us", "text": "To celebrate the new hours, all fresh bread and pastries will be thirty percent off after seven P.M. this week.", "translateVi": "Để chào mừng giờ mở cửa mới, tất cả bánh mì tươi và bánh ngọt sẽ được giảm 30% sau 7 giờ tối trong tuần này." },
+        { "speaker": "w", "accent": "us", "text": "Also, if you haven't signed up for our free Greenfield Rewards card yet, please visit the customer service desk near the main entrance. Cardholders receive a coupon book with discounts on dairy and produce every month.", "translateVi": "Ngoài ra, nếu quý khách chưa đăng ký thẻ thành viên Greenfield Rewards miễn phí, xin mời đến quầy chăm sóc khách hàng gần lối vào chính. Chủ thẻ nhận được một cuốn phiếu giảm giá cho sản phẩm từ sữa và rau quả mỗi tháng." },
+        { "speaker": "w", "accent": "us", "text": "Thank you, and enjoy your shopping.", "translateVi": "Xin cảm ơn và chúc quý khách mua sắm vui vẻ." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the announcement being made?",
+          "options": ["At a bank", "At a supermarket", "At a cooking school", "At a restaurant"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Good afternoon, shoppers, and thank you for choosing Greenfield Market." } ],
+          "explainVi": "Người nói chào 'shoppers' (khách mua sắm) và nhắc tới quầy bánh mì, sản phẩm từ sữa, rau quả → đây là siêu thị, chọn (B). (A) ngân hàng không bán bánh mì; (C) bẫy từ 'bakery' – không có lớp học nấu ăn; (D) nhà hàng không có 'shoppers' hay quầy chăm sóc khách hàng phát thẻ thành viên.",
+          "translateVi": "Thông báo này được phát ở đâu?",
+          "vocab": [ { "word": "produce", "ipa": "/ˈprɒdjuːs/", "meaningVi": "nông sản, rau quả (danh từ)" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "What has recently changed?",
+          "options": ["The bakery's closing time", "The store's location", "The price of dairy products", "The customer service phone number"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "our bakery department is now open until nine o'clock every evening, two hours later than before" } ],
+          "explainVi": "Quầy bánh mì 'now open until nine o'clock... two hours later than before' → giờ đóng cửa của quầy bánh đã thay đổi, chọn (A). (B) không nói chuyển địa điểm; (C) giảm giá áp dụng cho bánh mì, còn sữa chỉ có phiếu giảm giá cho chủ thẻ, không phải thay đổi giá; (D) không nhắc số điện thoại.",
+          "translateVi": "Điều gì mới thay đổi gần đây?"
+        },
+        {
+          "no": 3,
+          "prompt": "Why should some listeners visit the customer service desk?",
+          "options": ["To return an item", "To pick up a cake order", "To ask about job openings", "To sign up for a rewards card"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "if you haven't signed up for our free Greenfield Rewards card yet, please visit the customer service desk" } ],
+          "explainVi": "Ai chưa đăng ký thẻ Greenfield Rewards thì 'please visit the customer service desk' → (D). (A) không nói đổi trả hàng; (B) bẫy liên tưởng tới quầy bánh – không có đơn đặt bánh; (C) không nhắc tuyển dụng.",
+          "translateVi": "Vì sao một số người nghe nên đến quầy chăm sóc khách hàng?",
+          "vocab": [ { "word": "cardholder", "ipa": "/ˈkɑːdhəʊldə(r)/", "meaningVi": "chủ thẻ" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-02",
+      "part": 4,
+      "level": 600,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "Hello, this message is for Ms. Patel. This is Graham from Hillcrest Auto Repair calling about your car.", "translateVi": "Xin chào, tin nhắn này gửi chị Patel. Tôi là Graham ở xưởng sửa xe Hillcrest Auto Repair, gọi về chiếc xe của chị." },
+        { "speaker": "m", "accent": "gb", "text": "We've finished replacing the brakes, and the car is ready to be picked up.", "translateVi": "Chúng tôi đã thay xong phanh và xe đã sẵn sàng để chị đến lấy." },
+        { "speaker": "m", "accent": "gb", "text": "However, while we were working on it, our mechanic noticed that the front tires are quite worn. I mean, they're almost smooth.", "translateVi": "Tuy nhiên, trong lúc làm, thợ máy của chúng tôi để ý thấy hai lốp trước đã mòn khá nhiều. Ý tôi là chúng gần như nhẵn hết rồi." },
+        { "speaker": "m", "accent": "gb", "text": "We have a set in stock that would fit your model, and we could put them on this afternoon if you'd like.", "translateVi": "Chúng tôi có sẵn một bộ lốp vừa với dòng xe của chị và có thể lắp ngay chiều nay nếu chị muốn." },
+        { "speaker": "m", "accent": "gb", "text": "We're open until six today. Please call me back at 555-0182 and let me know what you'd like to do.", "translateVi": "Hôm nay chúng tôi mở cửa đến 6 giờ. Chị vui lòng gọi lại cho tôi theo số 555-0182 và cho tôi biết chị muốn làm thế nào." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely is the speaker?",
+          "options": ["A car salesperson", "A driving instructor", "An employee at a repair shop", "A parking attendant"],
+          "answer": 2,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "This is Graham from Hillcrest Auto Repair calling about your car." } ],
+          "explainVi": "Người nói tự giới thiệu là Graham 'from Hillcrest Auto Repair' và báo đã thay phanh xong → nhân viên xưởng sửa xe, chọn (C). (A) bẫy từ 'car' – anh không bán xe; (B) không liên quan dạy lái; (D) 'picked up' không có nghĩa là bãi đỗ xe.",
+          "translateVi": "Người nói có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"they're almost smooth\"?",
+          "options": ["To praise the quality of some work", "To explain why the tires should be replaced", "To describe the condition of a road", "To apologize for a delay"],
+          "answer": 1,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "the front tires are quite worn" }, { "doc": -1, "turn": 3, "text": "we could put them on this afternoon" } ],
+          "explainVi": "Ngay trước đó anh nói lốp trước 'quite worn' (mòn nhiều), rồi 'they're almost smooth' (gần như nhẵn, hết gai) để nhấn mạnh lốp đã quá mòn, sau đó đề nghị lắp bộ lốp mới → nhằm giải thích vì sao nên thay lốp, chọn (B). (A) 'smooth' ở đây không phải lời khen; (C) bẫy – 'smooth' thường dùng cho mặt đường, nhưng 'they' chỉ lốp xe; (D) xe đã sẵn sàng, không có chậm trễ.",
+          "translateVi": "Vì sao người nói nói \"chúng gần như nhẵn hết rồi\"?",
+          "vocab": [ { "word": "worn", "ipa": "/wɔːn/", "meaningVi": "mòn, cũ (do dùng nhiều)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker ask the listener to do?",
+          "options": ["Return his call", "Bring in another vehicle", "Pay a bill online", "Come in before noon"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Please call me back at 555-0182" } ],
+          "explainVi": "Cuối tin nhắn: 'Please call me back at 555-0182' → yêu cầu gọi lại, chọn (A). (B) không nhắc xe khác; (C) không nói thanh toán trực tuyến; (D) xưởng mở đến 6 giờ, không yêu cầu đến trước buổi trưa.",
+          "translateVi": "Người nói đề nghị người nghe làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-03",
+      "part": 4,
+      "level": 600,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "Welcome to the Harbourside Maritime Museum, everyone. My name is Tessa, and I'll be your guide for the next hour.", "translateVi": "Chào mừng mọi người đến Bảo tàng Hàng hải Harbourside. Tôi tên là Tessa và sẽ là hướng dẫn viên của các bạn trong một giờ tới." },
+        { "speaker": "w", "accent": "au", "text": "We'll begin here in the main hall with our model ship collection, and then move upstairs to see the restored captain's cabin.", "translateVi": "Chúng ta sẽ bắt đầu tại sảnh chính với bộ sưu tập mô hình tàu, sau đó lên lầu xem cabin thuyền trưởng đã được phục chế." },
+        { "speaker": "w", "accent": "au", "text": "Please note that photography is allowed, but flash isn't, since it can damage the old maps on display.", "translateVi": "Xin lưu ý là được phép chụp ảnh nhưng không được dùng đèn flash, vì nó có thể làm hỏng những tấm bản đồ cổ đang trưng bày." },
+        { "speaker": "w", "accent": "au", "text": "Our tour ends at about eleven-twenty, which works out nicely, because the next talk begins just ten minutes later. It's given by a retired ship's captain, and I highly recommend it.", "translateVi": "Chuyến tham quan kết thúc khoảng 11 giờ 20, rất thuận tiện vì buổi nói chuyện tiếp theo bắt đầu chỉ mười phút sau đó. Buổi đó do một thuyền trưởng đã nghỉ hưu trình bày, và tôi rất khuyến khích các bạn tham dự." },
+        { "speaker": "w", "accent": "au", "text": "All right, if everyone's ready, please follow me.", "translateVi": "Được rồi, nếu mọi người đã sẵn sàng thì mời đi theo tôi." }
+      ],
+      "graphic": {
+        "kind": "schedule",
+        "title": "Harbourside Maritime Museum · Today's Talks",
+        "columns": ["Time", "Talk", "Location"],
+        "rows": [
+          ["10:30", "Shipbuilding Then and Now", "Gallery 1"],
+          ["11:30", "Life Aboard a Cargo Ship", "Gallery 3"],
+          ["1:00", "Lighthouses of the Coast", "Theatre"],
+          ["2:30", "Navigation Before GPS", "Gallery 2"]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who is the speaker?",
+          "options": ["A ship captain", "A museum shop clerk", "A photographer", "A tour guide"],
+          "answer": 3,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I'll be your guide for the next hour" } ],
+          "explainVi": "Tessa nói 'I'll be your guide for the next hour' và dẫn đoàn đi tham quan → hướng dẫn viên, chọn (D). (A) bẫy – thuyền trưởng (đã nghỉ hưu) là người trình bày buổi nói chuyện sau, không phải người nói; (B) không nhắc cửa hàng bảo tàng; (C) bẫy từ 'photography'.",
+          "translateVi": "Người nói là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "What are the listeners asked not to do?",
+          "options": ["Use a camera flash", "Touch the model ships", "Bring food into the hall", "Go upstairs alone"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "photography is allowed, but flash isn't" } ],
+          "explainVi": "'Photography is allowed, but flash isn't' → không được dùng đèn flash, chọn (A). (B) mô hình tàu được nhắc nhưng không có lệnh cấm chạm; (C) không nói về đồ ăn; (D) cả đoàn sẽ cùng lên lầu, không có quy định cấm đi một mình.",
+          "translateVi": "Người nghe được yêu cầu không làm gì?",
+          "vocab": [ { "word": "restored", "ipa": "/rɪˈstɔːd/", "meaningVi": "được phục chế, khôi phục" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "Look at the graphic. Which talk does the speaker recommend?",
+          "options": ["Shipbuilding Then and Now", "Life Aboard a Cargo Ship", "Lighthouses of the Coast", "Navigation Before GPS"],
+          "answer": 1,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "Our tour ends at about eleven-twenty, which works out nicely, because the next talk begins just ten minutes later." } ],
+          "explainVi": "Tour kết thúc khoảng 11:20, buổi nói chuyện được giới thiệu bắt đầu 'ten minutes later' → 11:30. Trên lịch, 11:30 là 'Life Aboard a Cargo Ship' → (B). (A) 10:30 đã diễn ra trong lúc tour; (C) 1:00 và (D) 2:30 không phải 'mười phút sau'. Bẫy: nghe 'ship's captain' dễ chọn bừa bài có chữ 'Ship' khác như (A).",
+          "translateVi": "Hãy nhìn vào bảng. Người nói giới thiệu buổi nói chuyện nào?"
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-04",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Is your home office ready for the new year? At Maple Line Furniture, we've got everything you need to work in comfort.", "translateVi": "Văn phòng tại nhà của bạn đã sẵn sàng cho năm mới chưa? Tại Maple Line Furniture, chúng tôi có mọi thứ bạn cần để làm việc thoải mái." },
+        { "speaker": "m", "accent": "ca", "text": "From adjustable desks to ergonomic chairs, our showroom on Carlton Street has over two hundred items on display.", "translateVi": "Từ bàn chỉnh độ cao đến ghế công thái học, phòng trưng bày của chúng tôi trên phố Carlton có hơn hai trăm sản phẩm." },
+        { "speaker": "m", "accent": "ca", "text": "And this month only, we're offering free delivery and assembly on any purchase over five hundred dollars.", "translateVi": "Và chỉ trong tháng này, chúng tôi miễn phí giao hàng và lắp ráp cho mọi đơn hàng trên năm trăm đô la." },
+        { "speaker": "m", "accent": "ca", "text": "Not sure what fits your space? Our design consultants can visit your home and take measurements at no cost.", "translateVi": "Không chắc món nào vừa với không gian nhà bạn? Chuyên viên tư vấn thiết kế của chúng tôi có thể đến nhà bạn đo đạc miễn phí." },
+        { "speaker": "m", "accent": "ca", "text": "Just book an appointment on our website, mapleline-furniture.com. Maple Line Furniture, where comfort works for you.", "translateVi": "Chỉ cần đặt lịch hẹn trên trang web mapleline-furniture.com. Maple Line Furniture – nơi sự thoải mái làm việc cho bạn." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is being advertised?",
+          "options": ["A moving company", "An office cleaning service", "A furniture store", "A design school"],
+          "answer": 2,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "From adjustable desks to ergonomic chairs, our showroom on Carlton Street" } ],
+          "explainVi": "Quảng cáo Maple Line Furniture có phòng trưng bày bàn, ghế → cửa hàng nội thất, chọn (C). (A) bẫy từ 'delivery' – họ giao hàng mình bán, không phải công ty chuyển nhà; (B) 'office' chỉ là văn phòng tại nhà, không có dịch vụ dọn dẹp; (D) bẫy từ 'design consultants' – không phải trường học.",
+          "translateVi": "Cái gì đang được quảng cáo?",
+          "vocab": [ { "word": "ergonomic", "ipa": "/ˌɜːɡəˈnɒmɪk/", "meaningVi": "công thái học, thiết kế cho tư thế thoải mái" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "What is offered this month?",
+          "options": ["A discount on chairs", "Free delivery and assembly", "Extended store hours", "A gift card with every purchase"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "this month only, we're offering free delivery and assembly" } ],
+          "explainVi": "'This month only, we're offering free delivery and assembly' (đơn trên 500 đô) → (B). (A) ghế có được nhắc nhưng không giảm giá; (C) không nói kéo dài giờ mở cửa; (D) không có thẻ quà tặng.",
+          "translateVi": "Tháng này có ưu đãi gì?",
+          "vocab": [ { "word": "assembly", "ipa": "/əˈsembli/", "meaningVi": "việc lắp ráp" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "According to the speaker, why should listeners visit a website?",
+          "options": ["To read customer reviews", "To enter a contest", "To see a product catalog", "To book an appointment with a consultant"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Just book an appointment on our website" } ],
+          "explainVi": "Sau khi giới thiệu chuyên viên tư vấn đến nhà đo đạc, người nói bảo 'book an appointment on our website' → đặt lịch với chuyên viên tư vấn, chọn (D). (A), (B), (C) đều là lý do thường gặp để vào web nhưng không được nhắc trong bài.",
+          "translateVi": "Theo người nói, vì sao người nghe nên vào trang web?"
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-05",
+      "part": 4,
+      "level": 750,
+      "script": [
+        { "speaker": "w", "accent": "gb", "text": "Before we finish, I want to update everyone on the new scheduling software. As you know, it was supposed to go live on Monday.", "translateVi": "Trước khi kết thúc, tôi muốn cập nhật cho mọi người về phần mềm xếp lịch mới. Như các bạn biết, lẽ ra nó sẽ được đưa vào sử dụng từ thứ Hai." },
+        { "speaker": "w", "accent": "gb", "text": "Well, the vendor discovered a problem with how it connects to our payroll system, so the launch has been pushed back two weeks.", "translateVi": "Nhưng nhà cung cấp phát hiện ra lỗi trong cách nó kết nối với hệ thống tính lương của chúng ta, nên việc ra mắt bị lùi lại hai tuần." },
+        { "speaker": "w", "accent": "gb", "text": "I know some of you already spent a whole afternoon in training. Believe me, that time wasn't wasted.", "translateVi": "Tôi biết một số bạn đã mất trọn một buổi chiều để tập huấn. Tin tôi đi, thời gian đó không hề phí." },
+        { "speaker": "w", "accent": "gb", "text": "The screens and features won't change at all, so everything you learned will still apply.", "translateVi": "Màn hình và các tính năng sẽ không thay đổi chút nào, nên mọi thứ các bạn đã học vẫn dùng được." },
+        { "speaker": "w", "accent": "gb", "text": "In the meantime, keep using the old spreadsheet for shift requests. And Daniel from IT will send out a short video next week so you can review the main functions before the launch.", "translateVi": "Trong lúc chờ, các bạn tiếp tục dùng bảng tính cũ để đăng ký ca. Và tuần sau Daniel bên IT sẽ gửi một video ngắn để các bạn ôn lại các chức năng chính trước khi ra mắt." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the speaker mainly discussing?",
+          "options": ["A delay in a software launch", "A change in payroll dates", "The opening of a training center", "The hiring of an IT specialist"],
+          "answer": 0,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "the launch has been pushed back two weeks" } ],
+          "explainVi": "Bà cập nhật về phần mềm xếp lịch mới: 'the launch has been pushed back two weeks' → chủ đề là việc ra mắt phần mềm bị hoãn, chọn (A). (B) bẫy từ 'payroll' – lỗi kết nối với hệ thống lương, không phải đổi ngày trả lương; (C) bẫy từ 'training' – không có trung tâm đào tạo mới; (D) Daniel là người IT hiện có, không phải tuyển mới.",
+          "translateVi": "Người nói chủ yếu đang bàn về điều gì?",
+          "vocab": [ { "word": "push back", "ipa": "/pʊʃ bæk/", "meaningVi": "lùi lại, hoãn (thời gian)" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "What does the speaker mean when she says, \"that time wasn't wasted\"?",
+          "options": ["The training session was shorter than planned", "Employees will be paid for the training", "The training will still be useful", "The vendor will offer a refund"],
+          "answer": 2,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "everything you learned will still apply" } ],
+          "explainVi": "Ngay sau câu đó bà giải thích màn hình và tính năng không đổi nên 'everything you learned will still apply' → buổi tập huấn vẫn có ích, chọn (C). (A) bà nói tập huấn mất 'a whole afternoon', không ngắn hơn; (B) không nhắc trả tiền cho buổi tập huấn; (D) không có chuyện hoàn tiền.",
+          "translateVi": "Người nói có ý gì khi nói \"thời gian đó không hề phí\"?"
+        },
+        {
+          "no": 3,
+          "prompt": "What will Daniel do next week?",
+          "options": ["Fix the payroll system", "Send out a review video", "Lead another training session", "Update the spreadsheet"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Daniel from IT will send out a short video next week" } ],
+          "explainVi": "'Daniel from IT will send out a short video next week so you can review the main functions' → gửi video ôn tập, chọn (B). (A) lỗi kết nối do nhà cung cấp xử lý; (C) không có buổi tập huấn thêm, chỉ có video; (D) bảng tính cũ chỉ được tiếp tục dùng, không ai cập nhật.",
+          "translateVi": "Tuần sau Daniel sẽ làm gì?",
+          "vocab": [ { "word": "vendor", "ipa": "/ˈvendə(r)/", "meaningVi": "nhà cung cấp" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-06",
+      "part": 4,
+      "level": 600,
+      "script": [
+        { "speaker": "m", "accent": "au", "text": "This is Ryan Holt with your morning traffic update on Radio 2KW.", "translateVi": "Tôi là Ryan Holt với bản tin giao thông buổi sáng trên đài Radio 2KW." },
+        { "speaker": "m", "accent": "au", "text": "Drivers heading into the city on the Western Highway should expect delays of up to twenty minutes this morning. One lane near the Bridgewater exit is closed while crews repair a damaged sign.", "translateVi": "Tài xế đi vào thành phố trên đường cao tốc Western sáng nay có thể bị chậm tới hai mươi phút. Một làn đường gần lối ra Bridgewater bị đóng trong khi đội công nhân sửa một biển báo bị hỏng." },
+        { "speaker": "m", "accent": "au", "text": "The work is expected to finish by ten o'clock.", "translateVi": "Công việc dự kiến xong trước 10 giờ." },
+        { "speaker": "m", "accent": "au", "text": "If you're travelling to the airport, consider taking Coastal Road instead, which is moving smoothly right now.", "translateVi": "Nếu bạn đang ra sân bay, hãy cân nhắc đi đường Coastal thay thế, hiện xe đang lưu thông thông suốt." },
+        { "speaker": "m", "accent": "au", "text": "Also, a reminder that the city's free weekend shuttle starts this Saturday, running between Central Station and the Riverside Markets every fifteen minutes. Stay tuned for the weather after this short break.", "translateVi": "Ngoài ra, xin nhắc rằng xe đưa đón miễn phí cuối tuần của thành phố bắt đầu chạy từ thứ Bảy này, giữa Ga Trung tâm và chợ Riverside, cứ mười lăm phút một chuyến. Hãy tiếp tục theo dõi bản tin thời tiết sau giờ nghỉ ngắn." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the main purpose of the broadcast?",
+          "options": ["To announce an airport opening", "To advertise a market", "To describe a new highway", "To report on traffic conditions"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "your morning traffic update" } ],
+          "explainVi": "Người nói giới thiệu 'your morning traffic update' và nói về tình trạng chậm xe, đường thay thế → báo cáo tình hình giao thông, chọn (D). (A) sân bay chỉ là điểm đến được nhắc; (B) chợ Riverside chỉ là điểm dừng của xe đưa đón; (C) Western Highway là đường hiện có, không phải đường mới.",
+          "translateVi": "Mục đích chính của bản tin là gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "What is causing the delays?",
+          "options": ["Bad weather", "A traffic accident", "Repairs to a sign", "A broken traffic light"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "One lane near the Bridgewater exit is closed while crews repair a damaged sign." } ],
+          "explainVi": "Một làn đường bị đóng 'while crews repair a damaged sign' → nguyên nhân là sửa biển báo, chọn (C). (A) bẫy từ 'weather' ở cuối bài – thời tiết là mục tiếp theo, không phải nguyên nhân; (B) không có tai nạn; (D) 'damaged sign' là biển báo, không phải đèn giao thông.",
+          "translateVi": "Điều gì gây ra tình trạng chậm xe?",
+          "vocab": [ { "word": "crew", "ipa": "/kruː/", "meaningVi": "đội, tổ công nhân" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will listeners most likely hear after the break?",
+          "options": ["A weather forecast", "Another traffic update", "An interview with an official", "A music program"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Stay tuned for the weather after this short break." } ],
+          "explainVi": "'Stay tuned for the weather after this short break' → sau giờ nghỉ là bản tin thời tiết, chọn (A). (B) bản tin giao thông vừa kết thúc; (C), (D) không được nhắc.",
+          "translateVi": "Sau giờ nghỉ, người nghe có lẽ sẽ nghe gì?",
+          "vocab": [ { "word": "stay tuned", "ipa": "/steɪ tjuːnd/", "meaningVi": "tiếp tục theo dõi (đài, kênh)" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-07",
+      "part": 4,
+      "level": 750,
+      "script": [
+        { "speaker": "w", "accent": "ca", "text": "Good morning, and welcome to the second day of the Regional Retail Summit.", "translateVi": "Chào buổi sáng và chào mừng quý vị đến ngày thứ hai của Hội nghị Bán lẻ Khu vực." },
+        { "speaker": "w", "accent": "ca", "text": "Just a quick change to today's program. The workshop on online customer service, which was scheduled for Room 201, has been moved because of a problem with the projector there.", "translateVi": "Có một thay đổi nhỏ trong chương trình hôm nay. Hội thảo về chăm sóc khách hàng trực tuyến, vốn dự kiến ở Phòng 201, đã được chuyển đi vì máy chiếu ở đó gặp sự cố." },
+        { "speaker": "w", "accent": "ca", "text": "It will now take place in the room directly across the hallway from the café. The starting time hasn't changed; it still begins at ten-thirty.", "translateVi": "Hội thảo sẽ diễn ra ở căn phòng nằm ngay đối diện quán cà phê, bên kia hành lang. Giờ bắt đầu không đổi, vẫn là 10 giờ 30." },
+        { "speaker": "w", "accent": "ca", "text": "Also, lunch today is being served on the terrace rather than in the dining hall, so you can enjoy the sunshine.", "translateVi": "Ngoài ra, bữa trưa hôm nay được phục vụ ở sân hiên thay vì phòng ăn, để quý vị tận hưởng nắng." },
+        { "speaker": "w", "accent": "ca", "text": "Please remember to wear your name badge at all times, as you'll need it to enter each session.", "translateVi": "Xin nhớ luôn đeo thẻ tên vì quý vị cần nó để vào từng phiên." }
+      ],
+      "graphic": {
+        "kind": "floor-plan",
+        "title": "Lakeview Convention Centre · Level 2",
+        "cells": [
+          { "label": "Room 201", "row": 0, "col": 0 },
+          { "label": "Room 202", "row": 0, "col": 1 },
+          { "label": "Room 203", "row": 0, "col": 2 },
+          { "label": "Hallway", "row": 1, "col": 0, "span": 3 },
+          { "label": "Elevators", "row": 2, "col": 0 },
+          { "label": "Café", "row": 2, "col": 1 },
+          { "label": "Room 204", "row": 2, "col": 2 }
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely are the listeners?",
+          "options": ["Hotel staff", "Conference attendees", "Café employees", "Equipment technicians"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "welcome to the second day of the Regional Retail Summit" } ],
+          "explainVi": "Người nói chào mừng mọi người đến 'the second day of the Regional Retail Summit' và nhắc phiên hội thảo, thẻ tên → người nghe là người dự hội nghị, chọn (B). (A) không phải nhân viên khách sạn; (C) bẫy từ 'café' – chỉ là mốc vị trí; (D) bẫy từ 'projector' – máy chiếu hỏng nhưng người nghe không phải kỹ thuật viên.",
+          "translateVi": "Người nghe có lẽ là ai?",
+          "vocab": [ { "word": "summit", "ipa": "/ˈsʌmɪt/", "meaningVi": "hội nghị (cấp cao)" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Why has the workshop been moved?",
+          "options": ["The room is too small", "The presenter is running late", "The room is being cleaned", "A piece of equipment is not working"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "because of a problem with the projector there" } ],
+          "explainVi": "Hội thảo được chuyển 'because of a problem with the projector there' → máy chiếu (một thiết bị) có vấn đề, chọn (D). (A), (C) không được nhắc; (B) giờ bắt đầu không đổi, không có ai đến muộn.",
+          "translateVi": "Vì sao hội thảo bị chuyển phòng?"
+        },
+        {
+          "no": 3,
+          "prompt": "Look at the graphic. Where will the workshop be held?",
+          "options": ["Room 201", "Room 203", "Room 202", "Room 204"],
+          "answer": 2,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "the room directly across the hallway from the café" } ],
+          "explainVi": "Phòng mới là 'directly across the hallway from the café'. Trên sơ đồ, Café ở hàng dưới cột giữa; phòng ngay bên kia hành lang là Room 202 → (C). (A) Room 201 là phòng cũ bị hỏng máy chiếu; (B) Room 203 chéo góc, không đối diện thẳng; (D) Room 204 nằm cạnh quán cà phê, cùng phía hành lang.",
+          "translateVi": "Hãy nhìn vào sơ đồ. Hội thảo sẽ được tổ chức ở đâu?"
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-08",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "us", "text": "Hi, this is Marcus calling from Brightside Dental Clinic with a message for Ellen Novak.", "translateVi": "Xin chào, tôi là Marcus gọi từ Phòng khám Nha khoa Brightside, để lại lời nhắn cho chị Ellen Novak." },
+        { "speaker": "m", "accent": "us", "text": "I'm calling to remind you about your cleaning appointment this Thursday at two-fifteen with Dr. Reyes.", "translateVi": "Tôi gọi để nhắc chị về lịch hẹn làm sạch răng vào thứ Năm này lúc 2 giờ 15 với bác sĩ Reyes." },
+        { "speaker": "m", "accent": "us", "text": "Since this is your first visit with us, please arrive about fifteen minutes early to fill out a patient form.", "translateVi": "Vì đây là lần đầu chị đến phòng khám, xin chị đến sớm khoảng mười lăm phút để điền phiếu thông tin bệnh nhân." },
+        { "speaker": "m", "accent": "us", "text": "Also, don't forget to bring your insurance card, so we can process your claim right away.", "translateVi": "Ngoài ra, đừng quên mang theo thẻ bảo hiểm để chúng tôi xử lý yêu cầu bồi thường ngay." },
+        { "speaker": "m", "accent": "us", "text": "If you need to reschedule, just call us at 555-0147 before Wednesday at noon. Our front desk is open from eight to five on weekdays. Thanks, and we'll see you soon.", "translateVi": "Nếu cần đổi lịch, chị chỉ cần gọi cho chúng tôi theo số 555-0147 trước trưa thứ Tư. Quầy lễ tân mở cửa từ 8 giờ đến 5 giờ các ngày trong tuần. Cảm ơn chị, hẹn sớm gặp lại." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where does the speaker work?",
+          "options": ["At a dental clinic", "At an insurance company", "At a pharmacy", "At a fitness center"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "this is Marcus calling from Brightside Dental Clinic" } ],
+          "explainVi": "Marcus gọi 'from Brightside Dental Clinic' → phòng khám nha khoa, chọn (A). (B) bẫy từ 'insurance card' – thẻ bảo hiểm chỉ là giấy tờ cần mang; (C) nhà thuốc không có lịch làm sạch răng; (D) không liên quan.",
+          "translateVi": "Người nói làm việc ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why should the listener arrive early?",
+          "options": ["To meet Dr. Reyes", "To pay a bill", "To find parking", "To complete a form"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "please arrive about fifteen minutes early to fill out a patient form" } ],
+          "explainVi": "'Arrive about fifteen minutes early to fill out a patient form' → điền phiếu, chọn (D) (fill out = complete). (A) cuộc hẹn với bác sĩ Reyes là đúng giờ hẹn, không phải lý do đến sớm; (B), (C) không được nhắc.",
+          "translateVi": "Vì sao người nghe nên đến sớm?",
+          "vocab": [ { "word": "fill out", "ipa": "/fɪl aʊt/", "meaningVi": "điền (vào mẫu đơn)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should the listener bring to the appointment?",
+          "options": ["A photo ID", "An insurance card", "A list of medicines", "A payment receipt"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "don't forget to bring your insurance card" } ],
+          "explainVi": "'Don't forget to bring your insurance card' → (B). (A), (C), (D) là giấy tờ thường gặp ở phòng khám nhưng không được nhắc trong lời nhắn.",
+          "translateVi": "Người nghe nên mang theo gì khi đến hẹn?",
+          "vocab": [ { "word": "claim", "ipa": "/kleɪm/", "meaningVi": "yêu cầu bồi thường (bảo hiểm)" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-09",
+      "part": 4,
+      "level": 900,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "Thanks for coming in early, everyone. I've just received the results of our annual customer survey, and I'd like to share a few highlights.", "translateVi": "Cảm ơn mọi người đã đến sớm. Tôi vừa nhận được kết quả khảo sát khách hàng hằng năm và muốn chia sẻ vài điểm nổi bật." },
+        { "speaker": "w", "accent": "au", "text": "Overall satisfaction rose to eighty-seven percent, which is our best score in five years.", "translateVi": "Mức hài lòng chung tăng lên 87%, điểm cao nhất của chúng ta trong năm năm." },
+        { "speaker": "w", "accent": "au", "text": "What surprised me most, though, was the feedback on our mobile app. Last year it was our weakest area, and this year it was rated higher than our in-store service. I didn't see that coming.", "translateVi": "Tuy vậy, điều làm tôi bất ngờ nhất là phản hồi về ứng dụng di động. Năm ngoái đó là mảng yếu nhất của chúng ta, còn năm nay nó được đánh giá cao hơn cả dịch vụ tại cửa hàng. Tôi thật không ngờ." },
+        { "speaker": "w", "accent": "au", "text": "Clearly, the redesign the development team finished in March made a difference.", "translateVi": "Rõ ràng đợt thiết kế lại mà nhóm phát triển hoàn tất hồi tháng Ba đã tạo ra khác biệt." },
+        { "speaker": "w", "accent": "au", "text": "On the other hand, several customers mentioned long waiting times on our phone line. So, starting next month, we'll be adding four new support staff. I'd like the team leaders to stay behind after this meeting to discuss the hiring timeline.", "translateVi": "Mặt khác, nhiều khách hàng phàn nàn phải chờ lâu trên đường dây điện thoại. Vì vậy, từ tháng sau chúng ta sẽ bổ sung bốn nhân viên hỗ trợ. Tôi muốn các trưởng nhóm ở lại sau cuộc họp để bàn về tiến độ tuyển dụng." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the speaker mainly discussing?",
+          "options": ["A new product launch", "Changes to store hours", "The results of a customer survey", "A staff training program"],
+          "answer": 2,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I've just received the results of our annual customer survey" } ],
+          "explainVi": "Bà mở đầu bằng việc vừa nhận 'the results of our annual customer survey' và cả bài nói về các điểm trong khảo sát → (C). (A) ứng dụng đã có từ trước, chỉ được thiết kế lại; (B) bẫy từ 'in-store' – không nói đổi giờ mở cửa; (D) bẫy – có tuyển nhân viên hỗ trợ nhưng không có chương trình đào tạo.",
+          "translateVi": "Người nói chủ yếu đang bàn về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"I didn't see that coming\"?",
+          "options": ["To express surprise at an improvement", "To admit that she missed a deadline", "To complain about a late report", "To explain why she was absent"],
+          "answer": 0,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "What surprised me most, though, was the feedback on our mobile app." } ],
+          "explainVi": "Bà nói điều bất ngờ nhất là ứng dụng từ 'weakest area' năm ngoái nay được đánh giá cao hơn dịch vụ tại cửa hàng; 'I didn't see that coming' (tôi không lường trước) → bày tỏ ngạc nhiên trước sự cải thiện, chọn (A). (B), (C), (D) hiểu sai nghĩa đen của 'see' và 'coming' – không có hạn chót, báo cáo trễ hay vắng mặt nào.",
+          "translateVi": "Vì sao người nói nói \"Tôi thật không ngờ\"?",
+          "vocab": [ { "word": "highlight", "ipa": "/ˈhaɪlaɪt/", "meaningVi": "điểm nổi bật" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will the team leaders do after the meeting?",
+          "options": ["Test the mobile app", "Call some customers", "Redesign the website", "Talk about a hiring schedule"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "I'd like the team leaders to stay behind after this meeting to discuss the hiring timeline." } ],
+          "explainVi": "Các trưởng nhóm được đề nghị ở lại 'to discuss the hiring timeline' → bàn về lịch tuyển dụng, chọn (D) (timeline ≈ schedule). (A) ứng dụng đã được thiết kế lại xong từ tháng Ba; (B) bẫy từ 'phone line' – không ai gọi cho khách; (C) 'redesign' nói về ứng dụng, không phải website.",
+          "translateVi": "Các trưởng nhóm sẽ làm gì sau cuộc họp?",
+          "vocab": [ { "word": "stay behind", "ipa": "/steɪ bɪˈhaɪnd/", "meaningVi": "ở lại (sau khi người khác về)" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-10",
+      "part": 4,
+      "level": 600,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "Good evening, ladies and gentlemen, and welcome to the Northgate Business Association's annual dinner.", "translateVi": "Xin chào quý ông, quý bà, chào mừng đến bữa tối thường niên của Hiệp hội Doanh nghiệp Northgate." },
+        { "speaker": "m", "accent": "gb", "text": "It's my pleasure to introduce tonight's guest speaker, Dr. Helena Ward.", "translateVi": "Tôi rất vui được giới thiệu diễn giả khách mời tối nay, Tiến sĩ Helena Ward." },
+        { "speaker": "m", "accent": "gb", "text": "Dr. Ward founded Clearwater Analytics twelve years ago in a small rented office, and today the company employs more than three hundred people across four countries.", "translateVi": "Tiến sĩ Ward thành lập Clearwater Analytics mười hai năm trước trong một văn phòng thuê nhỏ, và ngày nay công ty có hơn ba trăm nhân viên tại bốn quốc gia." },
+        { "speaker": "m", "accent": "gb", "text": "Last year, she also published a best-selling book on leadership called The Quiet Manager.", "translateVi": "Năm ngoái, bà còn xuất bản cuốn sách bán chạy về lãnh đạo mang tên The Quiet Manager." },
+        { "speaker": "m", "accent": "gb", "text": "Tonight she'll be talking about how small businesses can use data to make better decisions. After her talk, she'll be signing copies of her book in the lobby. Please join me in welcoming Dr. Ward.", "translateVi": "Tối nay bà sẽ nói về cách các doanh nghiệp nhỏ dùng dữ liệu để ra quyết định tốt hơn. Sau bài nói, bà sẽ ký tặng sách ở sảnh. Xin mời mọi người cùng chào đón Tiến sĩ Ward." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the introduction taking place?",
+          "options": ["At a bookstore", "At an association dinner", "At a university lecture", "At a job fair"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "welcome to the Northgate Business Association's annual dinner" } ],
+          "explainVi": "'Welcome to the Northgate Business Association's annual dinner' → bữa tối của hiệp hội, chọn (B). (A) bẫy – có ký tặng sách nhưng ở sảnh nơi tổ chức tiệc; (C) bẫy từ 'Dr.' – không phải giờ giảng đại học; (D) công ty có 300 nhân viên nhưng không phải hội chợ việc làm.",
+          "translateVi": "Lời giới thiệu diễn ra ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "What is mentioned about Dr. Ward's company?",
+          "options": ["It was recently sold", "It is moving to a new office", "It has expanded greatly since it began", "It publishes leadership books"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "founded Clearwater Analytics twelve years ago in a small rented office, and today the company employs more than three hundred people across four countries" } ],
+          "explainVi": "Công ty bắt đầu 'in a small rented office' và nay 'employs more than three hundred people across four countries' → đã phát triển mạnh, chọn (C). (A) không nói bán công ty; (B) bẫy từ 'office' – văn phòng nhỏ là lúc mới lập; (D) bà tự xuất bản sách, công ty là công ty phân tích dữ liệu.",
+          "translateVi": "Điều gì được nhắc về công ty của Tiến sĩ Ward?",
+          "vocab": [ { "word": "found", "ipa": "/faʊnd/", "meaningVi": "thành lập (founded = đã thành lập)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will Dr. Ward do after her talk?",
+          "options": ["Sign copies of a book", "Present an award", "Interview job candidates", "Lead a workshop"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "After her talk, she'll be signing copies of her book in the lobby." } ],
+          "explainVi": "'After her talk, she'll be signing copies of her book in the lobby' → (A). (B), (C), (D) không được nhắc.",
+          "translateVi": "Sau bài nói, Tiến sĩ Ward sẽ làm gì?",
+          "vocab": [ { "word": "lobby", "ipa": "/ˈlɒbi/", "meaningVi": "sảnh, tiền sảnh" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-11",
+      "part": 4,
+      "level": 750,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "Hi, Mr. Lindqvist, this is Kayla from Swift Print Center returning your call about the business cards for your new staff.", "translateVi": "Chào ông Lindqvist, tôi là Kayla ở Trung tâm In Swift, gọi lại cho ông về đơn danh thiếp cho nhân viên mới." },
+        { "speaker": "w", "accent": "us", "text": "You mentioned you'd like five hundred cards, but since you're hiring several more people next month, you might want to consider ordering twice that amount.", "translateVi": "Ông có nói muốn đặt năm trăm tấm, nhưng vì tháng sau ông còn tuyển thêm vài người, có lẽ ông nên cân nhắc đặt gấp đôi số đó." },
+        { "speaker": "w", "accent": "us", "text": "It would bring the cost per card down quite a bit, and the cards don't expire, after all.", "translateVi": "Như vậy giá mỗi tấm sẽ giảm đáng kể, và dù sao danh thiếp cũng không có hạn sử dụng." },
+        { "speaker": "w", "accent": "us", "text": "Just let me know which quantity you'd prefer. Either way, I'll need the final version of your logo by Friday so the cards can be printed in time for your office opening.", "translateVi": "Ông cứ cho tôi biết ông chọn số lượng nào. Dù thế nào, tôi cũng cần bản cuối của logo trước thứ Sáu để kịp in danh thiếp cho ngày khai trương văn phòng." },
+        { "speaker": "w", "accent": "us", "text": "You can email it to orders at swiftprint dot com. Thanks!", "translateVi": "Ông có thể gửi email tới orders@swiftprint.com. Cảm ơn ông!" }
+      ],
+      "graphic": {
+        "kind": "price-list",
+        "title": "Swift Print Center · Business Cards",
+        "columns": ["Quantity", "Price"],
+        "rows": [
+          ["250 cards", "$30"],
+          ["500 cards", "$45"],
+          ["1,000 cards", "$70"],
+          ["2,000 cards", "$120"]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Why is the speaker calling?",
+          "options": ["To confirm a delivery date", "To announce a sale", "To apologize for a printing error", "To respond to a customer's inquiry"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "returning your call about the business cards for your new staff" } ],
+          "explainVi": "Kayla 'returning your call about the business cards' → gọi lại để trả lời câu hỏi/yêu cầu của khách, chọn (D). (A) chưa in nên chưa có ngày giao; (B) giá giảm theo số lượng là bảng giá thường, không phải đợt khuyến mãi; (C) không có lỗi in nào.",
+          "translateVi": "Vì sao người nói gọi điện?",
+          "vocab": [ { "word": "inquiry", "ipa": "/ɪnˈkwaɪəri/", "meaningVi": "câu hỏi, yêu cầu thông tin" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. How much would the order that the speaker suggests cost?",
+          "options": ["$30", "$45", "$70", "$120"],
+          "answer": 2,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "you might want to consider ordering twice that amount" } ],
+          "explainVi": "Khách định đặt 500 tấm, Kayla gợi ý 'ordering twice that amount' → 1.000 tấm. Theo bảng giá, 1,000 cards = $70 → (C). (B) $45 là giá 500 tấm khách định đặt ban đầu – bẫy nghe 'five hundred'; (A) 250 tấm; (D) 2.000 tấm là gấp bốn, không phải gấp đôi.",
+          "translateVi": "Hãy nhìn vào bảng giá. Đơn hàng mà người nói gợi ý sẽ có giá bao nhiêu?"
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker need by Friday?",
+          "options": ["A logo design", "A payment", "A list of employee names", "An office address"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "I'll need the final version of your logo by Friday" } ],
+          "explainVi": "'I'll need the final version of your logo by Friday' → (A). (B) không nói thanh toán; (C) bẫy – danh thiếp cho nhân viên mới nhưng cô không xin danh sách tên; (D) bẫy từ 'office opening' – không cần địa chỉ.",
+          "translateVi": "Người nói cần gì trước thứ Sáu?"
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-12",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Attention, passengers on Northern Skies Flight 418 to Winnipeg.", "translateVi": "Xin chú ý, hành khách đi chuyến bay 418 của hãng Northern Skies đến Winnipeg." },
+        { "speaker": "m", "accent": "ca", "text": "Due to a scheduling conflict, this flight will now depart from Gate 12 instead of Gate 6. The departure time remains four-forty, and boarding will begin in about twenty minutes.", "translateVi": "Do trùng lịch, chuyến bay này sẽ khởi hành từ Cửa 12 thay vì Cửa 6. Giờ khởi hành vẫn là 4 giờ 40, và việc lên máy bay sẽ bắt đầu sau khoảng hai mươi phút." },
+        { "speaker": "m", "accent": "ca", "text": "Passengers travelling with small children or needing extra assistance are invited to board first.", "translateVi": "Hành khách đi cùng trẻ nhỏ hoặc cần hỗ trợ thêm được mời lên máy bay trước." },
+        { "speaker": "m", "accent": "ca", "text": "Please have your boarding pass and photo identification ready when you reach the gate.", "translateVi": "Xin chuẩn bị sẵn thẻ lên máy bay và giấy tờ tùy thân có ảnh khi đến cửa." },
+        { "speaker": "m", "accent": "ca", "text": "We also remind you that each passenger may bring only one carry-on bag and one personal item on board. Thank you for flying Northern Skies.", "translateVi": "Chúng tôi cũng xin nhắc mỗi hành khách chỉ được mang một túi xách tay và một vật dụng cá nhân lên máy bay. Cảm ơn quý khách đã bay cùng Northern Skies." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the announcement being made?",
+          "options": ["On a train", "At a bus terminal", "At an airport", "On a ship"],
+          "answer": 2,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Attention, passengers on Northern Skies Flight 418 to Winnipeg." } ],
+          "explainVi": "Thông báo cho hành khách 'Flight 418', nói về cửa ra máy bay và thẻ lên máy bay → ở sân bay, chọn (C). (A), (B), (D) cũng có 'passengers' và 'boarding' nhưng không dùng 'flight' và 'gate'.",
+          "translateVi": "Thông báo này được phát ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "What has changed?",
+          "options": ["The departure time", "The departure gate", "The destination", "The flight number"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "this flight will now depart from Gate 12 instead of Gate 6" } ],
+          "explainVi": "'Will now depart from Gate 12 instead of Gate 6' → đổi cửa khởi hành, chọn (B). (A) bẫy – 'The departure time remains four-forty' tức giờ không đổi; (C) vẫn bay đến Winnipeg; (D) vẫn là chuyến 418.",
+          "translateVi": "Điều gì đã thay đổi?",
+          "vocab": [ { "word": "scheduling conflict", "ipa": "/ˈʃedjuːlɪŋ ˈkɒnflɪkt/", "meaningVi": "sự trùng lịch" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What are passengers asked to have ready?",
+          "options": ["A baggage receipt", "A credit card", "A seat upgrade form", "Their boarding passes and identification"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "Please have your boarding pass and photo identification ready" } ],
+          "explainVi": "'Please have your boarding pass and photo identification ready' → (D). (A) bẫy liên tưởng tới hành lý xách tay – không cần phiếu hành lý; (B), (C) không được nhắc.",
+          "translateVi": "Hành khách được yêu cầu chuẩn bị sẵn thứ gì?",
+          "vocab": [ { "word": "carry-on bag", "ipa": "/ˈkæri ɒn bæɡ/", "meaningVi": "túi xách tay mang lên máy bay" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-13",
+      "part": 4,
+      "level": 750,
+      "script": [
+        { "speaker": "w", "accent": "gb", "text": "Hi, everyone. Thanks for volunteering at this year's Fairmont Library book sale.", "translateVi": "Chào mọi người. Cảm ơn các bạn đã tình nguyện tham gia hội chợ bán sách năm nay của Thư viện Fairmont." },
+        { "speaker": "w", "accent": "gb", "text": "Before we open the doors, here's where things stand. We received over six thousand donated books this year. That's more than double last year.", "translateVi": "Trước khi mở cửa, đây là tình hình hiện tại. Năm nay chúng ta nhận được hơn sáu nghìn cuốn sách quyên góp. Gấp hơn đôi năm ngoái đấy." },
+        { "speaker": "w", "accent": "gb", "text": "So, we've set up extra tables in the children's room, and we'll need two people to keep them organised throughout the day.", "translateVi": "Vì thế chúng tôi đã kê thêm bàn ở phòng thiếu nhi, và cần hai người giữ cho các bàn đó gọn gàng suốt cả ngày." },
+        { "speaker": "w", "accent": "gb", "text": "All money raised goes toward our new reading programme for teenagers, which starts in September.", "translateVi": "Toàn bộ số tiền thu được sẽ dành cho chương trình đọc sách mới cho thanh thiếu niên, bắt đầu vào tháng Chín." },
+        { "speaker": "w", "accent": "gb", "text": "Now, Priya is handing out aprons with name tags. Once you have yours, please check the board by the front desk to find your assigned area.", "translateVi": "Bây giờ Priya đang phát tạp dề có gắn thẻ tên. Khi nhận được rồi, các bạn hãy xem bảng cạnh quầy lễ tân để biết khu vực mình được phân công." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely are the listeners?",
+          "options": ["Library volunteers", "Book publishers", "High school students", "Library members"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Thanks for volunteering at this year's Fairmont Library book sale." } ],
+          "explainVi": "'Thanks for volunteering at this year's Fairmont Library book sale' và người nghe được phát tạp dề, phân khu vực → tình nguyện viên thư viện, chọn (A). (B) sách là đồ quyên góp, không liên quan nhà xuất bản; (C) bẫy từ 'teenagers' – họ là đối tượng của chương trình đọc sách; (D) bẫy từ 'Library' – thành viên thư viện không được phân công việc.",
+          "translateVi": "Người nghe có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"That's more than double last year\"?",
+          "options": ["To correct an error in a report", "To ask for more donations", "To complain about a lack of storage", "To explain why extra tables are needed"],
+          "answer": 3,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "we've set up extra tables in the children's room" } ],
+          "explainVi": "Bà nói số sách quyên góp gấp hơn đôi năm ngoái, rồi tiếp ngay 'So, we've set up extra tables...' → câu đó giải thích lý do phải kê thêm bàn và cần thêm người, chọn (D). (A) không có báo cáo sai; (B) sách đã quá nhiều, không xin thêm; (C) giọng bà không phàn nàn và không nhắc kho chứa.",
+          "translateVi": "Vì sao người nói nói \"Gấp hơn đôi năm ngoái đấy\"?",
+          "vocab": [ { "word": "donated", "ipa": "/dəʊˈneɪtɪd/", "meaningVi": "được quyên góp, tặng" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should the listeners do after they receive an apron?",
+          "options": ["Set up some tables", "Sign a volunteer form", "Check a board for their assigned area", "Help Priya hand out name tags"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Once you have yours, please check the board by the front desk to find your assigned area." } ],
+          "explainVi": "'Once you have yours, please check the board by the front desk to find your assigned area' → xem bảng để biết khu vực được phân, chọn (C). (A) bàn đã được kê xong ('we've set up'); (B) không nhắc mẫu đơn; (D) Priya tự phát tạp dề, không ai được nhờ giúp.",
+          "translateVi": "Người nghe nên làm gì sau khi nhận tạp dề?",
+          "vocab": [ { "word": "assigned", "ipa": "/əˈsaɪnd/", "meaningVi": "được phân công" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-14",
+      "part": 4,
+      "level": 600,
+      "script": [
+        { "speaker": "m", "accent": "us", "text": "Welcome to the Sunridge Juice bottling plant. I'm Victor, and I've worked here as a production supervisor for nine years.", "translateVi": "Chào mừng các bạn đến nhà máy đóng chai Sunridge Juice. Tôi là Victor, tôi làm giám sát sản xuất ở đây đã chín năm." },
+        { "speaker": "m", "accent": "us", "text": "On today's tour, you'll see how fresh oranges are washed, pressed, and bottled, all in under an hour.", "translateVi": "Trong chuyến tham quan hôm nay, các bạn sẽ thấy cam tươi được rửa, ép và đóng chai thế nào, tất cả chưa tới một giờ." },
+        { "speaker": "m", "accent": "us", "text": "For safety reasons, please stay behind the yellow lines on the floor at all times, and keep your hairnets and earplugs on while we're in the production area.", "translateVi": "Vì lý do an toàn, xin luôn đứng sau vạch vàng trên sàn, và đội lưới trùm tóc, đeo nút tai suốt thời gian ở khu sản xuất." },
+        { "speaker": "m", "accent": "us", "text": "At the end of the tour, we'll stop by our tasting room, where you can sample our newest flavor, mango and lime, before it reaches stores next month.", "translateVi": "Cuối chuyến tham quan, chúng ta sẽ ghé phòng nếm thử, nơi các bạn có thể thử hương vị mới nhất là xoài chanh, trước khi nó lên kệ vào tháng sau." },
+        { "speaker": "m", "accent": "us", "text": "Now, let's start by putting on those hairnets. You'll find them in the box next to the door.", "translateVi": "Nào, chúng ta bắt đầu bằng việc đội lưới trùm tóc. Các bạn sẽ thấy chúng trong hộp cạnh cửa." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who is the speaker?",
+          "options": ["A safety inspector", "A production supervisor", "A fruit farmer", "A store manager"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I've worked here as a production supervisor for nine years" } ],
+          "explainVi": "Victor tự giới thiệu 'I've worked here as a production supervisor' → (B). (A) bẫy từ 'For safety reasons' – anh nhắc quy định an toàn nhưng không phải thanh tra; (C) bẫy từ 'oranges'; (D) bẫy từ 'stores'.",
+          "translateVi": "Người nói là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "What will the listeners be able to do at the end of the tour?",
+          "options": ["Sample a new flavor", "Buy discounted products", "Meet the company president", "Pick fresh oranges"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "you can sample our newest flavor, mango and lime" } ],
+          "explainVi": "Cuối tour ghé phòng nếm thử 'you can sample our newest flavor' → (A). (B) không nói giảm giá; (C) không nhắc chủ tịch; (D) bẫy từ 'oranges' – cam được rửa và ép trong nhà máy, khách không đi hái.",
+          "translateVi": "Cuối chuyến tham quan, người nghe sẽ được làm gì?",
+          "vocab": [ { "word": "sample", "ipa": "/ˈsɑːmpl/", "meaningVi": "nếm thử, dùng thử" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will the listeners do next?",
+          "options": ["Watch a safety video", "Sign a form", "Put on protective gear", "Wash their hands"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "let's start by putting on those hairnets" } ],
+          "explainVi": "'Let's start by putting on those hairnets' → đội lưới trùm tóc, tức đồ bảo hộ, chọn (C) (hairnets → protective gear, cách diễn đạt lại thường gặp). (A), (B), (D) là việc hay làm trước khi vào nhà máy nhưng không được nhắc.",
+          "translateVi": "Người nghe sẽ làm gì tiếp theo?",
+          "vocab": [ { "word": "hairnet", "ipa": "/ˈheənet/", "meaningVi": "lưới trùm tóc" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-15",
+      "part": 4,
+      "level": 900,
+      "script": [
+        { "speaker": "w", "accent": "ca", "text": "Okay, let's turn to the chart on the screen, which shows our online orders for the first four months of the year.", "translateVi": "Được rồi, chúng ta xem biểu đồ trên màn hình, thể hiện số đơn hàng trực tuyến trong bốn tháng đầu năm." },
+        { "speaker": "w", "accent": "ca", "text": "As you can see, orders dropped slightly in February, which is normal after the holiday season.", "translateVi": "Như các bạn thấy, đơn hàng giảm nhẹ trong tháng Hai, điều bình thường sau mùa lễ." },
+        { "speaker": "w", "accent": "ca", "text": "But look at the month when we had our highest numbers. That's when we launched free returns on all clothing items, and I'm convinced that's what made the difference.", "translateVi": "Nhưng hãy nhìn vào tháng có số liệu cao nhất. Đó là lúc chúng ta áp dụng đổi trả miễn phí cho mọi mặt hàng quần áo, và tôi tin chắc đó là điều tạo nên khác biệt." },
+        { "speaker": "w", "accent": "ca", "text": "Unfortunately, the policy also raised our shipping costs considerably, so management has asked us to find a way to keep the benefit without losing money.", "translateVi": "Đáng tiếc là chính sách đó cũng làm chi phí vận chuyển tăng đáng kể, nên ban quản lý yêu cầu chúng ta tìm cách giữ lợi ích này mà không bị lỗ." },
+        { "speaker": "w", "accent": "ca", "text": "I'd like each of you to come to Thursday's meeting with at least one proposal. For example, we might offer free returns only to members of our loyalty program.", "translateVi": "Tôi muốn mỗi người đến cuộc họp thứ Năm với ít nhất một đề xuất. Ví dụ, chúng ta có thể chỉ cho thành viên chương trình khách hàng thân thiết được đổi trả miễn phí." }
+      ],
+      "graphic": {
+        "kind": "bar-chart",
+        "title": "Online Orders by Month (thousands)",
+        "bars": [
+          { "label": "January", "value": 42 },
+          { "label": "February", "value": 38 },
+          { "label": "March", "value": 55 },
+          { "label": "April", "value": 47 }
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What type of business does the speaker most likely work for?",
+          "options": ["A shipping company", "A software developer", "A bank", "An online clothing retailer"],
+          "answer": 3,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "our online orders" }, { "doc": -1, "turn": 2, "text": "free returns on all clothing items" } ],
+          "explainVi": "Bà nói về 'our online orders' và chính sách 'free returns on all clothing items' → công ty bán quần áo trực tuyến, chọn (D). (A) bẫy từ 'shipping costs' – họ trả phí vận chuyển chứ không phải hãng vận chuyển; (B) 'online' không có nghĩa là công ty phần mềm; (C) bẫy từ 'losing money'.",
+          "translateVi": "Người nói có lẽ làm việc cho loại hình doanh nghiệp nào?",
+          "vocab": [ { "word": "retailer", "ipa": "/ˈriːteɪlə(r)/", "meaningVi": "nhà bán lẻ" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. When did the company introduce free returns?",
+          "options": ["In January", "In February", "In March", "In April"],
+          "answer": 2,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "look at the month when we had our highest numbers. That's when we launched free returns" } ],
+          "explainVi": "Đổi trả miễn phí được áp dụng vào 'the month when we had our highest numbers'. Trên biểu đồ, cột cao nhất là March (55 nghìn) → (C). (B) tháng Hai là tháng giảm được nhắc trực tiếp – bẫy nghe tên tháng; (A) 42 và (D) 47 đều thấp hơn tháng Ba.",
+          "translateVi": "Hãy nhìn vào biểu đồ. Công ty áp dụng đổi trả miễn phí khi nào?"
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker ask the listeners to do?",
+          "options": ["Prepare a suggestion for a meeting", "Survey loyalty program members", "Reduce delivery times", "Update a sales chart"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "I'd like each of you to come to Thursday's meeting with at least one proposal." } ],
+          "explainVi": "'Come to Thursday's meeting with at least one proposal' → chuẩn bị đề xuất cho cuộc họp, chọn (A) (proposal ≈ suggestion). (B) chương trình thân thiết chỉ là ví dụ đề xuất, không phải yêu cầu khảo sát; (C) bẫy từ 'shipping' – vấn đề là chi phí, không phải thời gian giao; (D) bẫy từ 'chart'.",
+          "translateVi": "Người nói yêu cầu người nghe làm gì?",
+          "vocab": [ { "word": "loyalty program", "ipa": "/ˈlɔɪəlti ˈprəʊɡræm/", "meaningVi": "chương trình khách hàng thân thiết" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-16",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "Attention, all Bayside Fitness members. Our indoor swimming pool will be closed from Monday, June third, to Friday, June seventh, for its yearly cleaning.", "translateVi": "Xin chú ý, toàn thể hội viên Bayside Fitness. Hồ bơi trong nhà sẽ đóng cửa từ thứ Hai mùng 3 đến thứ Sáu mùng 7 tháng Sáu để vệ sinh định kỳ hằng năm." },
+        { "speaker": "w", "accent": "au", "text": "During that week, members are welcome to use the outdoor pool at our Harbour Street location free of charge. Just show your membership card at the front desk.", "translateVi": "Trong tuần đó, hội viên có thể dùng miễn phí hồ bơi ngoài trời ở chi nhánh phố Harbour. Chỉ cần xuất trình thẻ hội viên ở quầy lễ tân." },
+        { "speaker": "w", "accent": "au", "text": "Also, our spin classes are becoming very popular, so starting next week, you'll need to reserve a bike in advance using the Bayside Fitness app.", "translateVi": "Ngoài ra, các lớp đạp xe trong nhà đang rất đông, nên từ tuần sau bạn cần đặt trước xe đạp qua ứng dụng Bayside Fitness." },
+        { "speaker": "w", "accent": "au", "text": "Reservations open forty-eight hours before each class. Thanks for your understanding, and have a great workout.", "translateVi": "Việc đặt chỗ mở trước mỗi lớp bốn mươi tám tiếng. Cảm ơn bạn đã thông cảm, chúc bạn tập luyện vui vẻ." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the announcement being made?",
+          "options": ["At a hotel", "At a fitness center", "At a community school", "At a bicycle shop"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Attention, all Bayside Fitness members." } ],
+          "explainVi": "Thông báo gửi 'all Bayside Fitness members', nói về hồ bơi, lớp đạp xe → trung tâm thể dục, chọn (B). (A) khách sạn có hồ bơi nhưng không có 'members' và lớp spin; (C) không liên quan; (D) bẫy từ 'bike'.",
+          "translateVi": "Thông báo này được phát ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why will the indoor pool be closed?",
+          "options": ["For a swimming competition", "For roof repairs", "For staff training", "For its annual cleaning"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "for its yearly cleaning" } ],
+          "explainVi": "Hồ đóng cửa 'for its yearly cleaning' → vệ sinh hằng năm, chọn (D) (yearly = annual). (A), (B), (C) là lý do đóng cửa hợp lý nhưng không được nhắc.",
+          "translateVi": "Vì sao hồ bơi trong nhà sẽ đóng cửa?",
+          "vocab": [ { "word": "free of charge", "ipa": "/friː əv tʃɑːdʒ/", "meaningVi": "miễn phí" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "According to the speaker, what must members do to join a spin class?",
+          "options": ["Book a bike through an app", "Pay an extra fee", "Arrive forty-eight hours early", "Show their card at the front desk"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "you'll need to reserve a bike in advance using the Bayside Fitness app" } ],
+          "explainVi": "'You'll need to reserve a bike in advance using the Bayside Fitness app' → đặt xe qua ứng dụng, chọn (A). (B) không có phí thêm; (C) bẫy con số – 48 giờ là lúc mở đặt chỗ, không phải đến sớm; (D) bẫy – xuất trình thẻ là để dùng hồ bơi ngoài trời.",
+          "translateVi": "Theo người nói, hội viên phải làm gì để tham gia lớp đạp xe?",
+          "vocab": [ { "word": "in advance", "ipa": "/ɪn ədˈvɑːns/", "meaningVi": "trước, sớm" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-17",
+      "part": 4,
+      "level": 750,
+      "script": [
+        { "speaker": "m", "accent": "au", "text": "Hi, Sophie, it's Liam from the marketing team. I got your email about the brochure for the Harmon Hotel account.", "translateVi": "Chào Sophie, mình là Liam bên nhóm marketing. Mình nhận được email của bạn về tờ quảng cáo cho khách hàng Harmon Hotel." },
+        { "speaker": "m", "accent": "au", "text": "You said you were worried the photos might not be ready in time for the client meeting on Wednesday.", "translateVi": "Bạn nói lo rằng ảnh có thể không kịp cho buổi họp với khách hàng vào thứ Tư." },
+        { "speaker": "m", "accent": "au", "text": "Well, the photographer just sent me the full set from Saturday's shoot, and they look great. Honestly, I've got the whole afternoon open.", "translateVi": "Thì nhiếp ảnh gia vừa gửi mình trọn bộ ảnh của buổi chụp hôm thứ Bảy, trông rất đẹp. Thật ra cả buổi chiều nay mình đều rảnh." },
+        { "speaker": "m", "accent": "au", "text": "So if you'd like, I could pick the best ones and drop them into the layout today. That way you'd have a draft to review by tomorrow morning.", "translateVi": "Nên nếu bạn muốn, mình có thể chọn những tấm đẹp nhất và đưa vào bản dàn trang ngay hôm nay. Như vậy sáng mai bạn sẽ có bản nháp để xem lại." },
+        { "speaker": "m", "accent": "au", "text": "Just give me a call when you get this and let me know which page sizes the client approved.", "translateVi": "Khi nhận được tin này thì gọi cho mình và cho mình biết khách hàng đã duyệt khổ trang nào nhé." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the message mainly about?",
+          "options": ["Booking a hotel room", "Hiring a photographer", "Preparing a brochure for a client", "Rescheduling a client meeting"],
+          "answer": 2,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I got your email about the brochure for the Harmon Hotel account." } ],
+          "explainVi": "Cả tin nhắn nói về tờ quảng cáo cho khách hàng Harmon Hotel: ảnh, dàn trang, bản nháp → (C). (A) bẫy từ 'Hotel' – Harmon Hotel là khách hàng, không đặt phòng; (B) nhiếp ảnh gia đã chụp xong, không thuê mới; (D) buổi họp thứ Tư vẫn giữ nguyên.",
+          "translateVi": "Tin nhắn chủ yếu nói về điều gì?",
+          "vocab": [ { "word": "account", "ipa": "/əˈkaʊnt/", "meaningVi": "khách hàng (của công ty quảng cáo, dịch vụ)" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "What does the speaker mean when he says, \"I've got the whole afternoon open\"?",
+          "options": ["He wants to leave work early", "He has time to help with the task", "He forgot about a meeting", "He is waiting for the client to call"],
+          "answer": 1,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "I could pick the best ones and drop them into the layout today" } ],
+          "explainVi": "Sophie lo không kịp; Liam nói cả chiều rảnh rồi đề nghị 'I could pick the best ones and drop them into the layout today' → ý là anh có thời gian giúp làm việc đó, chọn (B). (A) rảnh để làm việc, không phải để về sớm; (C) không có cuộc họp bị quên; (D) anh nhờ Sophie gọi lại, không phải chờ khách hàng gọi.",
+          "translateVi": "Người nói có ý gì khi nói \"cả buổi chiều nay mình đều rảnh\"?",
+          "vocab": [ { "word": "layout", "ipa": "/ˈleɪaʊt/", "meaningVi": "bản dàn trang, bố cục" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What information does the speaker request?",
+          "options": ["The date of the photo shoot", "The client's phone number", "The address of the hotel", "The page sizes the client agreed to"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "let me know which page sizes the client approved" } ],
+          "explainVi": "'Let me know which page sizes the client approved' → khổ trang khách đã duyệt, chọn (D) (approved ≈ agreed to). (A) anh đã biết buổi chụp là thứ Bảy; (B) bẫy từ 'give me a call' – anh nhờ Sophie gọi, không xin số khách; (C) không cần địa chỉ khách sạn.",
+          "translateVi": "Người nói yêu cầu thông tin gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-18",
+      "part": 4,
+      "level": 900,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "Good morning, everyone. I'm Oliver Grant from Facilities, and I'd like to explain the changes to staff parking that start next Monday.", "translateVi": "Chào buổi sáng mọi người. Tôi là Oliver Grant bên bộ phận Cơ sở vật chất, tôi muốn giải thích những thay đổi về chỗ đỗ xe của nhân viên bắt đầu từ thứ Hai tới." },
+        { "speaker": "m", "accent": "gb", "text": "As most of you know, Lot A will be closed for three months while the new research building goes up.", "translateVi": "Như phần lớn các bạn đã biết, Bãi A sẽ đóng cửa ba tháng trong khi toà nhà nghiên cứu mới được xây." },
+        { "speaker": "m", "accent": "gb", "text": "So the department that normally parks there will temporarily share the lot next to the cafeteria with Customer Support. That's Lot D on your handout.", "translateVi": "Vì vậy bộ phận thường đỗ ở đó sẽ tạm thời dùng chung bãi cạnh căng tin với bộ phận Chăm sóc khách hàng. Đó là Bãi D trên tờ tài liệu của các bạn." },
+        { "speaker": "m", "accent": "gb", "text": "We realise this lot will be quite full, so for anyone willing to cycle or take the bus, the company will now cover half the cost of a monthly transit pass.", "translateVi": "Chúng tôi biết bãi này sẽ khá chật, nên với ai sẵn sàng đạp xe hoặc đi xe buýt, công ty sẽ trả một nửa chi phí vé tháng phương tiện công cộng." },
+        { "speaker": "m", "accent": "gb", "text": "Application forms are available from Facilities, and they're due by the end of this week.", "translateVi": "Đơn đăng ký có ở bộ phận Cơ sở vật chất và hạn nộp là cuối tuần này." }
+      ],
+      "graphic": {
+        "kind": "table",
+        "title": "Staff Parking Assignments",
+        "columns": ["Department", "Parking Area"],
+        "rows": [
+          ["Sales", "Lot A"],
+          ["Accounting", "Lot B"],
+          ["Engineering", "Lot C"],
+          ["Customer Support", "Lot D"]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the talk mainly about?",
+          "options": ["Temporary parking changes", "A new cafeteria menu", "The opening of a research building", "A company bus service"],
+          "answer": 0,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I'd like to explain the changes to staff parking that start next Monday" } ],
+          "explainVi": "Ông muốn giải thích 'the changes to staff parking', kéo dài ba tháng → thay đổi tạm thời về chỗ đỗ xe, chọn (A). (B) căng tin chỉ là mốc vị trí của Bãi D; (C) toà nhà nghiên cứu mới bắt đầu xây, chưa khai trương; (D) công ty hỗ trợ vé xe buýt công cộng, không có xe buýt riêng.",
+          "translateVi": "Bài nói chủ yếu về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. Which department will have to park in a different lot?",
+          "options": ["Sales", "Accounting", "Engineering", "Customer Support"],
+          "answer": 0,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "Lot A will be closed for three months" }, { "doc": -1, "turn": 2, "text": "the department that normally parks there will temporarily share the lot next to the cafeteria" } ],
+          "explainVi": "Bãi A đóng cửa, và 'the department that normally parks there' phải chuyển sang Bãi D. Theo bảng, bộ phận đỗ ở Lot A là Sales → (A). (D) bẫy – Customer Support được nhắc tên nhưng họ vẫn ở Bãi D như cũ, chỉ phải dùng chung; (B), (C) không bị ảnh hưởng.",
+          "translateVi": "Hãy nhìn vào bảng. Bộ phận nào sẽ phải đỗ xe ở bãi khác?",
+          "vocab": [ { "word": "handout", "ipa": "/ˈhændaʊt/", "meaningVi": "tài liệu phát tay" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the company offer to do?",
+          "options": ["Provide free bicycles", "Add more spaces to Lot D", "Pay half the cost of a transit pass", "Extend the cafeteria's hours"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "the company will now cover half the cost of a monthly transit pass" } ],
+          "explainVi": "'The company will now cover half the cost of a monthly transit pass' → trả một nửa tiền vé tháng, chọn (C). (A) bẫy từ 'cycle' – công ty không phát xe đạp; (B) ông thừa nhận Bãi D sẽ chật nhưng không nói mở rộng; (D) không liên quan.",
+          "translateVi": "Công ty đề nghị làm gì?",
+          "vocab": [ { "word": "transit pass", "ipa": "/ˈtrænzɪt pɑːs/", "meaningVi": "vé (tháng) đi phương tiện công cộng" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-19",
+      "part": 4,
+      "level": 900,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "In business news today, Corvan Electronics announced that it will build a new manufacturing plant just outside the town of Millbrook.", "translateVi": "Trong bản tin kinh doanh hôm nay, Corvan Electronics thông báo sẽ xây một nhà máy sản xuất mới ngay ngoại ô thị trấn Millbrook." },
+        { "speaker": "w", "accent": "us", "text": "The plant, which will produce batteries for electric bicycles, is expected to create about four hundred jobs when it opens in two years.", "translateVi": "Nhà máy, nơi sẽ sản xuất pin cho xe đạp điện, dự kiến tạo khoảng bốn trăm việc làm khi đi vào hoạt động sau hai năm nữa." },
+        { "speaker": "w", "accent": "us", "text": "Corvan chose Millbrook mainly because of its location near the rail line, which will allow the company to ship products across the region quickly.", "translateVi": "Corvan chọn Millbrook chủ yếu vì vị trí gần tuyến đường sắt, giúp công ty vận chuyển sản phẩm nhanh chóng khắp khu vực." },
+        { "speaker": "w", "accent": "us", "text": "Not everyone is pleased, however. Some residents have raised concerns about increased truck traffic on local roads.", "translateVi": "Tuy nhiên, không phải ai cũng hài lòng. Một số cư dân bày tỏ lo ngại về lượng xe tải tăng lên trên các con đường địa phương." },
+        { "speaker": "w", "accent": "us", "text": "The town council will hold a public meeting next Tuesday evening at the community center to answer questions about the project. We'll have more on this story at six.", "translateVi": "Hội đồng thị trấn sẽ tổ chức một cuộc họp công khai vào tối thứ Ba tới tại nhà văn hoá cộng đồng để trả lời các câu hỏi về dự án. Chúng tôi sẽ đưa thêm tin về câu chuyện này lúc 6 giờ." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the news report mainly about?",
+          "options": ["A new rail line", "A planned factory", "An electric bicycle race", "A local election"],
+          "answer": 1,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "it will build a new manufacturing plant just outside the town of Millbrook" } ],
+          "explainVi": "Bản tin nói Corvan 'will build a new manufacturing plant' → nhà máy đang được lên kế hoạch, chọn (B) (plant = factory). (A) tuyến đường sắt đã có sẵn, là lý do chọn địa điểm; (C) bẫy từ 'electric bicycles' – đó là sản phẩm dùng pin; (D) hội đồng thị trấn được nhắc nhưng không có bầu cử.",
+          "translateVi": "Bản tin chủ yếu nói về điều gì?",
+          "vocab": [ { "word": "manufacturing plant", "ipa": "/ˌmænjuˈfæktʃərɪŋ plɑːnt/", "meaningVi": "nhà máy sản xuất" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Why did Corvan choose Millbrook?",
+          "options": ["Land there is inexpensive", "Many skilled workers live there", "The town council offered support", "It is close to a railway"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "Corvan chose Millbrook mainly because of its location near the rail line" } ],
+          "explainVi": "'Chose Millbrook mainly because of its location near the rail line' → gần đường sắt, chọn (D) (rail line = railway). (A), (B) là lý do phổ biến nhưng không được nhắc; (C) hội đồng chỉ tổ chức họp trả lời câu hỏi, không nói hỗ trợ.",
+          "translateVi": "Vì sao Corvan chọn Millbrook?"
+        },
+        {
+          "no": 3,
+          "prompt": "What will happen next Tuesday?",
+          "options": ["The plant will open", "Construction will begin", "Residents can ask questions at a meeting", "A new road will be completed"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "The town council will hold a public meeting next Tuesday evening at the community center to answer questions about the project." } ],
+          "explainVi": "Tối thứ Ba tới, hội đồng thị trấn 'will hold a public meeting... to answer questions' → người dân có thể đặt câu hỏi tại cuộc họp, chọn (C). (A) nhà máy hoạt động sau hai năm nữa; (B) không nói ngày khởi công; (D) bẫy từ 'local roads' – cư dân lo về xe tải, không có đường mới.",
+          "translateVi": "Điều gì sẽ diễn ra vào thứ Ba tới?",
+          "vocab": [ { "word": "raise concerns", "ipa": "/reɪz kənˈsɜːnz/", "meaningVi": "bày tỏ lo ngại" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-s01-20",
+      "part": 4,
+      "level": 750,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Good morning, and welcome to Pinecrest Logistics. I'm Nathan, and I'll be running your orientation today.", "translateVi": "Chào buổi sáng và chào mừng các bạn đến Pinecrest Logistics. Tôi là Nathan, tôi sẽ phụ trách buổi định hướng của các bạn hôm nay." },
+        { "speaker": "m", "accent": "ca", "text": "You should all have a copy of today's schedule. Unfortunately, our health and safety trainer is stuck in traffic, so we'll swap her session with the one right after lunch. Everything else stays the same.", "translateVi": "Các bạn đều đã có lịch trình hôm nay. Tiếc là giảng viên phần sức khoẻ và an toàn đang bị kẹt xe, nên chúng ta sẽ đổi phần của cô ấy với phần ngay sau bữa trưa. Mọi thứ khác giữ nguyên." },
+        { "speaker": "m", "accent": "ca", "text": "Before we begin, please make sure you've picked up your employee badge from the reception desk. You'll need it to log in to the computers during the IT session.", "translateVi": "Trước khi bắt đầu, xin kiểm tra là các bạn đã nhận thẻ nhân viên ở quầy lễ tân. Các bạn sẽ cần nó để đăng nhập máy tính trong phần IT." },
+        { "speaker": "m", "accent": "ca", "text": "Also, lunch will be provided in the staff lounge on the second floor.", "translateVi": "Ngoài ra, bữa trưa sẽ được phục vụ ở phòng nghỉ nhân viên trên tầng hai." },
+        { "speaker": "m", "accent": "ca", "text": "Okay, let's get started with a short video about the company's history.", "translateVi": "Được rồi, chúng ta bắt đầu bằng một đoạn video ngắn về lịch sử công ty." }
+      ],
+      "graphic": {
+        "kind": "schedule",
+        "title": "New Employee Orientation · Tuesday",
+        "columns": ["Time", "Session"],
+        "rows": [
+          ["9:00", "Welcome & Company History"],
+          ["10:00", "IT Account Setup"],
+          ["11:00", "Health and Safety"],
+          ["12:00", "Lunch"],
+          ["1:00", "Benefits Overview"]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely are the listeners?",
+          "options": ["Delivery drivers", "Safety inspectors", "IT technicians", "Newly hired employees"],
+          "answer": 3,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I'll be running your orientation today" } ],
+          "explainVi": "Nathan phụ trách 'your orientation' (buổi định hướng), người nghe phải nhận thẻ nhân viên, theo lịch 'New Employee Orientation' → nhân viên mới, chọn (D). (A) bẫy từ 'Logistics'; (B) bẫy từ 'health and safety trainer'; (C) bẫy từ 'IT session' – họ được hướng dẫn cài tài khoản, không phải kỹ thuật viên.",
+          "translateVi": "Người nghe có lẽ là ai?",
+          "vocab": [ { "word": "orientation", "ipa": "/ˌɔːriənˈteɪʃn/", "meaningVi": "buổi định hướng (cho người mới)" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. Which session will now begin at 11:00?",
+          "options": ["Health and Safety", "Benefits Overview", "IT Account Setup", "Welcome & Company History"],
+          "answer": 1,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "we'll swap her session with the one right after lunch" } ],
+          "explainVi": "Phần Health and Safety (11:00) được đổi chỗ 'with the one right after lunch'. Trên lịch, phần ngay sau bữa trưa là Benefits Overview (1:00) → nay Benefits Overview bắt đầu lúc 11:00, chọn (B). (A) bẫy – Health and Safety vốn ở 11:00 nhưng đã bị dời sang 1:00; (C) 10:00 và (D) 9:00 giữ nguyên ('Everything else stays the same').",
+          "translateVi": "Hãy nhìn vào lịch. Phần nào giờ sẽ bắt đầu lúc 11:00?",
+          "vocab": [ { "word": "swap", "ipa": "/swɒp/", "meaningVi": "đổi chỗ, hoán đổi" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will the listeners do next?",
+          "options": ["Pick up their badges", "Watch a video", "Go to the staff lounge", "Log in to their computers"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "let's get started with a short video about the company's history" } ],
+          "explainVi": "Cuối bài: 'let's get started with a short video about the company's history' → xem video, chọn (B). (A) thẻ đáng lẽ đã được nhận trước ('make sure you've picked up'); (C) phòng nghỉ là nơi ăn trưa, sau này mới đến; (D) đăng nhập máy tính là trong phần IT lúc 10:00.",
+          "translateVi": "Người nghe sẽ làm gì tiếp theo?"
+        }
+      ]
+    }
+  ]
+}

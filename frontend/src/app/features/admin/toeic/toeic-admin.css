@@ -1,0 +1,274 @@
+.wide-page {
+  max-width: 1200px;
+}
+
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.dialog.wide {
+  width: min(100%, 680px);
+  max-height: calc(100dvh - 2 * var(--space-4));
+  overflow-y: auto;
+}
+
+/* "TOEIC › …" above the title of the inner pages. */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-items: center;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.crumbs a {
+  color: var(--color-primary-ink);
+}
+
+.page-header .muted {
+  margin: 0;
+}
+
+.grow {
+  flex: 1;
+}
+
+td a {
+  color: var(--color-primary-ink);
+}
+
+.row-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.row-head .section-title {
+  flex: 1;
+}
+
+.row-head label {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  font: var(--text-sm) var(--font-ui);
+}
+
+select {
+  min-height: 40px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--text-sm) var(--font-ui);
+}
+
+th,
+td {
+  padding: var(--space-2);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-line);
+}
+
+thead th {
+  color: var(--color-text-muted);
+}
+
+.title-cell {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ops {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.btn.small {
+  min-height: 36px;
+  padding: 0 var(--space-2);
+}
+
+.tag[data-status='draft'] {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-warn) 22%, transparent);
+}
+
+.tag[data-status='hidden'] {
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+}
+
+code {
+  font:
+    12px / 18px ui-monospace,
+    'Cascadia Mono',
+    Consolas,
+    monospace;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+ul {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-4);
+}
+
+.card {
+  min-width: 0;
+}
+
+/* Phones: each group row becomes a small card: key and status, the text, then the details. */
+@media (max-width: 719px) {
+  table,
+  tbody,
+  td {
+    display: block;
+  }
+
+  thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  tbody {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    align-items: center;
+    padding: var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+  }
+
+  td {
+    order: 3;
+    padding: 0;
+    color: var(--color-text-muted);
+    border: 0;
+  }
+
+  td::before {
+    content: attr(data-label) ' ';
+  }
+
+  td:first-child {
+    order: 0;
+    flex: 1 1 auto;
+    color: var(--color-text);
+  }
+
+  td:has(.tag) {
+    order: 1;
+  }
+
+  .title-cell {
+    order: 2;
+    flex-basis: 100%;
+    max-width: none;
+    color: var(--color-text);
+    white-space: normal;
+  }
+
+  td:first-child::before,
+  td:has(.tag)::before,
+  .title-cell::before,
+  td:has(.btn)::before {
+    content: none;
+  }
+
+  td:first-child code {
+    font-weight: 700;
+  }
+
+  td:has(.btn) {
+    order: 4;
+    flex-basis: 100%;
+  }
+
+  .ops {
+    flex-wrap: wrap;
+  }
+}
+
+.tag.ai {
+  margin-left: var(--space-1);
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+}
+
+/* Wide screens: short columns and buttons keep to one line; the text and the tests may wrap. */
+@media (min-width: 720px) {
+  th,
+  td:not(.title-cell):not([data-label='Thuộc đề']),
+  .ops .btn {
+    white-space: nowrap;
+  }
+}
+
+/* Kho cụm câu: ticking groups to delete them. */
+.pick {
+  width: 44px;
+  text-align: center;
+}
+.pick input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+tr.picked {
+  background: var(--color-primary-soft);
+}
+.selection-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+.delete-report {
+  font: var(--text-sm) var(--font-ui);
+}
+.delete-report p,
+.delete-report ul {
+  margin: 0;
+}
+.btn.danger-text:not(:disabled) {
+  color: var(--color-bad);
+}

@@ -652,3 +652,7 @@ func (f *fakeAI) GrammarPictures(context.Context, ai.GrammarPicturesRequest) (ai
 func (f *fakeAI) GrammarSpotItems(context.Context, ai.GrammarSpotRequest) ([]ai.GrammarSpotItem, error) {
 	return nil, ai.ErrNotConfigured
 }
+
+func (f *fakeAI) ToeicGroups(context.Context, ai.ToeicGroupsRequest) (string, error) {
+	return "", ai.ErrNotConfigured
+}

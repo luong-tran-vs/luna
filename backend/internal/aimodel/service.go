@@ -49,7 +49,14 @@ var Ops = []string{
 	"explain", "talk", "talk_review", "speak_check", "grade",
 	"generate", "annotate", "practice", "glosses", "lesson_review", "lesson_fix", "lesson_simplify",
 	"curriculum_draft", "curriculum_draft_topic", "grammar_lesson", "grammar_pictures", "grammar_solve",
-	"suggest_words", "word_meanings", "grammar_spot",
+	"suggest_words", "word_meanings", "grammar_spot", "toeic_groups",
+}
+
+// OpDefaults are the models some ops use when the admin chose none for them, before the model of
+// every op: TOEIC groups need a model that keeps to the format and grounds its explanations
+// (tried 2026-11-20: 3.5-flash-lite cited words not in the text, 3.8-flash was too slow).
+var OpDefaults = map[string]string{
+	"toeic_groups": "gemini-3.6-flash",
 }
 
 var (
@@ -125,6 +132,9 @@ func (s *Service) Options() []string { return s.options }
 func (s *Service) ModelFor(ctx context.Context, op string) string {
 	c := s.choice(ctx)
 	if m := c.ByOp[op]; m != "" && slices.Contains(s.options, m) {
+		return m
+	}
+	if m := OpDefaults[op]; m != "" && slices.Contains(s.options, m) {
 		return m
 	}
 	return s.effective(c)

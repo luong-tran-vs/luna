@@ -71,6 +71,7 @@ func migrations() []migration {
 		{ID: "044_verb_mistakes", Stmts: verbMistakesSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "045_games", Stmts: gamesSchema()},
 		{ID: "046_topic_images", Stmts: topicImagesSchema()},
+		{ID: "047_toeic", Stmts: toeicSchema()},
 	}
 }
 

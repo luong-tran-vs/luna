@@ -1,0 +1,1594 @@
+{
+  "groups": [
+    {
+      "key": "p4-450-01",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "Attention, shoppers. Riverside Fashion will be closing in fifteen minutes.", "translateVi": "Quý khách chú ý. Cửa hàng Riverside Fashion sẽ đóng cửa sau mười lăm phút nữa." },
+        { "speaker": "w", "accent": "us", "text": "Our fitting rooms are now closed, so please do not take any more clothes into them. Our staff will be happy to hold any items for you until tomorrow.", "translateVi": "Phòng thử đồ hiện đã đóng, vì vậy xin quý khách đừng mang thêm quần áo vào thử. Nhân viên của chúng tôi sẵn lòng giữ lại món đồ cho quý khách đến ngày mai." },
+        { "speaker": "w", "accent": "us", "text": "Please bring the items you want to buy to the registers at the front of the store. The registers on the second floor are already closed.", "translateVi": "Xin quý khách mang những món muốn mua đến quầy thu ngân ở phía trước cửa hàng. Các quầy thu ngân trên tầng hai đã đóng rồi." },
+        { "speaker": "w", "accent": "us", "text": "Tomorrow we will open at nine A.M., one hour earlier than usual, for our big summer sale.", "translateVi": "Ngày mai chúng tôi sẽ mở cửa lúc 9 giờ sáng, sớm hơn thường lệ một tiếng, cho đợt giảm giá mùa hè lớn." },
+        { "speaker": "w", "accent": "us", "text": "All swimsuits, sandals, and sun hats will be half price, so come early. Thank you for shopping with us tonight.", "translateVi": "Tất cả đồ bơi, dép xăng-đan và mũ đi nắng sẽ được giảm nửa giá, vì vậy hãy đến sớm. Cảm ơn quý khách đã mua sắm cùng chúng tôi tối nay." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the announcement being made?",
+          "options": ["At a clothing store", "At a swimming pool", "At a sports shoe factory", "At a hotel"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Riverside Fashion will be closing in fifteen minutes." } ],
+          "explainVi": "Người nói nhắc tên cửa hàng 'Riverside Fashion', phòng thử đồ (fitting rooms) và quần áo (clothes) → đây là cửa hàng quần áo, chọn (A). (B) bẫy từ 'swimsuits' – đồ bơi chỉ là hàng giảm giá; (C) bẫy từ 'sandals' – không có nhà máy nào; (D) bài nói không nhắc phòng hay khách lưu trú.",
+          "translateVi": "Thông báo này được phát ở đâu?",
+          "vocab": [ { "word": "fitting room", "ipa": "/ˈfɪtɪŋ ruːm/", "meaningVi": "phòng thử đồ" } ]
+        },
+        {
+          "no": 2,
+          "prompt": "Where should listeners take the items they want to buy?",
+          "options": ["To the fitting rooms", "To the second floor", "To the customer service desk", "To the front registers"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "bring the items you want to buy to the registers at the front" } ],
+          "explainVi": "Người nói yêu cầu 'bring the items you want to buy to the registers at the front of the store' → quầy thu ngân phía trước, chọn (D). (A) sai – phòng thử đồ đã đóng; (B) bẫy – quầy thu ngân tầng hai 'already closed'; (C) bài nói không nhắc quầy chăm sóc khách hàng.",
+          "translateVi": "Người nghe nên mang những món muốn mua đến đâu?",
+          "vocab": [ { "word": "register", "ipa": "/ˈredʒɪstə(r)/", "meaningVi": "quầy thu ngân, máy tính tiền" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will happen tomorrow?",
+          "options": ["The store will close early", "New staff will start work", "The store will open early", "A summer sale will end"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "Tomorrow we will open at nine A.M., one hour earlier than usual" } ],
+          "explainVi": "'Tomorrow we will open at nine A.M., one hour earlier than usual' → ngày mai cửa hàng mở cửa sớm, chọn (C). (A) bẫy từ 'closing' – cửa hàng đóng cửa tối nay, còn ngày mai mở sớm; (B) không nhắc nhân viên mới; (D) sai – đợt giảm giá mùa hè bắt đầu chứ không kết thúc.",
+          "translateVi": "Ngày mai sẽ có chuyện gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-02",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "Good morning, passengers. This is an announcement for everyone waiting at Platform 3.", "translateVi": "Chào buổi sáng quý hành khách. Đây là thông báo dành cho tất cả những ai đang chờ ở sân ga số 3." },
+        { "speaker": "m", "accent": "gb", "text": "We're sorry, but the train leaving from this platform is running about twenty-five minutes late. It will now leave at ten past ten.", "translateVi": "Chúng tôi rất tiếc, chuyến tàu khởi hành từ sân ga này đang bị trễ khoảng hai mươi lăm phút. Tàu sẽ khởi hành lúc 10 giờ 10." },
+        { "speaker": "m", "accent": "gb", "text": "There is a problem with a signal further down the line, and our workers are fixing it now. All other trains this morning are on time.", "translateVi": "Có sự cố với một đèn tín hiệu ở phía trước trên tuyến, và nhân viên của chúng tôi đang sửa. Tất cả các chuyến tàu khác sáng nay đều đúng giờ." },
+        { "speaker": "m", "accent": "gb", "text": "While you wait, the café next to the ticket office is offering free coffee to passengers on the delayed train. Just show your ticket to the staff there.", "translateVi": "Trong lúc chờ, quán cà phê cạnh phòng bán vé đang mời cà phê miễn phí cho hành khách của chuyến tàu bị trễ. Quý khách chỉ cần đưa vé cho nhân viên ở đó." },
+        { "speaker": "m", "accent": "gb", "text": "Please stay behind the yellow line when trains come into the station.", "translateVi": "Xin quý khách đứng sau vạch vàng khi tàu vào ga." },
+        { "speaker": "m", "accent": "gb", "text": "We will make another announcement when the train arrives. Thank you for your patience.", "translateVi": "Chúng tôi sẽ thông báo lại khi tàu đến. Cảm ơn quý khách đã kiên nhẫn chờ đợi." }
+      ],
+      "graphic": {
+        "kind": "schedule",
+        "title": "Hollins Station · Morning Departures",
+        "columns": [
+          "Time",
+          "Destination",
+          "Platform"
+        ],
+        "rows": [
+          [
+            "9:15",
+            "Ashby",
+            "1"
+          ],
+          [
+            "9:30",
+            "Kelton",
+            "2"
+          ],
+          [
+            "9:45",
+            "Marlow",
+            "3"
+          ],
+          [
+            "10:00",
+            "Dunford",
+            "4"
+          ]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the purpose of the announcement?",
+          "options": ["To report a delay", "To announce a platform change", "To introduce a new train", "To explain ticket prices"],
+          "answer": 0,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "the train leaving from this platform is running about twenty-five minutes late" } ],
+          "explainVi": "Người nói báo 'the train leaving from this platform is running about twenty-five minutes late' → thông báo tàu trễ, chọn (A). (B) bẫy từ 'Platform 3' – sân ga không đổi; (C) không có tàu mới; (D) bẫy từ 'ticket' – không nói giá vé.",
+          "translateVi": "Mục đích của thông báo là gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. Where is the delayed train going?",
+          "options": ["Ashby", "Kelton", "Marlow", "Dunford"],
+          "answer": 2,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "everyone waiting at Platform 3" }, { "doc": -1, "turn": 1, "text": "the train leaving from this platform is running about twenty-five minutes late" } ],
+          "explainVi": "Thông báo dành cho người chờ ở 'Platform 3' và 'the train leaving from this platform' bị trễ. Theo bảng, sân ga 3 là chuyến 9:45 đi Marlow → (C). (A) chạy ở sân ga 1, (B) ở sân ga 2, (D) ở sân ga 4 – các chuyến khác 'are on time'.",
+          "translateVi": "Hãy nhìn vào bảng. Chuyến tàu bị trễ đi đâu?"
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker suggest listeners do while they wait?",
+          "options": ["Take a different train", "Buy a new ticket", "Call the station office", "Get a free coffee"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "the café next to the ticket office is offering free coffee" } ],
+          "explainVi": "Trong lúc chờ, 'the café next to the ticket office is offering free coffee' cho khách đi tàu bị trễ → (D). (A) bẫy – các chuyến khác đúng giờ nhưng người nói không khuyên đổi tàu; (B) bẫy từ 'ticket office' – chỉ cần đưa vé cũ, không mua vé mới; (C) không nhắc gọi điện.",
+          "translateVi": "Người nói gợi ý người nghe làm gì trong lúc chờ?",
+          "vocab": [ { "word": "signal", "ipa": "/ˈsɪɡnəl/", "meaningVi": "đèn tín hiệu (đường sắt)" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-450-03",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "Hello, this is a message for Mr. Daniel Brooks. This is Hannah calling from the Coral Bay Hotel.", "translateVi": "Xin chào, đây là tin nhắn gửi anh Daniel Brooks. Tôi là Hannah, gọi từ khách sạn Coral Bay." },
+        { "speaker": "w", "accent": "au", "text": "I'm calling to confirm your booking for two nights, from Friday, July twelfth, to Sunday, July fourteenth.", "translateVi": "Tôi gọi để xác nhận đặt phòng hai đêm của anh, từ thứ Sáu ngày 12 tháng 7 đến Chủ nhật ngày 14 tháng 7." },
+        { "speaker": "w", "accent": "au", "text": "Your room has a sea view, and breakfast is included in the price.", "translateVi": "Phòng của anh có cửa sổ nhìn ra biển, và giá phòng đã bao gồm bữa sáng." },
+        { "speaker": "w", "accent": "au", "text": "You also asked about parking. We have only ten spaces, and a lot of guests are arriving by car that weekend.", "translateVi": "Anh cũng có hỏi về chỗ đỗ xe. Chúng tôi chỉ có mười chỗ, và cuối tuần đó rất nhiều khách đến bằng ô tô." },
+        { "speaker": "w", "accent": "au", "text": "If you'd like a parking space, please call me back by Wednesday so I can save one for you.", "translateVi": "Nếu anh muốn có chỗ đỗ xe, xin gọi lại cho tôi trước thứ Tư để tôi giữ một chỗ cho anh." },
+        { "speaker": "w", "accent": "au", "text": "My number is 555-0147. Thank you, and we look forward to seeing you.", "translateVi": "Số của tôi là 555-0147. Cảm ơn anh, chúng tôi mong được đón tiếp anh." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely is the speaker?",
+          "options": ["A hotel employee", "A travel agent", "A parking attendant", "A restaurant server"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "This is Hannah calling from the Coral Bay Hotel." } ],
+          "explainVi": "Hannah nói 'calling from the Coral Bay Hotel' và xác nhận đặt phòng → nhân viên khách sạn, chọn (A). (B) đại lý du lịch không phải người giữ chỗ đỗ xe của khách sạn; (C) bẫy từ 'parking'; (D) bẫy từ 'breakfast' – chị không phục vụ bàn.",
+          "translateVi": "Người nói có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"a lot of guests are arriving by car that weekend\"?",
+          "options": ["To recommend taking a train", "To explain why the hotel is full", "To apologize for heavy traffic", "To say parking may be hard to get"],
+          "answer": 3,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "We have only ten spaces" }, { "doc": -1, "turn": 4, "text": "please call me back by Wednesday so I can save one for you" } ],
+          "explainVi": "Khách sạn 'have only ten spaces' mà nhiều khách đi ô tô → chỗ đỗ xe có thể hết, nên chị nhắc gọi lại để giữ chỗ, chọn (D). (A) chị không khuyên đi tàu; (B) sai – phòng của anh đã được xác nhận, không nói khách sạn hết phòng; (C) không nói chuyện kẹt xe.",
+          "translateVi": "Vì sao người nói nói \"cuối tuần đó rất nhiều khách đến bằng ô tô\"?",
+          "vocab": [ { "word": "confirm", "ipa": "/kənˈfɜːm/", "meaningVi": "xác nhận" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should the listener do by Wednesday?",
+          "options": ["Pay for the room", "Call the speaker back", "Change the booking", "Send an e-mail"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "please call me back by Wednesday" } ],
+          "explainVi": "'Please call me back by Wednesday so I can save one for you' → gọi lại cho người nói, chọn (B). (A) không nhắc trả tiền trước – bữa sáng đã 'included in the price'; (C) không đổi đặt phòng; (D) chị để lại số điện thoại, không yêu cầu gửi email.",
+          "translateVi": "Người nghe nên làm gì trước thứ Tư?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-04",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Looking for a quick and tasty lunch downtown? Come to the Copper Pot Noodle House on Bridge Street!", "translateVi": "Bạn đang tìm một bữa trưa nhanh gọn và ngon miệng ở trung tâm? Hãy đến Copper Pot Noodle House trên phố Bridge!" },
+        { "speaker": "m", "accent": "ca", "text": "We opened just last month, and people already love our fresh, homemade noodles. We make them by hand every morning.", "translateVi": "Chúng tôi mới khai trương tháng trước, và mọi người đã mê món mì tươi tự làm của chúng tôi. Chúng tôi làm mì bằng tay mỗi sáng." },
+        { "speaker": "m", "accent": "ca", "text": "Our most popular dish is our chicken noodle soup. It's warm and perfect for a cold day.", "translateVi": "Món được ưa chuộng nhất của chúng tôi là súp mì gà. Món này nóng hổi và rất hợp cho ngày lạnh." },
+        { "speaker": "m", "accent": "ca", "text": "Every lunch comes with a free cup of green tea, and we can have your food ready in ten minutes.", "translateVi": "Mỗi suất trưa đều kèm một tách trà xanh miễn phí, và chúng tôi có thể chuẩn bị xong món cho bạn trong mười phút." },
+        { "speaker": "m", "accent": "ca", "text": "Don't have time to sit down? Order on our website, and pick up your lunch at the counter.", "translateVi": "Không có thời gian ngồi lại? Hãy đặt món trên trang web của chúng tôi và nhận đồ ăn tại quầy." },
+        { "speaker": "m", "accent": "ca", "text": "We're open from eleven A.M. to three P.M., Monday to Saturday. See you soon!", "translateVi": "Chúng tôi mở cửa từ 11 giờ sáng đến 3 giờ chiều, từ thứ Hai đến thứ Bảy. Hẹn sớm gặp bạn!" }
+      ],
+      "graphic": {
+        "kind": "price-list",
+        "title": "Copper Pot Noodle House · Lunch Menu",
+        "columns": [
+          "Dish",
+          "Price"
+        ],
+        "rows": [
+          [
+            "Beef Noodles",
+            "$11"
+          ],
+          [
+            "Chicken Noodle Soup",
+            "$9"
+          ],
+          [
+            "Vegetable Fried Rice",
+            "$8"
+          ],
+          [
+            "Spicy Pork Noodles",
+            "$12"
+          ]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is being advertised?",
+          "options": ["A restaurant", "A cooking class", "A grocery store", "A tea shop"],
+          "answer": 0,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Come to the Copper Pot Noodle House on Bridge Street!" } ],
+          "explainVi": "Quảng cáo mời 'Come to the Copper Pot Noodle House' để ăn trưa, có món ăn và giờ mở cửa → nhà hàng, chọn (A). (B) bẫy từ 'homemade' – không dạy nấu ăn; (C) không bán thực phẩm sống; (D) bẫy từ 'green tea' – trà chỉ là đồ uống tặng kèm.",
+          "translateVi": "Quảng cáo này giới thiệu gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. How much is the restaurant's most popular dish?",
+          "options": ["$11", "$9", "$8", "$12"],
+          "answer": 1,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "Our most popular dish is our chicken noodle soup." } ],
+          "explainVi": "Người nói: 'Our most popular dish is our chicken noodle soup.' Trên bảng giá, Chicken Noodle Soup giá $9 → (B). (A) là giá Beef Noodles, (C) là Vegetable Fried Rice, (D) là Spicy Pork Noodles – các món này không được nhắc là phổ biến nhất.",
+          "translateVi": "Hãy nhìn vào bảng giá. Món được ưa chuộng nhất của nhà hàng giá bao nhiêu?",
+          "vocab": [ { "word": "homemade", "ipa": "/ˌhəʊmˈmeɪd/", "meaningVi": "tự làm, nhà làm" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker suggest busy listeners do?",
+          "options": ["Come before eleven", "Call the restaurant", "Order online", "Eat at the counter"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Order on our website, and pick up your lunch at the counter." } ],
+          "explainVi": "Với người không có thời gian ngồi ăn: 'Order on our website, and pick up your lunch at the counter' → đặt món trên mạng, chọn (C). (A) bẫy từ 'eleven' – đó là giờ mở cửa; (B) không nhắc gọi điện; (D) bẫy từ 'counter' – quầy là nơi nhận đồ, không phải nơi ngồi ăn.",
+          "translateVi": "Người nói gợi ý những người bận rộn làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-05",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "gb", "text": "Good morning, everyone, and welcome to Ashcombe House and Gardens. I'm Laura, and I'll be showing you around today.", "translateVi": "Chào buổi sáng mọi người, chào mừng đến Ashcombe House and Gardens. Tôi là Laura và hôm nay tôi sẽ dẫn mọi người đi tham quan." },
+        { "speaker": "w", "accent": "gb", "text": "Our tour takes about forty-five minutes. We'll start in the rose garden, then walk down to the lake.", "translateVi": "Chuyến tham quan kéo dài khoảng bốn mươi lăm phút. Chúng ta sẽ bắt đầu ở vườn hồng, sau đó đi bộ xuống hồ." },
+        { "speaker": "w", "accent": "gb", "text": "The house itself is closed this week because the roof is being repaired, so I'm afraid we can't go inside.", "translateVi": "Riêng ngôi nhà đóng cửa tuần này vì mái nhà đang được sửa, nên tiếc là chúng ta không thể vào bên trong." },
+        { "speaker": "w", "accent": "gb", "text": "The paths near the lake can be wet, so please walk carefully.", "translateVi": "Lối đi gần hồ có thể bị ướt, nên xin mọi người đi cẩn thận." },
+        { "speaker": "w", "accent": "gb", "text": "At the end of the tour, you'll each get a free ticket for a cup of tea at our garden café.", "translateVi": "Cuối chuyến tham quan, mỗi người sẽ nhận một phiếu miễn phí đổi một tách trà ở quán cà phê trong vườn." },
+        { "speaker": "w", "accent": "gb", "text": "If you'd like to take photos, please do. All right, let's begin.", "translateVi": "Nếu muốn chụp ảnh, mọi người cứ tự nhiên. Được rồi, chúng ta bắt đầu nhé." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely are the listeners?",
+          "options": ["Visitors to a garden", "Garden workers", "Café staff", "Workers repairing the roof"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "welcome to Ashcombe House and Gardens" } ],
+          "explainVi": "Laura chào 'welcome to Ashcombe House and Gardens' và dẫn đoàn đi tham quan → người nghe là khách tham quan khu vườn, chọn (A). (B) họ không làm vườn; (C) bẫy từ 'garden café'; (D) bẫy từ 'the roof is being repaired' – thợ sửa mái không phải người nghe.",
+          "translateVi": "Người nghe có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why is the house closed this week?",
+          "options": ["The paths are wet", "The roof is being repaired", "A holiday is coming", "A party is being held"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "the roof is being repaired" } ],
+          "explainVi": "'The house itself is closed this week because the roof is being repaired' → (B). (A) bẫy – lối đi ướt là ở gần hồ, không phải lý do đóng nhà; (C) và (D) không được nhắc.",
+          "translateVi": "Vì sao ngôi nhà đóng cửa tuần này?",
+          "vocab": [ { "word": "path", "ipa": "/pɑːθ/", "meaningVi": "lối đi, đường mòn" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will listeners receive at the end of the tour?",
+          "options": ["A map of the gardens", "A free photo", "A gift shop discount", "A ticket for a drink"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "you'll each get a free ticket for a cup of tea" } ],
+          "explainVi": "'At the end of the tour, you'll each get a free ticket for a cup of tea' → phiếu đổi đồ uống, chọn (D). (A) không nhắc bản đồ; (B) bẫy từ 'photos' – khách được tự chụp ảnh, không được tặng ảnh; (C) không có cửa hàng quà tặng.",
+          "translateVi": "Cuối chuyến tham quan người nghe sẽ nhận được gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-06",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "us", "text": "Good evening, and thanks for coming to the Elm Street Community Center. I have a few quick notes about our evening classes this week.", "translateVi": "Chào buổi tối, cảm ơn mọi người đã đến Trung tâm Cộng đồng phố Elm. Tôi có vài lưu ý nhanh về các lớp buổi tối tuần này." },
+        { "speaker": "m", "accent": "us", "text": "First, the class on Wednesday is canceled because the teacher is away on a trip. It will start again next week.", "translateVi": "Trước tiên, lớp học ngày thứ Tư bị hủy vì giáo viên đi xa. Lớp sẽ học lại vào tuần sau." },
+        { "speaker": "m", "accent": "us", "text": "Second, our new kitchen is now open, so you can make tea or coffee before your class.", "translateVi": "Thứ hai, căn bếp mới của chúng tôi đã mở, nên mọi người có thể pha trà hoặc cà phê trước giờ học." },
+        { "speaker": "m", "accent": "us", "text": "Finally, we are looking for volunteers to help at our summer fair in August. We need people to sell drinks and help with games for children.", "translateVi": "Cuối cùng, chúng tôi đang tìm tình nguyện viên giúp đỡ hội chợ mùa hè vào tháng Tám. Chúng tôi cần người bán nước uống và giúp tổ chức trò chơi cho trẻ em." },
+        { "speaker": "m", "accent": "us", "text": "If you're interested, please write your name on the list at the front desk.", "translateVi": "Nếu quan tâm, xin ghi tên vào danh sách ở quầy lễ tân." },
+        { "speaker": "m", "accent": "us", "text": "Thank you, and enjoy your classes.", "translateVi": "Cảm ơn và chúc mọi người học vui." }
+      ],
+      "graphic": {
+        "kind": "schedule",
+        "title": "Elm Street Community Center · Evening Classes",
+        "columns": [
+          "Day",
+          "Class",
+          "Room"
+        ],
+        "rows": [
+          [
+            "Monday",
+            "Yoga",
+            "Room 1"
+          ],
+          [
+            "Tuesday",
+            "Painting",
+            "Room 2"
+          ],
+          [
+            "Wednesday",
+            "Guitar",
+            "Room 3"
+          ],
+          [
+            "Thursday",
+            "Spanish",
+            "Room 1"
+          ]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where most likely does the speaker work?",
+          "options": ["At a musical instrument store", "At a community center", "At a travel agency", "At a coffee shop"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "thanks for coming to the Elm Street Community Center" } ],
+          "explainVi": "Người nói cảm ơn mọi người 'for coming to the Elm Street Community Center' và thông báo về các lớp học → anh làm ở trung tâm cộng đồng, chọn (B). (A) bẫy liên tưởng tới lớp guitar trên lịch; (C) bẫy từ 'trip'; (D) bẫy từ 'tea or coffee'.",
+          "translateVi": "Người nói có lẽ làm việc ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. Which class is canceled this week?",
+          "options": ["Yoga", "Painting", "Guitar", "Spanish"],
+          "answer": 2,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "the class on Wednesday is canceled" } ],
+          "explainVi": "Người nói: 'the class on Wednesday is canceled'. Theo lịch, thứ Tư là lớp Guitar → (C). (A) học thứ Hai, (B) thứ Ba, (D) thứ Năm – các lớp này vẫn học bình thường.",
+          "translateVi": "Hãy nhìn vào lịch. Lớp nào bị hủy tuần này?",
+          "vocab": [ { "word": "cancel", "ipa": "/ˈkænsl/", "meaningVi": "hủy" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "Why should some listeners write their names on a list?",
+          "options": ["To join a new class", "To use the new kitchen", "To meet a teacher", "To volunteer at a fair"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "we are looking for volunteers to help at our summer fair" }, { "doc": -1, "turn": 4, "text": "please write your name on the list at the front desk" } ],
+          "explainVi": "Trung tâm 'looking for volunteers to help at our summer fair', ai quan tâm thì 'write your name on the list' → để làm tình nguyện ở hội chợ, chọn (D). (A) không nhắc lớp mới; (B) bếp mới ai cũng dùng được, không cần ghi tên; (C) bẫy từ 'teacher' – giáo viên đang đi xa.",
+          "translateVi": "Vì sao một số người nghe nên ghi tên vào danh sách?",
+          "vocab": [ { "word": "volunteer", "ipa": "/ˌvɒlənˈtɪə(r)/", "meaningVi": "tình nguyện viên" } ]
+        }
+      ]
+    },
+    {
+      "key": "p4-450-07",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "ca", "text": "Hello, everyone, and welcome to Greenwood Public Library. We're happy to tell you that we now have four new self-checkout machines.", "translateVi": "Xin chào mọi người, chào mừng đến Thư viện Công cộng Greenwood. Chúng tôi vui mừng thông báo thư viện hiện có bốn máy tự mượn sách mới." },
+        { "speaker": "w", "accent": "ca", "text": "You can find them near the front door, next to the magazine shelves.", "translateVi": "Bạn có thể tìm thấy chúng gần cửa chính, cạnh các kệ tạp chí." },
+        { "speaker": "w", "accent": "ca", "text": "With these machines, you can borrow books quickly without waiting in line. You can also borrow DVDs with them.", "translateVi": "Với những máy này, bạn có thể mượn sách nhanh chóng mà không phải xếp hàng. Bạn cũng có thể mượn DVD bằng các máy này." },
+        { "speaker": "w", "accent": "ca", "text": "To use them, you need your library card and a four-number PIN.", "translateVi": "Để sử dụng, bạn cần thẻ thư viện và một mã PIN gồm bốn chữ số." },
+        { "speaker": "w", "accent": "ca", "text": "If you don't have a PIN yet, please ask a staff member at the help desk on the first floor.", "translateVi": "Nếu chưa có mã PIN, xin hỏi nhân viên tại quầy hỗ trợ ở tầng một." },
+        { "speaker": "w", "accent": "ca", "text": "The machines can also print a list of your books and their return dates. We hope you enjoy them. Thank you!", "translateVi": "Máy cũng có thể in danh sách sách bạn mượn và ngày phải trả. Mong bạn thấy chúng hữu ích. Xin cảm ơn!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the announcement mainly about?",
+          "options": ["A change in library hours", "New magazines on the shelves", "New machines for borrowing books", "A new library card fee"],
+          "answer": 2,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "we now have four new self-checkout machines" } ],
+          "explainVi": "Người nói báo 'we now have four new self-checkout machines' và hướng dẫn cách dùng → chủ đề là máy mượn sách mới, chọn (C). (A) không nói giờ mở cửa; (B) bẫy từ 'magazine shelves' – kệ tạp chí chỉ là mốc vị trí; (D) bẫy từ 'library card' – không nhắc phí.",
+          "translateVi": "Thông báo chủ yếu nói về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Where are the machines?",
+          "options": ["Near the front door", "On the second floor", "Next to the help desk", "Beside the computers"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "near the front door, next to the magazine shelves" } ],
+          "explainVi": "'You can find them near the front door, next to the magazine shelves' → (A). (B) không nhắc tầng hai; (C) bẫy – quầy hỗ trợ là nơi hỏi mã PIN, không phải chỗ đặt máy; (D) không nhắc máy tính.",
+          "translateVi": "Các máy được đặt ở đâu?",
+          "vocab": [ { "word": "self-checkout", "ipa": "/ˌself ˈtʃekaʊt/", "meaningVi": "tự thanh toán, tự làm thủ tục mượn/mua" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should listeners without a PIN do?",
+          "options": ["Get a new library card", "Ask at the help desk", "Print a list of books", "Wait in line"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "please ask a staff member at the help desk" } ],
+          "explainVi": "'If you don't have a PIN yet, please ask a staff member at the help desk' → (B). (A) bẫy từ 'library card' – họ đã có thẻ, chỉ thiếu PIN; (C) bẫy – in danh sách là chức năng của máy; (D) bẫy – máy giúp mượn sách 'without waiting in line'.",
+          "translateVi": "Người nghe chưa có mã PIN nên làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-08",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "au", "text": "Hi, Mia, it's Jack, your trainer at Peak Point Gym.", "translateVi": "Chào Mia, anh là Jack, huấn luyện viên của em ở phòng tập Peak Point." },
+        { "speaker": "m", "accent": "au", "text": "I'm calling about our session this Thursday at six P.M. I'm sorry, but I have to go to a training course that evening.", "translateVi": "Anh gọi về buổi tập lúc 6 giờ tối thứ Năm này. Xin lỗi em, nhưng tối hôm đó anh phải đi học một khóa đào tạo." },
+        { "speaker": "m", "accent": "au", "text": "Could we meet on Friday instead? The only time I have free is seven A.M. I know it's early.", "translateVi": "Mình tập vào thứ Sáu thay được không? Giờ duy nhất anh rảnh là 7 giờ sáng. Anh biết là hơi sớm." },
+        { "speaker": "m", "accent": "au", "text": "If that doesn't work for you, my coworker Sarah can take the Thursday session. She's a great trainer, too.", "translateVi": "Nếu giờ đó không tiện cho em, đồng nghiệp của anh là Sarah có thể dạy buổi thứ Năm. Cô ấy cũng là huấn luyện viên rất giỏi." },
+        { "speaker": "m", "accent": "au", "text": "Oh, and please bring your own water. The water machine in the lobby is broken right now.", "translateVi": "À, em nhớ mang theo nước uống nhé. Máy nước ở sảnh hiện đang bị hỏng." },
+        { "speaker": "m", "accent": "au", "text": "Please send me a text message and tell me which you'd like. Thanks, Mia.", "translateVi": "Em nhắn tin cho anh và cho anh biết em chọn cách nào nhé. Cảm ơn Mia." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Why is the speaker calling?",
+          "options": ["To sell a gym membership", "To invite the listener to a course", "To report a broken machine", "To change a training session"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "I'm calling about our session this Thursday at six P.M." }, { "doc": -1, "turn": 2, "text": "Could we meet on Friday instead?" } ],
+          "explainVi": "Jack gọi 'about our session this Thursday' vì bận, rồi hỏi 'Could we meet on Friday instead?' → để đổi buổi tập, chọn (D). (A) không nhắc bán thẻ hội viên; (B) bẫy từ 'training course' – khóa học là của Jack; (C) bẫy – máy nước hỏng chỉ là chi tiết phụ, không phải lý do gọi.",
+          "translateVi": "Vì sao người nói gọi điện?"
+        },
+        {
+          "no": 2,
+          "prompt": "What does the speaker imply when he says, \"I know it's early\"?",
+          "options": ["The listener may not like the time", "The gym opens very late", "He will finish the course early", "The session will be short"],
+          "answer": 0,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "The only time I have free is seven A.M." } ],
+          "explainVi": "Giờ rảnh duy nhất là 'seven A.M.' – khá sớm, nên Jack thừa nhận giờ này có thể không thuận tiện với Mia và đưa thêm lựa chọn khác → (A). (B) trái ý – phòng tập mở từ sáng sớm; (C) bẫy từ 'early' gắn với khóa học; (D) không nói buổi tập ngắn.",
+          "translateVi": "Người nói ngụ ý gì khi nói \"Anh biết là hơi sớm\"?",
+          "vocab": [ { "word": "session", "ipa": "/ˈseʃn/", "meaningVi": "buổi (tập, học)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker ask the listener to do?",
+          "options": ["Call Sarah", "Come to the gym on Thursday", "Send him a text message", "Fix the water machine"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "Please send me a text message and tell me which you'd like." } ],
+          "explainVi": "Cuối tin nhắn: 'Please send me a text message and tell me which you'd like' → (C). (A) bẫy tên Sarah – Mia không được yêu cầu gọi cô ấy; (B) thứ Năm chỉ là một lựa chọn, chưa quyết định; (D) bẫy 'water machine' – chỉ được dặn mang nước theo.",
+          "translateVi": "Người nói đề nghị người nghe làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-09",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "Good morning, this is Kelly Shaw with the weather on Lakeside Radio. It's seven o'clock.", "translateVi": "Chào buổi sáng, tôi là Kelly Shaw với bản tin thời tiết trên Đài Lakeside. Bây giờ là 7 giờ." },
+        { "speaker": "w", "accent": "us", "text": "Today will be cool and windy, with a high of fourteen degrees. Don't forget your jacket.", "translateVi": "Hôm nay trời mát và có gió, nhiệt độ cao nhất mười bốn độ. Đừng quên mang áo khoác." },
+        { "speaker": "w", "accent": "us", "text": "We'll see some rain on most days this week, but there's good news for runners.", "translateVi": "Tuần này hầu hết các ngày đều có mưa, nhưng có tin vui cho những người chạy bộ." },
+        { "speaker": "w", "accent": "us", "text": "The Lakeside Fun Run was planned for Tuesday, but the organizers have moved it to the only sunny day this week.", "translateVi": "Giải chạy vui Lakeside dự kiến tổ chức vào thứ Ba, nhưng ban tổ chức đã dời sang ngày nắng duy nhất trong tuần này." },
+        { "speaker": "w", "accent": "us", "text": "The race starts at nine A.M. at City Park. It's free, but runners need to sign up on our website by Wednesday night.", "translateVi": "Cuộc chạy bắt đầu lúc 9 giờ sáng tại Công viên Thành phố. Tham gia miễn phí, nhưng người chạy cần đăng ký trên trang web của chúng tôi trước tối thứ Tư." },
+        { "speaker": "w", "accent": "us", "text": "I'll be back with more weather at eight o'clock. Now, here's some music to start your day.", "translateVi": "Tôi sẽ trở lại với bản tin thời tiết lúc 8 giờ. Và bây giờ là chút âm nhạc để bắt đầu ngày mới của bạn." }
+      ],
+      "graphic": {
+        "kind": "table",
+        "title": "Lakeside Weather · This Week",
+        "columns": [
+          "Day",
+          "Weather"
+        ],
+        "rows": [
+          [
+            "Tuesday",
+            "Rainy"
+          ],
+          [
+            "Wednesday",
+            "Cloudy"
+          ],
+          [
+            "Thursday",
+            "Sunny"
+          ],
+          [
+            "Friday",
+            "Rainy"
+          ]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely is the speaker?",
+          "options": ["A radio announcer", "An organizer of the race", "A park worker", "A sports coach"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "this is Kelly Shaw with the weather on Lakeside Radio" } ],
+          "explainVi": "Kelly Shaw giới thiệu 'with the weather on Lakeside Radio' và cuối bài mở nhạc → phát thanh viên, chọn (A). (B) bẫy – ban tổ chức (the organizers) là người khác; (C) bẫy từ 'City Park'; (D) bẫy từ 'runners'.",
+          "translateVi": "Người nói có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. On which day will the fun run take place?",
+          "options": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+          "answer": 2,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "moved it to the only sunny day this week" } ],
+          "explainVi": "Giải chạy được dời 'to the only sunny day this week'. Theo bảng, ngày nắng duy nhất là thứ Năm (Sunny) → (C). (A) bẫy – thứ Ba là ngày dự kiến ban đầu; (B) bẫy – thứ Tư là hạn đăng ký, trời nhiều mây; (D) trời mưa.",
+          "translateVi": "Hãy nhìn vào bảng. Giải chạy vui sẽ diễn ra vào ngày nào?",
+          "vocab": [ { "word": "organizer", "ipa": "/ˈɔːɡənaɪzə(r)/", "meaningVi": "người/ban tổ chức" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should runners do by Wednesday night?",
+          "options": ["Buy a ticket", "Sign up online", "Pick up a jacket", "Call the station"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "runners need to sign up on our website by Wednesday night" } ],
+          "explainVi": "'Runners need to sign up on our website by Wednesday night' → đăng ký trên mạng, chọn (B). (A) sai – 'It's free', không cần mua vé; (C) bẫy từ 'jacket' – áo khoác là lời khuyên về thời tiết hôm nay; (D) không nhắc gọi điện cho đài.",
+          "translateVi": "Người chạy nên làm gì trước tối thứ Tư?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-10",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "May I have your attention, please. This is an announcement for passengers in Terminal B.", "translateVi": "Xin quý khách chú ý. Đây là thông báo dành cho hành khách ở Nhà ga B." },
+        { "speaker": "m", "accent": "gb", "text": "A black backpack was found at the security checkpoint about twenty minutes ago.", "translateVi": "Một chiếc ba lô màu đen được tìm thấy tại khu kiểm tra an ninh cách đây khoảng hai mươi phút." },
+        { "speaker": "m", "accent": "gb", "text": "It has a small yellow tag with the name Tom on it.", "translateVi": "Ba lô có gắn một thẻ nhỏ màu vàng ghi tên Tom." },
+        { "speaker": "m", "accent": "gb", "text": "If this bag belongs to you, please go to the information desk near Gate 12. The desk is open twenty-four hours a day.", "translateVi": "Nếu chiếc túi này là của quý khách, xin vui lòng đến quầy thông tin gần Cửa 12. Quầy mở cửa 24 giờ mỗi ngày." },
+        { "speaker": "m", "accent": "gb", "text": "Please bring your passport or another photo ID so that our staff can check that the bag is yours.", "translateVi": "Xin mang theo hộ chiếu hoặc giấy tờ tùy thân có ảnh khác để nhân viên kiểm tra chiếc túi đúng là của quý khách." },
+        { "speaker": "m", "accent": "gb", "text": "Also, we remind all passengers to keep your bags with you at all times. Bags left alone may be taken away by security staff. Thank you.", "translateVi": "Ngoài ra, chúng tôi nhắc tất cả hành khách luôn giữ hành lý bên mình. Túi để không người trông có thể bị nhân viên an ninh mang đi. Xin cảm ơn." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the announcement being made?",
+          "options": ["At a train station", "At a hotel", "At an airport", "At a shopping mall"],
+          "answer": 2,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "passengers in Terminal B" }, { "doc": -1, "turn": 3, "text": "the information desk near Gate 12" } ],
+          "explainVi": "Thông báo cho 'passengers in Terminal B', nhắc khu kiểm tra an ninh, 'Gate 12' và hộ chiếu → sân bay, chọn (C). (A) bẫy từ 'passengers' – ga tàu không cần hộ chiếu hay cửa ra máy bay; (B) và (D) không có hành khách hay Terminal.",
+          "translateVi": "Thông báo này được phát ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "What was found?",
+          "options": ["A yellow suitcase", "A passport", "A boarding pass", "A black backpack"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "A black backpack was found at the security checkpoint" } ],
+          "explainVi": "'A black backpack was found at the security checkpoint' → (D). (A) bẫy màu – 'yellow' là màu của cái thẻ tên; (B) bẫy – hộ chiếu là giấy tờ chủ túi cần mang theo; (C) không được nhắc.",
+          "translateVi": "Vật gì đã được tìm thấy?",
+          "vocab": [ { "word": "security checkpoint", "ipa": "/sɪˈkjʊərəti ˈtʃekpɔɪnt/", "meaningVi": "khu/trạm kiểm tra an ninh" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should the owner bring to the information desk?",
+          "options": ["A photo ID", "A plane ticket", "The bag's key", "A yellow tag"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "Please bring your passport or another photo ID" } ],
+          "explainVi": "'Please bring your passport or another photo ID' → giấy tờ tùy thân có ảnh, chọn (A). (B) không nhắc vé máy bay; (C) không nhắc chìa khóa; (D) bẫy – thẻ vàng đã gắn sẵn trên ba lô.",
+          "translateVi": "Chủ chiếc túi nên mang gì đến quầy thông tin?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-11",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "Before we start today's meeting, I have a quick note about the office kitchen. It will only take a minute.", "translateVi": "Trước khi bắt đầu cuộc họp hôm nay, tôi có một lưu ý nhanh về bếp văn phòng. Chỉ mất một phút thôi." },
+        { "speaker": "w", "accent": "au", "text": "A cleaning company is coming on Friday morning to clean the whole kitchen, including the refrigerator.", "translateVi": "Một công ty vệ sinh sẽ đến vào sáng thứ Sáu để dọn toàn bộ bếp, kể cả tủ lạnh." },
+        { "speaker": "w", "accent": "au", "text": "So please take your food and drinks out of the refrigerator by five o'clock on Thursday. Please also take home any cups or plates you left in the sink.", "translateVi": "Vì vậy, xin mọi người lấy đồ ăn và đồ uống của mình ra khỏi tủ lạnh trước 5 giờ chiều thứ Năm. Xin mọi người cũng mang về những cốc, đĩa đã để trong bồn rửa." },
+        { "speaker": "w", "accent": "au", "text": "Anything left inside after that will be thrown away. We've had a lot of old lunches in there lately.", "translateVi": "Mọi thứ còn lại bên trong sau thời điểm đó sẽ bị bỏ đi. Dạo này trong đó có rất nhiều đồ ăn trưa để lâu ngày." },
+        { "speaker": "w", "accent": "au", "text": "The kitchen will be closed until about noon on Friday, so you won't be able to make coffee in the morning.", "translateVi": "Bếp sẽ đóng cửa đến khoảng trưa thứ Sáu, nên buổi sáng mọi người sẽ không pha cà phê được." },
+        { "speaker": "w", "accent": "au", "text": "But don't worry. I'll bring coffee and some cookies for everyone.", "translateVi": "Nhưng đừng lo. Tôi sẽ mang cà phê và ít bánh quy cho mọi người." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the speaker mainly talking about?",
+          "options": ["Planning a lunch party", "Cleaning the office kitchen", "Buying a new office refrigerator", "Moving to a new office"],
+          "answer": 1,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "A cleaning company is coming on Friday morning to clean the whole kitchen" } ],
+          "explainVi": "Chị thông báo 'A cleaning company is coming on Friday morning to clean the whole kitchen' và dặn dọn tủ lạnh → chủ đề là dọn bếp văn phòng, chọn (B). (A) bẫy từ 'lunches'; (C) bẫy từ 'refrigerator' – tủ lạnh được lau dọn, không mua mới; (D) không nhắc chuyển văn phòng.",
+          "translateVi": "Người nói chủ yếu nói về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"We've had a lot of old lunches in there lately\"?",
+          "options": ["To complain about the lunch menu", "To suggest eating out more", "To explain why the fridge needs cleaning", "To thank staff for sharing food"],
+          "answer": 2,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "Anything left inside after that will be thrown away." } ],
+          "explainVi": "Ngay trước đó chị nói đồ còn lại sẽ bị 'thrown away'; câu 'a lot of old lunches in there' cho thấy tủ lạnh có nhiều đồ cũ, vì vậy cần dọn → (C). (A) văn phòng không có thực đơn; (B) chị không khuyên ăn ngoài; (D) không phải lời cảm ơn.",
+          "translateVi": "Vì sao người nói nói \"Dạo này trong đó có rất nhiều đồ ăn trưa để lâu ngày\"?",
+          "vocab": [ { "word": "throw away", "ipa": "/θrəʊ əˈweɪ/", "meaningVi": "vứt bỏ" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker say she will do on Friday?",
+          "options": ["Clean the refrigerator", "Order lunch for the team", "Open the kitchen early", "Bring coffee for everyone"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "I'll bring coffee and some cookies for everyone." } ],
+          "explainVi": "Vì sáng thứ Sáu không pha cà phê được, chị nói 'I'll bring coffee and some cookies for everyone' → (D). (A) bẫy – công ty vệ sinh mới là bên dọn tủ lạnh; (B) không nhắc đặt đồ ăn trưa; (C) sai – bếp đóng đến khoảng trưa.",
+          "translateVi": "Người nói cho biết chị sẽ làm gì vào thứ Sáu?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-12",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Good afternoon, everyone, and welcome to the Hillside Food Festival. I'm very happy to introduce our first guest today, Chef Anna Moreau.", "translateVi": "Chào buổi chiều mọi người, chào mừng đến Lễ hội Ẩm thực Hillside. Tôi rất vui được giới thiệu vị khách đầu tiên hôm nay, đầu bếp Anna Moreau." },
+        { "speaker": "m", "accent": "ca", "text": "Anna has owned the Blue Door Café on Main Street for ten years, and many of you know her famous apple pie.", "translateVi": "Chị Anna làm chủ quán Blue Door Café trên phố Main đã mười năm, và nhiều người trong quý vị biết món bánh táo nổi tiếng của chị." },
+        { "speaker": "m", "accent": "ca", "text": "She also writes a cooking page for our local newspaper every Sunday, and her recipes are always easy to follow.", "translateVi": "Chị cũng viết một trang nấu ăn cho tờ báo địa phương vào mỗi Chủ nhật, và công thức của chị lúc nào cũng dễ làm theo." },
+        { "speaker": "m", "accent": "ca", "text": "Today, Anna is going to show us how to make a simple summer salad with fresh vegetables from local farms.", "translateVi": "Hôm nay, chị Anna sẽ hướng dẫn chúng ta cách làm món salad mùa hè đơn giản với rau tươi từ các trang trại địa phương." },
+        { "speaker": "m", "accent": "ca", "text": "After the show, everyone can try a small bowl of the salad. Anna will also answer your cooking questions.", "translateVi": "Sau phần trình diễn, mọi người đều có thể nếm thử một bát salad nhỏ. Chị Anna cũng sẽ trả lời các câu hỏi về nấu ăn của quý vị." },
+        { "speaker": "m", "accent": "ca", "text": "So please give a warm welcome to Chef Anna Moreau!", "translateVi": "Vậy xin một tràng pháo tay nồng nhiệt chào đón đầu bếp Anna Moreau!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the purpose of the talk?",
+          "options": ["To introduce a chef", "To open a new café", "To review a newspaper", "To sell farm vegetables"],
+          "answer": 0,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I'm very happy to introduce our first guest today, Chef Anna Moreau." } ],
+          "explainVi": "Người nói: 'I'm very happy to introduce our first guest today, Chef Anna Moreau' → giới thiệu một đầu bếp, chọn (A). (B) bẫy – quán Blue Door Café đã mở mười năm; (C) bẫy từ 'newspaper'; (D) bẫy từ 'local farms'.",
+          "translateVi": "Mục đích của bài nói là gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "What is Anna Moreau known for?",
+          "options": ["Her summer salad", "Her apple pie", "Her cooking school", "Her vegetable farm"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "many of you know her famous apple pie" } ],
+          "explainVi": "'Many of you know her famous apple pie' → (B). (A) bẫy – salad là món chị làm hôm nay, không phải món nổi tiếng; (C) không nhắc trường dạy nấu ăn; (D) rau lấy từ trang trại địa phương, chị không có trang trại.",
+          "translateVi": "Anna Moreau nổi tiếng với điều gì?",
+          "vocab": [ { "word": "festival", "ipa": "/ˈfestɪvl/", "meaningVi": "lễ hội" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will listeners be able to do after the show?",
+          "options": ["Buy a cookbook", "Meet local farmers", "Try some salad", "Get a free newspaper"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "After the show, everyone can try a small bowl of the salad." } ],
+          "explainVi": "'After the show, everyone can try a small bowl of the salad' → nếm thử salad, chọn (C). (A) không nhắc sách nấu ăn; (B) bẫy từ 'local farms'; (D) bẫy từ 'newspaper'.",
+          "translateVi": "Sau phần trình diễn người nghe có thể làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-13",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "gb", "text": "Hello, and welcome to today's workshop, Better Photos with Your Phone. I'm Grace, and I take photos for a travel magazine.", "translateVi": "Xin chào và chào mừng đến buổi học hôm nay, Chụp ảnh đẹp hơn bằng điện thoại. Tôi là Grace, tôi chụp ảnh cho một tạp chí du lịch." },
+        { "speaker": "w", "accent": "gb", "text": "You don't need an expensive camera to take great pictures. Your phone is enough.", "translateVi": "Bạn không cần máy ảnh đắt tiền để chụp được ảnh đẹp. Điện thoại của bạn là đủ." },
+        { "speaker": "w", "accent": "gb", "text": "This morning, we'll learn how to use light and how to hold your phone so your photos aren't blurry. We'll also look at some of my favorite travel photos.", "translateVi": "Sáng nay, chúng ta sẽ học cách tận dụng ánh sáng và cách cầm điện thoại để ảnh không bị mờ. Chúng ta cũng sẽ xem một số bức ảnh du lịch mà tôi yêu thích." },
+        { "speaker": "w", "accent": "gb", "text": "We'll take a short break at eleven o'clock. There's free tea and juice in the hall.", "translateVi": "Chúng ta sẽ nghỉ giải lao ngắn lúc 11 giờ. Ở sảnh có trà và nước trái cây miễn phí." },
+        { "speaker": "w", "accent": "gb", "text": "After the break, we'll walk to the park across the street and practice taking pictures of trees and people.", "translateVi": "Sau giờ nghỉ, chúng ta sẽ đi bộ đến công viên bên kia đường và thực hành chụp ảnh cây cối và con người." },
+        { "speaker": "w", "accent": "gb", "text": "So first, please take out your phones and open the camera.", "translateVi": "Vậy trước tiên, xin mọi người lấy điện thoại ra và mở ứng dụng máy ảnh." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who is the speaker?",
+          "options": ["A phone seller", "A park guide", "A travel agent", "A photographer"],
+          "answer": 3,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I take photos for a travel magazine" } ],
+          "explainVi": "Grace nói 'I take photos for a travel magazine' và dạy chụp ảnh → nhiếp ảnh gia, chọn (D). (A) bẫy từ 'phone' – chị không bán điện thoại; (B) bẫy từ 'park'; (C) bẫy từ 'travel'.",
+          "translateVi": "Người nói là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "What will happen at eleven o'clock?",
+          "options": ["The workshop will end", "The group will go to the park", "The group will take a break", "A new teacher will arrive"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "We'll take a short break at eleven o'clock." } ],
+          "explainVi": "'We'll take a short break at eleven o'clock' → (C). (A) buổi học vẫn tiếp tục sau giờ nghỉ; (B) bẫy – đi công viên là việc 'after the break'; (D) không nhắc giáo viên mới.",
+          "translateVi": "Chuyện gì sẽ diễn ra lúc 11 giờ?",
+          "vocab": [ { "word": "blurry", "ipa": "/ˈblɜːri/", "meaningVi": "mờ, nhòe" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker ask listeners to do first?",
+          "options": ["Open their phone cameras", "Walk to the park", "Get some tea", "Buy a new camera"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "please take out your phones and open the camera" } ],
+          "explainVi": "'So first, please take out your phones and open the camera' → (A). (B) là việc sau giờ nghỉ; (C) trà dành cho giờ nghỉ lúc 11 giờ; (D) trái ý – 'You don't need an expensive camera'.",
+          "translateVi": "Người nói yêu cầu người nghe làm gì trước tiên?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-14",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "us", "text": "Spring is here, and it's time to get outside! Come to Wheelhouse Bikes for our big spring sale.", "translateVi": "Mùa xuân đã đến, đã đến lúc ra ngoài trời! Hãy đến Wheelhouse Bikes với đợt giảm giá mùa xuân lớn." },
+        { "speaker": "m", "accent": "us", "text": "This week only, all children's bikes are twenty percent off. It's a great time to buy a bike for your son or daughter.", "translateVi": "Chỉ trong tuần này, tất cả xe đạp trẻ em được giảm hai mươi phần trăm. Đây là dịp tuyệt vời để mua xe cho con trai hoặc con gái của bạn." },
+        { "speaker": "m", "accent": "us", "text": "And when you buy any new bike, you'll get a free helmet. That's a forty-dollar gift!", "translateVi": "Và khi mua bất kỳ chiếc xe mới nào, bạn sẽ được tặng một mũ bảo hiểm. Đó là món quà trị giá bốn mươi đô la!" },
+        { "speaker": "m", "accent": "us", "text": "Is your old bike making strange noises? Our repair team can fix it in one day.", "translateVi": "Chiếc xe cũ của bạn kêu lạ? Đội sửa chữa của chúng tôi có thể sửa xong trong một ngày." },
+        { "speaker": "m", "accent": "us", "text": "We're on Oak Avenue, next to the post office, and we're open every day from nine to seven.", "translateVi": "Chúng tôi ở đại lộ Oak, cạnh bưu điện, và mở cửa mỗi ngày từ 9 giờ đến 7 giờ." },
+        { "speaker": "m", "accent": "us", "text": "Last spring, our sale bikes were gone in three days. Visit Wheelhouse Bikes today!", "translateVi": "Mùa xuân năm ngoái, xe giảm giá của chúng tôi hết sạch chỉ trong ba ngày. Hãy ghé Wheelhouse Bikes ngay hôm nay!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What kind of business is being advertised?",
+          "options": ["A toy store", "A neighborhood sports club", "A post office", "A bicycle shop"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Come to Wheelhouse Bikes for our big spring sale." } ],
+          "explainVi": "'Come to Wheelhouse Bikes for our big spring sale' và nói về xe đạp, mũ bảo hiểm, sửa xe → cửa hàng xe đạp, chọn (D). (A) bẫy từ 'children's' – xe trẻ em nhưng không phải cửa hàng đồ chơi; (B) không có câu lạc bộ; (C) bẫy – bưu điện chỉ là mốc vị trí.",
+          "translateVi": "Quảng cáo này giới thiệu loại cửa hàng nào?"
+        },
+        {
+          "no": 2,
+          "prompt": "What will customers get when they buy a new bike?",
+          "options": ["A free repair", "A free helmet", "Twenty percent off", "A forty-dollar coupon"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "when you buy any new bike, you'll get a free helmet" } ],
+          "explainVi": "'When you buy any new bike, you'll get a free helmet' → (B). (A) bẫy – sửa xe là dịch vụ riêng cho xe cũ; (C) bẫy – giảm 20% chỉ áp dụng cho xe trẻ em; (D) bẫy – 'forty-dollar' là giá trị của mũ, không phải phiếu giảm giá.",
+          "translateVi": "Khách hàng sẽ nhận được gì khi mua một chiếc xe mới?",
+          "vocab": [ { "word": "helmet", "ipa": "/ˈhelmɪt/", "meaningVi": "mũ bảo hiểm" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "Why does the speaker say, \"Last spring, our sale bikes were gone in three days\"?",
+          "options": ["To encourage listeners to come soon", "To explain why prices went up", "To describe a problem with repairs", "To announce the end of the sale"],
+          "answer": 0,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "Visit Wheelhouse Bikes today!" } ],
+          "explainVi": "Xe giảm giá năm ngoái bán hết trong ba ngày, ngay sau đó là 'Visit Wheelhouse Bikes today!' → thúc giục người nghe đến sớm, chọn (A). (B) không nói tăng giá; (C) không liên quan việc sửa xe; (D) sai – đợt giảm giá đang diễn ra 'this week'.",
+          "translateVi": "Vì sao người nói nói \"Mùa xuân năm ngoái, xe giảm giá của chúng tôi hết sạch chỉ trong ba ngày\"?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-15",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "ca", "text": "Good morning, and welcome to Willow Park Zoo's early morning walk. My name is Ruby.", "translateVi": "Chào buổi sáng, chào mừng đến chuyến đi bộ sáng sớm của Sở thú Willow Park. Tôi tên là Ruby." },
+        { "speaker": "w", "accent": "ca", "text": "This is a great time to visit, because many of the animals are eating breakfast. They are also more active in the cool morning air.", "translateVi": "Đây là thời điểm tuyệt vời để tham quan, vì nhiều con vật đang ăn sáng. Chúng cũng năng động hơn trong không khí mát mẻ buổi sáng." },
+        { "speaker": "w", "accent": "ca", "text": "Our first stop is the area right across the main path from the café. The keepers are feeding the animals there at eight-fifteen.", "translateVi": "Điểm dừng đầu tiên của chúng ta là khu nằm ngay bên kia lối đi chính, đối diện quán cà phê. Nhân viên chăm sóc sẽ cho các con vật ở đó ăn lúc 8 giờ 15." },
+        { "speaker": "w", "accent": "ca", "text": "Please don't give any food to the animals yourselves, and stay behind the fences.", "translateVi": "Xin mọi người đừng tự cho các con vật ăn và hãy đứng sau hàng rào." },
+        { "speaker": "w", "accent": "ca", "text": "The walk lasts about one hour. After that, you're welcome to stay at the zoo for the rest of the day.", "translateVi": "Chuyến đi kéo dài khoảng một giờ. Sau đó, mọi người có thể ở lại sở thú đến hết ngày." },
+        { "speaker": "w", "accent": "ca", "text": "OK, please stay close to me, and let's go.", "translateVi": "Được rồi, xin mọi người đi sát tôi, chúng ta đi thôi." }
+      ],
+      "graphic": {
+        "kind": "floor-plan",
+        "title": "Willow Park Zoo · Map",
+        "cells": [
+          {
+            "label": "Penguin Pool",
+            "row": 0,
+            "col": 0
+          },
+          {
+            "label": "Bird House",
+            "row": 0,
+            "col": 1
+          },
+          {
+            "label": "Café",
+            "row": 0,
+            "col": 2
+          },
+          {
+            "label": "Main Path",
+            "row": 1,
+            "col": 0,
+            "span": 3
+          },
+          {
+            "label": "Lions",
+            "row": 2,
+            "col": 0
+          },
+          {
+            "label": "Monkeys",
+            "row": 2,
+            "col": 1
+          },
+          {
+            "label": "Giraffes",
+            "row": 2,
+            "col": 2
+          }
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely is the speaker?",
+          "options": ["An animal keeper", "A tour guide", "A café worker", "A ticket seller"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "welcome to Willow Park Zoo's early morning walk" } ],
+          "explainVi": "Ruby chào mừng khách đến 'Willow Park Zoo's early morning walk' và dẫn đoàn đi → hướng dẫn viên, chọn (B). (A) bẫy – 'The keepers' là những người cho thú ăn, không phải Ruby; (C) bẫy từ 'café'; (D) không nhắc bán vé.",
+          "translateVi": "Người nói có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. Where will the group go first?",
+          "options": ["Penguin Pool", "Bird House", "Lions", "Giraffes"],
+          "answer": 3,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "Our first stop is the area right across the main path from the café." } ],
+          "explainVi": "Điểm dừng đầu là 'the area right across the main path from the café'. Trên sơ đồ, đối diện Café qua Main Path là khu Giraffes → (D). (A) và (B) cùng hàng với quán cà phê, không ở bên kia lối đi; (C) ở bên kia lối đi nhưng đối diện Penguin Pool.",
+          "translateVi": "Hãy nhìn vào sơ đồ. Đoàn sẽ đến đâu đầu tiên?",
+          "vocab": [ { "word": "keeper", "ipa": "/ˈkiːpə(r)/", "meaningVi": "người chăm sóc (thú ở sở thú)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker ask listeners to do at the end of the talk?",
+          "options": ["Buy some breakfast", "Wait at the café", "Stay close to her", "Feed the animals"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "please stay close to me" } ],
+          "explainVi": "Câu cuối: 'OK, please stay close to me, and let's go' → đi sát hướng dẫn viên, chọn (C). (A) bẫy từ 'breakfast' – các con vật mới đang ăn sáng; (B) quán cà phê chỉ là mốc vị trí; (D) trái ý – 'Please don't give any food to the animals'.",
+          "translateVi": "Cuối bài nói, người nói yêu cầu người nghe làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-16",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "au", "text": "Hi, this is a message for Ms. Laura Chen. My name is Sam, and I'm calling from QuickHome Deliveries.", "translateVi": "Xin chào, đây là tin nhắn gửi chị Laura Chen. Tôi tên là Sam, gọi từ công ty giao hàng QuickHome Deliveries." },
+        { "speaker": "m", "accent": "au", "text": "Your new washing machine will be delivered next Tuesday between nine A.M. and noon.", "translateVi": "Chiếc máy giặt mới của chị sẽ được giao vào thứ Ba tuần sau, trong khoảng từ 9 giờ sáng đến trưa." },
+        { "speaker": "m", "accent": "au", "text": "Someone needs to be at home to sign for it. Our team will also take away your old machine for free.", "translateVi": "Cần có người ở nhà để ký nhận. Đội của chúng tôi cũng sẽ mang máy cũ của chị đi miễn phí." },
+        { "speaker": "m", "accent": "au", "text": "One more thing. Our truck is very big, and your street is quite narrow.", "translateVi": "Một điều nữa. Xe tải của chúng tôi rất lớn, mà con đường nhà chị lại khá hẹp." },
+        { "speaker": "m", "accent": "au", "text": "So, if possible, please make sure there's space for the truck in front of your house that morning.", "translateVi": "Vì vậy, nếu được, xin chị đảm bảo trước nhà có chỗ cho xe tải vào sáng hôm đó." },
+        { "speaker": "m", "accent": "au", "text": "If Tuesday doesn't work for you, please call us at 555-0193 to choose a new day. Thanks!", "translateVi": "Nếu thứ Ba không tiện cho chị, xin gọi cho chúng tôi theo số 555-0193 để chọn ngày khác. Cảm ơn chị!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the message mainly about?",
+          "options": ["A machine repair", "A road closure", "A house cleaning service", "A product delivery"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "Your new washing machine will be delivered next Tuesday" } ],
+          "explainVi": "Sam báo 'Your new washing machine will be delivered next Tuesday' → tin nhắn về việc giao hàng, chọn (D). (A) bẫy từ 'machine' – máy mới được giao, không phải sửa; (B) bẫy từ 'street is quite narrow' – đường không bị đóng; (C) không nhắc dọn nhà.",
+          "translateVi": "Tin nhắn chủ yếu nói về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"Our truck is very big\"?",
+          "options": ["To say the delivery will be late", "To ask for a parking space", "To explain an extra fee", "To offer a larger machine"],
+          "answer": 1,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "please make sure there's space for the truck in front of your house that morning" } ],
+          "explainVi": "Xe to mà đường hẹp, nên anh đề nghị 'make sure there's space for the truck in front of your house' → muốn xin chỗ đỗ cho xe tải, chọn (B). (A) không nói giao trễ; (C) sai – việc mang máy cũ đi là 'for free', không có phí thêm; (D) bẫy liên tưởng 'big' – không nói máy lớn hơn.",
+          "translateVi": "Vì sao người nói nói \"Xe tải của chúng tôi rất lớn\"?",
+          "vocab": [ { "word": "narrow", "ipa": "/ˈnærəʊ/", "meaningVi": "hẹp" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should the listener do if Tuesday is not convenient?",
+          "options": ["Send an e-mail", "Visit the store", "Call the company", "Ask a neighbor to sign"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "please call us at 555-0193 to choose a new day" } ],
+          "explainVi": "'If Tuesday doesn't work for you, please call us at 555-0193 to choose a new day' → gọi cho công ty, chọn (C). (A) và (B) không được nhắc; (D) bẫy từ 'sign for it' – cần người ở nhà ký nhận, nhưng không nói nhờ hàng xóm.",
+          "translateVi": "Người nghe nên làm gì nếu thứ Ba không tiện?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-17",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "Good morning, guests of the Seaview Hotel. We hope you slept well.", "translateVi": "Chào buổi sáng quý khách của khách sạn Seaview. Chúng tôi hy vọng quý khách đã ngủ ngon." },
+        { "speaker": "w", "accent": "us", "text": "Please note that breakfast today is being served in the Garden Room on the first floor, not in the main restaurant.", "translateVi": "Xin lưu ý rằng bữa sáng hôm nay được phục vụ ở phòng Garden Room trên tầng một, không phải ở nhà hàng chính." },
+        { "speaker": "w", "accent": "us", "text": "The main restaurant is closed this morning because it is being painted. Breakfast is served from six-thirty until ten o'clock.", "translateVi": "Nhà hàng chính đóng cửa sáng nay vì đang được sơn lại. Bữa sáng được phục vụ từ 6 giờ 30 đến 10 giờ." },
+        { "speaker": "w", "accent": "us", "text": "Also, the hotel's free bus to the beach leaves from the front entrance every hour, starting at nine. The last bus comes back at five P.M.", "translateVi": "Ngoài ra, xe buýt miễn phí của khách sạn đi ra bãi biển khởi hành từ lối vào chính mỗi giờ một chuyến, bắt đầu từ 9 giờ. Chuyến cuối quay về lúc 5 giờ chiều." },
+        { "speaker": "w", "accent": "us", "text": "Seats are limited. If you'd like a seat on the bus, please put your name on the list at the front desk.", "translateVi": "Số chỗ có hạn. Nếu muốn có chỗ trên xe buýt, xin quý khách ghi tên vào danh sách ở quầy lễ tân." },
+        { "speaker": "w", "accent": "us", "text": "Thank you, and have a lovely day.", "translateVi": "Xin cảm ơn và chúc quý khách một ngày tốt lành." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who are the listeners?",
+          "options": ["Restaurant workers", "Bus drivers", "House painters", "Hotel guests"],
+          "answer": 3,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Good morning, guests of the Seaview Hotel." } ],
+          "explainVi": "Người nói chào 'guests of the Seaview Hotel' → khách của khách sạn, chọn (D). (A) bẫy từ 'main restaurant'; (B) bẫy từ 'free bus'; (C) bẫy từ 'being painted' – thợ sơn không phải người nghe.",
+          "translateVi": "Người nghe là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why is the main restaurant closed this morning?",
+          "options": ["It is being painted", "It is being cleaned", "It is too crowded", "It opens at ten"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "The main restaurant is closed this morning because it is being painted." } ],
+          "explainVi": "'The main restaurant is closed this morning because it is being painted' → (A). (B) cùng cấu trúc 'is being...' nhưng sai việc – không nói dọn dẹp; (C) không nhắc đông khách; (D) bẫy từ 'ten o'clock' – đó là giờ kết thúc bữa sáng.",
+          "translateVi": "Vì sao sáng nay nhà hàng chính đóng cửa?",
+          "vocab": [ { "word": "entrance", "ipa": "/ˈentrəns/", "meaningVi": "lối vào" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should listeners do to get a seat on the bus?",
+          "options": ["Wait at the front entrance", "Sign up at the front desk", "Call the bus driver", "Buy a ticket"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "please put your name on the list at the front desk" } ],
+          "explainVi": "'If you'd like a seat on the bus, please put your name on the list at the front desk' → ghi tên ở quầy lễ tân, chọn (B). (A) bẫy – lối vào chính là chỗ xe khởi hành, không phải cách giữ chỗ; (C) không nhắc gọi tài xế; (D) sai – xe buýt 'free'.",
+          "translateVi": "Người nghe nên làm gì để có chỗ trên xe buýt?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-18",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "OK, everyone, thanks for coming in a little early today. I want to talk about a change here at Parkside Books.", "translateVi": "Được rồi mọi người, cảm ơn đã đến sớm một chút hôm nay. Tôi muốn nói về một thay đổi ở hiệu sách Parkside." },
+        { "speaker": "m", "accent": "gb", "text": "This chart shows how many customers we had each day last month, from Monday to Thursday.", "translateVi": "Biểu đồ này cho thấy số khách hàng mỗi ngày của chúng ta tháng trước, từ thứ Hai đến thứ Năm." },
+        { "speaker": "m", "accent": "gb", "text": "On the day with the fewest customers, we're going to open one hour later, at ten o'clock instead of nine.", "translateVi": "Vào ngày có ít khách nhất, chúng ta sẽ mở cửa muộn hơn một tiếng, lúc 10 giờ thay vì 9 giờ." },
+        { "speaker": "m", "accent": "gb", "text": "We'll use that free hour every week to put new books on the shelves before customers arrive.", "translateVi": "Chúng ta sẽ dùng một giờ rảnh đó mỗi tuần để xếp sách mới lên kệ trước khi khách đến." },
+        { "speaker": "m", "accent": "gb", "text": "This change will start next week, and I've already put up a new sign on the front door.", "translateVi": "Thay đổi này sẽ bắt đầu từ tuần sau, và tôi đã treo một tấm biển mới ở cửa trước." },
+        { "speaker": "m", "accent": "gb", "text": "Please check the new work schedule in the staff room and tell me by Friday if you have any problems with your hours.", "translateVi": "Xin mọi người xem lịch làm việc mới trong phòng nhân viên và báo cho tôi trước thứ Sáu nếu có vấn đề gì với giờ làm." }
+      ],
+      "graphic": {
+        "kind": "bar-chart",
+        "title": "Parkside Books · Customers per Day (Last Month)",
+        "bars": [
+          {
+            "label": "Monday",
+            "value": 120
+          },
+          {
+            "label": "Tuesday",
+            "value": 85
+          },
+          {
+            "label": "Wednesday",
+            "value": 140
+          },
+          {
+            "label": "Thursday",
+            "value": 160
+          }
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where do the listeners most likely work?",
+          "options": ["At a library", "At a sign shop", "At a bookstore", "At a furniture store"],
+          "answer": 2,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "I want to talk about a change here at Parkside Books." } ],
+          "explainVi": "Người nói nhắc 'here at Parkside Books', khách hàng và việc xếp sách mới lên kệ → hiệu sách, chọn (C). (A) bẫy từ 'books' – thư viện không có 'customers' mua hàng; (B) bẫy từ 'a new sign'; (D) bẫy từ 'shelves'.",
+          "translateVi": "Người nghe có lẽ làm việc ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. On which day will the store open later?",
+          "options": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          "answer": 1,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "On the day with the fewest customers, we're going to open one hour later" } ],
+          "explainVi": "Cửa hàng mở muộn hơn 'on the day with the fewest customers'. Trên biểu đồ, thứ Ba thấp nhất (85 khách) → (B). (A) có 120, (C) có 140 và (D) đông nhất với 160 khách.",
+          "translateVi": "Hãy nhìn vào biểu đồ. Cửa hàng sẽ mở cửa muộn hơn vào ngày nào?",
+          "vocab": [ { "word": "fewest", "ipa": "/ˈfjuːɪst/", "meaningVi": "ít nhất (dùng với danh từ đếm được)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker ask listeners to do?",
+          "options": ["Check a new schedule", "Make a new sign", "Count the customers", "Work on Friday"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "Please check the new work schedule in the staff room" } ],
+          "explainVi": "'Please check the new work schedule in the staff room' → (A). (B) bẫy – người nói đã tự treo biển mới; (C) bẫy từ 'customers' – số khách đã có trên biểu đồ; (D) bẫy từ 'by Friday' – đó là hạn báo vấn đề, không phải yêu cầu đi làm thứ Sáu.",
+          "translateVi": "Người nói yêu cầu người nghe làm gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-19",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "In local news today, the city has announced a new bus route between downtown and Sandy Point Beach.", "translateVi": "Trong bản tin địa phương hôm nay, thành phố đã công bố một tuyến xe buýt mới giữa trung tâm và bãi biển Sandy Point." },
+        { "speaker": "w", "accent": "au", "text": "The new Route 9 will start on Monday, June first. It will stop at the city library and the Riverside Shopping Center on the way.", "translateVi": "Tuyến số 9 mới sẽ bắt đầu chạy vào thứ Hai, ngày 1 tháng 6. Trên đường đi, tuyến này sẽ dừng ở thư viện thành phố và Trung tâm mua sắm Riverside." },
+        { "speaker": "w", "accent": "au", "text": "Buses will leave from Central Station every twenty minutes, from six in the morning until ten at night.", "translateVi": "Xe buýt sẽ khởi hành từ Ga Trung tâm cứ hai mươi phút một chuyến, từ 6 giờ sáng đến 10 giờ tối." },
+        { "speaker": "w", "accent": "au", "text": "The trip to the beach will take about thirty-five minutes. A one-way ticket will cost two dollars.", "translateVi": "Chuyến đi ra biển sẽ mất khoảng ba mươi lăm phút. Vé một chiều giá hai đô la." },
+        { "speaker": "w", "accent": "au", "text": "Many people asked for this route last year, because parking near the beach is very hard to find in summer.", "translateVi": "Năm ngoái nhiều người đã đề nghị mở tuyến này, vì vào mùa hè rất khó tìm chỗ đỗ xe gần bãi biển." },
+        { "speaker": "w", "accent": "au", "text": "To celebrate, all rides on Route 9 will be free during the first week.", "translateVi": "Để chào mừng, tất cả các chuyến trên tuyến số 9 sẽ miễn phí trong tuần đầu tiên." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the news report mainly about?",
+          "options": ["A beach festival", "A new parking lot", "A station opening", "A new bus route"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "the city has announced a new bus route between downtown and Sandy Point Beach" } ],
+          "explainVi": "'The city has announced a new bus route between downtown and Sandy Point Beach' → tuyến xe buýt mới, chọn (D). (A) bẫy từ 'Beach' – không có lễ hội; (B) bẫy từ 'parking' – chỗ đỗ xe khó tìm, không có bãi mới; (C) bẫy – Ga Trung tâm đã có sẵn, không phải mới mở.",
+          "translateVi": "Bản tin chủ yếu nói về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "How often will the buses leave?",
+          "options": ["Every twenty minutes", "Every thirty-five minutes", "Every hour", "Every ten minutes"],
+          "answer": 0,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "Buses will leave from Central Station every twenty minutes" } ],
+          "explainVi": "'Buses will leave from Central Station every twenty minutes' → (A). (B) bẫy – 35 phút là thời gian đi ra biển; (C) không được nhắc; (D) bẫy từ 'ten at night' – giờ chuyến cuối.",
+          "translateVi": "Xe buýt sẽ khởi hành bao lâu một chuyến?",
+          "vocab": [ { "word": "route", "ipa": "/ruːt/", "meaningVi": "tuyến đường" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will happen during the first week?",
+          "options": ["Buses will run all night", "Rides will be free", "Parking will be free", "Tickets will be half price"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "all rides on Route 9 will be free during the first week" } ],
+          "explainVi": "'All rides on Route 9 will be free during the first week' → đi xe miễn phí, chọn (B). (A) sai – xe chỉ chạy đến 10 giờ tối; (C) bẫy – 'free' gắn với chuyến xe, không phải bãi đỗ; (D) sai – miễn phí hoàn toàn chứ không giảm nửa giá.",
+          "translateVi": "Chuyện gì sẽ diễn ra trong tuần đầu tiên?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-20",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Good morning, shoppers, and welcome to Green Thumb Garden Center. We're open until six o'clock today.", "translateVi": "Chào buổi sáng quý khách, chào mừng đến Trung tâm Cây cảnh Green Thumb. Hôm nay chúng tôi mở cửa đến 6 giờ." },
+        { "speaker": "m", "accent": "ca", "text": "This weekend, all flowering plants are buy one, get one free. You'll find them outside, next to the parking lot.", "translateVi": "Cuối tuần này, tất cả cây có hoa đều mua một tặng một. Quý khách sẽ thấy chúng ở bên ngoài, cạnh bãi đỗ xe." },
+        { "speaker": "m", "accent": "ca", "text": "Also, at two o'clock this afternoon, our expert Linda will give a free talk on how to grow vegetables on a small balcony. Linda has grown vegetables at home for over twenty years.", "translateVi": "Ngoài ra, lúc 2 giờ chiều nay, chuyên gia Linda của chúng tôi sẽ có buổi nói chuyện miễn phí về cách trồng rau trên ban công nhỏ. Linda đã tự trồng rau tại nhà hơn hai mươi năm." },
+        { "speaker": "m", "accent": "ca", "text": "The talk will be in the greenhouse at the back of the store. There are only twenty chairs.", "translateVi": "Buổi nói chuyện sẽ diễn ra trong nhà kính ở phía sau cửa hàng. Chỉ có hai mươi chiếc ghế." },
+        { "speaker": "m", "accent": "ca", "text": "To save a seat, please give your name to any staff member in a green apron.", "translateVi": "Để giữ chỗ, xin quý khách báo tên cho bất kỳ nhân viên nào mặc tạp dề xanh." },
+        { "speaker": "m", "accent": "ca", "text": "Thank you for shopping at Green Thumb. Have a great weekend!", "translateVi": "Cảm ơn quý khách đã mua sắm tại Green Thumb. Chúc quý khách cuối tuần vui vẻ!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where is the announcement being made?",
+          "options": ["At a farmers' market", "At a furniture store", "At a garden center", "At a parking garage"],
+          "answer": 2,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "welcome to Green Thumb Garden Center" } ],
+          "explainVi": "Người nói chào khách đến 'Green Thumb Garden Center' và giới thiệu cây có hoa, nhà kính → trung tâm cây cảnh, chọn (C). (A) bẫy từ 'vegetables' – chợ nông sản không có nhà kính phía sau cửa hàng; (B) bẫy từ 'chairs'; (D) bẫy từ 'parking lot'.",
+          "translateVi": "Thông báo này được phát ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "What will happen at two o'clock?",
+          "options": ["A sale will end", "The store will close", "A delivery will arrive", "A free talk will begin"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "at two o'clock this afternoon, our expert Linda will give a free talk" } ],
+          "explainVi": "'At two o'clock this afternoon, our expert Linda will give a free talk' → (D). (A) sai – đợt mua một tặng một kéo dài cả cuối tuần; (B) và (C) không được nhắc.",
+          "translateVi": "Chuyện gì sẽ diễn ra lúc 2 giờ?",
+          "vocab": [ { "word": "greenhouse", "ipa": "/ˈɡriːnhaʊs/", "meaningVi": "nhà kính (trồng cây)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "Why does the speaker say, \"There are only twenty chairs\"?",
+          "options": ["To suggest saving a seat soon", "To ask for more chairs", "To explain why the talk is short", "To say the store sells chairs"],
+          "answer": 0,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "To save a seat, please give your name to any staff member" } ],
+          "explainVi": "Chỗ ngồi có hạn nên ngay sau đó anh hướng dẫn 'To save a seat, please give your name...' → khuyên người nghe giữ chỗ sớm, chọn (A). (B) anh không xin thêm ghế; (C) không nói buổi nói chuyện ngắn; (D) bẫy từ 'chairs' – cửa hàng bán cây, không bán ghế.",
+          "translateVi": "Vì sao người nói nói \"Chỉ có hai mươi chiếc ghế\"?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-21",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "gb", "text": "Hello, this message is for Mr. Kevin Ward. It's Emma from Fine Stitch Tailors.", "translateVi": "Xin chào, tin nhắn này gửi anh Kevin Ward. Tôi là Emma ở tiệm may Fine Stitch Tailors." },
+        { "speaker": "w", "accent": "gb", "text": "I'm happy to say that your suit is ready. We've made the jacket sleeves shorter and changed the buttons, just as you asked.", "translateVi": "Tôi vui mừng báo rằng bộ vest của anh đã xong. Chúng tôi đã làm tay áo khoác ngắn lại và thay cúc, đúng như anh yêu cầu." },
+        { "speaker": "w", "accent": "gb", "text": "The total cost is sixty-five dollars. You can pay when you pick it up.", "translateVi": "Tổng chi phí là sáu mươi lăm đô la. Anh có thể thanh toán khi đến lấy." },
+        { "speaker": "w", "accent": "gb", "text": "Please note that our shop is closed on Mondays. On other days, we're open from ten to six, and on Thursdays until eight.", "translateVi": "Xin lưu ý cửa hàng chúng tôi đóng cửa vào thứ Hai. Các ngày khác chúng tôi mở cửa từ 10 giờ đến 6 giờ, riêng thứ Năm mở đến 8 giờ." },
+        { "speaker": "w", "accent": "gb", "text": "When you come, it's a good idea to try the suit on here, so we can check that it fits well.", "translateVi": "Khi anh đến, tốt nhất anh nên mặc thử bộ vest tại tiệm để chúng tôi kiểm tra xem có vừa không." },
+        { "speaker": "w", "accent": "gb", "text": "If you have any questions, just call us back. See you soon, Mr. Ward.", "translateVi": "Nếu có thắc mắc gì, anh cứ gọi lại cho chúng tôi. Hẹn sớm gặp anh, anh Ward." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Why is the speaker calling?",
+          "options": ["To ask for a late payment", "To say an order is ready", "To change the shop's hours", "To sell a new suit"],
+          "answer": 1,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "I'm happy to say that your suit is ready." } ],
+          "explainVi": "Emma báo 'your suit is ready' → gọi để báo đồ đặt may đã xong, chọn (B). (A) bẫy từ 'pay' – anh trả tiền khi đến lấy, không có khoản trễ hạn; (C) bẫy – giờ mở cửa chỉ được nhắc lại, không thay đổi; (D) bẫy từ 'suit' – bộ vest là của anh đã đặt sửa.",
+          "translateVi": "Vì sao người nói gọi điện?"
+        },
+        {
+          "no": 2,
+          "prompt": "What did the shop change on the jacket?",
+          "options": ["The color and size", "The pockets and collar", "The sleeves and buttons", "The length and color"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "We've made the jacket sleeves shorter and changed the buttons" } ],
+          "explainVi": "'We've made the jacket sleeves shorter and changed the buttons' → tay áo và cúc, chọn (C). (A), (B) và (D) không được nhắc; riêng (D) là bẫy từ 'shorter' – chỉ tay áo được làm ngắn, không phải chiều dài áo.",
+          "translateVi": "Tiệm đã sửa gì trên áo khoác?",
+          "vocab": [ { "word": "sleeve", "ipa": "/sliːv/", "meaningVi": "tay áo" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What does the speaker suggest the listener do at the shop?",
+          "options": ["Order another suit", "Pay by card", "Choose new buttons", "Try on the suit"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "it's a good idea to try the suit on here" } ],
+          "explainVi": "'It's a good idea to try the suit on here, so we can check that it fits well' → mặc thử bộ vest, chọn (D). (A) không nhắc đặt thêm; (B) không nói cách thanh toán; (C) bẫy – cúc đã được thay xong.",
+          "translateVi": "Người nói gợi ý người nghe làm gì ở tiệm?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-22",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "us", "text": "Welcome aboard the Silver River boat tour, everyone. I'm Captain Mike, and I'll be your guide this afternoon.", "translateVi": "Chào mừng mọi người lên tàu tham quan sông Silver River. Tôi là thuyền trưởng Mike và chiều nay tôi sẽ là hướng dẫn viên của các bạn." },
+        { "speaker": "m", "accent": "us", "text": "Our trip takes one hour, and we'll go under five bridges on the way. We'll be back here at four o'clock.", "translateVi": "Chuyến đi kéo dài một giờ, và trên đường chúng ta sẽ đi qua dưới năm cây cầu. Chúng ta sẽ quay về đây lúc 4 giờ." },
+        { "speaker": "m", "accent": "us", "text": "The oldest bridge, Stone Bridge, is more than three hundred years old. You'll see it in about ten minutes.", "translateVi": "Cây cầu cổ nhất, cầu Stone, đã hơn ba trăm năm tuổi. Các bạn sẽ thấy nó trong khoảng mười phút nữa." },
+        { "speaker": "m", "accent": "us", "text": "Snacks and cold drinks are sold downstairs. There are also clean restrooms on that level.", "translateVi": "Đồ ăn vặt và nước uống lạnh được bán ở tầng dưới. Ở tầng đó cũng có nhà vệ sinh sạch sẽ." },
+        { "speaker": "m", "accent": "us", "text": "For your safety, please stay seated while the boat is moving, and don't lean over the sides.", "translateVi": "Vì an toàn, xin các bạn ngồi yên khi tàu đang chạy và không nhoài người ra ngoài mạn tàu." },
+        { "speaker": "m", "accent": "us", "text": "Now, please look to your left. That tall building is the city's new art museum.", "translateVi": "Bây giờ, xin hãy nhìn sang bên trái. Tòa nhà cao kia là bảo tàng nghệ thuật mới của thành phố." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Where are the listeners?",
+          "options": ["On a bus", "At a museum", "On a boat", "On a bridge"],
+          "answer": 2,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Welcome aboard the Silver River boat tour, everyone." } ],
+          "explainVi": "'Welcome aboard the Silver River boat tour' và 'while the boat is moving' → họ đang ở trên tàu thuyền, chọn (C). (A) 'aboard' cũng dùng cho xe buýt nhưng bài nói rõ 'boat'; (B) bẫy – bảo tàng chỉ được nhìn từ xa; (D) bẫy từ 'bridges' – tàu đi qua dưới cầu.",
+          "translateVi": "Người nghe đang ở đâu?"
+        },
+        {
+          "no": 2,
+          "prompt": "Where can listeners buy drinks?",
+          "options": ["Upstairs", "At the ticket office", "At the museum café", "Downstairs"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "Snacks and cold drinks are sold downstairs." } ],
+          "explainVi": "'Snacks and cold drinks are sold downstairs' → (D). (A) ngược nghĩa với 'downstairs'; (B) không nhắc phòng vé; (C) bẫy từ 'museum' – bảo tàng chỉ là cảnh bên trái.",
+          "translateVi": "Người nghe có thể mua đồ uống ở đâu?",
+          "vocab": [ { "word": "aboard", "ipa": "/əˈbɔːd/", "meaningVi": "trên tàu, trên xe" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will listeners see in about ten minutes?",
+          "options": ["An old bridge", "A new museum", "A tall tower", "A large city park"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "You'll see it in about ten minutes." } ],
+          "explainVi": "Cầu Stone 'is more than three hundred years old. You'll see it in about ten minutes' → một cây cầu cổ, chọn (A). (B) và (C) bẫy – tòa nhà cao của bảo tàng mới có thể thấy ngay bây giờ, bên trái; (D) không được nhắc.",
+          "translateVi": "Khoảng mười phút nữa người nghe sẽ thấy gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-23",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "ca", "text": "OK, everyone, before the restaurant opens tonight, I want to show you our new ordering tablets.", "translateVi": "Được rồi mọi người, trước khi nhà hàng mở cửa tối nay, tôi muốn giới thiệu máy tính bảng gọi món mới của chúng ta." },
+        { "speaker": "w", "accent": "ca", "text": "From now on, you'll take customers' orders on these tablets instead of on paper. This will help us make fewer mistakes.", "translateVi": "Từ giờ trở đi, mọi người sẽ ghi món cho khách trên những máy tính bảng này thay vì trên giấy. Việc này sẽ giúp chúng ta ít nhầm lẫn hơn." },
+        { "speaker": "w", "accent": "ca", "text": "When you touch Send, the order goes straight to the kitchen, so the cooks can start right away.", "translateVi": "Khi bấm nút Send, món sẽ được gửi thẳng vào bếp, nhờ đó đầu bếp có thể bắt tay vào nấu ngay." },
+        { "speaker": "w", "accent": "ca", "text": "I know some of you are worried about using them. Don't worry. It's easier than it looks.", "translateVi": "Tôi biết một số bạn lo lắng khi phải dùng máy. Đừng lo. Nó dễ hơn vẻ ngoài nhiều." },
+        { "speaker": "w", "accent": "ca", "text": "Each of you will have your own password. You'll find it in the envelope with your name on it. Please don't share it with anyone.", "translateVi": "Mỗi người sẽ có mật khẩu riêng. Mọi người sẽ thấy nó trong phong bì có ghi tên mình. Xin đừng chia sẻ mật khẩu với ai." },
+        { "speaker": "w", "accent": "ca", "text": "Now, please pick up a tablet and practice taking an order with a partner.", "translateVi": "Bây giờ, xin mỗi người cầm một máy tính bảng và tập ghi món cùng một bạn." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely are the listeners?",
+          "options": ["Computer sellers", "Restaurant servers", "Restaurant customers", "Delivery drivers"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "you'll take customers' orders on these tablets instead of on paper" } ],
+          "explainVi": "Người nghe sẽ 'take customers' orders on these tablets' trước khi nhà hàng mở cửa → nhân viên phục vụ nhà hàng, chọn (B). (A) bẫy từ 'tablets' – họ dùng chứ không bán máy; (C) bẫy từ 'customers' – khách là người gọi món, không phải người nghe; (D) không nhắc giao hàng.",
+          "translateVi": "Người nghe có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"It's easier than it looks\"?",
+          "options": ["To make the staff feel better", "To explain a new password", "To ask for help in the kitchen", "To describe a new menu"],
+          "answer": 0,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "I know some of you are worried about using them. Don't worry." } ],
+          "explainVi": "Chị biết 'some of you are worried about using them' nên nói 'Don't worry. It's easier than it looks' để trấn an nhân viên, chọn (A). (B) bẫy – mật khẩu được nhắc ở câu sau, không liên quan; (C) bẫy từ 'kitchen'; (D) không nói thực đơn mới.",
+          "translateVi": "Vì sao người nói nói \"Nó dễ hơn vẻ ngoài nhiều\"?",
+          "vocab": [ { "word": "envelope", "ipa": "/ˈenvələʊp/", "meaningVi": "phong bì" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will listeners do next?",
+          "options": ["Write orders on paper", "Meet the new cooks", "Practice with a partner", "Choose a password"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "please pick up a tablet and practice taking an order with a partner" } ],
+          "explainVi": "'Now, please pick up a tablet and practice taking an order with a partner' → tập cùng bạn, chọn (C). (A) trái ý – máy tính bảng thay cho giấy; (B) không nói đầu bếp mới; (D) bẫy – mật khẩu đã có sẵn trong phong bì, không phải tự chọn.",
+          "translateVi": "Người nghe sẽ làm gì tiếp theo?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-24",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "au", "text": "Have you always wanted to cook like a chef? Then come to Sunny Hill Cooking School!", "translateVi": "Bạn luôn muốn nấu ăn như đầu bếp? Vậy hãy đến Trường dạy nấu ăn Sunny Hill!" },
+        { "speaker": "m", "accent": "au", "text": "We have small, friendly classes every Saturday and Sunday, with no more than eight students in each class. Our teachers are all cooks from local restaurants.", "translateVi": "Chúng tôi có các lớp nhỏ, thân thiện vào mỗi thứ Bảy và Chủ nhật, mỗi lớp không quá tám học viên. Giáo viên của chúng tôi đều là đầu bếp của các nhà hàng địa phương." },
+        { "speaker": "m", "accent": "au", "text": "If you're new to cooking, our two-hour class is the best place to start. You'll make a full meal and take it home.", "translateVi": "Nếu bạn mới học nấu ăn, lớp hai tiếng của chúng tôi là nơi tốt nhất để bắt đầu. Bạn sẽ nấu cả một bữa ăn và mang về nhà." },
+        { "speaker": "m", "accent": "au", "text": "All the food and tools are included in the price, so you don't need to bring anything.", "translateVi": "Tất cả nguyên liệu và dụng cụ đã bao gồm trong học phí, nên bạn không cần mang theo gì." },
+        { "speaker": "m", "accent": "au", "text": "Gift cards are also available. They make a perfect present for a friend.", "translateVi": "Chúng tôi cũng có thẻ quà tặng. Đó là món quà tuyệt vời cho bạn bè." },
+        { "speaker": "m", "accent": "au", "text": "Classes fill up fast, so book your place on our website, sunnyhillcooking.com.", "translateVi": "Các lớp nhanh hết chỗ, vì vậy hãy đặt chỗ trên trang web của chúng tôi, sunnyhillcooking.com." }
+      ],
+      "graphic": {
+        "kind": "price-list",
+        "title": "Sunny Hill Cooking School · Weekend Classes",
+        "columns": [
+          "Class",
+          "Length",
+          "Price"
+        ],
+        "rows": [
+          [
+            "Kitchen Basics",
+            "1 hour",
+            "$25"
+          ],
+          [
+            "Pasta Night",
+            "2 hours",
+            "$45"
+          ],
+          [
+            "Thai Curries",
+            "3 hours",
+            "$60"
+          ],
+          [
+            "Bread Baking",
+            "4 hours",
+            "$75"
+          ]
+        ]
+      },
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is being advertised?",
+          "options": ["A restaurant", "A kitchen supply store", "A gift shop", "A cooking school"],
+          "answer": 3,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Then come to Sunny Hill Cooking School!" } ],
+          "explainVi": "'Come to Sunny Hill Cooking School!' và nói về các lớp học → trường dạy nấu ăn, chọn (D). (A) bẫy – giáo viên làm ở nhà hàng, nhưng quảng cáo không phải cho nhà hàng; (B) bẫy từ 'tools'; (C) bẫy từ 'Gift cards'.",
+          "translateVi": "Quảng cáo này giới thiệu gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Look at the graphic. How much is the class the speaker recommends for beginners?",
+          "options": ["$25", "$45", "$60", "$75"],
+          "answer": 1,
+          "tags": ["graphic"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "If you're new to cooking, our two-hour class is the best place to start." } ],
+          "explainVi": "Người mới học nên bắt đầu với 'our two-hour class'. Trên bảng giá, lớp 2 giờ là Pasta Night giá $45 → (B). (A) bẫy – tên 'Kitchen Basics' nghe như lớp cho người mới nhưng chỉ dài 1 giờ; (C) là lớp 3 giờ; (D) là lớp 4 giờ.",
+          "translateVi": "Hãy nhìn vào bảng giá. Lớp mà người nói khuyên người mới học chọn có giá bao nhiêu?",
+          "vocab": [ { "word": "beginner", "ipa": "/bɪˈɡɪnə(r)/", "meaningVi": "người mới bắt đầu" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "How does the speaker tell listeners to book a class?",
+          "options": ["By phone", "At a restaurant", "Online", "With a gift card"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "book your place on our website" } ],
+          "explainVi": "'Book your place on our website, sunnyhillcooking.com' → đặt chỗ trên mạng, chọn (C). (A) không có số điện thoại; (B) bẫy từ 'local restaurants'; (D) bẫy – thẻ quà tặng là món quà cho bạn bè, không phải cách đặt lớp.",
+          "translateVi": "Người nói bảo người nghe đặt lớp bằng cách nào?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-25",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "us", "text": "Good morning, everyone. This is Sandra from the front office with a quick notice for all staff.", "translateVi": "Chào buổi sáng mọi người. Tôi là Sandra ở văn phòng lễ tân, có một thông báo nhanh cho toàn thể nhân viên." },
+        { "speaker": "w", "accent": "us", "text": "This Saturday, both elevators in our building will be shut down from eight A.M. to four P.M. for repairs.", "translateVi": "Thứ Bảy này, cả hai thang máy trong tòa nhà sẽ ngừng hoạt động từ 8 giờ sáng đến 4 giờ chiều để sửa chữa." },
+        { "speaker": "w", "accent": "us", "text": "If you have to come in to work on Saturday, please use the stairs. Our office is on the ninth floor.", "translateVi": "Nếu phải đến làm vào thứ Bảy, xin hãy đi cầu thang bộ. Văn phòng chúng ta ở tầng chín." },
+        { "speaker": "w", "accent": "us", "text": "Also, the main entrance will be locked all day. Please use the back door on Pine Street, and show your staff card to the guard.", "translateVi": "Ngoài ra, lối vào chính sẽ khóa cả ngày. Xin dùng cửa sau trên phố Pine và trình thẻ nhân viên cho bảo vệ." },
+        { "speaker": "w", "accent": "us", "text": "Everything will be back to normal on Monday morning.", "translateVi": "Mọi thứ sẽ trở lại bình thường vào sáng thứ Hai." },
+        { "speaker": "w", "accent": "us", "text": "If you have any questions, please call me at extension 204. Thank you.", "translateVi": "Nếu có thắc mắc, xin gọi cho tôi theo số máy lẻ 204. Xin cảm ơn." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the notice mainly about?",
+          "options": ["A new office", "Elevator repairs", "A staff party", "A new security guard"],
+          "answer": 1,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "both elevators in our building will be shut down" } ],
+          "explainVi": "Sandra báo 'both elevators in our building will be shut down... for repairs' và hướng dẫn đi lại hôm đó → chủ đề là sửa thang máy, chọn (B). (A) bẫy từ 'office' – văn phòng không chuyển; (C) không nhắc tiệc; (D) bẫy từ 'guard' – bảo vệ chỉ kiểm tra thẻ, không nói người mới.",
+          "translateVi": "Thông báo chủ yếu nói về điều gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "What does the speaker imply when she says, \"Our office is on the ninth floor\"?",
+          "options": ["The office has a nice view", "The office will move soon", "Visitors may get lost", "Walking up will be tiring"],
+          "answer": 3,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "please use the stairs" } ],
+          "explainVi": "Thang máy ngừng nên phải 'use the stairs'; nhắc tầng chín là ngụ ý leo bộ lên sẽ rất mệt, chọn (D). (A) không nói về cảnh nhìn; (B) không nói chuyện chuyển văn phòng; (C) không nhắc khách đến thăm.",
+          "translateVi": "Người nói ngụ ý gì khi nói \"Văn phòng chúng ta ở tầng chín\"?",
+          "vocab": [ { "word": "extension", "ipa": "/ɪkˈstenʃn/", "meaningVi": "số máy lẻ (điện thoại nội bộ)" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should staff show to the guard on Saturday?",
+          "options": ["Their staff cards", "Their office keys", "A visitor pass", "A letter from Sandra"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "show your staff card to the guard" } ],
+          "explainVi": "'Please use the back door on Pine Street, and show your staff card to the guard' → thẻ nhân viên, chọn (A). (B) bẫy liên tưởng 'locked'; (C) thẻ khách dành cho người ngoài, không được nhắc; (D) bẫy tên người nói – Sandra không gửi thư.",
+          "translateVi": "Vào thứ Bảy nhân viên nên trình gì cho bảo vệ?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-26",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "gb", "text": "Good evening, and welcome to the Royal Picture House.", "translateVi": "Chào buổi tối và chào mừng quý khách đến rạp chiếu phim Royal Picture House." },
+        { "speaker": "m", "accent": "gb", "text": "We're sorry to say that tonight's seven o'clock showing of The Last Island has moved from Screen 2 to Screen 4.", "translateVi": "Chúng tôi rất tiếc phải thông báo suất chiếu phim The Last Island lúc 7 giờ tối nay đã chuyển từ phòng chiếu 2 sang phòng chiếu 4." },
+        { "speaker": "m", "accent": "gb", "text": "There's a problem with the sound system in Screen 2, and our technicians are working on it.", "translateVi": "Hệ thống âm thanh ở phòng chiếu 2 đang gặp sự cố và kỹ thuật viên của chúng tôi đang xử lý." },
+        { "speaker": "m", "accent": "gb", "text": "Screen 4 is on the second floor. You can take the escalator next to the snack bar.", "translateVi": "Phòng chiếu 4 nằm ở tầng hai. Quý khách có thể đi thang cuốn cạnh quầy đồ ăn nhẹ." },
+        { "speaker": "m", "accent": "gb", "text": "The film will still start at seven, and your seat numbers will stay the same.", "translateVi": "Phim vẫn bắt đầu lúc 7 giờ và số ghế của quý khách vẫn giữ nguyên." },
+        { "speaker": "m", "accent": "gb", "text": "To say sorry, we'll give everyone with a ticket for this film a free small popcorn. Just show your ticket at the snack bar.", "translateVi": "Để xin lỗi, chúng tôi sẽ tặng mỗi khách có vé xem phim này một phần bắp rang nhỏ miễn phí. Quý khách chỉ cần xuất trình vé tại quầy đồ ăn nhẹ." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the purpose of the announcement?",
+          "options": ["To announce a new start time", "To announce a room change", "To introduce a new film", "To advertise the snack bar"],
+          "answer": 1,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "has moved from Screen 2 to Screen 4" } ],
+          "explainVi": "Suất chiếu 'has moved from Screen 2 to Screen 4' → thông báo đổi phòng chiếu, chọn (B). (A) bẫy – 'The film will still start at seven'; (C) phim đang chiếu, không phải phim mới; (D) bẫy từ 'snack bar' – quầy chỉ là nơi nhận bắp rang.",
+          "translateVi": "Mục đích của thông báo là gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why is Screen 2 not being used?",
+          "options": ["The seats are broken", "It is being cleaned", "It is too small", "The sound system has a problem"],
+          "answer": 3,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "There's a problem with the sound system in Screen 2" } ],
+          "explainVi": "'There's a problem with the sound system in Screen 2' → (D). (A) bẫy từ 'seat numbers' – số ghế giữ nguyên, ghế không hỏng; (B) và (C) không được nhắc.",
+          "translateVi": "Vì sao phòng chiếu 2 không được sử dụng?",
+          "vocab": [ { "word": "escalator", "ipa": "/ˈeskəleɪtə(r)/", "meaningVi": "thang cuốn" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What can listeners get at the snack bar?",
+          "options": ["Free popcorn", "A new ticket", "A free drink", "A seat map"],
+          "answer": 0,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "we'll give everyone with a ticket for this film a free small popcorn" } ],
+          "explainVi": "Rạp tặng 'a free small popcorn' cho người có vé, nhận tại quầy đồ ăn nhẹ → (A). (B) bẫy từ 'ticket' – chỉ cần xuất trình vé cũ; (C) chỉ tặng bắp rang, không phải đồ uống; (D) số ghế không đổi nên không cần sơ đồ ghế.",
+          "translateVi": "Người nghe có thể nhận gì ở quầy đồ ăn nhẹ?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-27",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "au", "text": "Do you love fresh, local food? Then visit the Maple Grove Farmers' Market this Saturday!", "translateVi": "Bạn thích thực phẩm tươi của địa phương? Vậy hãy ghé Chợ Nông sản Maple Grove vào thứ Bảy này!" },
+        { "speaker": "w", "accent": "au", "text": "The market is open every Saturday from eight A.M. to one P.M. in the parking lot of Maple Grove Community Center.", "translateVi": "Chợ mở cửa mỗi thứ Bảy từ 8 giờ sáng đến 1 giờ chiều tại bãi đỗ xe của Trung tâm Cộng đồng Maple Grove." },
+        { "speaker": "w", "accent": "au", "text": "More than thirty local farmers sell fruit, vegetables, eggs, honey, and fresh bread. Everything is grown or made within fifty kilometers of Maple Grove.", "translateVi": "Hơn ba mươi nông dân địa phương bán trái cây, rau củ, trứng, mật ong và bánh mì tươi. Mọi thứ đều được trồng hoặc làm ra trong vòng năm mươi cây số quanh Maple Grove." },
+        { "speaker": "w", "accent": "au", "text": "There's live music, and children can enjoy face painting for free. You can also park for free right next to the market.", "translateVi": "Có nhạc sống, và trẻ em được vẽ mặt miễn phí. Bạn cũng có thể đỗ xe miễn phí ngay cạnh chợ." },
+        { "speaker": "w", "accent": "au", "text": "The best fruit sells out by ten o'clock.", "translateVi": "Trái cây ngon nhất thường bán hết trước 10 giờ." },
+        { "speaker": "w", "accent": "au", "text": "And please bring your own shopping bags, because the market doesn't give out plastic bags. See you on Saturday!", "translateVi": "Và xin hãy mang theo túi mua sắm của mình, vì chợ không phát túi ni lông. Hẹn gặp bạn vào thứ Bảy!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is being advertised?",
+          "options": ["A music concert", "A farmers' market", "A new bakery", "A children's party"],
+          "answer": 1,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "visit the Maple Grove Farmers' Market this Saturday" } ],
+          "explainVi": "Quảng cáo mời 'visit the Maple Grove Farmers' Market' → chợ nông sản, chọn (B). (A) bẫy từ 'live music' – nhạc sống chỉ là hoạt động thêm; (C) bẫy từ 'fresh bread'; (D) bẫy từ 'children can enjoy face painting'.",
+          "translateVi": "Quảng cáo này giới thiệu gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"The best fruit sells out by ten o'clock\"?",
+          "options": ["To explain the market's hours", "To say fruit prices are high", "To encourage listeners to come early", "To ask farmers to bring more fruit"],
+          "answer": 2,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "The best fruit sells out by ten o'clock." } ],
+          "explainVi": "Chợ mở từ 8 giờ mà trái cây ngon hết trước 10 giờ → người nói ngụ ý nên đến sớm, chọn (C). (A) bẫy – giờ mở cửa là 8 giờ đến 1 giờ, 10 giờ không phải giờ đóng cửa; (B) không nói giá; (D) quảng cáo dành cho người mua, không nhờ nông dân.",
+          "translateVi": "Vì sao người nói nói \"Trái cây ngon nhất thường bán hết trước 10 giờ\"?",
+          "vocab": [ { "word": "sell out", "ipa": "/sel aʊt/", "meaningVi": "bán hết" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What are listeners asked to bring?",
+          "options": ["Some fresh bread", "Cash for parking", "Face paints", "Their own shopping bags"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "please bring your own shopping bags" } ],
+          "explainVi": "'Please bring your own shopping bags, because the market doesn't give out plastic bags' → (D). (A) bẫy – bánh mì là hàng được bán ở chợ; (B) bẫy từ 'parking lot' – không nói phí đỗ xe; (C) bẫy – vẽ mặt miễn phí, không cần mang màu.",
+          "translateVi": "Người nghe được yêu cầu mang theo gì?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-28",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "ca", "text": "Good evening, everyone. Thank you all for coming to the Fresh Basket staff party.", "translateVi": "Chào buổi tối mọi người. Cảm ơn tất cả đã đến dự tiệc nhân viên Fresh Basket." },
+        { "speaker": "m", "accent": "ca", "text": "Before we eat, I'd like to give our Employee of the Year award to Rosa Diaz.", "translateVi": "Trước khi dùng bữa, tôi muốn trao giải Nhân viên của năm cho Rosa Diaz." },
+        { "speaker": "m", "accent": "ca", "text": "Rosa has worked at our Elm Road store for twelve years. She started as a cashier, and now she manages the whole fruit and vegetable department.", "translateVi": "Rosa đã làm việc ở cửa hàng đường Elm của chúng ta được mười hai năm. Cô bắt đầu là thu ngân, và giờ cô quản lý toàn bộ quầy rau quả." },
+        { "speaker": "m", "accent": "ca", "text": "Customers often tell us how kind and helpful she is, and she trains all our new staff.", "translateVi": "Khách hàng thường nói với chúng tôi rằng cô ấy tử tế và nhiệt tình thế nào, và cô ấy còn đào tạo tất cả nhân viên mới." },
+        { "speaker": "m", "accent": "ca", "text": "As a thank-you, Rosa will receive two extra days of holiday and a gift card for a dinner for two.", "translateVi": "Để cảm ơn, Rosa sẽ được nghỉ thêm hai ngày phép và nhận một thẻ quà tặng cho bữa tối hai người." },
+        { "speaker": "m", "accent": "ca", "text": "Rosa, please come up and say a few words.", "translateVi": "Rosa, mời cô lên đây và nói đôi lời." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What is the purpose of the speech?",
+          "options": ["To give an award", "To welcome new staff", "To open a new store", "To announce a holiday"],
+          "answer": 0,
+          "tags": ["main-idea"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "I'd like to give our Employee of the Year award to Rosa Diaz" } ],
+          "explainVi": "Người nói: 'I'd like to give our Employee of the Year award to Rosa Diaz' → trao giải thưởng, chọn (A). (B) bẫy từ 'new staff' – Rosa đào tạo nhân viên mới, nhưng không phải lời chào đón họ; (C) cửa hàng đường Elm đã có từ lâu; (D) bẫy từ 'holiday' – ngày phép là phần thưởng cho Rosa.",
+          "translateVi": "Mục đích của bài phát biểu là gì?"
+        },
+        {
+          "no": 2,
+          "prompt": "What was Rosa Diaz's first job at the store?",
+          "options": ["A department manager", "A cashier", "A staff trainer", "A delivery driver"],
+          "answer": 1,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "She started as a cashier" } ],
+          "explainVi": "'She started as a cashier' → (B). (A) bẫy – quản lý quầy rau quả là công việc hiện tại; (C) bẫy – việc đào tạo nhân viên mới cũng là hiện tại; (D) không được nhắc.",
+          "translateVi": "Công việc đầu tiên của Rosa Diaz ở cửa hàng là gì?",
+          "vocab": [ { "word": "award", "ipa": "/əˈwɔːd/", "meaningVi": "giải thưởng" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What will Rosa Diaz most likely do next?",
+          "options": ["Eat dinner", "Train new staff", "Give a short speech", "Go on holiday"],
+          "answer": 2,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 5, "text": "Rosa, please come up and say a few words." } ],
+          "explainVi": "Câu cuối: 'Rosa, please come up and say a few words' → cô sẽ phát biểu ngắn, chọn (C). (A) bẫy – 'Before we eat', bữa ăn diễn ra sau; (B) là việc cô thường làm, không phải ngay sau đó; (D) bẫy – ngày phép là phần thưởng, chưa phải việc tiếp theo.",
+          "translateVi": "Rosa Diaz có lẽ sẽ làm gì tiếp theo?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-29",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "w", "accent": "gb", "text": "Thank you for calling the Westbrook Science Museum. Please listen carefully to the following information.", "translateVi": "Cảm ơn quý khách đã gọi đến Bảo tàng Khoa học Westbrook. Xin vui lòng nghe kỹ những thông tin sau." },
+        { "speaker": "w", "accent": "gb", "text": "The museum is open Tuesday to Sunday, from nine A.M. to five P.M. We are closed on Mondays.", "translateVi": "Bảo tàng mở cửa từ thứ Ba đến Chủ nhật, từ 9 giờ sáng đến 5 giờ chiều. Chúng tôi đóng cửa vào thứ Hai." },
+        { "speaker": "w", "accent": "gb", "text": "Our new space exhibition opens on March tenth. Visitors can see a real moon rock and sit inside a model spaceship.", "translateVi": "Triển lãm vũ trụ mới của chúng tôi khai mạc vào ngày 10 tháng 3. Khách tham quan có thể xem một mẩu đá mặt trăng thật và ngồi trong một mô hình tàu vũ trụ." },
+        { "speaker": "w", "accent": "gb", "text": "Tickets are twelve dollars for adults and six dollars for children. Children under five and museum members get in free.", "translateVi": "Vé người lớn giá mười hai đô la, trẻ em sáu đô la. Trẻ dưới năm tuổi và hội viên bảo tàng được vào miễn phí." },
+        { "speaker": "w", "accent": "gb", "text": "To buy tickets, please press one. For information about school group visits, please press two.", "translateVi": "Để mua vé, xin bấm phím 1. Để biết thông tin về các chuyến tham quan theo nhóm của trường học, xin bấm phím 2." },
+        { "speaker": "w", "accent": "gb", "text": "To hear this message again, please stay on the line. Thank you, and we hope to see you soon.", "translateVi": "Để nghe lại tin nhắn này, xin quý khách giữ máy. Xin cảm ơn, và mong sớm được đón tiếp quý khách." }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "What kind of place is the message from?",
+          "options": ["A movie theater", "A science museum", "A school", "A large toy store"],
+          "answer": 1,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "Thank you for calling the Westbrook Science Museum." } ],
+          "explainVi": "'Thank you for calling the Westbrook Science Museum' → bảo tàng khoa học, chọn (B). (A) bẫy từ 'tickets'; (C) bẫy từ 'school group visits' – trường học là khách, không phải nơi gửi tin nhắn; (D) bẫy từ 'model spaceship'.",
+          "translateVi": "Tin nhắn này là của nơi nào?"
+        },
+        {
+          "no": 2,
+          "prompt": "When is the museum closed?",
+          "options": ["On Tuesdays", "On Sundays", "On Mondays", "On March tenth"],
+          "answer": 2,
+          "tags": ["detail"],
+          "evidence": [ { "doc": -1, "turn": 1, "text": "We are closed on Mondays." } ],
+          "explainVi": "'We are closed on Mondays' → (C). (A) và (B) bẫy – bảo tàng mở 'Tuesday to Sunday'; (D) bẫy – ngày 10 tháng 3 là ngày khai mạc triển lãm.",
+          "translateVi": "Bảo tàng đóng cửa vào khi nào?",
+          "vocab": [ { "word": "exhibition", "ipa": "/ˌeksɪˈbɪʃn/", "meaningVi": "cuộc triển lãm" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should callers do to buy tickets?",
+          "options": ["Press two", "Stay on the line", "Visit the website", "Press one"],
+          "answer": 3,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 4, "text": "To buy tickets, please press one." } ],
+          "explainVi": "'To buy tickets, please press one' → (D). (A) bẫy – phím 2 là thông tin cho đoàn trường học; (B) bẫy – giữ máy để nghe lại tin nhắn; (C) không nhắc trang web.",
+          "translateVi": "Người gọi nên làm gì để mua vé?"
+        }
+      ]
+    },
+    {
+      "key": "p4-450-30",
+      "part": 4,
+      "level": 450,
+      "script": [
+        { "speaker": "m", "accent": "us", "text": "Good morning, everyone, and thank you for coming to the Riverside Park clean-up day. My name is Ben, and I work for the city parks department.", "translateVi": "Chào buổi sáng mọi người, cảm ơn đã đến tham gia ngày dọn dẹp Công viên Riverside. Tôi tên là Ben, làm việc cho sở công viên thành phố." },
+        { "speaker": "m", "accent": "us", "text": "Today we're going to pick up trash along the river and paint the old benches near the playground.", "translateVi": "Hôm nay chúng ta sẽ nhặt rác dọc bờ sông và sơn lại những chiếc ghế dài cũ gần sân chơi." },
+        { "speaker": "m", "accent": "us", "text": "Gloves and trash bags are on the table inside the white tent. Please take a pair of gloves before you start.", "translateVi": "Găng tay và túi rác ở trên bàn trong lều trắng. Xin mỗi người lấy một đôi găng tay trước khi bắt đầu." },
+        { "speaker": "m", "accent": "us", "text": "It's going to be a hot day, so there's a lot of free bottled water in the tent, too.", "translateVi": "Hôm nay trời sẽ nóng, nên trong lều cũng có rất nhiều nước đóng chai miễn phí." },
+        { "speaker": "m", "accent": "us", "text": "We'll stop at noon for lunch, which is pizza from Tony's Kitchen. We should be finished by three o'clock.", "translateVi": "Chúng ta sẽ nghỉ lúc 12 giờ trưa để ăn trưa, có pizza của Tony's Kitchen. Chúng ta sẽ xong việc trước 3 giờ chiều." },
+        { "speaker": "m", "accent": "us", "text": "Now, let's get started!", "translateVi": "Nào, chúng ta bắt đầu thôi!" }
+      ],
+      "questions": [
+        {
+          "no": 1,
+          "prompt": "Who most likely are the listeners?",
+          "options": ["Volunteers", "Tourists", "Restaurant workers", "City park staff"],
+          "answer": 0,
+          "tags": ["who-where"],
+          "evidence": [ { "doc": -1, "turn": 0, "text": "thank you for coming to the Riverside Park clean-up day" } ],
+          "explainVi": "Ben cảm ơn mọi người 'for coming to the Riverside Park clean-up day' và giao việc nhặt rác, sơn ghế → người nghe là tình nguyện viên, chọn (A). (B) khách du lịch không đi dọn công viên; (C) bẫy từ 'Tony's Kitchen' – nhà hàng chỉ cung cấp pizza; (D) bẫy – chỉ Ben làm cho sở công viên.",
+          "translateVi": "Người nghe có lẽ là ai?"
+        },
+        {
+          "no": 2,
+          "prompt": "Why does the speaker say, \"It's going to be a hot day\"?",
+          "options": ["To suggest finishing work early", "To explain why lunch is late", "To tell listeners to go swimming", "To remind listeners to drink water"],
+          "answer": 3,
+          "tags": ["speaker-intent"],
+          "evidence": [ { "doc": -1, "turn": 3, "text": "there's a lot of free bottled water in the tent, too" } ],
+          "explainVi": "Ngay sau câu đó anh nói 'there's a lot of free bottled water in the tent, too' → nhắc mọi người uống nước, chọn (D). (A) anh không đề nghị nghỉ sớm; (B) sai – bữa trưa đúng 12 giờ; (C) bẫy từ 'river' – không ai bảo đi bơi.",
+          "translateVi": "Vì sao người nói nói \"Hôm nay trời sẽ nóng\"?",
+          "vocab": [ { "word": "bench", "ipa": "/bentʃ/", "meaningVi": "ghế dài" } ]
+        },
+        {
+          "no": 3,
+          "prompt": "What should listeners do before they start?",
+          "options": ["Paint the benches", "Take a pair of gloves", "Order some pizza", "Fill out a form"],
+          "answer": 1,
+          "tags": ["next-action"],
+          "evidence": [ { "doc": -1, "turn": 2, "text": "Please take a pair of gloves before you start." } ],
+          "explainVi": "'Please take a pair of gloves before you start' → (B). (A) sơn ghế là một phần công việc, không phải việc làm trước; (C) bẫy từ 'pizza' – pizza đã được chuẩn bị cho bữa trưa; (D) không nhắc điền đơn.",
+          "translateVi": "Người nghe nên làm gì trước khi bắt đầu?"
+        }
+      ]
+    }
+  ]
+}

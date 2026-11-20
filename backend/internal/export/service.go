@@ -53,6 +53,9 @@ func (s *Service) Build(ctx context.Context, userID string) (Export, string, err
 		{CollTalkSessions, &e.TalkSessions},
 		{CollGameBests, &e.GameBests},
 		{CollDailyChallenges, &e.DailyChallenges},
+		{CollToeicAttempts, &e.ToeicAttempts},
+		{CollToeicMistakes, &e.ToeicMistakes},
+		{CollToeicGoals, &e.ToeicGoals},
 	} {
 		docs, err := s.repo.UserDocs(ctx, part.collection, userID)
 		if err != nil {

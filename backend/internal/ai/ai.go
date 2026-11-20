@@ -141,6 +141,8 @@ type Provider interface {
 	SuggestFix(ctx context.Context, req FixRequest) (FixResult, error)
 	// GrammarSpotItems writes sentences of the "Bắn lỗi" game for one grammar point in one request (F26).
 	GrammarSpotItems(ctx context.Context, req GrammarSpotRequest) ([]GrammarSpotItem, error)
+	// ToeicGroups writes TOEIC question groups of one part as import JSON in one request (F27).
+	ToeicGroups(ctx context.Context, req ToeicGroupsRequest) (string, error)
 }
 
 var (

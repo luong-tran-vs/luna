@@ -148,6 +148,7 @@ var userData = []string{
 	export.CollStudyDays, export.CollDictationResults, export.CollReadingAnswers, export.CollWritings,
 	export.CollGrammarProgress, "ask_usage", "lesson_results", export.CollVerbProgress,
 	export.CollTalkSessions, export.CollGameBests, export.CollDailyChallenges,
+	export.CollToeicAttempts, export.CollToeicMistakes, export.CollToeicGoals,
 }
 
 // Delete removes an account and its rows in one transaction.
@@ -160,6 +161,11 @@ func (r *Users) Delete(ctx context.Context, id string) error {
 		return fmt.Errorf("mysql begin: %w", err)
 	}
 	defer func() { _ = tx.Rollback() }()
+	// The groups of the user's TOEIC attempts are keyed by attempt, not by user.
+	if _, err := tx.ExecContext(ctx, `DELETE g FROM toeic_attempt_groups g JOIN toeic_attempts a ON a.id = g.attempt_id
+WHERE a.user_id = ?`, id); err != nil {
+		return fmt.Errorf("mysql delete user toeic_attempt_groups: %w", err)
+	}
 	for _, table := range userData {
 		if _, err := tx.ExecContext(ctx, "DELETE FROM "+table+" WHERE user_id = ?", id); err != nil {
 			return fmt.Errorf("mysql delete user %s: %w", table, err)

@@ -1,0 +1,127 @@
+.narrow {
+  max-width: 760px;
+}
+
+.crumbs a {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-primary-ink);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+a.chip {
+  text-decoration: none;
+}
+
+.verdict {
+  font-weight: 700;
+}
+
+.verdict[data-state='right'] {
+  color: var(--color-ok);
+}
+
+.verdict[data-state='wrong'] {
+  color: var(--color-bad);
+}
+
+.docs {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.doc-tools {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.photo {
+  width: 100%;
+  max-width: 560px;
+  border-radius: var(--radius-md);
+}
+
+.translation,
+.explain {
+  font: var(--text-sm) var(--font-ui);
+  white-space: pre-line;
+}
+
+.vocab {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vocab li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ipa {
+  margin: 0 var(--space-1);
+  font-family: var(--font-ipa);
+  color: var(--color-text-muted);
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+}
+
+.transcript {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.turn {
+  display: grid;
+  gap: 2px;
+  max-width: 92%;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.turn:nth-child(even) {
+  justify-self: end;
+}
+
+.turn.now-reading {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+.turn.evidence {
+  background: color-mix(in srgb, var(--color-warn) 16%, var(--color-surface));
+}
+
+.who {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.vi {
+  color: var(--color-text-muted);
+}
+
+.ev-note {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+}

@@ -1,0 +1,148 @@
+<div class="page wide-page">
+  <header class="page-header">
+    <h1 class="page-title">Luyện thi TOEIC</h1>
+    <div class="actions">
+      <a class="btn" routerLink="/admin/toeic/groups">Kho cụm câu</a>
+      <button type="button" class="btn" (click)="composing.set(true)">Ghép đề tự động</button>
+      <button type="button" class="btn-primary" (click)="creating.set(true)">+ Tạo đề</button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <p class="form-alert" role="alert">{{ error() }}</p>
+  }
+
+  <section class="tests-section" aria-labelledby="tests-title">
+    <h2 class="section-title" id="tests-title">
+      Đề thi
+      @if (cards(); as list) {
+        ({{ list.length }})
+      }
+    </h2>
+    @if (cards(); as list) {
+      <ul class="test-grid">
+        @for (c of list; track c.key) {
+          <li class="test-card">
+            <div class="test-meta">
+              <span>{{ c.kind }} · thứ tự {{ c.order }}</span>
+              <span class="tag" [attr.data-status]="c.status">{{ statusLabel(c.status) }}</span>
+            </div>
+            <h3 class="test-title">
+              <a class="test-link" [routerLink]="['/admin/toeic/tests', c.key]">{{ c.title }}</a>
+            </h3>
+            <p class="muted">{{ c.have }}/{{ c.need }} câu · {{ c.groups }} cụm</p>
+            <div
+              class="bar"
+              role="progressbar"
+              aria-label="Số câu đã có"
+              [attr.aria-valuenow]="c.percent"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <span class="bar-fill" [style.width.%]="c.percent"></span>
+            </div>
+            <ul class="part-chips" aria-label="Các Part">
+              @for (p of c.parts; track p.part) {
+                <li [attr.data-state]="p.state" [title]="p.label">
+                  <span aria-hidden="true">P{{ p.part }}</span>
+                  <span class="sr-only">{{ p.label }}</span>
+                </li>
+              }
+            </ul>
+            @if (c.status !== 'published') {
+              @if (c.ready) {
+                <p class="ok-line">✓ Sẵn sàng đăng</p>
+              } @else {
+                <p class="bad-line">✕ Chưa đăng được: {{ c.reasons.join('; ') }}</p>
+              }
+            }
+            <span class="open-hint" aria-hidden="true">Mở đề →</span>
+          </li>
+        }
+        <li class="new-card">
+          <button type="button" class="new-btn" (click)="composing.set(true)">
+            <b>+ Ghép đề tự động</b>
+            <span class="muted">lấy cụm đã đăng trong kho cho đủ từng Part</span>
+          </button>
+          <button type="button" class="new-btn" (click)="creating.set(true)">
+            <b>+ Tạo đề từ file</b>
+            <span class="muted">dán file trong content/toeic/tests/</span>
+          </button>
+        </li>
+      </ul>
+    } @else if (!error()) {
+      <p class="muted" role="status">Đang tải…</p>
+    }
+  </section>
+
+  <section class="bank-section" aria-labelledby="bank-title">
+    <h2 class="section-title" id="bank-title">Kho cụm câu</h2>
+    <div class="card bank">
+      @if (bank(); as b) {
+        <div class="bank-count">
+          <b>{{ b.total }}</b>
+          <span class="muted">cụm câu</span>
+        </div>
+        <div class="bank-text">
+          <p class="muted">
+            {{ b.published }} đã đăng · {{ b.draft }} nháp · {{ b.hidden }} ẩn ·
+            @if (b.free > 0) {
+              <a [routerLink]="['/admin/toeic/groups']" [queryParams]="{ test: noTest }"
+                >{{ b.free }} cụm chưa thuộc đề nào</a
+              >
+            } @else {
+              0 cụm chưa thuộc đề nào
+            }
+          </p>
+          <p class="muted">
+            Đề thi được ghép từ các cụm này. Nhập JSON, xem trước và đăng/ẩn từng cụm ở trang Kho
+            cụm câu.
+          </p>
+        </div>
+      } @else {
+        <p class="muted bank-text" role="status">Đang tải…</p>
+      }
+      <div class="actions">
+        <button type="button" class="btn" (click)="importing.set(true)">Nhập JSON</button>
+        <a class="btn-primary" routerLink="/admin/toeic/groups">Mở kho cụm câu →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+@if (importing()) {
+  <lu-toeic-import-dialog (closed)="importClosed($event)" />
+}
+@if (composing()) {
+  <lu-toeic-compose-dialog (closed)="composing.set(false)" />
+}
+@if (creating()) {
+  <div class="backdrop">
+    <div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="toeic-test-title">
+      <h2 class="title" id="toeic-test-title">Tạo đề</h2>
+      <p class="muted">
+        Dán file trong content/toeic/tests/: key, title, kind (full, mini50, mini100), order,
+        groups.
+      </p>
+      <lu-json-source idPrefix="toeic-test" [(text)]="testText" [invalid]="!!testError()" />
+      @if (testError()) {
+        <div class="form-alert" role="alert">
+          {{ testError() }}
+          @if (testFields().length > 0) {
+            <ul>
+              @for (f of testFields(); track f.key) {
+                <li>
+                  <code>{{ f.key }}</code>: {{ f.text }}
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
+      <div class="actions">
+        <button type="button" class="btn" (click)="creating.set(false)">Huỷ</button>
+        <button type="button" class="btn-primary" (click)="createTest()">Tạo đề nháp</button>
+      </div>
+    </div>
+  </div>
+}

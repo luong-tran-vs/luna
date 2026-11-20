@@ -125,6 +125,25 @@ export class SpeechService {
     this.speakBrowser(text, rate, handlers, this.onlineFailed, voice);
   }
 
+  /**
+   * Reads text with a browser voice of a language (en-GB for a British speaker...), the voice-th
+   * of that language (people of a conversation sound different); falls back to the best English
+   * voices when the browser has none of that language. The natural voice is never used: it has a
+   * single voice and accent (TOEIC listening, F27).
+   */
+  speakAs(text: string, rate: number, handlers: SpeakHandlers, opts: { lang: string; voice: number }): void {
+    if (!this.synth || !this.browserSupported) {
+      handlers.failed?.('unsupported');
+      return;
+    }
+    this.speakBrowser(text, rate, handlers, this.onlineFailed, opts.voice, opts.lang);
+  }
+
+  /** How many English voices the browser offers (the listening needs two or more to tell people apart). */
+  voiceCount(): number {
+    return (this.synth?.getVoices() ?? []).filter((v) => v.lang.toLowerCase().startsWith('en')).length;
+  }
+
   /** Texts likely to be heard soon: the natural voice generates them ahead (no-op when it is off). */
   prefetch(texts: readonly string[]): void {
     this.voice.prefetch(texts);
@@ -177,6 +196,7 @@ export class SpeechService {
     handlers: SpeakHandlers,
     localOnly = this.onlineFailed,
     voiceIndex = 0,
+    lang?: string,
   ): void {
     if (!this.synth || !this.browserSupported) {
       handlers.failed?.('unsupported');
@@ -186,7 +206,9 @@ export class SpeechService {
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
     u.rate = rate;
-    const voice = this.englishVoice(localOnly, voiceIndex);
+    const voice = lang
+      ? pickVoice(this.synth.getVoices(), lang, voiceIndex, localOnly)
+      : this.englishVoice(localOnly, voiceIndex);
     if (voice) {
       u.voice = voice;
       u.lang = voice.lang;
@@ -243,7 +265,7 @@ export class SpeechService {
       // the device instead, and keep to those for the rest of the visit.
       if (voice && !voice.localService && e.error !== 'interrupted' && e.error !== 'canceled') {
         this.onlineFailed = true;
-        this.speakBrowser(text, rate, handlers, true, voiceIndex);
+        this.speakBrowser(text, rate, handlers, true, voiceIndex, lang);
         return;
       }
       handlers.failed?.(e.error);
@@ -305,4 +327,29 @@ export function voiceScore(v: Pick<SpeechSynthesisVoice, 'name' | 'lang' | 'loca
     score += 1;
   }
   return score;
+}
+
+/**
+ * The browser voice for a language tag ("en-GB") at rank index among the voices of that language,
+ * best first (voiceScore), wrapping round; without any voice of that language, the English voices
+ * (best first). localOnly keeps to the voices on the device. null lets the browser choose.
+ */
+export function pickVoice<V extends Pick<SpeechSynthesisVoice, 'name' | 'lang' | 'localService'>>(
+  voices: readonly V[],
+  lang: string,
+  index: number,
+  localOnly = false,
+): V | null {
+  const norm = (l: string) => l.replace('_', '-').toLowerCase();
+  const want = norm(lang);
+  const english = voices
+    .filter((v) => norm(v.lang).startsWith('en') && (!localOnly || v.localService))
+    .map((v, order) => ({ v, score: voiceScore(v), order }))
+    .sort((a, b) => b.score - a.score || a.order - b.order);
+  const same = english.filter((r) => norm(r.v.lang) === want);
+  const pool = same.length ? same : english;
+  if (!pool.length) {
+    return null;
+  }
+  return pool[Math.abs(index) % pool.length].v;
 }

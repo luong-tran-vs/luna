@@ -3,6 +3,7 @@ package mysql
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -40,6 +41,9 @@ var exportOrder = map[string]string{
 	export.CollTalkSessions:     "created_at, id",
 	export.CollGameBests:        "game",
 	export.CollDailyChallenges:  "day",
+	export.CollToeicAttempts:    "started_at, id",
+	export.CollToeicMistakes:    "question_id",
+	export.CollToeicGoals:       "user_id",
 }
 
 // exportBools are the TINYINT(1) columns that are flags; they are exported as true/false.
@@ -73,7 +77,29 @@ func (r *Export) UserDocs(ctx context.Context, collection, userID string) ([]exp
 	if err == nil && collection == export.CollTalkSessions {
 		flattenBody(docs)
 	}
+	// The TOEIC rows keep JSON in TEXT columns (F27): decoded, the body lifted like a talk session's.
+	if err == nil && collection == export.CollToeicAttempts {
+		decodeTextJSON(docs, "body")
+		flattenBody(docs)
+	}
+	if err == nil && collection == export.CollToeicMistakes {
+		decodeTextJSON(docs, "tags")
+	}
 	return docs, err
+}
+
+// decodeTextJSON decodes the JSON held as text in field; a value that is not JSON stays a string.
+func decodeTextJSON(docs []export.Doc, field string) {
+	for _, d := range docs {
+		s, ok := d[field].(string)
+		if !ok {
+			continue
+		}
+		var v any
+		if err := json.Unmarshal([]byte(s), &v); err == nil {
+			d[field] = v
+		}
+	}
 }
 
 // flattenBody lifts the fields of a talk session's JSON body to the top of the document, the shape

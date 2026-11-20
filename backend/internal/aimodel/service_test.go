@@ -147,3 +147,27 @@ func TestModelByOp(t *testing.T) {
 		t.Errorf("without groq: %q", got)
 	}
 }
+
+func TestModelForOpDefault(t *testing.T) {
+	t.Parallel()
+	svc, _ := newService(&memRepo{}, nil)
+	ctx := t.Context()
+	// No choice: TOEIC groups use their own default, other ops GEMINI_MODEL.
+	if m := svc.ModelFor(ctx, "toeic_groups"); m != "gemini-3.6-flash" {
+		t.Fatalf("toeic default = %q", m)
+	}
+	// The model of every op does not replace an op's default...
+	if _, err := svc.Set(ctx, "gemini-3.8-flash", nil); err != nil {
+		t.Fatal(err)
+	}
+	if m := svc.ModelFor(ctx, "toeic_groups"); m != "gemini-3.6-flash" {
+		t.Fatalf("toeic with a model for every op = %q", m)
+	}
+	// ...the admin's choice for the op does.
+	if _, err := svc.Set(ctx, "", map[string]string{"toeic_groups": "gemini-3.7-flash"}); err != nil {
+		t.Fatal(err)
+	}
+	if m := svc.ModelFor(ctx, "toeic_groups"); m != "gemini-3.7-flash" {
+		t.Fatalf("toeic chosen = %q", m)
+	}
+}

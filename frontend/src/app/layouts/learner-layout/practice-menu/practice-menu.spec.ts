@@ -82,6 +82,7 @@ describe('PracticeMenu (added 2026-11-10)', () => {
       ['Từ hay sai', '/irregular-verbs/mistakes'],
       ['Trò chuyện', '/vocabulary/talk'],
       ['Trò chơi', '/games'],
+      ['TOEIC', '/toeic'],
       ['Tiến độ', '/stats'],
     ]);
     // Nothing learned on the second load: lesson 1 next, no verb typed wrong.

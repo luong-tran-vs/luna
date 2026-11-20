@@ -60,6 +60,22 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./grammar-list/grammar-list').then((m) => m.GrammarList),
   },
   {
+    // TOEIC content (F27): the tests, then Kho cụm câu (groups imported from JSON) and each test.
+    path: 'toeic',
+    title: 'TOEIC · Quản trị · Luna',
+    loadComponent: () => import('./toeic/toeic-admin').then((m) => m.ToeicAdmin),
+  },
+  {
+    path: 'toeic/groups',
+    title: 'Kho cụm câu TOEIC · Quản trị · Luna',
+    loadComponent: () => import('./toeic/groups-page/groups-page').then((m) => m.GroupsPage),
+  },
+  {
+    path: 'toeic/tests/:key',
+    title: 'Đề TOEIC · Quản trị · Luna',
+    loadComponent: () => import('./toeic/test-page/test-page').then((m) => m.TestPage),
+  },
+  {
     path: 'grammar/:pointId',
     title: 'Bài ngữ pháp · Quản trị · Luna',
     loadComponent: () => import('./grammar-detail/grammar-detail').then((m) => m.GrammarDetail),

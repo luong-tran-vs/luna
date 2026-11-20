@@ -26,6 +26,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/storage"
 	"github.com/luongtran/luna/backend/internal/talk"
+	"github.com/luongtran/luna/backend/internal/toeic"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/topicimage"
 	"github.com/luongtran/luna/backend/internal/verbs"
@@ -87,7 +88,9 @@ type Container struct {
 	// topicImages keeps and draws the picture of each topic (added 2026-11-16).
 	topicImages *topicimage.Service
 	// games are the learner's games (F26).
-	games    *games.Service
+	games *games.Service
+	// toeic is the TOEIC Listening & Reading practice (F27).
+	toeic    *toeic.Service
 	progress *progress.Service
 	study    *progress.StudyService
 	export   *export.Service
@@ -120,6 +123,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initTopicImages()
 	c.initProgress()
 	c.initGames()
+	c.initToeic()
 	c.initTalk()
 	c.initExport()
 	return c, nil

@@ -1,0 +1,122 @@
+<article class="doc" [attr.data-kind]="doc().kind" [attr.aria-label]="kindLabel()" lang="en">
+  @if (highlightable()) {
+    <div class="tools" lang="vi">
+      <button type="button" class="tool" (mousedown)="$event.preventDefault()" (click)="mark(false)">
+        Tô vàng
+      </button>
+      <button type="button" class="tool" (mousedown)="$event.preventDefault()" (click)="mark(true)">
+        Bỏ tô
+      </button>
+      <span class="tool-hint">Bôi đen chữ rồi bấm</span>
+    </div>
+  }
+  @if (url(); as u) {
+    <div class="urlbar"><span class="dots" aria-hidden="true">● ● ●</span>{{ u }}</div>
+  }
+  @if (letterLike() && metaLines().length > 0) {
+    <dl class="meta">
+      @for (m of metaLines(); track $index) {
+        <div class="meta-row">
+          <dt>{{ m.k }}:</dt>
+          <dd>{{ m.v }}</dd>
+        </div>
+      }
+    </dl>
+  }
+  @if (doc().title) {
+    <h3 class="doc-title">{{ doc().title }}</h3>
+  }
+  @if (!letterLike() && metaLines().length > 0) {
+    <p class="meta-inline">
+      @for (m of metaLines(); track $index) {
+        <span>{{ m.k }}: {{ m.v }}</span>
+      }
+    </p>
+  }
+  @if (imageSrc(); as src) {
+    <img class="doc-img" crossorigin="use-credentials" [src]="src" alt="Hình minh hoạ của văn bản" loading="lazy" />
+  }
+
+  @for (b of blocks(); track b.id) {
+    @switch (b.block.kind) {
+      @case ('h') {
+        <h4 class="h" [attr.data-block]="b.id">
+          <ng-container *ngTemplateOutlet="segs; context: { $implicit: b.segments }" />
+        </h4>
+      }
+      @case ('list') {
+        <ul class="list" [attr.data-block]="b.id">
+          @for (it of b.items; track $index) {
+            <li><ng-container *ngTemplateOutlet="segs; context: { $implicit: it }" /></li>
+          }
+        </ul>
+      }
+      @case ('table') {
+        <div class="table-wrap" [attr.data-block]="b.id">
+          <table>
+            <thead>
+              <tr>
+                @for (c of b.block.table?.columns ?? []; track $index) {
+                  <th scope="col">{{ c }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of b.block.table?.rows ?? []; track $index) {
+                <tr>
+                  @for (cell of row; track $index) {
+                    <td>{{ cell }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+      @case ('msg') {
+        <div class="msg" [attr.data-block]="b.id">
+          <p class="msg-head">
+            <b>{{ b.block.who }}</b>
+            @if (b.block.time) {
+              <span class="msg-time">{{ b.block.time }}</span>
+            }
+          </p>
+          <p class="msg-text">
+            <ng-container *ngTemplateOutlet="segs; context: { $implicit: b.segments }" />
+          </p>
+        </div>
+      }
+      @default {
+        <p class="p" [attr.data-block]="b.id">
+          <ng-container *ngTemplateOutlet="segs; context: { $implicit: b.segments }" />
+        </p>
+      }
+    }
+  }
+
+  @if (showTranslation() && doc().translateVi) {
+    <p class="translation" lang="vi">{{ doc().translateVi }}</p>
+  }
+</article>
+
+<ng-template #segs let-list>
+  @for (s of list; track $index) {
+    @switch (s.kind) {
+      @case ('blank') {
+        <span class="blank" [class.active]="activeBlank() === s.no" lang="vi"
+          >({{ blankNumbers()[s.no] ?? s.no }}) ______</span
+        >
+      }
+      @case ('bold') {
+        <b [class]="s.mark ? 'mark-' + s.mark : ''">{{ s.text }}</b>
+      }
+      @default {
+        @if (s.mark) {
+          <mark [class]="'mark-' + s.mark">{{ s.text }}</mark>
+        } @else {
+          {{ s.text }}
+        }
+      }
+    }
+  }
+</ng-template>

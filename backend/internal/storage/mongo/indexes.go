@@ -122,6 +122,12 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 		return fmt.Errorf("grammar_spot_items index: %w", err)
 	}
 
+	// TOEIC (F27): groups and tests by key, the learners' attempts, one notebook entry per question
+	// and one goal per learner.
+	if err := ensureToeicIndexes(ctx, db); err != nil {
+		return err
+	}
+
 	// Daily flow (L).
 	_, err = db.Collection("goals").Indexes().CreateMany(ctx, []mongo.IndexModel{
 		// One goal per roadmap: a topic at one level.
@@ -241,6 +247,35 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	return nil
 }
 
+// ensureToeicIndexes creates the indexes of the TOEIC collections (F27).
+func ensureToeicIndexes(ctx context.Context, db *mongo.Database) error {
+	sets := []struct {
+		coll   string
+		models []mongo.IndexModel
+	}{
+		{collToeicGroups, []mongo.IndexModel{
+			{Keys: bson.D{{Key: "key", Value: 1}}, Options: options.Index().SetUnique(true)},
+			{Keys: bson.D{{Key: "part", Value: 1}, {Key: "status", Value: 1}}},
+		}},
+		{collToeicTests, []mongo.IndexModel{{Keys: bson.D{{Key: "key", Value: 1}}, Options: options.Index().SetUnique(true)}}},
+		{export.CollToeicAttempts, []mongo.IndexModel{
+			{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "status", Value: 1}, {Key: "startedAt", Value: -1}}},
+			{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "source.testKey", Value: 1}}},
+			{Keys: bson.D{{Key: "groupKeys", Value: 1}}},
+		}},
+		{export.CollToeicMistakes, []mongo.IndexModel{
+			{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "questionId", Value: 1}}, Options: options.Index().SetUnique(true)},
+		}},
+		{export.CollToeicGoals, []mongo.IndexModel{{Keys: bson.D{{Key: "userId", Value: 1}}, Options: options.Index().SetUnique(true)}}},
+	}
+	for _, set := range sets {
+		if _, err := db.Collection(set.coll).Indexes().CreateMany(ctx, set.models); err != nil {
+			return fmt.Errorf("%s index: %w", set.coll, err)
+		}
+	}
+	return nil
+}
+
 // EnsureImageIndexes creates the indexes of the word pictures' database. It is idempotent.
 func EnsureImageIndexes(ctx context.Context, db *mongo.Database) error {
 	// F23: one picture per word of a lesson.
@@ -258,6 +293,14 @@ func EnsureImageIndexes(ctx context.Context, db *mongo.Database) error {
 	})
 	if err != nil {
 		return fmt.Errorf("grammar_images index: %w", err)
+	}
+	// One picture per slot of a TOEIC group (F27).
+	_, err = db.Collection(collToeicImages).Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "groupKey", Value: 1}, {Key: "slot", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("toeic_images index: %w", err)
 	}
 	return nil
 }

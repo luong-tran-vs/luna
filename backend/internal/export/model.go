@@ -43,6 +43,10 @@ type Export struct {
 	// games (F26).
 	GameBests       []Doc `json:"gameBests"`
 	DailyChallenges []Doc `json:"dailyChallenges"`
+	// ToeicAttempts, ToeicMistakes and ToeicGoals are the TOEIC sittings, mistakes notebook and goal (F27).
+	ToeicAttempts []Doc `json:"toeicAttempts"`
+	ToeicMistakes []Doc `json:"toeicMistakes"`
+	ToeicGoals    []Doc `json:"toeicGoals"`
 }
 
 // Collections a learner's documents are exported from. Nothing else (sessions, users) is ever
@@ -61,6 +65,9 @@ const (
 	CollTalkSessions     = "talk_sessions"
 	CollGameBests        = "game_bests"
 	CollDailyChallenges  = "daily_challenges"
+	CollToeicAttempts    = "toeic_attempts"
+	CollToeicMistakes    = "toeic_mistakes"
+	CollToeicGoals       = "toeic_goals"
 )
 
 // Allowed reports whether collection may be read by UserDocs.
@@ -68,7 +75,7 @@ func Allowed(collection string) bool {
 	switch collection {
 	case CollCards, CollReviewLogs, CollGoals, CollLessonProgress, CollStudyDays, CollDictationResults,
 		CollReadingAnswers, CollWritings, CollGrammarProgress, CollVerbProgress, CollTalkSessions,
-		CollGameBests, CollDailyChallenges:
+		CollGameBests, CollDailyChallenges, CollToeicAttempts, CollToeicMistakes, CollToeicGoals:
 		return true
 	}
 	return false
