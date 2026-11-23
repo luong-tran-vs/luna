@@ -148,6 +148,10 @@ Chỉ khi bài đã nộp. Trả cả cụm có đáp án:
   test_not_ready` kèm `check`.
 - `GET /api/admin/toeic/tests` · `GET /api/admin/toeic/tests/{key}` → đề + `check { parts: [{part, have, need}],
   draftGroups, missingPhotos: [{groupKey, number}], graphics, docs, listeningMinutes, ready }`.
+- `DELETE /api/admin/toeic/tests/{key}` → `204` (cụm của đề vẫn ở kho); đề đang đăng → `400 fields.status`; đề đã có bài
+  làm của người học → `400 fields.attempts`; mã lạ → `404`.
+- `POST /api/admin/toeic/tests/compose` `{ kind, title?, key?, partial?, dryRun? }` → `plan.parts[]` có thêm
+  `levels: {"450": n, …}` (số câu từng mức) và `note` (khi kho không đủ cụm cho cấu trúc đề thật, Part ghép theo số câu).
 - `POST /api/admin/toeic/images/{groupKey}/{slot}/generate` `{ "engine": "gemini" | "codex" }` (bắt buộc) → `200`
   `{ imageUrl }`; lỗi vẽ theo `drawError` như lesson/wordbank.
 - `POST /api/admin/toeic/images/{groupKey}/{slot}` (multipart, JPEG/PNG/GIF ≤ 5 MB, thu nhỏ ở server) → `200`.

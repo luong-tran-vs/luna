@@ -273,6 +273,27 @@ func (s *Service) ListTestsAdmin(ctx context.Context) ([]TestAdmin, error) {
 	return out, nil
 }
 
+// DeleteTest removes a test that is not published and that no learner has taken (finished or not);
+// its groups stay in the bank. A test with attempts is kept: deleting it would break the learners'
+// history and results; it can be hidden instead.
+func (s *Service) DeleteTest(ctx context.Context, key string) error {
+	t, err := s.d.Tests.Get(ctx, key)
+	if err != nil {
+		return err
+	}
+	if t.Status == StatusPublished {
+		return invalid("status", "Đề đang đăng: ẩn đề trước khi xoá")
+	}
+	n, err := s.d.Attempts.CountWithTest(ctx, key)
+	if err != nil {
+		return err
+	}
+	if n > 0 {
+		return invalid("attempts", fmt.Sprintf("Đề đã có %d bài làm của người học: hãy ẩn thay vì xoá", n))
+	}
+	return s.d.Tests.Delete(ctx, key)
+}
+
 // SetTestStatus publishes, hides or unpublishes a test; publishing needs a ready test.
 func (s *Service) SetTestStatus(ctx context.Context, key string, st Status) (TestAdmin, error) {
 	if !st.Valid() {

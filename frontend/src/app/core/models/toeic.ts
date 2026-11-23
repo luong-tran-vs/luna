@@ -458,6 +458,10 @@ export interface ComposePart {
   reused: number;
   available: number;
   filled: boolean;
+  /** How many of the picked questions are of each level (450, 600, 750, 900). */
+  levels?: Partial<Record<number, number>>;
+  /** Set when the bank could not follow the real exam's layout and the part was made by count. */
+  note?: string;
 }
 
 /** The test the app would make from the published groups. */

@@ -225,6 +225,16 @@ func (f *fakeTests) SetStatus(_ context.Context, key string, s Status) error {
 	return nil
 }
 
+func (f *fakeTests) Delete(_ context.Context, key string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if _, ok := f.recs[key]; !ok {
+		return ErrNotFound
+	}
+	delete(f.recs, key)
+	return nil
+}
+
 // --- attempts ---
 
 type fakeAttempts struct {
@@ -331,6 +341,18 @@ func (f *fakeAttempts) WithGroup(_ context.Context, key string) ([]Attempt, erro
 		}
 	}
 	return out, nil
+}
+
+func (f *fakeAttempts) CountWithTest(_ context.Context, key string) (int, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	n := 0
+	for _, a := range f.recs {
+		if a.Source.TestKey == key {
+			n++
+		}
+	}
+	return n, nil
 }
 
 func (f *fakeAttempts) UpdateResult(_ context.Context, id string, r Result) error {

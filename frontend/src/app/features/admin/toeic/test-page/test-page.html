@@ -19,6 +19,14 @@
             Ẩn đề
           </button>
         } @else {
+          <button
+            type="button"
+            class="btn btn-danger"
+            [disabled]="busy()"
+            (click)="deleting.set(true)"
+          >
+            Xoá đề
+          </button>
           <button type="button" class="btn" (click)="startEdit()">Sửa JSON</button>
           <button
             type="button"
@@ -159,3 +167,14 @@
     </div>
   </div>
 }
+
+<lu-confirm-dialog
+  [open]="deleting()"
+  title="Xoá đề?"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá đề"
+  [danger]="true"
+  [confirmDisabled]="busy()"
+  (confirmed)="deleteTest()"
+  (cancelled)="deleting.set(false)"
+/>

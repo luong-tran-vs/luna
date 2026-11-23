@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { TestAdmin, ToeicStatus } from '../../../../core/models/toeic';
 import { ToeicApiService } from '../../../../core/services/toeic-api.service';
+import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 import { kindLabel, PART_NAMES } from '../../../toeic/shared/score.logic';
 import { errorBody, fieldLines, parseJson } from '../../json-import/json-import';
 import { JsonSource } from '../../json-import/json-source';
@@ -17,13 +18,14 @@ import { reasonsOf, STATUS_LABELS } from '../toeic-admin.logic';
  */
 @Component({
   selector: 'lu-toeic-test-page',
-  imports: [RouterLink, JsonSource, GroupPreview, PhotoPanel],
+  imports: [RouterLink, JsonSource, GroupPreview, PhotoPanel, ConfirmDialog],
   templateUrl: './test-page.html',
   styleUrls: ['../toeic-admin.css', './test-page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestPage {
   private readonly api = inject(ToeicApiService);
+  private readonly router = inject(Router);
   private readonly key = inject(ActivatedRoute).snapshot.paramMap.get('key') ?? '';
 
   protected readonly test = signal<TestAdmin | null>(null);
@@ -35,6 +37,12 @@ export class TestPage {
   protected readonly editError = signal('');
   protected readonly editFields = signal<{ key: string; text: string }[]>([]);
   protected readonly names = PART_NAMES;
+  protected readonly deleting = signal(false);
+  protected readonly deleteMessage = computed(
+    () =>
+      `Đề "${this.test()?.title ?? this.key}" sẽ bị xoá hẳn. Các cụm câu của đề vẫn ở trong kho. ` +
+      'Đề đã có người học làm thì không xoá được: hãy ẩn đề.',
+  );
 
   protected readonly reasons = computed(() => {
     const t = this.test();
@@ -82,6 +90,19 @@ export class TestPage {
       error: (err: unknown) => {
         this.busy.set(false);
         this.error.set(errorBody(err).message ?? 'Chưa đổi được trạng thái đề.');
+      },
+    });
+  }
+
+  protected deleteTest(): void {
+    this.busy.set(true);
+    this.error.set('');
+    this.api.deleteTest(this.key).subscribe({
+      next: () => void this.router.navigate(['/admin/toeic']),
+      error: (err: unknown) => {
+        this.busy.set(false);
+        this.deleting.set(false);
+        this.error.set(errorBody(err).message ?? 'Chưa xoá được đề.');
       },
     });
   }

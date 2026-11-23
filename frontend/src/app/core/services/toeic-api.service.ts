@@ -229,6 +229,11 @@ export class ToeicApiService {
       .pipe(map((r) => r.test));
   }
 
+  /** Deletes a test that is not published and no learner has taken; its groups stay in the bank. */
+  deleteTest(key: string): Observable<void> {
+    return this.http.delete<void>(`/admin/toeic/tests/${encodeURIComponent(key)}`);
+  }
+
   /** "Ghép đề tự động": the plan (dryRun) or the draft test made from the published groups. */
   composeTest(input: ComposeInput): Observable<{ plan: ComposePlan; test?: TestAdmin }> {
     return this.http.post<{ plan: ComposePlan; test?: TestAdmin }>(

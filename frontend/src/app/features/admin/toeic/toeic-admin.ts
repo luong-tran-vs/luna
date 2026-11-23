@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { GroupAdmin, TestAdmin, ToeicStatus } from '../../../core/models/toeic';
 import { ToeicApiService } from '../../../core/services/toeic-api.service';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { errorBody, fieldLines, parseJson } from '../json-import/json-import';
 import { JsonSource } from '../json-import/json-source';
 import { ComposeDialog } from './compose-dialog';
@@ -15,7 +16,7 @@ import { bankSummary, NO_TEST, STATUS_LABELS, testCard } from './toeic-admin.log
  */
 @Component({
   selector: 'lu-toeic-admin',
-  imports: [RouterLink, ToeicImportDialog, JsonSource, ComposeDialog],
+  imports: [RouterLink, ToeicImportDialog, JsonSource, ComposeDialog, ConfirmDialog],
   templateUrl: './toeic-admin.html',
   styleUrls: [
     '../../../shared/components/confirm-dialog/confirm-dialog.css',
@@ -37,6 +38,14 @@ export class ToeicAdmin {
   protected readonly testText = signal('');
   protected readonly testError = signal('');
   protected readonly testFields = signal<{ key: string; text: string }[]>([]);
+
+  protected readonly deleting = signal<{ key: string; title: string } | null>(null);
+  protected readonly deleteBusy = signal(false);
+  protected readonly deleteMessage = computed(
+    () =>
+      `Đề "${this.deleting()?.title ?? ''}" sẽ bị xoá hẳn. Các cụm câu của đề vẫn ở trong kho. ` +
+      'Đề đã có người học làm thì không xoá được: hãy ẩn đề.',
+  );
 
   protected readonly cards = computed(() => this.tests()?.map(testCard) ?? null);
   protected readonly bank = computed(() => {
@@ -63,6 +72,27 @@ export class ToeicAdmin {
 
   protected statusLabel(s: ToeicStatus): string {
     return STATUS_LABELS[s];
+  }
+
+  protected deleteTest(): void {
+    const t = this.deleting();
+    if (!t) {
+      return;
+    }
+    this.deleteBusy.set(true);
+    this.error.set('');
+    this.api.deleteTest(t.key).subscribe({
+      next: () => {
+        this.deleteBusy.set(false);
+        this.deleting.set(null);
+        this.loadTests();
+      },
+      error: (err: unknown) => {
+        this.deleteBusy.set(false);
+        this.deleting.set(null);
+        this.error.set(errorBody(err).message ?? 'Chưa xoá được đề.');
+      },
+    });
   }
 
   protected importClosed(changed: boolean): void {

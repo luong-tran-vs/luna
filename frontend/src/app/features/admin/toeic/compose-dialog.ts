@@ -11,12 +11,13 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ComposePlan, TestKind } from '../../../core/models/toeic';
+import { ComposePart, ComposePlan, TestKind } from '../../../core/models/toeic';
 import { ToeicApiService } from '../../../core/services/toeic-api.service';
 import { kindLabel, PART_NAMES } from '../../toeic/shared/score.logic';
 import { errorBody } from '../json-import/json-import';
 
 const KINDS: TestKind[] = ['full', 'mini100', 'mini50'];
+const LEVELS = [450, 600, 750, 900];
 
 /**
  * "Ghép đề tự động": the app picks published groups so each part has the questions the kind needs
@@ -36,8 +37,10 @@ const KINDS: TestKind[] = ['full', 'mini100', 'mini50'];
       >
         <h2 class="title" id="compose-title">Ghép đề tự động</h2>
         <p class="muted">
-          Lấy các cụm đã đăng trong kho cho đủ số câu từng Part, ưu tiên cụm chưa thuộc đề nào. Đề
-          tạo ra ở dạng nháp.
+          Lấy các cụm đã đăng trong kho cho đủ số câu từng Part, ưu tiên cụm chưa thuộc đề nào. Mỗi
+          Part trộn các mức điểm theo tỉ lệ 20/30/30/20% (450/600/750/900), câu dễ trước; Part 3/4
+          để cụm có biểu đồ ở cuối, Part 7 lấy đúng số cụm 2 bài và 3 bài như đề thật. Đề tạo ra ở
+          dạng nháp.
         </p>
         <div class="fields">
           <label>
@@ -71,6 +74,7 @@ const KINDS: TestKind[] = ['full', 'mini100', 'mini50'];
                 <th scope="col">Cần</th>
                 <th scope="col">Lấy được</th>
                 <th scope="col">Cụm (dùng lại)</th>
+                <th scope="col">Mức 450/600/750/900</th>
                 <th scope="col">Kho có</th>
               </tr>
             </thead>
@@ -87,11 +91,17 @@ const KINDS: TestKind[] = ['full', 'mini100', 'mini50'];
                       row.filled ? row.groups + (row.reused ? ' (' + row.reused + ')' : '') : '—'
                     }}
                   </td>
+                  <td>{{ row.filled ? levelsText(row) : '—' }}</td>
                   <td>{{ row.available }} câu</td>
                 </tr>
               }
             </tbody>
           </table>
+          @for (row of p.parts; track row.part) {
+            @if (row.note) {
+              <p class="note">Part {{ row.part }}: {{ row.note }}</p>
+            }
+          }
           @if (!p.complete) {
             <label class="check">
               <input type="checkbox" [checked]="partial()" (change)="partial.set(!partial())" />
@@ -151,6 +161,11 @@ const KINDS: TestKind[] = ['full', 'mini100', 'mini50'];
     .plan tr[data-ok='false'] td:nth-child(3) {
       color: var(--color-bad);
     }
+    .note {
+      margin: 0;
+      font: var(--text-sm) var(--font-ui);
+      color: var(--color-text);
+    }
     .check {
       display: flex;
       gap: var(--space-2);
@@ -189,6 +204,11 @@ export class ComposeDialog {
 
   protected label(k: TestKind): string {
     return kindLabel(k);
+  }
+
+  /** The questions picked of each level, e.g. "11/16/16/11". */
+  protected levelsText(row: ComposePart): string {
+    return LEVELS.map((lv) => row.levels?.[lv] ?? 0).join('/');
   }
 
   protected setKind(event: Event): void {

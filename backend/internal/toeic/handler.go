@@ -70,6 +70,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/toeic/tests/{key}", admin(h.getTest))
 	mux.Handle("PUT /api/admin/toeic/tests/{key}", admin(h.updateTest))
 	mux.Handle("PATCH /api/admin/toeic/tests/{key}", admin(h.testStatus))
+	mux.Handle("DELETE /api/admin/toeic/tests/{key}", admin(h.deleteTest))
 }
 
 func principal(r *http.Request) httpx.Principal {
@@ -616,6 +617,14 @@ func (h *Handler) testStatus(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{"test": toTestJSON(ta, true)})
+}
+
+func (h *Handler) deleteTest(w http.ResponseWriter, r *http.Request) {
+	if err := h.svc.DeleteTest(r.Context(), r.PathValue("key")); err != nil {
+		h.fail(w, r, err)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }
 
 // fail writes the error of a request.

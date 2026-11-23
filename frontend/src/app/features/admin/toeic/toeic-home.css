@@ -198,3 +198,16 @@
     min-height: 0;
   }
 }
+
+.card-foot {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Above the card's stretched link, so it is its own button. */
+.card-delete {
+  position: relative;
+  z-index: 1;
+}

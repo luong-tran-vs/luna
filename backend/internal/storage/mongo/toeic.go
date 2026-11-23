@@ -349,6 +349,18 @@ func (r *ToeicTests) SetStatus(ctx context.Context, key string, s toeic.Status) 
 	return nil
 }
 
+// Delete removes a test.
+func (r *ToeicTests) Delete(ctx context.Context, key string) error {
+	res, err := r.coll.DeleteOne(ctx, bson.D{{Key: "key", Value: key}})
+	if err != nil {
+		return fmt.Errorf("delete toeic test: %w", err)
+	}
+	if res.DeletedCount == 0 {
+		return toeic.ErrNotFound
+	}
+	return nil
+}
+
 // --- toeic_attempts ---
 
 type toeicSourceDoc struct {
@@ -606,6 +618,15 @@ func (r *ToeicAttempts) AnsweredQuestions(ctx context.Context, userID string) (m
 // WithGroup returns every submitted attempt having the group.
 func (r *ToeicAttempts) WithGroup(ctx context.Context, groupKey string) ([]toeic.Attempt, error) {
 	return r.find(ctx, bson.D{{Key: "groupKeys", Value: groupKey}, {Key: "status", Value: string(toeic.AttemptSubmitted)}}, 0)
+}
+
+// CountWithTest returns how many attempts are of the test.
+func (r *ToeicAttempts) CountWithTest(ctx context.Context, testKey string) (int, error) {
+	n, err := r.coll.CountDocuments(ctx, bson.D{{Key: "source.testKey", Value: testKey}})
+	if err != nil {
+		return 0, fmt.Errorf("count toeic attempts of test: %w", err)
+	}
+	return int(n), nil
 }
 
 // UpdateResult replaces the result of a submitted attempt.

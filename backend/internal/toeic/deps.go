@@ -50,6 +50,8 @@ type TestRepository interface {
 	Save(ctx context.Context, t Test) error
 	// SetStatus changes the status of a test; ErrNotFound for an unknown key.
 	SetStatus(ctx context.Context, key string, s Status) error
+	// Delete removes a test; ErrNotFound for an unknown key.
+	Delete(ctx context.Context, key string) error
 }
 
 // AttemptFilter narrows the attempts of a learner; zero values match everything.
@@ -79,6 +81,8 @@ type AttemptRepository interface {
 	AnsweredQuestions(ctx context.Context, userID string) (map[string]bool, error)
 	// WithGroup returns every submitted attempt (of any learner) that has the group.
 	WithGroup(ctx context.Context, groupKey string) ([]Attempt, error)
+	// CountWithTest returns how many attempts (of any learner, in any status) are of the test.
+	CountWithTest(ctx context.Context, testKey string) (int, error)
 	// UpdateResult replaces the result of a submitted attempt.
 	UpdateResult(ctx context.Context, id string, r Result) error
 }

@@ -381,6 +381,20 @@ func (r *ToeicTests) SetStatus(ctx context.Context, key string, s toeic.Status) 
 	return nil
 }
 
+// Delete removes a test.
+func (r *ToeicTests) Delete(ctx context.Context, key string) error {
+	res, err := r.db.ExecContext(ctx, "DELETE FROM toeic_tests WHERE test_key = ?", key)
+	if err != nil {
+		return fmt.Errorf("mysql delete toeic test: %w", err)
+	}
+	if ok, err := changed(res); err != nil {
+		return err
+	} else if !ok {
+		return toeic.ErrNotFound
+	}
+	return nil
+}
+
 // --- toeic_attempts ---
 
 // toeicAttemptBody is the JSON body of an attempt row.
@@ -583,6 +597,15 @@ func (r *ToeicAttempts) AnsweredQuestions(ctx context.Context, userID string) (m
 func (r *ToeicAttempts) WithGroup(ctx context.Context, groupKey string) ([]toeic.Attempt, error) {
 	return r.query(ctx, `WHERE status = ? AND id IN (SELECT attempt_id FROM toeic_attempt_groups WHERE group_key = ?)
 ORDER BY started_at DESC, id DESC`, string(toeic.AttemptSubmitted), groupKey)
+}
+
+// CountWithTest returns how many attempts are of the test.
+func (r *ToeicAttempts) CountWithTest(ctx context.Context, testKey string) (int, error) {
+	var n int
+	if err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM toeic_attempts WHERE test_key = ?", testKey).Scan(&n); err != nil {
+		return 0, fmt.Errorf("mysql count toeic attempts of test: %w", err)
+	}
+	return n, nil
 }
 
 // UpdateResult replaces the result of a submitted attempt.
