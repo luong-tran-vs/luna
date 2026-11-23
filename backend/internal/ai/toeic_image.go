@@ -33,20 +33,37 @@ func ImageOp(req ImageRequest) string {
 	return "image"
 }
 
+// photoStyle is the camera, light and detail direction of every TOEIC picture: without it image
+// models tend to give smooth, illustration-like pictures even when asked for a photo.
+const photoStyle = "Photography style:\n" +
+	"- Shot on a full-frame DSLR, 35mm lens, f/5.6, 1/250s, ISO 200, at eye level.\n" +
+	"- Natural light, soft realistic shadows, true-to-life colours, no colour grading, no HDR look.\n" +
+	"- Real human anatomy and proportions: natural skin texture with pores and slight imperfections, realistic hair, " +
+	"correct hands with five fingers, natural relaxed facial expressions, not looking at the camera.\n" +
+	"- Ordinary people of varied ages and backgrounds (not models), in ordinary work or everyday clothes with real fabric " +
+	"folds and wrinkles.\n" +
+	"- Real materials: worn surfaces, small everyday details, slight dust and wear, as in an unstaged documentary or stock photo.\n" +
+	"- Sharp focus on the main subject, light natural depth of field.\n"
+
+// photoAvoid names the looks that give an AI picture away.
+const photoAvoid = "Avoid: illustration, cartoon, anime, 3D render, CGI, digital painting, plastic or waxy skin, airbrushed " +
+	"faces, over-smooth surfaces, oversaturated colours, glowing light, fantasy look, distorted hands or faces.\n"
+
 // photoPrompt describes a realistic photograph of a workplace or everyday scene, as printed in the
 // TOEIC test book: the statement must be plainly true of it.
 func photoPrompt(p PhotoBrief) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Create one realistic photograph for an English listening test (TOEIC Part 1). Scene: %s\n", strings.TrimSpace(p.Scene))
+	b.WriteString("Create one photorealistic photograph, indistinguishable from a real photo taken by a professional " +
+		"photographer, for an English listening test (TOEIC Part 1).\n")
+	fmt.Fprintf(&b, "Scene: %s\n", strings.TrimSpace(p.Scene))
 	if s := strings.TrimSpace(p.Statement); s != "" {
 		fmt.Fprintf(&b, "This statement must be clearly and unmistakably true of the photo: %q. "+
 			"Show every person, action and object it names, in the state it describes.\n", s)
 	}
-	b.WriteString("Style: a natural documentary photo taken with a standard lens at eye level, real people of varied ages and " +
-		"backgrounds in ordinary work or everyday clothes, natural light, realistic colours and textures, sharp focus. " +
-		"Not an illustration, not a cartoon, not 3D render.\n")
+	b.WriteString(photoStyle)
 	b.WriteString("Composition: landscape 4:3, the people or objects of the scene large and easy to see, an ordinary setting " +
 		"with only a few other objects that fit it.\n")
+	b.WriteString(photoAvoid)
 	b.WriteString("Do not show any readable letters, words, numbers, logos or signs with writing; no border, frame or watermark.")
 	return b.String()
 }
@@ -65,7 +82,8 @@ func docPicturePrompt(d DocPictureBrief) string {
 	}
 	kind := strings.TrimSpace(d.Kind)
 	var b strings.Builder
-	fmt.Fprintf(&b, "Create one realistic photo to be printed next to a short English %s in a reading test", kind)
+	fmt.Fprintf(&b, "Create one photorealistic photo, like a real stock photo, to be printed next to a short English %s "+
+		"in a reading test", kind)
 	if t := strings.TrimSpace(d.Title); t != "" {
 		fmt.Fprintf(&b, " titled %q", t)
 	}
@@ -80,8 +98,9 @@ func docPicturePrompt(d DocPictureBrief) string {
 	if len(text) > 0 {
 		fmt.Fprintf(&b, "The text: %q\n", string(text))
 	}
-	b.WriteString("Style: a clean, natural photo with soft light and realistic colours; not an illustration or cartoon.\n")
+	b.WriteString(photoStyle)
 	b.WriteString("Composition: landscape 4:3, one clear subject, a simple background.\n")
+	b.WriteString(photoAvoid)
 	b.WriteString("Do not show any readable letters, words, numbers, prices, dates or logos, and nothing that answers a question " +
 		"about the text; no border, frame or watermark.")
 	return b.String()
