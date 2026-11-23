@@ -14,6 +14,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 	"github.com/luongtran/luna/backend/internal/progress"
+	"github.com/luongtran/luna/backend/internal/progressreset"
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/toeic"
@@ -70,6 +71,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	topicimage.NewHandler(c.topicImages, log).Register(mux, auth)
 	games.NewHandler(c.games, log).Register(mux, auth)
 	toeic.NewHandler(c.toeic, log).Register(mux, auth)
+	progressreset.NewHandler(progressreset.NewService(c.store.ProgressReset(), time.Now), log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)
 	studyHandler.Register(mux, auth)

@@ -33,14 +33,14 @@ func ImageOp(req ImageRequest) string {
 	return "image"
 }
 
-// photoStyle is the camera, light and detail direction of every TOEIC picture: without it image
+// photoStyle is the camera, light and detail direction of every picture of the app: without it image
 // models tend to give smooth, illustration-like pictures even when asked for a photo.
 const photoStyle = "Photography style:\n" +
 	"- Shot on a full-frame DSLR, 35mm lens, f/5.6, 1/250s, ISO 200, at eye level.\n" +
 	"- Natural light, soft realistic shadows, true-to-life colours, no colour grading, no HDR look.\n" +
-	"- Real human anatomy and proportions: natural skin texture with pores and slight imperfections, realistic hair, " +
+	"- Any person shown has real human anatomy and proportions: natural skin texture with pores and slight imperfections, realistic hair, " +
 	"correct hands with five fingers, natural relaxed facial expressions, not looking at the camera.\n" +
-	"- Ordinary people of varied ages and backgrounds (not models), in ordinary work or everyday clothes with real fabric " +
+	"- People, only where the picture needs them, are ordinary people of varied ages and backgrounds (not models), in ordinary work or everyday clothes with real fabric " +
 	"folds and wrinkles.\n" +
 	"- Real materials: worn surfaces, small everyday details, slight dust and wear, as in an unstaged documentary or stock photo.\n" +
 	"- Sharp focus on the main subject, light natural depth of field.\n"

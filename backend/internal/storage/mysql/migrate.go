@@ -72,6 +72,7 @@ func migrations() []migration {
 		{ID: "045_games", Stmts: gamesSchema()},
 		{ID: "046_topic_images", Stmts: topicImagesSchema()},
 		{ID: "047_toeic", Stmts: toeicSchema()},
+		{ID: "048_word_topic_redraws", Stmts: wordTopicRedrawsSchema()},
 	}
 }
 

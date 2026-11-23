@@ -20,8 +20,9 @@ import (
 // and the production one share the queue, and only the local one runs Codex. A batch cut short
 // (the server stopped) is simply started again: the words that got a picture are no longer missing.
 
-// MaxBatch is the most words one batch draws: the bound shared by the picture batches.
-const MaxBatch = ai.MaxImageBatch
+// MaxBatch is the most words one batch draws: 400 for the word bank (raised 2026-11-23 from the
+// ai.MaxImageBatch the other picture batches share), so a big topic is drawn in fewer rounds.
+const MaxBatch = 400
 
 // batchDrawTimeout bounds one picture of a batch.
 const batchDrawTimeout = 5 * time.Minute
@@ -30,15 +31,33 @@ const batchDrawTimeout = 5 * time.Minute
 var ErrBatchRunning = errors.New("wordbank: a picture batch is running")
 
 // BatchRequest starts a batch: the ticked Lemmas, or, without any, the words lacking a picture
-// that match Search and TopicID (the list's filter), the first MaxBatch by lemma.
+// that match Search and the topics (TopicID, the list's filter, and TopicIDs, several topics picked
+// at once: added 2026-11-23), the first MaxBatch by lemma.
 type BatchRequest struct {
-	Lemmas  []string
-	Search  string
-	TopicID string
-	Engine  Engine
-	Style   string
+	Lemmas   []string
+	Search   string
+	TopicID  string
+	TopicIDs []string
+	// Mode, with topics, draws all their words again (BatchRedraw) or the words a redraw round has
+	// not reached yet (BatchContinue) instead of the words lacking a picture (added 2026-11-23).
+	Mode   BatchMode
+	Engine Engine
+	Style  string
 	// CardWords marks a batch over the words learners saved (StartCardWordsBatch).
 	CardWords bool
+}
+
+// topicIDs is TopicID and TopicIDs, trimmed, without blanks or repeats, in order.
+func (r BatchRequest) topicIDs() []string {
+	seen := map[string]bool{}
+	var out []string
+	for _, id := range append([]string{r.TopicID}, r.TopicIDs...) {
+		if id = strings.TrimSpace(id); id != "" && !seen[id] {
+			seen[id] = true
+			out = append(out, id)
+		}
+	}
+	return out
 }
 
 // BatchFailure is a word of the batch that got no picture.
@@ -60,6 +79,8 @@ type BatchStatus struct {
 	Ticked bool
 	// CardWords is true for a batch over the words learners saved (added 2026-11-12).
 	CardWords bool
+	// Mode is the request's: "" for the words lacking a picture, else a redraw (added 2026-11-23).
+	Mode BatchMode
 	// TopicName is the topic every word of the batch comes from (the filter's), "" when they
 	// come from several: Topics then names the fewest topics holding them all.
 	TopicName string
@@ -119,6 +140,14 @@ func (s *Service) StartBatch(ctx context.Context, req BatchRequest) (BatchStatus
 	base := context.WithoutCancel(ctx)
 	feed, stop := context.WithCancel(base)
 	st := BatchStatus{Running: true, Engine: engine, Total: len(lemmas), StartedAt: s.now(), Ticked: len(req.Lemmas) > 0, Topics: scope.topics, CardWords: req.CardWords}
+	st.Mode = req.Mode
+	if req.Mode == BatchRedraw {
+		// A new round of the topics starts now: a picture saved from now on is of this round.
+		if err := s.repo.StartTopicRedraw(ctx, req.topicIDs(), st.StartedAt); err != nil {
+			stop()
+			return BatchStatus{}, fmt.Errorf("wordbank: start topic redraw: %w", err)
+		}
+	}
 	st.TopicName = scope.topicName
 	if !st.Ticked {
 		st.Search = strings.Join(strings.Fields(req.Search), " ")
@@ -133,6 +162,9 @@ func (s *Service) StartBatch(ctx context.Context, req BatchRequest) (BatchStatus
 
 // batchWords lists the words a batch draws, in order, without repeats.
 func (s *Service) batchWords(ctx context.Context, req BatchRequest) ([]string, error) {
+	if req.Mode != BatchMissing {
+		return s.redrawWords(ctx, req)
+	}
 	if len(req.Lemmas) > 0 {
 		seen := map[string]bool{}
 		var out []string
@@ -152,16 +184,25 @@ func (s *Service) batchWords(ctx context.Context, req BatchRequest) ([]string, e
 		return nil, &ValidationError{Fields: map[string]string{"q": fmt.Sprintf("Từ khoá tối đa %d ký tự", MaxSearch)}}
 	}
 	q := ListQuery{Search: search, Missing: MissingImage, Limit: MaxBatch}
-	if id := strings.TrimSpace(req.TopicID); id != "" {
+	if ids := req.topicIDs(); len(ids) > 0 {
 		topics, err := s.topics.All(ctx)
 		if err != nil {
 			return nil, fmt.Errorf("wordbank: topic words: %w", err)
 		}
-		t, ok := findTopic(topics, id)
-		if !ok {
-			return nil, &ValidationError{Fields: map[string]string{"topicId": msgNoTopic}}
+		seen := map[string]bool{}
+		q.Lemmas = []string{} // not nil: topics without words match no word
+		for _, id := range ids {
+			t, ok := findTopic(topics, id)
+			if !ok {
+				return nil, &ValidationError{Fields: map[string]string{"topicId": msgNoTopic}}
+			}
+			for _, l := range lemmasOf(t) {
+				if !seen[l] {
+					seen[l] = true
+					q.Lemmas = append(q.Lemmas, l)
+				}
+			}
 		}
-		q.Lemmas = lemmasOf(t)
 	}
 	words, _, err := s.repo.List(ctx, q)
 	if err != nil {
@@ -303,7 +344,12 @@ func (s *Service) batchScope(ctx context.Context, req BatchRequest, lemmas []str
 		s.log.WarnContext(ctx, "wordbank: batch topics", slog.Any("error", err))
 		return batchScope{}
 	}
-	chosen, hasChosen := findTopic(topics, strings.TrimSpace(req.TopicID))
+	var chosen []TopicList
+	for _, id := range req.topicIDs() {
+		if t, ok := findTopic(topics, id); ok {
+			chosen = append(chosen, t)
+		}
+	}
 	left := map[string]bool{}
 	holders := topicsByLemma(topics)
 	for _, l := range lemmas {
@@ -312,13 +358,16 @@ func (s *Service) batchScope(ctx context.Context, req BatchRequest, lemmas []str
 		}
 	}
 	var out batchScope
-	if hasChosen {
-		in := lemmasOf(chosen)
+	if len(chosen) == 1 {
+		in := lemmasOf(chosen[0])
 		if !slices.ContainsFunc(lemmas, func(l string) bool { return !slices.Contains(in, l) }) {
-			return batchScope{topicName: chosen.Name}
+			return batchScope{topicName: chosen[0].Name}
 		}
-		if takeTopic(left, in) > 0 {
-			out.topics = append(out.topics, chosen.Name)
+	}
+	// The chosen topics first, in the admin's order; then the fewest others for the words left.
+	for _, t := range chosen {
+		if takeTopic(left, lemmasOf(t)) > 0 {
+			out.topics = append(out.topics, t.Name)
 		}
 	}
 	// Greedy cover: the topic holding most of the words left, by name on a tie.

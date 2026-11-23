@@ -224,6 +224,9 @@ func TestBatchScopeNamesTheChosenTopicOrTheFewestTopics(t *testing.T) {
 		{"fewest topics, most covering first", BatchRequest{Lemmas: []string{"apple", "house", "good morning"}}, "", []string{"Chào hỏi", "Ăn uống"}},
 		// Three topics hold two words each: Chào hỏi by name, then one word each for Nhà cửa (tablix) and Ăn uống (apple).
 		{"every missing word", BatchRequest{}, "", []string{"Chào hỏi", "Nhà cửa", "Ăn uống"}},
+		// Several topics picked at once: named in the admin's order; one picked in the list is that topic's batch.
+		{"several chosen topics", BatchRequest{TopicIDs: []string{"t3", "t2"}}, "", []string{"Ăn uống", "Chào hỏi"}},
+		{"one chosen topic in the list", BatchRequest{TopicIDs: []string{" t3 ", "t3"}}, "Ăn uống", nil},
 	}
 	for _, tt := range tests {
 		sc := e.svc.batchScope(t.Context(), tt.req, mustWords(t, e, tt.req))
@@ -240,4 +243,30 @@ func mustWords(t *testing.T, e *testEnv, req BatchRequest) []string {
 		t.Fatal(err)
 	}
 	return lemmas
+}
+
+func TestBatchOfSeveralTopicsDrawsTheirMissingWordsOnce(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	e.topics.lists = append(e.topics.lists, TopicList{TopicRef: TopicRef{ID: "t3", Name: "Ăn uống"}, Words: []string{"apple", "house"}},
+		TopicList{TopicRef: TopicRef{ID: "t4", Name: "Trống"}})
+	addWords(t, e, "house", "tablix", "good morning", "apple", "zebra")
+	// t2 and t3 share house; zebra is in no chosen topic, so it is left out.
+	if got := mustWords(t, e, BatchRequest{TopicIDs: []string{"t2", "t3"}}); !slices.Equal(got, []string{"apple", "good morning", "house"}) {
+		t.Errorf("words = %v", got)
+	}
+	// The list's filter adds to the picked topics.
+	if got := mustWords(t, e, BatchRequest{TopicID: "t1", TopicIDs: []string{"t3"}}); !slices.Equal(got, []string{"apple", "house", "tablix"}) {
+		t.Errorf("filter and picked = %v", got)
+	}
+	if got := mustWords(t, e, BatchRequest{TopicIDs: []string{"t4"}}); len(got) != 0 {
+		t.Errorf("a topic without words drew %v", got)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.batchWords(t.Context(), BatchRequest{TopicIDs: []string{"t2", "nope"}}); !errors.As(err, &verr) || verr.Fields["topicId"] == "" {
+		t.Errorf("unknown topic: %v", err)
+	}
+	if MaxBatch != 400 {
+		t.Errorf("MaxBatch = %d, want 400", MaxBatch)
+	}
 }

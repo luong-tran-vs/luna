@@ -26,6 +26,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/job"
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/progress"
+	"github.com/luongtran/luna/backend/internal/progressreset"
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/toeic"
@@ -76,6 +77,8 @@ type Store interface {
 	WordImages() lesson.ImageRepository
 	// WordBank keeps the shared word bank and its pictures (F24).
 	WordBank() wordbank.Repository
+	// ProgressReset resets a learner's progress from the "Tôi" tab (added 2026-11-23).
+	ProgressReset() progressreset.Repository
 	// AIUsage keeps the requests sent to the AI provider (admin AI usage page).
 	AIUsage() aiusage.Repository
 	// TalkSessions keeps the conversations with the AI (added 2026-10-20).

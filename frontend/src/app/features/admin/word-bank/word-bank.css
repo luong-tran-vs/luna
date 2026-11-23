@@ -177,3 +177,59 @@
   padding-left: var(--space-4, 1.25rem);
   font: var(--text-sm) var(--font-ui);
 }
+
+/* "Sinh ảnh theo nhiều chủ đề": the topics to tick, scrolling inside the dialog. */
+.topic-picks {
+  display: grid;
+  gap: var(--space-1);
+  max-height: min(50dvh, 360px);
+  margin: 0;
+  padding: 0 var(--space-1);
+  overflow-y: auto;
+  list-style: none;
+}
+
+.topic-pick {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.topic-pick-all {
+  margin-bottom: var(--space-1);
+  font-weight: 600;
+}
+
+.topic-pick-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.topic-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  border: 0;
+}
+
+.topic-mode {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.topic-pick-text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.topic-pick-info {
+  font-size: var(--text-xs);
+}

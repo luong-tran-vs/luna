@@ -102,8 +102,26 @@ export interface BankTopicMissing {
   meaning: number;
 }
 
-/** Most pictures one background batch draws (server ai.MaxImageBatch): word bank, verbs, grammar. */
+/** Most pictures one background batch draws (server ai.MaxImageBatch): verbs, topics, grammar. */
 export const MAX_IMAGE_BATCH = 200;
+
+/** What a batch over topics draws: missing pictures, all again (a new round), or the rest of a round. */
+export type TopicDrawMode = '' | 'redraw' | 'continue';
+
+/** GET /admin/words/topic-pictures: a topic's bank words, missing pictures and redraw rounds. */
+export interface BankTopicPictures {
+  topicId: string;
+  words: number;
+  missing: number;
+  /** How often all its words were drawn again; lastAt is when the latest round started. */
+  rounds: number;
+  lastAt?: string;
+  /** The words the latest round has reached. */
+  fresh: number;
+}
+
+/** Most pictures one word bank batch draws (server wordbank.MaxBatch; raised 2026-11-23). */
+export const MAX_WORD_IMAGE_BATCH = 400;
 
 /**
  * Starts a picture batch (added 2026-11-04): the ticked `lemmas`, or, without any, the words
@@ -113,6 +131,10 @@ export interface BankBatchRequest {
   lemmas?: string[];
   q?: string;
   topicId?: string;
+  /** Several topics at once (added 2026-11-23): their words lacking a picture. */
+  topicIds?: string[];
+  /** With topics: draw all their words again, or go on with the latest redraw (added 2026-11-23). */
+  mode?: TopicDrawMode;
   engine: ImageEngine;
 }
 
@@ -125,6 +147,8 @@ export interface BankBatchFailure {
 /** How the picture batch drawing in the background is going; `total` 0 when none ran. */
 export interface BankImageBatch {
   running: boolean;
+  /** A batch over topics that draws them all again or goes on with a redraw (added 2026-11-23). */
+  mode?: TopicDrawMode;
   /** The admin asked to stop: the words being drawn finish, no new one starts. */
   stopping: boolean;
   /** The batch ended because the admin stopped it. */

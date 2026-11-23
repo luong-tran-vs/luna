@@ -185,9 +185,8 @@
         }
         <p role="status">
           {{ b.stopped ? 'Đã dừng lượt sinh ảnh' : 'Lượt sinh ảnh đã xong' }} cho
-          <strong>{{ scope(b) }}</strong
-          >: sinh được {{ b.saved.length }}/{{ b.total }} ảnh bằng {{ batchEngine(b)
-          }}{{ b.failures.length ? ', ' + b.failures.length + ' từ lỗi' : '' }}.
+          <strong>{{ scope(b) }}</strong>: sinh được {{ b.saved.length }}/{{ b.total }} ảnh bằng
+          {{ batchEngine(b) }}{{ b.failures.length ? ', ' + b.failures.length + ' từ lỗi' : '' }}.
         </p>
         @if (b.failures.length) {
           <details class="batch-failures">
@@ -195,8 +194,7 @@
             <ul>
               @for (f of b.failures; track f.lemma) {
                 <li>
-                  <span lang="en">{{ f.lemma }}</span
-                  >: {{ f.message }}
+                  <span lang="en">{{ f.lemma }}</span>: {{ f.message }}
                 </li>
               }
             </ul>
@@ -232,6 +230,9 @@
         </button>
         <button type="button" class="btn" [disabled]="batchBusy()" (click)="askAll()">
           Sinh ảnh mọi từ thiếu ảnh{{ topicName() ? ' của "' + topicName() + '"' : '' }}
+        </button>
+        <button type="button" class="btn" [disabled]="batchBusy()" (click)="askTopics()">
+          Sinh ảnh theo nhiều chủ đề…
         </button>
         @if (selectedCount()) {
           <button type="button" class="btn" (click)="clearSelection()">Bỏ chọn</button>
@@ -297,8 +298,7 @@
     @if (ws.length === 0) {
       <p class="card muted">
         @if (topicFilter() && !search() && !missing()) {
-          Kho chưa có từ nào của chủ đề này. Bấm "Đồng bộ từ vựng" để đưa các từ của chủ đề vào
-          kho.
+          Kho chưa có từ nào của chủ đề này. Bấm "Đồng bộ từ vựng" để đưa các từ của chủ đề vào kho.
         } @else if (search() || missing() || topicFilter()) {
           Không có từ nào khớp.
         } @else {
@@ -358,3 +358,74 @@
   (confirmed)="startBatch(false)"
   (cancelled)="confirmingAll.set(false)"
 />
+
+<lu-confirm-dialog
+  [open]="pickingTopics()"
+  title="Sinh ảnh theo nhiều chủ đề"
+  [message]="pickMessage()"
+  [confirmLabel]="topicModeInfo().confirm + ' ' + pickedTopics().size + ' chủ đề'"
+  [confirmDisabled]="pickedTopics().size === 0"
+  [danger]="topicMode() === 'redraw'"
+  (confirmed)="startTopicsBatch()"
+  (cancelled)="pickingTopics.set(false)"
+>
+  <fieldset class="topic-modes">
+    <legend class="visually-hidden">Cách vẽ</legend>
+    @for (m of topicModes; track m.value) {
+      <label class="topic-mode">
+        <input
+          type="radio"
+          name="topic-mode"
+          [value]="m.value"
+          [checked]="topicMode() === m.value"
+          (change)="setTopicMode(m.value)"
+        />
+        {{ m.label }}
+      </label>
+    }
+  </fieldset>
+  @if (topicPicturesError()) {
+    <p class="field-error" role="alert">
+      Không tải được ảnh của các chủ đề.
+      <button type="button" class="btn btn-sm" (click)="loadTopicPictures()">Thử lại</button>
+    </p>
+  } @else if (topicPictures() === null) {
+    <p class="muted" role="status">Đang tải các chủ đề…</p>
+  } @else if (topicRows().length === 0) {
+    <p class="muted">
+      {{
+        topicMode() === 'continue'
+          ? 'Không chủ đề nào có lần vẽ lại còn dở.'
+          : topicMode() === 'redraw'
+            ? 'Chưa chủ đề nào có từ trong kho.'
+            : 'Không chủ đề nào còn từ thiếu ảnh.'
+      }}
+    </p>
+  } @else {
+    <label class="topic-pick topic-pick-all">
+      <input
+        type="checkbox"
+        [checked]="allTopicsPicked()"
+        (change)="pickAllTopics($any($event.target).checked)"
+      />
+      Chọn tất cả ({{ topicRows().length }} chủ đề)
+    </label>
+    <ul class="topic-picks" aria-label="Chủ đề">
+      @for (t of topicRows(); track t.id) {
+        <li>
+          <label class="topic-pick">
+            <input
+              type="checkbox"
+              [checked]="pickedTopics().has(t.id)"
+              (change)="pickTopic(t.id, $any($event.target).checked)"
+            />
+            <span class="topic-pick-text">
+              <span class="topic-pick-name">{{ t.name }} · vẽ {{ t.count }} từ</span>
+              <span class="topic-pick-info muted">{{ t.info }}</span>
+            </span>
+          </label>
+        </li>
+      }
+    </ul>
+  }
+</lu-confirm-dialog>

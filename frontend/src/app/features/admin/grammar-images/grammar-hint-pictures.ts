@@ -68,6 +68,15 @@ import { messageOf, pointHintsKey } from './grammar-level-hints';
               <button type="button" class="btn-primary" [disabled]="locked()" (click)="ask({})">
                 {{ busy() === 'all' ? 'Đang gửi…' : 'Tạo ' + missing() + ' ảnh câu còn thiếu' }}
               </button>
+            } @else {
+              <button
+                type="button"
+                class="btn"
+                [disabled]="locked()"
+                (click)="ask({ replace: true })"
+              >
+                {{ busy() === 'all' ? 'Đang gửi…' : 'Vẽ lại hết ' + list.length + ' ảnh câu' }}
+              </button>
             }
           </div>
           @if (otherBatch(); as o) {
@@ -140,7 +149,11 @@ import { messageOf, pointHintsKey } from './grammar-level-hints';
       [message]="
         pending()?.keys
           ? 'Vẽ lại ảnh câu của câu này.'
-          : 'Vẽ ' + missing() + ' ảnh câu còn thiếu của bài, lần lượt từng ảnh.'
+          : pending()?.replace
+            ? 'Vẽ lại hết ' +
+              (items()?.length ?? 0) +
+              ' ảnh câu của bài, lần lượt từng ảnh: ảnh mới ghi đè ảnh cũ và không lấy lại được ảnh cũ.'
+            : 'Vẽ ' + missing() + ' ảnh câu còn thiếu của bài, lần lượt từng ảnh.'
       "
       confirmLabel="Tạo ảnh"
       [codexAvailable]="codex()"

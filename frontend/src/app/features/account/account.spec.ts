@@ -6,7 +6,10 @@ import { provideRouter, Router } from '@angular/router';
 
 import { Goals } from '../../core/models/study';
 import { User } from '../../core/models/user';
-import { NaturalVoiceService, NaturalVoiceState } from '../../core/natural-voice/natural-voice.service';
+import {
+  NaturalVoiceService,
+  NaturalVoiceState,
+} from '../../core/natural-voice/natural-voice.service';
 import { AuthService } from '../../core/services/auth.service';
 import { InstallMode, InstallService } from '../../core/services/install.service';
 import { PALETTE_STORAGE_KEY } from '../../core/services/palette.service';
@@ -40,7 +43,8 @@ describe('Account', () => {
   const installMode = signal<InstallMode>('unavailable');
   const install = vi.fn(async () => true);
 
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const darkSwitch = () => el.querySelector<HTMLButtonElement>('[role="switch"]')!;
 
   const open = async (goals: Goals | 'error' = { active: null, others: [] }) => {
@@ -66,7 +70,12 @@ describe('Account', () => {
     unseen.set(0);
     installMode.set('unavailable');
     install.mockClear();
-    const user: User = { id: '1', email: 'minh@example.com', role: 'member', timezone: 'Asia/Ho_Chi_Minh' };
+    const user: User = {
+      id: '1',
+      email: 'minh@example.com',
+      role: 'member',
+      timezone: 'Asia/Ho_Chi_Minh',
+    };
     await TestBed.configureTestingModule({
       imports: [Account],
       providers: [
@@ -151,7 +160,10 @@ describe('Account', () => {
 
   it('turns the natural voice on and off, saying what it costs and how far it got', async () => {
     await open();
-    const toggle = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="switch"]')).find((b) => text(b).includes('Giọng đọc tự nhiên'))!;
+    const toggle = () =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('[role="switch"]')).find((b) =>
+        text(b).includes('Giọng đọc tự nhiên'),
+      )!;
     expect(toggle().getAttribute('aria-checked')).toBe('false');
     expect(text(toggle())).toContain('Tải khoảng 60MB một lần');
 
@@ -177,7 +189,10 @@ describe('Account', () => {
 
   it('turns the machine voice off right under the natural voice, once that is on', async () => {
     await open();
-    const machine = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="switch"]')).find((b) => text(b).includes('Giọng máy'));
+    const machine = () =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('[role="switch"]')).find((b) =>
+        text(b).includes('Giọng máy'),
+      );
     expect(machine()).toBeUndefined();
 
     voiceState.set('ready');
@@ -191,7 +206,8 @@ describe('Account', () => {
     expect(text(machine())).toContain('chỉ dùng giọng tự nhiên');
   });
 
-  const installRow = () => Array.from(el.querySelectorAll('button')).find((b) => text(b).startsWith('Cài ứng dụng'));
+  const installRow = () =>
+    Array.from(el.querySelectorAll('button')).find((b) => text(b).startsWith('Cài ứng dụng'));
 
   it('offers to install the app where the browser can, and opens its install dialog', async () => {
     installMode.set('prompt');
@@ -232,5 +248,47 @@ describe('Account', () => {
     await fixture.whenStable();
     expect(logout).toHaveBeenCalled();
     expect(navigate).toHaveBeenCalledWith('/login');
+  });
+
+  const buttonNamed = (root: ParentNode, name: string) =>
+    Array.from(root.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+      text(b).startsWith(name),
+    )!;
+
+  it('resets the ticked parts of the progress after asking which', async () => {
+    await open();
+    buttonNamed(el, 'Đặt lại tiến độ học').click();
+    await fixture.whenStable();
+    const dialog = el.querySelector<HTMLElement>('[role="alertdialog"]')!;
+    expect(text(dialog)).toContain('Bài học theo chủ đề');
+    expect(text(dialog)).toContain('các từ đã lưu vẫn giữ');
+    expect(buttonNamed(dialog, 'Đặt lại 0 phần').disabled).toBe(true);
+    const boxes = dialog.querySelectorAll<HTMLInputElement>('.reset-picks input');
+    boxes[0].click();
+    boxes[3].click();
+    await fixture.whenStable();
+    buttonNamed(dialog, 'Đặt lại 2 phần').click();
+    const req = http.expectOne('/me/reset');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ parts: ['lessons', 'toeic'] });
+    req.flush(null, { status: 204, statusText: 'No Content' });
+    await fixture.whenStable();
+    expect(el.querySelector('[role="alertdialog"]')).toBeNull();
+    expect(text(el.querySelector('.reset-status'))).toBe('Đã đặt lại: Bài học theo chủ đề, TOEIC.');
+  });
+
+  it('resets everything when every part is ticked, and says when it failed', async () => {
+    await open();
+    buttonNamed(el, 'Đặt lại tiến độ học').click();
+    await fixture.whenStable();
+    const dialog = el.querySelector<HTMLElement>('[role="alertdialog"]')!;
+    dialog.querySelector<HTMLInputElement>('.reset-pick-all input')!.click();
+    await fixture.whenStable();
+    buttonNamed(dialog, 'Đặt lại tất cả').click();
+    const req = http.expectOne('/me/reset');
+    expect(req.request.body).toEqual({ parts: ['lessons', 'grammar', 'vocab', 'toeic'] });
+    req.flush('down', { status: 500, statusText: 'Error' });
+    await fixture.whenStable();
+    expect(text(el.querySelector('[role="alert"]'))).toContain('Không đặt lại được');
   });
 });

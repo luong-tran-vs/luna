@@ -42,7 +42,13 @@
 
   <ul class="menu-list">
     <li>
-      <button type="button" class="menu-row" role="switch" [attr.aria-checked]="dark()" (click)="toggleDark()">
+      <button
+        type="button"
+        class="menu-row"
+        role="switch"
+        [attr.aria-checked]="dark()"
+        (click)="toggleDark()"
+      >
         <span class="icon-chip"><lu-icon name="moon" /></span>
         <span class="menu-label">Chế độ tối</span>
         <span class="switch" aria-hidden="true"></span>
@@ -142,6 +148,33 @@
 
   <ul class="menu-list">
     <li>
+      <button
+        type="button"
+        class="menu-row"
+        [disabled]="resetBusy()"
+        aria-describedby="reset-hint"
+        (click)="openReset()"
+      >
+        <span class="icon-chip reset-chip"><lu-icon name="refresh" /></span>
+        <span class="menu-label">
+          <span>Đặt lại tiến độ học</span>
+          <span class="menu-hint" id="reset-hint">
+            {{ resetBusy() ? 'Đang đặt lại…' : 'Chọn phần muốn học lại từ đầu' }}
+          </span>
+        </span>
+        <lu-icon class="chevron" name="chevron-right" />
+      </button>
+    </li>
+  </ul>
+  @if (resetNote()) {
+    <p class="reset-status" role="status">{{ resetNote() }}</p>
+  }
+  @if (resetError()) {
+    <p class="form-alert" role="alert">{{ resetError() }}</p>
+  }
+
+  <ul class="menu-list">
+    <li>
       <button type="button" class="menu-row danger" (click)="logout()">
         <span class="icon-chip logout-chip"><lu-icon name="logout" /></span>
         <span class="menu-label">Đăng xuất</span>
@@ -149,3 +182,40 @@
     </li>
   </ul>
 </section>
+
+<lu-confirm-dialog
+  [open]="resetting()"
+  title="Đặt lại tiến độ học?"
+  [message]="resetMessage"
+  [confirmLabel]="resetAll() ? 'Đặt lại tất cả' : 'Đặt lại ' + resetPicked().size + ' phần'"
+  [confirmDisabled]="resetPicked().size === 0"
+  [danger]="true"
+  (confirmed)="confirmReset()"
+  (cancelled)="resetting.set(false)"
+>
+  <label class="reset-pick reset-pick-all">
+    <input
+      type="checkbox"
+      [checked]="resetAll()"
+      (change)="pickAllReset($any($event.target).checked)"
+    />
+    Chọn tất cả
+  </label>
+  <ul class="reset-picks" aria-label="Phần muốn đặt lại">
+    @for (p of resetParts; track p.value) {
+      <li>
+        <label class="reset-pick">
+          <input
+            type="checkbox"
+            [checked]="resetPicked().has(p.value)"
+            (change)="pickReset(p.value, $any($event.target).checked)"
+          />
+          <span class="reset-pick-text">
+            <span>{{ p.label }}</span>
+            <span class="menu-hint">{{ p.hint }}</span>
+          </span>
+        </label>
+      </li>
+    }
+  </ul>
+</lu-confirm-dialog>

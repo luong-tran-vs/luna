@@ -9,7 +9,11 @@ import {
 } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-import { CardWordsSummary, ImageEngine, MAX_IMAGE_BATCH } from '../../../../core/models/word-bank';
+import {
+  CardWordsSummary,
+  ImageEngine,
+  MAX_WORD_IMAGE_BATCH,
+} from '../../../../core/models/word-bank';
 import { EngineDialog } from '../../../../shared/components/engine-dialog/engine-dialog';
 import { AdminApiService } from '../../admin-api.service';
 import { bankMessage } from '../bank-message';
@@ -120,7 +124,7 @@ export class CardWordPictures {
   protected readonly named = computed(() => this.summary()?.missing.slice(0, NAMED) ?? []);
   protected readonly notInBank = computed(() => this.named().filter((w) => !w.inBank).length);
   protected readonly drawCount = computed(() =>
-    Math.min(this.summary()?.missingCount ?? 0, MAX_IMAGE_BATCH),
+    Math.min(this.summary()?.missingCount ?? 0, MAX_WORD_IMAGE_BATCH),
   );
   protected readonly message = computed(
     () =>
@@ -129,7 +133,7 @@ export class CardWordPictures {
   protected readonly note = computed(() => {
     const rest = (this.summary()?.missingCount ?? 0) - this.drawCount();
     return rest > 0
-      ? `Mỗi lượt tối đa ${MAX_IMAGE_BATCH} ảnh: ${rest} từ còn lại vẽ ở lượt sau.`
+      ? `Mỗi lượt tối đa ${MAX_WORD_IMAGE_BATCH} ảnh: ${rest} từ còn lại vẽ ở lượt sau.`
       : '';
   });
 

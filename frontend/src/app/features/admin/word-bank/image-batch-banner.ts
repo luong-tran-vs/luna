@@ -37,8 +37,7 @@ import { batchScope, ImageBatchService } from './image-batch.service';
                     ? 'Đã dừng sinh ảnh ngầm'
                     : 'Đã sinh ảnh ngầm xong'
               }}
-              cho <strong>{{ scope() }}</strong
-              >: {{ r.saved.length }}/{{ r.total }} ảnh
+              cho <strong>{{ scope() }}</strong>: {{ r.saved.length }}/{{ r.total }} ảnh
               @if (r.failures.length) {
                 · {{ r.failures.length }} lỗi
               }

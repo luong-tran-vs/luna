@@ -19,13 +19,14 @@ import (
 
 // fakeRepo keeps the bank in memory.
 type fakeRepo struct {
-	mu     sync.Mutex
-	words  map[string]Word
-	images map[string]Image
+	mu      sync.Mutex
+	words   map[string]Word
+	images  map[string]Image
+	redraws map[string]TopicRedraw
 }
 
 func newFakeRepo() *fakeRepo {
-	return &fakeRepo{words: map[string]Word{}, images: map[string]Image{}}
+	return &fakeRepo{words: map[string]Word{}, images: map[string]Image{}, redraws: map[string]TopicRedraw{}}
 }
 
 func (f *fakeRepo) List(_ context.Context, q ListQuery) ([]Word, int, error) {
@@ -284,4 +285,24 @@ type fakeCards struct {
 
 func (f *fakeCards) CardWords(context.Context) ([]CardWord, error) {
 	return slices.Clone(f.words), nil
+}
+
+func (f *fakeRepo) TopicRedraws(context.Context) ([]TopicRedraw, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := make([]TopicRedraw, 0, len(f.redraws))
+	for _, r := range f.redraws {
+		out = append(out, r)
+	}
+	return out, nil
+}
+
+func (f *fakeRepo) StartTopicRedraw(_ context.Context, topicIDs []string, at time.Time) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for _, id := range topicIDs {
+		r := f.redraws[id]
+		f.redraws[id] = TopicRedraw{TopicID: id, Rounds: r.Rounds + 1, LastAt: at}
+	}
+	return nil
 }

@@ -43,7 +43,7 @@ func TestGenerateImage(t *testing.T) {
 		t.Fatalf("image = %s %q", img.MIME, img.Data)
 	}
 	prompt := body.Contents[0].Parts[0].Text
-	for _, want := range []string{`"coffee"`, `"cà phê"`, `"I drink coffee."`, "Style: watercolor.", "Do not draw any letters"} {
+	for _, want := range []string{`"coffee"`, `"cà phê"`, `"I drink coffee."`, "photograph (never a drawing or render): watercolor.", "Do not show any readable letters"} {
 		if !strings.Contains(prompt, want) {
 			t.Errorf("prompt misses %q:\n%s", want, prompt)
 		}
@@ -71,7 +71,7 @@ func TestGenerateImageDefaultStyleAndErrors(t *testing.T) {
 	if _, err := c.GenerateImage(t.Context(), ai.ImageRequest{Word: "run"}); err == nil {
 		t.Fatal("a response without a picture should fail")
 	}
-	if !strings.Contains(prompt, "flat illustration") {
+	if !strings.Contains(prompt, "photorealistic photograph") {
 		t.Errorf("default style missing:\n%s", prompt)
 	}
 

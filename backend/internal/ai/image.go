@@ -46,13 +46,14 @@ type ExampleBrief struct {
 
 // examplePrompt describes the picture of a grammar example: the people and action of the sentence,
 // with what the sentence says about them (now or habitually, done or not, asked) shown by the scene,
-// in the style and characters of the other pictures.
-func examplePrompt(ex ExampleBrief, style string) string {
+// as a real photograph (changed 2026-11-23 from the illustration style of the word pictures).
+func examplePrompt(ex ExampleBrief) string {
 	if ex.Exercise {
-		return exercisePicturePrompt(ex, style)
+		return exercisePicturePrompt(ex)
 	}
 	var b strings.Builder
-	fmt.Fprintf(&b, "Create one illustration of this English example sentence for a Vietnamese learner of English: %q", strings.TrimSpace(ex.En))
+	fmt.Fprintf(&b, "Create one photorealistic photograph, indistinguishable from a real photo taken by a professional photographer, "+
+		"of this English example sentence for a Vietnamese learner of English: %q", strings.TrimSpace(ex.En))
 	if vi := strings.TrimSpace(ex.Vi); vi != "" {
 		fmt.Fprintf(&b, " (Vietnamese meaning: %q)", vi)
 	}
@@ -63,16 +64,14 @@ func examplePrompt(ex ExampleBrief, style string) string {
 	b.WriteString("Show exactly the situation the sentence describes: the people or things it names, doing what it says, " +
 		"so a learner who sees the picture understands the meaning of the sentence. " +
 		"When the sentence is about a time (now, every day, yesterday, tomorrow), let the scene suggest it with simple visual cues " +
-		"such as the light of the day, a season or an action in progress. " +
+		"such as the light of the day, the weather, a season or an action in progress. " +
 		"For a negative sentence, show what is true instead (someone pushing away the food they do not like). " +
 		"For a question, show the person asking with a curious expression and the thing asked about.\n")
-	fmt.Fprintf(&b, "Style: %s.\n", imageStyle(style))
-	b.WriteString(characterStyle + "\n")
+	b.WriteString(photoStyle)
 	b.WriteString("Composition: landscape 4:3. The main people and action centred and large enough to read as a small thumbnail, " +
-		"in a simple setting with only the objects the sentence needs, on a soft, light background.\n")
-	b.WriteString("Quality: neat, well-proportioned shapes, consistent line weight, colours that go well together, " +
-		"a warm and cheerful mood suitable for learners of every age.\n")
-	b.WriteString("Do not draw any letters, words or numbers, no speech bubbles, signs with writing, border or frame.")
+		"in an ordinary real setting with only the objects the sentence needs, a friendly everyday mood.\n")
+	b.WriteString(photoAvoid)
+	b.WriteString("Do not show any readable letters, words or numbers, no speech bubbles, signs with writing, border, frame or watermark.")
 	return b.String()
 }
 
@@ -133,38 +132,26 @@ func (DisabledImages) GenerateImage(context.Context, ImageRequest) (Image, error
 	return Image{}, ErrNotConfigured
 }
 
-// defaultImageStyle is used when the admin gave no style (F23; detailed 2026-11-04 so the pictures
-// look polished rather than like clip art).
-const defaultImageStyle = "a semi-flat illustration in a clean vector look: simple shapes with soft rounded edges, " +
-	"gentle gradients and soft shading for depth, a harmonious pastel palette (soft lavender, peach, mint and warm cream) " +
-	"with one or two richer accent colours, soft diffused lighting"
+// photoOpening starts every picture prompt (changed 2026-11-23: every picture of the app is a
+// photorealistic photograph, the earlier illustration style is gone).
+const photoOpening = "Create one photorealistic photograph, indistinguishable from a real photo taken by a professional photographer, "
 
-// imageStyle is the style line of a prompt: the admin's, else the default, without a final full stop
-// (the prompt adds its own). The background is not part of the default: a word card has a plain one,
-// the scene a setting (split 2026-11-05).
-func imageStyle(style string) string {
+// photoDirection is the camera and light direction of a picture, with the admin's style, when given,
+// as an extra direction that keeps the picture a real photograph (the admin's style used to replace
+// the illustration style; changed 2026-11-23).
+func photoDirection(style string) string {
 	style = strings.TrimRight(strings.TrimSpace(style), ". ")
 	if style == "" {
-		return defaultImageStyle
+		return photoStyle
 	}
-	return style
+	return photoStyle + fmt.Sprintf("- Extra direction from the course author, followed only as far as the picture stays a real "+
+		"photograph (never a drawing or render): %s.\n", style)
 }
 
-// mentionsBackground says an admin's style asks for a kind of background (in English or Vietnamese).
-func mentionsBackground(style string) bool {
-	s := strings.ToLower(style)
-	return strings.Contains(s, "background") || strings.Contains(s, "nền")
-}
-
-// characterStyle keeps the people of every picture alike, so a lesson's pictures look like one set.
-const characterStyle = "Any person is drawn in the same simple character style: a friendly, rounded, slightly chibi figure " +
-	"with a simple face (dot eyes and a clear expression), simplified hands and plain solid-colour casual clothes."
-
-// ImagePrompt describes one picture: the word in one sense, in the admin's style, with no text
-// drawn, since a learner must recognise the thing, not read its name. It also gives the art
-// direction (what to show for things, actions and ideas, the people, the composition) that keeps
-// the pictures clear and alike. Instructions are stated positively where possible: image models
-// tend to draw what a long list of "no ..." names. Every image provider sends it.
+// ImagePrompt describes one picture: the word in one sense, as a real photograph, with no text
+// shown, since a learner must recognise the thing, not read its name. It also gives the direction
+// (what to show for things, actions and ideas, the composition) that keeps the pictures clear and
+// alike. Every image provider sends it.
 func ImagePrompt(req ImageRequest) string {
 	if req.Photo != nil {
 		return photoPrompt(*req.Photo)
@@ -179,15 +166,14 @@ func ImagePrompt(req ImageRequest) string {
 		return scenePrompt(*req.Scene, req.Style)
 	}
 	if req.Example != nil {
-		return examplePrompt(*req.Example, req.Style)
+		return examplePrompt(*req.Example)
 	}
 	if numeral, ok := NumberWord(req.Word); ok {
 		return numberPrompt(req.Word, numeral, req.Style)
 	}
-	style := imageStyle(req.Style)
 	meaning := strings.TrimSpace(req.MeaningVi)
 	var b strings.Builder
-	fmt.Fprintf(&b, "Create one illustration that helps a Vietnamese learner of English remember the English word %q", req.Word)
+	fmt.Fprintf(&b, photoOpening+"that helps a Vietnamese learner of English remember the English word %q", req.Word)
 	if meaning != "" {
 		fmt.Fprintf(&b, " (Vietnamese meaning: %q)", meaning)
 	}
@@ -198,28 +184,26 @@ func ImagePrompt(req ImageRequest) string {
 	case first != meaning:
 		fmt.Fprintf(&b, "Show only its first sense, %q.\n", first)
 	}
-	fmt.Fprintf(&b, "Style: %s.\n", style)
-	b.WriteString("What to show: if the word is a thing, show that one thing in its most typical, instantly recognisable form. " +
-		"If it is an action, show a person, an animal or an object clearly doing it at its most telling moment. " +
-		"If it is a feeling, quality or idea, show a simple everyday scene that makes the meaning obvious at a glance.\n")
-	b.WriteString(characterStyle + "\n")
-	b.WriteString("Composition: landscape 4:3. One main subject centred, filling about two thirds of the frame, " +
-		"with a bold, clear silhouette that still reads as a small thumbnail. Plain light pastel background with plenty of empty space;" +
-		"at most one or two small supporting objects, only when they help the meaning.\n")
-	b.WriteString("Quality: neat, well-proportioned shapes, consistent line weight, colours that go well together, " +
-		"a warm and cheerful mood suitable for learners of every age.\n")
-	b.WriteString("Do not draw any letters, words or numbers, and no border or frame.")
+	b.WriteString("What to show: if the word is a thing, photograph one real example of it in its most typical, instantly " +
+		"recognisable form, like a clean product or stock photo. If it is an action, show a real person, an animal or an object " +
+		"clearly doing it at its most telling moment. If it is a feeling, quality or idea, show a real everyday moment that makes " +
+		"the meaning obvious at a glance.\n")
+	b.WriteString(photoDirection(req.Style))
+	b.WriteString("Composition: landscape 4:3. One main subject centred, filling about two thirds of the frame, clearly separated " +
+		"from the background so it still reads as a small thumbnail. A plain, softly lit, light neutral background (a seamless " +
+		"studio backdrop for a thing, a softly out-of-focus real setting for a person); at most one or two supporting objects, " +
+		"only when they help the meaning.\n")
+	b.WriteString(photoAvoid)
+	b.WriteString("Do not show any readable letters, words or numbers, no border, frame or watermark.")
 	return b.String()
 }
 
 // scenePrompt describes the scene picture of a lesson: the place and the people of its story, so a
 // beginner can picture them before reading or listening, without giving away the answers to the
-// questions on the story. It shares the style and characters of the word pictures.
+// questions on the story. Like the word pictures, it is a real photograph.
 func scenePrompt(sc SceneBrief, style string) string {
-	custom := strings.TrimSpace(style) != ""
-	style = imageStyle(style)
 	var b strings.Builder
-	b.WriteString("Create one illustration for the top of an English lesson for Vietnamese learners")
+	b.WriteString(photoOpening + "for the top of an English lesson for Vietnamese learners")
 	if t := strings.TrimSpace(sc.Title); t != "" {
 		fmt.Fprintf(&b, " titled %q", t)
 	}
@@ -230,7 +214,7 @@ func scenePrompt(sc SceneBrief, style string) string {
 		text = string(r[:maxSceneText]) + "…"
 	}
 	if d := strings.TrimSpace(sc.Description); d != "" {
-		fmt.Fprintf(&b, "Draw this scene: %q.\n", d)
+		fmt.Fprintf(&b, "Show this scene: %q.\n", d)
 		if text != "" {
 			fmt.Fprintf(&b, "The story, for context only: %q\n", text)
 		}
@@ -252,20 +236,14 @@ func scenePrompt(sc SceneBrief, style string) string {
 			}
 		}
 	}
-	fmt.Fprintf(&b, "Style: %s.\n", style)
-	b.WriteString(characterStyle + "\n")
-	b.WriteString("Composition: wide landscape 16:9 banner. The main characters in the middle ground, large enough to recognise " +
-		"on a phone screen, in a simple, uncluttered setting with only a few objects that tell where the scene takes place. " +
+	b.WriteString(photoDirection(style))
+	b.WriteString("Composition: wide landscape 16:9 banner. The main people in the middle ground, large enough to recognise " +
+		"on a phone screen, in an uncluttered real setting with only a few objects that tell where the scene takes place. " +
 		"Keep the outer edges calm, since the banner may be cropped slightly.\n")
-	b.WriteString("Background: the full setting of the scene (the room, street or place where it happens), drawn simply " +
-		"in soft, slightly muted colours so the characters stand out; never an empty plain background.")
-	if custom && mentionsBackground(style) {
-		b.WriteString(" Any background the style above asks for is meant for the word cards of the lesson, not for this scene.")
-	}
-	b.WriteString("\n")
-	b.WriteString("Quality: neat, well-proportioned shapes, consistent line weight, colours that go well together, " +
-		"a warm and cheerful mood suitable for learners of every age.\n")
-	b.WriteString("Do not draw any letters, words or numbers, no speech bubbles, signs with writing, border or frame.")
+	b.WriteString("Background: the full real setting of the scene (the room, street or place where it happens), slightly out of " +
+		"focus so the people stand out; never an empty plain background.\n")
+	b.WriteString(photoAvoid)
+	b.WriteString("Do not show any readable letters, words or numbers, no speech bubbles, signs with writing, border, frame or watermark.")
 	return b.String()
 }
 
@@ -278,9 +256,10 @@ func FirstSense(meaning string) string {
 
 // exercisePicturePrompt describes the picture of a picture exercise of a grammar lesson: exactly
 // what its description says, with the detail the learner reads the answer from shown unmistakably.
-func exercisePicturePrompt(ex ExampleBrief, style string) string {
+func exercisePicturePrompt(ex ExampleBrief) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Create one illustration that shows exactly this: %q.\n", strings.TrimSpace(ex.En))
+	fmt.Fprintf(&b, "Create one photorealistic photograph, indistinguishable from a real photo taken by a professional "+
+		"photographer, that shows exactly this: %q.\n", strings.TrimSpace(ex.En))
 	if p := strings.TrimSpace(ex.Point); p != "" {
 		fmt.Fprintf(&b, "It is the picture of an exercise on the English grammar point %q: ", p)
 	} else {
@@ -289,12 +268,10 @@ func exercisePicturePrompt(ex ExampleBrief, style string) string {
 	b.WriteString("the learner looks at it and picks the word that completes a sentence about it, " +
 		"so the detail the sentence asks about (where something is, what someone is doing, how many there are, " +
 		"which one is bigger, how someone feels) must be shown clearly and unmistakably, and nothing in the picture may suggest another answer.\n")
-	fmt.Fprintf(&b, "Style: %s.\n", imageStyle(style))
-	b.WriteString(characterStyle + "\n")
+	b.WriteString(photoStyle)
 	b.WriteString("Composition: landscape 4:3. The people and things of the description large and centred, " +
-		"in a simple setting with only the objects it needs, on a soft, light background.\n")
-	b.WriteString("Quality: neat, well-proportioned shapes, consistent line weight, colours that go well together, " +
-		"a warm and cheerful mood suitable for learners of every age.\n")
-	b.WriteString("Do not draw any letters, words or numbers, no speech bubbles, signs with writing, border or frame.")
+		"in an ordinary real setting with only the objects it needs.\n")
+	b.WriteString(photoAvoid)
+	b.WriteString("Do not show any readable letters, words or numbers, no speech bubbles, signs with writing, border, frame or watermark.")
 	return b.String()
 }

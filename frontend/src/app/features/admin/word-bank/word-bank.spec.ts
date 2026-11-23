@@ -649,6 +649,74 @@ describe('WordBank (F24)', () => {
     expect(el.querySelector('.batch-failures')!.textContent).toContain('table');
   });
 
+  // Chào hỏi had one redraw that reached 2 of its 8 words; Nhà cửa none.
+  const topicPictures = {
+    topics: [
+      { topicId: 't2', words: 10, missing: 3, rounds: 0, fresh: 0 },
+      { topicId: 't1', words: 8, missing: 5, rounds: 1, lastAt: '2026-11-20T03:00:00Z', fresh: 2 },
+    ],
+  };
+  const openTopicDialog = async () => {
+    await open();
+    await chooseEngine('gemini');
+    button(el.querySelector('.batch-bar')!, 'Sinh ảnh theo nhiều chủ đề')!.click();
+    // The topics' pictures are read when the dialog opens.
+    http.expectOne('/admin/words/topic-pictures').flush(topicPictures);
+    await settle();
+    return el.querySelector<HTMLElement>('[role="alertdialog"]')!;
+  };
+  const pickMode = async (dialog: HTMLElement, label: string) => {
+    const radio = Array.from(dialog.querySelectorAll<HTMLLabelElement>('.topic-mode')).find((l) =>
+      l.textContent!.includes(label),
+    )!;
+    radio.querySelector('input')!.click();
+    await settle();
+  };
+
+  it('draws the words lacking a picture of several ticked topics in one batch', async () => {
+    const dialog = await openTopicDialog();
+    expect(dialog.textContent).toContain('Chào hỏi · vẽ 5 từ');
+    expect(dialog.textContent).toContain(
+      '8 từ, 5 chưa có ảnh · vẽ lại 1 lần · lần gần nhất 20/11: 2/8',
+    );
+    expect(dialog.textContent).toContain('chưa vẽ lại lần nào');
+    expect(button(dialog, 'Sinh ảnh 0 chủ đề')!.disabled).toBe(true);
+    const boxes = dialog.querySelectorAll<HTMLInputElement>('.topic-picks input');
+    boxes[0].click();
+    boxes[1].click();
+    await settle();
+    expect(dialog.textContent).toContain('Đã chọn 2 chủ đề, khoảng 8 từ');
+    button(dialog, 'Sinh ảnh 2 chủ đề')!.click();
+    const start = http.expectOne(
+      (r) => r.method === 'POST' && r.url === '/admin/words/image-batch',
+    );
+    expect(start.request.body).toEqual({ topicIds: ['t1', 't2'], engine: 'gemini' });
+    start.flush({ ...noBatch, running: true, total: 8, startedAt: '2026-11-23T10:00:00Z' });
+    await settle();
+    expect(el.querySelector('[role="alertdialog"]')).toBeNull();
+  });
+
+  it('draws whole topics again or goes on with an unfinished redraw', async () => {
+    const dialog = await openTopicDialog();
+    // Only Chào hỏi has a redraw left unfinished: 6 of its 8 words.
+    await pickMode(dialog, 'Vẽ tiếp');
+    expect(dialog.querySelectorAll('.topic-picks li').length).toBe(1);
+    expect(dialog.textContent).toContain('Chào hỏi · vẽ 6 từ');
+
+    await pickMode(dialog, 'Vẽ lại hết');
+    expect(dialog.textContent).toContain('không lấy lại được ảnh cũ');
+    expect(dialog.textContent).toContain('Nhà cửa · vẽ 10 từ');
+    dialog.querySelectorAll<HTMLInputElement>('.topic-picks input')[1].click();
+    await settle();
+    button(dialog, 'Vẽ lại 1 chủ đề')!.click();
+    const start = http.expectOne(
+      (r) => r.method === 'POST' && r.url === '/admin/words/image-batch',
+    );
+    expect(start.request.body).toEqual({ topicIds: ['t2'], mode: 'redraw', engine: 'gemini' });
+    start.flush({ ...noBatch, running: true, total: 10, startedAt: '2026-11-23T10:00:00Z' });
+    await settle();
+  });
+
   it('follows a batch that was already running when the page opened, and stops it', async () => {
     await open([house, table], false, false, {
       ...noBatch,

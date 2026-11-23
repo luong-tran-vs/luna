@@ -79,7 +79,7 @@ func TestGenerateImageReadsTheSavedPictureAndKeepsIt(t *testing.T) {
 			t.Errorf("args %v miss %q", gotArgs, want)
 		}
 	}
-	for _, want := range []string{`"Good morning"`, "Style: watercolor.", "image_gen", "good-morning-", noImageTool} {
+	for _, want := range []string{`"Good morning"`, "course author, followed only as far as the picture stays a real photograph (never a drawing or render): watercolor.", "image_gen", "good-morning-", noImageTool} {
 		if !strings.Contains(gotStdin, want) {
 			t.Errorf("prompt misses %q:\n%s", want, gotStdin)
 		}

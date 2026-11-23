@@ -45,3 +45,46 @@
   --chip-fg: var(--color-bad);
   --chip-bg: color-mix(in srgb, var(--color-bad) 12%, transparent);
 }
+
+.reset-chip {
+  --chip-fg: var(--color-warn);
+  --chip-bg: color-mix(in srgb, var(--color-warn) 14%, transparent);
+}
+
+.reset-status {
+  margin-top: calc(-1 * var(--space-2));
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-ok);
+}
+
+/* "Đặt lại tiến độ học": the parts to tick. */
+.reset-picks {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reset-pick {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.reset-pick input {
+  margin-top: 3px;
+}
+
+.reset-pick-all {
+  align-items: center;
+  margin-bottom: var(--space-1);
+  font-weight: 600;
+}
+
+.reset-pick-text {
+  display: grid;
+  min-width: 0;
+}

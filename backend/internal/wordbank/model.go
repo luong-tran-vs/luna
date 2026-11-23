@@ -116,3 +116,12 @@ func (e *ValidationError) Error() string { return "wordbank: invalid input" }
 func Normalize(s string) string {
 	return strings.Join(strings.Fields(strings.ToLower(strings.ReplaceAll(s, "’", "'"))), " ")
 }
+
+// TopicRedraw is how often the pictures of a topic's words were all drawn again (added
+// 2026-11-23): Rounds counts the "Vẽ lại hết" batches, LastAt is when the latest one started. A
+// word whose picture is older than LastAt is not redrawn yet in that round.
+type TopicRedraw struct {
+	TopicID string
+	Rounds  int
+	LastAt  time.Time
+}

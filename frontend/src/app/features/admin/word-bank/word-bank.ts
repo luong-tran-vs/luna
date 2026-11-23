@@ -21,18 +21,21 @@ import {
 } from 'rxjs';
 
 import {
+  BankBatchRequest,
   BankImageBatch,
   BankMissing,
   BankTopic,
   BankTopicMissing,
+  BankTopicPictures,
   BankWord,
   BankWordAdded,
   engineLabel,
   ImageEngine,
-  MAX_IMAGE_BATCH,
+  MAX_WORD_IMAGE_BATCH,
   MAX_BANK_IPA,
   MAX_BANK_LEMMA,
   MAX_BANK_MEANING,
+  TopicDrawMode,
 } from '../../../core/models/word-bank';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { SearchOption, SearchSelect } from '../../../shared/components/search-select/search-select';
@@ -145,7 +148,7 @@ export class WordBank {
     const ws = this.words() ?? [];
     return ws.length > 0 && ws.every((w) => this.selected().has(w.lemma));
   });
-  protected readonly maxBatch = MAX_IMAGE_BATCH;
+  protected readonly maxBatch = MAX_WORD_IMAGE_BATCH;
   /** The picture batch drawing in the background, or the last one; null until known. */
   protected readonly batch = this.batches.status;
   protected readonly batchBusy = signal(false);
@@ -165,11 +168,73 @@ export class WordBank {
   protected readonly confirmAllMessage = computed(
     () =>
       `Máy chủ sẽ sinh lần lượt ảnh cho mọi từ thiếu ảnh${this.topicName() ? ` của chủ đề "${this.topicName()}"` : ''}` +
-      `${this.search().trim() ? ` khớp "${this.search().trim()}"` : ''}, tối đa ${MAX_IMAGE_BATCH} từ, bằng ${this.engineName()}.` +
+      `${this.search().trim() ? ` khớp "${this.search().trim()}"` : ''}, tối đa ${MAX_WORD_IMAGE_BATCH} từ, bằng ${this.engineName()}.` +
       (this.rowEngine() === 'gemini'
         ? ' Gemini tính phí theo từng ảnh.'
         : ' Mỗi ảnh Codex mất khoảng 1 phút.'),
   );
+
+  /**
+   * "Sinh ảnh theo nhiều chủ đề" (added 2026-11-23): the dialog is open, what it draws (missing
+   * pictures, all again, or the rest of the latest redraw), and the ticked topics.
+   */
+  protected readonly pickingTopics = signal(false);
+  protected readonly topicMode = signal<TopicDrawMode>('');
+  protected readonly topicModes = TOPIC_MODES;
+  protected readonly pickedTopics = signal<ReadonlySet<string>>(new Set());
+  /** Each topic's pictures and redraw rounds, read when the dialog opens; null while loading. */
+  protected readonly topicPictures = signal<ReadonlyMap<string, BankTopicPictures> | null>(null);
+  protected readonly topicPicturesError = signal(false);
+  /** The topics the mode can draw, by name: count is how many words it would draw in each. */
+  protected readonly topicRows = computed(() => {
+    const pics = this.topicPictures();
+    if (!pics) {
+      return [];
+    }
+    const mode = this.topicMode();
+    return this.topics().flatMap((t) => {
+      const p = pics.get(t.id);
+      if (!p) {
+        return [];
+      }
+      const count =
+        mode === 'redraw'
+          ? p.words
+          : mode === 'continue'
+            ? p.rounds
+              ? p.words - p.fresh
+              : 0
+            : p.missing;
+      return count > 0 ? [{ id: t.id, name: t.name, count, info: topicPicturesInfo(p) }] : [];
+    });
+  });
+  protected readonly allTopicsPicked = computed(() => {
+    const rows = this.topicRows();
+    return rows.length > 0 && rows.every((t) => this.pickedTopics().has(t.id));
+  });
+  private readonly pickedRows = computed(() =>
+    this.topicRows().filter((t) => this.pickedTopics().has(t.id)),
+  );
+  /** The words the ticked topics would draw, counted per topic: a word in two topics counts twice. */
+  protected readonly pickedCount = computed(() =>
+    this.pickedRows().reduce((n, t) => n + t.count, 0),
+  );
+  protected readonly topicModeInfo = computed(() =>
+    TOPIC_MODES.find((m) => m.value === this.topicMode())!,
+  );
+  protected readonly pickMessage = computed(() => {
+    const n = this.pickedRows().length;
+    const m = this.topicModeInfo();
+    const head = `${m.hint} Từ có trong nhiều chủ đề chỉ vẽ một lần; tối đa ${MAX_WORD_IMAGE_BATCH} từ mỗi lượt, bằng ${this.engineName()}.`;
+    if (n === 0) {
+      return head;
+    }
+    const over =
+      this.pickedCount() > MAX_WORD_IMAGE_BATCH
+        ? ` Quá ${MAX_WORD_IMAGE_BATCH} từ thì phần còn lại vẽ ở lượt sau${this.topicMode() === 'redraw' ? ' bằng "Vẽ tiếp"' : ''}.`
+        : '';
+    return `${head} Đã chọn ${n} chủ đề, khoảng ${this.pickedCount()} từ.${over}`;
+  });
 
   protected readonly loadError = signal<string | null>(null);
   protected readonly loadingMore = signal(false);
@@ -494,6 +559,69 @@ export class WordBank {
     this.confirmingAll.set(true);
   }
 
+  /** "Sinh ảnh theo nhiều chủ đề": opens the topic list once the engine is chosen. */
+  protected askTopics(): void {
+    if (this.rowEngine() === '') {
+      this.batchError.set(NO_ENGINE);
+      return;
+    }
+    this.batchError.set(null);
+    this.pickingTopics.set(true);
+    this.loadTopicPictures();
+  }
+
+  protected loadTopicPictures(): void {
+    this.topicPictures.set(null);
+    this.topicPicturesError.set(false);
+    this.api.bankTopicPictures().subscribe({
+      next: (list) => this.topicPictures.set(new Map(list.map((p) => [p.topicId, p]))),
+      error: () => this.topicPicturesError.set(true),
+    });
+  }
+
+  protected setTopicMode(mode: TopicDrawMode): void {
+    this.topicMode.set(mode);
+    this.pickedTopics.set(new Set());
+  }
+
+  protected pickTopic(id: string, on: boolean): void {
+    this.pickedTopics.update((s) => {
+      const next = new Set(s);
+      if (on) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  }
+
+  protected pickAllTopics(on: boolean): void {
+    this.pickedTopics.set(new Set(on ? this.topicRows().map((t) => t.id) : []));
+  }
+
+  /** Draws the ticked topics' words the mode picks, in one background batch. */
+  protected async startTopicsBatch(): Promise<void> {
+    this.pickingTopics.set(false);
+    const engine = this.rowEngine();
+    const topicIds = this.pickedRows().map((t) => t.id);
+    const mode = this.topicMode();
+    if (this.batchBusy() || engine === '' || topicIds.length === 0) {
+      return;
+    }
+    this.batchBusy.set(true);
+    this.batchError.set(null);
+    try {
+      const req: BankBatchRequest = mode ? { topicIds, mode, engine } : { topicIds, engine };
+      this.batches.set(await firstValueFrom(this.api.startBankImageBatch(req)));
+      this.pickedTopics.set(new Set());
+    } catch (err) {
+      this.batchError.set(bankMessage(err) ?? 'Không bắt đầu được, vui lòng thử lại.');
+    } finally {
+      this.batchBusy.set(false);
+    }
+  }
+
   protected async startBatch(ticked: boolean): Promise<void> {
     this.confirmingAll.set(false);
     if (this.batchBusy()) {
@@ -504,8 +632,8 @@ export class WordBank {
       this.batchError.set(NO_ENGINE);
       return;
     }
-    if (ticked && this.selectedCount() > MAX_IMAGE_BATCH) {
-      this.batchError.set(`Mỗi lượt sinh tối đa ${MAX_IMAGE_BATCH} ảnh. Bỏ bớt từ đã chọn.`);
+    if (ticked && this.selectedCount() > MAX_WORD_IMAGE_BATCH) {
+      this.batchError.set(`Mỗi lượt sinh tối đa ${MAX_WORD_IMAGE_BATCH} ảnh. Bỏ bớt từ đã chọn.`);
       return;
     }
     this.batchBusy.set(true);
@@ -593,4 +721,46 @@ export class WordBank {
       this.note.set(bankMessage(err) ?? 'Không xoá được, vui lòng thử lại.');
     }
   }
+}
+
+/** The modes of "Sinh ảnh theo nhiều chủ đề": what each draws in the ticked topics. */
+const TOPIC_MODES: readonly {
+  value: TopicDrawMode;
+  label: string;
+  hint: string;
+  confirm: string;
+}[] = [
+  {
+    value: '',
+    label: 'Vẽ phần thiếu',
+    hint: 'Vẽ các từ chưa có ảnh của chủ đề đã chọn.',
+    confirm: 'Sinh ảnh',
+  },
+  {
+    value: 'redraw',
+    label: 'Vẽ lại hết',
+    hint: 'Vẽ lại mọi từ của chủ đề đã chọn, tính thêm một lần vẽ lại cho mỗi chủ đề: ảnh mới ghi đè ảnh cũ và không lấy lại được ảnh cũ.',
+    confirm: 'Vẽ lại',
+  },
+  {
+    value: 'continue',
+    label: 'Vẽ tiếp lần vẽ lại dở',
+    hint: 'Chỉ vẽ các từ mà lần vẽ lại gần nhất của chủ đề chưa tới (bị dừng giữa chừng hoặc quá số từ mỗi lượt).',
+    confirm: 'Vẽ tiếp',
+  },
+];
+
+/** "40 từ · vẽ lại 2 lần · lần gần nhất 23/11: 25/40" for a topic of the dialog. */
+export function topicPicturesInfo(p: BankTopicPictures): string {
+  const words = `${p.words} từ${p.missing ? `, ${p.missing} chưa có ảnh` : ''}`;
+  if (!p.rounds) {
+    return `${words} · chưa vẽ lại lần nào`;
+  }
+  const d = p.lastAt ? new Date(p.lastAt) : null;
+  const day =
+    d && !Number.isNaN(d.getTime())
+      ? ` ${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`
+      : '';
+  const done = p.fresh >= p.words ? ' ✓' : '';
+  return `${words} · vẽ lại ${p.rounds} lần · lần gần nhất${day}: ${p.fresh}/${p.words}${done}`;
 }

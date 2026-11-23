@@ -246,3 +246,45 @@ func (r *WordBank) DeleteImage(ctx context.Context, lemma string) error {
 	}
 	return nil
 }
+
+// topicRedrawDoc is one topic's picture redraw rounds in "word_topic_redraws", keyed by topic id
+// (added 2026-11-23).
+type topicRedrawDoc struct {
+	TopicID string    `bson:"_id"`
+	Rounds  int       `bson:"rounds"`
+	LastAt  time.Time `bson:"lastAt"`
+}
+
+func (r *WordBank) redraws() *mongo.Collection {
+	return r.words.Database().Collection("word_topic_redraws")
+}
+
+// TopicRedraws returns the redraw rounds of every topic that had one.
+func (r *WordBank) TopicRedraws(ctx context.Context) ([]wordbank.TopicRedraw, error) {
+	cur, err := r.redraws().Find(ctx, bson.D{})
+	if err != nil {
+		return nil, fmt.Errorf("mongo: find topic redraws: %w", err)
+	}
+	var docs []topicRedrawDoc
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("mongo: read topic redraws: %w", err)
+	}
+	out := make([]wordbank.TopicRedraw, len(docs))
+	for i, d := range docs {
+		out[i] = wordbank.TopicRedraw{TopicID: d.TopicID, Rounds: d.Rounds, LastAt: d.LastAt}
+	}
+	return out, nil
+}
+
+// StartTopicRedraw counts one more round for each topic, started at.
+func (r *WordBank) StartTopicRedraw(ctx context.Context, topicIDs []string, at time.Time) error {
+	for _, id := range topicIDs {
+		_, err := r.redraws().UpdateByID(ctx, id,
+			bson.D{{Key: "$inc", Value: bson.D{{Key: "rounds", Value: 1}}}, {Key: "$set", Value: bson.D{{Key: "lastAt", Value: at}}}},
+			options.UpdateOne().SetUpsert(true))
+		if err != nil {
+			return fmt.Errorf("mongo: start topic redraw: %w", err)
+		}
+	}
+	return nil
+}

@@ -42,6 +42,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 
 	mux.Handle("GET /api/admin/words", admin(h.list))
 	mux.Handle("GET /api/admin/words/missing-by-topic", admin(h.missingByTopic))
+	mux.Handle("GET /api/admin/words/topic-pictures", admin(h.topicPictures))
 	mux.Handle("POST /api/admin/words", admin(h.add))
 	mux.Handle("POST /api/admin/words/import", admin(h.importTopics))
 	mux.Handle("POST /api/admin/words/fill-missing", admin(h.fillMissing))
@@ -405,6 +406,7 @@ type batchJSON struct {
 	Engine      Engine             `json:"engine"`
 	Ticked      bool               `json:"ticked"`
 	CardWords   bool               `json:"cardWords,omitempty"`
+	Mode        BatchMode          `json:"mode,omitempty"`
 	TopicName   string             `json:"topicName,omitempty"`
 	Search      string             `json:"search,omitempty"`
 	Topics      []string           `json:"topics"`
@@ -421,7 +423,7 @@ type batchJSON struct {
 func batchToJSON(b BatchStatus) batchJSON {
 	out := batchJSON{
 		Running: b.Running, Stopping: b.Stopping, Stopped: b.Stopped, Engine: b.Engine, Total: b.Total, Done: b.Done(),
-		Ticked: b.Ticked, CardWords: b.CardWords, TopicName: b.TopicName, Search: b.Search, Topics: b.Topics,
+		Ticked: b.Ticked, CardWords: b.CardWords, Mode: b.Mode, TopicName: b.TopicName, Search: b.Search, Topics: b.Topics,
 		Drawing: b.Drawing, Saved: make([]wordJSON, len(b.Saved)), Failures: make([]batchFailureJSON, len(b.Failures)),
 	}
 	if out.Drawing == nil {
@@ -454,21 +456,23 @@ func (h *Handler) batch(w http.ResponseWriter, _ *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, batchToJSON(h.svc.Batch()))
 }
 
-// startBatch serves POST /api/admin/words/image-batch with {"lemmas"?, "q"?, "topicId"?, "engine"?,
+// startBatch serves POST /api/admin/words/image-batch with {"lemmas"?, "q"?, "topicId"?, "topicIds"?, "mode"?, "engine"?,
 // "style"?}: 202 once the batch runs in the background; 409 while another one runs.
 func (h *Handler) startBatch(w http.ResponseWriter, r *http.Request) {
 	var in struct {
-		Lemmas  []string `json:"lemmas"`
-		Q       string   `json:"q"`
-		TopicID string   `json:"topicId"`
-		Engine  Engine   `json:"engine"`
-		Style   string   `json:"style"`
+		Lemmas   []string  `json:"lemmas"`
+		Q        string    `json:"q"`
+		TopicID  string    `json:"topicId"`
+		TopicIDs []string  `json:"topicIds"`
+		Mode     BatchMode `json:"mode"`
+		Engine   Engine    `json:"engine"`
+		Style    string    `json:"style"`
 	}
 	if httpx.DecodeJSON(w, r, &in) != nil {
 		return
 	}
 	st, err := h.svc.StartBatch(r.Context(), BatchRequest{
-		Lemmas: in.Lemmas, Search: in.Q, TopicID: in.TopicID, Engine: in.Engine, Style: in.Style,
+		Lemmas: in.Lemmas, Search: in.Q, TopicID: in.TopicID, TopicIDs: in.TopicIDs, Mode: in.Mode, Engine: in.Engine, Style: in.Style,
 	})
 	if err != nil {
 		h.writeError(w, r, err)
@@ -480,4 +484,33 @@ func (h *Handler) startBatch(w http.ResponseWriter, r *http.Request) {
 // stopBatch serves POST /api/admin/words/image-batch/stop: the words being drawn finish, no new one starts.
 func (h *Handler) stopBatch(w http.ResponseWriter, _ *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, batchToJSON(h.svc.StopBatch()))
+}
+
+type topicPicturesJSON struct {
+	TopicID string     `json:"topicId"`
+	Words   int        `json:"words"`
+	Missing int        `json:"missing"`
+	Rounds  int        `json:"rounds"`
+	LastAt  *time.Time `json:"lastAt,omitempty"`
+	Fresh   int        `json:"fresh"`
+}
+
+// topicPictures serves GET /api/admin/words/topic-pictures (added 2026-11-23): per topic with bank
+// words, how many it has and lack a picture, how often all were drawn again, when the latest round
+// started and how many words it has reached.
+func (h *Handler) topicPictures(w http.ResponseWriter, r *http.Request) {
+	list, err := h.svc.TopicsPictures(r.Context())
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	out := make([]topicPicturesJSON, len(list))
+	for i, p := range list {
+		out[i] = topicPicturesJSON{TopicID: p.TopicID, Words: p.Words, Missing: p.Missing, Rounds: p.Rounds, Fresh: p.Fresh}
+		if p.Rounds > 0 {
+			at := p.LastAt
+			out[i].LastAt = &at
+		}
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"topics": out})
 }

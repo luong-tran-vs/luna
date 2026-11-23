@@ -1,6 +1,9 @@
 package wordbank
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 // Repository stores the words of the bank and their pictures. Implementations live in
 // internal/storage.
@@ -25,4 +28,8 @@ type Repository interface {
 	SaveImage(ctx context.Context, img Image) error
 	// DeleteImage removes the picture of a word; a word without one is not an error.
 	DeleteImage(ctx context.Context, lemma string) error
+	// TopicRedraws returns the redraw rounds of the topics that had one (added 2026-11-23).
+	TopicRedraws(ctx context.Context) ([]TopicRedraw, error)
+	// StartTopicRedraw counts one more round for each topic, started at.
+	StartTopicRedraw(ctx context.Context, topicIDs []string, at time.Time) error
 }

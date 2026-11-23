@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/luongtran/luna/backend/internal/wordbank"
 )
@@ -254,4 +255,46 @@ func (r *WordBank) DeleteImage(ctx context.Context, lemma string) error {
 		}
 		return nil
 	})
+}
+
+// wordTopicRedrawsSchema is the table of the picture redraw rounds of the topics (added 2026-11-23).
+func wordTopicRedrawsSchema() []string {
+	return []string{
+		`CREATE TABLE IF NOT EXISTS word_topic_redraws (
+	topic_id VARCHAR(191) NOT NULL PRIMARY KEY,
+	rounds   INT          NOT NULL,
+	last_at  DATETIME(6)  NOT NULL
+) ` + tableOptions,
+	}
+}
+
+// TopicRedraws returns the redraw rounds of every topic that had one.
+func (r *WordBank) TopicRedraws(ctx context.Context) ([]wordbank.TopicRedraw, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT topic_id, rounds, last_at FROM word_topic_redraws`)
+	if err != nil {
+		return nil, fmt.Errorf("mysql: topic redraws: %w", err)
+	}
+	defer rows.Close()
+	var out []wordbank.TopicRedraw
+	for rows.Next() {
+		var t wordbank.TopicRedraw
+		if err := rows.Scan(&t.TopicID, &t.Rounds, &t.LastAt); err != nil {
+			return nil, fmt.Errorf("mysql: scan topic redraw: %w", err)
+		}
+		t.LastAt = t.LastAt.UTC()
+		out = append(out, t)
+	}
+	return out, rows.Err()
+}
+
+// StartTopicRedraw counts one more round for each topic, started at.
+func (r *WordBank) StartTopicRedraw(ctx context.Context, topicIDs []string, at time.Time) error {
+	for _, id := range topicIDs {
+		_, err := r.db.ExecContext(ctx, `INSERT INTO word_topic_redraws (topic_id, rounds, last_at) VALUES (?, 1, ?)
+ON DUPLICATE KEY UPDATE rounds = rounds + 1, last_at = VALUES(last_at)`, id, at.UTC())
+		if err != nil {
+			return fmt.Errorf("mysql: start topic redraw: %w", err)
+		}
+	}
+	return nil
 }

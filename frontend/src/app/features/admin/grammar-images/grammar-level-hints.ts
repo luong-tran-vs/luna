@@ -59,11 +59,18 @@ export function pointHintsKey(pointId: string): string {
           <button
             type="button"
             class="btn"
-            [disabled]="busy() || missing() === 0 || !!other()"
+            [disabled]="busy() || !count()?.total || !!other()"
             (click)="open.set(true)"
           >
-            Tạo ảnh<span class="visually-hidden"> câu luyện tập {{ level() }}</span
-            >{{ missing() ? ' (' + missing() + ' câu)' : '' }}
+            {{ redraw() ? 'Vẽ lại hết' : 'Tạo ảnh'
+            }}<span class="visually-hidden"> câu luyện tập {{ level() }}</span
+            >{{
+              redraw()
+                ? ' (' + count()?.total + ' ảnh)'
+                : missing()
+                  ? ' (' + missing() + ' câu)'
+                  : ''
+            }}
           </button>
         }
       </div>
@@ -127,15 +134,13 @@ export function pointHintsKey(pointId: string): string {
 
     <lu-engine-dialog
       [open]="open()"
-      [heading]="'Tạo ảnh câu luyện tập cho các bài ngữ pháp ' + level()"
-      [message]="
-        'Vẽ ' +
-        missing() +
-        ' ảnh còn thiếu cho câu chọn đáp án, điền từ và sửa lỗi ở Luyện tập, lần lượt từng ảnh. Mỗi lượt tối đa ' +
-        maxBatch +
-        ' ảnh.'
+      [heading]="
+        (redraw()
+          ? 'Vẽ lại hết ảnh câu luyện tập các bài ngữ pháp '
+          : 'Tạo ảnh câu luyện tập cho các bài ngữ pháp ') + level()
       "
-      confirmLabel="Tạo ảnh"
+      [message]="dialogMessage()"
+      [confirmLabel]="redraw() ? 'Vẽ lại hết' : 'Tạo ảnh'"
       [codexAvailable]="codex()"
       (confirmed)="start($event)"
       (cancelled)="open.set(false)"
@@ -163,6 +168,13 @@ export class GrammarLevelHints {
     const c = this.count();
     return c ? c.total - c.drawn : 0;
   });
+  /** Every exercise has its picture: the button draws them all again (replacing them) after a confirm. */
+  protected readonly redraw = computed(() => !!this.count()?.total && this.missing() === 0);
+  protected readonly dialogMessage = computed(() =>
+    this.redraw()
+      ? `Mọi câu đã có ảnh. Vẽ lại hết ${this.count()?.total} ảnh câu luyện tập của các bài ${this.level()}, lần lượt từng ảnh: ảnh mới ghi đè ảnh cũ và không lấy lại được ảnh cũ. Mỗi lượt tối đa ${this.maxBatch} ảnh.`
+      : `Vẽ ${this.missing()} ảnh còn thiếu cho câu chọn đáp án, điền từ và sửa lỗi ở Luyện tập, lần lượt từng ảnh. Mỗi lượt tối đa ${this.maxBatch} ảnh.`,
+  );
   protected readonly codex = computed(() => this.batches.status()?.codexImages ?? false);
 
   /** The batch of this level: running, or finished and not hidden yet. */
@@ -228,6 +240,7 @@ export class GrammarLevelHints {
           this.api.startGrammarImageBatch({
             pointIds: [...this.pointIds()],
             hints: true,
+            replace: this.redraw(),
             engine,
             key: levelHintsKey(this.level()),
             label: `ảnh câu luyện tập các bài ngữ pháp ${this.level()}`,

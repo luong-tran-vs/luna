@@ -99,9 +99,13 @@ export function batchScope(b: BankImageBatch): string {
   const topic = b.topicName ? ` của chủ đề "${b.topicName}"` : '';
   let scope = b.ticked
     ? `${b.total} từ đã chọn${topic}`
-    : topic
-      ? `các từ thiếu ảnh${topic}`
-      : 'mọi từ thiếu ảnh';
+    : b.mode === 'redraw'
+      ? `vẽ lại hết ${b.total} từ${topic}`
+      : b.mode === 'continue'
+        ? `vẽ tiếp ${b.total} từ của lần vẽ lại dở${topic}`
+        : topic
+          ? `các từ thiếu ảnh${topic}`
+          : 'mọi từ thiếu ảnh';
   if (!b.ticked && b.search) {
     scope += ` khớp "${b.search}"`;
   }

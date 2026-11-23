@@ -6,7 +6,7 @@ import { errorInterceptor } from '../../../../core/interceptors/error-intercepto
 import {
   BankImageBatch,
   CardWordsSummary,
-  MAX_IMAGE_BATCH,
+  MAX_WORD_IMAGE_BATCH,
 } from '../../../../core/models/word-bank';
 import { batchScope, ImageBatchService } from '../image-batch.service';
 import { CardWordPictures } from './card-word-pictures';
@@ -86,15 +86,15 @@ describe('CardWordPictures', () => {
   });
 
   it('starts the batch with the engine picked, the page following it', async () => {
-    await open(summary({ missingCount: MAX_IMAGE_BATCH + 7 }));
+    await open(summary({ missingCount: MAX_WORD_IMAGE_BATCH + 7 }));
     button('Sinh ảnh còn thiếu').click();
     await settle();
     const dialog = el.querySelector('lu-engine-dialog [role="dialog"]')!;
-    expect(text(dialog)).toContain(`Máy chủ vẽ ${MAX_IMAGE_BATCH} từ được lưu nhiều nhất`);
+    expect(text(dialog)).toContain(`Máy chủ vẽ ${MAX_WORD_IMAGE_BATCH} từ được lưu nhiều nhất`);
     expect(text(dialog)).toContain('7 từ còn lại vẽ ở lượt sau');
     dialog.querySelector<HTMLInputElement>('input[value="gemini"]')!.click();
     await settle();
-    button(`Sinh ${MAX_IMAGE_BATCH} ảnh`).click();
+    button(`Sinh ${MAX_WORD_IMAGE_BATCH} ảnh`).click();
     await settle();
 
     const req = http.expectOne('/admin/words/card-words/image-batch');

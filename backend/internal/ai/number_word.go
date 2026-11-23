@@ -121,19 +121,19 @@ func ordinalSuffix(n int) string {
 	return "th"
 }
 
-// numberPrompt describes the picture of a number word: its numeral, large and clear, which is the
-// one text the picture shows.
+// numberPrompt describes the picture of a number word: its numeral as a real object, large and clear, which
+// is the one text the picture shows.
 func numberPrompt(word, numeral, style string) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Create one illustration that helps a Vietnamese learner of English remember the English number word %q.\n", word)
-	fmt.Fprintf(&b, "Show the numeral %q, large and centred, filling about two thirds of the frame: chunky, friendly, rounded "+
-		"characters, easy to read at a glance, with exactly these characters and nothing else written. ", numeral)
+	fmt.Fprintf(&b, photoOpening+"that helps a Vietnamese learner of English remember the English number word %q.\n", word)
+	fmt.Fprintf(&b, "Show the numeral %q as a real physical object, large and centred, filling about two thirds of the frame: "+
+		"thick, solid characters (painted wood or matte metal, like a large house number) standing on a plain surface, "+
+		"easy to read at a glance, with exactly these characters and nothing else written. ", numeral)
 	b.WriteString("Do not replace the numeral with a group of objects to count.\n")
-	fmt.Fprintf(&b, "Style: %s.\n", imageStyle(style))
-	b.WriteString("Composition: landscape 4:3. Plain light pastel background with plenty of empty space; " +
-		"at most a few small decorative sparkles or shapes around the numeral.\n")
-	b.WriteString("Quality: neat, well-proportioned shapes, colours that go well together, a warm and cheerful mood " +
-		"suitable for learners of every age.\n")
-	b.WriteString("Do not draw any letters or words, and no border or frame.")
+	b.WriteString(photoDirection(style))
+	b.WriteString("Composition: landscape 4:3. A plain, softly lit, light neutral studio backdrop with plenty of empty space, " +
+		"a soft natural shadow under the numeral.\n")
+	b.WriteString(photoAvoid)
+	b.WriteString("Do not show any letters or words, no other numbers, no border, frame or watermark.")
 	return b.String()
 }

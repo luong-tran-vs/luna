@@ -96,7 +96,7 @@ export const UPLOAD_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
  * here used to replace it).
  */
 export const IMAGE_STYLE_PLACEHOLDER =
-  'Để trống: tranh semi-flat gọn gàng, màu pastel dịu (tím oải hương, đào, bạc hà, kem), đổ bóng mềm, nhân vật tròn trịa.';
+  'Để trống: ảnh chụp chân thật như máy ảnh thật, ánh sáng tự nhiên, người và đồ vật thật. Có thể thêm ý như: ánh chiều ấm, trời mưa.';
 
 /** Source and license of lessons saved from AI drafts. */
 export const AI_SOURCE = 'AI sinh';

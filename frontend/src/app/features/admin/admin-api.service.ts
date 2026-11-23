@@ -62,6 +62,7 @@ import {
   BankMissing,
   BankPage,
   BankTopicMissing,
+  BankTopicPictures,
   BankWord,
   BankWordAdded,
   BankWordDetails,
@@ -488,6 +489,13 @@ export class AdminApiService {
   }
 
   /** F24: per topic, how many of its bank words lack a picture, an IPA and a meaning. */
+  /** The pictures and redraw rounds of every topic with bank words (added 2026-11-23). */
+  bankTopicPictures(): Observable<BankTopicPictures[]> {
+    return this.http
+      .get<{ topics: BankTopicPictures[] }>(`${BASE}/words/topic-pictures`)
+      .pipe(map((r) => r.topics));
+  }
+
   bankMissingByTopic(): Observable<BankTopicMissing[]> {
     return this.http
       .get<{ topics: BankTopicMissing[] }>(`${BASE}/words/missing-by-topic`)
