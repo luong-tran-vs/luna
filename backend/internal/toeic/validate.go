@@ -11,6 +11,10 @@ import (
 
 var keyPattern = regexp.MustCompile(`^[a-z0-9-]{3,48}$`)
 
+// speakerPattern is the code of a speaker: "m" or "w" (man, woman), "m2" / "w2" for a second one.
+// The page picks a voice per speaker and labels it Nam/Nữ from this code, so names are refused.
+var speakerPattern = regexp.MustCompile(`^[mw]2?$`)
+
 // Levels are the difficulty marks of a group (TOEIC scores).
 var Levels = []int{450, 600, 750, 900}
 
@@ -168,6 +172,8 @@ func validateGroup(g Group) map[string]string {
 			f["graphic"] = "Chỉ Part 3/4 có biểu đồ"
 		} else if !slices.Contains(graphicKinds, g.Graphic.Kind) {
 			f["graphic.kind"] = "Loại biểu đồ không hợp lệ"
+		} else {
+			validateGraphic(f, g.Graphic)
 		}
 	}
 
@@ -232,6 +238,8 @@ func validateScript(f map[string]string, script []Turn, lo, hi int) {
 		p := fmt.Sprintf("script[%d].", i)
 		if t.Speaker == "" {
 			f[p+"speaker"] = "Cần người nói"
+		} else if !speakerPattern.MatchString(t.Speaker) {
+			f[p+"speaker"] = "Người nói phải là m, w, m2 hoặc w2"
 		}
 		if !t.Accent.Valid() {
 			f[p+"accent"] = "Giọng phải là us, gb, au hoặc ca"
@@ -246,6 +254,51 @@ func validateScript(f map[string]string, script []Turn, lo, hi int) {
 			f["script"] = fmt.Sprintf("Cần đúng %d người nói", lo)
 		} else {
 			f["script"] = fmt.Sprintf("Cần %d–%d người nói", lo, hi)
+		}
+	}
+}
+
+// maxGraphicTitle caps a graphic's title: a few words, never a paragraph (an AI draft once
+// filled it with thousands of repeated words).
+const maxGraphicTitle = 120
+
+// validateGraphic checks that a graphic has a short title and the data its kind is drawn from:
+// at least two rows matching the columns (table, schedule, price list), two rooms (floor plan)
+// or two bars (bar chart).
+func validateGraphic(f map[string]string, gr *Graphic) {
+	if len([]rune(gr.Title)) > maxGraphicTitle {
+		f["graphic.title"] = fmt.Sprintf("Tiêu đề biểu đồ tối đa %d ký tự", maxGraphicTitle)
+	}
+	switch gr.Kind {
+	case "floor-plan":
+		if len(gr.Cells) < 2 {
+			f["graphic.cells"] = "Sơ đồ cần ít nhất 2 phòng"
+		}
+		for _, c := range gr.Cells {
+			if strings.TrimSpace(c.Label) == "" {
+				f["graphic.cells"] = "Phòng trong sơ đồ cần tên"
+			}
+		}
+	case "bar-chart":
+		if len(gr.Bars) < 2 {
+			f["graphic.bars"] = "Biểu đồ cột cần ít nhất 2 cột"
+		}
+		for _, b := range gr.Bars {
+			if strings.TrimSpace(b.Label) == "" {
+				f["graphic.bars"] = "Cột trong biểu đồ cần tên"
+			}
+		}
+	default:
+		if len(gr.Columns) < 2 {
+			f["graphic.columns"] = "Bảng cần ít nhất 2 cột"
+		}
+		if len(gr.Rows) < 2 {
+			f["graphic.rows"] = "Bảng cần ít nhất 2 dòng"
+		}
+		for _, r := range gr.Rows {
+			if len(r) != len(gr.Columns) {
+				f["graphic.rows"] = "Mỗi dòng của bảng phải đủ số cột"
+			}
 		}
 	}
 }

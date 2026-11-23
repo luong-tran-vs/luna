@@ -72,7 +72,8 @@ var toeicPartSpecs = [8]string{
 	"PART 4 - TALKS. Each group is one talk by ONE speaker + exactly 3 questions of 4 options.\n" +
 		"- Talk types: announcements, telephone or voicemail messages, advertisements, tours, meeting excerpts, news or traffic " +
 		"reports, speeches and introductions, workshops.\n" +
-		"- \"script\": 100-150 words split into 4-7 turns of the SAME speaker and accent (1-3 sentences each). Every turn has a " +
+		"- \"script\": 100-150 words split into 4-7 turns of the SAME speaker and accent (1-3 sentences each), natural spoken " +
+		"English with contractions. \"speaker\" is the code \"m\" or \"w\", never a name or a job title. Every turn has a " +
 		"Vietnamese \"translateVi\".\n" +
 		"- Questions: 1) purpose, topic, speaker or listeners, place, 2) a detail, 3) what the listeners should do or what will " +
 		"happen next. Implied-meaning and graphic questions as in Part 3, in about one group in three and one group in four.",

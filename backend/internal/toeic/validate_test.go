@@ -43,6 +43,13 @@ func TestValidateErrors(t *testing.T) {
 		{"no explanation", func() Group { g := p5("p5-x", 0); g.Questions[0].ExplainVi = " "; return g }, "questions[0].explainVi"},
 		{"part 5 blank", func() Group { g := p5("p5-x", 0); g.Questions[0].Prompt = "No blank here."; return g }, "questions[0].prompt"},
 		{"part 3 one speaker", func() Group { g := p3("p3-x"); g.Script[1].Speaker = "m"; return g }, "script"},
+		{"speaker given as a name", func() Group {
+			g := p4("p4-x")
+			for i := range g.Script {
+				g.Script[i].Speaker = "Sarah Jenkins"
+			}
+			return g
+		}, "script[0].speaker"},
 		{"part 3 bad accent", func() Group { g := p3("p3-x"); g.Script[0].Accent = "fr"; return g }, "script[0].accent"},
 		{"part 3 two questions", func() Group { g := p3("p3-x"); g.Questions = g.Questions[:2]; return g }, "questions"},
 		{"part 6 missing blank", func() Group {
@@ -58,6 +65,25 @@ func TestValidateErrors(t *testing.T) {
 			return g
 		}, "questions[0].evidence[0].text"},
 		{"graphic tag without graphic", func() Group { g := p3("p3-x"); g.Questions[2].Tags = []string{"graphic"}; return g }, "graphic"},
+		{"graphic title too long", func() Group {
+			g := p3("p3-x")
+			g.Graphic = testTable()
+			g.Graphic.Title = strings.Repeat("format presentation ", 10)
+			return g
+		}, "graphic.title"},
+		{"graphic table without rows", func() Group { g := p3("p3-x"); g.Graphic = testTable(); g.Graphic.Rows = nil; return g }, "graphic.rows"},
+		{"graphic row missing a column", func() Group {
+			g := p3("p3-x")
+			g.Graphic = testTable()
+			g.Graphic.Rows[1] = []string{"Room B"}
+			return g
+		}, "graphic.rows"},
+		{"graphic floor plan without rooms", func() Group { g := p3("p3-x"); g.Graphic = &Graphic{Kind: "floor-plan"}; return g }, "graphic.cells"},
+		{"graphic bar chart with one bar", func() Group {
+			g := p3("p3-x")
+			g.Graphic = &Graphic{Kind: "bar-chart", Bars: []Bar{{Label: "Sales", Value: 3}}}
+			return g
+		}, "graphic.bars"},
 		{"bad key", func() Group { g := p5("P5 bad key!", 0); return g }, "key"},
 		{"part 1 without scene", func() Group { g := p1("p1-x"); g.Scene = ""; return g }, "scene"},
 		{"level", func() Group { g := p5("p5-x", 0); g.Level = 500; return g }, "level"},
@@ -72,6 +98,28 @@ func TestValidateErrors(t *testing.T) {
 				t.Fatalf("fields = %v, want groups[0].%s", f, c.field)
 			}
 		})
+	}
+}
+
+// testTable is a valid two-row schedule for graphic cases.
+func testTable() *Graphic {
+	return &Graphic{Kind: "schedule", Title: "Room Schedule", Columns: []string{"Room", "Time"},
+		Rows: [][]string{{"Room A", "9:00"}, {"Room B", "10:00"}}}
+}
+
+func TestValidateGoodGraphics(t *testing.T) {
+	t.Parallel()
+	for _, gr := range []*Graphic{
+		testTable(),
+		{Kind: "floor-plan", Cells: []GraphicCell{{Label: "Lobby"}, {Label: "Room 1", Col: 1}}},
+		{Kind: "bar-chart", Bars: []Bar{{Label: "A", Value: 1}, {Label: "B", Value: 2}}},
+	} {
+		g := p3("p3-g")
+		g.Graphic = gr
+		Normalize(&g)
+		if err := Validate([]Group{g}); err != nil {
+			t.Fatalf("graphic %s: %v", gr.Kind, err)
+		}
 	}
 }
 

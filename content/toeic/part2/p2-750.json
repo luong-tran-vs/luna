@@ -17,16 +17,16 @@
           "prompt": "Why hasn't the new manager started yet?",
           "options": [
             "Her contract begins next month.",
-            "Start the engine, please.",
-            "He managed the store well."
+            "She managed a store in Boston.",
+            "We started at nine today."
           ],
           "answer": 0,
           "tags": [
             "q-wh",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi Why → lý do: (A) đúng, giải thích gián tiếp (hợp đồng tháng sau mới bắt đầu). (B) lặp âm 'start'; (C) lặp âm 'manage' (managed).",
-          "translateVi": "Sao quản lý mới vẫn chưa bắt đầu làm việc? (A) Hợp đồng của cô ấy bắt đầu từ tháng sau. (B) Làm ơn nổ máy đi. (C) Anh ấy đã quản lý cửa hàng rất tốt.",
+          "explainVi": "Hỏi Why → lý do: (A) đúng, giải thích gián tiếp (hợp đồng tháng sau mới bắt đầu). (B) cùng chủ đề nhưng nói về công việc cũ của cô ấy, không phải lý do – bẫy sai trọng tâm, kèm âm 'manage' (managed); (C) lặp từ 'start' (started) nhưng nói hôm nay mình bắt đầu lúc mấy giờ.",
+          "translateVi": "Sao quản lý mới vẫn chưa bắt đầu làm việc? (A) Hợp đồng của cô ấy bắt đầu từ tháng sau. (B) Cô ấy từng quản lý một cửa hàng ở Boston. (C) Hôm nay chúng tôi bắt đầu lúc chín giờ.",
           "vocab": [
             {
               "word": "contract",
@@ -53,17 +53,17 @@
           "no": 1,
           "prompt": "Who approved the travel expenses?",
           "options": [
-            "Approximately two hundred dollars.",
+            "About two hundred dollars a day.",
             "I'm not sure. You could ask finance.",
-            "I prefer to travel light."
+            "The receipts are due by Friday afternoon."
           ],
           "answer": 1,
           "tags": [
             "q-wh",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi Who → (B) đúng: 'không chắc, hỏi phòng tài chính' là câu trả lời gián tiếp hợp lệ. (A) âm gần giống 'approved' (approximately) và nói số tiền; (C) lặp từ 'travel'.",
-          "translateVi": "Ai đã duyệt chi phí đi lại? (A) Khoảng hai trăm đô la. (B) Tôi không chắc. Bạn có thể hỏi phòng tài chính. (C) Tôi thích mang ít hành lý khi đi.",
+          "explainVi": "Hỏi Who → (B) đúng: 'không chắc, hỏi phòng tài chính' là câu trả lời gián tiếp hợp lệ. (A) cùng chủ đề chi phí nhưng trả lời 'bao nhiêu' (How much) – bẫy sai loại câu hỏi; (C) cùng chủ đề nhưng trả lời 'khi nào nộp hoá đơn' (When) – bẫy sai trọng tâm.",
+          "translateVi": "Ai đã duyệt chi phí đi lại? (A) Khoảng hai trăm đô la một ngày. (B) Tôi không chắc. Bạn có thể hỏi phòng tài chính. (C) Hạn nộp hoá đơn là chiều thứ Sáu.",
           "vocab": [
             {
               "word": "approve",
@@ -96,15 +96,15 @@
           "prompt": "You've met Mr. Sato before, haven't you?",
           "options": [
             "Yes, at last year's trade show.",
-            "Let's meet at noon.",
-            "The meat was delicious."
+            "He'll join us for lunch today.",
+            "The meeting room is on the third floor."
           ],
           "answer": 0,
           "tags": [
             "q-yesno"
           ],
-          "explainVi": "Câu hỏi đuôi → trả lời như Yes/No: (A) đúng, kèm thông tin. (B) lặp âm 'meet' nhưng hẹn gặp; (C) âm giống 'met/meet' (meat).",
-          "translateVi": "Bạn đã từng gặp ông Sato rồi, phải không? (A) Rồi, ở hội chợ thương mại năm ngoái. (B) Hẹn gặp lúc trưa nhé. (C) Món thịt rất ngon.",
+          "explainVi": "Câu hỏi đuôi → trả lời như Yes/No: (A) đúng, kèm thông tin. (B) cùng nói về ông Sato nhưng ở tương lai (hôm nay sẽ ăn trưa cùng), không trả lời đã gặp chưa – bẫy sai thì; (C) âm gần giống 'met' (meeting) và nói về vị trí phòng.",
+          "translateVi": "Bạn đã từng gặp ông Sato rồi, phải không? (A) Rồi, ở hội chợ thương mại năm ngoái. (B) Hôm nay ông ấy sẽ ăn trưa cùng chúng ta. (C) Phòng họp ở tầng ba.",
           "vocab": [
             {
               "word": "trade show",
@@ -132,16 +132,16 @@
           "prompt": "Where should we put the new photocopier?",
           "options": [
             "How about next to the mailroom?",
-            "I put it on your desk yesterday.",
-            "Twenty copies each."
+            "It was delivered on Monday.",
+            "It makes double-sided copies."
           ],
           "answer": 0,
           "tags": [
             "q-wh",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi Where → (A) đúng: trả lời bằng một gợi ý dạng câu hỏi. (B) lặp từ 'put' nhưng ở quá khứ và nói vật khác; (C) lặp âm 'copy'.",
-          "translateVi": "Chúng ta nên đặt máy photocopy mới ở đâu? (A) Cạnh phòng thư thì sao? (B) Hôm qua tôi đã để nó trên bàn bạn. (C) Mỗi người hai mươi bản.",
+          "explainVi": "Hỏi Where → (A) đúng: trả lời bằng một gợi ý dạng câu hỏi. (B) cùng nói về máy mới nhưng trả lời 'khi nào được giao' (When) – bẫy sai trọng tâm; (C) lặp âm 'copy' (copies) và nói về chức năng in hai mặt.",
+          "translateVi": "Chúng ta nên đặt máy photocopy mới ở đâu? (A) Cạnh phòng thư thì sao? (B) Nó được giao hôm thứ Hai. (C) Nó sao chụp được hai mặt.",
           "vocab": [
             {
               "word": "mailroom",
@@ -169,15 +169,15 @@
           "prompt": "Would you mind reviewing my cover letter?",
           "options": [
             "Not at all. Send it over.",
-            "I don't mind the cover.",
-            "The letter carrier came early."
+            "The job was posted last Friday.",
+            "The letter carrier usually comes at ten."
           ],
           "answer": 0,
           "tags": [
             "q-request"
           ],
-          "explainVi": "'Would you mind…?' → 'Not at all' nghĩa là đồng ý: (A) đúng. (B) lặp 'mind' và 'cover'; (C) lặp từ 'letter'.",
-          "translateVi": "Bạn xem giúp thư xin việc của tôi được không? (A) Không phiền gì. Gửi qua cho tôi đi. (B) Tôi không bận tâm cái bìa. (C) Người đưa thư đến sớm.",
+          "explainVi": "'Would you mind…?' → 'Not at all' nghĩa là đồng ý: (A) đúng. (B) cùng chủ đề xin việc nhưng nói tin tuyển dụng đăng khi nào, không đáp lời nhờ – bẫy sai trọng tâm; (C) lặp từ 'letter' với nghĩa 'thư bưu điện'.",
+          "translateVi": "Bạn xem giúp thư xin việc của tôi được không? (A) Không phiền gì. Gửi qua cho tôi đi. (B) Tin tuyển dụng được đăng hôm thứ Sáu tuần trước. (C) Người đưa thư thường đến lúc mười giờ.",
           "vocab": [
             {
               "word": "cover letter",
@@ -205,15 +205,15 @@
           "prompt": "The client meeting has been moved to Thursday.",
           "options": [
             "They moved into a new office.",
-            "It's a three-day meeting.",
+            "The meeting lasted almost three hours.",
             "Then I'll have to change my flight."
           ],
           "answer": 2,
           "tags": [
             "q-statement"
           ],
-          "explainVi": "Câu thông báo đổi lịch → phản ứng hợp lý: (C) đúng. (A) lặp từ 'move' với nghĩa 'chuyển nhà/văn phòng'; (B) lặp từ 'meeting'.",
-          "translateVi": "Cuộc họp với khách hàng đã được dời sang thứ Năm. (A) Họ đã chuyển đến văn phòng mới. (B) Đó là cuộc họp kéo dài ba ngày. (C) Vậy tôi phải đổi chuyến bay rồi.",
+          "explainVi": "Câu thông báo đổi lịch → phản ứng hợp lý: (C) đúng. (A) lặp từ 'move' với nghĩa 'chuyển văn phòng'; (B) cùng chủ đề cuộc họp nhưng nói ở quá khứ (đã kéo dài ba tiếng) – bẫy sai thì.",
+          "translateVi": "Cuộc họp với khách hàng đã được dời sang thứ Năm. (A) Họ đã chuyển đến văn phòng mới. (B) Cuộc họp kéo dài gần ba tiếng. (C) Vậy tôi phải đổi chuyến bay rồi.",
           "vocab": []
         }
       ]
@@ -235,16 +235,16 @@
           "prompt": "Is the conference room available this afternoon?",
           "options": [
             "The sales team booked it until four.",
-            "It's a very large room.",
-            "I'll be available tomorrow."
+            "It seats about twenty people comfortably.",
+            "I'll be available tomorrow morning."
           ],
           "answer": 0,
           "tags": [
             "q-yesno",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi phòng có trống không → (A) đúng, trả lời gián tiếp (đã có người đặt đến 4 giờ). (B) nói về phòng nhưng không trả lời; (C) lặp từ 'available' nhưng nói về bản thân.",
-          "translateVi": "Chiều nay phòng hội nghị có trống không? (A) Nhóm kinh doanh đã đặt đến bốn giờ. (B) Đó là một căn phòng rất rộng. (C) Ngày mai tôi sẽ rảnh.",
+          "explainVi": "Hỏi phòng có trống không → (A) đúng, trả lời gián tiếp (đã có người đặt đến 4 giờ). (B) cùng nói về phòng nhưng trả lời 'chứa được bao nhiêu người' – bẫy sai trọng tâm; (C) lặp từ 'available' nhưng nói về bản thân người nói.",
+          "translateVi": "Chiều nay phòng hội nghị có trống không? (A) Nhóm kinh doanh đã đặt đến bốn giờ. (B) Phòng ngồi thoải mái được khoảng hai mươi người. (C) Sáng mai tôi sẽ rảnh.",
           "vocab": [
             {
               "word": "available",
@@ -271,16 +271,16 @@
           "no": 1,
           "prompt": "How do I sign up for the leadership workshop?",
           "options": [
-            "Sign here, please.",
-            "It was a great workshop.",
+            "I signed up for it last year.",
+            "It was the best workshop I've attended.",
             "There's a form on the intranet."
           ],
           "answer": 2,
           "tags": [
             "q-wh"
           ],
-          "explainVi": "Hỏi How → cách đăng ký: (C) đúng. (A) lặp từ 'sign'; (B) lặp từ 'workshop' ở thì quá khứ.",
-          "translateVi": "Làm thế nào để đăng ký buổi hội thảo về lãnh đạo? (A) Xin ký vào đây. (B) Đó là một buổi hội thảo tuyệt vời. (C) Có một mẫu đơn trên mạng nội bộ.",
+          "explainVi": "Hỏi How → cách đăng ký: (C) đúng. (A) lặp 'sign up' nhưng kể chuyện mình đăng ký năm ngoái, không chỉ cách – bẫy sai trọng tâm, sai thì; (B) lặp từ 'workshop', nhận xét ở quá khứ.",
+          "translateVi": "Làm thế nào để đăng ký buổi hội thảo về lãnh đạo? (A) Tôi đã đăng ký nó năm ngoái. (B) Đó là buổi hội thảo hay nhất tôi từng dự. (C) Có một mẫu đơn trên mạng nội bộ.",
           "vocab": [
             {
               "word": "sign up",
@@ -312,17 +312,17 @@
           "no": 1,
           "prompt": "Haven't the new catalogs been printed yet?",
           "options": [
-            "The prints are framed.",
+            "The prints in the lobby are framed.",
             "They're at the printer's now.",
-            "Yes, it's a new catalog."
+            "The old catalog had fewer pages."
           ],
           "answer": 1,
           "tags": [
             "q-yesno",
             "indirect-answer"
           ],
-          "explainVi": "Câu hỏi phủ định → (B) đúng, trả lời gián tiếp (đang ở nhà in = chưa in xong). (A) lặp âm 'print'; (C) lặp 'new catalog' nhưng không trả lời.",
-          "translateVi": "Danh mục sản phẩm mới vẫn chưa được in à? (A) Các bản in đã được đóng khung. (B) Chúng đang ở nhà in. (C) Vâng, đó là danh mục mới.",
+          "explainVi": "Câu hỏi phủ định → (B) đúng, trả lời gián tiếp (đang ở nhà in = chưa in xong). (A) lặp âm 'print' (prints = tranh in); (C) cùng chủ đề danh mục nhưng nói về bản cũ, không trả lời đã in chưa – bẫy sai trọng tâm.",
+          "translateVi": "Danh mục sản phẩm mới vẫn chưa được in à? (A) Mấy bức tranh in ở sảnh đã được đóng khung. (B) Chúng đang ở nhà in. (C) Danh mục cũ ít trang hơn.",
           "vocab": [
             {
               "word": "catalog",
@@ -349,17 +349,17 @@
           "no": 1,
           "prompt": "Why don't you take tomorrow off?",
           "options": [
-            "Take off your coat.",
+            "She took a week off in July.",
             "I have too many deadlines this week.",
-            "It's off the main road."
+            "It's just off the main road, near the bank."
           ],
           "answer": 1,
           "tags": [
             "q-request",
             "indirect-answer"
           ],
-          "explainVi": "'Why don't you…?' là lời khuyên → (B) đúng, từ chối gián tiếp bằng lý do. (A) lặp cụm 'take off' với nghĩa 'cởi'; (C) lặp từ 'off'.",
-          "translateVi": "Sao ngày mai bạn không nghỉ một hôm đi? (A) Cởi áo khoác ra đi. (B) Tuần này tôi có quá nhiều việc phải nộp. (C) Nó nằm ngoài đường chính.",
+          "explainVi": "'Why don't you…?' là lời khuyên → (B) đúng, từ chối gián tiếp bằng lý do. (A) lặp cụm 'take off' nhưng nói về người khác ở quá khứ – bẫy sai người, sai thì; (C) lặp từ 'off' với nghĩa 'gần, rẽ khỏi (đường)'.",
+          "translateVi": "Sao ngày mai bạn không nghỉ một hôm đi? (A) Cô ấy đã nghỉ một tuần hồi tháng Bảy. (B) Tuần này tôi có quá nhiều việc phải nộp. (C) Nó ở ngay gần đường chính, cạnh ngân hàng.",
           "vocab": [
             {
               "word": "take a day off",
@@ -388,14 +388,14 @@
           "options": [
             "They spoke for an hour.",
             "The one right across from the venue.",
-            "Yes, they're staying."
+            "They're staying until Sunday."
           ],
           "answer": 1,
           "tags": [
             "q-wh"
           ],
-          "explainVi": "Hỏi Which hotel → (B) đúng ('the one' thay cho hotel). (A) lặp âm 'speak' (spoke); (C) trả lời Yes cho câu hỏi WH.",
-          "translateVi": "Các diễn giả khách mời ở khách sạn nào? (A) Họ đã nói trong một giờ. (B) Khách sạn ngay đối diện địa điểm tổ chức. (C) Vâng, họ đang ở lại.",
+          "explainVi": "Hỏi Which hotel → (B) đúng ('the one' thay cho hotel). (A) lặp âm 'speak' (spoke), nói thời lượng bài nói; (C) lặp 'staying' nhưng trả lời 'ở đến khi nào' (How long) – bẫy sai trọng tâm.",
+          "translateVi": "Các diễn giả khách mời ở khách sạn nào? (A) Họ đã nói trong một tiếng. (B) Khách sạn ngay đối diện địa điểm tổ chức. (C) Họ ở lại đến Chủ nhật.",
           "vocab": [
             {
               "word": "venue",
@@ -423,16 +423,16 @@
           "prompt": "Do you want me to print the agenda, or will you email it?",
           "options": [
             "I've already sent it to everyone.",
-            "Yes, I want it.",
-            "Print size twelve."
+            "Yes, it's a two-page agenda.",
+            "The meeting starts at ten tomorrow."
           ],
           "answer": 0,
           "tags": [
             "q-choice",
             "indirect-answer"
           ],
-          "explainVi": "Câu hỏi lựa chọn → (A) đúng: đã gửi email rồi (chọn cách thứ hai, nói gián tiếp). (B) trả lời Yes cho câu hỏi lựa chọn; (C) lặp từ 'print'.",
-          "translateVi": "Bạn muốn tôi in chương trình họp, hay bạn sẽ gửi email? (A) Tôi đã gửi cho mọi người rồi. (B) Vâng, tôi muốn nó. (C) In cỡ chữ mười hai.",
+          "explainVi": "Câu hỏi lựa chọn → (A) đúng: đã gửi email rồi (chọn cách thứ hai, nói gián tiếp). (B) trả lời Yes cho câu hỏi lựa chọn, lặp từ 'agenda'; (C) cùng chủ đề cuộc họp nhưng trả lời 'khi nào họp' (When) – bẫy sai trọng tâm.",
+          "translateVi": "Bạn muốn tôi in chương trình họp, hay bạn sẽ gửi email? (A) Tôi đã gửi cho mọi người rồi. (B) Vâng, chương trình dài hai trang. (C) Cuộc họp bắt đầu lúc mười giờ ngày mai.",
           "vocab": [
             {
               "word": "agenda",
@@ -459,16 +459,16 @@
           "no": 1,
           "prompt": "The air conditioning in the lobby is making a strange noise.",
           "options": [
+            "It's set to twenty-two degrees.",
             "The lobby opens at eight.",
-            "It's on a strange street.",
             "Maintenance is already looking at it."
           ],
           "answer": 2,
           "tags": [
             "q-statement"
           ],
-          "explainVi": "Câu báo sự cố → (C) đúng (bộ phận bảo trì đang kiểm tra). (A) lặp từ 'lobby'; (B) lặp từ 'strange'.",
-          "translateVi": "Máy lạnh ở sảnh đang phát ra tiếng lạ. (A) Sảnh mở cửa lúc tám giờ. (B) Nó nằm trên một con phố lạ. (C) Bộ phận bảo trì đang kiểm tra rồi.",
+          "explainVi": "Câu báo sự cố → (C) đúng (bộ phận bảo trì đang kiểm tra). (A) cùng nói về máy lạnh nhưng nói nhiệt độ cài đặt, không phản hồi chuyện tiếng ồn – bẫy sai trọng tâm; (B) lặp từ 'lobby', nói giờ mở cửa.",
+          "translateVi": "Máy lạnh ở sảnh đang phát ra tiếng lạ. (A) Nó được cài ở hai mươi hai độ. (B) Sảnh mở cửa lúc tám giờ. (C) Bộ phận bảo trì đang kiểm tra rồi.",
           "vocab": [
             {
               "word": "maintenance",
@@ -496,15 +496,15 @@
           "prompt": "When will the renovation be finished?",
           "options": [
             "The contractor said by the end of the month.",
-            "The finish is very glossy.",
-            "It was renovated in 2010."
+            "The new finish on the floors looks very glossy.",
+            "It was last renovated about ten years ago."
           ],
           "answer": 0,
           "tags": [
             "q-wh"
           ],
-          "explainVi": "Hỏi When ở tương lai → (A) đúng. (B) lặp từ 'finish' với nghĩa 'lớp phủ bề mặt'; (C) lặp âm 'renovate' nhưng nói quá khứ.",
-          "translateVi": "Khi nào việc cải tạo sẽ xong? (A) Nhà thầu nói là trước cuối tháng. (B) Lớp hoàn thiện rất bóng. (C) Nó đã được cải tạo năm 2010.",
+          "explainVi": "Hỏi When ở tương lai → (A) đúng. (B) lặp từ 'finish' với nghĩa 'lớp phủ bề mặt'; (C) cùng chủ đề cải tạo nhưng nói lần cải tạo trước trong quá khứ – bẫy sai thì.",
+          "translateVi": "Khi nào việc cải tạo sẽ xong? (A) Nhà thầu nói là trước cuối tháng. (B) Lớp phủ mới trên sàn trông rất bóng. (C) Lần cải tạo gần nhất là khoảng mười năm trước.",
           "vocab": [
             {
               "word": "renovation",
@@ -537,15 +537,15 @@
           "prompt": "Who's covering the reception desk while Maria is away?",
           "options": [
             "Paul volunteered to do it.",
-            "It's covered with papers.",
-            "She's away on business."
+            "The desk is covered with papers.",
+            "She'll be back on Wednesday."
           ],
           "answer": 0,
           "tags": [
             "q-wh"
           ],
-          "explainVi": "Hỏi Who → người: (A) đúng. (B) lặp từ 'cover' với nghĩa 'phủ'; (C) lặp 'away' nhưng nói về Maria.",
-          "translateVi": "Ai trực quầy lễ tân khi Maria vắng mặt? (A) Paul đã xung phong làm. (B) Nó bị phủ đầy giấy tờ. (C) Cô ấy đi công tác.",
+          "explainVi": "Hỏi Who → người: (A) đúng. (B) lặp từ 'cover' với nghĩa 'phủ'; (C) cùng chủ đề nhưng nói Maria khi nào quay lại (When), không nói ai trực thay – bẫy sai trọng tâm.",
+          "translateVi": "Ai trực quầy lễ tân khi Maria vắng mặt? (A) Paul đã xung phong làm. (B) Cái bàn phủ đầy giấy tờ. (C) Cô ấy sẽ quay lại vào thứ Tư.",
           "vocab": [
             {
               "word": "cover",
@@ -577,8 +577,8 @@
           "no": 1,
           "prompt": "Aren't you going to the awards dinner?",
           "options": [
-            "He won an award.",
-            "It was a delicious dinner.",
+            "He won an award for best design.",
+            "It was held at the Grand Hotel last year.",
             "I haven't decided yet."
           ],
           "answer": 2,
@@ -586,8 +586,8 @@
             "q-yesno",
             "indirect-answer"
           ],
-          "explainVi": "Câu hỏi phủ định → (C) đúng (chưa quyết định). (A) lặp âm 'award'; (B) lặp 'dinner' ở thì quá khứ.",
-          "translateVi": "Bạn không đi dự tiệc trao giải à? (A) Anh ấy đã đoạt giải. (B) Đó là một bữa tối ngon. (C) Tôi vẫn chưa quyết định.",
+          "explainVi": "Câu hỏi phủ định → (C) đúng (chưa quyết định). (A) lặp âm 'award' nhưng nói về người khác; (B) cùng chủ đề bữa tiệc nhưng nói địa điểm năm ngoái, không trả lời có đi không – bẫy sai trọng tâm, sai thì.",
+          "translateVi": "Bạn không đi dự tiệc trao giải à? (A) Anh ấy đoạt giải thiết kế đẹp nhất. (B) Năm ngoái tiệc được tổ chức ở khách sạn Grand. (C) Tôi vẫn chưa quyết định.",
           "vocab": [
             {
               "word": "award",
@@ -614,8 +614,8 @@
           "no": 1,
           "prompt": "How much should we budget for advertising?",
           "options": [
-            "It's a big advertisement.",
-            "About the budget meeting.",
+            "The campaign will run on local radio and online.",
+            "That advertisement was very creative.",
             "Let's look at last year's figures first."
           ],
           "answer": 2,
@@ -623,8 +623,8 @@
             "q-wh",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi How much → (C) đúng, trả lời gián tiếp (xem số liệu năm ngoái trước). (A) lặp âm 'advertise'; (B) lặp từ 'budget'.",
-          "translateVi": "Chúng ta nên dành bao nhiêu ngân sách cho quảng cáo? (A) Đó là một quảng cáo lớn. (B) Về cuộc họp ngân sách. (C) Hãy xem số liệu năm ngoái trước đã.",
+          "explainVi": "Hỏi How much → (C) đúng, trả lời gián tiếp (xem số liệu năm ngoái trước). (A) cùng chủ đề quảng cáo nhưng trả lời 'quảng cáo ở đâu' – bẫy sai trọng tâm; (B) lặp âm 'advertise' (advertisement), nhận xét một mẩu quảng cáo.",
+          "translateVi": "Chúng ta nên dành bao nhiêu ngân sách cho quảng cáo? (A) Chiến dịch sẽ chạy trên đài phát thanh địa phương và trên mạng. (B) Mẩu quảng cáo đó rất sáng tạo. (C) Hãy xem số liệu năm ngoái trước đã.",
           "vocab": [
             {
               "word": "budget",
@@ -656,8 +656,8 @@
           "no": 1,
           "prompt": "Should I call the client now or wait until after lunch?",
           "options": [
-            "The lunch was excellent.",
-            "Yes, you should.",
+            "The lunch at that café was excellent.",
+            "Yes, I spoke to her assistant last week.",
             "She's in meetings all morning."
           ],
           "answer": 2,
@@ -665,8 +665,8 @@
             "q-choice",
             "indirect-answer"
           ],
-          "explainVi": "Câu hỏi lựa chọn → (C) đúng: khách họp cả buổi sáng = nên đợi sau bữa trưa. (A) lặp từ 'lunch'; (B) trả lời Yes cho câu hỏi lựa chọn.",
-          "translateVi": "Tôi nên gọi cho khách hàng bây giờ hay đợi sau bữa trưa? (A) Bữa trưa rất tuyệt. (B) Vâng, bạn nên vậy. (C) Cô ấy họp suốt buổi sáng.",
+          "explainVi": "Câu hỏi lựa chọn → (C) đúng: khách họp cả buổi sáng = nên đợi sau bữa trưa. (A) lặp từ 'lunch', nói về bữa trưa ở quán; (B) trả lời Yes cho câu hỏi lựa chọn và nói chuyện tuần trước – bẫy sai thì.",
+          "translateVi": "Tôi nên gọi cho khách hàng bây giờ hay đợi sau bữa trưa? (A) Bữa trưa ở quán đó rất tuyệt. (B) Vâng, tuần trước tôi đã nói chuyện với trợ lý của cô ấy. (C) Cô ấy họp suốt buổi sáng.",
           "vocab": []
         }
       ]
@@ -688,15 +688,15 @@
           "prompt": "I'm afraid the report won't be ready by Friday.",
           "options": [
             "Monday would be fine, too.",
-            "Report to the front desk.",
-            "It's ready to eat."
+            "Please report to the front desk first.",
+            "I read your last report on the train."
           ],
           "answer": 0,
           "tags": [
             "q-statement"
           ],
-          "explainVi": "Câu báo trễ hạn → (A) đúng (thứ Hai cũng được). (B) lặp từ 'report' với nghĩa 'trình diện'; (C) lặp từ 'ready'.",
-          "translateVi": "Tôi e là bản báo cáo sẽ không kịp xong trước thứ Sáu. (A) Thứ Hai cũng được. (B) Hãy đến trình diện ở quầy lễ tân. (C) Nó đã sẵn sàng để ăn.",
+          "explainVi": "Câu báo trễ hạn → (A) đúng (thứ Hai cũng được). (B) lặp từ 'report' với nghĩa 'trình diện'; (C) cùng chủ đề báo cáo nhưng nói về bản trước đã đọc – bẫy sai trọng tâm, sai thì.",
+          "translateVi": "Tôi e là bản báo cáo sẽ không kịp xong trước thứ Sáu. (A) Thứ Hai cũng được. (B) Xin hãy đến trình diện ở quầy lễ tân trước. (C) Tôi đã đọc bản báo cáo trước của bạn trên tàu.",
           "vocab": [
             {
               "word": "I'm afraid",
@@ -723,17 +723,17 @@
           "no": 1,
           "prompt": "Where did you find such a talented designer?",
           "options": [
-            "I found my keys in the car.",
+            "She started working here in March.",
             "She was recommended by a colleague.",
-            "The design is finished."
+            "The logo design is almost done."
           ],
           "answer": 1,
           "tags": [
             "q-wh",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi Where (tìm ở đâu) → (B) đúng, trả lời bằng nguồn giới thiệu. (A) lặp từ 'find' (found) nhưng nói chuyện khác; (C) lặp âm 'design'.",
-          "translateVi": "Bạn tìm đâu ra một nhà thiết kế tài năng như vậy? (A) Tôi tìm thấy chìa khoá trong xe. (B) Cô ấy được một đồng nghiệp giới thiệu. (C) Bản thiết kế đã xong.",
+          "explainVi": "Hỏi Where (tìm ở đâu) → (B) đúng, trả lời bằng nguồn giới thiệu. (A) cùng nói về nhà thiết kế nhưng trả lời 'khi nào bắt đầu làm' (When) – bẫy sai trọng tâm; (C) lặp âm 'design', nói về bản thiết kế logo.",
+          "translateVi": "Bạn tìm đâu ra một nhà thiết kế tài năng như vậy? (A) Cô ấy bắt đầu làm ở đây từ tháng Ba. (B) Cô ấy được một đồng nghiệp giới thiệu. (C) Bản thiết kế logo sắp xong rồi.",
           "vocab": [
             {
               "word": "talented",
@@ -765,17 +765,17 @@
           "no": 1,
           "prompt": "Has anyone checked the inventory this week?",
           "options": [
-            "Check, please.",
+            "Could we have the check, please?",
             "Raj did it on Monday.",
-            "It's an inventory list."
+            "The inventory system is quite old."
           ],
           "answer": 1,
           "tags": [
             "q-yesno",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi đã có ai kiểm kho chưa → (B) đúng (Raj đã làm hôm thứ Hai). (A) lặp từ 'check' (gọi tính tiền); (C) lặp từ 'inventory'.",
-          "translateVi": "Tuần này đã có ai kiểm kê hàng tồn kho chưa? (A) Cho tôi tính tiền. (B) Raj đã làm hôm thứ Hai. (C) Đó là danh sách hàng tồn kho.",
+          "explainVi": "Hỏi đã có ai kiểm kho chưa → (B) đúng (Raj đã làm hôm thứ Hai). (A) lặp từ 'check' với nghĩa 'hoá đơn tính tiền'; (C) cùng chủ đề hàng tồn kho nhưng nhận xét hệ thống, không trả lời đã kiểm chưa – bẫy sai trọng tâm.",
+          "translateVi": "Tuần này đã có ai kiểm kê hàng tồn kho chưa? (A) Cho chúng tôi tính tiền nhé? (B) Raj đã làm hôm thứ Hai. (C) Hệ thống quản lý kho khá cũ rồi.",
           "vocab": [
             {
               "word": "inventory",
@@ -803,15 +803,15 @@
           "prompt": "What do you think of the new office layout?",
           "options": [
             "It's much more open than before.",
-            "I'll lay it on the table.",
-            "I think so, too."
+            "I'll lay them on your desk.",
+            "They moved us in over the weekend."
           ],
           "answer": 0,
           "tags": [
             "q-wh"
           ],
-          "explainVi": "Hỏi ý kiến → (A) đúng. (B) lặp âm 'lay'; (C) lặp 'think' nhưng là câu đồng tình, không phải ý kiến.",
-          "translateVi": "Bạn thấy cách bố trí văn phòng mới thế nào? (A) Thoáng hơn trước nhiều. (B) Tôi sẽ đặt nó lên bàn. (C) Tôi cũng nghĩ vậy.",
+          "explainVi": "Hỏi ý kiến → (A) đúng. (B) lặp âm 'lay' (layout); (C) cùng chủ đề văn phòng mới nhưng trả lời 'chuyển vào khi nào' (When), không nêu ý kiến – bẫy sai trọng tâm.",
+          "translateVi": "Bạn thấy cách bố trí văn phòng mới thế nào? (A) Thoáng hơn trước nhiều. (B) Tôi sẽ đặt chúng lên bàn bạn. (C) Họ chuyển chúng tôi vào hồi cuối tuần.",
           "vocab": [
             {
               "word": "layout",
@@ -838,16 +838,16 @@
           "no": 1,
           "prompt": "Why was the shipment sent to the wrong address?",
           "options": [
-            "Send it by express mail.",
+            "Please send it by express mail.",
             "The label had our old address on it.",
-            "It's the right size."
+            "It should arrive by Thursday."
           ],
           "answer": 1,
           "tags": [
             "q-wh"
           ],
-          "explainVi": "Hỏi Why → lý do: (B) đúng. (A) lặp âm 'send'; (C) 'right' đối lập với 'wrong' – bẫy từ trái nghĩa.",
-          "translateVi": "Sao lô hàng bị gửi nhầm địa chỉ? (A) Gửi bằng chuyển phát nhanh. (B) Nhãn ghi địa chỉ cũ của chúng ta. (C) Nó đúng kích cỡ.",
+          "explainVi": "Hỏi Why → lý do: (B) đúng. (A) lặp âm 'send' (sent), là lời yêu cầu; (C) cùng chủ đề lô hàng nhưng trả lời 'khi nào đến' (When) – bẫy sai trọng tâm.",
+          "translateVi": "Sao lô hàng bị gửi nhầm địa chỉ? (A) Vui lòng gửi bằng chuyển phát nhanh. (B) Nhãn ghi địa chỉ cũ của chúng ta. (C) Chắc thứ Năm nó sẽ đến.",
           "vocab": [
             {
               "word": "label",
@@ -874,16 +874,16 @@
           "no": 1,
           "prompt": "Can you recommend a good place for a business lunch?",
           "options": [
-            "I recommended him for the job.",
+            "I recommended him for the manager job.",
             "Try the bistro on Market Street.",
-            "Lunch is at noon."
+            "The client lunch is on Friday."
           ],
           "answer": 1,
           "tags": [
             "q-request"
           ],
-          "explainVi": "Nhờ gợi ý nơi ăn → (B) đúng. (A) lặp từ 'recommend' nhưng nói chuyện khác; (C) lặp từ 'lunch'.",
-          "translateVi": "Bạn gợi ý giúp một chỗ tốt để ăn trưa bàn công việc không? (A) Tôi đã tiến cử anh ấy cho công việc đó. (B) Thử quán bistro trên phố Market xem. (C) Bữa trưa lúc mười hai giờ.",
+          "explainVi": "Nhờ gợi ý nơi ăn → (B) đúng. (A) lặp từ 'recommend' với nghĩa 'tiến cử người'; (C) cùng chủ đề bữa trưa công việc nhưng trả lời 'khi nào' (When), không gợi ý chỗ – bẫy sai trọng tâm.",
+          "translateVi": "Bạn gợi ý giúp một chỗ tốt để ăn trưa bàn công việc không? (A) Tôi đã tiến cử anh ấy vào vị trí quản lý. (B) Thử quán bistro trên phố Market xem. (C) Bữa trưa với khách hàng là vào thứ Sáu.",
           "vocab": [
             {
               "word": "bistro",
@@ -910,16 +910,16 @@
           "no": 1,
           "prompt": "The quarterly report needs a few more charts.",
           "options": [
-            "The quarter ends in June.",
-            "He reports the news.",
+            "The quarter ends at the end of June.",
+            "She reports to the director.",
             "I'll add them this afternoon."
           ],
           "answer": 2,
           "tags": [
             "q-statement"
           ],
-          "explainVi": "Câu nhận xét cần thêm biểu đồ → (C) đúng (sẽ bổ sung). (A) lặp âm 'quarter'; (B) lặp từ 'report' với nghĩa 'đưa tin'.",
-          "translateVi": "Bản báo cáo quý cần thêm vài biểu đồ. (A) Quý kết thúc vào tháng Sáu. (B) Anh ấy đưa tin thời sự. (C) Chiều nay tôi sẽ thêm vào.",
+          "explainVi": "Câu nhận xét cần thêm biểu đồ → (C) đúng (sẽ bổ sung). (A) cùng chủ đề quý nhưng nói khi nào quý kết thúc, không phản hồi chuyện biểu đồ – bẫy sai trọng tâm, lặp âm 'quarter'; (B) lặp từ 'report' với nghĩa 'báo cáo lên cấp trên, chịu sự quản lý'.",
+          "translateVi": "Bản báo cáo quý cần thêm vài biểu đồ. (A) Quý kết thúc vào cuối tháng Sáu. (B) Cô ấy chịu sự quản lý của giám đốc. (C) Chiều nay tôi sẽ thêm vào.",
           "vocab": [
             {
               "word": "quarterly",
@@ -946,7 +946,7 @@
           "no": 1,
           "prompt": "How many people signed up for the seminar?",
           "options": [
-            "Sign at the bottom.",
+            "Please sign at the bottom of the form.",
             "It's a two-day seminar.",
             "We're still counting the forms."
           ],
@@ -955,8 +955,8 @@
             "q-wh",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi How many → (C) đúng, trả lời gián tiếp (vẫn đang đếm). (A) lặp âm 'sign'; (B) lặp từ 'seminar' và có con số gây nhầm.",
-          "translateVi": "Có bao nhiêu người đăng ký hội thảo? (A) Ký ở phía dưới. (B) Đó là hội thảo kéo dài hai ngày. (C) Chúng tôi vẫn đang đếm các phiếu.",
+          "explainVi": "Hỏi How many → (C) đúng, trả lời gián tiếp (vẫn đang đếm). (A) lặp âm 'sign', là lời hướng dẫn ký; (B) cùng chủ đề hội thảo nhưng nói thời lượng, con số 'two' gây nhầm – bẫy sai trọng tâm.",
+          "translateVi": "Có bao nhiêu người đăng ký hội thảo? (A) Vui lòng ký ở cuối mẫu đơn. (B) Đó là hội thảo kéo dài hai ngày. (C) Chúng tôi vẫn đang đếm các phiếu.",
           "vocab": [
             {
               "word": "seminar",
@@ -983,8 +983,8 @@
           "no": 1,
           "prompt": "Isn't the cafeteria closed for renovations?",
           "options": [
-            "Close the door, please.",
-            "The food there is great.",
+            "Could you close the door, please?",
+            "The cafeteria seats two hundred people.",
             "It reopened on Monday."
           ],
           "answer": 2,
@@ -992,8 +992,8 @@
             "q-yesno",
             "indirect-answer"
           ],
-          "explainVi": "Câu hỏi phủ định → (C) đúng (đã mở lại = không còn đóng). (A) lặp âm 'close'; (B) nói về đồ ăn, không trả lời.",
-          "translateVi": "Căng tin không phải đang đóng cửa để sửa sao? (A) Làm ơn đóng cửa lại. (B) Đồ ăn ở đó rất ngon. (C) Nó đã mở lại hôm thứ Hai.",
+          "explainVi": "Câu hỏi phủ định → (C) đúng (đã mở lại = không còn đóng). (A) lặp âm 'close' với nghĩa 'đóng cửa (phòng)'; (B) cùng nói về căng tin nhưng trả lời 'chứa bao nhiêu người' – bẫy sai trọng tâm.",
+          "translateVi": "Căng tin không phải đang đóng cửa để sửa sao? (A) Bạn đóng cửa giúp tôi được không? (B) Căng tin có chỗ cho hai trăm người. (C) Nó đã mở lại hôm thứ Hai.",
           "vocab": [
             {
               "word": "reopen",
@@ -1020,17 +1020,17 @@
           "no": 1,
           "prompt": "Do you know when the new security badges will be issued?",
           "options": [
-            "It's not an issue.",
+            "It's not a big issue for me.",
             "Security will email us the details.",
-            "The badges are blue."
+            "The new badges have photos."
           ],
           "answer": 1,
           "tags": [
             "q-yesno",
             "indirect-answer"
           ],
-          "explainVi": "Hỏi khi nào phát thẻ → (B) đúng, trả lời gián tiếp (bộ phận an ninh sẽ gửi thông tin). (A) lặp âm 'issue' với nghĩa 'vấn đề'; (C) lặp từ 'badges'.",
-          "translateVi": "Bạn có biết khi nào thẻ an ninh mới được phát không? (A) Đó không phải vấn đề. (B) Bộ phận an ninh sẽ gửi email chi tiết cho chúng ta. (C) Thẻ có màu xanh.",
+          "explainVi": "Hỏi khi nào phát thẻ → (B) đúng, trả lời gián tiếp (bộ phận an ninh sẽ gửi thông tin). (A) lặp âm 'issue' với nghĩa 'vấn đề'; (C) cùng chủ đề thẻ mới nhưng tả thẻ, không nói khi nào – bẫy sai trọng tâm.",
+          "translateVi": "Bạn có biết khi nào thẻ an ninh mới được phát không? (A) Với tôi đó không phải vấn đề lớn. (B) Bộ phận an ninh sẽ gửi email chi tiết cho chúng ta. (C) Thẻ mới có in ảnh.",
           "vocab": [
             {
               "word": "badge",
@@ -1063,15 +1063,15 @@
           "prompt": "Are we taking the clients to dinner or to a show?",
           "options": [
             "It was a great show.",
-            "Yes, we are.",
+            "Yes, there are four clients coming.",
             "They said they'd prefer dinner."
           ],
           "answer": 2,
           "tags": [
             "q-choice"
           ],
-          "explainVi": "Câu hỏi lựa chọn → (C) đúng. (A) lặp từ 'show' ở thì quá khứ; (B) trả lời Yes cho câu hỏi lựa chọn.",
-          "translateVi": "Chúng ta sẽ mời khách hàng đi ăn tối hay đi xem biểu diễn? (A) Đó là một buổi biểu diễn tuyệt vời. (B) Vâng, đúng vậy. (C) Họ nói họ thích đi ăn tối hơn.",
+          "explainVi": "Câu hỏi lựa chọn → (C) đúng. (A) lặp từ 'show' ở thì quá khứ; (B) trả lời Yes cho câu hỏi lựa chọn, nói số khách thay vì chọn – bẫy sai trọng tâm.",
+          "translateVi": "Chúng ta sẽ mời khách hàng đi ăn tối hay đi xem biểu diễn? (A) Đó là một buổi biểu diễn tuyệt vời. (B) Vâng, có bốn khách hàng sẽ đến. (C) Họ nói họ thích đi ăn tối hơn.",
           "vocab": [
             {
               "word": "prefer",
@@ -1098,16 +1098,16 @@
           "no": 1,
           "prompt": "Let me know if you need any help with the move.",
           "options": [
-            "The movie was too long.",
+            "The movie was much too long.",
             "Thanks, I may take you up on that.",
-            "It moved to Tuesday."
+            "I helped them move last spring."
           ],
           "answer": 1,
           "tags": [
             "q-statement"
           ],
-          "explainVi": "Lời ngỏ ý giúp → cảm ơn và nhận lời: (B) đúng ('take you up on that' = nhận lời đề nghị). (A) âm gần giống 'move' (movie); (C) lặp âm 'move' với nghĩa 'dời lịch'.",
-          "translateVi": "Cứ cho tôi biết nếu bạn cần giúp chuyển nhà nhé. (A) Bộ phim dài quá. (B) Cảm ơn, có thể tôi sẽ nhờ bạn đấy. (C) Nó đã được dời sang thứ Ba.",
+          "explainVi": "Lời ngỏ ý giúp → cảm ơn và nhận lời: (B) đúng ('take you up on that' = nhận lời đề nghị). (A) âm gần giống 'move' (movie); (C) cùng chủ đề chuyển nhà nhưng nói chuyện mình giúp người khác năm ngoái – bẫy sai người, sai thì.",
+          "translateVi": "Cứ cho tôi biết nếu bạn cần giúp chuyển nhà nhé. (A) Bộ phim dài quá. (B) Cảm ơn, có thể tôi sẽ nhờ bạn đấy. (C) Mùa xuân năm ngoái tôi đã giúp họ chuyển nhà.",
           "vocab": [
             {
               "word": "take someone up on",
