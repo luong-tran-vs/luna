@@ -16,6 +16,7 @@ import {
   GroupImages,
   ImportReport,
   MistakesView,
+  MissingPictures,
   PhotoBatch,
   QuestionDetail,
   ResultView,
@@ -270,9 +271,12 @@ export class ToeicApiService {
     return this.http.get<{ batch: PhotoBatch; codex: boolean }>('/admin/toeic/images/batch');
   }
 
-  /** Draws the missing pictures of a test (its Part 1 photos) or of a part of the bank (1, 6, 7). */
+  /**
+   * Draws the missing pictures of a test (its Part 1 photos) or of a part of the bank (1, 6, 7), of
+   * some levels only when `levels` is given.
+   */
   startPhotoBatch(
-    target: { testKey?: string; part?: number; keys?: string[] },
+    target: { testKey?: string; part?: number; keys?: string[]; levels?: number[] },
     engine: string,
   ): Observable<PhotoBatch> {
     return this.http
@@ -280,11 +284,12 @@ export class ToeicApiService {
       .pipe(map((r) => r.batch));
   }
 
-  /** How many pictures a batch of each picture part would draw, by part ("1", "6", "7"). */
-  missingPictures(): Observable<{ missing: Record<string, number>; codex: boolean }> {
-    return this.http.get<{ missing: Record<string, number>; codex: boolean }>(
-      '/admin/toeic/images/missing',
-    );
+  /**
+   * How many pictures a batch of each picture part would draw, by part ("1", "6", "7"): in all and
+   * by level (`byLevel["1"]["450"]`).
+   */
+  missingPictures(): Observable<MissingPictures> {
+    return this.http.get<MissingPictures>('/admin/toeic/images/missing');
   }
 
   stopPhotoBatch(): Observable<PhotoBatch> {

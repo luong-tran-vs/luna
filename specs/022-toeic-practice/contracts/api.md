@@ -154,6 +154,9 @@ Chỉ khi bài đã nộp. Trả cả cụm có đáp án:
 - `DELETE /api/admin/toeic/images/{groupKey}/{slot}` → `204`.
 - `POST /api/admin/toeic/tests/{key}/images/batch` `{ "engine" }` → `202` (vẽ ngầm ảnh Part 1 còn thiếu của đề, 1 lượt mỗi
   lúc, `409 batch_running`); `GET …/images/batch` → `{ running, done, failed, total }`; `POST …/images/batch/stop`.
+- `POST /api/admin/toeic/images/batch` `{ part | testKey | keys, levels?, engine }` → `202`: `levels` (450/600/750/900,
+  chỉ cho `part`) giới hạn lượt vẽ theo Part ở các mức điểm đã chọn, mức lạ → `400 levels`; bỏ trống = mọi mức.
+  `GET /api/admin/toeic/images/missing` → `{ missing: {"1": n, ...}, byLevel: {"1": {"450": n, ...}, ...}, codex }`.
 
 ## Frontend routes
 

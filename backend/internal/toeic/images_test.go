@@ -259,7 +259,7 @@ func TestPictureBatchOfAPart(t *testing.T) {
 	counts, err := e.svc.MissingPictures(ctx)
 	// Part 7: every text without a picture (the ad and the email beside it, the email of p7-mail); the
 	// web page has one and hidden groups are left out.
-	if err != nil || counts[1] != 2 || counts[6] != 0 || counts[7] != 3 {
+	if err != nil || counts[1][450] != 2 || counts[6][450] != 0 || counts[7][750] != 3 || counts[7][450] != 0 {
 		t.Fatalf("missing = %v, %v", counts, err)
 	}
 	d := &fakeDrawer{pic: pngOf(t, 40, 30)}
@@ -281,8 +281,41 @@ func TestPictureBatchOfAPart(t *testing.T) {
 		t.Fatalf("done = %+v", st)
 	}
 	rec := call(t, e.mux(), http.MethodGet, "/api/admin/toeic/images/missing", "admin", "")
-	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"7":0`) || !strings.Contains(rec.Body.String(), `"1":2`) {
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"7":0`) || !strings.Contains(rec.Body.String(), `"1":2`) ||
+		!strings.Contains(rec.Body.String(), `"byLevel":{`) || !strings.Contains(rec.Body.String(), `"450":2`) {
 		t.Fatalf("missing endpoint = %d %s", rec.Code, rec.Body)
+	}
+}
+
+func TestPictureBatchOfSomeLevels(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	ctx := t.Context()
+	high := p1("p1-900")
+	high.Level = 900
+	mid := p1("p1-600")
+	mid.Level = 600
+	e.seed(p1("p1-450"), mid, high)
+	d := &fakeDrawer{pic: pngOf(t, 40, 30)}
+	e.svc.d.Drawer = d
+	var verr *ValidationError
+	if _, err := e.svc.StartPhotoBatch(ctx, BatchInput{Part: 1, Levels: []int{500}, Engine: EngineGemini}, nil); !errors.As(err, &verr) {
+		t.Fatalf("level 500 = %v", err)
+	}
+	st, err := e.svc.StartPhotoBatch(ctx, BatchInput{Part: 1, Levels: []int{900, 450, 900}, Engine: EngineGemini}, nil)
+	if err != nil || st.Total != 2 || !slices.Equal(st.Levels, []int{450, 900}) {
+		t.Fatalf("start = %+v, %v", st, err)
+	}
+	deadline := time.Now().Add(5 * time.Second)
+	for e.svc.PhotoBatch().Running && time.Now().Before(deadline) {
+		time.Sleep(10 * time.Millisecond)
+	}
+	if st := e.svc.PhotoBatch(); len(st.Saved) != 2 || slices.Contains(st.Saved, "p1-600/photo") {
+		t.Fatalf("done = %+v", st)
+	}
+	counts, err := e.svc.MissingPictures(ctx)
+	if err != nil || counts[1][600] != 1 || counts[1][450] != 0 || counts[1][900] != 0 {
+		t.Fatalf("missing after = %v, %v", counts, err)
 	}
 }
 

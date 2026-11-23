@@ -518,7 +518,8 @@ func (h *Handler) photoBatch(w http.ResponseWriter, _ *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{"batch": h.svc.PhotoBatch(), "codex": h.codexAvailable()})
 }
 
-// missingPictures answers how many pictures a batch of each picture part (1, 6, 7) would draw.
+// missingPictures answers how many pictures a batch of each picture part (1, 6, 7) would draw: in
+// all (missing) and by level (byLevel, {"1": {"450": n, ...}}).
 func (h *Handler) missingPictures(w http.ResponseWriter, r *http.Request) {
 	counts, err := h.svc.MissingPictures(r.Context())
 	if err != nil {
@@ -526,10 +527,16 @@ func (h *Handler) missingPictures(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	out := map[string]int{}
-	for p, n := range counts {
-		out[strconv.Itoa(int(p))] = n
+	byLevel := map[string]map[string]int{}
+	for p, levels := range counts {
+		part := strconv.Itoa(int(p))
+		byLevel[part] = map[string]int{}
+		for l, n := range levels {
+			out[part] += n
+			byLevel[part][strconv.Itoa(l)] = n
+		}
 	}
-	httpx.WriteJSON(w, http.StatusOK, map[string]any{"missing": out, "codex": h.codexAvailable()})
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"missing": out, "byLevel": byLevel, "codex": h.codexAvailable()})
 }
 
 func (h *Handler) stopPhotoBatch(w http.ResponseWriter, _ *http.Request) {

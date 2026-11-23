@@ -509,6 +509,13 @@ export interface GroupImages {
   codex: boolean;
 }
 
+/** How many pictures are missing in each picture part ("1", "6", "7"), in all and by level ("450"…). */
+export interface MissingPictures {
+  missing: Record<string, number>;
+  byLevel: Record<string, Record<string, number>>;
+  codex: boolean;
+}
+
 /** The batch of missing Part 1 photos. */
 export interface PhotoBatch {
   running: boolean;
@@ -519,6 +526,8 @@ export interface PhotoBatch {
   part: number;
   /** The groups of a batch started for some groups (after "Nhờ AI soạn"). */
   keys: string[];
+  /** The levels of a part batch limited to some of them; empty for every level. */
+  levels?: number[];
   total: number;
   drawing: string;
   saved: string[];

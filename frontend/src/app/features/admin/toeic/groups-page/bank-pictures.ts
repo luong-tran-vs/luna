@@ -9,11 +9,12 @@ import {
   signal,
 } from '@angular/core';
 
-import { PhotoBatch } from '../../../../core/models/toeic';
+import { MissingPictures, PhotoBatch } from '../../../../core/models/toeic';
 import { ImageEngine } from '../../../../core/models/word-bank';
 import { ToeicApiService } from '../../../../core/services/toeic-api.service';
 import { EngineDialog } from '../../../../shared/components/engine-dialog/engine-dialog';
 import { errorBody } from '../../json-import/json-import';
+import { LevelDialog } from './level-dialog';
 
 /** How often the batch's progress is asked for while it runs. */
 const POLL_MS = 2000;
@@ -34,14 +35,15 @@ export const PICTURE_PARTS: readonly { part: 1 | 6 | 7; name: string; what: stri
 ];
 
 /**
- * "Ảnh minh hoạ" in Kho cụm câu: for each part with pictures, how many are missing and "Vẽ N ảnh
- * còn thiếu…", which draws them one after another in the background (Gemini or Codex, chosen every
- * time), with the progress and "Dừng". Every Part 6/7 text gets
+ * "Ảnh minh hoạ" in Kho cụm câu: for each part with pictures, how many are missing and "Vẽ ảnh
+ * còn thiếu…", which asks for the levels (a level with every picture is told so), then the engine
+ * (Gemini or Codex, chosen every time), and draws them one after another in the background, with
+ * the progress and "Dừng". Every Part 6/7 text gets
  * a picture: an email, a memo or a chat one of its situation.
  */
 @Component({
   selector: 'lu-toeic-bank-pictures',
-  imports: [EngineDialog],
+  imports: [EngineDialog, LevelDialog],
   template: `
     <section class="card" aria-labelledby="bank-pictures-title">
       <div class="head">
@@ -71,10 +73,10 @@ export const PICTURE_PARTS: readonly { part: 1 | 6 | 7; name: string; what: stri
             <button
               type="button"
               class="btn small"
-              [disabled]="!missing() || missingOf(p.part) === 0 || !!batch()?.running"
-              (click)="asking.set(p.part)"
+              [disabled]="!missing() || !!batch()?.running"
+              (click)="openLevels(p.part)"
             >
-              Vẽ {{ missingOf(p.part) }} ảnh còn thiếu…
+              Vẽ ảnh còn thiếu…
             </button>
           </li>
         }
@@ -86,13 +88,23 @@ export const PICTURE_PARTS: readonly { part: 1 | 6 | 7; name: string; what: stri
         <p class="form-alert" role="alert">{{ error() }}</p>
       }
     </section>
+    <lu-toeic-level-dialog
+      [open]="picking() !== null"
+      [heading]="'Vẽ ảnh còn thiếu · Part ' + picking()"
+      [missing]="levelsOf(picking())"
+      [selected]="chosen()"
+      (confirmed)="chooseLevels($event)"
+      (cancelled)="picking.set(null)"
+    />
     <lu-engine-dialog
       [open]="asking() !== null"
       [heading]="'Vẽ ảnh còn thiếu · Part ' + asking()"
       [message]="dialogMessage()"
       [codexAvailable]="codex()"
       confirmLabel="Bắt đầu vẽ"
+      backLabel="Quay lại"
       (confirmed)="start($event)"
+      (back)="backToLevels()"
       (cancelled)="asking.set(null)"
     />
   `,
@@ -150,10 +162,19 @@ export class BankPictures implements OnInit {
 
   private readonly api = inject(ToeicApiService);
   protected readonly parts = PICTURE_PARTS;
-  protected readonly missing = signal<Record<string, number> | null>(null);
+  protected readonly missing = signal<MissingPictures['byLevel'] | null>(null);
   protected readonly batch = signal<PhotoBatch | null>(null);
   protected readonly codex = signal(false);
+  /** The part whose levels are being chosen (first step), then whose engine is asked (second). */
+  protected readonly picking = signal<1 | 6 | 7 | null>(null);
   protected readonly asking = signal<1 | 6 | 7 | null>(null);
+  /** The levels ticked for the batch being asked (full ones too, kept on "Quay lại"). */
+  protected readonly chosen = signal<number[]>([]);
+  /** The ticked levels that still miss pictures in the part being asked: what the batch draws. */
+  private readonly drawLevels = computed(() => {
+    const byLevel = this.levelsOf(this.asking());
+    return this.chosen().filter((l) => (byLevel[String(l)] ?? 0) > 0);
+  });
   protected readonly error = signal('');
   private timer: ReturnType<typeof setTimeout> | null = null;
 
@@ -167,7 +188,7 @@ export class BankPictures implements OnInit {
       ? 'các cụm vừa soạn'
       : b.testKey
         ? `đề ${b.testKey}`
-        : `Part ${b.part}`;
+        : `Part ${b.part}` + (b.levels?.length ? ` (mức ${b.levels.join(', ')})` : '');
     let text = b.running
       ? `Đang vẽ ${where}: ảnh ${b.saved.length + failed + 1}/${b.total} (${b.engine})…`
       : `Đã vẽ ${b.saved.length}/${b.total} ảnh của ${where}.`;
@@ -182,9 +203,12 @@ export class BankPictures implements OnInit {
 
   protected readonly dialogMessage = computed(() => {
     const p = this.asking();
-    return p
-      ? `Vẽ lần lượt ${this.missingOf(p)} ảnh còn thiếu của Part ${p} (kể cả cụm nháp), chạy ngầm trên máy chủ; xem tiến độ ở đây.`
-      : '';
+    if (!p) {
+      return '';
+    }
+    const byLevel = this.levelsOf(p);
+    const n = this.drawLevels().reduce((sum, l) => sum + (byLevel[String(l)] ?? 0), 0);
+    return `Vẽ lần lượt ${n} ảnh còn thiếu của Part ${p}, mức ${this.drawLevels().join(', ')} (kể cả cụm nháp), chạy ngầm trên máy chủ; xem tiến độ ở đây.`;
   });
 
   constructor() {
@@ -202,18 +226,46 @@ export class BankPictures implements OnInit {
     this.poll();
   }
 
+  /** The pictures missing in a part, every level. */
   protected missingOf(part: number): number {
-    return this.missing()?.[String(part)] ?? 0;
+    return Object.values(this.levelsOf(part)).reduce((sum, n) => sum + n, 0);
+  }
+
+  /** The pictures missing in a part by level ("450" → n). */
+  protected levelsOf(part: number | null): Record<string, number> {
+    return part ? (this.missing()?.[String(part)] ?? {}) : {};
+  }
+
+  /** "Vẽ ảnh còn thiếu…": the levels are asked first, none ticked. */
+  protected openLevels(part: 1 | 6 | 7): void {
+    this.chosen.set([]);
+    this.picking.set(part);
+  }
+
+  /** "Quay lại" from the engine step: the levels again, as they were ticked. */
+  protected backToLevels(): void {
+    const part = this.asking();
+    this.asking.set(null);
+    this.picking.set(part);
+  }
+
+  /** The levels are chosen: the engine is asked next. */
+  protected chooseLevels(levels: number[]): void {
+    const part = this.picking();
+    this.picking.set(null);
+    this.chosen.set(levels);
+    this.asking.set(part);
   }
 
   protected start(engine: ImageEngine): void {
     const part = this.asking();
+    const levels = this.drawLevels();
     this.asking.set(null);
-    if (!part) {
+    if (!part || levels.length === 0) {
       return;
     }
     this.error.set('');
-    this.api.startPhotoBatch({ part }, engine).subscribe({
+    this.api.startPhotoBatch({ part, levels }, engine).subscribe({
       next: (b) => {
         this.batch.set(b);
         this.schedule();
@@ -229,7 +281,7 @@ export class BankPictures implements OnInit {
   private loadMissing(): void {
     this.api.missingPictures().subscribe({
       next: (r) => {
-        this.missing.set(r.missing);
+        this.missing.set(r.byLevel);
         this.codex.set(r.codex);
       },
       error: () => this.error.set('Không đếm được ảnh còn thiếu.'),

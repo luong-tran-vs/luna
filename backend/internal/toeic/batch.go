@@ -27,8 +27,11 @@ type BatchInput struct {
 	TestKey string `json:"testKey"`
 	Part    Part   `json:"part"`
 	// Keys, when set, are the groups to draw (the ones "Nhờ AI soạn" has just written).
-	Keys   []string `json:"keys"`
-	Engine string   `json:"engine"`
+	Keys []string `json:"keys"`
+	// Levels, for a part of the bank, keeps only the groups of these levels (450, 600, 750, 900); empty
+	// means every level.
+	Levels []int  `json:"levels"`
+	Engine string `json:"engine"`
 }
 
 // PhotoBatchStatus is how the batch is going; the zero value means none ran since the server started.
@@ -39,8 +42,10 @@ type PhotoBatchStatus struct {
 	TestKey  string `json:"testKey"`
 	Part     Part   `json:"part"`
 	// Keys are the groups of a batch started for some groups ("Nhờ AI soạn"), empty otherwise.
-	Keys  []string `json:"keys"`
-	Total int      `json:"total"`
+	Keys []string `json:"keys"`
+	// Levels are the levels of a part batch limited to some of them, empty otherwise.
+	Levels []int `json:"levels"`
+	Total  int   `json:"total"`
 	// Drawing, Saved and the keys of Failed are pictures as "groupKey/slot".
 	Drawing string            `json:"drawing"`
 	Saved   []string          `json:"saved"`
@@ -77,6 +82,11 @@ func (s *Service) StartPhotoBatch(ctx context.Context, in BatchInput, log *slog.
 	if len(in.Keys) == 0 && in.TestKey == "" && !slices.Contains(PictureParts, in.Part) {
 		return PhotoBatchStatus{}, invalid("part", "Chỉ Part 1, 6 và 7 có ảnh")
 	}
+	for _, l := range in.Levels {
+		if !slices.Contains(Levels, l) {
+			return PhotoBatchStatus{}, invalid("levels", "Mức điểm chỉ có 450, 600, 750 hoặc 900")
+		}
+	}
 	if s.d.Drawer == nil {
 		return PhotoBatchStatus{}, ErrDrawUnavailable
 	}
@@ -88,7 +98,7 @@ func (s *Service) StartPhotoBatch(ctx context.Context, in BatchInput, log *slog.
 	if len(in.Keys) > 0 {
 		jobs, err = s.missingInGroups(ctx, in.Keys)
 	} else {
-		jobs, err = s.missingPictures(ctx, in.TestKey, in.Part)
+		jobs, err = s.missingPictures(ctx, in.TestKey, in.Part, in.Levels)
 	}
 	if err != nil {
 		return PhotoBatchStatus{}, err
@@ -99,14 +109,20 @@ func (s *Service) StartPhotoBatch(ctx context.Context, in BatchInput, log *slog.
 		b.mu.Unlock()
 		return PhotoBatchStatus{}, ErrBatchRunning
 	}
-	part, keys := in.Part, []string{}
+	part, keys, levels := in.Part, []string{}, slices.Clone(in.Levels)
 	switch {
 	case len(in.Keys) > 0:
-		part, keys = 0, slices.Clone(in.Keys)
+		part, keys, levels = 0, slices.Clone(in.Keys), nil
 	case in.TestKey != "":
-		part = 0
+		part, levels = 0, nil
 	}
-	b.status = PhotoBatchStatus{Running: len(jobs) > 0, Engine: in.Engine, TestKey: in.TestKey, Part: part, Keys: keys, Total: len(jobs),
+	if levels == nil {
+		levels = []int{}
+	}
+	slices.Sort(levels)
+	levels = slices.Compact(levels)
+	b.status = PhotoBatchStatus{Running: len(jobs) > 0, Engine: in.Engine, TestKey: in.TestKey, Part: part, Keys: keys,
+		Levels: levels, Total: len(jobs),
 		Saved: []string{}, Failed: map[string]string{}, StartedAt: s.now()}
 	b.stop = false
 	st := b.status
@@ -170,6 +186,10 @@ func (s *Service) PhotoBatch() PhotoBatchStatus {
 	if st.Keys == nil {
 		st.Keys = []string{}
 	}
+	st.Levels = slices.Clone(st.Levels)
+	if st.Levels == nil {
+		st.Levels = []int{}
+	}
 	failed := make(map[string]string, len(st.Failed))
 	for k, v := range st.Failed {
 		failed[k] = v
@@ -189,23 +209,31 @@ func (s *Service) StopPhotoBatch() PhotoBatchStatus {
 	return s.PhotoBatch()
 }
 
-// MissingPictures counts the pictures a batch of each picture part would draw.
-func (s *Service) MissingPictures(ctx context.Context) (map[Part]int, error) {
-	out := map[Part]int{}
+// MissingPictures counts the pictures a batch of each picture part would draw, by level (450, 600,
+// 750, 900); every level is there, 0 when nothing is missing.
+func (s *Service) MissingPictures(ctx context.Context) (map[Part]map[int]int, error) {
+	out := map[Part]map[int]int{}
 	for _, p := range PictureParts {
-		jobs, err := s.missingPictures(ctx, "", p)
+		jobs, err := s.missingPictures(ctx, "", p, nil)
 		if err != nil {
 			return nil, err
 		}
-		out[p] = len(jobs)
+		byLevel := make(map[int]int, len(Levels))
+		for _, l := range Levels {
+			byLevel[l] = 0
+		}
+		for _, j := range jobs {
+			byLevel[j.group.Level]++
+		}
+		out[p] = byLevel
 	}
 	return out, nil
 }
 
 // missingPictures are the pictures still to draw: the Part 1 photos of a test (testKey), or, in a
-// part of the bank, the Part 1 photos and the pictures of the Part 6/7 texts of a picture kind. The
-// groups keep their order (a test's, or by key); hidden groups are left out.
-func (s *Service) missingPictures(ctx context.Context, testKey string, part Part) ([]pictureJob, error) {
+// part of the bank, the Part 1 photos and the pictures of the Part 6/7 texts, of the given levels only
+// when some are given. The groups keep their order (a test's, or by key); hidden groups are left out.
+func (s *Service) missingPictures(ctx context.Context, testKey string, part Part, levels []int) ([]pictureJob, error) {
 	var groups []Group
 	if testKey != "" {
 		t, err := s.d.Tests.Get(ctx, testKey)
@@ -227,7 +255,7 @@ func (s *Service) missingPictures(ctx context.Context, testKey string, part Part
 			return nil, err
 		}
 		for _, g := range all {
-			if g.Status != StatusHidden {
+			if g.Status != StatusHidden && (len(levels) == 0 || slices.Contains(levels, g.Level)) {
 				groups = append(groups, g)
 			}
 		}

@@ -54,6 +54,9 @@ import { EnginePicker } from '../engine-picker/engine-picker';
           }
           <div class="actions">
             <button type="button" class="btn" (click)="cancelled.emit()">Huỷ</button>
+            @if (backLabel()) {
+              <button type="button" class="btn" (click)="back.emit()">{{ backLabel() }}</button>
+            }
             <button
               type="button"
               class="btn-primary"
@@ -96,8 +99,12 @@ export class EngineDialog {
    */
   readonly requireChoice = input(true);
 
+  /** When set, a button that goes back to the step before the dialog (it emits `back`). */
+  readonly backLabel = input('');
+
   readonly confirmed = output<ImageEngine>();
   readonly cancelled = output<void>();
+  readonly back = output<void>();
 
   private readonly engine = signal<ImageEngine | ''>(storedImageEngine());
   /** Codex only where the server offers it; "" while none is chosen. */

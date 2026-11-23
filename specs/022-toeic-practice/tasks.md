@@ -385,6 +385,13 @@ T051 frontend/src/app/features/toeic/exam-room/question-grid.ts, answer-sheet.ts
   soạn…" (chọn engine, tiến độ, Dừng, "Vẽ tiếp ảnh còn thiếu…" khi bị dừng); backend `BatchInput.Keys` (≤ 50 cụm, chỉ vẽ ô
   còn thiếu, Part 6/7 chỉ văn bản loại có hình). Đóng hộp thoại thì khu Ảnh minh hoạ tiếp tục theo dõi. Playwright: soạn
   thật 10 cụm Part 1 → nút hiện, vẽ dừng đúng "hết lượt AI", khu Ảnh minh hoạ thấy lượt vẽ.
+- **Vẽ ảnh theo mức điểm (2026-11-23)**: bấm "Vẽ ảnh còn thiếu…" của một Part → hộp thoại chọn mức
+  (`groups-page/level-dialog.ts`: 450/600/750/900, mỗi mức ghi "Còn N ảnh" hoặc "✓ Đủ ảnh"); chọn mức đã đủ ảnh thì báo
+  "Mức … đã đủ ảnh, sẽ không vẽ lại", các mức còn thiếu vẫn vẽ phần thiếu; mọi mức chọn đều đủ thì "Tiếp tục" bị tắt;
+  "Tiếp tục" → chọn engine (có "Quay lại" về bước chọn mức, giữ nguyên các mức đã tick; `EngineDialog.backLabel`) → vẽ.
+  Backend `BatchInput.Levels`
+  (mức lạ → `400 levels`), `GET /images/missing` thêm `byLevel`; tiến độ ghi "Part 1 (mức 450)". Ảnh TOEIC cũng chuyển
+  sang prompt ảnh chụp chân thực (`ai/toeic_image.go`, `photoStyle` + `photoAvoid`).
 - **Trùng cụm khi AI soạn + mọi văn bản Part 6/7 có ảnh (2026-11-20)**: `toeic/dedup.go` so mỗi cụm AI trả về với cả kho
   của Part (cả nháp) và với cụm khác trong cùng lần soạn (từ giống ≥ 80%, không gọi AI); cụm trùng bị bỏ, báo "Trùng với cụm
   … (giống N%)", hộp thoại tách "bỏ N cụm trùng" khỏi "không qua kiểm tra". Theo yêu cầu admin, vẽ hàng loạt giờ vẽ **mọi**
