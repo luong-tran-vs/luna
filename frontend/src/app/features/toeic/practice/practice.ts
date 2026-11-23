@@ -6,6 +6,7 @@ import { ToeicApiService } from '../../../core/services/toeic-api.service';
 import { errorBody } from '../../admin/json-import/json-import';
 import { PART_NAMES, READY_PARTS } from '../shared/score.logic';
 import { ToeicTabs } from '../shared/toeic-tabs';
+import { ToeicBack } from '../shared/toeic-back';
 
 /** Parts a guest may practise (FR-045). */
 const GUEST_PARTS: readonly ToeicPart[] = [1, 2, 5];
@@ -21,13 +22,16 @@ const COUNTS: Record<ToeicPart, number[]> = {
   7: [3, 5, 8],
 };
 
+/** The time a round may take (minutes); a round always has a clock. */
+const TIMES = [15, 20];
+
 /**
  * "Luyện theo Part" (FR-029): pick a part and how many questions or texts; the questions come from
  * every published group, the ones not done yet first, in the exam room's practice mode.
  */
 @Component({
   selector: 'lu-toeic-practice',
-  imports: [ToeicTabs],
+  imports: [ToeicTabs, ToeicBack],
   templateUrl: './practice.html',
   styleUrls: ['../shared/toeic-page.css', './practice.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,6 +47,8 @@ export class Practice {
   protected readonly names = PART_NAMES;
   protected readonly counts = COUNTS;
   protected readonly chosen = signal<Partial<Record<ToeicPart, number>>>({});
+  protected readonly times = TIMES;
+  protected readonly chosenTime = signal<Partial<Record<ToeicPart, number>>>({});
 
   constructor() {
     this.api.library().subscribe({
@@ -72,10 +78,20 @@ export class Practice {
     this.chosen.update((c) => ({ ...c, [p]: n }));
   }
 
+  protected time(p: ToeicPart): number {
+    return this.chosenTime()[p] ?? TIMES[0];
+  }
+
+  protected pickTime(p: ToeicPart, event: Event): void {
+    const n = Number((event.target as HTMLSelectElement).value);
+    this.chosenTime.update((c) => ({ ...c, [p]: n }));
+  }
+
   protected start(p: ToeicPart): void {
     this.starting.set(p);
     this.error.set('');
-    this.api.start({ source: { kind: 'part', part: p, count: this.count(p) }, mode: 'practice' }).subscribe({
+    const source = { kind: 'part' as const, part: p, count: this.count(p) };
+    this.api.start({ source, mode: 'practice', timeLimitMin: this.time(p) }).subscribe({
       next: (v) => void this.router.navigate(['/toeic/attempts', v.id]),
       error: (err: unknown) => {
         this.starting.set(null);

@@ -6,6 +6,7 @@ import { ToeicApiService } from '../../../core/services/toeic-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { kindLabel, shortDate } from '../shared/score.logic';
 import { ToeicTabs } from '../shared/toeic-tabs';
+import { ToeicBack } from '../shared/toeic-back';
 
 /**
  * The TOEIC home (FR-002): the tabs, the test cards with the learner's state on each (new, in
@@ -14,7 +15,7 @@ import { ToeicTabs } from '../shared/toeic-tabs';
  */
 @Component({
   selector: 'lu-toeic-library',
-  imports: [RouterLink, Icon, ToeicTabs],
+  imports: [RouterLink, Icon, ToeicTabs, ToeicBack],
   templateUrl: './library.html',
   styleUrls: ['../shared/toeic-page.css', './library.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

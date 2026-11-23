@@ -12,6 +12,7 @@ import { DocView } from '../shared/doc-view';
 import { GraphicView } from '../shared/graphic-view';
 import { QuestionView } from '../shared/question-view';
 import { letter, outcomeLabel, PART_NAMES } from '../shared/score.logic';
+import { ToeicBack } from '../shared/toeic-back';
 
 /**
  * The answer detail of a question (FR-028): the part and question types (a grammar type links to its
@@ -20,7 +21,7 @@ import { letter, outcomeLabel, PART_NAMES } from '../shared/score.logic';
  */
 @Component({
   selector: 'lu-toeic-answer-detail',
-  imports: [RouterLink, DocView, QuestionView, GraphicView],
+  imports: [RouterLink, DocView, QuestionView, GraphicView, ToeicBack],
   templateUrl: './answer-detail.html',
   styleUrls: ['../shared/toeic-page.css', './answer-detail.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

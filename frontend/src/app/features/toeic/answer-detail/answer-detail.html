@@ -1,7 +1,5 @@
 <div class="toeic-page narrow">
-  <nav class="crumbs">
-    <a [routerLink]="['/toeic/attempts', id(), 'result']">← Kết quả</a>
-  </nav>
+  <lu-toeic-back [link]="['/toeic/attempts', id(), 'result']" label="Kết quả" />
 
   @if (error()) {
     <p class="form-alert" role="alert">{{ error() }}</p>

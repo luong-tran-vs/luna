@@ -266,7 +266,7 @@
   }
 
   .layout {
-    grid-template-columns: minmax(0, 1fr) 260px;
+    grid-template-columns: minmax(0, 1fr) 300px;
     align-items: start;
     max-width: 1440px;
     margin: 0 auto;
@@ -291,6 +291,10 @@
     gap: var(--space-3);
     max-height: calc(100dvh - var(--room-top) - 16px);
     overflow-y: auto;
+    /* Room inside the scroll box, so the outline of the current question's cell (and the card's
+       border) is not cut at the edges, and the scrollbar does not sit on the cells. */
+    padding: var(--space-1) var(--space-2) var(--space-2);
+    scrollbar-gutter: stable;
   }
 
   .floating,

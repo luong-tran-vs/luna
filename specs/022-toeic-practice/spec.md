@@ -325,7 +325,8 @@ còn lại; danh sách dạng câu xếp đúng thứ tự độ chính xác; b�
 **Luyện thêm, sổ câu sai, mục tiêu**
 
 - **FR-029**: **Luyện theo Part** MUST cho chọn một Part và số câu (hoặc số cụm), lấy câu đã đăng từ mọi đề, ưu tiên câu chưa
-  làm, làm trong phòng thi ở chế độ luyện tập.
+  làm, làm trong phòng thi ở chế độ luyện tập. (2026-11-23) Mỗi lượt MUST có đồng hồ 15 hoặc 20 phút (mặc định 15, không có
+  "không giới hạn"), hết giờ tự nộp.
 - **FR-030**: **Luyện theo dạng câu** MUST liệt kê các #dạng câu có câu đã đăng kèm độ chính xác của người học, yếu nhất lên
   đầu (dạng chưa làm xếp cuối); bấm một dạng mở lượt 10 câu (hoặc vài cụm) dạng đó. Dạng câu ngữ pháp có điểm ngữ pháp tương
   ứng trong Luna MUST có link sang điểm đó.

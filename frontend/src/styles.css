@@ -45,6 +45,19 @@ button {
   color: inherit;
 }
 
+/* Drop-downs (and other pick-one controls) show the hand pointer like buttons (2026-11-23). */
+select,
+input[type='checkbox'],
+input[type='radio'] {
+  cursor: pointer;
+}
+
+select:disabled,
+input[type='checkbox']:disabled,
+input[type='radio']:disabled {
+  cursor: not-allowed;
+}
+
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

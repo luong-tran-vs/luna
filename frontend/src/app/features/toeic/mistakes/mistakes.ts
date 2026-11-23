@@ -9,6 +9,7 @@ import { DocView } from '../shared/doc-view';
 import { QuestionView } from '../shared/question-view';
 import { letter, PART_NAMES } from '../shared/score.logic';
 import { ToeicTabs } from '../shared/toeic-tabs';
+import { ToeicBack } from '../shared/toeic-back';
 
 /** How many questions a round of the notebook has. */
 const ROUND_SIZE = 10;
@@ -20,7 +21,7 @@ const ROUND_SIZE = 10;
  */
 @Component({
   selector: 'lu-toeic-mistakes',
-  imports: [RouterLink, DocView, QuestionView, ToeicTabs],
+  imports: [RouterLink, DocView, QuestionView, ToeicTabs, ToeicBack],
   templateUrl: './mistakes.html',
   styleUrls: ['../shared/toeic-page.css', './mistakes.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

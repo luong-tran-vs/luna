@@ -1,10 +1,11 @@
 <div class="toeic-page">
+  <lu-toeic-back link="/toeic" label="Luyện thi TOEIC" />
   <header class="head">
     <h1 class="head-title">Luyện thi TOEIC</h1>
   </header>
   <lu-toeic-tabs active="practice" [mistakes]="data()?.mistakes ?? null" [guest]="data()?.guest ?? false" />
 
-  <p class="muted">Chọn một Part và số câu. Câu lấy từ mọi đề đã đăng, câu bạn chưa làm được ưu tiên. Nộp bài mới chấm.</p>
+  <p class="muted">Chọn một Part và số câu. Câu lấy từ mọi đề đã đăng, câu bạn chưa làm được ưu tiên. Mỗi lượt có đồng hồ 15 hoặc 20 phút, hết giờ tự nộp. Nộp bài mới chấm.</p>
   @if (error()) {
     <p class="form-alert" role="alert">{{ error() }}</p>
   }
@@ -24,6 +25,12 @@
             <select [id]="'count-' + p" (change)="pick(p, $event)">
               @for (n of counts[p]; track n) {
                 <option [value]="n" [selected]="count(p) === n">{{ n }} {{ unit(p) }}</option>
+              }
+            </select>
+            <label class="sr-only" [attr.for]="'time-' + p">Thời gian làm Part {{ p }}</label>
+            <select [id]="'time-' + p" (change)="pickTime(p, $event)">
+              @for (m of times; track m) {
+                <option [value]="m" [selected]="time(p) === m">{{ m }} phút</option>
               }
             </select>
             <button type="button" class="btn-primary" [disabled]="starting() !== null" (click)="start(p)">

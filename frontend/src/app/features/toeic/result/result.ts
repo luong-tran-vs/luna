@@ -14,6 +14,7 @@ import {
   PART_NAMES,
   percentLabel,
 } from '../shared/score.logic';
+import { ToeicBack } from '../shared/toeic-back';
 
 /**
  * The result page (FR-024…FR-027): the counts, accuracy and time; the estimated scores when the
@@ -22,7 +23,7 @@ import {
  */
 @Component({
   selector: 'lu-toeic-result',
-  imports: [RouterLink],
+  imports: [RouterLink, ToeicBack],
   templateUrl: './result.html',
   styleUrls: ['../shared/toeic-page.css', './result.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

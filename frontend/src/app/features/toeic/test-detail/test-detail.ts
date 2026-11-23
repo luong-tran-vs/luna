@@ -20,6 +20,7 @@ import {
   shortDate,
   suggestedMinutes,
 } from '../shared/score.logic';
+import { ToeicBack } from '../shared/toeic-back';
 
 type Tab = 'practice' | 'full' | 'results';
 
@@ -33,7 +34,7 @@ const LIMITS = [10, 20, 30, 45, 60, 75, 0];
  */
 @Component({
   selector: 'lu-toeic-test-detail',
-  imports: [RouterLink, ConfirmDialog],
+  imports: [RouterLink, ConfirmDialog, ToeicBack],
   templateUrl: './test-detail.html',
   styleUrls: ['../shared/toeic-page.css', './test-detail.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
