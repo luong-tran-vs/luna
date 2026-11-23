@@ -66,6 +66,7 @@ export interface QuestionLike {
     </div>
   `,
   styleUrl: './question-view.css',
+  host: { '[class.heard]': 'hideText()' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionView {

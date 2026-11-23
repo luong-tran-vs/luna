@@ -152,3 +152,16 @@
 .opt[data-state='wrong'] .sign {
   color: var(--color-bad);
 }
+
+/* Part 1/2 options have no printed words: A–D (A–C) side by side on one line, not a line each. */
+:host(.heard) .options {
+  grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+}
+
+:host(.heard) .opt {
+  justify-content: center;
+}
+
+:host(.heard) .text {
+  display: none;
+}

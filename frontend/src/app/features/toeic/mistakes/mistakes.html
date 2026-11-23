@@ -32,7 +32,7 @@
           />
         }
         <lu-toeic-question
-          [question]="it.group.questions[0]"
+          [question]="itemQuestion() ?? it.group.questions[0]"
           [chosen]="choice()"
           [readonly]="reply() !== null"
           [answer]="reply()?.answer ?? null"

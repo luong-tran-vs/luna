@@ -9,23 +9,26 @@
       <h1 class="title">{{ v.title }}</h1>
       <p class="sub">{{ answeredCount() }}/{{ questions().length }} câu đã làm</p>
     </div>
+    <!-- Only a paper of two parts or more needs the tabs: a one-part round says its part in the title. -->
+    @if (partTabs().length > 1) {
+      <nav class="part-tabs" aria-label="Các Part">
+        @for (t of partTabs(); track t.part) {
+          <button
+            type="button"
+            class="part-tab"
+            [class.on]="t.on"
+            [attr.aria-current]="t.on ? 'true' : null"
+            [title]="'Part ' + t.part + ' · ' + t.name"
+            (click)="go(t.first)"
+          >
+            Part {{ t.part }} <span class="sr-only">· {{ t.name }}</span>
+          </button>
+        }
+      </nav>
+    }
     <p class="clock clock-top" [class.low]="lowTime()" aria-hidden="true">⏱ {{ clockText() }}</p>
     <button type="button" class="btn exit" (click)="exit()">Thoát</button>
   </header>
-
-  <nav class="part-tabs" aria-label="Các Part">
-    @for (t of partTabs(); track t.part) {
-      <button
-        type="button"
-        class="part-tab"
-        [class.on]="t.on"
-        [attr.aria-current]="t.on ? 'true' : null"
-        (click)="go(t.first)"
-      >
-        Part {{ t.part }} <span class="part-name">· {{ t.name }}</span>
-      </button>
-    }
-  </nav>
 
   @if (player(); as pl) {
     <div class="listen">
@@ -64,31 +67,39 @@
       }
       <section class="questions" aria-label="Câu hỏi">
         @for (g of pageGroups(); track g.key) {
-          @if (image(g.imageUrl); as src) {
-            <a class="photo-link" [href]="src" target="_blank" rel="noopener" aria-label="Mở ảnh lớn">
-              <img class="photo" crossorigin="use-credentials" [src]="src" [alt]="'Ảnh câu ' + groupNumbers()[g.key]" />
-            </a>
-          }
-          @if (g.part <= 4 && g.part >= 3 && g.questions[0]; as q0) {
-            <p class="refer">
-              Questions {{ q0.number }}–{{ g.questions[g.questions.length - 1].number }} refer to the following
-              {{ g.part === 3 ? 'conversation' : 'talk' }}{{ g.graphic ? ' and graphic' : '' }}.
-            </p>
-          }
-          @if (g.graphic; as gr) {
-            <lu-toeic-graphic [graphic]="gr" />
-          }
-          @for (q of g.questions; track q.id) {
-            <lu-toeic-question
-              [question]="shown(g, q)"
-              [hideText]="g.part <= 2"
-              [chosen]="chosenOf(q.id)"
-              [flagged]="flagged(q.id)"
-              [current]="q.id === current()?.id"
-              (selected)="choose(q.id, $event)"
-              (flagToggled)="flag(q.id)"
-            />
-          }
+          <div class="group" [class.with-photo]="!!image(g.imageUrl)">
+            @if (image(g.imageUrl); as src) {
+              <img
+                class="photo"
+                crossorigin="use-credentials"
+                [src]="src"
+                [alt]="'Ảnh câu ' + groupNumbers()[g.key]"
+              />
+            }
+            <div class="group-body">
+              @if (g.part <= 4 && g.part >= 3 && g.questions[0]; as q0) {
+                <p class="refer">
+                  Questions {{ q0.number }}–{{ g.questions[g.questions.length - 1].number }} refer
+                  to the following {{ g.part === 3 ? 'conversation' : 'talk'
+                  }}{{ g.graphic ? ' and graphic' : '' }}.
+                </p>
+              }
+              @if (g.graphic; as gr) {
+                <lu-toeic-graphic [graphic]="gr" />
+              }
+              @for (q of g.questions; track q.id) {
+                <lu-toeic-question
+                  [question]="shown(g, q)"
+                  [hideText]="g.part <= 2"
+                  [chosen]="chosenOf(q.id)"
+                  [flagged]="flagged(q.id)"
+                  [current]="q.id === current()?.id"
+                  (selected)="choose(q.id, $event)"
+                  (flagToggled)="flag(q.id)"
+                />
+              }
+            </div>
+          </div>
         }
         <div class="pager">
           <button type="button" class="btn" [disabled]="pageIndex() === 0" (click)="move(-1)">

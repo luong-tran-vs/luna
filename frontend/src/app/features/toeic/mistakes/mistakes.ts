@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ToeicApiService } from '../../../core/services/toeic-api.service';
 import { DocView } from '../shared/doc-view';
 import { QuestionView } from '../shared/question-view';
-import { letter, PART_NAMES } from '../shared/score.logic';
+import { letter, listeningPrompt, PART_NAMES } from '../shared/score.logic';
 import { ToeicTabs } from '../shared/toeic-tabs';
 import { ToeicBack } from '../shared/toeic-back';
 
@@ -47,6 +47,16 @@ export class Mistakes {
     Object.values(this.view()?.counts ?? {}).reduce((a, b) => a + b, 0),
   );
   protected readonly item = computed(() => this.round()?.[this.index()] ?? null);
+  /** The round's question as shown: a Part 1/2 question (only heard) gets the room's instruction line. */
+  protected readonly itemQuestion = computed(() => {
+    const it = this.item();
+    if (!it) {
+      return null;
+    }
+    const q = it.group.questions[0];
+    const prompt = listeningPrompt(it.group.part);
+    return prompt ? { ...q, prompt } : q;
+  });
   protected readonly finished = computed(() => {
     const r = this.round();
     return r !== null && this.index() >= r.length;

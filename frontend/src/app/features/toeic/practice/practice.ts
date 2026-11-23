@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToeicLibrary, ToeicPart } from '../../../core/models/toeic';
 import { ToeicApiService } from '../../../core/services/toeic-api.service';
 import { errorBody } from '../../admin/json-import/json-import';
-import { PART_NAMES, READY_PARTS } from '../shared/score.logic';
+import { PART_NAMES } from '../shared/score.logic';
 import { ToeicTabs } from '../shared/toeic-tabs';
 import { ToeicBack } from '../shared/toeic-back';
 
@@ -58,7 +58,7 @@ export class Practice {
   }
 
   protected ready(p: ToeicPart): boolean {
-    return READY_PARTS.includes(p) && (this.data()?.partCounts[p] ?? 0) > 0;
+    return (this.data()?.partCounts[p] ?? 0) > 0;
   }
 
   protected locked(p: ToeicPart): boolean {

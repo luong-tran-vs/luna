@@ -11,7 +11,7 @@ import { replayScript } from '../listening/listening-script.logic';
 import { DocView } from '../shared/doc-view';
 import { GraphicView } from '../shared/graphic-view';
 import { QuestionView } from '../shared/question-view';
-import { letter, outcomeLabel, PART_NAMES } from '../shared/score.logic';
+import { letter, listeningPrompt, outcomeLabel, PART_NAMES } from '../shared/score.logic';
 import { ToeicBack } from '../shared/toeic-back';
 
 /**
@@ -56,6 +56,15 @@ export class AnswerDetail {
       }
     }
     return out;
+  });
+  /** The question as shown: a Part 1/2 question (only heard) gets the room's instruction line. */
+  protected readonly shownQuestion = computed(() => {
+    const d = this.data();
+    if (!d) {
+      return null;
+    }
+    const prompt = listeningPrompt(d.group.part);
+    return prompt ? { ...d.question, prompt } : d.question;
   });
   protected readonly image = computed(() => {
     const u = this.data()?.group.imageUrl;

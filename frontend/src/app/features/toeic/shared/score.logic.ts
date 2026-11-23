@@ -48,8 +48,19 @@ export const PART_NAMES: Record<ToeicPart, string> = {
   7: 'Đọc hiểu',
 };
 
-/** The parts that exist in batch 1 (reading); the others are "coming soon". */
-export const READY_PARTS: readonly ToeicPart[] = [5, 6, 7];
+/**
+ * The line shown above a question that has no printed prompt: Part 1 and 2 questions are only
+ * heard; undefined for the other parts (their prompt, or the Part 6 blank line, is used).
+ */
+export function listeningPrompt(part: ToeicPart): string | undefined {
+  if (part === 1) {
+    return 'Nghe 4 câu mô tả, chọn câu đúng với bức ảnh.';
+  }
+  if (part === 2) {
+    return 'Mark your answer on your answer sheet.';
+  }
+  return undefined;
+}
 
 /** "Full test" or "Mini Test 50 câu". */
 export function kindLabel(kind: TestKind): string {

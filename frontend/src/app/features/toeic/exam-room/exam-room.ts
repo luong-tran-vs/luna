@@ -39,7 +39,7 @@ import {
   removeHighlight,
 } from '../shared/highlight.logic';
 import { QuestionView } from '../shared/question-view';
-import { PART_NAMES } from '../shared/score.logic';
+import { listeningPrompt, PART_NAMES } from '../shared/score.logic';
 import { AnswerSheet } from './answer-sheet';
 import {
   ActiveTime,
@@ -502,13 +502,8 @@ export class ExamRoom implements OnInit {
 
   /** Part 1/2 are only heard: the question shows no words, only the choice letters. */
   protected shown(g: PaperGroup, q: PaperGroup['questions'][number]): PaperGroup['questions'][number] {
-    if (g.part === 1) {
-      return { ...q, prompt: 'Nghe 4 câu mô tả, chọn câu đúng với bức ảnh.' };
-    }
-    if (g.part === 2) {
-      return { ...q, prompt: 'Mark your answer on your answer sheet.' };
-    }
-    return q;
+    const prompt = listeningPrompt(g.part);
+    return prompt ? { ...q, prompt } : q;
   }
 
   protected image(url: string | null): string | null {
